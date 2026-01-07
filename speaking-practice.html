@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speaking Practice | Malcolm Hyndman</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --purple-deep: #4c1d95;
+            --purple-mid: #6b21a8;
+            --purple-light: #a855f7;
+            --purple-pale: #e9d5ff;
+            --cream: #faf7f2;
+            --charcoal: #1f1f1f;
+            --gold: #d4a853;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            min-height: 100vh;
+        }
+        
+        /* Mode Selection Screen */
+        .mode-select {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-mid) 50%, var(--purple-light) 100%);
+        }
+        
+        .mode-select h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .mode-select .subtitle {
+            color: var(--purple-pale);
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+        }
+        
+        .mode-cards {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 900px;
+        }
+        
+        .mode-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            width: 380px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .mode-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .mode-card h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.8rem;
+            color: var(--purple-deep);
+            margin-bottom: 15px;
+        }
+        
+        .mode-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .mode-card .features {
+            font-size: 0.9rem;
+            color: var(--purple-mid);
+        }
+        
+        .mode-card .features span {
+            display: inline-block;
+            background: var(--purple-pale);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin: 4px 4px 4px 0;
+        }
+        
+        /* Teleprompter Mode */
+        .teleprompter-mode {
+            display: none;
+            min-height: 100vh;
+            background: #1a1a1a;
+            color: white;
+        }
+        
+        .teleprompter-mode.active {
+            display: block;
+        }
+        
+        .teleprompter-setup {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 30px;
+        }
+        
+        .teleprompter-setup h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: var(--purple-light);
+        }
+        
+        .teleprompter-setup textarea {
+            width: 100%;
+            height: 300px;
+            background: #2a2a2a;
+            border: 2px solid #444;
+            border-radius: 12px;
+            padding: 20px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.1rem;
+            color: white;
+            resize: vertical;
+            margin-bottom: 30px;
+        }
+        
+        .teleprompter-setup textarea:focus {
+            outline: none;
+            border-color: var(--purple-light);
+        }
+        
+        .teleprompter-setup textarea::placeholder {
+            color: #666;
+        }
+        
+        .btn-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: var(--purple-mid);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+        
+        .btn:hover {
+            background: var(--purple-light);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #666;
+            color: #aaa;
+        }
+        
+        .btn-secondary:hover {
+            background: #333;
+            border-color: #888;
+        }
+        
+        /* Teleprompter Running */
+        .teleprompter-running {
+            display: none;
+        }
+        
+        .teleprompter-running.active {
+            display: block;
+        }
+        
+        .tp-controls {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.95);
+            padding: 15px 30px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            z-index: 100;
+            border-bottom: 2px solid #333;
+        }
+        
+        .tp-controls button {
+            background: var(--purple-mid);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .tp-controls button:hover {
+            background: var(--purple-light);
+        }
+        
+        .tp-controls label {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .tp-controls input[type="range"] {
+            width: 120px;
+            cursor: pointer;
+        }
+        
+        .speed-display {
+            color: var(--purple-light);
+            font-weight: 600;
+            min-width: 45px;
+        }
+        
+        .tp-hint {
+            color: #666;
+            font-size: 0.85rem;
+            margin-left: auto;
+        }
+        
+        .focus-zone {
+            position: fixed;
+            top: 18%;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(107, 33, 168, 0.15);
+            border-top: 3px solid var(--purple-mid);
+            border-bottom: 3px solid var(--purple-mid);
+            pointer-events: none;
+            z-index: 50;
+        }
+        
+        .focus-label {
+            position: fixed;
+            top: 18%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            color: var(--purple-light);
+            font-size: 1rem;
+            font-weight: 600;
+            z-index: 51;
+            pointer-events: none;
+        }
+        
+        .focus-label.left { left: 20px; }
+        .focus-label.right { right: 20px; }
+        
+        .tp-content {
+            padding: calc(18% + 35px) 12% 80vh 12%;
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.8rem;
+            line-height: 1.7;
+            text-align: center;
+        }
+        
+        .tp-line {
+            margin-bottom: 25px;
+        }
+        
+        /* IELTS Mode */
+        .ielts-mode {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        .ielts-mode.active {
+            display: block;
+        }
+        
+        /* Exam Selection */
+        .exam-select {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-mid) 100%);
+            padding: 60px 30px;
+        }
+        
+        .exam-select h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .exam-select .subtitle {
+            color: var(--purple-pale);
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .exam-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+        
+        .exam-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .exam-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+        
+        .exam-card h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.3rem;
+            color: var(--purple-deep);
+            margin-bottom: 10px;
+        }
+        
+        .exam-card .topics {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .random-btn {
+            display: block;
+            margin: 0 auto;
+            background: var(--gold);
+            color: var(--charcoal);
+            font-size: 1.1rem;
+            padding: 16px 40px;
+        }
+        
+        .random-btn:hover {
+            background: #e5b863;
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            color: var(--purple-pale);
+            margin-top: 30px;
+            cursor: pointer;
+        }
+        
+        .back-link:hover {
+            color: white;
+        }
+        
+        /* Exam Running */
+        .exam-running {
+            display: none;
+            min-height: 100vh;
+            background: var(--cream);
+        }
+        
+        .exam-running.active {
+            display: block;
+        }
+        
+        .exam-header {
+            background: linear-gradient(135deg, var(--purple-deep), var(--purple-mid));
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .exam-header h2 {
+            font-family: 'Crimson Pro', serif;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .exam-header .part-indicator {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .part-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .part-dot.active {
+            background: var(--gold);
+        }
+        
+        .part-dot.done {
+            background: white;
+        }
+        
+        .exam-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 30px;
+        }
+        
+        .part-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2rem;
+            color: var(--purple-deep);
+            margin-bottom: 10px;
+        }
+        
+        .part-subtitle {
+            color: #888;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+        
+        .question-set {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .question-set h4 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.2rem;
+            color: var(--purple-mid);
+            margin-bottom: 20px;
+        }
+        
+        .question-set ul {
+            list-style: none;
+        }
+        
+        .question-set li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        
+        .question-set li:last-child {
+            border-bottom: none;
+        }
+        
+        .cue-card {
+            background: linear-gradient(145deg, #fff 0%, #f8f5ff 100%);
+            border: 3px solid var(--purple-mid);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 30px rgba(107, 33, 168, 0.15);
+        }
+        
+        .cue-card h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.6rem;
+            color: var(--purple-deep);
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+        
+        .cue-card p {
+            font-weight: 600;
+            color: var(--purple-mid);
+            margin-bottom: 15px;
+        }
+        
+        .cue-card ul {
+            list-style: none;
+            margin-left: 20px;
+        }
+        
+        .cue-card li {
+            padding: 8px 0;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        
+        .cue-card li::before {
+            content: "•";
+            color: var(--purple-mid);
+            position: absolute;
+            left: -20px;
+        }
+        
+        /* Timer */
+        .timer-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .timer-label {
+            font-size: 1.1rem;
+            color: var(--purple-mid);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .timer-display {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 5rem;
+            font-weight: 600;
+            color: var(--purple-deep);
+        }
+        
+        .timer-display.warning {
+            color: #dc2626;
+        }
+        
+        .timer-display.prep {
+            color: var(--gold);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e5e5;
+            border-radius: 4px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--purple-mid);
+            border-radius: 4px;
+            transition: width 0.5s linear;
+        }
+        
+        .progress-fill.warning {
+            background: #dc2626;
+        }
+        
+        .follow-up {
+            background: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 20px 25px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .follow-up h4 {
+            color: #166534;
+            margin-bottom: 10px;
+        }
+        
+        .follow-up p {
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .nav-buttons .btn {
+            min-width: 180px;
+        }
+        
+        /* Completion Screen */
+        .exam-complete {
+            display: none;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--purple-deep), var(--purple-mid));
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .exam-complete.active {
+            display: flex;
+        }
+        
+        .exam-complete h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .exam-complete p {
+            color: var(--purple-pale);
+            font-size: 1.2rem;
+            max-width: 500px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .exam-complete .btn {
+            background: white;
+            color: var(--purple-deep);
+            margin: 10px;
+        }
+        
+        .exam-complete .btn:hover {
+            background: var(--purple-pale);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+        }
+        
+        .footer a {
+            color: var(--purple-pale);
+            text-decoration: none;
+        }
+        
+        @media (max-width: 600px) {
+            .mode-card {
+                width: 100%;
+            }
+            
+            .tp-content {
+                font-size: 1.8rem;
+                padding-left: 8%;
+                padding-right: 8%;
+            }
+            
+            .timer-display {
+                font-size: 3.5rem;
+            }
+            
+            .tp-controls {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .tp-hint {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Mode Selection -->
+<div class="mode-select" id="modeSelect">
+    <h1>Speaking Practice</h1>
+    <p class="subtitle">Choose your practice mode</p>
+    
+    <div class="mode-cards">
+        <div class="mode-card" onclick="showTeleprompter()">
+            <h2>📜 Teleprompter</h2>
+            <p>Paste your own text and practice reading naturally. Perfect for presentations, interviews, or video scripts.</p>
+            <div class="features">
+                <span>Adjustable speed</span>
+                <span>Eye-line guide</span>
+                <span>Keyboard controls</span>
+            </div>
+        </div>
+        
+        <div class="mode-card" onclick="showIeltsSelect()">
+            <h2>🎤 IELTS Speaking</h2>
+            <p>Full exam simulation with authentic questions. Includes timed Part 2 with preparation and speaking phases.</p>
+            <div class="features">
+                <span>12 complete exams</span>
+                <span>Part 2 timer</span>
+                <span>Authentic questions</span>
+            </div>
+        </div>
+    </div>
+    
+    <p class="footer"><a href="https://malcolmhyndman.com">malcolmhyndman.com</a></p>
+</div>
+
+<!-- Teleprompter Mode -->
+<div class="teleprompter-mode" id="teleprompterMode">
+    <div class="teleprompter-setup" id="tpSetup">
+        <h2>Enter Your Script</h2>
+        <textarea id="scriptInput" placeholder="Paste your script here...
+
+Each paragraph will become a separate line on the teleprompter.
+
+Use short sentences for easier reading.
+
+Tip: Position your camera just above the focus zone for natural eye contact."></textarea>
+        <div class="btn-row">
+            <button class="btn" onclick="startTeleprompter()">▶ Start Teleprompter</button>
+            <button class="btn btn-secondary" onclick="backToModes()">← Back</button>
+        </div>
+    </div>
+    
+    <div class="teleprompter-running" id="tpRunning">
+        <div class="tp-controls">
+            <button id="tpStartBtn" onclick="toggleScroll()">▶ Start</button>
+            <button onclick="resetTeleprompter()">↺ Reset</button>
+            <label>Speed:</label>
+            <input type="range" id="tpSpeed" min="1" max="5" step="0.25" value="2.5" onchange="updateSpeed(this.value)">
+            <span class="speed-display" id="tpSpeedDisplay">2.50</span>
+            <button class="btn-secondary" onclick="editScript()">✎ Edit</button>
+            <span class="tp-hint">SPACE = start/stop • ↑↓ = speed • R = reset</span>
+            <button class="btn-secondary" onclick="backToModes()" style="margin-left: 10px;">✕ Exit</button>
+        </div>
+        
+        <div class="focus-zone"></div>
+        <div class="focus-label left">▶ EYES HERE</div>
+        <div class="focus-label right">EYES HERE ◀</div>
+        
+        <div class="tp-content" id="tpContent"></div>
+    </div>
+</div>
+
+<!-- IELTS Mode -->
+<div class="ielts-mode" id="ieltsMode">
+    <!-- Exam Selection -->
+    <div class="exam-select" id="examSelect">
+        <h2>Choose Your Mock Exam</h2>
+        <p class="subtitle">Each exam includes Parts 1, 2, and 3 with authentic questions</p>
+        
+        <div class="exam-grid" id="examGrid"></div>
+        
+        <button class="btn random-btn" onclick="startRandomExam()">🎲 Random Exam</button>
+        <p class="back-link" onclick="backToModes()">← Back to mode selection</p>
+    </div>
+    
+    <!-- Exam Running -->
+    <div class="exam-running" id="examRunning">
+        <div class="exam-header">
+            <h2 id="examTitle">IELTS Speaking Mock Exam</h2>
+            <div class="part-indicator">
+                <div class="part-dot" id="dot1"></div>
+                <div class="part-dot" id="dot2"></div>
+                <div class="part-dot" id="dot3"></div>
+            </div>
+            <button class="btn btn-secondary" onclick="exitExam()" style="padding: 8px 16px; font-size: 0.9rem;">✕ Exit</button>
+        </div>
+        
+        <div class="exam-content" id="examContent"></div>
+    </div>
+    
+    <!-- Exam Complete -->
+    <div class="exam-complete" id="examComplete">
+        <h2>Well Done!</h2>
+        <p>You've completed the full IELTS Speaking mock exam. Remember, consistent practice builds confidence.</p>
+        <div>
+            <button class="btn" onclick="showIeltsSelect()">Try Another Exam</button>
+            <button class="btn" onclick="backToModes()">Back to Menu</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ==================== EXAM DATA ====================
+const exams = [
+    {
+        id: 1,
+        title: "Special Occasion at Home",
+        part1: [
+            {
+                topic: "Let's talk about where you live",
+                questions: [
+                    "Do you live in a large or small town at the moment?",
+                    "How long have you lived there?",
+                    "Is it an exciting place to live?",
+                    "What town would you most like to live in?"
+                ]
+            },
+            {
+                topic: "Let's talk about the weather",
+                questions: [
+                    "Are you enjoying today's weather?",
+                    "Do you have a favourite kind of weather?",
+                    "Recently, has it been hotter or colder than usual?",
+                    "Would you travel somewhere because you like the weather?"
+                ]
+            },
+            {
+                topic: "Now let's talk about shopping",
+                questions: [
+                    "Do you have a favourite shop?",
+                    "What was the last thing you went shopping for?",
+                    "Do you buy more things online or in shops?",
+                    "Will you go shopping this weekend?"
+                ]
+            }
+        ],
+        part2: {
+            task: "Describe a special occasion when people visited your home.",
+            points: [
+                "who came to your home",
+                "why they came to your home",
+                "what you did together"
+            ],
+            explain: "and explain why the occasion was so special.",
+            followUp: "Do you ever talk about this special occasion with your friends or family?"
+        },
+        part3: [
+            {
+                topic: "Let's talk about special occasions in our lives",
+                questions: [
+                    "What moments in our lives should we celebrate?",
+                    "Why is it important to celebrate things?",
+                    "Why do special occasions often involve eating?"
+                ]
+            },
+            {
+                topic: "Let's talk about national celebrations",
+                questions: [
+                    "Why do countries hold national celebrations?",
+                    "Are there any national celebrations which you think are unnecessary?",
+                    "Should governments spend more or less on national celebrations?"
+                ]
+            }
+        ]
+    },
+    {
+        id: 2,
+        title: "A Talent You'd Like",
+        part1: [
+            {
+                topic: "Let's talk about your home",
+                questions: [
+                    "Do you like your home?",
+                    "How many bedrooms do you have in your home?",
+                    "Do you plan on moving to a new home soon?"
+                ]
+            },
+            {
+                topic: "Let's talk about computers",
+                questions: [
+                    "Did you own a computer when you were a child?",
+                    "Is it important to have your own computer?",
+                    "What do you consider before buying a new computer?",
+                    "Should you reduce your own computer use?"
+                ]
+            },
+            {
+                topic: "Let's talk about living in cities",
+                questions: [
+                    "Do you think that life in a city is better than in the countryside?",
+                    "What do you like most about city life?",
+                    "What are the disadvantages of living in a city?",
+                    "Is there a city in your country that you would like to move to in the future?"
+                ]
+            }
+        ],
+        part2: {
+            task: "Describe a talent you'd like to have.",
+            points: [
+                "what the talent is",
+                "when you've seen other people using this talent",
+                "how difficult it seems"
+            ],
+            explain: "and explain why you'd like to have it.",
+            followUp: "Do you think you might develop this talent one day?"
+        },
+        part3: [
+            {
+                topic: "Let's talk about natural talents",
+                questions: [
+                    "Do you believe everyone has a talent?",
+                    "Do you think men and women usually have different talents?",
+                    "Which talents are most respected in your culture?"
+                ]
+            },
+            {
+                topic: "Let's talk about developing talents",
+                questions: [
+                    "How can schools encourage children to find hidden talents?",
+                    "Should governments spend more money on training talented people?",
+                    "Is it easier for children or adults to develop talents?"
+                ]
+            }
+        ]
+    },
+    {
+        id: 3,
+        title: "Something Important You Own",
+        part1: [
+            {
+                topic: "Let's talk about your home town or village",
+                questions: [
+                    "What kind of place is it?",
+                    "What's the most interesting part of your town/village?",
+                    "What kind of jobs do the people in your town/village do?",
+                    "Would you say it's a good place to live?"
+                ]
+            },
+            {
+                topic: "Let's talk about laughter",
+                questions: [
+                    "What kinds of things often make people laugh?",
+                    "Is it polite to laugh in public in your culture?",
+                    "How do you feel when you see other people laughing?",
+                    "Do you think laughter is good for a person's health?"
+                ]
+            },
+            {
+                topic: "Now I'd like to talk about sport",
+                questions: [
+                    "Do you like sports?",
+                    "What kind of sports did you do when you were a child?",
+                    "What's the most popular sport in your country?",
+                    "Do you like to watch sports live or on TV?"
+                ]
+            }
+        ],
+        part2: {
+            task: "Describe something you own which is very important to you.",
+            points: [
+                "where you got it from",
+                "how long you have had it",
+                "what you use it for"
+            ],
+            explain: "and explain why it is important to you.",
+            followUp: "Would it be easy to replace?"
+        },
+        part3: [
+            {
+                topic: "Let's consider how people's values have changed",
+                questions: [
+                    "What kind of things give status to people in your country?",
+                    "Have things changed since your parents' time?",
+                    "Why do you think modern society is often called 'materialistic'?"
+                ]
+            },
+            {
+                topic: "Let's talk about the role of advertising",
+                questions: [
+                    "In what ways do you think advertising influences what people buy?",
+                    "Do you think some types of advertising should be banned?",
+                    "How do you think the Internet will affect what we buy in the future?"
+                ]
+            }
+        ]
+    },
+    {
+        id: 4,
+        title: "A Special Event or Festival",
+        part1: [
+            {
+                topic: "Let's talk about your work or studies",
+                questions: [
+                    "Are you a student or do you work?",
+                    "What is your place of study/work like?",
+                    "What do you like about your study/job?",
+                    "Is there anything you don't like about your study/job?"
+                ]
+            },
+            {
+                topic: "Let's talk about free time",
+                questions: [
+                    "Do you have a lot of free time?",
+                    "Do you spend your free time outside?",
+                    "What sort of things do you like doing outside?",
+                    "Is there a free time activity you would like to try in the future?"
+                ]
+            },
+            {
+                topic: "Let's talk about animals now",
+                questions: [
+                    "Do you like animals?",
+                    "Do you have any animals in your home as a pet?",
+                    "Did you have a pet when you were a child?",
+                    "Would you like to have a pet in the future?"
+                ]
+            }
+        ],
+        part2: {
+            task: "Describe a special event or festival that you liked.",
+            points: [
+                "what the event was",
+                "where it was",
+                "what happened"
+            ],
+            explain: "and explain why you liked it.",
+            followUp: "Did other people also enjoy this event?"
+        },
+        part3: [
+            {
+                topic: "Let's talk about celebrations",
+                questions: [
+                    "Why do you think celebrations are important in society?",
+                    "Do you think celebrations are experienced differently by different generations?",
+                    "Are there any celebrations that you think will die out in future?"
+                ]
+            },
+            {
+                topic: "Let's now discuss international events",
+                questions: [
+                    "Do international events help to promote cooperation and collaboration between countries?",
+                    "Are these events more popular with the older or younger generations?",
+                    "Do you think we will see changes in the future to international events? And if so, what sort of changes might we see?"
+                ]
+            }
+        ]
+    },
+    {
+        id: 5,
+        title: "A Television Programme",
+        part1: [
+            {
+                topic: "Let's talk about your work or studies",
+                questions: [
+                    "Are you a student or do you work?",
+                    "Do you enjoy your study/job?",
+                    "What equipment do you use for your study/job?",
+                    "Is there anything you would change about your study/job?"
+                ]
+            },
+            {
+                topic: "Let's talk about sport",
+                questions: [
+                    "Do you play a lot of sport?",
+                    "Do you prefer watching or playing sport?",
+                    "What sports are the most popular in your country?",
+                    "Is there a sport you would like to try in the future?"
+                ]
+            },
+            {
+                topic: "Now let's talk about shopping",
+                questions: [
+                    "Do you like shopping?",
+                    "What is your favourite shop?",
+                    "Do you prefer going to shops or shopping online?",
+                    "Would you like to buy anything this week?"
+                ]
+            }
+        ],
+        part2: {
+            task: "Describe a television programme that you like.",
+            points: [
+                "what the television programme is",
+                "what type of television programme it is",
+                "what the programme is about"
+            ],
+            explain: "and say why you like it.",
+            followUp: "How often do you watch this programme?"
+        },
+        part3: [
+            {
+                topic: "Let's first consider television",
+                questions: [
+                    "Why do you think television is so popular?",
+                    "Do you think television should be regulated by governments?",
+                    "How do you see television changing in the future?"
+                ]
+            },
+            {
+                topic: "Let's talk about television and education now",
+                questions: [
+                    "Do you think television can be used for education?",
+                    "Should television be used regularly in schools?",
+                    "Do you think television companies have a responsibility to produce educational programmes?"
+                ]
+            }
+        ]
+    },
+    {
+        id: 6,
+        title: "A Course You Have Taken",
+        part1: [
+            {
+                topic: "Let's talk about your home town",
+                questions: [
+                    "What kind of place is it?",
+                    "What's your favourite place in your home town?",
+                    "Is there anything you don't like about your home town?",
+                    "Was your home town different when you were younger?"
+                ]
+            },
+            {
+                topic: "Let's talk about lunch",
+                questions: [
+                    "What do you usually eat for lunch?",
+                    "What time do you usually have lunch?",
+                    "Do you ever skip lunch?",
+                    "What types of food are most commonly eaten for lunch in your country?"
+                ]
+            },
+            {
+                topic: "Now let's talk about the seasons",
+                questions: [
+                    "What is your favourite season?",
+                    "How many seasons are there in your country?",
+                    "What activities do you like doing in summer?",
+                    "Would you like to live in a country that is always hot?"
+                ]
+            }
+        ],
+        part2: {
+            task: "Describe a course that you have taken.",
+            points: [
+                "what the course was",
+                "why you took the course",
+                "what you learned from the course"
+            ],
+            explain: "and say if you liked it.",
+            followUp: "Would you recommend this course?"
+        },
+        part3: [
+            {
+                topic: "Let's talk about work and study",
+                questions: [
+                    "Which do you think is more important: experience or education?",
+                    "Should all courses prepare people for work?",
+                    "Is it important for people to continuously study during their working life?"
+                ]
+            },
+            {
+                topic: "Let's talk now about education and accessibility",
+                questions: [
+                    "How can education be difficult to access for some people?",
+                    "Do you think all education should be free?",
+                    "What do educational institutions need to do to make their courses more accessible?"
+                ]
+            }
+        ]
+    },
+    {
+        id: 7,
+        title: "Being Late for an Appointment",
+        part1: [
+            {
+                topic: "Let's talk about your home",
+                questions: [
+                    "Do you like your home?",
+                    "How many bedrooms do you have in your home?",
+                    "Do you plan on moving to a new home soon?"
+                ]
+            },
+            {
+                topic: "Let's talk about computers",
+                questions: [
+                    "Did you own a computer when you were a child?",
+                    "Is it important to have your own computer?",
+                    "What do you consider before buying a new computer?",
+                    "Should you reduce your own computer use?"
+                ]
+            },
+            {
+                topic: "Let's talk about living in cities",
+                questions: [
+                    "Do you think that life in a city is better than in the countryside?",
+                    "What do you like most about city life?",
+                    "What are the disadvantages of living in a city?",
+                    "Is there a city in your country that you would like to move to in the future?"
+                ]
+            }
+        ],
+        part2: {
+            task: "Describe a time when you were late for an appointment.",
+            points: [
+                "what you were late for",
+                "who was waiting for you",
+                "why you were late"
+            ],
+            explain: "and explain how you felt about the situation.",
+            followUp: "Are you usually good at being on time?"
+        },
+        part3: [
+            {
+                topic: "Let's talk about being on time",
+                questions: [
+                    "How important is being on time in your culture?",
+                    "Why is it important for students to be taught the value of being on time?",
+                    "Does technology always help us manage our time better?"
+                ]
+            },
+            {
+                topic: "Let's now talk about being punctual at work",
+                questions: [
+                    "What are some reasons why people might arrive late for work?",
+                    "How can companies encourage their workers to be punctual?",
+                    "Will punctuality be as important for workers in the future?"
+                ]
+            }
+        ]
+    },
+    {
+        id: 8,
+        title: "A Childhood Film",
+        part1: [
+            {
+                topic: "Let's talk about your home",
+                questions: [
+                    "Do you have a large home?",
+                    "What is your favourite room in your home?",
+                    "Would you like to change anything inside your home?"
+                ]
+            },
+            {
+                topic: "Let's talk about bags",
+                questions: [
+                    "Do you own a lot of different bags?",
+                    "Have you ever bought an expensive bag?",
+                    "What kinds of things do you carry in your bags?",
+                    "Were the designs of bags in the past better than those of today?"
+                ]
+            },
+            {
+                topic: "Let's talk about breakfast",
+                questions: [
+                    "Do you usually drink tea or coffee with your breakfast?",
+                    "What do you usually eat for breakfast?",
+                    "Is it important to always eat breakfast in the morning?",
+                    "Would you rather cook or buy food for breakfast?"
+                ]
+            }
+        ],
+        part2: {
+            task: "Describe a film that you enjoyed watching as a child.",
+            points: [
+                "what the title of the film was",
+                "when you watched it",
+                "what the story was about"
+            ],
+            explain: "and explain why you enjoyed it.",
+            followUp: "Do you like watching old movies?"
+        },
+        part3: [
+            {
+                topic: "Let's discuss films for children",
+                questions: [
+                    "What types of films are popular with young children in your country?",
+                    "Why should governments review films for children?",
+                    "How do you think film stars influence children?"
+                ]
+            },
+            {
+                topic: "Let's now look at the film industry",
+                questions: [
+                    "How successful do you think the film industry in your country is?",
+                    "Why do countries often have a film festival every year?",
+                    "Are big budget films always better than low budget ones?"
+                ]
+            }
+        ]
+    },
+    {
+        id: 9,
+        title: "A Photograph You Took",
+        part1: [
+            {
+                topic: "Let's talk about your home",
+                questions: [
+                    "Do you live with your family?",
+                    "Have you lived in many different homes in your life?",
+                    "Is it better to live with a family member or a friend?"
+                ]
+            },
+            {
+                topic: "Let's talk about chatting online",
+                questions: [
+                    "How often do you chat online with your friends?",
+                    "Is it better to chat online than to meet face-to-face?",
+                    "What is the best website in your country for chatting online?",
+                    "Do you think you will chat online even more in the future?"
+                ]
+            },
+            {
+                topic: "Let's talk about swimming",
+                questions: [
+                    "Did you learn to swim when you were a child?",
+                    "Are there many places to go swimming near where you live?",
+                    "How dangerous is it to go swimming in the ocean?",
+                    "Is it important for every person to learn how to swim?"
+                ]
+            }
+        ],
+        part2: {
+            task: "Describe a photograph you have taken of other people.",
+            points: [
+                "who was in the photograph",
+                "when and where you took this photograph",
+                "whether the people in the photograph liked it"
+            ],
+            explain: "and explain how you felt about the photograph you took.",
+            followUp: "Do you enjoy taking photographs?"
+        },
+        part3: [
+            {
+                topic: "Let's talk about selfies",
+                questions: [
+                    "Do both young and old people in your country like taking selfies?",
+                    "Is the quality of a selfie as good as having a photo taken by another person?",
+                    "What role does social media play in the popularity of taking selfies?"
+                ]
+            },
+            {
+                topic: "Let's now discuss social media and privacy",
+                questions: [
+                    "How can social media have a negative effect on people's privacy?",
+                    "What can individuals do to protect their privacy while enjoying social media?",
+                    "Why should governments make sure that people's privacy is protected?"
+                ]
+            }
+        ]
+    },
+    {
+        id: 10,
+        title: "Losing a Competition",
+        part1: [
+            {
+                topic: "Are you working or studying?",
+                questions: [
+                    "Do you enjoy your work/study?",
+                    "Are you friends with the other people at your work/school?",
+                    "What would you like to change about your job/study?"
+                ]
+            },
+            {
+                topic: "Let's talk about jewellery",
+                questions: [
+                    "Do you have a favourite piece of jewellery?",
+                    "How often do you wear jewellery?",
+                    "Are there any special occasions when people might give jewellery as a gift?",
+                    "Is it a good idea to buy gold jewellery?"
+                ]
+            },
+            {
+                topic: "Let's talk about traveling",
+                questions: [
+                    "Have you ever been to a foreign country on a holiday?",
+                    "Which foreign countries do you think are most popular with young travellers?",
+                    "Would you rather travel to a nearby city or to a foreign country?",
+                    "Do you hope to travel to many foreign countries in the future?"
+                ]
+            }
+        ],
+        part2: {
+            task: "Describe a time when you lost in a competition.",
+            points: [
+                "what the competition was",
+                "when and where it happened",
+                "why you didn't win"
+            ],
+            explain: "and explain how you felt about losing the competition.",
+            followUp: "Do your friends like taking part in competitions?"
+        },
+        part3: [
+            {
+                topic: "Let's first talk about competitions online",
+                questions: [
+                    "What kinds of competitions are there online?",
+                    "Why is the online gaming industry so popular nowadays?",
+                    "Should parents let their young children compete in e-sports?"
+                ]
+            },
+            {
+                topic: "Let's look at global competitiveness",
+                questions: [
+                    "In what ways can schools and colleges train students to become globally competitive?",
+                    "How can governments support their citizens to become globally competitive?",
+                    "Are there any reasons why global competition could be bad for a country's culture?"
+                ]
+            }
+        ]
+    },
+    {
+        id: 11,
+        title: "Offering to Help Someone",
+        part1: [
+            {
+                topic: "Let's talk about your primary school",
+                questions: [
+                    "Did you go to a primary school near your home?",
+                    "What were your favourite subjects when you were a child?",
+                    "Have you remained friends with any of your classmates in primary school?"
+                ]
+            },
+            {
+                topic: "Let's talk about gardening",
+                questions: [
+                    "How popular is gardening in your country?",
+                    "Have you ever grown any plants?",
+                    "Is it better to plant vegetables or plant flowers in a garden?",
+                    "Would you like to work as a gardener?"
+                ]
+            },
+            {
+                topic: "Let's talk about celebrating birthdays",
+                questions: [
+                    "Did you enjoy your birthdays when you were a child?",
+                    "Has the way people celebrate birthdays changed in your country?",
+                    "How did you celebrate your last birthday?",
+                    "Why do some people prefer not to celebrate their birthday?"
+                ]
+            }
+        ],
+        part2: {
+            task: "Describe a time when you offered to help someone.",
+            points: [
+                "who you wanted to help",
+                "what help you offered to give",
+                "whether the person accepted the offer"
+            ],
+            explain: "and explain how you felt about the situation.",
+            followUp: "Do you like helping your friends?"
+        },
+        part3: [
+            {
+                topic: "Let's chat about helping family and friends",
+                questions: [
+                    "What are the most common types of help that people give to their families and friends?",
+                    "What are the differences between helping a friend and helping a family member?",
+                    "Should people expect their family and friends to help them all the time?"
+                ]
+            },
+            {
+                topic: "Let's talk about supporting a charity",
+                questions: [
+                    "What roles do charities play in your country?",
+                    "How can celebrities help raise money for charities?",
+                    "Should people support local charities before they support international ones?"
+                ]
+            }
+        ]
+    },
+    {
+        id: 12,
+        title: "An Interesting House",
+        part1: [
+            {
+                topic: "Let's talk about your hometown",
+                questions: [
+                    "Do you come from a town or a city?",
+                    "Is your town/city a great place to live for young people?",
+                    "What changes would you like to see in your town/city?"
+                ]
+            },
+            {
+                topic: "Let's talk about learning to cook",
+                questions: [
+                    "Are cooking classes popular in your country?",
+                    "Did your parents teach you how to cook?",
+                    "Is it possible to learn to cook by watching videos on the Internet?",
+                    "Should every child learn how to cook?"
+                ]
+            },
+            {
+                topic: "Let's talk about using mobile phones",
+                questions: [
+                    "How often do you use your mobile phone?",
+                    "Do parents in your country usually let their young children use a mobile phone?",
+                    "Should you reduce the amount of time you spend on your phone?",
+                    "Will mobile phones be more important to people in the future?"
+                ]
+            }
+        ],
+        part2: {
+            task: "Describe an interesting house that you have been to.",
+            points: [
+                "who owns this house",
+                "where it is",
+                "why you were there"
+            ],
+            explain: "and explain what makes this house interesting.",
+            followUp: "Would you like to own a house like this in the future?"
+        },
+        part3: [
+            {
+                topic: "Let's talk about buying a home",
+                questions: [
+                    "What factors do people usually consider when buying a house or an apartment?",
+                    "Why do many people prefer to buy a house in a city rather than in a small town?",
+                    "How can a government make it easier for people to own a home?"
+                ]
+            },
+            {
+                topic: "Let's now discuss the design of homes",
+                questions: [
+                    "Has the design of homes changed in recent years?",
+                    "Why do many people spend a lot of money on decorating the insides of their homes?",
+                    "What kinds of changes might there be in the design of homes in the future?"
+                ]
+            }
+        ]
+    }
+];
+
+// ==================== STATE ====================
+let currentExam = null;
+let currentPart = 1;
+let timerInterval = null;
+let scrollInterval = null;
+let scrolling = false;
+let scrollSpeed = 2.5;
+
+// ==================== MODE SWITCHING ====================
+function showTeleprompter() {
+    document.getElementById('modeSelect').style.display = 'none';
+    document.getElementById('teleprompterMode').classList.add('active');
+    document.getElementById('tpSetup').style.display = 'block';
+    document.getElementById('tpRunning').classList.remove('active');
+}
+
+function showIeltsSelect() {
+    document.getElementById('modeSelect').style.display = 'none';
+    document.getElementById('ieltsMode').classList.add('active');
+    document.getElementById('examSelect').style.display = 'block';
+    document.getElementById('examRunning').classList.remove('active');
+    document.getElementById('examComplete').classList.remove('active');
+    renderExamGrid();
+}
+
+function backToModes() {
+    document.getElementById('modeSelect').style.display = 'flex';
+    document.getElementById('teleprompterMode').classList.remove('active');
+    document.getElementById('ieltsMode').classList.remove('active');
+    stopTimer();
+    stopScrolling();
+}
+
+// ==================== TELEPROMPTER ====================
+function startTeleprompter() {
+    const text = document.getElementById('scriptInput').value.trim();
+    if (!text) {
+        alert('Please enter some text first.');
+        return;
+    }
+    
+    const lines = text.split('\n').filter(line => line.trim());
+    const content = document.getElementById('tpContent');
+    content.innerHTML = lines.map(line => `<div class="tp-line">${line}</div>`).join('');
+    
+    document.getElementById('tpSetup').style.display = 'none';
+    document.getElementById('tpRunning').classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+function editScript() {
+    stopScrolling();
+    document.getElementById('tpRunning').classList.remove('active');
+    document.getElementById('tpSetup').style.display = 'block';
+}
+
+function toggleScroll() {
+    if (scrolling) {
+        stopScrolling();
+    } else {
+        startScrolling();
+    }
+}
+
+function startScrolling() {
+    scrolling = true;
+    document.getElementById('tpStartBtn').textContent = '⏸ Pause';
+    scrollInterval = setInterval(() => {
+        window.scrollBy(0, scrollSpeed * 0.5);
+    }, 16);
+}
+
+function stopScrolling() {
+    scrolling = false;
+    document.getElementById('tpStartBtn').textContent = '▶ Start';
+    clearInterval(scrollInterval);
+}
+
+function resetTeleprompter() {
+    stopScrolling();
+    window.scrollTo(0, 0);
+}
+
+function updateSpeed(val) {
+    scrollSpeed = parseFloat(val);
+    document.getElementById('tpSpeedDisplay').textContent = scrollSpeed.toFixed(2);
+}
+
+// Keyboard controls for teleprompter
+document.addEventListener('keydown', (e) => {
+    if (!document.getElementById('tpRunning').classList.contains('active')) return;
+    
+    if (e.code === 'Space') {
+        e.preventDefault();
+        toggleScroll();
+    } else if (e.code === 'ArrowUp') {
+        e.preventDefault();
+        const newSpeed = Math.min(5, scrollSpeed + 0.25);
+        document.getElementById('tpSpeed').value = newSpeed;
+        updateSpeed(newSpeed);
+    } else if (e.code === 'ArrowDown') {
+        e.preventDefault();
+        const newSpeed = Math.max(1, scrollSpeed - 0.25);
+        document.getElementById('tpSpeed').value = newSpeed;
+        updateSpeed(newSpeed);
+    } else if (e.code === 'KeyR') {
+        resetTeleprompter();
+    }
+});
+
+// ==================== IELTS EXAM ====================
+function renderExamGrid() {
+    const grid = document.getElementById('examGrid');
+    grid.innerHTML = exams.map(exam => `
+        <div class="exam-card" onclick="startExam(${exam.id})">
+            <h3>${exam.id}. ${exam.title}</h3>
+            <p class="topics">${exam.part1.map(s => s.topic.replace("Let's talk about ", "").replace("Now let's talk about ", "").replace("Let's talk about your ", "")).slice(0,2).join(" • ")}</p>
+        </div>
+    `).join('');
+}
+
+function startExam(id) {
+    currentExam = exams.find(e => e.id === id);
+    currentPart = 1;
+    document.getElementById('examSelect').style.display = 'none';
+    document.getElementById('examRunning').classList.add('active');
+    renderPart();
+}
+
+function startRandomExam() {
+    const randomId = Math.floor(Math.random() * exams.length) + 1;
+    startExam(randomId);
+}
+
+function exitExam() {
+    stopTimer();
+    document.getElementById('examRunning').classList.remove('active');
+    document.getElementById('examSelect').style.display = 'block';
+}
+
+function renderPart() {
+    updateDots();
+    const content = document.getElementById('examContent');
+    
+    if (currentPart === 1) {
+        renderPart1(content);
+    } else if (currentPart === 2) {
+        renderPart2(content);
+    } else if (currentPart === 3) {
+        renderPart3(content);
+    }
+}
+
+function updateDots() {
+    for (let i = 1; i <= 3; i++) {
+        const dot = document.getElementById(`dot${i}`);
+        dot.className = 'part-dot';
+        if (i < currentPart) dot.classList.add('done');
+        if (i === currentPart) dot.classList.add('active');
+    }
+}
+
+function renderPart1(container) {
+    const exam = currentExam;
+    container.innerHTML = `
+        <h3 class="part-title">Part 1: Introduction & Interview</h3>
+        <p class="part-subtitle">4-5 minutes • Answer naturally, no timer</p>
+        
+        ${exam.part1.map((set, i) => `
+            <div class="question-set">
+                <h4>${set.topic}</h4>
+                <ul>
+                    ${set.questions.map(q => `<li>${q}</li>`).join('')}
+                </ul>
+            </div>
+        `).join('')}
+        
+        <div class="nav-buttons">
+            <div></div>
+            <button class="btn" onclick="goToPart(2)">Continue to Part 2 →</button>
+        </div>
+    `;
+}
+
+function renderPart2(container) {
+    const exam = currentExam;
+    container.innerHTML = `
+        <h3 class="part-title">Part 2: Long Turn</h3>
+        <p class="part-subtitle">1 minute preparation + 2 minutes speaking</p>
+        
+        <div class="cue-card">
+            <h3>${exam.part2.task}</h3>
+            <p>You should say:</p>
+            <ul>
+                ${exam.part2.points.map(p => `<li>${p}</li>`).join('')}
+            </ul>
+            <p style="margin-top: 15px; font-style: italic;">${exam.part2.explain}</p>
+        </div>
+        
+        <div class="timer-container" id="timerContainer">
+            <div class="timer-label" id="timerLabel">Preparation Time</div>
+            <div class="timer-display prep" id="timerDisplay">1:00</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 100%;"></div>
+            </div>
+        </div>
+        
+        <div class="btn-row" style="justify-content: center; margin-bottom: 30px;">
+            <button class="btn" id="timerBtn" onclick="startPrepTimer()">▶ Start Preparation (1 min)</button>
+        </div>
+        
+        <div class="follow-up" id="followUp" style="display: none;">
+            <h4>Follow-up Question</h4>
+            <p>${exam.part2.followUp}</p>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="goToPart(1)">← Back to Part 1</button>
+            <button class="btn" onclick="goToPart(3)">Continue to Part 3 →</button>
+        </div>
+    `;
+}
+
+let prepTime = 60;
+let speakTime = 120;
+
+function startPrepTimer() {
+    prepTime = 60;
+    document.getElementById('timerBtn').style.display = 'none';
+    document.getElementById('timerLabel').textContent = 'Preparation Time';
+    document.getElementById('timerDisplay').className = 'timer-display prep';
+    document.getElementById('progressFill').className = 'progress-fill';
+    
+    timerInterval = setInterval(() => {
+        prepTime--;
+        updateTimerDisplay(prepTime, 60);
+        
+        if (prepTime <= 0) {
+            clearInterval(timerInterval);
+            startSpeakTimer();
+        }
+    }, 1000);
+}
+
+function startSpeakTimer() {
+    speakTime = 120;
+    document.getElementById('timerLabel').textContent = 'Speaking Time';
+    document.getElementById('timerDisplay').className = 'timer-display';
+    
+    timerInterval = setInterval(() => {
+        speakTime--;
+        updateTimerDisplay(speakTime, 120);
+        
+        if (speakTime <= 30) {
+            document.getElementById('timerDisplay').classList.add('warning');
+            document.getElementById('progressFill').classList.add('warning');
+        }
+        
+        if (speakTime <= 0) {
+            clearInterval(timerInterval);
+            document.getElementById('timerLabel').textContent = 'Time\'s up!';
+            document.getElementById('followUp').style.display = 'block';
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay(seconds, total) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    document.getElementById('timerDisplay').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+    document.getElementById('progressFill').style.width = `${(seconds / total) * 100}%`;
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+}
+
+function renderPart3(container) {
+    const exam = currentExam;
+    container.innerHTML = `
+        <h3 class="part-title">Part 3: Discussion</h3>
+        <p class="part-subtitle">4-5 minutes • Develop your answers fully</p>
+        
+        ${exam.part3.map((set, i) => `
+            <div class="question-set">
+                <h4>${set.topic}</h4>
+                <ul>
+                    ${set.questions.map(q => `<li>${q}</li>`).join('')}
+                </ul>
+            </div>
+        `).join('')}
+        
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="goToPart(2)">← Back to Part 2</button>
+            <button class="btn" onclick="completeExam()">Finish Exam ✓</button>
+        </div>
+    `;
+}
+
+function goToPart(part) {
+    stopTimer();
+    currentPart = part;
+    renderPart();
+    window.scrollTo(0, 0);
+}
+
+function completeExam() {
+    document.getElementById('examRunning').classList.remove('active');
+    document.getElementById('examComplete').classList.add('active');
+}
+
+// Initialize
+renderExamGrid();
+</script>
+
+</body>
+</html>
