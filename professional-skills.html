@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Skills | Malcolm Hyndman</title>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --off-white: #f8f7f4;
+            --warm-gray: #e8e6e1;
+            --mid-gray: #6b6b6b;
+            --accent: #1e3a2f;
+            --accent-light: #2c5530;
+            --gold: #b8960b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            font-size: 17px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(10px);
+            padding: 18px 30px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--warm-gray);
+        }
+
+        .nav-logo {
+            font-family: 'Instrument Serif', serif;
+            color: var(--black);
+            font-size: 1.3rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--black);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .nav-cta {
+            background: var(--black);
+            color: var(--white) !important;
+            padding: 10px 22px;
+            opacity: 1 !important;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 140px 50px 80px;
+            background: var(--off-white);
+            text-align: center;
+        }
+
+        .hero-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--mid-gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        /* Browse Toggle */
+        .browse-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .browse-btn {
+            padding: 14px 28px;
+            border: 2px solid var(--black);
+            background: transparent;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .browse-btn:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .browse-btn.active {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 0 50px 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Sector View */
+        .sector-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .sector-card {
+            background: var(--off-white);
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .sector-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .sector-card h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .sector-card p {
+            color: var(--mid-gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .sector-card .count {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Subsector View */
+        .subsector-view {
+            display: none;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--mid-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: var(--black);
+        }
+
+        .subsector-header {
+            margin-bottom: 40px;
+        }
+
+        .subsector-header h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        .subsector-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .subsector-card {
+            background: var(--white);
+            border: 1px solid var(--warm-gray);
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .subsector-card:hover {
+            border-color: var(--accent);
+            background: var(--off-white);
+        }
+
+        .subsector-card.active {
+            border-color: var(--accent);
+            border-width: 2px;
+            background: var(--off-white);
+        }
+
+        .subsector-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .subsector-card p {
+            color: var(--mid-gray);
+            font-size: 0.85rem;
+        }
+
+        /* Scenarios List */
+        .scenarios-section {
+            display: none;
+        }
+
+        .scenarios-section h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .scenario-card {
+            background: var(--white);
+            border-left: 4px solid var(--accent);
+            padding: 25px 30px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .scenario-card:hover {
+            background: var(--off-white);
+            transform: translateX(5px);
+        }
+
+        .scenario-title {
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .scenario-meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .scenario-badge {
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            background: var(--warm-gray);
+            color: var(--mid-gray);
+            font-weight: 500;
+        }
+
+        .scenario-badge.function {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        /* Function View */
+        .function-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .function-card {
+            background: var(--off-white);
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .function-card:hover {
+            border-color: var(--accent);
+        }
+
+        .function-card.active {
+            border-color: var(--accent);
+            background: var(--white);
+        }
+
+        .function-card h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .function-card p {
+            color: var(--mid-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Matrix View */
+        .matrix-container {
+            overflow-x: auto;
+            padding-bottom: 20px;
+        }
+
+        .matrix-table {
+            width: 100%;
+            min-width: 900px;
+            border-collapse: collapse;
+        }
+
+        .matrix-table th {
+            background: var(--off-white);
+            padding: 15px 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-align: left;
+            border: 1px solid var(--warm-gray);
+            position: sticky;
+            top: 0;
+        }
+
+        .matrix-table th.function-header {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            height: 140px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .matrix-table td {
+            border: 1px solid var(--warm-gray);
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .matrix-table td.sector-label {
+            background: var(--off-white);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-align: left;
+            padding: 12px 15px;
+            min-width: 180px;
+        }
+
+        .matrix-cell {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 4px;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .matrix-cell:hover {
+            transform: scale(1.15);
+            background: var(--accent-light);
+        }
+
+        .matrix-cell::after {
+            content: "✓";
+            color: white;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--white);
+            max-width: 600px;
+            width: 100%;
+            padding: 50px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--mid-gray);
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: var(--black);
+        }
+
+        .modal-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .modal h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .modal-meta {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .modal p {
+            color: var(--mid-gray);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .modal-cta {
+            display: inline-block;
+            background: var(--black);
+            color: var(--white);
+            padding: 16px 35px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.3s;
+        }
+
+        .modal-cta:hover {
+            background: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 50px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 0.9rem;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 120px 25px 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .main-content {
+                padding: 0 25px 60px;
+            }
+
+            .browse-toggle {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .browse-btn {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .matrix-table th.function-header {
+                font-size: 0.65rem;
+                height: 100px;
+            }
+
+            .modal {
+                padding: 35px 25px;
+            }
+
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* View states */
+        .view-sector, .view-function, .view-matrix {
+            display: none;
+        }
+
+        .view-sector.active, .view-function.active, .view-matrix.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-logo">Malcolm Hyndman</a>
+    <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#resources">Free Lessons</a></li>
+        <li><a href="https://preply.com/en/tutor/4383857" target="_blank" class="nav-cta">Book a Session</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div class="hero-label">Professional English Training</div>
+    <h1>Find Your Scenario</h1>
+    <p class="hero-subtitle">Generic business English doesn't work. A developer explaining technical debt needs different skills than an account manager handling a difficult client. Find your world below.</p>
+    
+    <!-- Search Box -->
+    <div style="max-width: 500px; margin: 0 auto 40px;">
+        <input type="text" id="search-input" placeholder="Type your job title or industry..." 
+            style="width: 100%; padding: 18px 25px; font-size: 1.05rem; border: 2px solid var(--warm-gray); 
+            font-family: inherit; transition: border-color 0.3s; outline: none;"
+            oninput="handleSearch(this.value)" onfocus="this.style.borderColor='var(--accent)'" 
+            onblur="this.style.borderColor='var(--warm-gray)'">
+    </div>
+    
+    <!-- Search Results -->
+    <div id="search-results" style="display: none; max-width: 800px; margin: 0 auto 40px; text-align: left; background: white; border: 1px solid var(--warm-gray); max-height: 400px; overflow-y: auto;">
+    </div>
+    
+    <div class="browse-toggle">
+        <button class="browse-btn active" onclick="showView('sector')">Browse by Industry</button>
+        <button class="browse-btn" onclick="showView('function')">Browse by Role</button>
+        <button class="browse-btn" onclick="showView('matrix')">View Full Matrix</button>
+    </div>
+</section>
+
+<main class="main-content">
+    
+    <!-- SECTOR VIEW -->
+    <div class="view-sector active" id="view-sector">
+        <div class="sector-grid" id="sector-grid">
+            <!-- Populated by JS -->
+        </div>
+        
+        <div class="subsector-view" id="subsector-view">
+            <span class="back-btn" onclick="backToSectors()">← Back to Industries</span>
+            <div class="subsector-header">
+                <h2 id="sector-title"></h2>
+            </div>
+            <div class="subsector-list" id="subsector-list">
+                <!-- Populated by JS -->
+            </div>
+            <div class="scenarios-section" id="sector-scenarios">
+                <h3>Available Scenarios</h3>
+                <div id="sector-scenario-list"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- FUNCTION VIEW -->
+    <div class="view-function" id="view-function">
+        <div class="function-grid" id="function-grid">
+            <!-- Populated by JS -->
+        </div>
+        <div class="scenarios-section" id="function-scenarios" style="margin-top: 50px;">
+            <h3 id="function-scenario-title">Select a role to see scenarios</h3>
+            <div id="function-scenario-list"></div>
+        </div>
+    </div>
+    
+    <!-- MATRIX VIEW -->
+    <div class="view-matrix" id="view-matrix">
+        <div class="matrix-container">
+            <table class="matrix-table" id="matrix-table">
+                <!-- Populated by JS -->
+            </table>
+        </div>
+    </div>
+    
+</main>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" onclick="event.stopPropagation()">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div class="modal-label">Professional Skills Scenario</div>
+        <h2 id="modal-title"></h2>
+        <div class="modal-meta" id="modal-meta"></div>
+        <p>This is a real communication challenge professionals face in your industry and role. In our session, we'll work through this scenario together — building the specific language, frameworks, and confidence you need.</p>
+        <p>Every lesson is tailored. We start with your version of this challenge, in your context, with your stakeholders in mind.</p>
+        <a href="https://preply.com/en/tutor/4383857" target="_blank" class="modal-cta">Let's Work on This Together</a>
+    </div>
+</div>
+
+<!-- Interview Prep Callout -->
+<section style="background: var(--accent); padding: 80px 50px; text-align: center;">
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h2 style="font-family: 'Instrument Serif', serif; font-size: 2.2rem; font-weight: 400; color: var(--white); margin-bottom: 20px;">Interviewing for a role like this?</h2>
+        <p style="color: rgba(255,255,255,0.85); font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px;">The same logic applies. Whether it's a behavioral question about stakeholder management, a case study in your sector, or explaining your technical decisions to a non-technical panel — we'll prepare you for the specific questions you'll face.</p>
+        <p style="color: rgba(255,255,255,0.7); font-size: 1rem; margin-bottom: 35px; font-style: italic;">PARADE framework • Mock interviews • Real-time feedback • Follow-up strategy</p>
+        <a href="https://preply.com/en/tutor/4383857" target="_blank" style="display: inline-block; background: var(--white); color: var(--accent); padding: 16px 40px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.3s;">Let's Prepare Together</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-logo">Malcolm Hyndman</div>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#services">Services</a>
+        <a href="https://preply.com/en/tutor/4383857" target="_blank">Preply Profile</a>
+    </div>
+</footer>
+
+<script>
+// ============================================
+// DATA
+// ============================================
+
+const sectors = [
+    {
+        id: "A",
+        name: "Professional Services",
+        description: "Consulting, legal, accounting, and HR services",
+        subsectors: [
+            { id: "A1", name: "Consulting", description: "Strategy, management, operations consulting" },
+            { id: "A2", name: "Legal", description: "Law firms, in-house legal teams" },
+            { id: "A3", name: "Accounting & Audit", description: "Big Four, mid-tier, boutique firms" },
+            { id: "A4", name: "Recruitment & HR Services", description: "Agencies, RPO, HR consultancies" }
+        ]
+    },
+    {
+        id: "B",
+        name: "Technology & Engineering",
+        description: "Software, IT, product, data, and engineering",
+        subsectors: [
+            { id: "B1", name: "Software Development", description: "Dev teams, software houses, startups" },
+            { id: "B2", name: "IT & Systems", description: "Infrastructure, support, systems administration" },
+            { id: "B3", name: "Product Management", description: "Product teams, product-led organisations" },
+            { id: "B4", name: "Data & Analytics", description: "Data science, BI, analytics teams" },
+            { id: "B5", name: "Engineering", description: "Civil, mechanical, electrical engineering" }
+        ]
+    },
+    {
+        id: "C",
+        name: "Finance & Banking",
+        description: "Investment banking, asset management, retail, insurance, fintech",
+        subsectors: [
+            { id: "C1", name: "Investment Banking", description: "M&A, capital markets, advisory" },
+            { id: "C2", name: "Asset Management", description: "Fund management, wealth management" },
+            { id: "C3", name: "Retail Banking", description: "Consumer banking, branch networks" },
+            { id: "C4", name: "Insurance", description: "Underwriting, claims, broking" },
+            { id: "C5", name: "Fintech", description: "Payments, neobanks, financial technology" }
+        ]
+    },
+    {
+        id: "D",
+        name: "Healthcare & Life Sciences",
+        description: "Clinical, pharma, medical devices, administration, research",
+        subsectors: [
+            { id: "D1", name: "Clinical / Medical Practice", description: "Hospitals, clinics, medical professionals" },
+            { id: "D2", name: "Pharmaceuticals", description: "Drug development, pharma companies" },
+            { id: "D3", name: "Medical Devices", description: "Device manufacturers, medtech" },
+            { id: "D4", name: "Healthcare Administration", description: "Hospital management, health systems" },
+            { id: "D5", name: "Research & Biotech", description: "Biotech startups, research institutions" }
+        ]
+    },
+    {
+        id: "E",
+        name: "Creative & Media",
+        description: "Advertising, publishing, broadcasting, design",
+        subsectors: [
+            { id: "E1", name: "Advertising & Marketing Agencies", description: "Creative agencies, media agencies" },
+            { id: "E2", name: "Publishing", description: "Books, magazines, digital publishing" },
+            { id: "E3", name: "Broadcasting & Production", description: "TV, film, streaming, podcasts" },
+            { id: "E4", name: "Design", description: "Graphic, UX, industrial design" }
+        ]
+    },
+    {
+        id: "F",
+        name: "Manufacturing & Industry",
+        description: "Production, quality, supply chain, logistics",
+        subsectors: [
+            { id: "F1", name: "Production & Operations", description: "Factory floor, production management" },
+            { id: "F2", name: "Quality & Compliance", description: "QA, regulatory compliance, standards" },
+            { id: "F3", name: "Supply Chain & Procurement", description: "Sourcing, vendor management, purchasing" },
+            { id: "F4", name: "Logistics & Distribution", description: "Warehousing, transport, last-mile delivery" }
+        ]
+    },
+    {
+        id: "G",
+        name: "Retail & Consumer",
+        description: "Retail operations, e-commerce, hospitality, FMCG",
+        subsectors: [
+            { id: "G1", name: "Retail Operations", description: "Store management, retail chains" },
+            { id: "G2", name: "E-commerce", description: "Online retail, marketplaces" },
+            { id: "G3", name: "Hospitality & Travel", description: "Hotels, airlines, tourism" },
+            { id: "G4", name: "Consumer Goods / FMCG", description: "CPG companies, brand management" }
+        ]
+    },
+    {
+        id: "H",
+        name: "Energy & Infrastructure",
+        description: "Oil & gas, renewables, utilities, construction",
+        subsectors: [
+            { id: "H1", name: "Oil & Gas", description: "Upstream, downstream, services" },
+            { id: "H2", name: "Renewables", description: "Solar, wind, clean energy" },
+            { id: "H3", name: "Utilities", description: "Power, water, telecoms" },
+            { id: "H4", name: "Construction & Property", description: "Developers, contractors, real estate" }
+        ]
+    },
+    {
+        id: "I",
+        name: "Public Sector & Non-Profit",
+        description: "Government, NGOs, education, international organisations",
+        subsectors: [
+            { id: "I1", name: "Government & Civil Service", description: "Ministries, agencies, local government" },
+            { id: "I2", name: "NGOs & Charities", description: "Non-profits, foundations, social enterprises" },
+            { id: "I3", name: "Education & Academia", description: "Universities, schools, research" },
+            { id: "I4", name: "International Organisations", description: "UN, EU, multilateral bodies" }
+        ]
+    }
+];
+
+const functions = [
+    { id: 1, name: "Client-Facing / Account Management", description: "Managing relationships, expectations, difficult conversations" },
+    { id: 2, name: "Technical / Specialist", description: "Explaining complex information to non-experts" },
+    { id: 3, name: "Operations & Systems", description: "Process communication, incident reporting, stakeholder updates" },
+    { id: 4, name: "Sales & Business Development", description: "Pitching, negotiating, closing" },
+    { id: 5, name: "Project & Programme Management", description: "Status updates, escalations, cross-functional coordination" },
+    { id: 6, name: "Leadership & Strategy", description: "Board communication, team management, change communication" },
+    { id: 7, name: "Support & Service", description: "Customer communication, complaint handling, de-escalation" }
+];
+
+// All 273 scenarios
+const scenarios = {
+    // SECTOR A: Professional Services
+    "A1-1": "Resetting expectations when a project is behind schedule",
+    "A1-2": "Explaining methodology limitations to a client who expected definitive answers",
+    "A1-3": "Briefing the home office on resource conflicts across multiple engagements",
+    "A1-4": "Pitching follow-on work without seeming like you're inventing problems",
+    "A1-5": "Running a steering committee when the client sponsor is disengaged",
+    "A1-6": "Giving developmental feedback to a high-performing but difficult consultant",
+    "A1-7": "Handling a client complaint about junior team member performance",
+    
+    "A2-1": "Delivering unwelcome legal advice without destroying the relationship",
+    "A2-2": "Explaining regulatory risk to business colleagues who just want a yes or no",
+    "A2-3": "Coordinating across practice groups on a multi-jurisdictional matter",
+    "A2-4": "Following up on a pitch without seeming desperate",
+    "A2-5": "Managing a due diligence process when the deal timeline keeps shifting",
+    "A2-6": "Addressing associate burnout without promising what you can't deliver",
+    "A2-7": "Responding to a client who's frustrated with billing",
+    
+    "A3-1": "Discussing a material weakness finding with a defensive CFO",
+    "A3-2": "Explaining new accounting standards to clients who don't see why it matters",
+    "A3-3": "Escalating a resourcing crisis during busy season",
+    "A3-4": "Proposing advisory services to an audit client within independence rules",
+    "A3-5": "Communicating audit timeline delays to the audit committee",
+    "A3-6": "Having the conversation when a manager isn't ready for promotion",
+    "A3-7": "Handling pushback on fees from a long-standing client",
+    
+    "A4-1": "Telling a client their expectations are unrealistic for the salary offered",
+    "A4-2": "Explaining assessment methodology to a hiring manager who trusts their gut",
+    "A4-3": "Coordinating handovers when a key recruiter leaves mid-search",
+    "A4-4": "Re-engaging a dormant client without sounding transactional",
+    "A4-5": "Managing an RPO implementation when the client keeps changing scope",
+    "A4-6": "Addressing performance issues with a recruiter who's a cultural pillar",
+    "A4-7": "Responding to a candidate complaint about the hiring process",
+    
+    // SECTOR B: Technology & Engineering
+    "B1-1": "Explaining to a client why the feature they want would create technical debt",
+    "B1-2": "Communicating technical debt to business stakeholders who want new features",
+    "B1-3": "Writing a post-mortem that's honest without throwing anyone under the bus",
+    "B1-4": "Scoping a fixed-price project when requirements are vague",
+    "B1-5": "Pushing back on scope creep without damaging the client relationship",
+    "B1-6": "Telling a senior developer their code quality isn't meeting standards",
+    "B1-7": "Handling a bug report from an angry enterprise client",
+    
+    "B2-1": "Explaining a service outage to business users without jargon",
+    "B2-2": "Writing a post-incident report for non-technical readers",
+    "B2-3": "Communicating system maintenance windows that will disrupt operations",
+    "B2-4": "Justifying infrastructure investment to budget holders",
+    "B2-5": "Managing a system migration when legacy dependencies keep emerging",
+    "B2-6": "Addressing on-call burnout with a team that takes pride in availability",
+    "B2-7": "De-escalating a VIP user who's been waiting too long for resolution",
+    
+    "B3-1": "Saying no to a key customer's feature request without losing them",
+    "B3-2": "Translating user research findings into engineering requirements",
+    "B3-3": "Aligning product roadmap with operational capacity constraints",
+    "B3-4": "Presenting a product vision to investors who want to see traction metrics",
+    "B3-5": "Negotiating priorities when every stakeholder thinks their feature is urgent",
+    "B3-6": "Giving feedback when a PM's stakeholder management is causing friction",
+    "B3-7": "Responding to public criticism of a product decision on social media",
+    
+    "B4-1": "Presenting findings that contradict what the client wanted to hear",
+    "B4-2": "Explaining model limitations to stakeholders who want certainty",
+    "B4-3": "Documenting data pipelines for teams who'll inherit them",
+    "B4-4": "Pitching a data project when ROI is hard to quantify upfront",
+    "B4-5": "Managing expectations when data quality issues delay insights",
+    "B4-6": "Addressing a data scientist whose models are brilliant but unexplainable",
+    "B4-7": "Handling requests for 'quick' analysis that isn't actually quick",
+    
+    "B5-1": "Explaining cost overruns caused by site conditions you couldn't predict",
+    "B5-2": "Communicating safety concerns to a client who's focused on timeline",
+    "B5-3": "Coordinating with contractors whose standards don't match yours",
+    "B5-4": "Bidding on a project when the specification is incomplete",
+    "B5-5": "Managing a multi-discipline project when interfaces keep changing",
+    "B5-6": "Giving feedback to a brilliant engineer with poor site communication",
+    "B5-7": "Responding to community concerns about environmental impact",
+    
+    // SECTOR C: Finance & Banking
+    "C1-1": "Managing a client's expectations when a deal is likely to fall through",
+    "C1-2": "Explaining valuation methodology to a founder who thinks you're undervaluing them",
+    "C1-3": "Briefing the deal team when key information is missing from the data room",
+    "C1-4": "Pitching for a mandate against banks with stronger sector credentials",
+    "C1-5": "Running a process when buyer and seller timelines don't align",
+    "C1-6": "Addressing analyst burnout without losing them to competitors",
+    "C1-7": "Handling a client complaint about responsiveness during a live deal",
+    
+    "C2-1": "Explaining underperformance to an institutional investor considering redemption",
+    "C2-2": "Presenting a complex strategy to a client who wants simple answers",
+    "C2-3": "Communicating with custodians when there's a NAV discrepancy",
+    "C2-4": "Differentiating your fund when performance is similar to competitors",
+    "C2-5": "Managing a fund launch when regulatory approval is delayed",
+    "C2-6": "Giving feedback to a portfolio manager whose communication is creating compliance risk",
+    "C2-7": "Responding to a retail investor complaint about fee transparency",
+    
+    "C3-1": "Declining a loan application without losing the customer relationship",
+    "C3-2": "Explaining new digital banking features to customers who prefer branches",
+    "C3-3": "Communicating process changes to branch staff who are already stretched",
+    "C3-4": "Cross-selling products without seeming pushy or inappropriate",
+    "C3-5": "Rolling out a new system when branch feedback wasn't incorporated",
+    "C3-6": "Addressing performance issues with a long-tenured branch manager",
+    "C3-7": "De-escalating a fraud victim who's angry at the bank",
+    
+    "C4-1": "Explaining a claim denial without destroying the broker relationship",
+    "C4-2": "Communicating underwriting rationale to brokers who don't see the risk",
+    "C4-3": "Coordinating claims handling when third parties aren't responding",
+    "C4-4": "Renewing a policy when claims experience justifies a significant premium increase",
+    "C4-5": "Managing a book migration when data quality is worse than expected",
+    "C4-6": "Giving feedback to an underwriter whose risk appetite is out of line",
+    "C4-7": "Handling a claimant who's frustrated with the timeline",
+    
+    "C5-1": "Managing an enterprise pilot that's not going to convert to full rollout",
+    "C5-2": "Explaining API limitations to a partner who expected more flexibility",
+    "C5-3": "Communicating regulatory requirements to a team that moves fast",
+    "C5-4": "Pitching to a traditional bank that's skeptical of fintech partnerships",
+    "C5-5": "Managing a product launch when compliance sign-off is pending",
+    "C5-6": "Addressing a senior engineer whose 'move fast' mentality creates risk",
+    "C5-7": "Handling a merchant whose integration isn't working as expected",
+    
+    // SECTOR D: Healthcare & Life Sciences
+    "D1-1": "Discussing treatment options with a patient who's researched alternatives online",
+    "D1-2": "Explaining clinical reasoning to colleagues from other specialties",
+    "D1-3": "Handing over patient care when your shift ends but the case is complex",
+    "D1-4": "Presenting your department's capabilities to potential referral sources",
+    "D1-5": "Leading a clinical pathway redesign when staff are resistant",
+    "D1-6": "Addressing a senior clinician whose bedside manner is generating complaints",
+    "D1-7": "Responding to a patient complaint about wait times",
+    
+    "D2-1": "Presenting trial results to a partner when the data is mixed",
+    "D2-2": "Explaining regulatory requirements to a commercial team that wants speed",
+    "D2-3": "Coordinating across global sites when timelines are out of sync",
+    "D2-4": "Positioning a drug with a complex efficacy profile to KOLs",
+    "D2-5": "Managing a launch delay when manufacturing isn't ready",
+    "D2-6": "Giving feedback to a medical director whose stakeholder management is weak",
+    "D2-7": "Handling an HCP's complaint about access to information",
+    
+    "D3-1": "Training a surgeon on a new device when they're skeptical of change",
+    "D3-2": "Explaining device limitations to a hospital that expects more",
+    "D3-3": "Coordinating field inventory when demand patterns shift unexpectedly",
+    "D3-4": "Justifying price premium to a procurement team focused on cost",
+    "D3-5": "Managing a product recall communication without damaging trust",
+    "D3-6": "Addressing a rep whose clinical knowledge isn't keeping pace",
+    "D3-7": "Responding to a complaint about device performance in the field",
+    
+    "D4-1": "Communicating policy changes to clinical staff who weren't consulted",
+    "D4-2": "Translating clinical performance data for a board that lacks clinical background",
+    "D4-3": "Announcing cost-cutting measures without demoralising staff",
+    "D4-4": "Presenting the health system's case to commissioners or insurers",
+    "D4-5": "Managing an EHR implementation when clinical resistance is high",
+    "D4-6": "Giving feedback to a clinical director whose department is underperforming",
+    "D4-7": "Handling a patient family complaint that's escalated to executive level",
+    
+    "D5-1": "Updating investors when trial timelines are slipping",
+    "D5-2": "Presenting complex science to non-scientific investors or partners",
+    "D5-3": "Coordinating with CROs whose quality standards differ from yours",
+    "D5-4": "Pitching for partnership when you're early-stage and unproven",
+    "D5-5": "Managing a research collaboration when IP concerns slow progress",
+    "D5-6": "Giving feedback to a brilliant scientist whose communication alienates colleagues",
+    "D5-7": "Handling a collaboration partner's concerns about data sharing",
+    
+    // SECTOR E: Creative & Media
+    "E1-1": "Presenting a creative concept the client didn't ask for but needs",
+    "E1-2": "Explaining why the 'simple change' isn't simple to a non-technical client",
+    "E1-3": "Briefing a freelance team who don't know the client's history",
+    "E1-4": "Pitching to a prospect who's had a bad agency experience",
+    "E1-5": "Managing a campaign when the client keeps changing direction",
+    "E1-6": "Giving feedback to a creative whose work is great but delivery is unreliable",
+    "E1-7": "Handling a client who's unhappy with results but the strategy was theirs",
+    
+    "E2-1": "Giving developmental feedback to an author with a fragile ego",
+    "E2-2": "Explaining metadata and discoverability to authors who just want to write",
+    "E2-3": "Coordinating a release when the production schedule is compressed",
+    "E2-4": "Pitching a book that's outside your usual list to retailers",
+    "E2-5": "Managing a multi-author anthology with competing deadlines",
+    "E2-6": "Addressing an editor whose author relationships are too close",
+    "E2-7": "Handling an author complaint about marketing support",
+    
+    "E3-1": "Delivering feedback from commissioners that the showrunner won't like",
+    "E3-2": "Explaining post-production delays to producers who don't understand the process",
+    "E3-3": "Coordinating across production, post, and distribution when schedules conflict",
+    "E3-4": "Pitching a format to international buyers who want proven hits",
+    "E3-5": "Managing a production when talent availability keeps shifting",
+    "E3-6": "Giving feedback to a producer whose on-set behaviour is causing issues",
+    "E3-7": "Handling a talent complaint about production conditions",
+    
+    "E4-1": "Defending a design decision when the client wants something 'safer'",
+    "E4-2": "Explaining design rationale to developers who see it as decoration",
+    "E4-3": "Managing a design system when teams keep going off-piste",
+    "E4-4": "Pitching design's value to a client who sees it as a cost",
+    "E4-5": "Managing a rebrand when internal stakeholders can't agree",
+    "E4-6": "Giving feedback to a designer whose aesthetic excellence slows delivery",
+    "E4-7": "Handling client dissatisfaction when they can't articulate what they want",
+    
+    // SECTOR F: Manufacturing & Industry
+    "F1-1": "Explaining a production delay to a customer waiting on delivery",
+    "F1-2": "Communicating equipment limitations to planners who've overpromised",
+    "F1-3": "Handing over shift when issues are unresolved but you have to leave",
+    "F1-4": "Justifying capacity constraints to sales who want to book more orders",
+    "F1-5": "Managing a line changeover when preparation time was cut",
+    "F1-6": "Addressing a supervisor whose team respects them but others don't",
+    "F1-7": "Responding to a customer complaint about product quality",
+    
+    "F2-1": "Presenting an audit finding to a supplier without destroying the relationship",
+    "F2-2": "Explaining compliance requirements to teams who see you as an obstacle",
+    "F2-3": "Documenting non-conformances without creating a blame culture",
+    "F2-4": "Positioning compliance capability as a competitive advantage",
+    "F2-5": "Managing a certification project when evidence gaps emerge",
+    "F2-6": "Giving feedback to a quality engineer who's technically right but alienating",
+    "F2-7": "Handling an internal complaint about inspection findings",
+    
+    "F3-1": "Renegotiating terms with a critical supplier without damaging the relationship",
+    "F3-2": "Explaining specification requirements to suppliers who want to substitute",
+    "F3-3": "Communicating supply disruptions to production before it's a crisis",
+    "F3-4": "Presenting procurement's value to internal stakeholders who see you as cost-focused",
+    "F3-5": "Managing a supplier transition when the new vendor isn't ready",
+    "F3-6": "Addressing a buyer whose vendor relationships are too cosy",
+    "F3-7": "Handling an internal complaint about procurement timelines",
+    
+    "F4-1": "Communicating delivery delays to key accounts who are losing patience",
+    "F4-2": "Explaining warehouse system limitations to stakeholders who want perfection",
+    "F4-3": "Coordinating with carriers when service levels are slipping",
+    "F4-4": "Justifying logistics investment to leadership focused on cost-cutting",
+    "F4-5": "Managing a warehouse move when the timeline was set by others",
+    "F4-6": "Giving feedback to a warehouse manager whose team morale is low",
+    "F4-7": "Handling an escalated customer complaint about a failed delivery",
+    
+    // SECTOR G: Retail & Consumer
+    "G1-1": "Handling a demanding customer when you can't give them what they want",
+    "G1-2": "Explaining inventory system issues to head office who don't see the store reality",
+    "G1-3": "Briefing part-time staff quickly before a peak trading period",
+    "G1-4": "Making the case for store investment to regional leadership",
+    "G1-5": "Managing a store refit while staying open for trading",
+    "G1-6": "Addressing a long-tenured team member whose attitude affects others",
+    "G1-7": "De-escalating a customer complaint in front of other shoppers",
+    
+    "G2-1": "Responding to a negative review that's gone viral",
+    "G2-2": "Explaining platform limitations to merchandisers who want flexibility",
+    "G2-3": "Coordinating peak season with warehouse and carriers",
+    "G2-4": "Pitching a marketplace expansion when margins are uncertain",
+    "G2-5": "Managing a site migration when legacy issues keep surfacing",
+    "G2-6": "Giving feedback to a manager whose team is burning out from always-on culture",
+    "G2-7": "Handling a high-profile customer complaint on social media",
+    
+    "G3-1": "Recovering a guest experience when something has gone wrong",
+    "G3-2": "Explaining booking system limitations to guests who expect flexibility",
+    "G3-3": "Coordinating handovers between shifts when a VIP situation is ongoing",
+    "G3-4": "Winning a corporate account when your rates aren't the lowest",
+    "G3-5": "Managing a renovation while maintaining guest experience",
+    "G3-6": "Addressing a team leader whose stress is affecting guest-facing staff",
+    "G3-7": "De-escalating a guest complaint that's threatening to go online",
+    
+    "G4-1": "Presenting a price increase to retailers who'll push back hard",
+    "G4-2": "Explaining pack changes to retailers who don't see the consumer benefit",
+    "G4-3": "Coordinating a product launch when supply and demand forecasts don't align",
+    "G4-4": "Negotiating promotional spend with retailers who always want more",
+    "G4-5": "Managing a brand relaunch when market research is inconclusive",
+    "G4-6": "Giving feedback to a brand manager whose plans are too cautious",
+    "G4-7": "Handling a retailer complaint about service levels",
+    
+    // SECTOR H: Energy & Infrastructure
+    "H1-1": "Presenting project overruns to a client in a volatile price environment",
+    "H1-2": "Explaining HSE requirements to contractors who see them as obstacles",
+    "H1-3": "Communicating during an operational incident when facts are still emerging",
+    "H1-4": "Pitching services when the market is focused on cost-cutting",
+    "H1-5": "Managing a shutdown when scope and timeline are in tension",
+    "H1-6": "Addressing a field supervisor whose team respects them but documentation is poor",
+    "H1-7": "Handling a community complaint about local impact",
+    
+    "H2-1": "Managing investor expectations when project returns are delayed",
+    "H2-2": "Explaining intermittency issues to stakeholders who expected consistency",
+    "H2-3": "Coordinating with grid operators when performance targets aren't met",
+    "H2-4": "Winning a PPA when competitors are offering lower prices",
+    "H2-5": "Managing a development project when permitting keeps stalling",
+    "H2-6": "Giving feedback to a project developer whose stakeholder communication is weak",
+    "H2-7": "Handling landowner concerns about visual or environmental impact",
+    
+    "H3-1": "Communicating a price increase to customers who feel they have no choice",
+    "H3-2": "Explaining infrastructure constraints to regulators who want more",
+    "H3-3": "Managing communication during an outage when you're not sure of the cause",
+    "H3-4": "Presenting the case for investment to regulators focused on cost",
+    "H3-5": "Managing a network upgrade when community opposition is strong",
+    "H3-6": "Addressing a team leader whose crew's safety record is slipping",
+    "H3-7": "De-escalating a vulnerable customer complaint about bills",
+    
+    "H4-1": "Discussing cost escalation with a client mid-project",
+    "H4-2": "Explaining design changes to a client who doesn't understand the implications",
+    "H4-3": "Coordinating subcontractors when interfaces aren't working",
+    "H4-4": "Pitching for a contract when your price isn't the lowest",
+    "H4-5": "Managing a project when weather delays are mounting",
+    "H4-6": "Giving feedback to a site manager whose relationship with the client is strained",
+    "H4-7": "Handling a neighbour complaint about site impact",
+    
+    // SECTOR I: Public Sector & Non-Profit
+    "I1-1": "Explaining policy constraints to citizens who feel unheard",
+    "I1-2": "Translating technical advice into briefings for ministers who lack background",
+    "I1-3": "Coordinating across departments when no one has clear ownership",
+    "I1-4": "Making the case for budget allocation when resources are scarce",
+    "I1-5": "Managing a programme when political priorities keep shifting",
+    "I1-6": "Giving feedback to a senior official whose stakeholder management creates risk",
+    "I1-7": "Handling a public complaint that could escalate politically",
+    
+    "I2-1": "Reporting to donors when programme outcomes are disappointing",
+    "I2-2": "Explaining impact measurement to donors who want simple stories",
+    "I2-3": "Coordinating across field offices with limited infrastructure",
+    "I2-4": "Pitching to a corporate partner whose values alignment is uncertain",
+    "I2-5": "Managing a programme when funding comes with restrictive conditions",
+    "I2-6": "Addressing a programme lead whose commitment is unquestionable but management isn't",
+    "I2-7": "Handling a beneficiary complaint about programme delivery",
+    
+    "I3-1": "Discussing student performance with parents who are defensive",
+    "I3-2": "Explaining research findings to funders who want headlines",
+    "I3-3": "Coordinating exam administration when systems aren't reliable",
+    "I3-4": "Attracting research funding in a competitive environment",
+    "I3-5": "Managing curriculum change when staff buy-in is low",
+    "I3-6": "Giving feedback to an academic whose research is strong but teaching isn't",
+    "I3-7": "Handling a student complaint about assessment",
+    
+    "I4-1": "Presenting findings to member states who don't want to hear them",
+    "I4-2": "Writing policy recommendations that work across different legal systems",
+    "I4-3": "Coordinating across agencies when mandates overlap",
+    "I4-4": "Securing contributions from member states in a constrained funding environment",
+    "I4-5": "Managing a multi-country programme when local contexts differ greatly",
+    "I4-6": "Addressing a senior official whose national perspective affects their objectivity",
+    "I4-7": "Handling a complaint from a member state about representation"
+};
+
+// ============================================
+// STATE
+// ============================================
+
+let currentSector = null;
+let currentSubsector = null;
+let currentFunction = null;
+
+// ============================================
+// RENDERING
+// ============================================
+
+function renderSectorGrid() {
+    const grid = document.getElementById('sector-grid');
+    grid.innerHTML = sectors.map(sector => {
+        const scenarioCount = sector.subsectors.length * 7;
+        return `
+            <div class="sector-card" onclick="selectSector('${sector.id}')">
+                <h3>${sector.name}</h3>
+                <p>${sector.description}</p>
+                <span class="count">${scenarioCount} scenarios available</span>
+            </div>
+        `;
+    }).join('');
+}
+
+function renderSubsectors(sectorId) {
+    const sector = sectors.find(s => s.id === sectorId);
+    document.getElementById('sector-title').textContent = sector.name;
+    
+    const list = document.getElementById('subsector-list');
+    list.innerHTML = sector.subsectors.map(sub => `
+        <div class="subsector-card" id="subsector-${sub.id}" onclick="selectSubsector('${sub.id}')">
+            <h4>${sub.name}</h4>
+            <p>${sub.description}</p>
+        </div>
+    `).join('');
+    
+    document.getElementById('sector-grid').style.display = 'none';
+    document.getElementById('subsector-view').style.display = 'block';
+}
+
+function renderSectorScenarios(subsectorId) {
+    const section = document.getElementById('sector-scenarios');
+    const list = document.getElementById('sector-scenario-list');
+    
+    list.innerHTML = functions.map(func => {
+        const key = `${subsectorId}-${func.id}`;
+        const scenario = scenarios[key];
+        return `
+            <div class="scenario-card" onclick="openModal('${key}')">
+                <div class="scenario-title">${scenario}</div>
+                <div class="scenario-meta">
+                    <span class="scenario-badge function">${func.name}</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    section.style.display = 'block';
+}
+
+function renderFunctionGrid() {
+    const grid = document.getElementById('function-grid');
+    grid.innerHTML = functions.map(func => `
+        <div class="function-card" id="function-${func.id}" onclick="selectFunction(${func.id})">
+            <h3>${func.name}</h3>
+            <p>${func.description}</p>
+        </div>
+    `).join('');
+}
+
+function renderFunctionScenarios(functionId) {
+    const func = functions.find(f => f.id === functionId);
+    document.getElementById('function-scenario-title').textContent = `${func.name} — All Industries`;
+    
+    const list = document.getElementById('function-scenario-list');
+    let html = '';
+    
+    sectors.forEach(sector => {
+        sector.subsectors.forEach(sub => {
+            const key = `${sub.id}-${functionId}`;
+            const scenario = scenarios[key];
+            html += `
+                <div class="scenario-card" onclick="openModal('${key}')">
+                    <div class="scenario-title">${scenario}</div>
+                    <div class="scenario-meta">
+                        <span class="scenario-badge">${sub.name}</span>
+                        <span class="scenario-badge">${sector.name}</span>
+                    </div>
+                </div>
+            `;
+        });
+    });
+    
+    list.innerHTML = html;
+    document.getElementById('function-scenarios').style.display = 'block';
+}
+
+function renderMatrix() {
+    const table = document.getElementById('matrix-table');
+    
+    // Header row
+    let html = '<thead><tr><th></th>';
+    functions.forEach(func => {
+        html += `<th class="function-header">${func.name}</th>`;
+    });
+    html += '</tr></thead><tbody>';
+    
+    // Data rows
+    sectors.forEach(sector => {
+        sector.subsectors.forEach((sub, idx) => {
+            html += '<tr>';
+            if (idx === 0) {
+                html += `<td class="sector-label" rowspan="${sector.subsectors.length}"><strong>${sector.name}</strong></td>`;
+            }
+            functions.forEach(func => {
+                const key = `${sub.id}-${func.id}`;
+                html += `<td><div class="matrix-cell" onclick="openModal('${key}')" title="${sub.name} + ${func.name}"></div></td>`;
+            });
+            html += '</tr>';
+        });
+    });
+    
+    html += '</tbody>';
+    table.innerHTML = html;
+}
+
+// ============================================
+// INTERACTIONS
+// ============================================
+
+function showView(view) {
+    // Update buttons
+    document.querySelectorAll('.browse-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    // Hide all views
+    document.querySelectorAll('.view-sector, .view-function, .view-matrix').forEach(v => v.classList.remove('active'));
+    
+    // Show selected view
+    document.getElementById(`view-${view}`).classList.add('active');
+    
+    // Reset states
+    if (view === 'sector') {
+        document.getElementById('sector-grid').style.display = 'grid';
+        document.getElementById('subsector-view').style.display = 'none';
+    }
+    if (view === 'function') {
+        document.querySelectorAll('.function-card').forEach(c => c.classList.remove('active'));
+        document.getElementById('function-scenarios').style.display = 'none';
+    }
+}
+
+function selectSector(sectorId) {
+    currentSector = sectorId;
+    renderSubsectors(sectorId);
+}
+
+function backToSectors() {
+    document.getElementById('sector-grid').style.display = 'grid';
+    document.getElementById('subsector-view').style.display = 'none';
+    document.getElementById('sector-scenarios').style.display = 'none';
+    currentSector = null;
+    currentSubsector = null;
+}
+
+function selectSubsector(subsectorId) {
+    // Update active state
+    document.querySelectorAll('.subsector-card').forEach(c => c.classList.remove('active'));
+    document.getElementById(`subsector-${subsectorId}`).classList.add('active');
+    
+    currentSubsector = subsectorId;
+    renderSectorScenarios(subsectorId);
+}
+
+function selectFunction(functionId) {
+    // Update active state
+    document.querySelectorAll('.function-card').forEach(c => c.classList.remove('active'));
+    document.getElementById(`function-${functionId}`).classList.add('active');
+    
+    currentFunction = functionId;
+    renderFunctionScenarios(functionId);
+}
+
+function openModal(scenarioKey) {
+    const [subsectorId, functionId] = scenarioKey.split('-');
+    const scenario = scenarios[scenarioKey];
+    const func = functions.find(f => f.id === parseInt(functionId));
+    
+    // Find subsector and sector
+    let subsector, sector;
+    for (const s of sectors) {
+        const found = s.subsectors.find(sub => sub.id === subsectorId);
+        if (found) {
+            subsector = found;
+            sector = s;
+            break;
+        }
+    }
+    
+    document.getElementById('modal-title').textContent = scenario;
+    document.getElementById('modal-meta').innerHTML = `
+        <span class="scenario-badge">${sector.name}</span>
+        <span class="scenario-badge">${subsector.name}</span>
+        <span class="scenario-badge function">${func.name}</span>
+    `;
+    
+    document.getElementById('modal-overlay').classList.add('active');
+}
+
+function closeModal(event) {
+    if (!event || event.target === document.getElementById('modal-overlay')) {
+        document.getElementById('modal-overlay').classList.remove('active');
+    }
+}
+
+// Close on escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+});
+
+// ============================================
+// SEARCH
+// ============================================
+
+// Keyword aliases - map common terms to taxonomy language
+const searchAliases = {
+    // ==========================================
+    // EDUCATION & ACADEMIA
+    // ==========================================
+    'teacher': 'education academia schools',
+    'professor': 'education academia university research',
+    'lecturer': 'education academia university',
+    'tutor': 'education academia schools',
+    'educator': 'education academia schools',
+    'headteacher': 'education academia schools leadership',
+    'principal': 'education academia schools leadership',
+    'superintendent': 'education academia schools leadership',
+    'librarian': 'education academia',
+    'teaching assistant': 'education academia schools',
+    'instructional designer': 'education academia',
+    'guidance counselor': 'education academia schools',
+    'academic': 'education academia university research',
+    'dean': 'education academia university leadership',
+    'provost': 'education academia university leadership',
+    
+    // ==========================================
+    // SOCIAL WORK & CARE
+    // ==========================================
+    'social work': 'NGO charity healthcare administration government public sector',
+    'social worker': 'NGO charity healthcare administration government public sector',
+    'care worker': 'clinical healthcare NGO charity',
+    'support worker': 'clinical healthcare NGO charity',
+    'case worker': 'NGO charity government public sector',
+    'youth worker': 'NGO charity education',
+    'counsellor': 'clinical healthcare NGO charity',
+    'counselor': 'clinical healthcare NGO charity',
+    'psychologist': 'clinical healthcare research',
+    'mental health': 'clinical healthcare',
+    'safeguarding': 'healthcare administration education',
+    'caregiver': 'clinical healthcare',
+    
+    // ==========================================
+    // HEALTHCARE & MEDICAL
+    // ==========================================
+    'doctor': 'clinical medical practice hospital',
+    'nurse': 'clinical medical practice hospital',
+    'physician': 'clinical medical practice hospital',
+    'surgeon': 'clinical medical practice hospital',
+    'gp': 'clinical medical practice',
+    'dentist': 'clinical medical practice',
+    'therapist': 'clinical medical practice',
+    'physiotherapist': 'clinical medical practice',
+    'occupational therapist': 'clinical medical practice',
+    'paramedic': 'clinical medical practice',
+    'midwife': 'clinical medical practice',
+    'pharmacist': 'pharmaceuticals clinical',
+    'pharmacy': 'pharmaceuticals',
+    'dietitian': 'clinical healthcare',
+    'nutritionist': 'clinical healthcare',
+    'radiologist': 'clinical medical practice',
+    'anaesthetist': 'clinical medical practice',
+    'anesthesiologist': 'clinical medical practice',
+    'orthodontist': 'clinical medical practice',
+    'optometrist': 'clinical medical practice',
+    'veterinarian': 'clinical medical practice',
+    'vet': 'clinical medical practice',
+    'healthcare assistant': 'clinical healthcare',
+    'medical secretary': 'healthcare administration',
+    'hospital administrator': 'healthcare administration',
+    'clinical research': 'research biotech pharmaceuticals',
+    
+    // ==========================================
+    // LEGAL
+    // ==========================================
+    'lawyer': 'legal law firms',
+    'solicitor': 'legal law firms',
+    'barrister': 'legal law firms',
+    'attorney': 'legal law firms',
+    'paralegal': 'legal law firms',
+    'legal secretary': 'legal law firms',
+    'legal counsel': 'legal law firms',
+    'advocate': 'legal law firms',
+    'notary': 'legal law firms',
+    'judge': 'legal government',
+    'magistrate': 'legal government',
+    
+    // ==========================================
+    // TECHNOLOGY & IT
+    // ==========================================
+    'developer': 'software development dev',
+    'programmer': 'software development dev',
+    'coder': 'software development dev',
+    'software engineer': 'software development',
+    'web developer': 'software development',
+    'frontend': 'software development',
+    'backend': 'software development',
+    'fullstack': 'software development',
+    'full stack': 'software development',
+    'mobile developer': 'software development',
+    'app developer': 'software development',
+    'devops': 'IT systems infrastructure',
+    'sysadmin': 'IT systems infrastructure',
+    'system administrator': 'IT systems infrastructure',
+    'network engineer': 'IT systems infrastructure',
+    'it support': 'IT systems support',
+    'helpdesk': 'IT systems support service',
+    'tech support': 'IT systems support',
+    'data scientist': 'data analytics',
+    'data analyst': 'data analytics',
+    'data engineer': 'data analytics',
+    'business intelligence': 'data analytics',
+    'machine learning': 'data analytics software',
+    'ai engineer': 'data analytics software',
+    'cybersecurity': 'IT systems',
+    'security analyst': 'IT systems',
+    'cloud engineer': 'IT systems infrastructure',
+    'solutions architect': 'IT systems software',
+    'technical architect': 'IT systems software',
+    'qa engineer': 'software development quality',
+    'test engineer': 'software development quality',
+    'scrum master': 'software product project',
+    'ux designer': 'design product',
+    'ui designer': 'design product',
+    'product designer': 'design product',
+    
+    // ==========================================
+    // FINANCE & ACCOUNTING
+    // ==========================================
+    'banker': 'banking finance investment retail',
+    'accountant': 'accounting audit',
+    'auditor': 'accounting audit',
+    'bookkeeper': 'accounting',
+    'trader': 'investment banking capital markets',
+    'actuary': 'insurance',
+    'underwriter': 'insurance',
+    'claims': 'insurance',
+    'broker': 'insurance investment',
+    'financial analyst': 'finance investment',
+    'financial planner': 'finance asset management',
+    'financial adviser': 'finance asset management',
+    'financial advisor': 'finance asset management',
+    'wealth manager': 'asset management',
+    'fund manager': 'asset management',
+    'portfolio manager': 'asset management',
+    'credit analyst': 'banking finance',
+    'loan officer': 'retail banking',
+    'mortgage': 'retail banking',
+    'teller': 'retail banking',
+    'investment analyst': 'investment banking asset management',
+    'equity analyst': 'investment banking',
+    'risk analyst': 'banking finance insurance',
+    'compliance officer': 'banking finance legal',
+    'tax': 'accounting',
+    'treasury': 'finance banking',
+    'payroll': 'accounting',
+    
+    // ==========================================
+    // HR & RECRUITMENT
+    // ==========================================
+    'recruiter': 'recruitment HR',
+    'hr': 'recruitment HR human resources',
+    'human resources': 'recruitment HR',
+    'headhunter': 'recruitment HR',
+    'talent acquisition': 'recruitment HR',
+    'hr manager': 'recruitment HR leadership',
+    'hr director': 'recruitment HR leadership',
+    'people operations': 'recruitment HR',
+    'compensation': 'recruitment HR',
+    'benefits': 'recruitment HR',
+    'training': 'recruitment HR education',
+    'learning development': 'recruitment HR education',
+    
+    // ==========================================
+    // SALES & BUSINESS DEVELOPMENT
+    // ==========================================
+    'salesperson': 'sales business development',
+    'sales rep': 'sales business development',
+    'sales representative': 'sales business development',
+    'sales manager': 'sales business development leadership',
+    'sales director': 'sales business development leadership',
+    'account executive': 'sales business development client',
+    'business development': 'sales BD',
+    'bdr': 'sales business development',
+    'sdr': 'sales business development',
+    'key account': 'sales client account',
+    'sales engineer': 'sales technical',
+    'real estate': 'construction property sales',
+    'estate agent': 'construction property sales',
+    'realtor': 'construction property sales',
+    
+    // ==========================================
+    // MARKETING & ADVERTISING
+    // ==========================================
+    'marketer': 'marketing advertising',
+    'marketing': 'advertising marketing agencies',
+    'marketing manager': 'marketing advertising leadership',
+    'brand manager': 'marketing advertising FMCG consumer',
+    'digital marketing': 'marketing advertising e-commerce',
+    'content marketing': 'marketing advertising publishing',
+    'social media': 'marketing advertising',
+    'seo': 'marketing advertising',
+    'ppc': 'marketing advertising',
+    'copywriter': 'marketing advertising publishing',
+    'creative director': 'advertising agencies design leadership',
+    'art director': 'advertising agencies design',
+    'media planner': 'advertising agencies',
+    'media buyer': 'advertising agencies',
+    'pr': 'advertising agencies publishing',
+    'public relations': 'advertising agencies publishing',
+    'communications': 'advertising marketing',
+    
+    // ==========================================
+    // CONSULTING & PROFESSIONAL SERVICES
+    // ==========================================
+    'consultant': 'consulting strategy management',
+    'advisor': 'consulting advisory',
+    'adviser': 'consulting advisory',
+    'management consultant': 'consulting strategy',
+    'strategy consultant': 'consulting strategy',
+    'business analyst': 'consulting data analytics',
+    
+    // ==========================================
+    // CREATIVE & DESIGN
+    // ==========================================
+    'designer': 'design UX graphic',
+    'graphic designer': 'design advertising',
+    'interior designer': 'design construction property',
+    'industrial designer': 'design manufacturing',
+    'fashion designer': 'design retail consumer',
+    'artist': 'design creative',
+    'illustrator': 'design publishing',
+    'animator': 'design broadcasting production',
+    'photographer': 'creative media',
+    'videographer': 'broadcasting production creative',
+    
+    // ==========================================
+    // MEDIA & PUBLISHING
+    // ==========================================
+    'journalist': 'publishing media broadcasting',
+    'reporter': 'publishing media broadcasting',
+    'writer': 'publishing',
+    'author': 'publishing',
+    'editor': 'publishing',
+    'producer': 'broadcasting production',
+    'director': 'broadcasting production leadership',
+    'presenter': 'broadcasting production',
+    'broadcaster': 'broadcasting production',
+    'camera operator': 'broadcasting production',
+    
+    // ==========================================
+    // MANUFACTURING & ENGINEERING
+    // ==========================================
+    'engineer': 'engineering manufacturing',
+    'mechanical engineer': 'engineering manufacturing',
+    'electrical engineer': 'engineering',
+    'civil engineer': 'engineering construction',
+    'structural engineer': 'engineering construction',
+    'chemical engineer': 'engineering manufacturing',
+    'process engineer': 'engineering manufacturing production',
+    'manufacturing engineer': 'manufacturing production',
+    'quality engineer': 'quality compliance manufacturing',
+    'qa': 'quality compliance',
+    'quality control': 'quality compliance',
+    'quality assurance': 'quality compliance',
+    'production manager': 'production operations manufacturing',
+    'plant manager': 'production operations manufacturing leadership',
+    'factory': 'production operations manufacturing',
+    'maintenance': 'production operations',
+    'technician': 'production operations IT systems',
+    
+    // ==========================================
+    // SUPPLY CHAIN & LOGISTICS
+    // ==========================================
+    'supply chain': 'supply chain procurement logistics',
+    'procurement': 'supply chain procurement',
+    'buyer': 'supply chain procurement',
+    'purchasing': 'supply chain procurement',
+    'sourcing': 'supply chain procurement',
+    'logistics': 'logistics distribution',
+    'warehouse': 'logistics distribution',
+    'distribution': 'logistics distribution',
+    'inventory': 'logistics supply chain',
+    'transport': 'logistics distribution',
+    'shipping': 'logistics distribution',
+    'freight': 'logistics distribution',
+    'driver': 'logistics distribution',
+    'delivery': 'logistics distribution',
+    'courier': 'logistics distribution',
+    'fleet': 'logistics distribution',
+    
+    // ==========================================
+    // RETAIL & HOSPITALITY
+    // ==========================================
+    'retail': 'retail operations',
+    'store manager': 'retail operations leadership',
+    'shop': 'retail operations',
+    'cashier': 'retail operations support',
+    'merchandiser': 'retail operations FMCG',
+    'visual merchandiser': 'retail operations',
+    'ecommerce': 'e-commerce retail',
+    'e-commerce': 'e-commerce retail',
+    'online retail': 'e-commerce',
+    'hotel': 'hospitality travel',
+    'hospitality': 'hospitality travel',
+    'restaurant': 'hospitality travel',
+    'chef': 'hospitality travel',
+    'waiter': 'hospitality travel',
+    'bartender': 'hospitality travel',
+    'concierge': 'hospitality travel',
+    'front desk': 'hospitality travel retail',
+    'receptionist': 'hospitality travel',
+    'travel agent': 'hospitality travel',
+    'tour guide': 'hospitality travel',
+    'flight attendant': 'hospitality travel',
+    'cabin crew': 'hospitality travel',
+    'airline': 'hospitality travel',
+    'event manager': 'hospitality travel marketing',
+    'event planner': 'hospitality travel marketing',
+    
+    // ==========================================
+    // CONSTRUCTION & PROPERTY
+    // ==========================================
+    'architect': 'construction property engineering design',
+    'surveyor': 'construction property',
+    'quantity surveyor': 'construction property',
+    'site manager': 'construction property',
+    'project manager': 'construction property project',
+    'foreman': 'construction property production',
+    'builder': 'construction property',
+    'contractor': 'construction property',
+    'plumber': 'construction property',
+    'electrician': 'construction property',
+    'carpenter': 'construction property',
+    'property manager': 'construction property',
+    'facilities': 'construction property operations',
+    'facilities manager': 'construction property operations',
+    
+    // ==========================================
+    // ENERGY & UTILITIES
+    // ==========================================
+    'oil': 'oil gas energy',
+    'gas': 'oil gas energy',
+    'petroleum': 'oil gas energy',
+    'drilling': 'oil gas energy',
+    'offshore': 'oil gas energy',
+    'renewables': 'renewables energy',
+    'solar': 'renewables energy',
+    'wind': 'renewables energy',
+    'sustainability': 'renewables energy',
+    'energy': 'utilities energy',
+    'utilities': 'utilities power water',
+    'power': 'utilities energy',
+    'electricity': 'utilities energy',
+    'water': 'utilities',
+    'telecoms': 'utilities IT',
+    'telecommunications': 'utilities IT',
+    
+    // ==========================================
+    // PUBLIC SECTOR & GOVERNMENT
+    // ==========================================
+    'government': 'civil service public sector government',
+    'civil servant': 'government public sector civil service',
+    'public sector': 'government civil service',
+    'policy': 'government civil service consulting',
+    'diplomat': 'international organisations government',
+    'foreign office': 'international organisations government',
+    'military': 'government public sector',
+    'police': 'government public sector',
+    'firefighter': 'government public sector',
+    'customs': 'government public sector',
+    'immigration': 'government public sector',
+    
+    // ==========================================
+    // NON-PROFIT & CHARITY
+    // ==========================================
+    'charity': 'NGO non-profit charities',
+    'nonprofit': 'NGO charity charities',
+    'non-profit': 'NGO charity charities',
+    'ngo': 'NGO charity international',
+    'fundraiser': 'NGO charity',
+    'fundraising': 'NGO charity',
+    'volunteer coordinator': 'NGO charity',
+    'programme manager': 'NGO charity project',
+    'development officer': 'NGO charity',
+    'aid worker': 'NGO charity international',
+    'humanitarian': 'NGO charity international',
+    
+    // ==========================================
+    // RESEARCH & SCIENCE
+    // ==========================================
+    'researcher': 'research biotech academia',
+    'scientist': 'research biotech pharmaceuticals',
+    'research scientist': 'research biotech',
+    'lab technician': 'research biotech pharmaceuticals',
+    'laboratory': 'research biotech pharmaceuticals',
+    'biologist': 'research biotech',
+    'chemist': 'research biotech pharmaceuticals',
+    'physicist': 'research academia',
+    'clinical trial': 'research pharmaceuticals',
+    'r&d': 'research biotech',
+    'research development': 'research biotech',
+    
+    // ==========================================
+    // EXECUTIVE & LEADERSHIP
+    // ==========================================
+    'manager': 'management leadership operations',
+    'director': 'leadership strategy',
+    'executive': 'leadership strategy',
+    'ceo': 'leadership strategy',
+    'cfo': 'leadership strategy finance',
+    'cto': 'leadership strategy technology',
+    'coo': 'leadership strategy operations',
+    'cmo': 'leadership strategy marketing',
+    'vp': 'leadership strategy',
+    'vice president': 'leadership strategy',
+    'head of': 'leadership strategy',
+    'chief': 'leadership strategy',
+    'board': 'leadership strategy',
+    'chairman': 'leadership strategy',
+    'founder': 'leadership strategy',
+    'entrepreneur': 'leadership strategy',
+    'owner': 'leadership strategy',
+    
+    // ==========================================
+    // ADMINISTRATIVE & OFFICE
+    // ==========================================
+    'admin': 'operations support',
+    'administrator': 'operations support',
+    'administrative assistant': 'operations support',
+    'executive assistant': 'operations support leadership',
+    'pa': 'operations support leadership',
+    'personal assistant': 'operations support leadership',
+    'office manager': 'operations support',
+    'secretary': 'operations support',
+    'clerk': 'operations support',
+    'receptionist': 'operations support hospitality',
+    'data entry': 'operations support',
+    
+    // ==========================================
+    // CUSTOMER SERVICE & SUPPORT
+    // ==========================================
+    'customer service': 'support service',
+    'customer support': 'support service',
+    'call center': 'support service',
+    'call centre': 'support service',
+    'contact center': 'support service',
+    'contact centre': 'support service',
+    'customer success': 'support service client',
+    'client services': 'support service client',
+    'customer experience': 'support service',
+    'complaints': 'support service',
+    'after sales': 'support service'
+};
+
+function handleSearch(query) {
+    const resultsContainer = document.getElementById('search-results');
+    
+    if (query.length < 2) {
+        resultsContainer.style.display = 'none';
+        return;
+    }
+    
+    let q = query.toLowerCase();
+    
+    // Expand query with aliases
+    let expandedQuery = q;
+    for (const [alias, expansion] of Object.entries(searchAliases)) {
+        if (q.includes(alias)) {
+            expandedQuery += ' ' + expansion;
+        }
+    }
+    
+    const results = [];
+    
+    // Search through all scenarios
+    sectors.forEach(sector => {
+        sector.subsectors.forEach(sub => {
+            functions.forEach(func => {
+                const key = `${sub.id}-${func.id}`;
+                const scenario = scenarios[key];
+                
+                // Check if query matches sector, subsector, function, or scenario
+                const searchText = `${sector.name} ${sector.description} ${sub.name} ${sub.description} ${func.name} ${func.description} ${scenario}`.toLowerCase();
+                
+                // Check against expanded query terms
+                const queryTerms = expandedQuery.split(' ').filter(t => t.length > 1);
+                const matches = queryTerms.some(term => searchText.includes(term));
+                
+                if (matches) {
+                    results.push({
+                        key: key,
+                        scenario: scenario,
+                        sector: sector.name,
+                        subsector: sub.name,
+                        func: func.name
+                    });
+                }
+            });
+        });
+    });
+    
+    // Display results
+    if (results.length === 0) {
+        resultsContainer.innerHTML = `<div style="padding: 20px; color: var(--mid-gray);">No scenarios found for "${query}". Try a different term or browse below.</div>`;
+        resultsContainer.style.display = 'block';
+    } else {
+        const limitedResults = results.slice(0, 15); // Show max 15 results
+        resultsContainer.innerHTML = `
+            <div style="padding: 15px 20px; background: var(--off-white); border-bottom: 1px solid var(--warm-gray); font-size: 0.85rem; color: var(--mid-gray);">
+                ${results.length} scenario${results.length === 1 ? '' : 's'} found ${results.length > 15 ? '(showing first 15)' : ''}
+            </div>
+            ${limitedResults.map(r => `
+                <div onclick="openModal('${r.key}')" style="padding: 18px 20px; border-bottom: 1px solid var(--warm-gray); cursor: pointer; transition: background 0.2s;" 
+                    onmouseover="this.style.background='var(--off-white)'" onmouseout="this.style.background='white'">
+                    <div style="font-weight: 500; margin-bottom: 8px; line-height: 1.4;">${r.scenario}</div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <span style="font-size: 0.75rem; padding: 3px 10px; background: var(--warm-gray); color: var(--mid-gray);">${r.subsector}</span>
+                        <span style="font-size: 0.75rem; padding: 3px 10px; background: var(--accent); color: white;">${r.func}</span>
+                    </div>
+                </div>
+            `).join('')}
+        `;
+        resultsContainer.style.display = 'block';
+    }
+}
+
+// Close search results when clicking elsewhere
+document.addEventListener('click', function(e) {
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+        searchResults.style.display = 'none';
+    }
+});
+
+// ============================================
+// INIT
+// ============================================
+
+renderSectorGrid();
+renderFunctionGrid();
+renderMatrix();
+</script>
+
+</body>
+</html>
