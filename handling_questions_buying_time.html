@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handling Questions and Buying Time | B1 Business English</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 1.8em; margin-bottom: 10px; }
+        .header p { opacity: 0.9; font-size: 1.1em; }
+        .lesson-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 15px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+            overflow-x: auto;
+        }
+        .tab {
+            flex: 1;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 0.9em;
+            color: #666;
+            transition: all 0.3s;
+            min-width: 100px;
+        }
+        .tab:hover { background: #e9ecef; }
+        .tab.active {
+            background: white;
+            color: #1e3a5f;
+            font-weight: bold;
+            border-bottom: 3px solid #2d5a87;
+        }
+
+        /* Content */
+        .content { padding: 30px; display: none; }
+        .content.active { display: block; }
+        h2 { color: #1e3a5f; margin-bottom: 20px; font-size: 1.5em; }
+        h3 { color: #2d5a87; margin: 20px 0 10px; }
+        p { margin-bottom: 15px; color: #444; line-height: 1.7; }
+
+        /* Question Box */
+        .question-box {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            font-size: 1.2em;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Stats */
+        .stat-box {
+            background: #f0f7ff;
+            border-left: 4px solid #2d5a87;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #1e3a5f;
+        }
+        .stat-source {
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        /* Stories */
+        .story-box {
+            background: #fff;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .story-box h4 {
+            color: #1e3a5f;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        /* Expression Cards */
+        .expression-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        .expression-card:hover {
+            border-color: #2d5a87;
+            transform: translateY(-2px);
+        }
+        .expression-card.revealed {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+        }
+        .expression-card.revealed h3 { color: white; }
+        .expression-card.revealed .click-hint { display: none; }
+        .expression-number {
+            display: inline-block;
+            background: #2d5a87;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .expression-card.revealed .expression-number {
+            background: rgba(255,255,255,0.3);
+        }
+        .click-hint {
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 10px;
+        }
+        .expression-details {
+            display: none;
+            margin-top: 20px;
+        }
+        .expression-card.revealed .expression-details { display: block; }
+        
+        .detail-section {
+            background: rgba(255,255,255,0.15);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        .detail-section h4 {
+            font-size: 0.9em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        /* Now You Try Box */
+        .now-you-try {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .now-you-try h4 {
+            color: #b45309;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        .now-you-try p {
+            color: #92400e;
+            margin-bottom: 10px;
+        }
+        .scaffold-box {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        .scaffold-box p {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+        }
+        .scaffold-phrase {
+            display: inline-block;
+            background: #fef3c7;
+            padding: 5px 12px;
+            border-radius: 5px;
+            margin: 3px;
+            font-weight: 500;
+            color: #92400e;
+        }
+
+        /* Discussion Cards */
+        .discussion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .discussion-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .discussion-card:hover {
+            border-color: #2d5a87;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .discussion-card.selected {
+            border-color: #2d5a87;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
+        }
+        .card-number {
+            display: inline-block;
+            background: #2d5a87;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .discussion-card h3 {
+            color: #1e3a5f;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .discussion-card p {
+            font-size: 0.95em;
+            color: #555;
+        }
+        .vocab-hint {
+            background: #f0f7ff;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            color: #2d5a87;
+            margin-top: 10px;
+        }
+
+        /* Timer */
+        .timer-section {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .timer-display {
+            font-size: 4em;
+            font-weight: bold;
+            color: #1e3a5f;
+            margin: 20px 0;
+            font-family: monospace;
+        }
+        .timer-display.warning { color: #f59e0b; }
+        .timer-display.danger { color: #dc2626; animation: pulse 1s infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .timer-btn {
+            padding: 12px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        .timer-btn.start {
+            background: #10b981;
+            color: white;
+        }
+        .timer-btn.stop {
+            background: #ef4444;
+            color: white;
+        }
+        .timer-btn.reset {
+            background: #6b7280;
+            color: white;
+        }
+        .timer-btn:hover { transform: scale(1.05); }
+
+        /* Challenge Cards */
+        .challenge-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .challenge-card:hover {
+            border-color: #2d5a87;
+        }
+        .challenge-card.selected {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        /* Summary Grid */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .summary-item {
+            background: #f0f7ff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .summary-item .phrase {
+            font-weight: bold;
+            color: #1e3a5f;
+            font-size: 1.1em;
+        }
+        .summary-item .use {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e9ecef;
+        }
+        .nav-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        .nav-btn.prev {
+            background: #e9ecef;
+            color: #666;
+        }
+        .nav-btn.next {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+        }
+        .nav-btn:hover { transform: scale(1.05); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tabs { flex-wrap: wrap; }
+            .tab { min-width: 33%; font-size: 0.8em; padding: 10px 5px; }
+            .header h1 { font-size: 1.4em; }
+            .content { padding: 20px; }
+            .timer-display { font-size: 3em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="lesson-tag">B1 Business English | Lesson 4 of 6</div>
+            <h1>Handling Questions and Buying Time</h1>
+            <p>What to say when you don't know the answer</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab(0)">The Hook</button>
+            <button class="tab" onclick="showTab(1)">Phrases A</button>
+            <button class="tab" onclick="showTab(2)">Phrases B</button>
+            <button class="tab" onclick="showTab(3)">Your Turn</button>
+            <button class="tab" onclick="showTab(4)">Deep Dive</button>
+            <button class="tab" onclick="showTab(5)">Wrap-Up</button>
+        </div>
+
+        <!-- TAB 1: THE HOOK -->
+        <div class="content active">
+            <h2>The Hook: When You Don't Know the Answer</h2>
+            
+            <div class="question-box">
+                You're in a meeting. A client asks you a question.<br>
+                You don't know the answer.<br><br>
+                <strong>What do you do?</strong>
+            </div>
+
+            <p>This happens to everyone. CEOs, managers, experts - nobody knows everything. The difference between good professionals and great professionals? <strong>How they handle it.</strong></p>
+
+            <div class="stat-box">
+                <div class="stat-number">73%</div>
+                <p>of business professionals say they have felt "panic" when asked a question they couldn't answer in a meeting.</p>
+                <div class="stat-source">Source: LinkedIn Workplace Survey, 2023</div>
+            </div>
+
+            <h3>The Problem: Silence</h3>
+            <p>When we don't know an answer, our brain freezes. In our own language, we can say "Hmm, let me think about that." But in English? Many people just... stop talking. This looks bad. It makes you seem unprepared.</p>
+
+            <div class="stat-box">
+                <div class="stat-number">4 sec</div>
+                <p>Four seconds of silence feels like one minute in a business meeting. After 4 seconds of silence, people start to feel uncomfortable.</p>
+                <div class="stat-source">Source: University of Cambridge Communication Studies</div>
+            </div>
+
+            <div class="story-box">
+                <h4>Marco's Story - Milan, Italy</h4>
+                <p>Marco is a sales director for a food packaging company. He was in a video call with German buyers. They asked: "What is your carbon footprint per unit?" Marco didn't know. He said nothing for 5 seconds. Then he said "I... um... I don't..." The Germans looked at each other. Marco felt terrible. He lost the deal.</p>
+                <p><strong>Later, Marco learned:</strong> "If I had just said 'That's a great question - I can get you that number today' - they would have respected me. Silence made me look unprepared. Having a phrase ready makes you look professional."</p>
+            </div>
+
+            <div class="story-box">
+                <h4>Anna's Story - Warsaw, Poland</h4>
+                <p>Anna runs a small pet food company (like you!). She was meeting with a UK supermarket buyer. The buyer asked: "What's your monthly production capacity?" Anna wasn't 100% sure of the exact number. Instead of guessing wrong, she said: "Good question. I want to give you the exact number, so let me check and email you this afternoon." The buyer smiled and said "That's fine - I appreciate accuracy."</p>
+                <p><strong>Anna got the contract.</strong> The buyer later told her: "I liked that you didn't make up a number. I can trust you."</p>
+            </div>
+
+            <h3>The Secret: It's Not What You Know</h3>
+            <p>Good professionals know one important thing: <strong>it's OK not to know everything.</strong> What matters is HOW you respond.</p>
+
+            <div class="stat-box">
+                <div class="stat-number">89%</div>
+                <p>of managers say they respect employees MORE when they honestly say "I don't know, but I'll find out" instead of guessing or staying silent.</p>
+                <div class="stat-source">Source: European Management Review, 2022</div>
+            </div>
+
+            <p>In this lesson, you'll learn <strong>5 simple phrases</strong> that help you:</p>
+            <ul style="margin-left: 20px; color: #444;">
+                <li>Buy time to think</li>
+                <li>Ask for clarification</li>
+                <li>Admit you don't know (professionally)</li>
+                <li>Promise to find the answer</li>
+            </ul>
+
+            <div class="nav-buttons">
+                <div></div>
+                <button class="nav-btn next" onclick="showTab(1)">Learn the Phrases</button>
+            </div>
+        </div>
+
+        <!-- TAB 2: LANGUAGE FOCUS A -->
+        <div class="content">
+            <h2>Phrases A: Buy Time and Ask for Help</h2>
+            <p>Click each card to learn the phrase, then practice with "Now You Try."</p>
+
+            <div class="expression-card" onclick="toggleCard(this)">
+                <h3><span class="expression-number">1</span> "That's a good question. Let me think..."</h3>
+                <p class="click-hint">Click to learn more</p>
+                <div class="expression-details">
+                    <div class="detail-section">
+                        <h4>When to use it</h4>
+                        <p>When you need a few seconds to think. This phrase buys you time AND makes the other person feel good (you called their question "good").</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4>How to say it</h4>
+                        <p><strong>That's a GOOD question.</strong> (pause) <strong>Let me THINK...</strong></p>
+                        <p>Say "good" with emphasis. Then pause. This gives you 3-4 seconds to think!</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4>Example</h4>
+                        <p><em>Client: "How long until you can deliver to our warehouse in Germany?"</em></p>
+                        <p><em>You: "That's a good question. Let me think... I believe it's about 5-7 working days, but I can confirm that."</em></p>
+                    </div>
+                    <div class="now-you-try">
+                        <h4>NOW YOU TRY</h4>
+                        <p><strong>Situation:</strong> A supplier asks you: "What percentage of your sales come from online?"</p>
+                        <p>You're not 100% sure. Use the phrase to buy time, then give an approximate answer.</p>
+                        <div class="scaffold-box">
+                            <p><strong>Start with:</strong></p>
+                            <span class="scaffold-phrase">That's a good question. Let me think...</span>
+                            <p style="margin-top: 10px;"><strong>Then say something like:</strong></p>
+                            <span class="scaffold-phrase">I think it's about...</span>
+                            <span class="scaffold-phrase">If I remember correctly...</span>
+                            <span class="scaffold-phrase">I believe it's around...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expression-card" onclick="toggleCard(this)">
+                <h3><span class="expression-number">2</span> "Sorry, can you say that again?"</h3>
+                <p class="click-hint">Click to learn more</p>
+                <div class="expression-details">
+                    <div class="detail-section">
+                        <h4>When to use it</h4>
+                        <p>When you didn't hear clearly, or when you need more time. Asking someone to repeat gives you extra seconds to think. It's also completely normal - even native speakers do this!</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4>How to say it</h4>
+                        <p><strong>Sorry, can you say that again?</strong></p>
+                        <p>Say "sorry" quickly and politely. Stress "again" at the end.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4>Variations</h4>
+                        <p><em>"Sorry, could you repeat that?"</em> (slightly more formal)</p>
+                        <p><em>"Sorry, I didn't catch that."</em> (very natural)</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4>Example</h4>
+                        <p><em>Partner: "What's your position on the new EU packaging regulations?"</em></p>
+                        <p><em>You: "Sorry, can you say that again? The connection wasn't clear."</em></p>
+                    </div>
+                    <div class="now-you-try">
+                        <h4>NOW YOU TRY</h4>
+                        <p><strong>Situation:</strong> You're on a video call. A client asks a long question about shipping costs. You heard the question, but you need time to think. Ask them to repeat it.</p>
+                        <div class="scaffold-box">
+                            <p><strong>Choose one:</strong></p>
+                            <span class="scaffold-phrase">Sorry, can you say that again?</span>
+                            <span class="scaffold-phrase">Sorry, could you repeat that?</span>
+                            <span class="scaffold-phrase">Sorry, I didn't catch that.</span>
+                            <p style="margin-top: 10px;"><strong>Optional - add a reason:</strong></p>
+                            <span class="scaffold-phrase">The audio cut out for a moment.</span>
+                            <span class="scaffold-phrase">I want to make sure I understand correctly.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expression-card" onclick="toggleCard(this)">
+                <h3><span class="expression-number">3</span> "What do you mean by [X]?"</h3>
+                <p class="click-hint">Click to learn more</p>
+                <div class="expression-details">
+                    <div class="detail-section">
+                        <h4>When to use it</h4>
+                        <p>When someone uses a word or idea you don't understand. This is SMART - it shows you want to give a good answer. It also buys you thinking time.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4>How to say it</h4>
+                        <p><strong>What do you MEAN by [word/phrase]?</strong></p>
+                        <p>Stress "mean" slightly. Put the confusing word at the end.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4>Example</h4>
+                        <p><em>Buyer: "What's your sustainability roadmap?"</em></p>
+                        <p><em>You: "What do you mean by 'roadmap'? Do you mean our plans for the next year, or longer term?"</em></p>
+                    </div>
+                    <div class="now-you-try">
+                        <h4>NOW YOU TRY</h4>
+                        <p><strong>Situation:</strong> A business partner says: "We need to discuss your go-to-market strategy for Poland."</p>
+                        <p>You're not sure what "go-to-market strategy" means exactly. Ask for clarification.</p>
+                        <div class="scaffold-box">
+                            <p><strong>Start with:</strong></p>
+                            <span class="scaffold-phrase">What do you mean by "go-to-market strategy"?</span>
+                            <p style="margin-top: 10px;"><strong>Then you can add:</strong></p>
+                            <span class="scaffold-phrase">Do you mean how we plan to sell there?</span>
+                            <span class="scaffold-phrase">Are you asking about our sales plan?</span>
+                            <span class="scaffold-phrase">Do you mean our marketing approach?</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(0)">Back</button>
+                <button class="nav-btn next" onclick="showTab(2)">More Phrases</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: LANGUAGE FOCUS B -->
+        <div class="content">
+            <h2>Phrases B: When You Really Don't Know</h2>
+            <p>These phrases are for when you truly don't have the answer. Being honest is always better than guessing!</p>
+
+            <div class="expression-card" onclick="toggleCard(this)">
+                <h3><span class="expression-number">4</span> "I'm not sure, but I can check and tell you later."</h3>
+                <p class="click-hint">Click to learn more</p>
+                <div class="expression-details">
+                    <div class="detail-section">
+                        <h4>When to use it</h4>
+                        <p>When you don't know the answer but you CAN find it. This shows you're honest AND professional - you'll follow up.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4>How to say it</h4>
+                        <p><strong>I'm not sure, but I can CHECK and tell you LATER.</strong></p>
+                        <p>Be specific about WHEN you'll tell them if possible.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4>Variations</h4>
+                        <p><em>"I'm not sure, but I can find out and email you today."</em></p>
+                        <p><em>"I'm not sure, but I can check with my team and get back to you."</em></p>
+                        <p><em>"I don't have that number with me, but I can send it this afternoon."</em></p>
+                    </div>
+                    <div class="detail-section">
+                        <h4>Example</h4>
+                        <p><em>Client: "What's the protein percentage in your premium dog food?"</em></p>
+                        <p><em>You: "I'm not sure of the exact number, but I can check and email you this afternoon. Is that OK?"</em></p>
+                    </div>
+                    <div class="now-you-try">
+                        <h4>NOW YOU TRY</h4>
+                        <p><strong>Situation:</strong> A potential buyer asks: "How many retail stores in France currently stock your products?"</p>
+                        <p>You don't know the exact number. Respond professionally.</p>
+                        <div class="scaffold-box">
+                            <p><strong>Start with:</strong></p>
+                            <span class="scaffold-phrase">I'm not sure of the exact number...</span>
+                            <span class="scaffold-phrase">I don't have that figure with me...</span>
+                            <p style="margin-top: 10px;"><strong>Then promise to follow up:</strong></p>
+                            <span class="scaffold-phrase">...but I can check and email you today.</span>
+                            <span class="scaffold-phrase">...but I can find out and get back to you this week.</span>
+                            <span class="scaffold-phrase">...but I can ask my sales team and let you know.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expression-card" onclick="toggleCard(this)">
+                <h3><span class="expression-number">5</span> "Actually, I don't know. Let me find out."</h3>
+                <p class="click-hint">Click to learn more</p>
+                <div class="expression-details">
+                    <div class="detail-section">
+                        <h4>When to use it</h4>
+                        <p>When you completely don't know something. This is the most honest response. "Actually" shows you're being genuine. Studies show people TRUST this more than a bad guess!</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4>How to say it</h4>
+                        <p><strong>Actually, I don't know. Let me find out.</strong></p>
+                        <p>Say "actually" to show you're being honest. Keep your voice confident - not knowing is OK!</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4>Why this works</h4>
+                        <p>Many people try to hide when they don't know something. But business partners can usually tell when you're guessing. Being honest builds trust. Saying "Let me find out" shows you're professional.</p>
+                    </div>
+                    <div class="detail-section">
+                        <h4>Example</h4>
+                        <p><em>Investor: "What's your customer acquisition cost?"</em></p>
+                        <p><em>You: "Actually, I don't know that number exactly. Let me find out from my finance team and include it in my follow-up email."</em></p>
+                    </div>
+                    <div class="now-you-try">
+                        <h4>NOW YOU TRY</h4>
+                        <p><strong>Situation:</strong> A distributor asks: "What percentage of pet food sales in Europe are online versus in stores?"</p>
+                        <p>This is about the whole market, not your company. You really don't know. Respond honestly.</p>
+                        <div class="scaffold-box">
+                            <p><strong>Be honest:</strong></p>
+                            <span class="scaffold-phrase">Actually, I don't know.</span>
+                            <span class="scaffold-phrase">To be honest, I'm not sure about the whole market.</span>
+                            <p style="margin-top: 10px;"><strong>Then offer to help:</strong></p>
+                            <span class="scaffold-phrase">Let me find out.</span>
+                            <span class="scaffold-phrase">I can research that and send you what I find.</span>
+                            <span class="scaffold-phrase">I can ask our industry association.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Quick Summary: All 5 Phrases</h3>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="phrase">"That's a good question. Let me think..."</div>
+                    <div class="use">Buy time</div>
+                </div>
+                <div class="summary-item">
+                    <div class="phrase">"Sorry, can you say that again?"</div>
+                    <div class="use">Get more time</div>
+                </div>
+                <div class="summary-item">
+                    <div class="phrase">"What do you mean by [X]?"</div>
+                    <div class="use">Clarify</div>
+                </div>
+                <div class="summary-item">
+                    <div class="phrase">"I'm not sure, but I can check..."</div>
+                    <div class="use">Promise to follow up</div>
+                </div>
+                <div class="summary-item">
+                    <div class="phrase">"Actually, I don't know. Let me find out."</div>
+                    <div class="use">Be honest</div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(1)">Back</button>
+                <button class="nav-btn next" onclick="showTab(3)">Practice Speaking</button>
+            </div>
+        </div>
+
+        <!-- TAB 4: YOUR TURN -->
+        <div class="content">
+            <h2>Your Turn: Discussion Practice</h2>
+            <p>Choose 2-3 cards to discuss. Try to use the 5 phrases naturally in your answers!</p>
+
+            <div class="discussion-grid">
+                <div class="discussion-card" onclick="selectCard(this)">
+                    <div class="card-number">1</div>
+                    <h3>The Investor Meeting</h3>
+                    <p>Imagine you're meeting a potential investor. They ask you: "What's your 5-year revenue projection?" You haven't calculated this exactly yet. How do you respond?</p>
+                    <div class="vocab-hint">Try: "That's a good question..." or "I'm not sure, but I can..."</div>
+                </div>
+
+                <div class="discussion-card" onclick="selectCard(this)">
+                    <div class="card-number">2</div>
+                    <h3>The Technical Question</h3>
+                    <p>A German buyer asks you about the "bioavailability of nutrients" in your pet food. You're not sure what this means. What do you say?</p>
+                    <div class="vocab-hint">Try: "What do you mean by...?" or "Sorry, can you say that again?"</div>
+                </div>
+
+                <div class="discussion-card" onclick="selectCard(this)">
+                    <div class="card-number">3</div>
+                    <h3>The Competitor Question</h3>
+                    <p>A client asks: "How does your price compare to [competitor name]?" You don't know their exact prices. How do you handle this professionally?</p>
+                    <div class="vocab-hint">Try: "Actually, I don't know..." or "I'm not sure, but I can check..."</div>
+                </div>
+
+                <div class="discussion-card" onclick="selectCard(this)">
+                    <div class="card-number">4</div>
+                    <h3>The Fast Question</h3>
+                    <p>You're in a video call with a British client. They speak very fast and ask a complicated question about delivery times. You didn't understand everything. What do you do?</p>
+                    <div class="vocab-hint">Try: "Sorry, can you say that again?" or "What do you mean by...?"</div>
+                </div>
+
+                <div class="discussion-card" onclick="selectCard(this)">
+                    <div class="card-number">5</div>
+                    <h3>The Difficult Client</h3>
+                    <p>A client asks: "Why should I choose your company instead of the bigger, cheaper options?" This is a hard question. You need time to think of a good answer. How do you start?</p>
+                    <div class="vocab-hint">Try: "That's a good question. Let me think..."</div>
+                </div>
+
+                <div class="discussion-card" onclick="selectCard(this)">
+                    <div class="card-number">6</div>
+                    <h3>Your Real Experience</h3>
+                    <p>Think about a real situation when someone asked you a difficult question in English. What happened? How did you feel? What would you say differently now?</p>
+                    <div class="vocab-hint">Use the 5 phrases to explain what you would say now!</div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(2)">Back</button>
+                <button class="nav-btn next" onclick="showTab(4)">Deep Dive Challenge</button>
+            </div>
+        </div>
+
+        <!-- TAB 5: DEEP DIVE -->
+        <div class="content">
+            <h2>Deep Dive: Extended Speaking Challenge</h2>
+            <p>Choose ONE challenge and speak for the full time. Use the timer!</p>
+
+            <div class="timer-section">
+                <div class="timer-display" id="timer">3:00</div>
+                <div>
+                    <button class="timer-btn start" onclick="startTimer()">Start</button>
+                    <button class="timer-btn stop" onclick="stopTimer()">Stop</button>
+                    <button class="timer-btn reset" onclick="resetTimer()">Reset</button>
+                </div>
+                <div style="margin-top: 15px;">
+                    <button class="timer-btn" onclick="setTime(180)" style="background: #e9ecef; color: #333;">3 min</button>
+                    <button class="timer-btn" onclick="setTime(300)" style="background: #e9ecef; color: #333;">5 min</button>
+                </div>
+            </div>
+
+            <div class="challenge-card" onclick="selectChallenge(this)">
+                <h3>Challenge A: The Q&A Simulation</h3>
+                <p>Imagine you just gave a presentation about your pet food company to potential partners. Now it's Q&A time. Your teacher will ask you 5-6 difficult questions. Use today's phrases to handle them professionally.</p>
+                <p><em>Goal: Use at least 3 different phrases from today's lesson.</em></p>
+            </div>
+
+            <div class="challenge-card" onclick="selectChallenge(this)">
+                <h3>Challenge B: Advice for New Business Owners</h3>
+                <p>A friend is starting a business and will have their first meeting with investors next week. They're nervous about questions they can't answer. Give them advice: What should they say when they don't know something? Share examples from your own experience.</p>
+                <p><em>Goal: Explain all 5 phrases and when to use each one.</em></p>
+            </div>
+
+            <div class="challenge-card" onclick="selectChallenge(this)">
+                <h3>Challenge C: The Honesty Policy</h3>
+                <p>Some people think you should NEVER say "I don't know" in business - you should always give an answer, even if you're not sure. Others say honesty is always best. What do you think? Give reasons and examples.</p>
+                <p><em>Goal: Give your opinion with clear reasons. Use phrases from Lesson 3 (opinions) + today's lesson.</em></p>
+            </div>
+
+            <div class="challenge-card" onclick="selectChallenge(this)">
+                <h3>Challenge D: Culture Differences</h3>
+                <p>In some cultures, saying "I don't know" is seen as weak. In others, it's seen as honest and professional. How is it in your culture? How do you think it is in British or American business culture? What challenges does this create?</p>
+                <p><em>Goal: Compare cultures and discuss challenges for international business.</em></p>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(3)">Back</button>
+                <button class="nav-btn next" onclick="showTab(5)">Wrap Up</button>
+            </div>
+        </div>
+
+        <!-- TAB 6: WRAP-UP -->
+        <div class="content">
+            <h2>Wrap-Up: Today's Key Phrases</h2>
+
+            <div class="question-box">
+                Remember: It's not about knowing everything.<br>
+                It's about handling the unknown <strong>professionally</strong>.
+            </div>
+
+            <h3>Your 5 New Phrases</h3>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="phrase">"That's a good question. Let me think..."</div>
+                    <div class="use">Buys you 3-4 seconds</div>
+                </div>
+                <div class="summary-item">
+                    <div class="phrase">"Sorry, can you say that again?"</div>
+                    <div class="use">Get more thinking time</div>
+                </div>
+                <div class="summary-item">
+                    <div class="phrase">"What do you mean by [X]?"</div>
+                    <div class="use">Clarify confusing words</div>
+                </div>
+                <div class="summary-item">
+                    <div class="phrase">"I'm not sure, but I can check..."</div>
+                    <div class="use">Promise to follow up</div>
+                </div>
+                <div class="summary-item">
+                    <div class="phrase">"Actually, I don't know. Let me find out."</div>
+                    <div class="use">Honest + Professional</div>
+                </div>
+            </div>
+
+            <div class="story-box">
+                <h4>Remember Marco and Anna?</h4>
+                <p><strong>Marco</strong> stayed silent and lost the deal. <strong>Anna</strong> said "Let me check and email you" and got the contract.</p>
+                <p>The difference? <strong>One phrase.</strong></p>
+            </div>
+
+            <h3>Homework Suggestion</h3>
+            <p>This week in a real meeting or call:</p>
+            <ol style="margin-left: 20px; color: #444; line-height: 1.8;">
+                <li>Use <strong>"That's a good question"</strong> at least once (even if you know the answer!)</li>
+                <li>If you don't know something, use <strong>"I'm not sure, but I can check and tell you later"</strong></li>
+                <li>Notice how the other person reacts - they will respect your honesty!</li>
+            </ol>
+
+            <div class="question-box" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                Great work today!<br>
+                Next lesson: Problems and Solutions<br>
+                <span style="font-size: 0.8em; opacity: 0.9;">Lesson 5 of 6</span>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(4)">Back</button>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab Navigation
+        function showTab(index) {
+            document.querySelectorAll('.content').forEach((c, i) => {
+                c.classList.toggle('active', i === index);
+            });
+            document.querySelectorAll('.tab').forEach((t, i) => {
+                t.classList.toggle('active', i === index);
+            });
+            window.scrollTo(0, 0);
+        }
+
+        // Expression Cards
+        function toggleCard(card) {
+            card.classList.toggle('revealed');
+        }
+
+        // Discussion Cards
+        function selectCard(card) {
+            card.classList.toggle('selected');
+        }
+
+        // Challenge Cards
+        function selectChallenge(card) {
+            document.querySelectorAll('.challenge-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+        }
+
+        // Timer
+        let timerInterval;
+        let timeLeft = 180;
+
+        function updateDisplay() {
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            const display = document.getElementById('timer');
+            display.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+            
+            display.classList.remove('warning', 'danger');
+            if (timeLeft <= 10) {
+                display.classList.add('danger');
+            } else if (timeLeft <= 30) {
+                display.classList.add('warning');
+            }
+        }
+
+        function startTimer() {
+            if (!timerInterval) {
+                timerInterval = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateDisplay();
+                    } else {
+                        stopTimer();
+                    }
+                }, 1000);
+            }
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function resetTimer() {
+            stopTimer();
+            timeLeft = 180;
+            updateDisplay();
+        }
+
+        function setTime(seconds) {
+            stopTimer();
+            timeLeft = seconds;
+            updateDisplay();
+        }
+    </script>
+</body>
+</html>
