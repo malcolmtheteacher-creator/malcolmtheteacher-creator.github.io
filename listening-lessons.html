@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listening Practice | Malcolm Hyndman</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --off-white: #f8f7f4;
+            --warm-gray: #e8e6e1;
+            --mid-gray: #6b6b6b;
+            --accent: #1e3a2f;
+            --gold: #b8960b;
+            --b1-color: #2563eb;
+            --b2-color: #7c3aed;
+            --c1-color: #dc2626;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 30px;
+        }
+
+        /* Back Link */
+        .back-link {
+            display: inline-block;
+            color: var(--mid-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        /* Header */
+        h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.4rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        .intro {
+            color: var(--mid-gray);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        /* Section Headers */
+        h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .level-badge.b1 { background: var(--b1-color); }
+        .level-badge.b2 { background: var(--b2-color); }
+        .level-badge.c1 { background: var(--c1-color); }
+
+        /* Lessons Grid */
+        .lessons-section {
+            margin-bottom: 50px;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .lesson-card {
+            background: var(--off-white);
+            padding: 24px;
+            border: 1px solid var(--warm-gray);
+            text-decoration: none;
+            color: var(--black);
+            transition: all 0.2s;
+            display: block;
+            position: relative;
+        }
+
+        .lesson-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .lesson-card .lesson-number {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 28px;
+            height: 28px;
+            background: var(--warm-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--mid-gray);
+        }
+
+        .lesson-card.b1 .lesson-number { background: rgba(37, 99, 235, 0.15); color: var(--b1-color); }
+        .lesson-card.b2 .lesson-number { background: rgba(124, 58, 237, 0.15); color: var(--b2-color); }
+        .lesson-card.c1 .lesson-number { background: rgba(220, 38, 38, 0.15); color: var(--c1-color); }
+
+        .lesson-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            padding-right: 35px;
+        }
+
+        .lesson-desc {
+            color: var(--mid-gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .lesson-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .topic-tag {
+            background: var(--warm-gray);
+            padding: 3px 8px;
+            font-size: 0.75rem;
+            color: var(--mid-gray);
+            border-radius: 3px;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(145deg, #141414 0%, #1f1f1f 100%);
+            padding: 30px;
+            border-radius: 4px;
+            margin-bottom: 40px;
+        }
+
+        .info-box h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.3rem;
+            color: var(--white);
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .info-box p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .info-box ul {
+            color: rgba(255,255,255,0.8);
+            margin-left: 20px;
+            margin-top: 15px;
+        }
+
+        .info-box li {
+            margin-bottom: 8px;
+        }
+
+        /* Source Attribution */
+        .source-note {
+            background: var(--off-white);
+            border: 1px solid var(--warm-gray);
+            padding: 20px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .source-note p {
+            color: var(--mid-gray);
+            font-size: 0.9rem;
+        }
+
+        .source-note a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .source-note a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--warm-gray);
+            color: var(--mid-gray);
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 20px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .info-box {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+        <h1>🎧 Listening Practice</h1>
+        <p class="intro">9 interactive listening lessons from B1 to C1 level. Each lesson includes vocabulary practice, comprehension exercises, and discussion activities based on authentic British Council audio content.</p>
+
+        <div class="info-box">
+            <h3>How to Use These Lessons</h3>
+            <p>Each lesson is designed for teacher-led or self-study use:</p>
+            <ul>
+                <li><strong>The Hook</strong> — Pre-listening activities and context</li>
+                <li><strong>Vocabulary</strong> — Key words with click-to-reveal definitions</li>
+                <li><strong>Comprehension</strong> — Multiple choice questions with instant feedback</li>
+                <li><strong>Discussion</strong> — Speaking activities with built-in timer</li>
+            </ul>
+            <p style="margin-top: 15px;">Audio files are available on the British Council LearnEnglish Teens website.</p>
+        </div>
+
+        <!-- B1 Section -->
+        <section class="lessons-section">
+            <h2><span class="level-badge b1">B1</span> Intermediate Listening</h2>
+            <div class="lessons-grid">
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/listening/B1_Lesson_1_Organising_Your_Time.html" class="lesson-card b1">
+                    <span class="lesson-number">1</span>
+                    <div class="lesson-title">Organising Your Time</div>
+                    <div class="lesson-desc">Learn about the Pomodoro Technique — a powerful time management method used by students worldwide.</div>
+                    <div class="lesson-topics">
+                        <span class="topic-tag">productivity</span>
+                        <span class="topic-tag">study skills</span>
+                    </div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/listening/B1_Lesson_2_Amazing_Facts.html" class="lesson-card b1">
+                    <span class="lesson-number">2</span>
+                    <div class="lesson-title">Amazing Facts</div>
+                    <div class="lesson-desc">Discover incredible facts about the human body — cells, bacteria, and the atoms inside us.</div>
+                    <div class="lesson-topics">
+                        <span class="topic-tag">science</span>
+                        <span class="topic-tag">human body</span>
+                    </div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/listening/B1_Lesson_3_Theme_Parks.html" class="lesson-card b1">
+                    <span class="lesson-number">3</span>
+                    <div class="lesson-title">Theme Parks</div>
+                    <div class="lesson-desc">Explore the world's most exciting theme parks, rollercoasters, and attractions.</div>
+                    <div class="lesson-topics">
+                        <span class="topic-tag">entertainment</span>
+                        <span class="topic-tag">travel</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- B2 Section -->
+        <section class="lessons-section">
+            <h2><span class="level-badge b2">B2</span> Upper Intermediate Listening</h2>
+            <div class="lessons-grid">
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/listening/B2_Lesson_1_Memory_Techniques.html" class="lesson-card b2">
+                    <span class="lesson-number">1</span>
+                    <div class="lesson-title">Memory Techniques</div>
+                    <div class="lesson-desc">Four powerful techniques to improve your memory: association, visualisation, singing, and teaching.</div>
+                    <div class="lesson-topics">
+                        <span class="topic-tag">study skills</span>
+                        <span class="topic-tag">memory</span>
+                    </div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/listening/B2_Lesson_2_Best_Job_In_World.html" class="lesson-card b2">
+                    <span class="lesson-number">2</span>
+                    <div class="lesson-title">The Best Job in the World</div>
+                    <div class="lesson-desc">Six dream jobs in Australia — from outback adventurer to chief funster in Sydney.</div>
+                    <div class="lesson-topics">
+                        <span class="topic-tag">jobs</span>
+                        <span class="topic-tag">travel</span>
+                    </div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/listening/B2_Lesson_3_Maasai_Lions.html" class="lesson-card b2">
+                    <span class="lesson-number">3</span>
+                    <div class="lesson-title">The Maasai and the Lions</div>
+                    <div class="lesson-desc">How the Maasai people transformed from lion hunters to lion protectors through the Lion Guardians scheme.</div>
+                    <div class="lesson-topics">
+                        <span class="topic-tag">conservation</span>
+                        <span class="topic-tag">culture</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- C1 Section -->
+        <section class="lessons-section">
+            <h2><span class="level-badge c1">C1</span> Advanced Listening</h2>
+            <div class="lessons-grid">
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/listening/C1_Lesson_1_False_Information.html" class="lesson-card c1">
+                    <span class="lesson-number">1</span>
+                    <div class="lesson-title">How False Information Spreads</div>
+                    <div class="lesson-desc">Understand circular reporting, the "Brazilian aardvark" hoax, and how to verify online sources.</div>
+                    <div class="lesson-topics">
+                        <span class="topic-tag">media literacy</span>
+                        <span class="topic-tag">critical thinking</span>
+                    </div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/listening/C1_Lesson_2_Sleep_Exam_Success.html" class="lesson-card c1">
+                    <span class="lesson-number">2</span>
+                    <div class="lesson-title">Sleeping for Exam Success</div>
+                    <div class="lesson-desc">The science of sleep and memory consolidation — why good sleep beats last-minute cramming.</div>
+                    <div class="lesson-topics">
+                        <span class="topic-tag">exams</span>
+                        <span class="topic-tag">sleep science</span>
+                    </div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/listening/C1_Lesson_3_Teens_Going_Veggie.html" class="lesson-card c1">
+                    <span class="lesson-number">3</span>
+                    <div class="lesson-title">Teens Going Veggie</div>
+                    <div class="lesson-desc">Five teenagers share their experiences of becoming vegetarian or vegan — health, ethics, and challenges.</div>
+                    <div class="lesson-topics">
+                        <span class="topic-tag">lifestyle</span>
+                        <span class="topic-tag">food</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <div class="source-note">
+            <p>Audio content sourced from <a href="https://learnenglishteens.britishcouncil.org/skills/listening" target="_blank">British Council LearnEnglish Teens</a></p>
+            <p style="margin-top: 8px;">Interactive lessons designed by Malcolm Hyndman</p>
+        </div>
+
+        <footer>
+            <p>Questions? <a href="mailto:malcolmtheteacher@gmail.com">malcolmtheteacher@gmail.com</a></p>
+        </footer>
+    </div>
+</body>
+</html>
