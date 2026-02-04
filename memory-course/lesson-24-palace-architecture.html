@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 24: Multiple Palace Architecture - The Art of Memory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+            color: #000;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .tab-container {
+            display: flex;
+            background: #1a1a1a;
+            border-bottom: 2px solid #d4af37;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px;
+            background: #2d2d2d;
+            border: none;
+            color: #d4af37;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            min-width: 140px;
+        }
+
+        .tab-button:hover {
+            background: #3d3d3d;
+            color: #ffd700;
+        }
+
+        .tab-button.active {
+            background: #d4af37;
+            color: #000;
+            border-bottom-color: #ffd700;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #ffd700;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #c0c0c0;
+        }
+
+        .content-box {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid #d4af37;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+
+        .challenge-box {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid #d4af37;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px 10px 0;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .button.secondary {
+            background: rgba(212, 175, 55, 0.3);
+            color: #d4af37;
+            border: 2px solid #d4af37;
+        }
+
+        .button.secondary:hover {
+            background: rgba(212, 175, 55, 0.5);
+        }
+
+        .palace-network {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .palace-card {
+            background: rgba(212, 175, 55, 0.15);
+            border: 3px solid #d4af37;
+            padding: 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .palace-card:hover {
+            background: rgba(212, 175, 55, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .palace-card h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .palace-card .capacity {
+            color: #d4af37;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .palace-card .theme {
+            color: #c0c0c0;
+            font-size: 0.9em;
+        }
+
+        .network-diagram {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #d4af37;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .network-box {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid #d4af37;
+            padding: 15px 25px;
+            margin: 5px;
+            border-radius: 6px;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .connector {
+            color: #d4af37;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .journey-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.3);
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 2px solid #d4af37;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(212, 175, 55, 0.3);
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .loci-list {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #d4af37;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .loci-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 4px;
+            color: #c0c0c0;
+        }
+
+        .loci-item strong {
+            color: #ffd700;
+        }
+
+        .highlight {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .tip-box {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid #ffd700;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .tip-box strong {
+            color: #ffd700;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #d4af37;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #c0c0c0;
+        }
+
+        @media (max-width: 768px) {
+            .palace-network {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .tab-button {
+                font-size: 0.85em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Lesson 24: Multiple Palace Architecture</h1>
+            <p>Build networked palace systems for large-scale information storage</p>
+        </div>
+
+        <div class="tab-container">
+            <button class="tab-button active" onclick="switchTab('retrieval')">Retrieval</button>
+            <button class="tab-button" onclick="switchTab('content')">New Content</button>
+            <button class="tab-button" onclick="switchTab('practice')">Guided Practice</button>
+            <button class="tab-button" onclick="switchTab('elaboration')">Elaboration</button>
+            <button class="tab-button" onclick="switchTab('independent')">Independent Practice</button>
+            <button class="tab-button" onclick="switchTab('final')">Final Retrieval</button>
+        </div>
+
+        <!-- RETRIEVAL TAB -->
+        <div id="retrieval" class="tab-content active">
+            <h2>Retrieval: Review Single Palace Principles</h2>
+
+            <h3>Memory Palace Foundations</h3>
+            <p>Before scaling to multiple palaces, let's review core principles:</p>
+
+            <div class="challenge-box">
+                <p><strong>Q1: What are the three key principles of a memory palace?</strong></p>
+                <button class="button secondary" onclick="toggleAnswer('q1')">Show Answer</button>
+                <p id="q1" style="display:none; margin-top:10px; color:#ffd700;">
+                    <strong>Answer:</strong> 1) Familiar location, 2) Clear sequential route, 3) Distinct loci (stations/points)
+                </p>
+
+                <p style="margin-top: 20px;"><strong>Q2: How many loci should a typical palace have?</strong></p>
+                <button class="button secondary" onclick="toggleAnswer('q2')">Show Answer</button>
+                <p id="q2" style="display:none; margin-top:10px; color:#ffd700;">
+                    <strong>Answer:</strong> Typically 10-30 loci per palace depending on the location and how detailed you can make the route.
+                </p>
+
+                <p style="margin-top: 20px;"><strong>Q3: What data capacity does a single palace have?</strong></p>
+                <button class="button secondary" onclick="toggleAnswer('q3')">Show Answer</button>
+                <p id="q3" style="display:none; margin-top:10px; color:#ffd700;">
+                    <strong>Answer:</strong> A palace with 20 loci can store 20 PAO pairs (40 2-digit numbers) or 20 Ben system images (60 3-digit numbers).
+                </p>
+            </div>
+
+            <div class="content-box">
+                <h3>Why Multiple Palaces?</h3>
+                <p>Single palaces have limitations:</p>
+                <ul>
+                    <li>Limited capacity (20-30 loci max per palace)</li>
+                    <li>Can only store one "set" of information at a time</li>
+                    <li>Interference when switching between different memory tasks</li>
+                    <li>Memory competition requires vast storage (thousands of numbers)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- NEW CONTENT TAB -->
+        <div id="content" class="tab-content">
+            <h2>Building Palace Networks</h2>
+
+            <h3>The Concept of Palace Networks</h3>
+            <p>A <span class="highlight">palace network</span> is a collection of interconnected memory palaces that function as one large memory system. Elite memorizers use dozens of palaces in organized networks.</p>
+
+            <div class="content-box">
+                <h4 style="color: #ffd700; margin-top: 0;">Network Architecture Principles</h4>
+                <ol>
+                    <li><strong>Organization:</strong> Palaces are grouped by theme, purpose, or location</li>
+                    <li><strong>Connectivity:</strong> Clear links between palaces help recall patterns</li>
+                    <li><strong>Capacity:</strong> Multiple palaces provide exponential storage capacity</li>
+                    <li><strong>Specialization:</strong> Different palaces for different data types</li>
+                </ol>
+            </div>
+
+            <h3>Types of Themed Palaces</h3>
+
+            <div class="palace-network">
+                <div class="palace-card">
+                    <h4>Work Palace</h4>
+                    <p class="theme">Office, workspace, or workplace</p>
+                    <p class="capacity">Capacity: 20-30 loci</p>
+                    <p style="margin-top: 10px; color: #c0c0c0; font-size: 0.9em;">For professional information, project data, meetings</p>
+                </div>
+
+                <div class="palace-card">
+                    <h4>Home Palace</h4>
+                    <p class="theme">Your residence</p>
+                    <p class="capacity">Capacity: 30-50 loci</p>
+                    <p style="margin-top: 10px; color: #c0c0c0; font-size: 0.9em;">For personal information, routines, daily tasks</p>
+                </div>
+
+                <div class="palace-card">
+                    <h4>Vacation Palace</h4>
+                    <p class="theme">Travel destination or resort</p>
+                    <p class="capacity">Capacity: 30-40 loci</p>
+                    <p style="margin-top: 10px; color: #c0c0c0; font-size: 0.9em;">For memories, locations, travel-related data</p>
+                </div>
+
+                <div class="palace-card">
+                    <h4>Fictional Palace</h4>
+                    <p class="theme">Imaginary location from books/movies</p>
+                    <p class="capacity">Capacity: 20-40 loci</p>
+                    <p style="margin-top: 10px; color: #c0c0c0; font-size: 0.9em;">For creative organization, fantasy worlds, competitions</p>
+                </div>
+
+                <div class="palace-card">
+                    <h4>Historical Palace</h4>
+                    <p class="theme">Real historical locations</p>
+                    <p class="capacity">Capacity: 25-35 loci</p>
+                    <p style="margin-top: 10px; color: #c0c0c0; font-size: 0.9em;">For historical events, timelines, archives</p>
+                </div>
+
+                <div class="palace-card">
+                    <h4>Landmark Palace</h4>
+                    <p class="theme">Famous buildings or structures</p>
+                    <p class="capacity">Capacity: 15-30 loci</p>
+                    <p style="margin-top: 10px; color: #c0c0c0; font-size: 0.9em;">For specialized knowledge, monumental information</p>
+                </div>
+            </div>
+
+            <h3>Journey Linking Between Palaces</h3>
+            <p>To create a seamless network, link palaces through "journey transitions":</p>
+
+            <div class="network-diagram">
+                <div class="network-box">Palace 1<br>(Work)</div>
+                <div class="connector">↓ (Exit office, walk down street)</div>
+                <div class="network-box">Palace 2<br>(Café)</div>
+                <div class="connector">↓ (Exit café, travel to home)</div>
+                <div class="network-box">Palace 3<br>(Home)</div>
+                <div class="connector">↓ (Exit home, imagine teleport to resort)</div>
+                <div class="network-box">Palace 4<br>(Resort)</div>
+            </div>
+
+            <h3>Creating Transition Links</h3>
+            <div class="content-box">
+                <p>Each palace ending should transition naturally to the next palace:</p>
+                <ul>
+                    <li><strong>Visual link:</strong> Imagine a visual pathway between palace exits/entrances</li>
+                    <li><strong>Physical movement:</strong> Use real or imagined travel routes</li>
+                    <li><strong>Thematic connection:</strong> Group related palaces together (all work-related, all vacation, etc.)</li>
+                    <li><strong>Story continuation:</strong> Treat the whole network as one continuous journey</li>
+                </ul>
+
+                <div class="tip-box">
+                    <strong>Pro Tip:</strong> Create a "master map" showing all your palaces and their connection points. Review it weekly.
+                </div>
+            </div>
+
+            <h3>Information Storage Across Networks</h3>
+
+            <div class="table-container" style="overflow-x: auto; margin: 20px 0;">
+                <table class="journey-table">
+                    <thead>
+                        <tr>
+                            <th>Network Type</th>
+                            <th>Number of Palaces</th>
+                            <th>Total Loci</th>
+                            <th>Data Capacity (PAO)</th>
+                            <th>Data Capacity (Ben)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Small Network</td>
+                            <td>3-5</td>
+                            <td>80-150</td>
+                            <td>160-300 (2-digit pairs)</td>
+                            <td>80-150 (3-digit triples)</td>
+                        </tr>
+                        <tr>
+                            <td>Medium Network</td>
+                            <td>5-10</td>
+                            <td>150-300</td>
+                            <td>300-600 (2-digit pairs)</td>
+                            <td>150-300 (3-digit triples)</td>
+                        </tr>
+                        <tr>
+                            <td>Large Network</td>
+                            <td>10-20</td>
+                            <td>300-600</td>
+                            <td>600-1200 (2-digit pairs)</td>
+                            <td>300-600 (3-digit triples)</td>
+                        </tr>
+                        <tr>
+                            <td>Elite Network</td>
+                            <td>20+</td>
+                            <td>600+</td>
+                            <td>1200+ (2-digit pairs)</td>
+                            <td>600+ (3-digit triples)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Large-Scale Information Storage Strategy</h3>
+            <div class="content-box">
+                <h4 style="color: #ffd700; margin-top: 0;">For Memorizing a Complete Deck (52 cards)</h4>
+                <p>A single palace with 26 loci can store all 52 cards (using PAO with 2 cards per locus):</p>
+                <ul>
+                    <li>13 loci for one card each (person)</li>
+                    <li>13 loci for another card each (action)</li>
+                    <li>Or: Create a secondary palace for overflow</li>
+                </ul>
+
+                <h4 style="color: #ffd700; margin-top: 15px;">For Memorizing 1000 Digits</h4>
+                <p>Using Ben System (3-digit numbers):</p>
+                <ul>
+                    <li>333 Ben images × 3 loci per image = 999 loci needed</li>
+                    <li>Build a network of 30-50 palaces (30-50 loci each)</li>
+                    <li>Organize by theme or group (competitions, historical, etc.)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- GUIDED PRACTICE TAB -->
+        <div id="practice" class="tab-content">
+            <h2>Guided Palace Network Design</h2>
+
+            <h3>Design Exercise: Your Personal Network</h3>
+            <p>Let's design your first palace network together:</p>
+
+            <div class="challenge-box">
+                <h4 style="color: #ffd700; margin-top: 0;">Step 1: Identify 5 Palaces</h4>
+                <p>Think of 5 locations you know well. List them below:</p>
+
+                <div style="margin: 15px 0;">
+                    <p style="color: #ffd700; font-weight: bold;">Your 5 Palaces:</p>
+                    <ol>
+                        <li>Palace 1: <input type="text" placeholder="e.g., My Office" style="width: 300px;"></li>
+                        <li>Palace 2: <input type="text" placeholder="e.g., My Home" style="width: 300px;"></li>
+                        <li>Palace 3: <input type="text" placeholder="e.g., Local Park" style="width: 300px;"></li>
+                        <li>Palace 4: <input type="text" placeholder="e.g., Coffee Shop" style="width: 300px;"></li>
+                        <li>Palace 5: <input type="text" placeholder="e.g., Gym" style="width: 300px;"></li>
+                    </ol>
+                </div>
+
+                <h4 style="color: #ffd700; margin-top: 20px;">Step 2: Count Loci for Each</h4>
+                <p>Estimate the number of distinct loci in each palace:</p>
+                <table class="journey-table">
+                    <thead>
+                        <tr>
+                            <th>Palace</th>
+                            <th>Number of Loci</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Palace 1</td>
+                            <td><input type="number" placeholder="e.g., 20" style="width: 80px;"></td>
+                        </tr>
+                        <tr>
+                            <td>Palace 2</td>
+                            <td><input type="number" placeholder="e.g., 25" style="width: 80px;"></td>
+                        </tr>
+                        <tr>
+                            <td>Palace 3</td>
+                            <td><input type="number" placeholder="e.g., 15" style="width: 80px;"></td>
+                        </tr>
+                        <tr>
+                            <td>Palace 4</td>
+                            <td><input type="number" placeholder="e.g., 12" style="width: 80px;"></td>
+                        </tr>
+                        <tr>
+                            <td>Palace 5</td>
+                            <td><input type="number" placeholder="e.g., 18" style="width: 80px;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4 style="color: #ffd700; margin-top: 20px;">Step 3: Map Transitions</h4>
+                <p>How will you travel from one palace to the next?</p>
+                <p>Palace 1 → Palace 2: <input type="text" placeholder="e.g., Walk out of office, drive to home"></p>
+                <p>Palace 2 → Palace 3: <input type="text" placeholder="e.g., Exit home, walk to park"></p>
+                <p>Palace 3 → Palace 4: <input type="text" placeholder="e.g., Leave park, go to coffee shop"></p>
+                <p>Palace 4 → Palace 5: <input type="text" placeholder="e.g., Leave café, go to gym"></p>
+
+                <button class="button" onclick="alert('Save your network design!')">Save My Network</button>
+            </div>
+
+            <h3>Practice: Encoding Across Palaces</h3>
+            <div class="challenge-box">
+                <p><strong>Memorize this 10-digit sequence across two palaces (first 5 digits in Palace 1, next 5 in Palace 2):</strong></p>
+                <p style="font-size: 1.2em; color: #d4af37; font-weight: bold; margin: 15px 0;">47 23 91 56 82</p>
+
+                <p><strong>Palace 1 Loci:</strong> Entrance, Desk, Desk Lamp, Coffee Cup, Window</p>
+                <p><strong>Palace 2 Loci:</strong> Door, Couch, TV, Bookshelf, Window</p>
+
+                <p style="margin-top: 20px;"><strong>Your Encoding:</strong></p>
+                <textarea placeholder="Describe how you would encode these numbers across both palaces" style="height: 100px;"></textarea>
+
+                <p style="margin-top: 20px;"><strong>Recall Test (after 1 minute):</strong></p>
+                <p>What 10-digit number was encoded in the two-palace network?</p>
+                <input type="text" id="recall1" placeholder="Enter the 10-digit number">
+                <button class="button" onclick="checkRecall('recall1', '4723915682')">Check Answer</button>
+                <p id="recall1-result" style="margin-top: 10px;"></p>
+            </div>
+        </div>
+
+        <!-- ELABORATION TAB -->
+        <div id="elaboration" class="tab-content">
+            <h2>Advanced Network Architecture</h2>
+
+            <h3>Network Organization Strategies</h3>
+
+            <div class="grid-2">
+                <div class="content-box">
+                    <h4 style="color: #ffd700; margin-top: 0;">Geographic Organization</h4>
+                    <p>Group palaces by physical location:</p>
+                    <ul>
+                        <li>Work district palaces</li>
+                        <li>Home area palaces</li>
+                        <li>Travel destination palaces</li>
+                    </ul>
+                </div>
+
+                <div class="content-box">
+                    <h4 style="color: #ffd700; margin-top: 0;">Purpose-Based Organization</h4>
+                    <p>Group palaces by information type:</p>
+                    <ul>
+                        <li>Numbers palaces</li>
+                        <li>Card palaces</li>
+                        <li>Historical palaces</li>
+                    </ul>
+                </div>
+
+                <div class="content-box">
+                    <h4 style="color: #ffd700; margin-top: 0;">Chronological Organization</h4>
+                    <p>Arrange palaces by time periods:</p>
+                    <ul>
+                        <li>Ancient history</li>
+                        <li>Medieval era</li>
+                        <li>Modern era</li>
+                    </ul>
+                </div>
+
+                <div class="content-box">
+                    <h4 style="color: #ffd700; margin-top: 0;">Hierarchical Organization</h4>
+                    <p>Create palace families:</p>
+                    <ul>
+                        <li>Primary palaces (main storage)</li>
+                        <li>Secondary palaces (backup)</li>
+                        <li>Tertiary palaces (overflow)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Scale Progression: From Single to Multiple Palaces</h3>
+            <div class="content-box">
+                <h4 style="color: #ffd700; margin-top: 0;">Stage 1: Master the Single Palace (Week 1-2)</h4>
+                <ul>
+                    <li>Create one detailed palace with 20-30 loci</li>
+                    <li>Practice encoding and recall until automatic</li>
+                    <li>Achieve 95%+ accuracy on mixed data types</li>
+                </ul>
+
+                <h4 style="color: #ffd700; margin-top: 15px;">Stage 2: Create a Second Palace (Week 3-4)</h4>
+                <ul>
+                    <li>Build a second palace with similar detail</li>
+                    <li>Connect the two palaces with clear transitions</li>
+                    <li>Practice encoding across both palaces</li>
+                </ul>
+
+                <h4 style="color: #ffd700; margin-top: 15px;">Stage 3: Expand to 5 Palaces (Week 5-8)</h4>
+                <ul>
+                    <li>Build 3 more palaces to create a network</li>
+                    <li>Establish clear organizational structure</li>
+                    <li>Practice large-scale information storage</li>
+                </ul>
+
+                <h4 style="color: #ffd700; margin-top: 15px;">Stage 4: Advanced Scaling (Week 9+)</h4>
+                <ul>
+                    <li>Expand to 10, 20, or 50+ palaces</li>
+                    <li>Create specialized palace networks</li>
+                    <li>Achieve elite-level memorization capacity</li>
+                </ul>
+            </div>
+
+            <h3>Avoiding Network Confusion</h3>
+            <div class="content-box">
+                <ul>
+                    <li><span class="highlight">Distinctiveness:</span> Make each palace visually and thematically different</li>
+                    <li><span class="highlight">Clear transitions:</span> Never leave ambiguity about palace boundaries</li>
+                    <li><span class="highlight">Locus order:</span> Always follow the same sequence within each palace</li>
+                    <li><span class="highlight">Regular review:</span> Weekly review of your network map prevents decay</li>
+                    <li><span class="highlight">Backup documentation:</span> Keep written descriptions of each palace's layout</li>
+                </ul>
+            </div>
+
+            <h3>Network Visualization Tool</h3>
+            <div class="challenge-box">
+                <p><strong>Create a visual map of your network:</strong></p>
+                <textarea placeholder="Draw or describe your palace network structure. Show connections between palaces and identify transition points." style="height: 200px;"></textarea>
+                <button class="button">Save Network Map</button>
+            </div>
+        </div>
+
+        <!-- INDEPENDENT PRACTICE TAB -->
+        <div id="independent" class="tab-content">
+            <h2>Independent Network Challenges</h2>
+
+            <h3>Challenge 1: Build Your First Network</h3>
+            <div class="challenge-box">
+                <p><strong>Task:</strong> Design and construct a 3-palace network for personal use.</p>
+                <ol>
+                    <li>Identify 3 familiar locations</li>
+                    <li>Count loci in each location</li>
+                    <li>Map transitions between palaces</li>
+                    <li>Encode a 20-digit number across all three</li>
+                    <li>Recall the number after 5 minutes</li>
+                </ol>
+
+                <h4 style="color: #ffd700; margin-top: 20px;">Your Network:</h4>
+                <textarea placeholder="Type your answer..." style="height: 150px;"></textarea>
+                <button class="button">Submit Network</button>
+            </div>
+
+            <h3>Challenge 2: Large-Scale Memorization</h3>
+            <div class="challenge-box">
+                <p><strong>Task:</strong> Memorize 100 numbers (4 numbers per palace × 5 palaces) using your network</p>
+
+                <p style="margin-top: 15px; color: #ffd700; font-weight: bold;">Sample Data (5 palaces, 4 PAO pairs each = 20 numbers):</p>
+                <p style="word-break: break-all;">47 23 91 56 | 82 14 39 75 | 48 62 27 81 | 59 16 74 42 | 93 67 52 88</p>
+
+                <p style="margin-top: 20px;"><strong>Your Challenge:</strong> Encode this data across your 5-palace network</p>
+                <textarea placeholder="Type your answer..." style="height: 100px;"></textarea>
+
+                <p style="margin-top: 20px;"><strong>Recall Test:</strong></p>
+                <p>What 20-digit number sequence was encoded?</p>
+                <input type="text" id="challenge2" placeholder="Enter all 20 numbers separated by spaces">
+                <button class="button" onclick="checkRecall('challenge2', '47 23 91 56 82 14 39 75 48 62 27 81 59 16 74 42 93 67 52 88')">Check</button>
+                <p id="challenge2-result" style="margin-top: 10px;"></p>
+            </div>
+
+            <h3>Challenge 3: Network Scaling</h3>
+            <div class="challenge-box">
+                <p><strong>Task:</strong> Expand your network from 3 to 7 palaces</p>
+
+                <p style="margin-top: 15px;">Document your expansion:</p>
+                <textarea placeholder="Describe how you will expand your network&#10;- New palaces: &#10;- Loci counts: &#10;- Transition points: " style="height: 120px;"></textarea>
+
+                <button class="button">Map Expanded Network</button>
+            </div>
+
+            <h3>Progress Tracker</h3>
+            <div class="content-box">
+                <p><strong>Track your palace network development:</strong></p>
+                <ul>
+                    <li><input type="checkbox"> Created 1 detailed palace with 20+ loci</li>
+                    <li><input type="checkbox"> Created 2-palace network with clear transitions</li>
+                    <li><input type="checkbox"> Successfully encoded 20+ digits across 2 palaces</li>
+                    <li><input type="checkbox"> Created 5-palace network</li>
+                    <li><input type="checkbox"> Successfully encoded 50+ digits across 5 palaces</li>
+                    <li><input type="checkbox"> Expanded to 10+ palaces</li>
+                    <li><input type="checkbox"> Achieve 95%+ recall on large-scale networks</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FINAL RETRIEVAL TAB -->
+        <div id="final" class="tab-content">
+            <h2>Final Retrieval & Mastery Assessment</h2>
+
+            <h3>Multiple Palace Architecture Quiz</h3>
+            <div class="challenge-box">
+                <p><strong>1. Why are multiple palaces necessary for elite memorization?</strong></p>
+                <textarea placeholder="Your explanation" style="height: 80px;"></textarea>
+                <button class="button secondary" onclick="toggleAnswer('ans1')">Show Answer</button>
+                <p id="ans1" style="display:none; margin-top:10px; color:#ffd700;">
+                    Single palaces have limited capacity (20-30 loci). Multiple palaces provide exponential storage for large-scale memorization and prevent interference between different memory tasks.
+                </p>
+
+                <p style="margin-top: 20px;"><strong>2. Describe how you would link 3 palaces into a network:</strong></p>
+                <textarea placeholder="Your explanation" style="height: 80px;"></textarea>
+                <button class="button secondary" onclick="toggleAnswer('ans2')">Show Answer</button>
+                <p id="ans2" style="display:none; margin-top:10px; color:#ffd700;">
+                    Create clear transition points between palace exits and entrances. Imagine walking from Palace 1 to 2, then from 2 to 3. Make transitions vivid and memorable to prevent confusion.
+                </p>
+
+                <p style="margin-top: 20px;"><strong>3. What organizational strategy works best for your needs?</strong></p>
+                <textarea placeholder="Your explanation" style="height: 80px;"></textarea>
+                <button class="button secondary" onclick="toggleAnswer('ans3')">Show Answer</button>
+                <p id="ans3" style="display:none; margin-top:10px; color:#ffd700;">
+                    Geographic, purpose-based, chronological, or hierarchical - choose based on your memorization goals. Geographic works well for learning locations, purpose-based for competitions, etc.
+                </p>
+            </div>
+
+            <h3>Mastery Checklist</h3>
+            <div class="content-box">
+                <p>Before moving to the next lesson, confirm you can:</p>
+                <ul>
+                    <li><input type="checkbox"> Design a multi-palace network (3+ palaces)</li>
+                    <li><input type="checkbox"> Identify 20+ distinct loci per palace</li>
+                    <li><input type="checkbox"> Create clear transitions between palaces</li>
+                    <li><input type="checkbox"> Encode information across multiple palaces</li>
+                    <li><input type="checkbox"> Recall 50+ items across a 5-palace network</li>
+                    <li><input type="checkbox"> Understand different organization strategies</li>
+                    <li><input type="checkbox"> Avoid interference and confusion in large networks</li>
+                </ul>
+            </div>
+
+            <h3>Key Takeaways</h3>
+            <div class="content-box">
+                <ol>
+                    <li><span class="highlight">Scale requires networks:</span> Multiple palaces provide exponential capacity</li>
+                    <li><span class="highlight">Clear transitions prevent confusion:</span> Always link palaces with memorable paths</li>
+                    <li><span class="highlight">Organization matters:</span> Use geographic, purpose-based, or hierarchical structure</li>
+                    <li><span class="highlight">Build incrementally:</span> Master 1 palace, then 2, then expand to 5+</li>
+                    <li><span class="highlight">Documentation prevents decay:</span> Keep written maps of your networks</li>
+                </ol>
+            </div>
+
+            <h3>Next Steps</h3>
+            <div class="content-box">
+                <ul>
+                    <li>Design your first 3-palace network this week</li>
+                    <li>Create detailed locus maps for each palace</li>
+                    <li>Practice encoding across palaces daily</li>
+                    <li>Expand to 5 palaces when ready</li>
+                    <li>Document your network in a personal memory atlas</li>
+                    <li>When ready (comfortable with 5+ palaces), move to Lesson 25: Abstract Information</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function toggleAnswer(id) {
+            const element = document.getElementById(id);
+            element.style.display = element.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function checkRecall(inputId, expected) {
+            const input = document.getElementById(inputId);
+            const result = document.getElementById(inputId + '-result');
+            const userAnswer = input.value.trim();
+
+            if (userAnswer === expected) {
+                result.innerHTML = '<span style="color: #4ade80; font-weight: bold;">✓ Perfect!</span>';
+            } else {
+                result.innerHTML = `<span style="color: #ff6b6b;">Incorrect. Expected: ${expected}</span>`;
+            }
+        }
+    </script>
+</body>
+</html>

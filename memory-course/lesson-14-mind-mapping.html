@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 14: Mind Mapping for Memory - The Art of Memory</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdance, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #c9a227 100%);
+            color: #1a1a1a;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .header p { font-size: 1.1em; opacity: 0.9; }
+        .tabs-container {
+            display: flex;
+            background: #f5f5f5;
+            border-bottom: 3px solid #d4af37;
+            flex-wrap: wrap;
+        }
+        .tab-button {
+            flex: 1;
+            min-width: 140px;
+            padding: 15px;
+            background: #f5f5f5;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .tab-button:hover { background: #efefef; color: #d4af37; }
+        .tab-button.active { background: white; color: #d4af37; border-bottom-color: #d4af37; }
+        .tab-content { padding: 40px; display: none; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .tab-content h2 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+        }
+        h3 { color: #333; margin: 20px 0 15px 0; font-size: 1.3em; }
+        p { color: #555; margin-bottom: 12px; }
+        .highlight {
+            background: #fffacd;
+            padding: 15px;
+            border-left: 4px solid #d4af37;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .key-points {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .key-points li { margin-bottom: 10px; color: #333; list-style-position: inside; }
+        .interactive-box {
+            background: #f0f8ff;
+            border: 2px solid #d4af37;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .interactive-box h4 { color: #d4af37; margin-bottom: 15px; }
+        button {
+            background: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            margin: 8px 8px 8px 0;
+        }
+        button:hover {
+            background: #c9a227;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #d4af37;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #c9a227;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+        }
+        .quiz-question {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .quiz-question p { font-weight: 600; margin-bottom: 15px; color: #333; }
+        .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+        .quiz-option {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            background: white;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+        }
+        .quiz-option:hover { border-color: #d4af37; background: #fffacd; }
+        .quiz-option.correct { background: #90EE90; border-color: #32CD32; color: #1a1a1a; font-weight: 600; }
+        .quiz-option.incorrect { background: #FFB6C6; border-color: #FF1493; color: #1a1a1a; }
+        .results {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .results.fail { background: #ffebee; border-color: #f44336; }
+        .results h3 { color: #2e7d32; margin-bottom: 10px; }
+        .results.fail h3 { color: #c62828; }
+        .score { font-size: 2em; font-weight: bold; color: #2e7d32; margin: 10px 0; }
+        .results.fail .score { color: #c62828; }
+        .mind-map-viz {
+            background: white;
+            border: 2px solid #d4af37;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .center-node {
+            background: #d4af37;
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .branch {
+            background: #fff8dc;
+            border: 2px solid #d4af37;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px;
+            display: inline-block;
+            max-width: 150px;
+            color: #333;
+        }
+        @media (max-width: 768px) {
+            .tab-button { min-width: 100px; padding: 12px; font-size: 0.85em; }
+            .header h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Lesson 14: Mind Mapping for Memory</h1>
+            <p>Master Tony Buzan's mind mapping technique and integrate with memory palaces</p>
+        </div>
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab(event, 'retrieval')">Retrieval</button>
+            <button class="tab-button" onclick="switchTab(event, 'content')">New Content</button>
+            <button class="tab-button" onclick="switchTab(event, 'practice')">Guided Practice</button>
+            <button class="tab-button" onclick="switchTab(event, 'elaboration')">Elaboration</button>
+            <button class="tab-button" onclick="switchTab(event, 'independent')">Independent</button>
+            <button class="tab-button" onclick="switchTab(event, 'final')">Final Retrieval</button>
+        </div>
+
+        <div id="retrieval" class="tab-content active">
+            <h2>Retrieval: Prior Knowledge</h2>
+            <p>Let's assess your knowledge about mind mapping and visual thinking.</p>
+            <div class="quiz-question">
+                <p>What is the primary purpose of a mind map?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">A) Organize information hierarchically with visual and semantic connections</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">B) Make outlines look prettier</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) Replace traditional note-taking entirely</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) Confuse the reader</div>
+                </div>
+            </div>
+            <button onclick="scrollToTab('content')">Continue →</button>
+        </div>
+
+        <div id="content" class="tab-content">
+            <h2>New Content: Tony Buzan's Mind Mapping Rules</h2>
+            <h3>The 5 Core Rules of Mind Mapping</h3>
+            <div class="key-points">
+                <ul>
+                    <li><strong>Central Image:</strong> Use a bold, vivid, colorful image at the center representing your main idea</li>
+                    <li><strong>Main Branches:</strong> 5-7 primary branches radiating from center, each with a keyword (not full sentences)</li>
+                    <li><strong>Curved Lines:</strong> Use curved/organic branches rather than straight lines (mimics brain's natural thinking)</li>
+                    <li><strong>Colors & Symbols:</strong> Use different colors for each branch and add icons/symbols for visual encoding</li>
+                    <li><strong>Keywords Only:</strong> One key word per line—allows brain to make connections rather than forcing a path</li>
+                </ul>
+            </div>
+
+            <h3>Mind Map Structure Example</h3>
+            <div class="mind-map-viz">
+                <div class="center-node">🧠 MEMORY TECHNIQUES</div>
+                <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                    <div class="branch">Palaces</div>
+                    <div class="branch">Cards</div>
+                    <div class="branch">Names</div>
+                    <div class="branch">Presentations</div>
+                    <div class="branch">Mind Maps</div>
+                </div>
+            </div>
+
+            <h3>Creating Hierarchical Levels</h3>
+            <div class="highlight">
+                <strong>Level 1 (Center):</strong> Main concept<br>
+                <strong>Level 2 (Main branches):</strong> 5-7 major categories<br>
+                <strong>Level 3 (Sub-branches):</strong> Specific details within each category<br>
+                <strong>Level 4+ (Twigs):</strong> Supporting examples and connections
+            </div>
+
+            <h3>Mind Maps as Memory Tools</h3>
+            <p>Mind maps are ideal for memory because they:</p>
+            <div class="key-points">
+                <ul>
+                    <li>Leverage visual and spatial memory</li>
+                    <li>Show relationships between concepts</li>
+                    <li>Reduce cognitive load through hierarchy</li>
+                    <li>Engage both hemispheres of the brain</li>
+                    <li>Can be converted to palace journeys</li>
+                </ul>
+            </div>
+            <button onclick="scrollToTab('practice')">Continue →</button>
+        </div>
+
+        <div id="practice" class="tab-content">
+            <h2>Guided Practice: Build Your First Mind Map</h2>
+            <p>Create a mind map about "Types of Cuisine" following Tony Buzan's rules.</p>
+            
+            <button onclick="startMindMapPractice()">Begin Mind Map</button>
+            
+            <div id="mindmap-builder" style="display:none; margin-top: 30px;">
+                <div class="interactive-box">
+                    <h4>Mind Map Builder</h4>
+                    <p style="margin-bottom: 15px;"><strong>Central Topic:</strong> Types of Cuisine</p>
+                    <p style="margin-bottom: 15px; color: #666;">Add 5-7 main branches for different cuisine types, then add 2-3 sub-branches for each.</p>
+                    
+                    <div id="branches-container" style="margin: 20px 0;"></div>
+                    
+                    <button onclick="addBranch()">Add Main Branch</button>
+                </div>
+            </div>
+
+            <div id="mindmap-preview" style="display:none; margin-top: 30px;">
+                <div class="mind-map-viz" id="preview-display"></div>
+            </div>
+        </div>
+
+        <div id="elaboration" class="tab-content">
+            <h2>Elaboration: Converting Maps to Palaces</h2>
+            <h3>Mind Map to Memory Palace Conversion</h3>
+            <p>Once you've created a mind map, you can convert it into a memory palace by:</p>
+            <div class="key-points">
+                <ul>
+                    <li><strong>Central room:</strong> The center image becomes your main palace location</li>
+                    <li><strong>Branch corridors:</strong> Each main branch becomes a corridor or wing</li>
+                    <li><strong>Sub-branch rooms:</strong> Sub-branches become individual rooms</li>
+                    <li><strong>Twig details:</strong> Smallest details become specific objects in rooms</li>
+                    <li><strong>Journey path:</strong> Walk through rooms in a logical order</li>
+                </ul>
+            </div>
+
+            <h3>Dual Encoding Benefits</h3>
+            <div class="highlight">
+                By using both mind maps AND palaces, you encode information in multiple formats: visual (colors, symbols), spatial (palace layout), semantic (keywords and connections), and kinesthetic (walking the palace). This multi-modal encoding creates extraordinarily strong memories.
+            </div>
+
+            <h3>Advanced Mind Mapping Techniques</h3>
+            <div class="interactive-box">
+                <h4>Professional Techniques:</h4>
+                <p><strong>Chunking:</strong> Group similar items under a single branch to reduce cognitive load</p>
+                <p><strong>Association:</strong> Use creative connections between branches to strengthen recall</p>
+                <p><strong>Emphasis:</strong> Size, color, and symbols highlight the most important concepts</p>
+                <p><strong>Pattern Recognition:</strong> Look for recurring themes across branches</p>
+            </div>
+            <button onclick="scrollToTab('independent')">Continue →</button>
+        </div>
+
+        <div id="independent" class="tab-content">
+            <h2>Independent Practice: Complete Mind Map Challenge</h2>
+            <p>Create a comprehensive mind map about "How to Learn Effectively," then memorize it using palace conversion.</p>
+            
+            <button onclick="startMindMapChallenge()">Start Challenge</button>
+            
+            <div id="challenge-display" style="display:none; margin-top: 30px;">
+                <h3 style="color: #d4af37; margin-bottom: 20px;">Create Your Mind Map</h3>
+                <p style="margin-bottom: 20px;"><strong>Topic:</strong> How to Learn Effectively</p>
+                
+                <div class="interactive-box">
+                    <h4>Central Concept</h4>
+                    <input type="text" id="central-concept" placeholder="Your central image/concept" value="How to Learn Effectively">
+                </div>
+
+                <div id="dynamic-branches"></div>
+
+                <button onclick="buildMapPreview()" style="margin-top: 20px;">Preview Mind Map</button>
+            </div>
+
+            <div id="map-preview-display" style="display:none; margin-top: 30px;">
+                <h3 style="color: #d4af37; margin-bottom: 20px;">Your Mind Map</h3>
+                <div class="mind-map-viz" id="final-map-preview"></div>
+                <button onclick="convertToPalace()" style="margin-top: 20px;">Convert to Palace</button>
+            </div>
+
+            <div id="palace-conversion" style="display:none; margin-top: 30px;">
+                <div class="results">
+                    <h3>Mind Map Converted to Palace!</h3>
+                    <p>Your mind map has been translated into a memory palace structure.</p>
+                    <p style="margin-top: 15px; color: #666;">Walk through your palace mentally, visiting each room and visualizing the mind map content at each location.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="final" class="tab-content">
+            <h2>Final Retrieval: Mind Mapping Mastery</h2>
+            <div class="quiz-question">
+                <p><strong>Q1:</strong> How many main branches should a mind map have?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">A) Exactly 4</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">B) 5-7 (optimal for cognitive load)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) At least 10</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) As many as possible</div>
+                </div>
+            </div>
+            <div class="quiz-question">
+                <p><strong>Q2:</strong> What is a key difference between mind maps and traditional outlines?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">A) Mind maps use words, outlines use pictures</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">B) Mind maps show radial connections; outlines show linear hierarchy</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) Mind maps are for art; outlines are for writing</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) They are identical</div>
+                </div>
+            </div>
+            <div class="quiz-question">
+                <p><strong>Q3:</strong> When converting a mind map to a palace, what becomes rooms?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">A) Sub-branches of the main branches</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">B) The central image</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) Only keywords</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) Colors</div>
+                </div>
+            </div>
+            <div class="quiz-question">
+                <p><strong>Q4:</strong> What is the primary benefit of using colors in mind maps?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">A) They enhance visual encoding and help differentiate branches</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">B) They make maps look prettier</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) They reduce the need for keywords</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) They have no memory benefit</div>
+                </div>
+            </div>
+            <button onclick="scoreFinal()">Calculate Score</button>
+            <div id="final-results"></div>
+        </div>
+    </div>
+
+    <script>
+        let mapBranches = [];
+
+        function switchTab(e, id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            e.target.classList.add('active');
+        }
+        function checkAnswer(el, correct) {
+            el.parentElement.querySelectorAll('.quiz-option').forEach(o => o.style.pointerEvents = 'none');
+            el.classList.add(correct ? 'correct' : 'incorrect');
+        }
+        function startMindMapPractice() {
+            mapBranches = [];
+            document.querySelector('#practice button').style.display = 'none';
+            document.getElementById('mindmap-builder').style.display = 'block';
+            addBranch();
+        }
+        function addBranch() {
+            const idx = mapBranches.length;
+            mapBranches.push({name: '', subbranches: []});
+            
+            let html = '';
+            mapBranches.forEach((b, i) => {
+                html += `<div class="interactive-box" style="margin-bottom: 15px;">
+                    <h4>Main Branch ${i+1}</h4>
+                    <input type="text" placeholder="Branch name" class="branch-name" data-index="${i}" value="${b.name}">
+                    <div class="subbranches-${i}" style="margin-top: 10px;"></div>
+                    <button onclick="addSubbranch(${i})" style="margin-top: 10px; font-size: 0.9em; padding: 8px 16px;">Add Sub-branch</button>
+                </div>`;
+            });
+            document.getElementById('branches-container').innerHTML = html;
+            
+            document.querySelectorAll('.branch-name').forEach(el => {
+                el.addEventListener('change', (e) => {
+                    mapBranches[parseInt(e.target.dataset.index)].name = e.target.value;
+                });
+            });
+        }
+        function addSubbranch(idx) {
+            mapBranches[idx].subbranches.push('');
+            const container = document.querySelector(`.subbranches-${idx}`);
+            let html = '';
+            mapBranches[idx].subbranches.forEach((s, i) => {
+                html += `<input type="text" placeholder="Sub-branch ${i+1}" class="subbranch-${idx}-${i}" value="${s}" style="margin-bottom: 8px;">`;
+            });
+            container.innerHTML = html;
+            
+            document.querySelectorAll(`input.subbranch-${idx}-${mapBranches[idx].subbranches.length-1}`).forEach(el => {
+                el.addEventListener('change', (e) => {
+                    mapBranches[idx].subbranches[parseInt(e.target.className.split('-')[2])] = e.target.value;
+                });
+            });
+        }
+        function startMindMapChallenge() {
+            mapBranches = [];
+            document.querySelector('#independent button').style.display = 'none';
+            document.getElementById('challenge-display').style.display = 'block';
+            
+            for(let i = 0; i < 5; i++) {
+                mapBranches.push({name: '', subbranches: ['', '']});
+            }
+            renderBranchInputs();
+        }
+        function renderBranchInputs() {
+            let html = '';
+            mapBranches.forEach((b, i) => {
+                html += `<div class="interactive-box" style="margin-bottom: 15px;">
+                    <h4>Main Branch ${i+1}</h4>
+                    <input type="text" placeholder="e.g., Active Learning, Sleep, Spacing" class="branch-name" data-index="${i}" value="${b.name}">
+                    <div class="subbranches-${i}" style="margin-top: 10px;">`;
+                b.subbranches.forEach((s, j) => {
+                    html += `<input type="text" placeholder="Sub-detail ${j+1}" class="sub-${i}-${j}" value="${s}" style="margin-bottom: 8px; display: block;">`;
+                });
+                html += `</div></div>`;
+            });
+            document.getElementById('dynamic-branches').innerHTML = html;
+        }
+        function buildMapPreview() {
+            let html = '<div class="center-node">How to Learn Effectively</div><div style="display: flex; flex-wrap: wrap; justify-content: center;">';
+            mapBranches.forEach((b, i) => {
+                const name = document.querySelector(`.branch-name[data-index="${i}"]`)?.value || `Branch ${i+1}`;
+                html += `<div class="branch">${name}</div>`;
+            });
+            html += '</div>';
+            document.getElementById('final-map-preview').innerHTML = html;
+            document.getElementById('challenge-display').style.display = 'none';
+            document.getElementById('map-preview-display').style.display = 'block';
+        }
+        function convertToPalace() {
+            document.getElementById('map-preview-display').style.display = 'none';
+            document.getElementById('palace-conversion').style.display = 'block';
+        }
+        function scoreFinal() {
+            let correct = 0;
+            document.querySelectorAll('.quiz-question').forEach(q => {
+                if(q.querySelector('.quiz-option.correct')) correct++;
+            });
+            const pct = Math.round(correct/4*100);
+            const res = document.createElement('div');
+            res.className = pct >= 75 ? 'results' : 'results fail';
+            res.innerHTML = `<h3>${pct >= 90 ? 'Outstanding!' : pct >= 75 ? 'Excellent!' : 'Good work!'}</h3><div class="score">${correct}/4 (${pct}%)</div><p>Lesson 14: Mind Mapping Mastery</p>`;
+            document.getElementById('final-results').appendChild(res);
+            document.querySelector('#final button').style.display = 'none';
+        }
+        function scrollToTab(id) {
+            const tabs = ['retrieval', 'content', 'practice', 'elaboration', 'independent', 'final'];
+            const idx = tabs.indexOf(id);
+            document.querySelectorAll('.tab-button')[idx].click();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>

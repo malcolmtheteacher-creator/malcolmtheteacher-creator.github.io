@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Art of Memory - Lesson 18: Lists & Procedures with Alphabet Pegs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #222;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #c9a227 100%);
+            color: #1a1a1a;
+            padding: 40px 30px;
+            text-align: center;
+            border-bottom: 4px solid #a68410;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .tabs-container {
+            display: flex;
+            border-bottom: 2px solid #d4af37;
+            background: #1a1a1a;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px 10px;
+            background: #2d2d2d;
+            border: none;
+            color: #d4af37;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-width: 130px;
+        }
+
+        .tab-button:hover {
+            background: #3d3d3d;
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            background: #d4af37;
+            color: #1a1a1a;
+            border-bottom: 3px solid #a68410;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            color: #d4af37;
+            margin-bottom: 25px;
+            font-size: 2em;
+            border-left: 4px solid #d4af37;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #d4af37;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        .concept-box {
+            background: #2d2d2d;
+            border-left: 4px solid #d4af37;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .peg-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .peg-card {
+            background: #1a1a1a;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .peg-letter {
+            font-size: 2em;
+            color: #d4af37;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .peg-word {
+            font-size: 1.3em;
+            color: #e0e0e0;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .peg-emoji {
+            font-size: 3em;
+            margin: 10px 0;
+        }
+
+        .practice-section {
+            background: #2d2d2d;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .practice-question {
+            background: #1a1a1a;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #d4af37;
+            border-radius: 5px;
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #e5c158;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .secondary-button {
+            background: #3d3d3d;
+            color: #d4af37;
+        }
+
+        .secondary-button:hover {
+            background: #4d4d4d;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #d4af37, #c9a227);
+            color: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+
+        .feedback.correct {
+            background: #2d5d2d;
+            border-left: 4px solid #4a9d4a;
+            color: #7fd97f;
+        }
+
+        .feedback.incorrect {
+            background: #5d2d2d;
+            border-left: 4px solid #9d4a4a;
+            color: #d97f7f;
+        }
+
+        .input-field {
+            background: #1a1a1a;
+            border: 2px solid #d4af37;
+            color: #e0e0e0;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 1em;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        .input-field:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .memory-tip {
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #d4af37;
+        }
+
+        .memory-tip strong {
+            color: #e5c158;
+        }
+
+        .procedure-list {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #d4af37;
+            margin: 15px 0;
+        }
+
+        .procedure-list ol {
+            margin-left: 20px;
+        }
+
+        .procedure-list li {
+            margin: 10px 0;
+            color: #e0e0e0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #c9a227);
+            transition: width 0.3s ease;
+        }
+
+        textarea {
+            background: #1a1a1a;
+            border: 2px solid #d4af37;
+            color: #e0e0e0;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+            margin: 10px 0;
+            width: 100%;
+            min-height: 100px;
+        }
+
+        textarea:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #1a1a1a;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #d4af37;
+        }
+
+        .comparison-table th {
+            background: #3d3d3d;
+            color: #d4af37;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>The Art of Memory</h1>
+            <p>Lesson 18: Lists & Procedures - Alphabet Peg System</p>
+        </div>
+
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab('retrieval')">Retrieval</button>
+            <button class="tab-button" onclick="switchTab('content')">New Content</button>
+            <button class="tab-button" onclick="switchTab('guided')">Guided Practice</button>
+            <button class="tab-button" onclick="switchTab('elaboration')">Elaboration</button>
+            <button class="tab-button" onclick="switchTab('independent')">Independent Practice</button>
+            <button class="tab-button" onclick="switchTab('final')">Final Retrieval</button>
+        </div>
+
+        <div id="retrieval" class="tab-content active">
+            <h2>Retrieval: Prior Knowledge</h2>
+            <div class="concept-box">
+                <p>Test what you remember about peg systems and list memorization.</p>
+            </div>
+            <div class="practice-section">
+                <div class="practice-question">
+                    <div class="question-text">1. What is a "peg" in memory techniques?</div>
+                    <div class="button-group">
+                        <button onclick="checkAnswer('retrieval', 1, 'a')">A. A fixed word linked to a position</button>
+                        <button onclick="checkAnswer('retrieval', 1, 'b')">B. A type of nail</button>
+                        <button onclick="checkAnswer('retrieval', 1, 'c')">C. A writing tool</button>
+                    </div>
+                    <div id="feedback-1"></div>
+                </div>
+                <div class="practice-question">
+                    <div class="question-text">2. Why is an ordered system helpful for memorizing lists?</div>
+                    <input type="text" id="answer-2" class="input-field" placeholder="Type your answer...">
+                    <button onclick="checkAnswerText(2)">Check</button>
+                    <div id="feedback-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="content" class="tab-content">
+            <h2>The Alphabet Peg System</h2>
+            <div class="concept-box">
+                <p><strong>Alphabet Pegs:</strong> A memory system where each letter A-Z is assigned a vivid, memorable word. Then link items on your list to each peg word via bizarre mental images.</p>
+            </div>
+
+            <h3>The 26 Alphabet Pegs</h3>
+            <div class="peg-grid">
+                <div class="peg-card">
+                    <div class="peg-letter">A</div>
+                    <div class="peg-word">Apple</div>
+                    <div class="peg-emoji">🍎</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">B</div>
+                    <div class="peg-word">Bee</div>
+                    <div class="peg-emoji">🐝</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">C</div>
+                    <div class="peg-word">Cat</div>
+                    <div class="peg-emoji">🐱</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">D</div>
+                    <div class="peg-word">Dog</div>
+                    <div class="peg-emoji">🐕</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">E</div>
+                    <div class="peg-word">Egg</div>
+                    <div class="peg-emoji">🥚</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">F</div>
+                    <div class="peg-word">Fish</div>
+                    <div class="peg-emoji">🐠</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">G</div>
+                    <div class="peg-word">Gun</div>
+                    <div class="peg-emoji">🔫</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">H</div>
+                    <div class="peg-word">House</div>
+                    <div class="peg-emoji">🏠</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">I</div>
+                    <div class="peg-word">Ice Cream</div>
+                    <div class="peg-emoji">🍦</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">J</div>
+                    <div class="peg-word">Jellyfish</div>
+                    <div class="peg-emoji">🪼</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">K</div>
+                    <div class="peg-word">Kite</div>
+                    <div class="peg-emoji">🪁</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">L</div>
+                    <div class="peg-word">Lion</div>
+                    <div class="peg-emoji">🦁</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">M</div>
+                    <div class="peg-word">Moon</div>
+                    <div class="peg-emoji">🌙</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">N</div>
+                    <div class="peg-word">Nest</div>
+                    <div class="peg-emoji">🪹</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">O</div>
+                    <div class="peg-word">Orange</div>
+                    <div class="peg-emoji">🍊</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">P</div>
+                    <div class="peg-word">Pig</div>
+                    <div class="peg-emoji">🐷</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">Q</div>
+                    <div class="peg-word">Queen</div>
+                    <div class="peg-emoji">👑</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">R</div>
+                    <div class="peg-word">Rabbit</div>
+                    <div class="peg-emoji">🐰</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">S</div>
+                    <div class="peg-word">Snake</div>
+                    <div class="peg-emoji">🐍</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">T</div>
+                    <div class="peg-word">Tiger</div>
+                    <div class="peg-emoji">🐯</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">U</div>
+                    <div class="peg-word">Umbrella</div>
+                    <div class="peg-emoji">☂️</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">V</div>
+                    <div class="peg-word">Violin</div>
+                    <div class="peg-emoji">🎻</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">W</div>
+                    <div class="peg-word">Whale</div>
+                    <div class="peg-emoji">🐋</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">X</div>
+                    <div class="peg-word">Xylophone</div>
+                    <div class="peg-emoji">🎵</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">Y</div>
+                    <div class="peg-word">Yacht</div>
+                    <div class="peg-emoji">⛵</div>
+                </div>
+                <div class="peg-card">
+                    <div class="peg-letter">Z</div>
+                    <div class="peg-word">Zebra</div>
+                    <div class="peg-emoji">🦓</div>
+                </div>
+            </div>
+
+            <h3>How to Use It</h3>
+            <div class="concept-box">
+                <h4>Step 1: Link Items to Pegs</h4>
+                <p>For each item on your list, associate it with the corresponding alphabet peg using a VIVID, BIZARRE image.</p>
+            </div>
+
+            <div class="concept-box">
+                <h4>Step 2: Create Memory Images</h4>
+                <p>If your first item is "milk," link it to APPLE: Imagine an APPLE made of solid MILK!</p>
+            </div>
+
+            <div class="concept-box">
+                <h4>Step 3: Recall in Order</h4>
+                <p>When you need the list, recall the alphabet (A, B, C...) and the image for each letter appears.</p>
+            </div>
+
+            <div class="memory-tip">
+                <strong>Why It Works:</strong> The alphabet is something you already know PERFECTLY. You're just attaching new information to this solid foundation!
+            </div>
+        </div>
+
+        <div id="guided" class="tab-content">
+            <h2>Guided Practice: Memorize a Shopping List</h2>
+            <div class="concept-box">
+                <p>Let's memorize a 10-item shopping list using alphabet pegs A-J.</p>
+            </div>
+
+            <div class="procedure-list">
+                <strong>Your Shopping List:</strong>
+                <ol>
+                    <li><strong>A - Apples</strong> → Milk</li>
+                    <li><strong>B - Bee</strong> → Butter</li>
+                    <li><strong>C - Cat</strong> → Cheese</li>
+                    <li><strong>D - Dog</strong> → Eggs</li>
+                    <li><strong>E - Egg</strong> → Fish</li>
+                    <li><strong>F - Fish</strong> → Flour</li>
+                    <li><strong>G - Gun</strong> → Grapes</li>
+                    <li><strong>H - House</strong> → Honey</li>
+                    <li><strong>I - Ice Cream</strong> → Ice cubes</li>
+                    <li><strong>J - Jellyfish</strong> → Jam</li>
+                </ol>
+            </div>
+
+            <h3>Creating the Memory Images</h3>
+            <div class="practice-section">
+                <div class="concept-box">
+                    <strong>A - Apple + Milk</strong><br>
+                    Imagine: A GIANT APPLE carved out like a cup, filled with MILK that spills everywhere!
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <div class="concept-box">
+                    <strong>B - Bee + Butter</strong><br>
+                    Imagine: A bee covered in BUTTER, sliding around frantically!
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <div class="concept-box">
+                    <strong>C - Cat + Cheese</strong><br>
+                    Imagine: A cat made entirely of CHEESE, meowing and dripping!
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <div class="concept-box">
+                    <strong>D - Dog + Eggs</strong><br>
+                    Imagine: A dog rolling in giant EGGS, white and yolk everywhere!
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <div class="concept-box">
+                    <strong>E - Egg + Fish</strong><br>
+                    Imagine: A FISH swimming inside a giant EGG!
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; text-align: center; color: #d4af37;"><strong>You try creating images for F-J in the Independent Practice tab!</strong></p>
+        </div>
+
+        <div id="elaboration" class="tab-content">
+            <h2>Elaboration: Variations & Comparisons</h2>
+
+            <h3>Alphabet Pegs vs. Number Pegs</h3>
+            <table class="comparison-table">
+                <tr>
+                    <th>Feature</th>
+                    <th>Alphabet Pegs</th>
+                    <th>Number Pegs</th>
+                </tr>
+                <tr>
+                    <td>Memory Foundation</td>
+                    <td>A-Z alphabet (universally known)</td>
+                    <td>1-10 or 0-9 (also very stable)</td>
+                </tr>
+                <tr>
+                    <td>List Length</td>
+                    <td>Up to 26 items</td>
+                    <td>Typically 0-10 items</td>
+                </tr>
+                <tr>
+                    <td>Best For</td>
+                    <td>Moderate to longer lists, alphabetical data</td>
+                    <td>Short lists, simple procedures</td>
+                </tr>
+                <tr>
+                    <td>How It Looks</td>
+                    <td>Apple, Bee, Cat, Dog, Egg, Fish...</td>
+                    <td>Tea (1), Shoe (2), Tree (3), Door (4)...</td>
+                </tr>
+                <tr>
+                    <td>Recall Speed</td>
+                    <td>Slightly slower (26 pegs)</td>
+                    <td>Faster (fewer items)</td>
+                </tr>
+            </table>
+
+            <h3>Using Alphabet Pegs for Procedures</h3>
+            <div class="concept-box">
+                <h4>Example: Recipe Steps</h4>
+                <p>Memorizing the steps to bake a cake:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>A - Apple:</strong> Gather ingredients (imagine ingredients inside a giant apple)</li>
+                    <li><strong>B - Bee:</strong> Mix butter and sugar (bee swimming in butter-sugar mix)</li>
+                    <li><strong>C - Cat:</strong> Add eggs (cat juggling eggs)</li>
+                    <li><strong>D - Dog:</strong> Pour batter (dog swimming in batter)</li>
+                    <li><strong>E - Egg:</strong> Bake 30 minutes (giant egg in oven getting hot)</li>
+                    <li><strong>F - Fish:</strong> Cool on rack (fish relaxing on cooling rack)</li>
+                </ul>
+            </div>
+
+            <h3>Customizing Pegs</h3>
+            <div class="concept-box">
+                <p>The A-Z system we showed is just one option. You can customize pegs based on what's most vivid to YOU:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>A:</strong> Could be Apple, Ant, Arrow, Anchor - pick what's MOST vivid to you</li>
+                    <li><strong>S:</strong> Could be Snake, Sun, Star, Seahorse</li>
+                    <li><strong>Z:</strong> Could be Zebra, Zero, Zipper</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>Key:</strong> Whatever you choose, it must be UNFORGETTABLE and tied to that letter!</p>
+            </div>
+
+            <h3>Extending Beyond 26 Items</h3>
+            <div class="concept-box">
+                <p>For lists longer than 26 items, you have options:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Multiple Passes:</strong> Use A-Z, then AA-AZ, then BA-BZ, etc.</li>
+                    <li><strong>Combine with Palace:</strong> Use different rooms for different alphabet sets</li>
+                    <li><strong>Major System:</strong> Convert longer numbers using consonant-sound pegs (for 100+ items)</li>
+                </ul>
+            </div>
+
+            <h3>Memory Science Behind Alphabet Pegs</h3>
+            <div class="concept-box">
+                <h4>Why They Work</h4>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Established Schema:</strong> You know the alphabet perfectly - it's rock-solid</li>
+                    <li><strong>Method of Loci + Pegwords:</strong> Combines spatial memory with word association</li>
+                    <li><strong>Bizarre Imagery:</strong> The strange connections make recall effortless</li>
+                    <li><strong>Sequential Retrieval:</strong> Recall the alphabet naturally brings each item forward</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="independent" class="tab-content">
+            <h2>Independent Practice: Build Your Mastery</h2>
+
+            <h3>Challenge 1: Complete the Shopping List Images</h3>
+            <div class="practice-section">
+                <p><strong>Create vivid images for items F-J on the shopping list:</strong></p>
+                <div style="margin: 20px 0;">
+                    <p><strong>F - Fish + Flour:</strong></p>
+                    <textarea id="practice-1" placeholder="Type your answer..."></textarea>
+                    <button onclick="savePractice(1)">Save</button>
+                    <div id="feedback-1"></div>
+                </div>
+                <div style="margin: 20px 0;">
+                    <p><strong>G - Gun + Grapes:</strong></p>
+                    <textarea id="practice-2" placeholder="Type your answer..."></textarea>
+                    <button onclick="savePractice(2)">Save</button>
+                    <div id="feedback-2"></div>
+                </div>
+                <div style="margin: 20px 0;">
+                    <p><strong>H - House + Honey:</strong></p>
+                    <textarea id="practice-3" placeholder="Type your answer..."></textarea>
+                    <button onclick="savePractice(3)">Save</button>
+                    <div id="feedback-3"></div>
+                </div>
+                <div style="margin: 20px 0;">
+                    <p><strong>I - Ice Cream + Ice Cubes:</strong></p>
+                    <textarea id="practice-4" placeholder="Type your answer..."></textarea>
+                    <button onclick="savePractice(4)">Save</button>
+                    <div id="feedback-4"></div>
+                </div>
+                <div style="margin: 20px 0;">
+                    <p><strong>J - Jellyfish + Jam:</strong></p>
+                    <textarea id="practice-5" placeholder="Type your answer..."></textarea>
+                    <button onclick="savePractice(5)">Save</button>
+                    <div id="feedback-5"></div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Challenge 2: Recall the Shopping List</h3>
+            <div class="practice-section">
+                <p><strong>Write the 10 items in order WITHOUT looking back:</strong></p>
+                <div style="margin: 15px 0;">
+                    <p>A. <input type="text" id="recall-1" class="input-field" placeholder="Item..."></p>
+                    <p>B. <input type="text" id="recall-2" class="input-field" placeholder="Item..."></p>
+                    <p>C. <input type="text" id="recall-3" class="input-field" placeholder="Item..."></p>
+                    <p>D. <input type="text" id="recall-4" class="input-field" placeholder="Item..."></p>
+                    <p>E. <input type="text" id="recall-5" class="input-field" placeholder="Item..."></p>
+                    <p>F. <input type="text" id="recall-6" class="input-field" placeholder="Item..."></p>
+                    <p>G. <input type="text" id="recall-7" class="input-field" placeholder="Item..."></p>
+                    <p>H. <input type="text" id="recall-8" class="input-field" placeholder="Item..."></p>
+                    <p>I. <input type="text" id="recall-9" class="input-field" placeholder="Item..."></p>
+                    <p>J. <input type="text" id="recall-10" class="input-field" placeholder="Item..."></p>
+                </div>
+                <button onclick="checkRecall()">Check Recall</button>
+                <div id="recall-feedback"></div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Challenge 3: Memorize a Procedure</h3>
+            <div class="practice-section">
+                <p><strong>Use alphabet pegs to memorize this computer setup procedure:</strong></p>
+                <div class="procedure-list">
+                    <ol>
+                        <li>A - Turn on monitor</li>
+                        <li>B - Connect power cable</li>
+                        <li>C - Attach keyboard and mouse</li>
+                        <li>D - Connect internet cable</li>
+                        <li>E - Log in to system</li>
+                        <li>F - Update software</li>
+                        <li>G - Create user profile</li>
+                        <li>H - Install required programs</li>
+                    </ol>
+                </div>
+                <p style="margin: 15px 0;"><strong>Create your memory palace/images:</strong></p>
+                <textarea id="practice-6" placeholder="Type your answer..."></textarea>
+                <button onclick="savePractice(6)">Save</button>
+                <div id="feedback-6"></div>
+            </div>
+        </div>
+
+        <div id="final" class="tab-content">
+            <h2>Final Retrieval: Comprehensive Assessment</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="final-progress" style="width: 0%"></div>
+            </div>
+
+            <h3>Part 1: Method Knowledge</h3>
+            <div class="practice-section">
+                <div class="practice-question">
+                    <div class="question-text">1. What is the primary purpose of the Alphabet Peg system?</div>
+                    <div class="button-group">
+                        <button onclick="checkAnswer('final', 1, 'a')">A. Teaching the alphabet</button>
+                        <button onclick="checkAnswer('final', 1, 'b')">B. Memorizing ordered lists and procedures</button>
+                        <button onclick="checkAnswer('final', 1, 'c')">C. Learning animal names</button>
+                    </div>
+                    <div id="feedback-final-1"></div>
+                </div>
+
+                <div class="practice-question">
+                    <div class="question-text">2. How many items can the standard Alphabet Peg system memorize?</div>
+                    <div class="button-group">
+                        <button onclick="checkAnswer('final', 2, 'a')">A. Up to 10</button>
+                        <button onclick="checkAnswer('final', 2, 'b')">B. Up to 26 (A-Z)</button>
+                        <button onclick="checkAnswer('final', 2, 'c')">C. Up to 52</button>
+                    </div>
+                    <div id="feedback-final-2"></div>
+                </div>
+
+                <div class="practice-question">
+                    <div class="question-text">3. What makes Alphabet Pegs effective for memory?</div>
+                    <div class="button-group">
+                        <button onclick="checkAnswer('final', 3, 'a')">A. The alphabet is a solid, known foundation</button>
+                        <button onclick="checkAnswer('final', 3, 'b')">B. Bizarre images create memorable associations</button>
+                        <button onclick="checkAnswer('final', 3, 'c')">C. Both A and B</button>
+                    </div>
+                    <div id="feedback-final-3"></div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Part 2: Recall Test</h3>
+            <div class="practice-section">
+                <p><strong>From memory, what is the peg word for each letter?</strong></p>
+                <div style="margin: 15px 0;">
+                    <p>A = <input type="text" id="final-a" class="input-field" placeholder=""></p>
+                    <p>E = <input type="text" id="final-e" class="input-field" placeholder=""></p>
+                    <p>M = <input type="text" id="final-m" class="input-field" placeholder=""></p>
+                    <p>S = <input type="text" id="final-s" class="input-field" placeholder=""></p>
+                    <p>Z = <input type="text" id="final-z" class="input-field" placeholder=""></p>
+                </div>
+                <button onclick="checkPegs()">Check Answers</button>
+                <div id="pegs-feedback"></div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Part 3: Application</h3>
+            <div class="practice-section">
+                <div class="practice-question">
+                    <div class="question-text">4. Compare Alphabet Pegs vs Number Pegs in a few sentences:</div>
+                    <textarea id="final-4" class="input-field" style="min-height: 80px;" placeholder="Type your answer..."></textarea>
+                    <button onclick="saveFinal(4)">Save</button>
+                    <div id="feedback-final-4"></div>
+                </div>
+            </div>
+
+            <button onclick="calculateScore()" style="width: 100%; padding: 15px; font-size: 1.2em; margin-top: 20px;">Calculate Final Score</button>
+            <div class="score-display" id="final-score" style="display:none; margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <script>
+        let finalScore = 0;
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function checkAnswer(section, question, answer) {
+            const correctAnswers = {
+                'retrieval-1': 'a',
+                'final-1': 'b',
+                'final-2': 'b',
+                'final-3': 'c'
+            };
+            const key = `${section}-${question}`;
+            const feedbackId = `feedback-${section === 'final' ? 'final-' : ''}${question}`;
+            const feedback = document.getElementById(feedbackId);
+            if (correctAnswers[key] === answer) {
+                feedback.innerHTML = '<div class="feedback correct">✓ Correct!</div>';
+                if (section === 'final') finalScore++;
+            } else {
+                feedback.innerHTML = '<div class="feedback incorrect">✗ Try again!</div>';
+            }
+        }
+
+        function checkAnswerText(question) {
+            const answer = document.getElementById(`answer-${question}`).value.toLowerCase().trim();
+            const feedback = document.getElementById(`feedback-${question}`);
+            if (answer.includes('order') || answer.includes('sequence') || answer.includes('position')) {
+                feedback.innerHTML = '<div class="feedback correct">✓ Correct!</div>';
+            } else {
+                feedback.innerHTML = '<div class="feedback incorrect">✗ An ordered system helps organize items sequentially</div>';
+            }
+        }
+
+        function savePractice(num) {
+            const text = document.getElementById(`practice-${num}`).value;
+            if (text.trim()) {
+                document.getElementById(`feedback-${num}`).innerHTML = '<div class="feedback correct">✓ Saved! Great imagery!</div>';
+            } else {
+                document.getElementById(`feedback-${num}`).innerHTML = '<div class="feedback incorrect">✗ Please write your image</div>';
+            }
+        }
+
+        function checkRecall() {
+            const answers = ['milk', 'butter', 'cheese', 'eggs', 'fish', 'flour', 'grapes', 'honey', 'ice', 'jam'];
+            const userAnswers = [];
+            for (let i = 1; i <= 10; i++) {
+                userAnswers.push(document.getElementById(`recall-${i}`).value.toLowerCase().trim());
+            }
+
+            let correct = 0;
+            let html = '<div style="margin-top: 15px;">';
+            userAnswers.forEach((ans, idx) => {
+                const isCorrect = answers[idx].substring(0, 3) === ans.substring(0, 3);
+                if (isCorrect) {
+                    correct++;
+                    html += `<div class="feedback correct">✓ #${idx + 1}: Correct</div>`;
+                } else {
+                    html += `<div class="feedback incorrect">✗ #${idx + 1}: Should be ${answers[idx]}</div>`;
+                }
+            });
+            html += `</div><div class="score-display">${correct}/10 (${Math.round(correct/10*100)}%)</div>`;
+            document.getElementById('recall-feedback').innerHTML = html;
+            finalScore += Math.round(correct / 10);
+        }
+
+        function checkPegs() {
+            const correct = {
+                'a': 'apple',
+                'e': 'egg',
+                'm': 'moon',
+                's': 'snake',
+                'z': 'zebra'
+            };
+
+            let score = 0;
+            let html = '<div style="margin-top: 15px;">';
+
+            Object.keys(correct).forEach(letter => {
+                const user = document.getElementById(`final-${letter}`).value.toLowerCase().trim();
+                const isCorrect = correct[letter].substring(0, 3) === user.substring(0, 3);
+                if (isCorrect) {
+                    score++;
+                    html += `<div class="feedback correct">✓ ${letter.toUpperCase()}: Correct</div>`;
+                } else {
+                    html += `<div class="feedback incorrect">✗ ${letter.toUpperCase()}: Should be ${correct[letter]}</div>`;
+                }
+            });
+
+            html += `</div><div class="score-display">${score}/5</div>`;
+            document.getElementById('pegs-feedback').innerHTML = html;
+            finalScore += score;
+        }
+
+        function saveFinal(num) {
+            const answer = document.getElementById(`final-${num}`).value;
+            if (answer.trim()) {
+                document.getElementById(`feedback-final-${num}`).innerHTML = '<div class="feedback correct">✓ Saved!</div>';
+                finalScore++;
+            } else {
+                document.getElementById(`feedback-final-${num}`).innerHTML = '<div class="feedback incorrect">✗ Please provide an answer</div>';
+            }
+        }
+
+        function calculateScore() {
+            const percentage = Math.round((finalScore / 12) * 100);
+            let message = percentage >= 80 ? 'Excellent! You mastered alphabet pegs!' : 
+                         percentage >= 60 ? 'Good work! Review and practice more.' : 
+                         'Keep practicing!';
+            document.getElementById('final-score').style.display = 'block';
+            document.getElementById('final-score').innerHTML = `${finalScore}/12 Correct (${percentage}%) - ${message}`;
+        }
+    </script>
+</body>
+</html>

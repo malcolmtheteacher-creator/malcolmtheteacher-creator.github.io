@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Art of Memory - Lesson 20: Review & Integration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #222;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #c9a227 100%);
+            color: #1a1a1a;
+            padding: 40px 30px;
+            text-align: center;
+            border-bottom: 4px solid #a68410;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .tabs-container {
+            display: flex;
+            border-bottom: 2px solid #d4af37;
+            background: #1a1a1a;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px 10px;
+            background: #2d2d2d;
+            border: none;
+            color: #d4af37;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-width: 130px;
+        }
+
+        .tab-button:hover {
+            background: #3d3d3d;
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            background: #d4af37;
+            color: #1a1a1a;
+            border-bottom: 3px solid #a68410;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            color: #d4af37;
+            margin-bottom: 25px;
+            font-size: 2em;
+            border-left: 4px solid #d4af37;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #d4af37;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        .concept-box {
+            background: #2d2d2d;
+            border-left: 4px solid #d4af37;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: #2d2d2d;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .card-title {
+            font-size: 1.2em;
+            color: #d4af37;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .practice-section {
+            background: #2d2d2d;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .practice-question {
+            background: #1a1a1a;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #d4af37;
+            border-radius: 5px;
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #e5c158;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .secondary-button {
+            background: #3d3d3d;
+            color: #d4af37;
+        }
+
+        .secondary-button:hover {
+            background: #4d4d4d;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #d4af37, #c9a227);
+            color: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+
+        .feedback.correct {
+            background: #2d5d2d;
+            border-left: 4px solid #4a9d4a;
+            color: #7fd97f;
+        }
+
+        .feedback.incorrect {
+            background: #5d2d2d;
+            border-left: 4px solid #9d4a4a;
+            color: #d97f7f;
+        }
+
+        .input-field {
+            background: #1a1a1a;
+            border: 2px solid #d4af37;
+            color: #e0e0e0;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 1em;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        .input-field:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .memory-tip {
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #d4af37;
+        }
+
+        .memory-tip strong {
+            color: #e5c158;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #1a1a1a;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 15px 0;
+            border: 2px solid #d4af37;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #c9a227);
+            transition: width 0.3s ease;
+        }
+
+        .technique-matrix {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #1a1a1a;
+        }
+
+        .technique-matrix th,
+        .technique-matrix td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #d4af37;
+        }
+
+        .technique-matrix th {
+            background: #3d3d3d;
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .speed-drill {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #d4af37;
+            margin: 15px 0;
+        }
+
+        .timer {
+            font-size: 2em;
+            color: #d4af37;
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .achievement-badge {
+            background: linear-gradient(135deg, #d4af37, #c9a227);
+            color: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>The Art of Memory</h1>
+            <p>Lesson 20: Review & Integration - Master All Techniques</p>
+        </div>
+
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab('retrieval')">Retrieval</button>
+            <button class="tab-button" onclick="switchTab('content')">New Content</button>
+            <button class="tab-button" onclick="switchTab('guided')">Guided Practice</button>
+            <button class="tab-button" onclick="switchTab('elaboration')">Elaboration</button>
+            <button class="tab-button" onclick="switchTab('independent')">Independent Practice</button>
+            <button class="tab-button" onclick="switchTab('final')">Final Retrieval</button>
+        </div>
+
+        <div id="retrieval" class="tab-content active">
+            <h2>Retrieval: Complete Course Review</h2>
+            <div class="concept-box">
+                <p>Let's test your knowledge of all 5 memory techniques from Lessons 16-19.</p>
+            </div>
+
+            <h3>Quick 5-Question Review</h3>
+            <div class="practice-section">
+                <div class="practice-question">
+                    <div class="question-text">1. Which method is BEST for vocabulary?</div>
+                    <div class="button-group">
+                        <button onclick="checkAnswer('retrieval', 1, 'a')">A. Keyword Method</button>
+                        <button onclick="checkAnswer('retrieval', 1, 'b')">B. Memory Palace</button>
+                        <button onclick="checkAnswer('retrieval', 1, 'c')">C. Alphabet Pegs</button>
+                    </div>
+                    <div id="feedback-1"></div>
+                </div>
+
+                <div class="practice-question">
+                    <div class="question-text">2. Which is used for ordered lists/procedures?</div>
+                    <div class="button-group">
+                        <button onclick="checkAnswer('retrieval', 2, 'a')">A. Keyword Method</button>
+                        <button onclick="checkAnswer('retrieval', 2, 'b')">B. Story Method</button>
+                        <button onclick="checkAnswer('retrieval', 2, 'c')">C. Alphabet Pegs</button>
+                    </div>
+                    <div id="feedback-2"></div>
+                </div>
+
+                <div class="practice-question">
+                    <div class="question-text">3. How do you memorize abstract formulas?</div>
+                    <input type="text" id="answer-3" class="input-field" placeholder="Type your answer...">
+                    <button onclick="checkAnswerText(3)">Check</button>
+                    <div id="feedback-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="content" class="tab-content">
+            <h2>Integration: Using Multiple Techniques Together</h2>
+            <div class="concept-box">
+                <p>The REAL power comes from combining techniques strategically. Let's see how.</p>
+            </div>
+
+            <h3>Technique Selection Matrix</h3>
+            <table class="technique-matrix">
+                <tr>
+                    <th>Information Type</th>
+                    <th>Best Technique</th>
+                    <th>Why It Works</th>
+                </tr>
+                <tr>
+                    <td>Vocabulary (foreign words)</td>
+                    <td>Keyword Method</td>
+                    <td>Sound-alike associations create instant bridges</td>
+                </tr>
+                <tr>
+                    <td>Grammar rules</td>
+                    <td>Story Method + Palace</td>
+                    <td>Stories show WHY, palace stores conjugations</td>
+                </tr>
+                <tr>
+                    <td>Ordered lists/procedures</td>
+                    <td>Alphabet Pegs or Number Pegs</td>
+                    <td>Sequential system ensures correct order</td>
+                </tr>
+                <tr>
+                    <td>Complex topics</td>
+                    <td>Mind Map + Memory Palace</td>
+                    <td>Visualizes relationships and hierarchy</td>
+                </tr>
+                <tr>
+                    <td>Abstract formulas</td>
+                    <td>Visualization + Palace</td>
+                    <td>Converts abstract to concrete objects</td>
+                </tr>
+                <tr>
+                    <td>Dates/numbers</td>
+                    <td>Major System + Palace</td>
+                    <td>Converts numbers to vivid images</td>
+                </tr>
+            </table>
+
+            <h3>Real-World Example: Memorizing Spanish Lesson</h3>
+            <div class="concept-box">
+                <p><strong>Scenario:</strong> You need to learn a Spanish conversation with grammar and new vocabulary.</p>
+                <h4>Integrated Approach:</h4>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Vocabulary:</strong> Use Keyword Method for new words (TANGO = tangled Spanish word)</li>
+                    <li><strong>Grammar:</strong> Use Story Method to understand verb conjugation patterns</li>
+                    <li><strong>Conversation Flow:</strong> Use Memory Palace - each room = one exchange in dialogue</li>
+                    <li><strong>Word Order:</strong> Embed word order in vivid palace scenes</li>
+                    <li><strong>Overall Structure:</strong> Use Alphabet Pegs for key phrases (A=greeting, B=introduction, etc.)</li>
+                </ul>
+            </div>
+
+            <div class="memory-tip">
+                <strong>Pro Strategy:</strong> Always use the SIMPLEST technique that works. Don't overcomplicate! For a short vocabulary list, Keyword Method alone is enough. For complex integrated learning, combine methods strategically.
+            </div>
+        </div>
+
+        <div id="guided" class="tab-content">
+            <h2>Guided Practice: Integration Challenge</h2>
+            <div class="concept-box">
+                <p>We'll guide you through memorizing an integrated language lesson combining multiple techniques.</p>
+            </div>
+
+            <h3>Task: Memorize a French Restaurant Scenario</h3>
+
+            <div class="practice-section">
+                <h4>Vocabulary (5 words) - Use Keyword Method</h4>
+                <div class="card">
+                    <p><strong>Restaurant</strong> - RESTAURANT (easy, sounds similar)</p>
+                    <p><strong>Garçon</strong> (waiter) - GARRISON (imagine military waiter)</p>
+                    <p><strong>Assiette</strong> (plate) - ASSET (imagine valuable plate)</p>
+                    <p><strong>Boisson</strong> (drink) - BOY-SONG (boy singing while drinking)</p>
+                    <p><strong>Compte</strong> (bill) - COME-PAY (Come and pay!)</p>
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <h4>Grammar: Present Tense "To Eat" (Manger)</h4>
+                <p>Use Memory Palace - imagine walking through restaurant:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Front Door (Je):</strong> "I" arrive eating bread (Je mange = I eat)</li>
+                    <li><strong>Table (Tu):</strong> "You" eating soup (Tu manges = You eat)</li>
+                    <li><strong>Kitchen (Il/Elle):</strong> He/She eating at the stove (Il/Elle mange)</li>
+                </ul>
+            </div>
+
+            <div class="practice-section">
+                <h4>Conversation Flow - Use Alphabet Pegs</h4>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>A - Apple (Greeting):</strong> "Bonjour" - greet at entrance</li>
+                    <li><strong>B - Bee (Seating):</strong> "Une table pour deux" - ask for table</li>
+                    <li><strong>C - Cat (Menu):</strong> "Je voudrais voir le menu" - ask for menu</li>
+                    <li><strong>D - Dog (Ordering):</strong> "Je prends..." - order food</li>
+                    <li><strong>E - Egg (Eating):</strong> "C'est délicieux!" - comment on food</li>
+                    <li><strong>F - Fish (Bill):</strong> "L'addition, s'il vous plaît" - ask for bill</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 30px; text-align: center; color: #d4af37;"><strong>This integration combines 3 techniques to memorize an entire scenario!</strong></p>
+        </div>
+
+        <div id="elaboration" class="tab-content">
+            <h2>Elaboration: Mastery Principles</h2>
+
+            <h3>The Learning Hierarchy</h3>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-title">Level 1: Simple Recall</div>
+                    <p>Remember basic facts using single techniques (Keyword for one word)</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Level 2: Structured Sequences</div>
+                    <p>Remember ordered information using Alphabet Pegs, palaces</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Level 3: Integrated Learning</div>
+                    <p>Combine multiple techniques for complex material</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Level 4: Mastery</div>
+                    <p>Fluently use any technique for any information instantly</p>
+                </div>
+            </div>
+
+            <h3>Speed & Retention: Spaced Retrieval</h3>
+            <div class="concept-box">
+                <h4>The Optimal Schedule (Ebbinghaus Curve)</h4>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Review 1:</strong> Same day (immediate consolidation)</li>
+                    <li><strong>Review 2:</strong> 1 day later (short-term memory → long-term)</li>
+                    <li><strong>Review 3:</strong> 3 days later (strengthening)</li>
+                    <li><strong>Review 4:</strong> 1 week later (permanent storage)</li>
+                    <li><strong>Review 5:</strong> 2 weeks later (mastery)</li>
+                </ul>
+                <p style="margin-top: 15px; color: #d4af37;"><strong>Key:</strong> Each review should involve ACTIVE RECALL, not passive re-reading!</p>
+            </div>
+
+            <h3>Combining Techniques: Strategic Framework</h3>
+            <div class="concept-box">
+                <h4>Step 1: Analyze Information Type</h4>
+                <p>Is it vocabulary? Grammar? Lists? Formulas? This determines your primary technique.</p>
+                <h4>Step 2: Choose Primary Technique</h4>
+                <p>Select the BEST technique from the matrix for that information type.</p>
+                <h4>Step 3: Identify Relationships</h4>
+                <p>Does this information connect to other material? If so, how?</p>
+                <h4>Step 4: Choose Secondary Techniques</h4>
+                <p>Add supporting techniques to show relationships or organize structure.</p>
+                <h4>Step 5: Create Integrated Visualization</h4>
+                <p>Build a comprehensive mental framework using all techniques together.</p>
+            </div>
+
+            <h3>Why Multi-Technique Learning Works Better</h3>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-title">Encoding Specificity</div>
+                    <p>Multiple encoding pathways = multiple retrieval routes</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Context Richness</div>
+                    <p>Different techniques provide different contexts, making memory more robust</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Transfer Learning</div>
+                    <p>Techniques reinforce each other, enabling rapid learning of similar material</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="independent" class="tab-content">
+            <h2>Independent Practice: Comprehensive Challenges</h2>
+
+            <h3>Challenge 1: Mixed Vocabulary + Grammar</h3>
+            <div class="practice-section">
+                <p><strong>Task:</strong> Create an integrated system to memorize 5 German words AND their plural forms:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Das Buch (book) → Die Bücher (books)</li>
+                    <li>Der Mann (man) → Die Männer (men)</li>
+                    <li>Die Frau (woman) → Die Frauen (women)</li>
+                    <li>Das Haus (house) → Die Häuser (houses)</li>
+                    <li>Der Baum (tree) → Die Bäume (trees)</li>
+                </ul>
+                <p style="margin: 15px 0;"><strong>Describe your integrated approach:</strong></p>
+                <textarea id="practice-1" placeholder="How would you combine keyword method, story method, or pegs?" style="min-height: 120px;"></textarea>
+                <button onclick="savePractice(1)">Save</button>
+                <div id="feedback-p1"></div>
+            </div>
+
+            <h3>Challenge 2: Complex Procedure</h3>
+            <div class="practice-section">
+                <p><strong>Task:</strong> Memorize a 10-step medical emergency procedure using integrated techniques:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>A. Check responsiveness</li>
+                    <li>B. Call emergency services</li>
+                    <li>C. Clear airway</li>
+                    <li>D. Start CPR chest compressions</li>
+                    <li>E. Deliver rescue breaths</li>
+                    <li>F. Monitor pulse/breathing</li>
+                    <li>G. Continue CPR cycles</li>
+                    <li>H. Prepare for defibrillator</li>
+                    <li>I. Apply defibrillator pads</li>
+                    <li>J. Resume CPR after shock</li>
+                </ul>
+                <p style="margin: 15px 0;"><strong>Create a memory system:</strong></p>
+                <textarea id="practice-2" placeholder="Use alphabet pegs + palace + visualization" style="min-height: 120px;"></textarea>
+                <button onclick="savePractice(2)">Save</button>
+                <div id="feedback-p2"></div>
+            </div>
+
+            <h3>Challenge 3: Multi-Topic Integration</h3>
+            <div class="practice-section">
+                <p><strong>Task:</strong> Design an integrated learning system for a chemistry unit covering:</p>
+                <ul style="margin-left: 20px;">
+                    <li>4 key vocabulary terms (atom, molecule, element, compound)</li>
+                    <li>2 formulas (H₂O, NaCl)</li>
+                    <li>3 safety rules</li>
+                    <li>A process (photosynthesis)</li>
+                </ul>
+                <p style="margin: 15px 0;"><strong>Describe your comprehensive approach:</strong></p>
+                <textarea id="practice-3" placeholder="How would you integrate all 5 techniques for this material?" style="min-height: 150px;"></textarea>
+                <button onclick="savePractice(3)">Save</button>
+                <div id="feedback-p3"></div>
+            </div>
+        </div>
+
+        <div id="final" class="tab-content">
+            <h2>Final Retrieval: Comprehensive Assessment</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="final-progress" style="width: 0%"></div>
+            </div>
+
+            <h3>Part 1: Technique Mastery (20 questions)</h3>
+            <div class="practice-section">
+                <div class="practice-question">
+                    <div class="question-text">1. What is the Keyword Method best for?</div>
+                    <div class="button-group">
+                        <button onclick="checkFinalAnswer(1, 'a')">A. Vocabulary</button>
+                        <button onclick="checkFinalAnswer(1, 'b')">B. Lists</button>
+                        <button onclick="checkFinalAnswer(1, 'c')">C. Formulas</button>
+                    </div>
+                    <div id="feedback-1"></div>
+                </div>
+
+                <div class="practice-question">
+                    <div class="question-text">2. Memory Palace works by storing info WHERE?</div>
+                    <div class="button-group">
+                        <button onclick="checkFinalAnswer(2, 'a')">A. Alphabetical order</button>
+                        <button onclick="checkFinalAnswer(2, 'b')">B. Spatial/physical locations</button>
+                        <button onclick="checkFinalAnswer(2, 'c')">C. Numerical sequences</button>
+                    </div>
+                    <div id="feedback-2"></div>
+                </div>
+
+                <div class="practice-question">
+                    <div class="question-text">3. Alphabet Pegs can memorize up to ___ items?</div>
+                    <div class="button-group">
+                        <button onclick="checkFinalAnswer(3, 'a')">A. 10</button>
+                        <button onclick="checkFinalAnswer(3, 'b')">B. 26 (A-Z)</button>
+                        <button onclick="checkFinalAnswer(3, 'c')">C. 100</button>
+                    </div>
+                    <div id="feedback-3"></div>
+                </div>
+
+                <div class="practice-question">
+                    <div class="question-text">4. Abstract formulas are memorized by CONVERTING them to...?</div>
+                    <div class="button-group">
+                        <button onclick="checkFinalAnswer(4, 'a')">A. Numbers</button>
+                        <button onclick="checkFinalAnswer(4, 'b')">B. Concrete objects and stories</button>
+                        <button onclick="checkFinalAnswer(4, 'c')">C. Mathematical proofs</button>
+                    </div>
+                    <div id="feedback-4"></div>
+                </div>
+
+                <div class="practice-question">
+                    <div class="question-text">5. Story Method teaches grammar WHY and HOW?</div>
+                    <input type="text" id="answer-5" class="input-field" placeholder="Type your answer...">
+                    <button onclick="checkAnswerText(5)">Check</button>
+                    <div id="feedback-5"></div>
+                </div>
+
+                <div class="practice-question">
+                    <div class="question-text">6. What's the OPTIMAL spaced retrieval schedule?</div>
+                    <button class="secondary-button" onclick="toggleAnswer('spaced')">Reveal</button>
+                    <div id="spaced" style="display:none; margin-top: 10px;">
+                        <div class="feedback correct">
+                            Day 0 (same day), Day 1, Day 3, Day 7, Day 14 - Each time with ACTIVE RECALL
+                        </div>
+                    </div>
+                </div>
+
+                <div class="practice-question">
+                    <div class="question-text">7. Which techniques CAN be combined?</div>
+                    <div class="button-group">
+                        <button onclick="checkFinalAnswer(7, 'a')">A. Only one technique at a time</button>
+                        <button onclick="checkFinalAnswer(7, 'b')">B. All techniques work independently only</button>
+                        <button onclick="checkFinalAnswer(7, 'c')">C. Multiple techniques create more robust learning</button>
+                    </div>
+                    <div id="feedback-7"></div>
+                </div>
+
+                <div class="practice-question">
+                    <div class="question-text">8. When choosing a technique, the first step is?</div>
+                    <div class="button-group">
+                        <button onclick="checkFinalAnswer(8, 'a')">A. Analyze the type of information</button>
+                        <button onclick="checkFinalAnswer(8, 'b')">B. Pick the fastest technique</button>
+                        <button onclick="checkFinalAnswer(8, 'c')">C. Use only complex methods</button>
+                    </div>
+                    <div id="feedback-8"></div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Part 2: Integration Application</h3>
+            <div class="practice-section">
+                <div class="practice-question">
+                    <div class="question-text">9. Design a system to learn a 3-sentence dialogue in Spanish combining 3 techniques:</div>
+                    <textarea id="final-9" class="input-field" style="min-height: 100px;" placeholder="Your integrated approach..."></textarea>
+                    <button onclick="saveFinal(9)">Save</button>
+                    <div id="feedback-9"></div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Your Final Score</h3>
+            <button onclick="calculateFinalScore()" style="width: 100%; padding: 15px; font-size: 1.2em; margin-top: 20px;">Calculate Score</button>
+            <div class="score-display" id="final-score" style="display:none; margin-top: 20px;"></div>
+
+            <div class="achievement-badge" id="achievement" style="display:none; margin-top: 30px;">
+                You've mastered The Art of Memory! Continue practicing with real material!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let finalScore = 0;
+        let totalQuestions = 9;
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function checkAnswer(section, question, answer) {
+            const correctAnswers = {
+                'retrieval-1': 'a',
+                'retrieval-2': 'c',
+            };
+            const key = `${section}-${question}`;
+            const feedbackId = `feedback-${question}`;
+            const feedback = document.getElementById(feedbackId);
+            if (correctAnswers[key] === answer) {
+                feedback.innerHTML = '<div class="feedback correct">✓ Correct!</div>';
+            } else {
+                feedback.innerHTML = '<div class="feedback incorrect">✗ Try again!</div>';
+            }
+        }
+
+        function checkAnswerText(question) {
+            const answer = document.getElementById(`answer-${question}`).value.toLowerCase().trim();
+            const feedback = document.getElementById(`feedback-${question}`);
+            if (question === 3) {
+                if (answer.includes('convert') || answer.includes('abstract') || answer.includes('concrete')) {
+                    feedback.innerHTML = '<div class="feedback correct">✓ Correct!</div>';
+                } else {
+                    feedback.innerHTML = '<div class="feedback incorrect">✗ Convert abstract to concrete objects!</div>';
+                }
+            } else if (question === 5) {
+                if (answer.includes('narrative') || answer.includes('story') || answer.includes('action')) {
+                    feedback.innerHTML = '<div class="feedback correct">✓ Correct!</div>';
+                    finalScore++;
+                } else {
+                    feedback.innerHTML = '<div class="feedback incorrect">✗ Stories show narrative and action!</div>';
+                }
+            }
+        }
+
+        function checkFinalAnswer(question, answer) {
+            const correctAnswers = {
+                '1': 'a',
+                '2': 'b',
+                '3': 'b',
+                '4': 'b',
+                '7': 'c',
+                '8': 'a'
+            };
+            const feedbackId = `feedback-${question}`;
+            const feedback = document.getElementById(feedbackId);
+            if (correctAnswers[question] === answer) {
+                feedback.innerHTML = '<div class="feedback correct">✓ Correct!</div>';
+                finalScore++;
+            } else {
+                feedback.innerHTML = '<div class="feedback incorrect">✗ Try again!</div>';
+            }
+            updateProgress();
+        }
+
+        function toggleAnswer(id) {
+            const el = document.getElementById(id);
+            el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function savePractice(num) {
+            const text = document.getElementById(`practice-${num}`).value;
+            if (text.trim()) {
+                document.getElementById(`feedback-p${num}`).innerHTML = '<div class="feedback correct">✓ Saved! Creative approach!</div>';
+            } else {
+                document.getElementById(`feedback-p${num}`).innerHTML = '<div class="feedback incorrect">✗ Please complete this challenge</div>';
+            }
+        }
+
+        function saveFinal(num) {
+            const answer = document.getElementById(`final-${num}`).value;
+            if (answer.trim()) {
+                document.getElementById(`feedback-${num}`).innerHTML = '<div class="feedback correct">✓ Saved!</div>';
+                finalScore++;
+            } else {
+                document.getElementById(`feedback-${num}`).innerHTML = '<div class="feedback incorrect">✗ Please provide an answer</div>';
+            }
+        }
+
+        function updateProgress() {
+            const answered = document.querySelectorAll('[id^="feedback-"][id*="-"]').length;
+            const progress = (answered / totalQuestions) * 100;
+            document.getElementById('final-progress').style.width = progress + '%';
+        }
+
+        function calculateFinalScore() {
+            const percentage = Math.round((finalScore / totalQuestions) * 100);
+            let message = '';
+            if (percentage >= 90) {
+                message = 'MASTERY! You are a memory expert!';
+            } else if (percentage >= 80) {
+                message = 'Excellent! Advanced memory skills!';
+            } else if (percentage >= 70) {
+                message = 'Very Good! Keep practicing!';
+            } else if (percentage >= 60) {
+                message = 'Good foundation! Review weak areas!';
+            } else {
+                message = 'Keep practicing all techniques!';
+            }
+
+            document.getElementById('final-score').style.display = 'block';
+            document.getElementById('final-score').innerHTML = `${finalScore}/${totalQuestions} Correct (${percentage}%) - ${message}`;
+
+            if (percentage >= 80) {
+                document.getElementById('achievement').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

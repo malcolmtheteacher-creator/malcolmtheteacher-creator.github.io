@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Art of Memory - 30 Interactive Lessons in Memory Mastery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0f0f0f;
+            --secondary-dark: #1a1a1a;
+            --tertiary-dark: #2a2a2a;
+            --gold: #d4af37;
+            --gold-light: #e5c158;
+            --text-primary: #f5f5f5;
+            --text-secondary: #b0b0b0;
+            --accent-green: #2ecc71;
+            --accent-blue: #3498db;
+            --accent-purple: #9b59b6;
+            --accent-orange: #e67e22;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--tertiary-dark) 100%);
+            border-bottom: 3px solid var(--gold);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+            letter-spacing: 2px;
+        }
+
+        header .subtitle {
+            font-size: 1.3rem;
+            color: var(--gold-light);
+            font-style: italic;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            background: var(--secondary-dark);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .progress-header h2 {
+            font-size: 1.8rem;
+            color: var(--gold);
+        }
+
+        .progress-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .progress-bar-container {
+            background: var(--tertiary-dark);
+            border-radius: 10px;
+            height: 30px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border: 2px solid var(--gold);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+            border-radius: 8px;
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-dark);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .progress-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Badge */
+        .badge-section {
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-blue) 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 30px rgba(155, 89, 182, 0.2);
+            text-align: center;
+        }
+
+        .badge-title {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .badge-icon {
+            font-size: 2rem;
+        }
+
+        .badge-description {
+            color: var(--text-primary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Systems Comparison Chart */
+        .chart-section {
+            background: var(--secondary-dark);
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .chart-section h2 {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .comparison-card {
+            background: var(--tertiary-dark);
+            border-left: 4px solid var(--gold);
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .comparison-card h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .comparison-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Modules */
+        .modules-section {
+            margin-top: 3rem;
+        }
+
+        .module {
+            margin-bottom: 3rem;
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .module-number {
+            font-size: 1.5rem;
+            background: var(--gold);
+            color: var(--primary-dark);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .module-title {
+            font-size: 2rem;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .module-progress {
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .module-progress-bar {
+            width: 200px;
+            height: 8px;
+            background: var(--tertiary-dark);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .module-progress-fill {
+            height: 100%;
+            background: var(--gold);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .module-progress-text {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* Lesson Grid */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .lesson-card {
+            background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--tertiary-dark) 100%);
+            border: 2px solid var(--tertiary-dark);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--accent-blue) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .lesson-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .lesson-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .lesson-card.completed {
+            border-color: var(--accent-green);
+        }
+
+        .lesson-card.completed::before {
+            background: var(--accent-green);
+            transform: scaleX(1);
+        }
+
+        .lesson-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .lesson-number {
+            font-size: 0.85rem;
+            color: var(--gold);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .completion-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: var(--gold);
+        }
+
+        .lesson-title {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .lesson-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .lesson-footer {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--tertiary-dark);
+        }
+
+        .lesson-link {
+            flex: 1;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--primary-dark);
+            padding: 0.7rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .lesson-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .completion-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            color: var(--primary-dark);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-dark);
+            border-top: 2px solid var(--gold);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 3rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header .subtitle {
+                font-size: 1rem;
+            }
+
+            .module-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .module-progress {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .module-progress-bar {
+                width: 100%;
+            }
+
+            .progress-stats {
+                justify-content: space-around;
+                width: 100%;
+            }
+
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Classes */
+        .module-1 { --accent: #ff6b6b; }
+        .module-2 { --accent: #4ecdc4; }
+        .module-3 { --accent: #45b7d1; }
+        .module-4 { --accent: #96ceb4; }
+        .module-5 { --accent: #ffeaa7; }
+        .module-6 { --accent: #dfe6e9; }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>The Art of Memory</h1>
+        <p class="subtitle">30 Interactive Lessons in Memory Mastery</p>
+    </header>
+
+    <div class="container">
+        <!-- Progress Section -->
+        <section class="progress-section">
+            <div class="progress-header">
+                <h2>Your Learning Journey</h2>
+                <div class="progress-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="completed-count">0</div>
+                        <div class="stat-label">Lessons Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="total-count">30</div>
+                        <div class="stat-label">Total Lessons</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="progress-percent">0%</div>
+                        <div class="stat-label">Overall Progress</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="main-progress-bar">
+                    <span id="progress-label"></span>
+                </div>
+            </div>
+            <p class="progress-text">Continue your journey to master the science of memory and unlock your cognitive potential.</p>
+        </section>
+
+        <!-- Badge Section -->
+        <section class="badge-section">
+            <div class="badge-title">
+                <span class="badge-icon">🧠</span>
+                Evidence-Based Learning Methodology
+            </div>
+            <p class="badge-description">
+                This course is grounded in cognitive psychology and neuroscience research. Each lesson combines proven memory techniques (Method of Loci, Spaced Repetition, Elaborative Encoding) with interactive exercises designed to build neural pathways. Our curriculum progresses from foundational principles through practical mastery, ensuring deep understanding and long-term retention. Track your progress to maintain motivation and celebrate each milestone on your journey to memory excellence.
+            </p>
+        </section>
+
+        <!-- Systems Comparison Chart -->
+        <section class="chart-section">
+            <h2>Memory Systems Comparison</h2>
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h3>Method of Loci</h3>
+                    <p><strong>Best for:</strong> Large lists, speeches, vivid imagery. <strong>Technique:</strong> Associate items with physical locations. <strong>Power:</strong> Leverages spatial memory, one of our strongest cognitive abilities.</p>
+                </div>
+                <div class="comparison-card">
+                    <h3>Spaced Repetition</h3>
+                    <p><strong>Best for:</strong> Long-term retention, facts, languages. <strong>Technique:</strong> Review material at increasing intervals. <strong>Power:</strong> Optimizes timing to prevent forgetting curve.</p>
+                </div>
+                <div class="comparison-card">
+                    <h3>Elaborative Encoding</h3>
+                    <p><strong>Best for:</strong> Deep understanding, complex concepts. <strong>Technique:</strong> Connect new info to existing knowledge. <strong>Power:</strong> Creates rich neural networks for recall.</p>
+                </div>
+                <div class="comparison-card">
+                    <h3>Chunking</h3>
+                    <p><strong>Best for:</strong> Numbers, sequences, codes. <strong>Technique:</strong> Group information into meaningful units. <strong>Power:</strong> Expands working memory capacity.</p>
+                </div>
+                <div class="comparison-card">
+                    <h3>Story Method</h3>
+                    <p><strong>Best for:</strong> Narrative sequences, events, relationships. <strong>Technique:</strong> Weave items into a coherent story. <strong>Power:</strong> Harnesses narrative memory strength.</p>
+                </div>
+                <div class="comparison-card">
+                    <h3>Peg System</h3>
+                    <p><strong>Best for:</strong> Lists with specific order, rankings. <strong>Technique:</strong> Attach items to pre-memorized "pegs". <strong>Power:</strong> Enables flexible retrieval and reordering.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modules -->
+        <section class="modules-section" id="modules-container"></section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 The Art of Memory. All rights reserved.</p>
+        <p>Master your mind. Transform your life.</p>
+    </footer>
+
+    <script>
+        // Course Data
+        const courseData = {
+            modules: [
+                {
+                    id: 1,
+                    number: 1,
+                    title: "Foundations",
+                    lessons: [
+                        { num: 1, title: "How Memory Works", desc: "Discover the neuroscience behind memory formation and the three stages of memory processing." },
+                        { num: 2, title: "Understanding the Forgetting Curve", desc: "Learn Ebbinghaus's research and how to combat natural memory decay." },
+                        { num: 3, title: "The Power of Visualization", desc: "Master mental imagery techniques to create vivid, memorable associations." },
+                        { num: 4, title: "Working Memory & Attention", desc: "Understand how attention shapes what gets remembered and practical focus techniques." },
+                        { num: 5, title: "Memory Types & Styles", desc: "Identify your natural memory strengths and learn to leverage your unique cognitive profile." }
+                    ]
+                },
+                {
+                    id: 2,
+                    number: 2,
+                    title: "Number Mastery",
+                    lessons: [
+                        { num: 6, title: "Binary Number System", desc: "Learn efficient techniques for memorizing binary sequences and digital information." },
+                        { num: 7, title: "The Major System", desc: "Master the foundation of number memorization with phonetic encoding." },
+                        { num: 8, title: "Memorizing Pi & Constants", desc: "Apply advanced techniques to memorize mathematical constants accurately." },
+                        { num: 9, title: "Speed Number Memorization", desc: "Break records with rapid encoding and recall of long number sequences." },
+                        { num: 10, title: "Numbers in Context", desc: "Integrate numbers into stories, history, and meaningful frameworks." }
+                    ]
+                },
+                {
+                    id: 3,
+                    number: 3,
+                    title: "Practical Applications",
+                    lessons: [
+                        { num: 11, title: "Memorizing Names & Faces", desc: "Never forget a name again with proven association techniques." },
+                        { num: 12, title: "Building Your Memory Palace", desc: "Construct an architecture of mind using the Method of Loci." },
+                        { num: 13, title: "Speeches & Presentations", desc: "Deliver compelling presentations without notes using memory techniques." },
+                        { num: 14, title: "Academic Excellence", desc: "Apply memory science to excel in studies and exams." },
+                        { num: 15, title: "Professional Mastery", desc: "Leverage memory power in business, negotiations, and career advancement." }
+                    ]
+                },
+                {
+                    id: 4,
+                    number: 4,
+                    title: "Language & Learning",
+                    lessons: [
+                        { num: 16, title: "Vocabulary Mastery", desc: "Rapidly acquire and retain thousands of new words." },
+                        { num: 17, title: "Language Fundamentals", desc: "Learn grammar and language structure with memory-enhanced methods." },
+                        { num: 18, title: "Polyglot Techniques", desc: "Master multiple languages using memory-based learning strategies." },
+                        { num: 19, title: "Reading Comprehension", desc: "Enhance reading retention through active memory engagement." },
+                        { num: 20, title: "Information Synthesis", desc: "Combine multiple sources into coherent, memorable frameworks." }
+                    ]
+                },
+                {
+                    id: 5,
+                    number: 5,
+                    title: "Advanced Techniques",
+                    lessons: [
+                        { num: 21, title: "Multi-Sensory Encoding", desc: "Engage all senses to create powerful, multi-dimensional memories." },
+                        { num: 22, title: "Neurofeedback & Brain Training", desc: "Use neuroscience insights to optimize your memory potential." },
+                        { num: 23, title: "Memory Competitions Prep", desc: "Train like a memory champion and break personal records." },
+                        { num: 24, title: "Strategic Forgetting", desc: "Learn when and how to selectively forget information." },
+                        { num: 25, title: "Long-Term Retention Mastery", desc: "Develop systems for lifelong memory preservation." }
+                    ]
+                },
+                {
+                    id: 6,
+                    number: 6,
+                    title: "Mastery & Lifestyle",
+                    lessons: [
+                        { num: 26, title: "Sleep & Memory Consolidation", desc: "Optimize sleep to reinforce memory and accelerate learning." },
+                        { num: 27, title: "Nutrition for Brain Health", desc: "Fuel your brain with nutrients that enhance memory and cognition." },
+                        { num: 28, title: "Stress Management & Memory", desc: "Master the stress-memory connection for optimal performance." },
+                        { num: 29, title: "Building Your Memory Routine", desc: "Create sustainable daily practices for continuous improvement." },
+                        { num: 30, title: "Certification & Legacy", desc: "Complete your journey and celebrate your transformation." }
+                    ]
+                }
+            ]
+        };
+
+        // Initialize localStorage
+        function initializeProgress() {
+            const stored = localStorage.getItem('memory-course-progress');
+            if (!stored) {
+                const progress = {};
+                courseData.modules.forEach(module => {
+                    module.lessons.forEach(lesson => {
+                        progress[`lesson-${lesson.num}`] = false;
+                    });
+                });
+                localStorage.setItem('memory-course-progress', JSON.stringify(progress));
+            }
+        }
+
+        // Get progress data
+        function getProgress() {
+            const stored = localStorage.getItem('memory-course-progress');
+            return stored ? JSON.parse(stored) : {};
+        }
+
+        // Update lesson completion
+        function toggleLessonCompletion(lessonNum) {
+            const progress = getProgress();
+            progress[`lesson-${lessonNum}`] = !progress[`lesson-${lessonNum}`];
+            localStorage.setItem('memory-course-progress', JSON.stringify(progress));
+            updateAllProgress();
+            renderCourse();
+        }
+
+        // Calculate progress
+        function calculateProgress() {
+            const progress = getProgress();
+            const completed = Object.values(progress).filter(v => v).length;
+            const total = 30;
+            return { completed, total, percent: Math.round((completed / total) * 100) };
+        }
+
+        // Update progress displays
+        function updateAllProgress() {
+            const { completed, total, percent } = calculateProgress();
+
+            document.getElementById('completed-count').textContent = completed;
+            document.getElementById('total-count').textContent = total;
+            document.getElementById('progress-percent').textContent = percent + '%';
+            document.getElementById('main-progress-bar').style.width = percent + '%';
+            document.getElementById('progress-label').textContent = percent > 5 ? percent + '%' : '';
+
+            // Update module progress bars
+            courseData.modules.forEach(module => {
+                const moduleElement = document.querySelector(`[data-module="${module.id}"]`);
+                if (moduleElement) {
+                    const moduleProgress = getProgress();
+                    const moduleLessons = module.lessons.length;
+                    const moduleCompleted = module.lessons.filter(
+                        lesson => moduleProgress[`lesson-${lesson.num}`]
+                    ).length;
+                    const modulePercent = Math.round((moduleCompleted / moduleLessons) * 100);
+
+                    const progressBar = moduleElement.querySelector('.module-progress-fill');
+                    const progressText = moduleElement.querySelector('.module-progress-text');
+
+                    if (progressBar) progressBar.style.width = modulePercent + '%';
+                    if (progressText) progressText.textContent = `${moduleCompleted}/${moduleLessons} complete`;
+                }
+            });
+        }
+
+        // Render course structure
+        function renderCourse() {
+            const container = document.getElementById('modules-container');
+            container.innerHTML = '';
+            const progress = getProgress();
+
+            courseData.modules.forEach((module, idx) => {
+                const moduleDiv = document.createElement('div');
+                moduleDiv.className = 'module';
+                moduleDiv.setAttribute('data-module', module.id);
+
+                const moduleCompleted = module.lessons.filter(
+                    lesson => progress[`lesson-${lesson.num}`]
+                ).length;
+                const modulePercent = Math.round((moduleCompleted / module.lessons.length) * 100);
+
+                moduleDiv.innerHTML = `
+                    <div class="module-header">
+                        <div class="module-number">${module.number}</div>
+                        <h2 class="module-title">${module.title}</h2>
+                        <div class="module-progress">
+                            <div class="module-progress-bar">
+                                <div class="module-progress-fill" style="width: ${modulePercent}%"></div>
+                            </div>
+                            <div class="module-progress-text">${moduleCompleted}/${module.lessons.length} complete</div>
+                        </div>
+                    </div>
+                    <div class="lessons-grid">
+                        ${module.lessons.map(lesson => `
+                            <div class="lesson-card ${progress[`lesson-${lesson.num}`] ? 'completed' : ''}">
+                                <div class="lesson-header">
+                                    <div class="lesson-number">Lesson ${lesson.num}</div>
+                                    <input
+                                        type="checkbox"
+                                        class="completion-checkbox"
+                                        ${progress[`lesson-${lesson.num}`] ? 'checked' : ''}
+                                        onchange="toggleLessonCompletion(${lesson.num})"
+                                    />
+                                </div>
+                                <h3 class="lesson-title">${lesson.title}</h3>
+                                <p class="lesson-description">${lesson.desc}</p>
+                                <div class="lesson-footer">
+                                    <a href="lesson-${String(lesson.num).padStart(2, '0')}-${lesson.title.toLowerCase().replace(/\s+/g, '-')}.html" class="lesson-link">
+                                        Start Lesson
+                                    </a>
+                                    ${progress[`lesson-${lesson.num}`] ? '<div class="completion-badge">✓</div>' : ''}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                container.appendChild(moduleDiv);
+            });
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeProgress();
+            renderCourse();
+            updateAllProgress();
+        });
+
+        // Update progress when storage changes in other tabs
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'memory-course-progress') {
+                renderCourse();
+                updateAllProgress();
+            }
+        });
+    </script>
+</body>
+</html>

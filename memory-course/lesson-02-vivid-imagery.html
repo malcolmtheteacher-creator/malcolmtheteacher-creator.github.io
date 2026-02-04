@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Lesson 2: The Art of Vivid Imagery</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #0f0f1e;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(212,175,55,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #1a1a2e;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 1.8em; margin-bottom: 10px; }
+        .level-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        .tabs {
+            display: flex;
+            background: #16213e;
+            overflow-x: auto;
+            border-bottom: 2px solid #d4af37;
+        }
+        .tab {
+            flex: 1;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #aaa;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .tab:hover { background: #1a2744; }
+        .tab.active {
+            background: #d4af37;
+            color: #1a1a2e;
+            border-bottom: 3px solid #d4af37;
+        }
+        .content { padding: 30px; display: none; color: #e0e0e0; }
+        .content.active { display: block; }
+        .content h2 { color: #d4af37; margin-bottom: 20px; }
+        .card {
+            background: #1a2744;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #d4af37;
+        }
+        .card h3 { color: #d4af37; margin-bottom: 10px; }
+        .card p { line-height: 1.6; }
+        .scope-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .scope-item {
+            background: #2a3f5f;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #d4af37;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .scope-item:hover { background: #1a2744; transform: translateY(-3px); }
+        .scope-item h4 { color: #d4af37; font-size: 0.95em; margin-bottom: 8px; }
+        .scope-item p { font-size: 0.85em; }
+        .scope-item.revealed { background: linear-gradient(135deg, #2a3f5f 0%, #1a2744 100%); }
+        .interactive-section {
+            background: #1a2744;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #d4af37;
+        }
+        .interactive-section h3 { color: #d4af37; margin-bottom: 15px; }
+        .example-box {
+            background: #0f0f1e;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 3px solid #d4af37;
+        }
+        .example-box.weak { border-left-color: #ff6b6b; }
+        .example-box.strong { border-left-color: #51cf66; }
+        .weak-label { color: #ff6b6b; font-weight: bold; }
+        .strong-label { color: #51cf66; font-weight: bold; }
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            background: #0f0f1e;
+            color: #e0e0e0;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            resize: vertical;
+            min-height: 90px;
+        }
+        textarea:focus { outline: none; border-color: #e8c547; }
+        .buttons-row {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: #d4af37;
+            color: #1a1a2e;
+        }
+        .btn-primary:hover { background: #e8c547; transform: translateY(-2px); }
+        .btn-secondary {
+            background: #2a3f5f;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+        }
+        .btn-secondary:hover { background: #1a2744; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .comparison-item {
+            background: #2a3f5f;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .rating-scale {
+            display: flex;
+            gap: 8px;
+            margin: 15px 0;
+            align-items: center;
+        }
+        .star {
+            font-size: 1.8em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .star:hover { transform: scale(1.2); }
+        .star.selected { color: #d4af37; }
+        .star.unselected { color: #2a3f5f; }
+        .feedback-box {
+            background: #1a2744;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid #d4af37;
+            display: none;
+        }
+        .feedback-box.show { display: block; }
+        .score-display {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #1a1a2e;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .stat-box {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #1a1a2e;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #2a3f5f;
+        }
+        .nav-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .nav-btn.prev { background: #2a3f5f; color: #d4af37; }
+        .nav-btn.next { background: #d4af37; color: #1a1a2e; }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .word-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .word-item {
+            background: #2a3f5f;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        .word-item:hover { border-color: #d4af37; }
+        .word-item.selected { background: #d4af37; color: #1a1a2e; font-weight: bold; }
+        .timer-section {
+            text-align: center;
+            padding: 20px;
+            background: #1a2744;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #d4af37;
+        }
+        .timer-display {
+            font-size: 3em;
+            font-weight: bold;
+            color: #d4af37;
+            margin: 15px 0;
+        }
+        @media (max-width: 768px) {
+            .tab { padding: 12px 8px; font-size: 0.75em; }
+            .header h1 { font-size: 1.4em; }
+            .comparison { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="level-badge">Memory Course - Lesson 2</span>
+            <h1>✨ The Art of Vivid Imagery</h1>
+            <p>SMASHIN' SCOPE Method</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab(0)">1. RETRIEVAL</button>
+            <button class="tab" onclick="showTab(1)">2. NEW CONTENT</button>
+            <button class="tab" onclick="showTab(2)">3. GUIDED PRACTICE</button>
+            <button class="tab" onclick="showTab(3)">4. ELABORATION</button>
+            <button class="tab" onclick="showTab(4)">5. INDEPENDENT</button>
+            <button class="tab" onclick="showTab(5)">6. FINAL RETRIEVAL</button>
+        </div>
+
+        <!-- TAB 1: RETRIEVAL -->
+        <div class="content active" id="tab0">
+            <h2>🧠 What Do You Remember From Lesson 1?</h2>
+
+            <div class="card">
+                <h3>Quick Recall Challenge</h3>
+                <p style="margin-bottom: 15px;">Without looking back, answer:</p>
+                <p style="margin: 10px 0;"><strong>1. Why does chunking help memory?</strong></p>
+                <textarea id="recall1" placeholder="Type your answer..." style="height: 60px;"></textarea>
+
+                <p style="margin: 20px 0 10px 0;"><strong>2. What's the "Magic Number" for working memory?</strong></p>
+                <textarea id="recall2" placeholder="Type your answer..." style="height: 60px;"></textarea>
+
+                <button class="btn btn-primary" onclick="saveRecall()" style="margin-top: 10px;">✓ Save</button>
+            </div>
+
+            <div class="card">
+                <h3>🎯 What You'll Learn Today</h3>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>The SMASHIN' SCOPE method for creating vivid memories</li>
+                    <li>How to transform boring information into unforgettable images</li>
+                    <li>Why your brain remembers wild, strange, colorful images</li>
+                    <li>Practical exercises to make your memory VISUAL</li>
+                </ul>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" disabled>← Previous</button>
+                <button class="nav-btn next" onclick="showTab(1)">Next: Learn →</button>
+            </div>
+        </div>
+
+        <!-- TAB 2: NEW CONTENT -->
+        <div class="content" id="tab1">
+            <h2>📚 SMASHIN' SCOPE: 12 Ways to Make Images Stick</h2>
+
+            <div class="card">
+                <h3>🔑 The Secret to Vivid Memory</h3>
+                <p>Your brain is a visual machine. A BORING image → you forget it in seconds. A WILD, VIVID image → you remember it for LIFE.</p>
+                <p style="margin-top: 15px;"><strong>SMASHIN' SCOPE</strong> gives you 12 tools to transform boring into UNFORGETTABLE:</p>
+            </div>
+
+            <div class="scope-grid">
+                <div class="scope-item" onclick="toggleScope(this)">
+                    <h4>🔄 Substitution</h4>
+                    <p>Replace one thing with another</p>
+                    <div class="hidden-content" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #d4af37;">
+                        <p style="font-size: 0.85em;">Instead of imagining a DESK, imagine your FACE sitting at the desk, wearing a tie.</p>
+                    </div>
+                </div>
+
+                <div class="scope-item" onclick="toggleScope(this)">
+                    <h4>⚡ Movement</h4>
+                    <p>Make things move, jump, dance</p>
+                    <div class="hidden-content" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #d4af37;">
+                        <p style="font-size: 0.85em;">Instead of a STATUE standing still, imagine it DANCING wildly, kicking its legs.</p>
+                    </div>
+                </div>
+
+                <div class="scope-item" onclick="toggleScope(this)">
+                    <h4>🎬 Action</h4>
+                    <p>Make things DO something dramatic</p>
+                    <div class="hidden-content" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #d4af37;">
+                        <p style="font-size: 0.85em;">Instead of a BOOK sitting quietly, imagine it FLYING through the air and EXPLODING into confetti.</p>
+                    </div>
+                </div>
+
+                <div class="scope-item" onclick="toggleScope(this)">
+                    <h4>📏 Size</h4>
+                    <p>Make it HUGE or tiny</p>
+                    <div class="hidden-content" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #d4af37;">
+                        <p style="font-size: 0.85em;">Instead of normal APPLE, imagine an APPLE the size of a house, rolling down the street.</p>
+                    </div>
+                </div>
+
+                <div class="scope-item" onclick="toggleScope(this)">
+                    <h4>😂 Humour</h4>
+                    <p>Make it ridiculous or funny</p>
+                    <div class="hidden-content" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #d4af37;">
+                        <p style="font-size: 0.85em;">Instead of a normal SHOE, imagine a shoe HONKING like a goose every time you step in it.</p>
+                    </div>
+                </div>
+
+                <div class="scope-item" onclick="toggleScope(this)">
+                    <h4>💡 Imagination</h4>
+                    <p>Combine impossible things</p>
+                    <div class="hidden-content" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #d4af37;">
+                        <p style="font-size: 0.85em;">Imagine a FISH riding a BICYCLE through the sky while playing VIOLIN.</p>
+                    </div>
+                </div>
+
+                <div class="scope-item" onclick="toggleScope(this)">
+                    <h4>🔢 Numbers</h4>
+                    <p>Add numbers or calculations</p>
+                    <div class="hidden-content" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #d4af37;">
+                        <p style="font-size: 0.85em;">If you see a number, imagine it as a HUGE digit made of that object (like the number 5 made of BANANAS).</p>
+                    </div>
+                </div>
+
+                <div class="scope-item" onclick="toggleScope(this)">
+                    <h4>👃 Senses</h4>
+                    <p>Smell, taste, touch, sound</p>
+                    <div class="hidden-content" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #d4af37;">
+                        <p style="font-size: 0.85em;">Instead of just seeing PIZZA, imagine TASTING it, SMELLING it, BURNING your mouth on it.</p>
+                    </div>
+                </div>
+
+                <div class="scope-item" onclick="toggleScope(this)">
+                    <h4>🎨 Colour</h4>
+                    <p>Make it BRIGHT and UNUSUAL</p>
+                    <div class="hidden-content" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #d4af37;">
+                        <p style="font-size: 0.85em;">Instead of a brown TREE, imagine a NEON PURPLE and ELECTRIC BLUE tree.</p>
+                    </div>
+                </div>
+
+                <div class="scope-item" onclick="toggleScope(this)">
+                    <h4>📍 Order</h4>
+                    <p>Place things in a specific location</p>
+                    <div class="hidden-content" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #d4af37;">
+                        <p style="font-size: 0.85em;">Instead of random placement, imagine the CAR is PARKED on the ROOF of your house.</p>
+                    </div>
+                </div>
+
+                <div class="scope-item" onclick="toggleScope(this)">
+                    <h4>😊 Positive Emotion</h4>
+                    <p>Make it joyful, happy, exciting</p>
+                    <div class="hidden-content" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #d4af37;">
+                        <p style="font-size: 0.85em;">Instead of sad, imagine yourself LAUGHING OUT LOUD and GRINNING with the image.</p>
+                    </div>
+                </div>
+
+                <div class="scope-item" onclick="toggleScope(this)">
+                    <h4>⚡ Exaggeration</h4>
+                    <p>Go over the top with everything</p>
+                    <div class="hidden-content" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #d4af37;">
+                        <p style="font-size: 0.85em;">Instead of normal, imagine a MOUNTAIN made of SPAGHETTI that's ON FIRE and SINGING.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-section">
+                <h3>💡 The Rule: BORING = FORGOTTEN, WILD = REMEMBERED</h3>
+                <p>Your brain filters out boring information as "not important." But WILD, STRANGE, VIVID images? Your brain says "THIS IS IMPORTANT! REMEMBER IT!"</p>
+                <p style="margin-top: 15px; color: #d4af37;"><strong>Pro tip:</strong> Use MULTIPLE SCOPE tools at once. A HUGE, PURPLE, DANCING, SINGING PIANO is WAY more memorable than just a purple piano.</p>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(0)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(2)">Next: Practice →</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: GUIDED PRACTICE -->
+        <div class="content" id="tab2">
+            <h2>🎯 I DO, WE DO, YOU DO</h2>
+
+            <div class="card">
+                <h3>📖 PART 1: I DO (Watch Me)</h3>
+                <p style="margin-bottom: 15px;">Here's how I transform BORING into VIVID:</p>
+
+                <div class="example-box weak">
+                    <p class="weak-label">❌ WEAK IMAGE:</p>
+                    <p>"I see a pencil on a desk."</p>
+                </div>
+
+                <div class="example-box strong">
+                    <p class="strong-label">✓ STRONG IMAGE (using SMASHIN' SCOPE):</p>
+                    <p>"A GIANT, NEON PINK PENCIL is DANCING and SPINNING on the desk, making SCREECHING sounds. It's the size of a baseball bat, SHOOTING RAINBOW COLORS everywhere, and it's LAUGHING at me!"</p>
+                    <p style="margin-top: 10px; font-size: 0.85em; color: #aaa;"><strong>Used:</strong> Size, Colour, Movement, Action, Senses, Humour, Exaggeration</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>👥 PART 2: WE DO (Together)</h3>
+                <p style="margin-bottom: 15px;">Let's transform these together. I'll start, you finish:</p>
+
+                <div class="example-box weak">
+                    <p class="weak-label">❌ BORING START:</p>
+                    <p>"I see a book..."</p>
+                </div>
+
+                <p style="margin: 15px 0;"><strong>Finish my vivid image using SMASHIN' SCOPE:</strong></p>
+                <textarea id="weDoAnswer" placeholder="Type your answer..." style="height: 100px;"></textarea>
+                <button class="btn btn-primary" onclick="checkWeDo()" style="margin-top: 10px;">Check My Answer</button>
+                <div class="feedback-box" id="weDoFeedback"></div>
+            </div>
+
+            <div class="card">
+                <h3>🧪 PART 3: YOU DO (Your Turn)</h3>
+                <p style="margin-bottom: 15px;">Transform these BORING items into VIVID images:</p>
+
+                <div class="interactive-section">
+                    <p style="margin-bottom: 20px;"><strong>Item #1: A SHOE</strong></p>
+                    <textarea id="shoe" placeholder="Type your answer..." style="height: 80px;"></textarea>
+
+                    <p style="margin: 20px 0 10px 0;"><strong>Item #2: A COFFEE CUP</strong></p>
+                    <textarea id="cup" placeholder="Type your answer..." style="height: 80px;"></textarea>
+
+                    <button class="btn btn-primary" onclick="submitYouDo()" style="margin-top: 15px;">✓ Submit My Vivid Images</button>
+                    <div class="feedback-box" id="youDoFeedback"></div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(1)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(3)">Next: Elaboration →</button>
+            </div>
+        </div>
+
+        <!-- TAB 4: ELABORATION -->
+        <div class="content" id="tab3">
+            <h2>❓ Why Does Vivid Imagery Work?</h2>
+
+            <div class="card">
+                <h3>💭 Question 1: Why Does Weird = Memorable?</h3>
+                <p style="margin-bottom: 15px;">Think about your own memory. Why do strange, funny things stick with you?</p>
+                <textarea id="q1" placeholder="Type your answer..." style="height: 80px;"></textarea>
+                <button class="btn btn-secondary" onclick="showExplanation('q1', 'Your brain treats unusual information as important. A normal pencil? Boring—file it away. A GIANT PINK DANCING PENCIL? Unusual! Possibly a threat or opportunity. So your brain MARKS IT AS IMPORTANT and strengthens the memory trace.')" style="margin-top: 10px;">💡 Show Expert Answer</button>
+                <div class="feedback-box" id="q1Feedback"></div>
+            </div>
+
+            <div class="card">
+                <h3>💭 Question 2: Which SCOPE Tool Works Best?</h3>
+                <p style="margin-bottom: 15px;">Do you think all 12 tools are equally powerful? Rank your top 3:</p>
+                <textarea id="q2" placeholder="Which 3 SCOPE tools do YOU think are most memorable? Why?" style="height: 80px;"></textarea>
+                <button class="btn btn-secondary" onclick="showExplanation('q2', 'Different brains work differently! But research shows MOVEMENT, HUMOUR, and EXAGGERATION tend to be the strongest. Emotional content (humour) + motion (movement) = super powerful encoding. But you might find SIZE or COLOUR works best for YOU!')" style="margin-top: 10px;">💡 Show Expert Answer</button>
+                <div class="feedback-box" id="q2Feedback"></div>
+            </div>
+
+            <div class="card">
+                <h3>💭 Question 3: Apply It: Your Own Vivid Image</h3>
+                <p style="margin-bottom: 15px;">Pick something from your life you need to remember. Create a WILD vivid image for it:</p>
+                <textarea id="q3" placeholder="Type your answer..." style="height: 100px;"></textarea>
+                <button class="btn btn-primary" onclick="saveElaboration()" style="margin-top: 10px;">✓ Save My Image</button>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(2)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(4)">Next: Independent →</button>
+            </div>
+        </div>
+
+        <!-- TAB 5: INDEPENDENT PRACTICE -->
+        <div class="content" id="tab4">
+            <h2>⚡ IMAGE BUILDER Challenge</h2>
+            <p style="margin-bottom: 20px;">Create vivid images for random words. Build them using SMASHIN' SCOPE!</p>
+
+            <div class="card" id="imageBuilderPhase">
+                <h3>🎨 Your Challenge: 5 Words to Memorize</h3>
+                <p style="margin-bottom: 15px; color: #d4af37;"><strong>For EACH word, describe a vivid image using at least 3 SCOPE techniques.</strong></p>
+
+                <div id="wordChallenges"></div>
+
+                <button class="btn btn-primary" onclick="startImageBuilder()" style="width: 100%; padding: 12px; margin-top: 20px;">▶ START THE CHALLENGE</button>
+            </div>
+
+            <div class="card" id="imageScorePhase" style="display: none;">
+                <h3>📊 Your Vivid Images</h3>
+                <div id="imageReview"></div>
+                <button class="btn btn-primary" onclick="submitImages()" style="width: 100%; padding: 12px; margin-top: 20px;">✓ Submit & Score My Images</button>
+            </div>
+
+            <div.card id="imageFeedbackPhase" style="display: none;">
+                <h3>💡 Feedback on Your Vivid Images</h3>
+                <div id="imageFeedback"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(3)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(5)">Next: Final →</button>
+            </div>
+        </div>
+
+        <!-- TAB 6: FINAL RETRIEVAL -->
+        <div class="content" id="tab5">
+            <h2>🏆 Final Test: Create Your Own</h2>
+            <p style="margin-bottom: 20px;">Without reviewing, describe:</p>
+
+            <div class="card">
+                <h3>❓ Question 1: Explain SMASHIN' SCOPE</h3>
+                <p style="margin-bottom: 15px;">Name at least 6 of the 12 tools and give examples:</p>
+                <textarea id="finalQ1" placeholder="Describe SMASHIN' SCOPE..." style="height: 100px;"></textarea>
+            </div>
+
+            <div class="card">
+                <h3>❓ Question 2: Why Vivid Imagery Works</h3>
+                <p style="margin-bottom: 15px;">Explain why vivid, unusual images are more memorable than boring ones:</p>
+                <textarea id="finalQ2" placeholder="Type your answer..." style="height: 80px;"></textarea>
+            </div>
+
+            <div class="card">
+                <h3>❓ Question 3: Transform a Boring Word</h3>
+                <p style="margin-bottom: 15px;">Pick a random word and transform it into a vivid, unforgettable image:</p>
+                <input type="text" id="randomWord" placeholder="Type a random word..." style="width: 100%; padding: 10px; margin: 10px 0; border: 2px solid #d4af37; border-radius: 8px; background: #0f0f1e; color: #e0e0e0;">
+                <button class="btn btn-secondary" onclick="pickRandomWord()" style="margin-bottom: 15px;">🎲 Pick Random Word</button>
+                <textarea id="finalQ3" placeholder="Your vivid image..." style="height: 100px;"></textarea>
+            </div>
+
+            <button class="btn btn-primary" onclick="submitFinal()" style="width: 100%; padding: 15px; font-size: 1.1em; margin: 20px 0;">✓ Submit Final Answers</button>
+
+            <div class="stat-box" id="completionMessage" style="display: none;">
+                <h3>🎉 Excellent Work!</h3>
+                <p>You've mastered the art of vivid imagery! Ready for Lesson 3: Body Pegs?</p>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(4)">← Back</button>
+                <button class="nav-btn next" disabled>Next Lesson →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const randomWords = ['Elephant', 'Lamppost', 'Butterfly', 'Volcano', 'Telescope', 'Skateboard', 'Mushroom', 'Anchor', 'Compass'];
+
+        function showTab(i) {
+            document.querySelectorAll('.content').forEach((c, idx) => c.classList.toggle('active', idx === i));
+            document.querySelectorAll('.tab').forEach((t, idx) => t.classList.toggle('active', idx === i));
+        }
+
+        function toggleScope(el) {
+            el.classList.toggle('revealed');
+        }
+
+        function saveRecall() {
+            alert('✓ Recall saved!');
+        }
+
+        function checkWeDo() {
+            const answer = document.getElementById('weDoAnswer').value;
+            const fb = document.getElementById('weDoFeedback');
+            fb.classList.add('show');
+            fb.innerHTML = '<p style="color: #d4af37;"><strong>Great start!</strong></p><p>You used SMASHIN\' SCOPE techniques to make the book vivid. The wilder and more multi-sensory, the better it sticks!</p>';
+        }
+
+        function submitYouDo() {
+            const shoe = document.getElementById('shoe').value;
+            const cup = document.getElementById('cup').value;
+            if (shoe && cup) {
+                localStorage.setItem('shoeImage', shoe);
+                localStorage.setItem('cupImage', cup);
+                const fb = document.getElementById('youDoFeedback');
+                fb.classList.add('show');
+                fb.innerHTML = '<p style="color: #51cf66;"><strong>✓ Excellent vivid images!</strong></p><p>The more wild and sensory your images, the stronger your memory. These will be UNFORGETTABLE!</p>';
+            }
+        }
+
+        function showExplanation(id, text) {
+            document.getElementById(id + 'Feedback').classList.add('show');
+            document.getElementById(id + 'Feedback').innerHTML = '<p style="color: #d4af37;"><strong>Expert Insight:</strong></p><p>' + text + '</p>';
+        }
+
+        function saveElaboration() {
+            alert('✓ Your personal vivid image saved!');
+        }
+
+        function startImageBuilder() {
+            const words = ['Guitar', 'Diamond', 'Pizza', 'Cloud', 'Tiger'];
+            let html = '';
+            words.forEach((word, i) => {
+                html += `
+                    <div style="background: #2a3f5f; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 3px solid #d4af37;">
+                        <p style="color: #d4af37; font-weight: bold; margin-bottom: 10px;"><strong>${i+1}. ${word}</strong></p>
+                        <p style="margin-bottom: 10px;">Create a vivid image (use 3+ SCOPE tools):</p>
+                        <textarea id="image${i}" placeholder="Type your answer..." style="height: 80px; width: 100%; padding: 10px; border: 2px solid #d4af37; border-radius: 6px; background: #0f0f1e; color: #e0e0e0; font-size: 0.9em;"></textarea>
+                    </div>
+                `;
+            });
+            document.getElementById('wordChallenges').innerHTML = html;
+            document.getElementById('imageBuilderPhase').style.display = 'none';
+            document.getElementById('imageScorePhase').style.display = 'block';
+        }
+
+        function submitImages() {
+            const words = ['Guitar', 'Diamond', 'Pizza', 'Cloud', 'Tiger'];
+            let allCompleted = true;
+            let review = '';
+
+            words.forEach((word, i) => {
+                const image = document.getElementById('image' + i).value;
+                if (!image) allCompleted = false;
+                review += `<div style="background: #2a3f5f; padding: 15px; border-radius: 8px; margin: 10px 0;"><p style="color: #d4af37; font-weight: bold;">${word}</p><p>${image}</p></div>`;
+            });
+
+            if (allCompleted) {
+                document.getElementById('imageScorePhase').style.display = 'none';
+                document.getElementById('imageFeedbackPhase').style.display = 'block';
+                document.getElementById('imageFeedback').innerHTML = `
+                    <p style="margin-bottom: 20px;">Your vivid images:</p>
+                    ${review}
+                    <p style="margin-top: 20px; color: #d4af37;"><strong>💡 Analysis:</strong> You've created 5 memorable images using SMASHIN' SCOPE. These images are now encoded in your brain with strong, vivid associations. You will remember these words!</p>
+                `;
+            } else {
+                alert('Please complete all 5 images');
+            }
+        }
+
+        function pickRandomWord() {
+            const word = randomWords[Math.floor(Math.random() * randomWords.length)];
+            document.getElementById('randomWord').value = word;
+        }
+
+        function submitFinal() {
+            localStorage.setItem('finalVividLesson2Q1', document.getElementById('finalQ1').value);
+            localStorage.setItem('finalVividLesson2Q2', document.getElementById('finalQ2').value);
+            localStorage.setItem('finalVividLesson2Q3', document.getElementById('finalQ3').value);
+            document.getElementById('completionMessage').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

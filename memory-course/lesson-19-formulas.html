@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Art of Memory - Lesson 19: Technical Information & Formulas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdance, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #222;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #c9a227 100%);
+            color: #1a1a1a;
+            padding: 40px 30px;
+            text-align: center;
+            border-bottom: 4px solid #a68410;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .tabs-container {
+            display: flex;
+            border-bottom: 2px solid #d4af37;
+            background: #1a1a1a;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px 10px;
+            background: #2d2d2d;
+            border: none;
+            color: #d4af37;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-width: 130px;
+        }
+
+        .tab-button:hover {
+            background: #3d3d3d;
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            background: #d4af37;
+            color: #1a1a1a;
+            border-bottom: 3px solid #a68410;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            color: #d4af37;
+            margin-bottom: 25px;
+            font-size: 2em;
+            border-left: 4px solid #d4af37;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #d4af37;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        .concept-box {
+            background: #2d2d2d;
+            border-left: 4px solid #d4af37;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .formula-box {
+            background: #1a1a1a;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            color: #d4af37;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: #2d2d2d;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .card-title {
+            font-size: 1.3em;
+            color: #d4af37;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .practice-section {
+            background: #2d2d2d;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .practice-question {
+            background: #1a1a1a;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #d4af37;
+            border-radius: 5px;
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #e5c158;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .secondary-button {
+            background: #3d3d3d;
+            color: #d4af37;
+        }
+
+        .secondary-button:hover {
+            background: #4d4d4d;
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #d4af37, #c9a227);
+            color: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+
+        .feedback.correct {
+            background: #2d5d2d;
+            border-left: 4px solid #4a9d4a;
+            color: #7fd97f;
+        }
+
+        .feedback.incorrect {
+            background: #5d2d2d;
+            border-left: 4px solid #9d4a4a;
+            color: #d97f7f;
+        }
+
+        .input-field {
+            background: #1a1a1a;
+            border: 2px solid #d4af37;
+            color: #e0e0e0;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 1em;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        .input-field:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .memory-tip {
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #d4af37;
+        }
+
+        .memory-tip strong {
+            color: #e5c158;
+        }
+
+        .visualization {
+            background: #1a1a1a;
+            border: 2px dashed #d4af37;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #c9a227);
+            transition: width 0.3s ease;
+        }
+
+        textarea {
+            background: #1a1a1a;
+            border: 2px solid #d4af37;
+            color: #e0e0e0;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+            margin: 10px 0;
+            width: 100%;
+            min-height: 100px;
+        }
+
+        textarea:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .mindmap {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #d4af37;
+            margin: 15px 0;
+        }
+
+        .mindmap-item {
+            margin: 10px 0;
+            padding-left: 20px;
+            border-left: 2px solid #d4af37;
+            color: #d4af37;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>The Art of Memory</h1>
+            <p>Lesson 19: Technical Information & Formulas</p>
+        </div>
+
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab('retrieval')">Retrieval</button>
+            <button class="tab-button" onclick="switchTab('content')">New Content</button>
+            <button class="tab-button" onclick="switchTab('guided')">Guided Practice</button>
+            <button class="tab-button" onclick="switchTab('elaboration')">Elaboration</button>
+            <button class="tab-button" onclick="switchTab('independent')">Independent Practice</button>
+            <button class="tab-button" onclick="switchTab('final')">Final Retrieval</button>
+        </div>
+
+        <div id="retrieval" class="tab-content active">
+            <h2>Retrieval: Prior Knowledge</h2>
+            <div class="concept-box">
+                <p>Test what you know about abstract information and visualization.</p>
+            </div>
+            <div class="practice-section">
+                <div class="practice-question">
+                    <div class="question-text">1. What's the main challenge with memorizing formulas?</div>
+                    <div class="button-group">
+                        <button onclick="checkAnswer('retrieval', 1, 'a')">A. They are abstract and hard to visualize</button>
+                        <button onclick="checkAnswer('retrieval', 1, 'b')">B. They are too long</button>
+                        <button onclick="checkAnswer('retrieval', 1, 'c')">C. They use numbers</button>
+                    </div>
+                    <div id="feedback-1"></div>
+                </div>
+                <div class="practice-question">
+                    <div class="question-text">2. What technique helps organize complex information?</div>
+                    <input type="text" id="answer-2" class="input-field" placeholder="Type your answer...">
+                    <button onclick="checkAnswerText(2)">Check</button>
+                    <div id="feedback-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="content" class="tab-content">
+            <h2>Memorizing Technical Information & Formulas</h2>
+            <div class="concept-box">
+                <p>Abstract formulas are difficult because we can't visualize them easily. The solution: <strong>CONVERT ABSTRACT TO CONCRETE</strong></p>
+            </div>
+
+            <h3>Strategy 1: Formula Visualization</h3>
+            <div class="concept-box">
+                <h4>The Challenge</h4>
+                <p>E = mc² is abstract. How do you create a mental image of energy, mass, and the speed of light?</p>
+                <h4>The Solution: Story-Based Visualization</h4>
+                <p>Create a narrative where each element has CONCRETE meaning:</p>
+                <div class="visualization">E (Einstein) watches MASS dance with LIGHT (c)</div>
+                <p style="margin-top: 10px; color: #d4af37;"><strong>Story:</strong> "Einstein (E) watches a GIANT MASS (huge person) dancing SO FAST with a beam of LIGHT (c = speed of light). The energy (E) released is EXPLOSIVE!"</p>
+            </div>
+
+            <h3>Strategy 2: Mind Map + Memory Palace</h3>
+            <div class="concept-box">
+                <h4>Example: Photosynthesis Formula</h4>
+                <p>6CO₂ + 6H₂O + Light Energy → C₆H₁₂O₆ + 6O₂</p>
+                <p style="margin-top: 10px;"><strong>Create a Mind Map:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>START:</strong> 6 CO₂ molecules (CARBON - imagine grey smoke)</li>
+                    <li><strong>PLUS:</strong> 6 H₂O molecules (WATER - imagine water droplets)</li>
+                    <li><strong>PLUS:</strong> Light Energy (imagine SUN shining bright)</li>
+                    <li><strong>ARROW:</strong> Enter a GREEN PLANT palace</li>
+                    <li><strong>RESULT:</strong> Sugar (C₆H₁₂O₆) - imagine candy/sweet</li>
+                    <li><strong>PLUS:</strong> 6 O₂ molecules (OXYGEN - imagine air bubbles)</li>
+                </ul>
+            </div>
+
+            <h3>Strategy 3: Chunking + Keyword Method</h3>
+            <div class="concept-box">
+                <h4>Pythagorean Theorem: a² + b² = c²</h4>
+                <p><strong>Visualization:</strong> "Two SQUARES (a² and b²) race each other. They COMBINE to create ONE BIGGER SQUARE (c²). It's a RACE!"</p>
+            </div>
+
+            <div class="memory-tip">
+                <strong>Golden Rule:</strong> Always convert abstract symbols into PEOPLE, ACTIONS, and OBJECTS you can SEE, HEAR, and FEEL.
+            </div>
+        </div>
+
+        <div id="guided" class="tab-content">
+            <h2>Guided Practice: Memorize Science Formulas</h2>
+
+            <h3>Formula 1: Newton's Second Law - F = ma</h3>
+            <div class="practice-section">
+                <div class="formula-box">F = ma<br>(Force = mass × acceleration)</div>
+                <div class="concept-box">
+                    <h4>Visualization Story</h4>
+                    <p><strong>Newton:</strong> A HUGE MASS (elephant) is being pushed HARD (acceleration). The FORCE (F) is the result of how big the mass is and HOW FAST it's accelerating.</p>
+                    <p style="margin-top: 10px;"><strong>Mental Image:</strong> An elephant on roller skates being pushed harder and harder. The bigger the elephant (mass) or harder the push (acceleration), the stronger the force!</p>
+                </div>
+                <button class="secondary-button" onclick="toggleExpanded('f1')">Expand Explanation</button>
+                <div id="f1" style="display:none; margin-top: 10px;">
+                    <div class="feedback correct">
+                        Remember: F needs TWO things to exist: a large MASS and a strong ACCELERATION. Both must be present!
+                    </div>
+                </div>
+            </div>
+
+            <h3>Formula 2: Ohm's Law - V = IR</h3>
+            <div class="practice-section">
+                <div class="formula-box">V = IR<br>(Voltage = Current × Resistance)</div>
+                <div class="concept-box">
+                    <h4>Visualization Story</h4>
+                    <p><strong>Electric Water Flow:</strong> Imagine WATER (current) trying to flow through a PIPE with BLOCKAGES (resistance). The PRESSURE (voltage) needed depends on how much water you want to push (current) and how many blocks are in the way (resistance).</p>
+                    <p style="margin-top: 10px;"><strong>Mental Image:</strong> A river (current) trying to flow through a narrow canyon with rocks (resistance). More rocks = need more water pressure (voltage) to push through!</p>
+                </div>
+            </div>
+
+            <h3>Formula 3: Kinetic Energy - KE = ½mv²</h3>
+            <div class="practice-section">
+                <div class="formula-box">KE = ½mv²<br>(Kinetic Energy = ½ × mass × velocity²)</div>
+                <div class="concept-box">
+                    <h4>Visualization Story</h4>
+                    <p><strong>Speed Matters MOST:</strong> A HEAVY CAR moving slowly has less energy than a LIGHT BICYCLE moving FAST. Why? Because velocity is SQUARED (v²). Speed matters more than weight!</p>
+                    <p style="margin-top: 10px;"><strong>Mental Image:</strong> Imagine a car crash: Heavy truck moving slowly vs Light sports car speeding. The light car going fast causes MORE damage (more KE) because v² multiplies its impact!</p>
+                </div>
+            </div>
+
+            <h3>Your Turn: Create Visualizations</h3>
+            <div class="practice-section">
+                <p><strong>Formula: A = πr² (Area of Circle)</strong></p>
+                <p style="margin: 15px 0;"><strong>Create your visualization story:</strong></p>
+                <textarea id="guided-1" placeholder="Type your answer..."></textarea>
+                <button onclick="saveGuided(1)">Save</button>
+                <div id="guided-feedback-1"></div>
+            </div>
+        </div>
+
+        <div id="elaboration" class="tab-content">
+            <h2>Elaboration: Advanced Techniques</h2>
+
+            <h3>Technique 1: Symbol Substitution</h3>
+            <div class="concept-box">
+                <p>Replace each mathematical symbol with a memorable action or object:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>=</strong> → A bridge or connector</li>
+                    <li><strong>+</strong> → People coming together or joining</li>
+                    <li><strong>×</strong> → Collision or crossing paths</li>
+                    <li><strong>÷</strong> → Splitting or separating</li>
+                    <li><strong>²</strong> → Something DOUBLING or repeating TWICE</li>
+                    <li><strong>√</strong> → Extracting the hidden core or root</li>
+                </ul>
+            </div>
+
+            <h3>Technique 2: Anchoring to Known Concepts</h3>
+            <div class="concept-box">
+                <p>Link new formulas to concepts you ALREADY know well:</p>
+                <div class="example">
+                    <p style="margin: 10px 0;"><strong>Example:</strong> Distance = Speed × Time</p>
+                    <p>Link to a road trip: You know faster speed covers more distance in same time. This is easy to visualize!</p>
+                </div>
+            </div>
+
+            <h3>Technique 3: Multi-Sensory Palace for Complex Topics</h3>
+            <div class="concept-box">
+                <h4>Example: Chemistry - Reaction Rate Formula</h4>
+                <p>Create a chemistry LAB palace:</p>
+                <div class="mindmap">
+                    <div class="mindmap-item">Front Door: Raw REACTANTS entering (visualize beakers)</div>
+                    <div class="mindmap-item">Lab Bench: TEMPERATURE heating up (see heat, feel warmth)</div>
+                    <div class="mindmap-item">Catalyst Station: CATALYST speeding up reaction (see reaction fizzing)</div>
+                    <div class="mindmap-item">Results Table: Products forming (see new substances)</div>
+                    <div class="mindmap-item">Graph Wall: RATE INCREASES with temperature/catalyst</div>
+                </div>
+            </div>
+
+            <h3>Why This Works</h3>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-title">Concretization</div>
+                    <p>Abstract formulas become concrete objects and actions you can visualize.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Narrative Logic</div>
+                    <p>Stories show WHY formulas work, not just memorizing symbols.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Spatial Memory</div>
+                    <p>Palace method organizes complex multi-step information spatially.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">Multiple Encoding</div>
+                    <p>Visual + spatial + narrative = stronger, more durable memories.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="independent" class="tab-content">
+            <h2>Independent Practice: Master Complex Formulas</h2>
+
+            <h3>Challenge 1: Physics Formulas</h3>
+            <div class="practice-section">
+                <p><strong>Formula: W = F × d (Work = Force × Distance)</strong></p>
+                <p style="margin: 15px 0;"><strong>Create your visualization and story:</strong></p>
+                <textarea id="practice-1" placeholder="Your story..."></textarea>
+                <button onclick="savePractice(1)">Save</button>
+                <div id="feedback-p1"></div>
+            </div>
+
+            <h3>Challenge 2: Chemistry Formulas</h3>
+            <div class="practice-section">
+                <p><strong>Formula: pH = -log[H⁺] (Acidity Formula)</strong></p>
+                <p style="margin: 15px 0;"><strong>Describe how you'd visualize this abstract relationship:</strong></p>
+                <textarea id="practice-2" placeholder="Your approach..."></textarea>
+                <button onclick="savePractice(2)">Save</button>
+                <div id="feedback-p2"></div>
+            </div>
+
+            <h3>Challenge 3: Complex Topic Mind Map</h3>
+            <div class="practice-section">
+                <p><strong>Topic: Quadratic Formula x = (-b ± √(b²-4ac)) / 2a</strong></p>
+                <p style="margin: 15px 0;"><strong>Create a mind map or palace layout for this complex formula:</strong></p>
+                <textarea id="practice-3" placeholder="Type your answer..." style="min-height: 150px;"></textarea>
+                <button onclick="savePractice(3)">Save</button>
+                <div id="feedback-p3"></div>
+            </div>
+
+            <h3>Challenge 4: Your Own Formula</h3>
+            <div class="practice-section">
+                <p><strong>Think of a technical formula or equation from your field that you need to remember.</strong></p>
+                <p style="margin: 15px 0;"><strong>Formula:</strong></p>
+                <input type="text" id="practice-formula" class="input-field" placeholder="Enter the formula...">
+                <p style="margin: 15px 0;"><strong>Your visualization/story:</strong></p>
+                <textarea id="practice-4" placeholder="Write your response..." style="min-height: 150px;"></textarea>
+                <button onclick="savePractice(4)">Save</button>
+                <div id="feedback-p4"></div>
+            </div>
+        </div>
+
+        <div id="final" class="tab-content">
+            <h2>Final Retrieval: Comprehensive Assessment</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="final-progress" style="width: 0%"></div>
+            </div>
+
+            <h3>Part 1: Method Knowledge</h3>
+            <div class="practice-section">
+                <div class="practice-question">
+                    <div class="question-text">1. What is the primary strategy for memorizing abstract formulas?</div>
+                    <div class="button-group">
+                        <button onclick="checkAnswer('final', 1, 'a')">A. Repeat them over and over</button>
+                        <button onclick="checkAnswer('final', 1, 'b')">B. Convert abstract symbols into concrete objects and stories</button>
+                        <button onclick="checkAnswer('final', 1, 'c')">C. Write them down 100 times</button>
+                    </div>
+                    <div id="feedback-final-1"></div>
+                </div>
+
+                <div class="practice-question">
+                    <div class="question-text">2. Which technique best organizes complex multi-part information?</div>
+                    <div class="button-group">
+                        <button onclick="checkAnswer('final', 2, 'a')">A. Lists</button>
+                        <button onclick="checkAnswer('final', 2, 'b')">B. Mind maps and memory palaces</button>
+                        <button onclick="checkAnswer('final', 2, 'c')">C. Flashcards</button>
+                    </div>
+                    <div id="feedback-final-2"></div>
+                </div>
+
+                <div class="practice-question">
+                    <div class="question-text">3. Why is it important to link new formulas to concepts you already know?</div>
+                    <div class="button-group">
+                        <button onclick="checkAnswer('final', 3, 'a')">A. It's easier to remember new things connected to established knowledge</button>
+                        <button onclick="checkAnswer('final', 3, 'b')">B. It saves time</button>
+                        <button onclick="checkAnswer('final', 3, 'c')">C. It's not important</button>
+                    </div>
+                    <div id="feedback-final-3"></div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Part 2: Recall & Application</h3>
+            <div class="practice-section">
+                <div class="practice-question">
+                    <div class="question-text">4. Recall the F=ma formula visualization from guided practice:</div>
+                    <button class="secondary-button" onclick="toggleAnswer('fma')">Reveal</button>
+                    <div id="fma" style="display:none; margin-top: 10px;">
+                        <div class="feedback correct">
+                            An elephant on roller skates being pushed harder. The bigger the mass (elephant) or harder the push (acceleration), the stronger the force!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="practice-question">
+                    <div class="question-text">5. What makes KE = ½mv² memorable?</div>
+                    <div class="button-group">
+                        <button onclick="checkAnswer('final', 5, 'a')">A. Speed matters MORE than weight because it's squared</button>
+                        <button onclick="checkAnswer('final', 5, 'b')">B. It's the shortest formula</button>
+                        <button onclick="checkAnswer('final', 5, 'c')">C. Mass is irrelevant</button>
+                    </div>
+                    <div id="feedback-final-5"></div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Part 3: Creative Application</h3>
+            <div class="practice-section">
+                <div class="practice-question">
+                    <div class="question-text">6. Create a visualization for the formula: Distance = Speed × Time</div>
+                    <textarea id="final-6" class="input-field" style="min-height: 80px;" placeholder="Your visualization..."></textarea>
+                    <button onclick="saveFinal(6)">Save</button>
+                    <div id="feedback-final-6"></div>
+                </div>
+            </div>
+
+            <button onclick="calculateScore()" style="width: 100%; padding: 15px; font-size: 1.2em; margin-top: 20px;">Calculate Final Score</button>
+            <div class="score-display" id="final-score" style="display:none; margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <script>
+        let finalScore = 0;
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function checkAnswer(section, question, answer) {
+            const correctAnswers = {
+                'retrieval-1': 'a',
+                'final-1': 'b',
+                'final-2': 'b',
+                'final-3': 'a',
+                'final-5': 'a'
+            };
+            const key = `${section}-${question}`;
+            const feedbackId = `feedback-${section === 'final' ? 'final-' : ''}${question}`;
+            const feedback = document.getElementById(feedbackId);
+            if (correctAnswers[key] === answer) {
+                feedback.innerHTML = '<div class="feedback correct">✓ Correct!</div>';
+                if (section === 'final') finalScore++;
+            } else {
+                feedback.innerHTML = '<div class="feedback incorrect">✗ Try again!</div>';
+            }
+        }
+
+        function checkAnswerText(question) {
+            const answer = document.getElementById(`answer-${question}`).value.toLowerCase().trim();
+            const feedback = document.getElementById(`feedback-${question}`);
+            if (answer.includes('mind map') || answer.includes('palace') || answer.includes('organiz')) {
+                feedback.innerHTML = '<div class="feedback correct">✓ Correct!</div>';
+            } else {
+                feedback.innerHTML = '<div class="feedback incorrect">✗ Mind maps and memory palaces organize complex information well</div>';
+            }
+        }
+
+        function toggleExpanded(id) {
+            const el = document.getElementById(id);
+            el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function saveGuided(num) {
+            const text = document.getElementById(`guided-${num}`).value;
+            if (text.trim()) {
+                document.getElementById(`guided-feedback-${num}`).innerHTML = '<div class="feedback correct">✓ Saved! Creative visualization!</div>';
+            } else {
+                document.getElementById(`guided-feedback-${num}`).innerHTML = '<div class="feedback incorrect">✗ Please create your visualization</div>';
+            }
+        }
+
+        function savePractice(num) {
+            const fieldId = num === 4 ? `practice-${num}` : `practice-${num}`;
+            const text = document.getElementById(fieldId).value;
+            if (text.trim()) {
+                document.getElementById(`feedback-p${num}`).innerHTML = '<div class="feedback correct">✓ Saved! Excellent work!</div>';
+            } else {
+                document.getElementById(`feedback-p${num}`).innerHTML = '<div class="feedback incorrect">✗ Please complete this challenge</div>';
+            }
+        }
+
+        function saveFinal(num) {
+            const answer = document.getElementById(`final-${num}`).value;
+            if (answer.trim()) {
+                document.getElementById(`feedback-final-${num}`).innerHTML = '<div class="feedback correct">✓ Saved!</div>';
+                finalScore++;
+            } else {
+                document.getElementById(`feedback-final-${num}`).innerHTML = '<div class="feedback incorrect">✗ Please provide an answer</div>';
+            }
+        }
+
+        function toggleAnswer(id) {
+            const el = document.getElementById(id);
+            el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function calculateScore() {
+            const percentage = Math.round((finalScore / 6) * 100);
+            let message = percentage >= 80 ? 'Excellent! You understand formula visualization!' : 
+                         percentage >= 60 ? 'Good work! Keep practicing formulas.' : 
+                         'Keep working!';
+            document.getElementById('final-score').style.display = 'block';
+            document.getElementById('final-score').innerHTML = `${finalScore}/6 Correct (${percentage}%) - ${message}`;
+        }
+    </script>
+</body>
+</html>

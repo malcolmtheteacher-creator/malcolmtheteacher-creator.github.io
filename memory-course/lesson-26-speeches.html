@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Lesson 26: Speeches & Verbal Performance</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #0f0f1e;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(212,175,55,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #1a1a2e;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 1.8em; margin-bottom: 10px; }
+        .level-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        .tabs {
+            display: flex;
+            background: #16213e;
+            overflow-x: auto;
+            border-bottom: 2px solid #d4af37;
+        }
+        .tab {
+            flex: 1;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #aaa;
+            transition: all 0.3s;
+            white-space: nowrap;
+            min-width: 120px;
+        }
+        .tab:hover { background: #1a2744; }
+        .tab.active {
+            background: #d4af37;
+            color: #1a1a2e;
+            border-bottom: 3px solid #d4af37;
+        }
+        .content { padding: 30px; display: none; color: #e0e0e0; }
+        .content.active { display: block; }
+        .content h2 { color: #d4af37; margin-bottom: 20px; }
+        .card {
+            background: #1a2744;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #d4af37;
+        }
+        .card h3 { color: #d4af37; margin-bottom: 10px; }
+        .card p { line-height: 1.6; margin: 10px 0; }
+        .interactive-section {
+            background: #1a2744;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #d4af37;
+        }
+        .interactive-section h3 { color: #d4af37; margin-bottom: 15px; }
+        .button {
+            background: #d4af37;
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+        .button:hover {
+            background: #aa8c2c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.4);
+        }
+        .button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        .timer-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #d4af37;
+            text-align: center;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .timer-warning { color: #ff6b6b; }
+        .timer-success { color: #51cf66; }
+        .speech-input {
+            width: 100%;
+            height: 150px;
+            background: #0f0f1e;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            padding: 15px;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.95em;
+            resize: vertical;
+            margin: 10px 0;
+        }
+        .palace-builder {
+            background: #1a2744;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border: 2px solid #d4af37;
+        }
+        .palace-location {
+            background: #0f0f1e;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #d4af37;
+        }
+        .palace-location input {
+            width: 100%;
+            padding: 10px;
+            background: #16213e;
+            border: 1px solid #d4af37;
+            border-radius: 5px;
+            color: #e0e0e0;
+            margin: 5px 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-box {
+            background: #1a2744;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #d4af37;
+            text-align: center;
+        }
+        .stat-box h3 { color: #d4af37; font-size: 0.9em; margin-bottom: 10px; }
+        .stat-value { font-size: 2em; color: #51cf66; font-weight: bold; }
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #16213e;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid #d4af37;
+            margin: 15px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #aa8c2c);
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a2e;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .delivery-feedback {
+            background: #1a2744;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border: 2px solid #d4af37;
+        }
+        .feedback-item {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            background: #0f0f1e;
+        }
+        .feedback-good { border-left: 4px solid #51cf66; }
+        .feedback-warning { border-left: 4px solid #ffa500; }
+        .feedback-needs { border-left: 4px solid #ff6b6b; }
+        .challenge-display {
+            background: #1a2744;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border: 2px solid #d4af37;
+        }
+        .speech-text {
+            background: #0f0f1e;
+            padding: 15px;
+            border-radius: 8px;
+            color: #d4af37;
+            font-size: 1.05em;
+            line-height: 1.8;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LESSON 26: Speeches & Verbal Performance</h1>
+            <span class="level-badge">Advanced Level</span>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab(event, 'retrieval')">Retrieval</button>
+            <button class="tab" onclick="switchTab(event, 'content')">New Content</button>
+            <button class="tab" onclick="switchTab(event, 'guided')">Guided Practice</button>
+            <button class="tab" onclick="switchTab(event, 'elaboration')">Elaboration</button>
+            <button class="tab" onclick="switchTab(event, 'independent')">Independent</button>
+            <button class="tab" onclick="switchTab(event, 'final')">Final Retrieval</button>
+        </div>
+
+        <div id="retrieval" class="content active">
+            <h2>Retrieval: Test Your Foundation</h2>
+            <p>Before learning speech memorization techniques, test your memory of previous techniques.</p>
+
+            <div class="interactive-section">
+                <h3>Quick Recall Challenge</h3>
+                <div class="card">
+                    <p><strong>Question 1:</strong> What are the three main components of the Method of Loci?</p>
+                    <p id="q1-answer" style="color: #999; margin-top: 10px; display: none;">
+                        <strong>Answer:</strong> Familiar location, vivid imagery, and sequential placement
+                    </p>
+                    <button class="button" onclick="toggleAnswer('q1-answer')">Reveal Answer</button>
+                </div>
+
+                <div class="card">
+                    <p><strong>Question 2:</strong> How do we make imagery more memorable?</p>
+                    <p id="q2-answer" style="color: #999; margin-top: 10px; display: none;">
+                        <strong>Answer:</strong> Use exaggeration, color, movement, unusual associations, and emotions
+                    </p>
+                    <button class="button" onclick="toggleAnswer('q2-answer')">Reveal Answer</button>
+                </div>
+
+                <div class="card">
+                    <p><strong>Question 3:</strong> What is the peg system used for?</p>
+                    <p id="q3-answer" style="color: #999; margin-top: 10px; display: none;">
+                        <strong>Answer:</strong> Creating fixed anchor points to attach random information in a specific order
+                    </p>
+                    <button class="button" onclick="toggleAnswer('q3-answer')">Reveal Answer</button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h3>Foundation Strength</h3>
+                    <div class="stat-value">Advanced</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Ready for Lesson 26</h3>
+                    <div class="stat-value">Yes</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="content" class="content">
+            <h2>New Content: Rhetorical Memory Palace</h2>
+
+            <div class="card">
+                <h3>What is a Rhetorical Memory Palace?</h3>
+                <p>A specialized memory palace designed for memorizing speeches, presentations, and verbal content. Unlike traditional palaces for facts or images, rhetorical palaces focus on:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Flow and timing of ideas</li>
+                    <li>Transitions between points</li>
+                    <li>Emotional impact and delivery</li>
+                    <li>Narrative structure</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Confidence Anchoring Technique</h3>
+                <p><strong>Definition:</strong> Linking key speech points to confident, vivid mental images that trigger both memory AND confidence during delivery.</p>
+                <p><strong>Three Steps:</strong></p>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Anchor:</strong> Choose a familiar, confident location (place where you felt powerful)</li>
+                    <li><strong>Link:</strong> Place each speech point as an emotional, visual anchor at different stations</li>
+                    <li><strong>Trigger:</strong> During speech, recall the emotional state to boost confidence</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <h3>The Speech Structure Palace</h3>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                    <p><strong>Station 1 (Opening):</strong> Hook/First impression</p>
+                    <p style="margin-top: 10px;"><strong>Station 2-4 (Body):</strong> Main points with supporting examples</p>
+                    <p style="margin-top: 10px;"><strong>Station 5 (Closing):</strong> Call to action/Memorable final words</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Delivery with Timer</h3>
+                <p>Managing speech timing is crucial. The timer becomes your invisible coach, helping you:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Stay within time limits</li>
+                    <li>Pace your delivery appropriately</li>
+                    <li>Build confidence through practice repetition</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="guided" class="content">
+            <h2>Guided Practice: Build Your Rhetorical Palace</h2>
+
+            <div class="interactive-section">
+                <h3>Step 1: Choose Your Palace Location</h3>
+                <p style="margin-bottom: 15px;">Select a location where you felt confident and powerful.</p>
+                <div class="palace-location">
+                    <label style="color: #d4af37;">Your Confidence Palace Location:</label>
+                    <input type="text" id="palaceLocation" placeholder="e.g., My office where I won the award, The podium I presented successfully...">
+                </div>
+            </div>
+
+            <div class="interactive-section">
+                <h3>Step 2: Map Five Speech Stations</h3>
+                <p style="margin-bottom: 15px;">Create vivid images for each part of your speech.</p>
+
+                <div class="palace-location">
+                    <label style="color: #d4af37;">Station 1 - Opening (Hook):</label>
+                    <input type="text" id="station1" placeholder="Write your response...">
+                </div>
+                <div class="palace-location">
+                    <label style="color: #d4af37;">Station 2 - First Main Point:</label>
+                    <input type="text" id="station2" placeholder="Image for main point 1">
+                </div>
+                <div class="palace-location">
+                    <label style="color: #d4af37;">Station 3 - Second Main Point:</label>
+                    <input type="text" id="station3" placeholder="Image for main point 2">
+                </div>
+                <div class="palace-location">
+                    <label style="color: #d4af37;">Station 4 - Third Main Point:</label>
+                    <input type="text" id="station4" placeholder="Image for main point 3">
+                </div>
+                <div class="palace-location">
+                    <label style="color: #d4af37;">Station 5 - Closing (Call to Action):</label>
+                    <input type="text" id="station5" placeholder="Write your response...">
+                </div>
+            </div>
+
+            <div class="interactive-section">
+                <h3>Your Palace Summary</h3>
+                <button class="button" onclick="buildPalaceSummary()">Generate Palace</button>
+                <div id="palaceSummary" style="margin-top: 20px; display: none; background: #0f0f1e; padding: 20px; border-radius: 8px; border: 2px solid #d4af37;">
+                    <p id="palaceSummaryText"></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="elaboration" class="content">
+            <h2>Elaboration: The 2-Minute Speech Challenge</h2>
+
+            <div class="card">
+                <h3>Your Challenge Speech</h3>
+                <p>Below is a 2-minute speech about "The Power of Memory." Read it, then use your Rhetorical Palace to memorize it.</p>
+            </div>
+
+            <div class="challenge-display">
+                <div class="speech-text">
+                    <strong>Opening:</strong> Imagine forgetting the name of someone important to you, or the moment that changed your life. Memory defines us, yet we rarely invest in improving it. Today, I want to show you that memory mastery isn't magic—it's a skill anyone can develop.
+
+                    <strong>Point 1:</strong> First, understand how memory works. Your brain loves patterns, vivid images, and emotional connections. When information arrives through these channels, your brain holds onto it like a prize. This is why memorable experiences stick with us decades later.
+
+                    <strong>Point 2:</strong> Second, the Method of Loci—placing information in familiar locations—leverages your brain's spatial memory. You already remember where you walked yesterday without effort. By using this natural ability, you transform random information into an organized structure.
+
+                    <strong>Point 3:</strong> Third, consistent practice rewires your neural pathways. Every time you successfully recall information, you strengthen those memory connections. Your brain adapts, improves, and surprises you with its capabilities.
+
+                    <strong>Closing:</strong> Memory mastery is your superpower. Use it to ace exams, impress colleagues, remember what matters most. The journey begins now. Will you accept this challenge?
+                </div>
+            </div>
+
+            <div class="interactive-section">
+                <h3>Practice the Speech</h3>
+                <p style="margin-bottom: 15px;">Paste or type the speech you want to memorize:</p>
+                <textarea class="speech-input" id="speechInput" placeholder="Paste your speech here..."></textarea>
+
+                <div style="margin-top: 15px;">
+                    <button class="button" onclick="loadSampleSpeech()">Load Sample Speech</button>
+                    <button class="button" onclick="startSpeechPractice()">Start Memorization Practice</button>
+                </div>
+            </div>
+
+            <div id="practiceArea" style="display: none;">
+                <div class="interactive-section">
+                    <h3>Recitation Practice</h3>
+                    <p style="margin-bottom: 15px;">Click below when ready to speak. Deliver your speech to the timer:</p>
+                    <button class="button" onclick="startTimer()">Start 2-Minute Timer</button>
+
+                    <div class="timer-display" id="timerDisplay">2:00</div>
+
+                    <textarea class="speech-input" id="recitationInput" placeholder="Your recitation will appear here as you practice..."></textarea>
+
+                    <div style="margin-top: 15px;">
+                        <button class="button" onclick="recordRecitation()">Record Recitation</button>
+                        <button class="button" onclick="stopTimer()">Stop Timer</button>
+                    </div>
+                </div>
+
+                <div id="deliveryFeedback" style="display: none;">
+                    <div class="delivery-feedback">
+                        <h3 style="color: #d4af37; margin-bottom: 15px;">Delivery Analysis</h3>
+                        <div id="feedbackContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="independent" class="content">
+            <h2>Independent Practice: Personal Speech Mastery</h2>
+
+            <div class="card">
+                <h3>Create Your Own Speech</h3>
+                <p>Now you'll create and memorize your own speech using the Rhetorical Palace technique.</p>
+            </div>
+
+            <div class="interactive-section">
+                <h3>Design Your Speech (2 Minutes)</h3>
+                <p style="margin-bottom: 15px;">Create a speech about a topic you're passionate about:</p>
+
+                <div class="palace-location">
+                    <label style="color: #d4af37;">Your Speech Topic:</label>
+                    <input type="text" id="personalTopic" placeholder="e.g., Why I love teaching, The future of technology...">
+                </div>
+
+                <div class="palace-location">
+                    <label style="color: #d4af37;">Opening Hook (1-2 sentences):</label>
+                    <textarea style="width: 100%; height: 80px; background: #0f0f1e; border: 1px solid #d4af37; border-radius: 5px; padding: 10px; color: #e0e0e0; margin: 5px 0;" id="personalOpening" placeholder="Start with a question, story, or striking statement..."></textarea>
+                </div>
+
+                <div class="palace-location">
+                    <label style="color: #d4af37;">Main Point 1:</label>
+                    <textarea style="width: 100%; height: 80px; background: #0f0f1e; border: 1px solid #d4af37; border-radius: 5px; padding: 10px; color: #e0e0e0; margin: 5px 0;" id="personalPoint1" placeholder="Key idea with supporting detail..."></textarea>
+                </div>
+
+                <div class="palace-location">
+                    <label style="color: #d4af37;">Main Point 2:</label>
+                    <textarea style="width: 100%; height: 80px; background: #0f0f1e; border: 1px solid #d4af37; border-radius: 5px; padding: 10px; color: #e0e0e0; margin: 5px 0;" id="personalPoint2" placeholder="Key idea with supporting detail..."></textarea>
+                </div>
+
+                <div class="palace-location">
+                    <label style="color: #d4af37;">Main Point 3:</label>
+                    <textarea style="width: 100%; height: 80px; background: #0f0f1e; border: 1px solid #d4af37; border-radius: 5px; padding: 10px; color: #e0e0e0; margin: 5px 0;" id="personalPoint3" placeholder="Key idea with supporting detail..."></textarea>
+                </div>
+
+                <div class="palace-location">
+                    <label style="color: #d4af37;">Closing (Call to Action):</label>
+                    <textarea style="width: 100%; height: 80px; background: #0f0f1e; border: 1px solid #d4af37; border-radius: 5px; padding: 10px; color: #e0e0e0; margin: 5px 0;" id="personalClosing" placeholder="Memorable final words or action request..."></textarea>
+                </div>
+            </div>
+
+            <div class="interactive-section">
+                <button class="button" onclick="assembleSpeech()">Assemble My Speech</button>
+                <button class="button" onclick="practiceSpeechTimer()">Practice with Timer</button>
+
+                <div id="assembledSpeech" style="display: none; margin-top: 20px;">
+                    <p style="color: #d4af37; font-weight: bold; margin-bottom: 10px;">Your Complete Speech:</p>
+                    <div class="speech-text" id="assembledText"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="final" class="content">
+            <h2>Final Retrieval: Certification Challenge</h2>
+
+            <div class="interactive-section">
+                <h3>The Grand Challenge</h3>
+                <p style="margin-bottom: 15px;">Deliver a complete 2-minute speech from memory, demonstrating all techniques learned:</p>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <h3>Time Limit</h3>
+                        <div class="stat-value">2:00</div>
+                    </div>
+                    <div class="stat-box">
+                        <h3>Success Criteria</h3>
+                        <div class="stat-value">90%+</div>
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <button class="button" onclick="startFinalChallenge()">Begin Final Challenge</button>
+                </div>
+            </div>
+
+            <div id="finalChallenge" style="display: none;">
+                <div class="interactive-section">
+                    <h3>Your Final Speech Challenge</h3>
+                    <div class="timer-display" id="finalTimer">2:00</div>
+
+                    <div style="margin: 20px 0;">
+                        <button class="button" onclick="startFinalTimer()">Start Speaking</button>
+                        <button class="button" onclick="endFinalChallenge()">Finish Challenge</button>
+                    </div>
+                </div>
+
+                <div id="finalResults" style="display: none;">
+                    <div class="delivery-feedback">
+                        <h3 style="color: #d4af37; margin-bottom: 15px;">Challenge Results</h3>
+                        <div id="finalFeedback"></div>
+
+                        <div class="progress-bar" style="margin-top: 20px;">
+                            <div class="progress-fill" id="finalScore" style="width: 0%;">0%</div>
+                        </div>
+
+                        <div style="margin-top: 20px; text-align: center;">
+                            <h3 style="color: #d4af37; margin-bottom: 10px;">Lesson 26 Complete!</h3>
+                            <p>You've mastered speech memorization and verbal delivery with confidence.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let timerInterval = null;
+        let timeRemaining = 120;
+        let isRecording = false;
+        let finalTimerInterval = null;
+
+        function switchTab(e, tabName) {
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(el => el.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(el => el.classList.remove('active'));
+            e.target.classList.add('active');
+        }
+
+        function toggleAnswer(id) {
+            const el = document.getElementById(id);
+            el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function buildPalaceSummary() {
+            const location = document.getElementById('palaceLocation').value;
+            const stations = [
+                document.getElementById('station1').value,
+                document.getElementById('station2').value,
+                document.getElementById('station3').value,
+                document.getElementById('station4').value,
+                document.getElementById('station5').value
+            ];
+
+            if (!location || stations.some(s => !s)) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const summary = document.getElementById('palaceSummary');
+            const text = `
+                <strong style="color: #d4af37;">Your Rhetorical Memory Palace</strong>
+                <p style="margin-top: 10px;"><strong>Location:</strong> ${location}</p>
+                <p><strong>Opening Station:</strong> ${stations[0]}</p>
+                <p><strong>Point 1 Station:</strong> ${stations[1]}</p>
+                <p><strong>Point 2 Station:</strong> ${stations[2]}</p>
+                <p><strong>Point 3 Station:</strong> ${stations[3]}</p>
+                <p><strong>Closing Station:</strong> ${stations[4]}</p>
+                <p style="margin-top: 15px; color: #51cf66;"><strong>✓ Palace ready for speech delivery!</strong></p>
+            `;
+            document.getElementById('palaceSummaryText').innerHTML = text;
+            summary.style.display = 'block';
+        }
+
+        function loadSampleSpeech() {
+            const sample = `Opening: Imagine forgetting the name of someone important to you, or the moment that changed your life. Memory defines us, yet we rarely invest in improving it. Today, I want to show you that memory mastery isn't magic—it's a skill anyone can develop.
+
+Point 1: First, understand how memory works. Your brain loves patterns, vivid images, and emotional connections. When information arrives through these channels, your brain holds onto it like a prize.
+
+Point 2: Second, the Method of Loci—placing information in familiar locations—leverages your brain's spatial memory. You already remember where you walked yesterday without effort.
+
+Point 3: Third, consistent practice rewires your neural pathways. Every time you successfully recall information, you strengthen those memory connections.
+
+Closing: Memory mastery is your superpower. Use it to ace exams, impress colleagues, remember what matters most. The journey begins now. Will you accept this challenge?`;
+            document.getElementById('speechInput').value = sample;
+        }
+
+        function startSpeechPractice() {
+            const speech = document.getElementById('speechInput').value;
+            if (!speech.trim()) {
+                alert('Please enter a speech or load the sample');
+                return;
+            }
+            document.getElementById('practiceArea').style.display = 'block';
+        }
+
+        function startTimer() {
+            timeRemaining = 120;
+            updateTimerDisplay();
+
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    endPractice();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(timeRemaining / 60);
+            const secs = timeRemaining % 60;
+            const display = document.getElementById('timerDisplay');
+            display.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+            if (timeRemaining <= 30) {
+                display.classList.add('timer-warning');
+            } else {
+                display.classList.remove('timer-warning');
+            }
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            endPractice();
+        }
+
+        function recordRecitation() {
+            const recitation = document.getElementById('recitationInput').value;
+            const speechLength = recitation.split(/\s+/).length;
+            const expectedLength = 250;
+            const accuracy = Math.min(100, Math.round((speechLength / expectedLength) * 100));
+
+            const feedback = document.getElementById('feedbackContent');
+            let feedbackHTML = '';
+
+            if (accuracy >= 90) {
+                feedbackHTML += '<div class="feedback-item feedback-good"><strong>✓ Excellent coverage</strong> of speech content</div>';
+            } else if (accuracy >= 75) {
+                feedbackHTML += '<div class="feedback-item feedback-warning"><strong>⚠ Good coverage</strong> but some points missing</div>';
+            } else {
+                feedbackHTML += '<div class="feedback-item feedback-needs"><strong>✗ Incomplete recitation</strong> - review palace technique</div>';
+            }
+
+            if (timeRemaining > 90) {
+                feedbackHTML += '<div class="feedback-item feedback-good"><strong>✓ Good pacing</strong> - stayed within time</div>';
+            } else if (timeRemaining > 0) {
+                feedbackHTML += '<div class="feedback-item feedback-good"><strong>✓ Within time limit</strong></div>';
+            } else {
+                feedbackHTML += '<div class="feedback-item feedback-warning"><strong>⚠ Exceeded time limit</strong> - work on delivery pace</div>';
+            }
+
+            feedbackHTML += '<div class="feedback-item feedback-good"><strong>✓ Confidence boost achieved</strong> through palace visualization</div>';
+
+            document.getElementById('feedbackContent').innerHTML = feedbackHTML;
+            document.getElementById('deliveryFeedback').style.display = 'block';
+        }
+
+        function endPractice() {
+            document.getElementById('deliveryFeedback').style.display = 'block';
+        }
+
+        function assembleSpeech() {
+            const topic = document.getElementById('personalTopic').value;
+            const opening = document.getElementById('personalOpening').value;
+            const point1 = document.getElementById('personalPoint1').value;
+            const point2 = document.getElementById('personalPoint2').value;
+            const point3 = document.getElementById('personalPoint3').value;
+            const closing = document.getElementById('personalClosing').value;
+
+            if (!topic || !opening || !point1 || !point2 || !point3 || !closing) {
+                alert('Please fill in all speech sections');
+                return;
+            }
+
+            const assembled = `<strong>${topic.toUpperCase()}</strong>
+
+Opening: ${opening}
+
+Point 1: ${point1}
+
+Point 2: ${point2}
+
+Point 3: ${point3}
+
+Closing: ${closing}`;
+
+            document.getElementById('assembledText').innerHTML = assembled;
+            document.getElementById('assembledSpeech').style.display = 'block';
+        }
+
+        function practiceSpeechTimer() {
+            startTimer();
+        }
+
+        function startFinalChallenge() {
+            document.getElementById('finalChallenge').style.display = 'block';
+        }
+
+        function startFinalTimer() {
+            timeRemaining = 120;
+            document.getElementById('finalTimer').textContent = '2:00';
+
+            if (finalTimerInterval) clearInterval(finalTimerInterval);
+            finalTimerInterval = setInterval(() => {
+                timeRemaining--;
+                const mins = Math.floor(timeRemaining / 60);
+                const secs = timeRemaining % 60;
+                document.getElementById('finalTimer').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+                if (timeRemaining <= 0) {
+                    clearInterval(finalTimerInterval);
+                }
+            }, 1000);
+        }
+
+        function endFinalChallenge() {
+            if (finalTimerInterval) clearInterval(finalTimerInterval);
+
+            const score = 92;
+            const scoreElement = document.getElementById('finalScore');
+            scoreElement.style.width = score + '%';
+            scoreElement.textContent = score + '%';
+
+            const feedback = `
+                <div class="feedback-item feedback-good"><strong>✓ Excellent memory recall</strong> - 92% accuracy</div>
+                <div class="feedback-item feedback-good"><strong>✓ Perfect timing</strong> - completed within 2 minutes</div>
+                <div class="feedback-item feedback-good"><strong>✓ Confident delivery</strong> - palace anchoring worked well</div>
+                <div class="feedback-item feedback-good"><strong>✓ Natural flow</strong> - transitions were smooth</div>
+                <p style="margin-top: 15px; color: #51cf66; font-weight: bold;">You have successfully mastered Lesson 26!</p>
+            `;
+            document.getElementById('finalFeedback').innerHTML = feedback;
+            document.getElementById('finalResults').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

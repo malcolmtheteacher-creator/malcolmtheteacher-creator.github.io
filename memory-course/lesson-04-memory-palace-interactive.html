@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4: Memory Palace - Art of Memory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e8e8e8;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 2px solid #d4af37;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: #d4af37;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        header .subtitle {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+        }
+
+        .module-badge {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d76d 100%);
+            border-radius: 25px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            color: #a0a0a0;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            border-color: #d4af37;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d76d 100%);
+            color: #1a1a2e;
+            border-color: transparent;
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card h2 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .card h3 {
+            color: #f4d76d;
+            margin: 20px 0 15px 0;
+            font-size: 1.1rem;
+        }
+
+        .card p {
+            margin-bottom: 15px;
+            color: #d0d0d0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(244, 215, 109, 0.15) 100%);
+            border-left: 4px solid #d4af37;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+
+        .highlight-box h4 {
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: #e8e8e8;
+            font-size: 1rem;
+            font-family: inherit;
+            margin-bottom: 15px;
+        }
+
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d76d 100%);
+            border: none;
+            border-radius: 8px;
+            color: #1a1a2e;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .timer-display {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            color: #d4af37;
+            text-align: center;
+            margin: 20px 0;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .palace-location {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .palace-location:hover {
+            background: rgba(212, 175, 55, 0.25);
+            border-color: #d4af37;
+        }
+
+        .palace-location h4 {
+            color: #d4af37;
+            margin-bottom: 8px;
+        }
+
+        .result-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #10b981;
+        }
+
+        .result-box.error {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        .score-display {
+            font-size: 1.8rem;
+            color: #d4af37;
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 12px;
+        }
+
+        .blank-screen {
+            background: rgba(0,0,0,0.5);
+            border: 2px dashed rgba(212, 175, 55, 0.4);
+            border-radius: 12px;
+            padding: 60px 20px;
+            text-align: center;
+            color: #a0a0a0;
+            font-size: 1.2rem;
+        }
+
+        .quiz-option {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: #d4af37;
+        }
+
+        .quiz-option.selected {
+            background: rgba(212, 175, 55, 0.3);
+            border-color: #d4af37;
+        }
+
+        .quiz-option.correct {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-btn.prev {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #a0a0a0;
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d76d 100%);
+            border: none;
+            color: #1a1a2e;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .tabs { flex-direction: column; }
+            .tab-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lesson 4: Memory Palace</h1>
+            <p class="subtitle">Expand beyond 10 items: Walk through a location you know</p>
+            <span class="module-badge">ADVANCED SYSTEMS</span>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0)">1. Retrieval</button>
+            <button class="tab-btn" onclick="switchTab(1)">2. New Content</button>
+            <button class="tab-btn" onclick="switchTab(2)">3. Guided Practice</button>
+            <button class="tab-btn" onclick="switchTab(3)">4. Elaboration</button>
+            <button class="tab-btn" onclick="switchTab(4)">5. Independent</button>
+            <button class="tab-btn" onclick="switchTab(5)">6. Final Retrieval</button>
+        </div>
+
+        <!-- TAB 1: RETRIEVAL -->
+        <div class="tab-content active">
+            <div class="card">
+                <h2>Retrieval: Body Pegs Review</h2>
+                <p>Quickly write: How many body peg locations are there, and why is your body a good anchor system?</p>
+
+                <textarea id="retrievalText" placeholder="Type your answer..."></textarea>
+                <button class="action-btn" onclick="showRetrievalFeedback()">Submit & Continue</button>
+            </div>
+        </div>
+
+        <!-- TAB 2: NEW CONTENT -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>From Body Pegs to Memory Palaces</h2>
+
+                <p>Body pegs work great for 10 items. But what if you need to remember 50 items? 200 items? That's where the <strong>Memory Palace</strong> comes in.</p>
+
+                <div class="highlight-box">
+                    <h4>The Concept:</h4>
+                    <p style="margin: 10px 0;">Use a location you know VERY WELL (your home, your school, a route you walk every day) as a palace. Instead of 10 body parts, you have UNLIMITED rooms and locations to place items.</p>
+                </div>
+
+                <h3>How the Memory Palace Works</h3>
+                <p style="margin-bottom: 20px;">Let's say you use your HOME:</p>
+
+                <div style="background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 20px; margin: 20px 0;">
+                    <p style="color: #f4d76d; font-weight: 600; margin-bottom: 10px;">Room 1: FRONT DOOR</p>
+                    <p style="color: #b0b0b0;">Place item 1 here (with vivid imagery)</p>
+
+                    <p style="color: #f4d76d; font-weight: 600; margin-bottom: 10px; margin-top: 15px;">Room 2: HALLWAY</p>
+                    <p style="color: #b0b0b0;">Place item 2 here</p>
+
+                    <p style="color: #f4d76d; font-weight: 600; margin-bottom: 10px; margin-top: 15px;">Room 3: LIVING ROOM</p>
+                    <p style="color: #b0b0b0;">Place item 3 here</p>
+
+                    <p style="color: #f4d76d; font-weight: 600; margin-bottom: 10px; margin-top: 15px;">Room 4: KITCHEN</p>
+                    <p style="color: #b0b0b0;">Place item 4 here</p>
+
+                    <p style="margin-top: 20px; color: #a0a0a0; font-size: 0.9rem;">...and so on through every room in your house!</p>
+                </div>
+
+                <h3>The Key Principle: THE WALK</h3>
+                <p>You always walk through your palace in THE SAME ORDER. Front door → Hallway → Living Room → Kitchen → Bedroom → Bathroom. This order is FIXED. Never change it.</p>
+
+                <div class="highlight-box">
+                    <h4>Why This Works:</h4>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>You already know the layout perfectly</li>
+                        <li>You don't have to memorize an arbitrary order</li>
+                        <li>You can place items ON, AROUND, or INSIDE actual furniture</li>
+                        <li>The spatial journey reinforces the sequence</li>
+                        <li>You can expand infinitely (use multiple palaces!)</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 30px;">Choosing Your First Palace</h3>
+                <p>Use a place you've been to hundreds of times:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Your current home</li>
+                    <li>A childhood home</li>
+                    <li>A daily walking route</li>
+                    <li>Your workplace</li>
+                    <li>Your school</li>
+                </ul>
+
+                <p style="margin-top: 20px; color: #a0a0a0;">DO NOT use a place you only visited once or twice. You need perfect spatial memory.</p>
+
+                <button class="action-btn" onclick="switchTab(2)">Ready for Practice →</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: GUIDED PRACTICE -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Guided Practice: Design Your Palace</h2>
+
+                <h3>Exercise 1: Map 10 Locations in Your Palace</h3>
+                <p>Describe a location you know well (home, route, building). Write down 10 specific locations/rooms you'd walk through:</p>
+
+                <textarea id="palaceDescription" placeholder="Describe the layout and 10 specific locations you'll walk through in order. Example: 1. Front door 2. Hallway 3. Living room..."></textarea>
+
+                <button class="action-btn" onclick="checkPalaceDesign()">Save & Continue</button>
+                <div id="designFeedback"></div>
+
+                <h3 style="margin-top: 30px;">Exercise 2: Place 10 Items in Your Palace</h3>
+                <p>Now you'll place 10 items on the locations you described. Use vivid, bizarre imagery!</p>
+
+                <div style="background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 20px; margin: 20px 0;">
+                    <p style="color: #f4d76d; font-weight: 600; margin-bottom: 15px;">Items to place in your palace:</p>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 8px;">
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37; font-weight: 600;">1. PIZZA</div>
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37; font-weight: 600;">2. MOTORCYCLE</div>
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37; font-weight: 600;">3. ELEPHANT</div>
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37; font-weight: 600;">4. RAINBOW</div>
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37; font-weight: 600;">5. EXPLOSION</div>
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37; font-weight: 600;">6. CRYSTAL</div>
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37; font-weight: 600;">7. WATERFALL</div>
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37; font-weight: 600;">8. DRAGON</div>
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37; font-weight: 600;">9. THUNDER</div>
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37; font-weight: 600;">10. CROWN</div>
+                    </div>
+                    <p style="margin-top: 15px; color: #b0b0b0; font-size: 0.9rem;">Walk through your palace and place each item vivid imagery!</p>
+                </div>
+
+                <button class="action-btn" onclick="switchTab(3)">Continue to Elaboration →</button>
+            </div>
+        </div>
+
+        <!-- TAB 4: ELABORATION -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Elaboration: Why Memory Palaces Dominate</h2>
+
+                <h3>Question 1: Why use a real location instead of an imaginary one?</h3>
+                <textarea id="elab1" placeholder="Type your answer..."></textarea>
+
+                <div class="result-box">
+                    Sample: A real location is already firmly encoded in your long-term memory. You don't have to memorize it. An imaginary palace might blur or change between recall sessions.
+                </div>
+
+                <h3 style="margin-top: 30px;">Question 2: Why is THE WALK important?</h3>
+                <textarea id="elab2" placeholder="Type your answer..."></textarea>
+
+                <div class="result-box">
+                    Sample: The walk creates a fixed sequence. Even if you forget one item, the sequence helps you remember which item came BEFORE and AFTER it. It's a safety net.
+                </div>
+
+                <h3 style="margin-top: 30px;">Question 3: How does a memory palace scale to 100+ items?</h3>
+                <textarea id="elab3" placeholder="Type your answer..."></textarea>
+
+                <div class="result-box">
+                    Sample: You simply use more locations within your palace. Instead of 10 rooms, you identify 50+ specific spots (walls, shelves, chairs, doors, windows). Or you create multiple palaces!
+                </div>
+
+                <button class="action-btn" onclick="switchTab(4)" style="margin-top: 30px;">Ready for Independent Practice →</button>
+            </div>
+        </div>
+
+        <!-- TAB 5: INDEPENDENT PRACTICE -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Independent Practice: Full Palace Recall Challenge</h2>
+
+                <h3>Challenge: Walk Your Palace & Recall 10 Items</h3>
+                <p>You'll have 2 minutes to encode 10 items into a memory palace. Then blank screen recall!</p>
+
+                <div id="palacePhase1" style="display: block;">
+                    <p style="margin: 20px 0; color: #f4d76d;">⏱ You have 120 seconds to encode these items into your palace:</p>
+                    <div id="palaceItems" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 20px 0;">
+                    </div>
+                    <div class="timer-display" id="palaceTimer">2:00</div>
+                    <button class="action-btn" onclick="startPalaceChallenge()">Start Encoding into Palace</button>
+                </div>
+
+                <div id="palacePhase2" style="display: none;">
+                    <div style="background: rgba(0,0,0,0.5); border: 2px dashed rgba(212, 175, 55, 0.4); border-radius: 12px; padding: 60px 20px; text-align: center; color: #a0a0a0; font-size: 1.2rem; margin: 20px 0;">
+                        🏛️ Items locked in your palace...<br><strong>Ready to recall?</strong>
+                    </div>
+                    <button class="action-btn" onclick="startPalacePhase3()" style="width: 100%;">Blank Screen (Recall Now)</button>
+                </div>
+
+                <div id="palacePhase3" style="display: none;">
+                    <div class="blank-screen">
+                        Your palace is cleared.<br><strong>Walk through and type everything you remember in order.</strong>
+                    </div>
+                    <textarea id="palaceAnswer" style="margin-top: 20px;" placeholder="Type the items you remember..."></textarea>
+                    <button class="action-btn" onclick="scorePalaceChallenge()" style="margin-top: 15px; width: 100%;">Check My Score</button>
+                </div>
+
+                <div id="palaceResults" style="display: none;">
+                    <div class="score-display" id="palaceScore"></div>
+                    <div id="palaceFeedback"></div>
+                    <button class="action-btn" onclick="switchTab(5)" style="width: 100%; margin-top: 20px;">Go to Final Retrieval →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: FINAL RETRIEVAL -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Final Retrieval: Memory Palace Mastery</h2>
+
+                <h3 style="margin-top: 30px;">Question 1: What is a memory palace?</h3>
+                <div id="q1">
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q1', false)">An imaginary building you invent</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q1', true)">A real location you know well, used as a memory system</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q1', false)">A list of 10 body parts</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q1', false)">A technique for remembering the alphabet</div>
+                </div>
+
+                <h3 style="margin-top: 30px;">Question 2: What's the critical ingredient of a memory palace?</h3>
+                <div id="q2">
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q2', false)">It has to be huge</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q2', true)">You must walk through it in THE SAME order every time</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q2', false)">It has to have exactly 10 rooms</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q2', false)">You need to draw it on paper first</div>
+                </div>
+
+                <h3 style="margin-top: 30px;">Question 3: How many items can a memory palace hold?</h3>
+                <div id="q3">
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q3', false)">Maximum 50 items</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q3', false)">Maximum 100 items</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q3', true)">Unlimited - you can add more locations or multiple palaces</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q3', false)">It depends on the building size</div>
+                </div>
+
+                <h3 style="margin-top: 30px;">Question 4: What's the advantage of a memory palace over body pegs?</h3>
+                <div id="q4">
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q4', false)">It's easier to learn</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q4', true)">It can scale to unlimited items while still using a natural, familiar structure</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q4', false)">It doesn't require visualization</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q4', false)">It's more fun to use</div>
+                </div>
+
+                <button class="action-btn" onclick="scoreFinalQuiz()" style="width: 100%; margin-top: 30px;">Submit Answers</button>
+                <div id="finalQuizResults" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn prev" onclick="prevTab()">← Previous</button>
+            <button class="nav-btn next" onclick="nextTab()">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentTab = 0;
+        let palaceTimer = null;
+        let palaceItems = [];
+        let quizAnswers = {};
+
+        function switchTab(n) {
+            currentTab = n;
+            updateTabs();
+        }
+
+        function updateTabs() {
+            const tabs = document.querySelectorAll('.tab-content');
+            const btns = document.querySelectorAll('.tab-btn');
+
+            tabs.forEach((tab, i) => {
+                tab.classList.remove('active');
+                btns[i].classList.remove('active');
+            });
+
+            tabs[currentTab].classList.add('active');
+            btns[currentTab].classList.add('active');
+        }
+
+        function nextTab() {
+            if (currentTab < 5) switchTab(currentTab + 1);
+        }
+
+        function prevTab() {
+            if (currentTab > 0) switchTab(currentTab - 1);
+        }
+
+        function showRetrievalFeedback() {
+            const text = document.getElementById('retrievalText').value;
+            if (text.trim().length < 10) {
+                alert('Please write your answer.');
+                return;
+            }
+            alert('✓ Good recall!');
+        }
+
+        function checkPalaceDesign() {
+            const text = document.getElementById('palaceDescription').value;
+            if (text.trim().length < 50) {
+                alert('Please describe your palace with at least 10 specific locations.');
+                return;
+            }
+            document.getElementById('designFeedback').innerHTML = 
+                '<div class="result-box">✓ Excellent! You have your palace mapped out. Now use it!</div>';
+        }
+
+        function startPalaceChallenge() {
+            palaceItems = ['Treasure Chest', 'Phoenix', 'Glacier', 'Hourglass', 'Serpent',
+                          'Chandelier', 'Tornado', 'Jewel', 'Lightning', 'Sphinx'];
+            const itemsDiv = document.getElementById('palaceItems');
+            itemsDiv.innerHTML = palaceItems.map((item, i) =>
+                `<div style="background: rgba(212, 175, 55, 0.2); border: 2px solid #d4af37; border-radius: 8px; padding: 15px; text-align: center; font-size: 1.1rem; color: #d4af37; font-weight: 600;">${i+1}. ${item}</div>`
+            ).join('');
+
+            document.getElementById('palacePhase1').style.display = 'block';
+            document.getElementById('palacePhase2').style.display = 'none';
+
+            let time = 120;
+            const timerEl = document.getElementById('palaceTimer');
+
+            palaceTimer = setInterval(() => {
+                const mins = Math.floor(time / 60);
+                const secs = time % 60;
+                timerEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+                if (time === 0) {
+                    clearInterval(palaceTimer);
+                    document.getElementById('palacePhase1').style.display = 'none';
+                    document.getElementById('palacePhase2').style.display = 'block';
+                }
+                time--;
+            }, 1000);
+        }
+
+        function startPalacePhase3() {
+            document.getElementById('palacePhase2').style.display = 'none';
+            document.getElementById('palacePhase3').style.display = 'block';
+            document.getElementById('palaceAnswer').focus();
+        }
+
+        function scorePalaceChallenge() {
+            const answer = document.getElementById('palaceAnswer').value.toLowerCase();
+            const correct = palaceItems.map(w => w.toLowerCase());
+
+            const recalled = correct.filter(w => answer.includes(w));
+            const score = Math.round((recalled.length / correct.length) * 100);
+
+            document.getElementById('palacePhase3').style.display = 'none';
+            document.getElementById('palaceResults').style.display = 'block';
+
+            document.getElementById('palaceScore').textContent =
+                `Score: ${score}% (${recalled.length}/${correct.length} items)`;
+
+            let feedback = `<div class="result-box">You recalled: ${recalled.join(', ')}<br><br>`;
+            if (score === 100) {
+                feedback += 'Perfect! Your memory palace works perfectly!';
+            } else if (score >= 70) {
+                feedback += 'Excellent! Strong palace encoding and recall!';
+            } else if (score >= 50) {
+                feedback += 'Good! With more practice, palaces become powerful.';
+            } else {
+                feedback += 'Keep practicing! Palaces scale infinitely with experience.';
+            }
+            feedback += '</div>';
+            document.getElementById('palaceFeedback').innerHTML = feedback;
+        }
+
+        function selectQuiz(el, qId, correct) {
+            document.querySelectorAll(`#${qId} .quiz-option`).forEach(o => {
+                o.classList.remove('selected');
+            });
+            el.classList.add('selected');
+            quizAnswers[qId] = correct;
+        }
+
+        function scoreFinalQuiz() {
+            const answers = Object.values(quizAnswers);
+            const correct = answers.filter(a => a === true).length;
+            const percent = Math.round((correct / 4) * 100);
+
+            let resultHtml = `<div class="score-display">Quiz Score: ${percent}%</div>`;
+
+            document.querySelectorAll('[id^="q"]').forEach((q, i) => {
+                const option = q.querySelector('.quiz-option.selected');
+                if (option) {
+                    if (quizAnswers[`q${i+1}`]) {
+                        option.style.background = 'rgba(16, 185, 129, 0.2)';
+                        option.style.borderColor = '#10b981';
+                    } else {
+                        option.style.background = 'rgba(239, 68, 68, 0.2)';
+                        option.style.borderColor = '#ef4444';
+                    }
+                }
+            });
+
+            resultHtml += '<div class="result-box">';
+            if (percent === 100) {
+                resultHtml += '✓ Perfect! Memory palaces mastered!';
+            } else if (percent >= 75) {
+                resultHtml += '✓ Great! Ready for the final technique!';
+            } else {
+                resultHtml += '✓ Review and try again!';
+            }
+            resultHtml += '</div>';
+
+            document.getElementById('finalQuizResults').innerHTML = resultHtml;
+        }
+    </script>
+</body>
+</html>

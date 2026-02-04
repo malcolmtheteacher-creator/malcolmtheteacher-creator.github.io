@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 23: The Ben System Introduction - The Art of Memory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+            color: #000;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .tab-container {
+            display: flex;
+            background: #1a1a1a;
+            border-bottom: 2px solid #d4af37;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px;
+            background: #2d2d2d;
+            border: none;
+            color: #d4af37;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            min-width: 140px;
+        }
+
+        .tab-button:hover {
+            background: #3d3d3d;
+            color: #ffd700;
+        }
+
+        .tab-button.active {
+            background: #d4af37;
+            color: #000;
+            border-bottom-color: #ffd700;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #ffd700;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #c0c0c0;
+        }
+
+        .content-box {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid #d4af37;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+
+        .challenge-box {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid #d4af37;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px 10px 0;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .button.secondary {
+            background: rgba(212, 175, 55, 0.3);
+            color: #d4af37;
+            border: 2px solid #d4af37;
+        }
+
+        .button.secondary:hover {
+            background: rgba(212, 175, 55, 0.5);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.3);
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        th, td {
+            border: 2px solid #d4af37;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(212, 175, 55, 0.3);
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .ben-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .ben-item {
+            background: rgba(212, 175, 55, 0.2);
+            border: 2px solid #d4af37;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            color: #ffd700;
+            transition: all 0.3s ease;
+        }
+
+        .ben-item:hover {
+            background: rgba(212, 175, 55, 0.4);
+            transform: scale(1.05);
+        }
+
+        .ben-item .number {
+            font-size: 1.3em;
+            color: #ffd700;
+        }
+
+        .ben-item .letters {
+            font-size: 0.9em;
+            color: #d4af37;
+            margin-top: 5px;
+        }
+
+        .ben-item .image {
+            font-size: 0.85em;
+            color: #c0c0c0;
+            margin-top: 5px;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-card {
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid #d4af37;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .comparison-card h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .pros-cons {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .pros-cons li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .pros-cons li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .highlight {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .tip-box {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid #ffd700;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .tip-box strong {
+            color: #ffd700;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #d4af37;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-family: 'Courier New', monospace;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #c0c0c0;
+        }
+
+        .structure-example {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid #d4af37;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .tab-button {
+                font-size: 0.85em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Lesson 23: The Ben System Introduction</h1>
+            <p>Master 3-digit number encoding for advanced memorization</p>
+        </div>
+
+        <div class="tab-container">
+            <button class="tab-button active" onclick="switchTab('retrieval')">Retrieval</button>
+            <button class="tab-button" onclick="switchTab('content')">New Content</button>
+            <button class="tab-button" onclick="switchTab('practice')">Guided Practice</button>
+            <button class="tab-button" onclick="switchTab('elaboration')">Elaboration</button>
+            <button class="tab-button" onclick="switchTab('independent')">Independent Practice</button>
+            <button class="tab-button" onclick="switchTab('final')">Final Retrieval</button>
+        </div>
+
+        <!-- RETRIEVAL TAB -->
+        <div id="retrieval" class="tab-content active">
+            <h2>Retrieval: Review PAO System</h2>
+
+            <h3>Rapid PAO Recall</h3>
+            <p>Before learning the Ben System, let's ensure your PAO foundation is solid:</p>
+
+            <div class="challenge-box">
+                <p><strong>Q1: What does PAO encode?</strong></p>
+                <button class="button secondary" onclick="toggleAnswer('q1')">Show Answer</button>
+                <p id="q1" style="display:none; margin-top:10px; color:#ffd700;">
+                    <strong>Answer:</strong> Person-Action-Object. Each component represents a 2-digit number (00-99).
+                </p>
+
+                <p style="margin-top: 20px;"><strong>Q2: How many images can PAO create?</strong></p>
+                <button class="button secondary" onclick="toggleAnswer('q2')">Show Answer</button>
+                <p id="q2" style="display:none; margin-top:10px; color:#ffd700;">
+                    <strong>Answer:</strong> 100 images (00-99), one for each 2-digit number.
+                </p>
+
+                <p style="margin-top: 20px;"><strong>Q3: What's the limitation of PAO?</strong></p>
+                <button class="button secondary" onclick="toggleAnswer('q3')">Show Answer</button>
+                <p id="q3" style="display:none; margin-top:10px; color:#ffd700;">
+                    <strong>Answer:</strong> It only covers 0-99 (100 images). For larger sequences, you need additional systems.
+                </p>
+            </div>
+
+            <div class="content-box">
+                <h3>Why Learn the Ben System?</h3>
+                <p>As you advance in memory competitions and challenges, you'll encounter data that requires systems beyond PAO:</p>
+                <ul>
+                    <li>Long number sequences (1000+ digits)</li>
+                    <li>Complete deck memorization (multiple passes)</li>
+                    <li>Speed challenges requiring rapid 3-digit encoding</li>
+                    <li>Competitive memorization events</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- NEW CONTENT TAB -->
+        <div id="content" class="tab-content">
+            <h2>The Ben System: 3-Digit Encoding</h2>
+
+            <h3>What is the Ben System?</h3>
+            <p>The <span class="highlight">Ben System</span> (also called the 3-digit system) extends the Major System to encode 3-digit numbers (000-999) with a <span class="highlight">consonant-vowel-consonant (CVC) structure</span>.</p>
+
+            <div class="content-box">
+                <h4 style="color: #ffd700; margin-top: 0;">The Structure</h4>
+                <p>Each 3-digit number creates a syllable with:</p>
+                <ul>
+                    <li><strong>First consonant:</strong> First digit</li>
+                    <li><strong>Vowel:</strong> Middle digit (vowels are flexible fillers)</li>
+                    <li><strong>Final consonant:</strong> Last digit</li>
+                </ul>
+
+                <div class="structure-example">
+                    Major System Consonants:
+                    0=S/Z, 1=T/D, 2=N, 3=M, 4=R, 5=L, 6=J/CH/SH, 7=K/G, 8=F/V, 9=P/B
+                </div>
+            </div>
+
+            <h3>Ben System Examples</h3>
+
+            <div class="ben-grid">
+                <div class="ben-item">
+                    <div class="number">000</div>
+                    <div class="letters">S-S-S</div>
+                    <div class="image">Sasquatch</div>
+                </div>
+
+                <div class="ben-item">
+                    <div class="number">001</div>
+                    <div class="letters">S-S-T</div>
+                    <div class="image">Sunset</div>
+                </div>
+
+                <div class="ben-item">
+                    <div class="number">042</div>
+                    <div class="letters">S-R-N</div>
+                    <div class="image">Siren</div>
+                </div>
+
+                <div class="ben-item">
+                    <div class="number">123</div>
+                    <div class="letters">T-M-M</div>
+                    <div class="image">Tommy</div>
+                </div>
+
+                <div class="ben-item">
+                    <div class="number">456</div>
+                    <div class="letters">R-L-J</div>
+                    <div class="image">Rouge</div>
+                </div>
+
+                <div class="ben-item">
+                    <div class="number">789</div>
+                    <div class="letters">K-P-P</div>
+                    <div class="image">Ketchup</div>
+                </div>
+
+                <div class="ben-item">
+                    <div class="number">999</div>
+                    <div class="letters">P-P-P</div>
+                    <div class="image">Peepee</div>
+                </div>
+
+                <div class="ben-item">
+                    <div class="number">555</div>
+                    <div class="letters">L-L-L</div>
+                    <div class="image">Lollipop</div>
+                </div>
+            </div>
+
+            <h3>Creating Your Ben System Vocabulary</h3>
+            <div class="content-box">
+                <p>The Ben System requires you to memorize 1000 words/images (000-999). Instead of doing this all at once:</p>
+                <ol>
+                    <li><strong>Use existing resources:</strong> Many memorizers share their Ben lists online</li>
+                    <li><strong>Build gradually:</strong> Create images as you need them during practice</li>
+                    <li><strong>Choose vivid images:</strong> Prefer concrete nouns that are easy to visualize</li>
+                    <li><strong>Make them memorable:</strong> Create personal associations</li>
+                </ol>
+
+                <div class="tip-box">
+                    <strong>Pro Tip:</strong> Start by building a partial system (000-099) and test it before expanding to 1000 words.
+                </div>
+            </div>
+
+            <h3>Ben System vs PAO: Comparison</h3>
+
+            <div class="comparison-row">
+                <div class="comparison-card">
+                    <h4>PAO System</h4>
+                    <ul class="pros-cons">
+                        <li>Covers 2-digit numbers (00-99)</li>
+                        <li>Easy to learn and use</li>
+                        <li>Each image is rich (person + action + object)</li>
+                        <li>Fast to encode pairs</li>
+                        <li>Limited to 100 images</li>
+                    </ul>
+                </div>
+
+                <div class="comparison-card">
+                    <h4>Ben System</h4>
+                    <ul class="pros-cons">
+                        <li>Covers 3-digit numbers (000-999)</li>
+                        <li>Requires memorization of 1000 words</li>
+                        <li>Uses single-word images</li>
+                        <li>Fast to encode triples</li>
+                        <li>Scales to any length</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>When to Use Each System</h3>
+            <div class="content-box">
+                <ul>
+                    <li><span class="highlight">Use PAO:</span> For shorter sequences, playing cards, competitions using pairs</li>
+                    <li><span class="highlight">Use Ben:</span> For long number sequences, marathon memorization, competing in number championships</li>
+                    <li><span class="highlight">Use Both:</span> Combined in a hybrid system for maximum flexibility</li>
+                </ul>
+            </div>
+
+            <h3>Sample Ben System (First 50 Images)</h3>
+            <div class="table-container" style="overflow-x: auto; margin: 20px 0;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Image</th>
+                            <th>Number</th>
+                            <th>Image</th>
+                            <th>Number</th>
+                            <th>Image</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>000</td>
+                            <td>Sasquatch</td>
+                            <td>017</td>
+                            <td>Sotik</td>
+                            <td>034</td>
+                            <td>Sumo</td>
+                        </tr>
+                        <tr>
+                            <td>001</td>
+                            <td>Sunset</td>
+                            <td>018</td>
+                            <td>Suitcase</td>
+                            <td>035</td>
+                            <td>Seal</td>
+                        </tr>
+                        <tr>
+                            <td>002</td>
+                            <td>Sun</td>
+                            <td>019</td>
+                            <td>Soap</td>
+                            <td>036</td>
+                            <td>Shoemaker</td>
+                        </tr>
+                        <tr>
+                            <td>003</td>
+                            <td>Seam</td>
+                            <td>020</td>
+                            <td>Ensue</td>
+                            <td>037</td>
+                            <td>Skunk</td>
+                        </tr>
+                        <tr>
+                            <td>004</td>
+                            <td>Sewer</td>
+                            <td>021</td>
+                            <td>Anten</td>
+                            <td>038</td>
+                            <td>Seafood</td>
+                        </tr>
+                        <tr>
+                            <td>005</td>
+                            <td>Soul</td>
+                            <td>022</td>
+                            <td>Anon</td>
+                            <td>039</td>
+                            <td>Seapot</td>
+                        </tr>
+                        <tr>
+                            <td>006</td>
+                            <td>Such</td>
+                            <td>023</td>
+                            <td>Animus</td>
+                            <td>040</td>
+                            <td>Rose</td>
+                        </tr>
+                        <tr>
+                            <td>007</td>
+                            <td>Sock</td>
+                            <td>024</td>
+                            <td>Onion</td>
+                            <td>041</td>
+                            <td>Rat</td>
+                        </tr>
+                        <tr>
+                            <td>008</td>
+                            <td>Safe</td>
+                            <td>025</td>
+                            <td>Nail</td>
+                            <td>042</td>
+                            <td>Ruin</td>
+                        </tr>
+                        <tr>
+                            <td>009</td>
+                            <td>Soap</td>
+                            <td>026</td>
+                            <td>Inch</td>
+                            <td>043</td>
+                            <td>Roam</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tip-box">
+                <strong>Note:</strong> These are sample images. Your personal Ben system should use words that are meaningful and vivid to YOU.
+            </div>
+        </div>
+
+        <!-- GUIDED PRACTICE TAB -->
+        <div id="practice" class="tab-content">
+            <h2>Guided Ben System Practice</h2>
+
+            <h3>Step 1: Convert 3-Digit Numbers to Sounds</h3>
+            <p>Practice converting 3-digit numbers to consonant-vowel-consonant patterns:</p>
+
+            <div class="challenge-box">
+                <p><strong>Convert to CVC Pattern:</strong></p>
+                <p>123: <input type="text" id="convert1" placeholder="CVC pattern" style="width: 150px;"></p>
+                <button class="button secondary" onclick="checkConversion('convert1', 'T-M-M')">Check</button>
+                <p id="result1" style="margin-top: 10px;"></p>
+
+                <p style="margin-top: 20px;">456: <input type="text" id="convert2" placeholder="CVC pattern" style="width: 150px;"></p>
+                <button class="button secondary" onclick="checkConversion('convert2', 'R-L-J')">Check</button>
+                <p id="result2" style="margin-top: 10px;"></p>
+
+                <p style="margin-top: 20px;">789: <input type="text" id="convert3" placeholder="CVC pattern" style="width: 150px;"></p>
+                <button class="button secondary" onclick="checkConversion('convert3', 'K-P-P')">Check</button>
+                <p id="result3" style="margin-top: 10px;"></p>
+            </div>
+
+            <h3>Step 2: Create Personal Images</h3>
+            <div class="challenge-box">
+                <p><strong>For each pattern, create a vivid image:</strong></p>
+
+                <p style="margin-top: 15px;"><strong>423 (R-M-M):</strong> What word could this be? Create your image:</p>
+                <textarea placeholder="Your image for 423" style="height: 60px;"></textarea>
+
+                <p style="margin-top: 20px;"><strong>567 (L-K-K):</strong> What word could this be? Create your image:</p>
+                <textarea placeholder="Your image for 567" style="height: 60px;"></textarea>
+
+                <p style="margin-top: 20px;"><strong>890 (V-S-S):</strong> What word could this be? Create your image:</p>
+                <textarea placeholder="Your image for 890" style="height: 60px;"></textarea>
+            </div>
+
+            <h3>Step 3: Encode a Sequence</h3>
+            <div class="challenge-box">
+                <p><strong>Memorize this 6-digit number in your palace using Ben System:</strong></p>
+                <p style="font-size: 1.3em; color: #d4af37; font-weight: bold;">247 831</p>
+
+                <p style="margin-top: 15px;">This breaks into two 3-digit groups:</p>
+                <ul>
+                    <li>247 = N-R-K (Nark)</li>
+                    <li>831 = V-M-T (Vomit)</li>
+                </ul>
+
+                <p style="margin-top: 15px; color: #ffd700;"><strong>Your task:</strong> Place these two vivid images in your palace loci in sequence.</p>
+
+                <p style="margin-top: 20px;"><strong>Recall Test:</strong> What number was encoded as "Nark" + "Vomit"?</p>
+                <input type="text" id="recall1" placeholder="6-digit number" style="width: 200px;">
+                <button class="button" onclick="checkRecall('recall1', '247831')">Check</button>
+                <p id="recall1-result" style="margin-top: 10px;"></p>
+            </div>
+        </div>
+
+        <!-- ELABORATION TAB -->
+        <div id="elaboration" class="tab-content">
+            <h2>Advanced Ben System Concepts</h2>
+
+            <h3>Building a Complete Ben System</h3>
+            <p>Creating all 1000 images is a substantial project. Here's a strategic approach:</p>
+
+            <div class="content-box">
+                <h4 style="color: #ffd700; margin-top: 0;">Phase 1: Core Images (000-099)</h4>
+                <p>Start with your first 100 images. This gives you the building blocks:</p>
+                <ul>
+                    <li>Memorize these 100 words thoroughly</li>
+                    <li>Practice encoding 3-digit numbers from this set</li>
+                    <li>Estimated time: 2-4 weeks</li>
+                </ul>
+
+                <h4 style="color: #ffd700; margin-top: 15px;">Phase 2: Expanded Images (000-299)</h4>
+                <p>Add 100-299 to cover more ground:</p>
+                <ul>
+                    <li>Extend your image list</li>
+                    <li>Begin mixing sequences</li>
+                    <li>Estimated time: 4-8 weeks</li>
+                </ul>
+
+                <h4 style="color: #ffd700; margin-top: 15px;">Phase 3: Full System (000-999)</h4>
+                <p>Complete all 1000 images for competitive readiness:</p>
+                <ul>
+                    <li>Memorize remaining 700 images</li>
+                    <li>Practice speed encoding</li>
+                    <li>Estimated time: 8-16 weeks</li>
+                </ul>
+            </div>
+
+            <h3>Common Ben System Words by Range</h3>
+            <div class="table-container" style="overflow-x: auto; margin: 20px 0;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Range</th>
+                            <th>Example Images</th>
+                            <th>Strategy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>000-099</td>
+                            <td>Sasquatch, Sunset, Seal, Rose, Ruin</td>
+                            <td>Memorize all 100 first</td>
+                        </tr>
+                        <tr>
+                            <td>100-199</td>
+                            <td>Touch, Tension, Tennis, Town, Toenail</td>
+                            <td>T-based words</td>
+                        </tr>
+                        <tr>
+                            <td>200-299</td>
+                            <td>Notion, Noodle, Newton, Nautilus</td>
+                            <td>N-based words</td>
+                        </tr>
+                        <tr>
+                            <td>300-399</td>
+                            <td>Mummy, Moose, Meatball, Melon</td>
+                            <td>M-based words</td>
+                        </tr>
+                        <tr>
+                            <td>400-499</td>
+                            <td>Rain, Ruin, Roulette, Reign</td>
+                            <td>R-based words</td>
+                        </tr>
+                        <tr>
+                            <td>500-599</td>
+                            <td>Lion, Loom, Loan, Lunch</td>
+                            <td>L-based words</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Hybrid System: Ben + PAO</h3>
+            <div class="content-box">
+                <p>Advanced memorizers often use a <span class="highlight">hybrid approach:</span></p>
+                <ul>
+                    <li>Use <strong>PAO</strong> for 2-digit pairs (fast, rich imagery)</li>
+                    <li>Use <strong>Ben</strong> for 3-digit triples (comprehensive coverage)</li>
+                    <li>Switch between systems based on the data structure</li>
+                </ul>
+
+                <h4 style="color: #ffd700; margin-top: 15px;">Example: Encoding a Mixed Sequence</h4>
+                <p><strong>Data: 5 6 42 739 18 2</strong></p>
+                <ul>
+                    <li>5, 6 → Use Ben for single digits (or Ben pairs: 056)</li>
+                    <li>42 → Use PAO (fast 2-digit encoding)</li>
+                    <li>739 → Use Ben (3-digit)</li>
+                    <li>18 → Use PAO</li>
+                    <li>2 → Use Ben or PAO</li>
+                </ul>
+            </div>
+
+            <h3>Creating Your Personal Ben System</h3>
+            <div class="challenge-box">
+                <p><strong>Design your Ben system starting with 000-050:</strong></p>
+                <p>Use the Major System to convert, then create personal, vivid images:</p>
+
+                <textarea placeholder="Your Ben System (000-050)&#10;000 = &#10;001 = &#10;002 = &#10;..." style="height: 300px;"></textarea>
+                <button class="button">Save My System</button>
+            </div>
+        </div>
+
+        <!-- INDEPENDENT PRACTICE TAB -->
+        <div id="independent" class="tab-content">
+            <h2>Independent Ben System Challenges</h2>
+
+            <h3>Challenge 1: Conversion Accuracy</h3>
+            <div class="challenge-box">
+                <p><strong>Convert these 3-digit numbers to CVC patterns (5 minutes, unlimited attempts):</strong></p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0;">
+                    <div>
+                        <p>101: <input type="text" id="ch1-1" style="width: 100px;"></p>
+                        <p>234: <input type="text" id="ch1-2" style="width: 100px;"></p>
+                        <p>567: <input type="text" id="ch1-3" style="width: 100px;"></p>
+                        <p>789: <input type="text" id="ch1-4" style="width: 100px;"></p>
+                        <p>999: <input type="text" id="ch1-5" style="width: 100px;"></p>
+                    </div>
+                    <div style="align-self: center;">
+                        <button class="button" onclick="checkMultiple('ch1', ['T-S-T', 'N-M-R', 'L-K-K', 'K-P-P', 'P-P-P'])">Submit All</button>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Challenge 2: Image Creation</h3>
+            <div class="challenge-box">
+                <p><strong>For each CVC pattern, create or find a real word/image:</strong></p>
+
+                <p>P-M-T: <input type="text" id="img1" placeholder="Image"></p>
+                <p>D-N-S: <input type="text" id="img2" placeholder="Image"></p>
+                <p>M-F-L: <input type="text" id="img3" placeholder="Image"></p>
+                <p>K-R-N: <input type="text" id="img4" placeholder="Image"></p>
+
+                <button class="button" onclick="alert('Save these in your personal Ben system!')">Save Images</button>
+            </div>
+
+            <h3>Challenge 3: Sequence Encoding</h3>
+            <div class="challenge-box">
+                <p><strong>Encode this 9-digit number (3 groups of 3) in your palace:</strong></p>
+                <p style="font-size: 1.3em; color: #d4af37; font-weight: bold; margin: 20px 0;">142 857 936</p>
+
+                <p>After memorizing, answer:</p>
+                <p><strong>What number was represented by "Tommy", "Seafood", and "Pamper"?</strong></p>
+                <input type="text" id="seq1" placeholder="9-digit number">
+                <button class="button" onclick="checkRecall('seq1', '142857936')">Check</button>
+                <p id="seq1-result" style="margin-top: 10px;"></p>
+            </div>
+
+            <h3>Progress Tracker</h3>
+            <div class="content-box">
+                <p><strong>Track your Ben System development:</strong></p>
+                <ul>
+                    <li><input type="checkbox"> Understand CVC structure</li>
+                    <li><input type="checkbox"> Convert 3-digit numbers accurately</li>
+                    <li><input type="checkbox"> Created Ben images for 000-050</li>
+                    <li><input type="checkbox"> Created Ben images for 000-100</li>
+                    <li><input type="checkbox"> Successfully encode sequences</li>
+                    <li><input type="checkbox"> Created Ben images for 000-299</li>
+                    <li><input type="checkbox"> Encode 6-digit numbers accurately</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FINAL RETRIEVAL TAB -->
+        <div id="final" class="tab-content">
+            <h2>Final Retrieval & Mastery Assessment</h2>
+
+            <h3>Ben System Comprehension Quiz</h3>
+            <div class="challenge-box">
+                <p><strong>1. Explain the consonant-vowel-consonant structure:</strong></p>
+                <textarea placeholder="Your explanation" style="height: 80px;"></textarea>
+                <button class="button secondary" onclick="toggleAnswer('ans1')">Show Answer</button>
+                <p id="ans1" style="display:none; margin-top:10px; color:#ffd700;">
+                    CVC uses the Major System: first digit = first consonant, middle digit provides the vowel (flexible), last digit = final consonant. Together they form a memorable word.
+                </p>
+
+                <p style="margin-top: 20px;"><strong>2. How does the Ben System differ from PAO?</strong></p>
+                <textarea placeholder="Your explanation" style="height: 80px;"></textarea>
+                <button class="button secondary" onclick="toggleAnswer('ans2')">Show Answer</button>
+                <p id="ans2" style="display:none; margin-top:10px; color:#ffd700;">
+                    PAO encodes 2-digit pairs (100 images), while Ben encodes 3-digit triples (1000 images). PAO uses rich Person-Action-Object, Ben uses single words. Ben scales better for long sequences.
+                </p>
+
+                <p style="margin-top: 20px;"><strong>3. What's your plan for building your Ben System?</strong></p>
+                <textarea placeholder="Your plan" style="height: 80px;"></textarea>
+                <button class="button secondary" onclick="toggleAnswer('ans3')">Show Answer</button>
+                <p id="ans3" style="display:none; margin-top:10px; color:#ffd700;">
+                    Phase 1: Memorize 000-099 (100 images), Phase 2: Expand to 000-299, Phase 3: Complete 000-999. Estimated timeline: 8-16 weeks.
+                </p>
+            </div>
+
+            <h3>Mastery Checklist</h3>
+            <div class="content-box">
+                <p>Before moving to the next lesson, confirm you can:</p>
+                <ul>
+                    <li><input type="checkbox"> Explain the Ben System (CVC structure)</li>
+                    <li><input type="checkbox"> Convert 3-digit numbers to CVC patterns</li>
+                    <li><input type="checkbox"> Create vivid images for CVC patterns</li>
+                    <li><input type="checkbox"> Successfully encode 6-digit numbers</li>
+                    <li><input type="checkbox"> Created personal Ben System for at least 000-100</li>
+                    <li><input type="checkbox"> Explain when to use Ben vs PAO</li>
+                    <li><input type="checkbox"> Encode mixed-length sequences</li>
+                </ul>
+            </div>
+
+            <h3>Key Takeaways</h3>
+            <div class="content-box">
+                <ol>
+                    <li><span class="highlight">Ben System encodes 000-999:</span> One word per 3-digit number</li>
+                    <li><span class="highlight">CVC structure is the key:</span> Consonant-vowel-consonant based on Major System</li>
+                    <li><span class="highlight">Requires 1000 images:</span> Build gradually (100 → 300 → 1000)</li>
+                    <li><span class="highlight">Scales for long sequences:</span> More efficient than PAO for marathon memorization</li>
+                    <li><span class="highlight">Use hybrid approach:</span> Combine PAO (pairs) + Ben (triples) strategically</li>
+                </ol>
+            </div>
+
+            <h3>Next Steps</h3>
+            <div class="content-box">
+                <ul>
+                    <li>Complete your first 100 Ben System images (000-099)</li>
+                    <li>Practice encoding with these 100 images daily</li>
+                    <li>Build your full 1000-image system gradually</li>
+                    <li>Combine Ben System with memory palace techniques</li>
+                    <li>When ready (confident with 000-299), move to Lesson 24: Multiple Palace Architecture</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function toggleAnswer(id) {
+            const element = document.getElementById(id);
+            element.style.display = element.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function checkConversion(inputId, expected) {
+            const input = document.getElementById(inputId);
+            const result = document.getElementById(inputId.replace('convert', 'result'));
+
+            if (input.value.trim().toUpperCase() === expected) {
+                result.innerHTML = '<span style="color: #4ade80; font-weight: bold;">✓ Correct!</span>';
+            } else {
+                result.innerHTML = `<span style="color: #ff6b6b;">Incorrect. Expected: ${expected}</span>`;
+            }
+        }
+
+        function checkRecall(inputId, expected) {
+            const input = document.getElementById(inputId);
+            const result = document.getElementById(inputId + '-result');
+
+            if (input.value.trim() === expected) {
+                result.innerHTML = '<span style="color: #4ade80; font-weight: bold;">✓ Perfect!</span>';
+            } else {
+                result.innerHTML = `<span style="color: #ff6b6b;">Incorrect. Expected: ${expected}</span>`;
+            }
+        }
+
+        function checkMultiple(prefix, answers) {
+            let correct = 0;
+            for (let i = 0; i < answers.length; i++) {
+                const input = document.getElementById(`${prefix}-${i + 1}`);
+                if (input.value.trim().toUpperCase() === answers[i]) {
+                    correct++;
+                }
+            }
+            alert(`You got ${correct}/${answers.length} correct!`);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Lesson 9: The PAO System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #0f0f1e;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(212,175,55,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #1a1a2e;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 1.8em; margin-bottom: 10px; }
+        .level-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        .tabs {
+            display: flex;
+            background: #16213e;
+            overflow-x: auto;
+            border-bottom: 2px solid #d4af37;
+        }
+        .tab {
+            flex: 1;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #aaa;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .tab:hover { background: #1a2744; }
+        .tab.active {
+            background: #d4af37;
+            color: #1a1a2e;
+            border-bottom: 3px solid #d4af37;
+        }
+        .content { padding: 30px; display: none; color: #e0e0e0; }
+        .content.active { display: block; }
+        .content h2 { color: #d4af37; margin-bottom: 20px; }
+        .card {
+            background: #1a2744;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #d4af37;
+        }
+        .card h3 { color: #d4af37; margin-bottom: 10px; }
+        .card p { line-height: 1.6; }
+        .interactive-section {
+            background: #1a2744;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #d4af37;
+        }
+        .interactive-section h3 { color: #d4af37; margin-bottom: 15px; }
+        .pao-breakdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .pao-item {
+            background: #0f0f1e;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #d4af37;
+            text-align: center;
+        }
+        .pao-item .label { color: #d4af37; font-weight: bold; font-size: 1.1em; margin-bottom: 10px; }
+        .pao-item .content { font-size: 1.3em; }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: #d4af37;
+            color: #1a1a2e;
+        }
+        .btn-primary:hover { background: #e8c547; transform: translateY(-2px); }
+        .btn-secondary {
+            background: #2a3f5f;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+        }
+        .btn-secondary:hover { background: #1a2744; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            background: #0f0f1e;
+            color: #e0e0e0;
+            font-size: 1em;
+            margin: 10px 0;
+        }
+        textarea { min-height: 100px; resize: vertical; }
+        input:focus, textarea:focus { outline: none; border-color: #e8c547; }
+        .sequence-box {
+            background: #0f0f1e;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d4af37;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .sequence-number {
+            font-size: 1.5em;
+            color: #d4af37;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .feedback-box {
+            background: #1a2744;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid #d4af37;
+            display: none;
+        }
+        .feedback-box.show { display: block; }
+        .feedback-box.correct { border-color: #51cf66; background: rgba(81, 207, 102, 0.1); }
+        .feedback-box.incorrect { border-color: #ff6b6b; background: rgba(255, 107, 107, 0.1); }
+        .score-display {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #1a1a2e;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #2a3f5f;
+        }
+        .nav-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .nav-btn.prev { background: #2a3f5f; color: #d4af37; }
+        .nav-btn.next { background: #d4af37; color: #1a1a2e; }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .timer-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #d4af37;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .pao-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .pao-box {
+            background: #0f0f1e;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d4af37;
+        }
+        .pao-box strong { color: #d4af37; }
+        @media (max-width: 768px) {
+            .tab { padding: 12px 8px; font-size: 0.75em; }
+            .header h1 { font-size: 1.4em; }
+            .pao-breakdown { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="level-badge">Memory Course - Lesson 9</span>
+            <h1>🎬 The PAO System</h1>
+            <p>Person - Action - Object (The Championship Standard)</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab(0)">1. RETRIEVAL</button>
+            <button class="tab" onclick="showTab(1)">2. NEW CONTENT</button>
+            <button class="tab" onclick="showTab(2)">3. GUIDED PRACTICE</button>
+            <button class="tab" onclick="showTab(3)">4. ELABORATION</button>
+            <button class="tab" onclick="showTab(4)">5. INDEPENDENT</button>
+            <button class="tab" onclick="showTab(5)">6. FINAL RETRIEVAL</button>
+        </div>
+
+        <!-- TAB 1: RETRIEVAL -->
+        <div class="content active" id="tab0">
+            <h2>🔄 Review: Dominic System</h2>
+            <p style="margin-bottom: 20px;">Let's recall what you learned about the Dominic System:</p>
+
+            <div class="card">
+                <h3>📝 Dominic Recall Quiz</h3>
+                <div style="display: grid; gap: 15px; margin: 20px 0;">
+                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong>In the Dominic System, what are the letters for 52?</strong></p>
+                        <input type="text" id="recall1" placeholder="e.g., B-E">
+                    </div>
+                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong>What components do Dominic images have?</strong></p>
+                        <input type="text" id="recall2" placeholder="e.g., person and action">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="checkDominicRecall()">Check Answers</button>
+                <div class="feedback-box" id="recallFeedback"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" disabled>← Previous</button>
+                <button class="nav-btn next" onclick="showTab(1)">Next: PAO System →</button>
+            </div>
+        </div>
+
+        <!-- TAB 2: NEW CONTENT -->
+        <div class="content" id="tab1">
+            <h2>📚 The PAO System Explained</h2>
+
+            <div class="card">
+                <h3>🎯 PAO = The Complete System</h3>
+                <p style="margin-bottom: 15px;">PAO stands for <strong>Person - Action - Object</strong>. This is what world champions use!</p>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Person = Who is doing something?</li>
+                    <li>Action = What are they doing?</li>
+                    <li>Object = What are they using/interacting with?</li>
+                </ul>
+            </div>
+
+            <div class="interactive-section">
+                <h3>🎬 How PAO Works</h3>
+                <p style="margin-bottom: 15px;">Each 2-digit number gets a PERSON, their ACTION, and an OBJECT:</p>
+
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Example: 42</strong></p>
+                    <p style="margin-top: 10px;">Person: David Beckham</p>
+                    <p>Action: Kicking</p>
+                    <p>Object: Soccer ball</p>
+                    <p style="margin-top: 10px; color: #d4af37;"><strong>Image:</strong> I see David Beckham KICKING a SOCCER BALL!</p>
+                </div>
+
+                <p style="margin-top: 20px;"><strong>Why 3 components?</strong> The OBJECT helps you connect to the NEXT number in long sequences!</p>
+            </div>
+
+            <div class="card">
+                <h3>💡 PAO for 6-Digit Numbers</h3>
+                <p style="margin-bottom: 15px;">With PAO, you can memorize 6 digits with just ONE image!</p>
+
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Digits: 428137</strong></p>
+                    <p style="margin-top: 10px;"><strong>42 (Person + Action):</strong> David Beckham KICKING</p>
+                    <p><strong>81 (Object):</strong> a ROCKET</p>
+                    <p style="margin-top: 10px; color: #d4af37;"><strong>Image:</strong> David Beckham KICKING a ROCKET!</p>
+                    <p style="margin-top: 10px;"><strong>Remaining 37:</strong> The next PAO number</p>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(0)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(2)">Next: Practice →</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: GUIDED PRACTICE -->
+        <div class="content" id="tab2">
+            <h2>🎯 Building Your PAO System</h2>
+
+            <div class="card">
+                <h3>📖 I DO: Complete PAO Demo</h3>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p style="font-size: 1.1em; margin-bottom: 15px;"><strong>Number: 27</strong></p>
+                    <div class="pao-breakdown">
+                        <div class="pao-item">
+                            <div class="label">👤 Person</div>
+                            <div class="content">Britney Spears</div>
+                        </div>
+                        <div class="pao-item">
+                            <div class="label">🎬 Action</div>
+                            <div class="content">Dancing</div>
+                        </div>
+                        <div class="pao-item">
+                            <div class="label">🎸 Object</div>
+                            <div class="content">Microphone</div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 15px; color: #d4af37; text-align: center;"><strong>Image: Britney Spears DANCING with a MICROPHONE!</strong></p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>👥 WE DO: Build Together</h3>
+                <p style="margin-bottom: 15px;">Let's build a PAO for 51:</p>
+
+                <p style="margin-bottom: 10px;"><strong>Person (E-A):</strong></p>
+                <input type="text" id="wePerson" placeholder="Famous E-A person">
+
+                <p style="margin-bottom: 10px;"><strong>Action (what are they doing?):</strong></p>
+                <input type="text" id="weAction" placeholder="An action">
+
+                <p style="margin-bottom: 10px;"><strong>Object (what are they using?):</strong></p>
+                <input type="text" id="weObject" placeholder="An object">
+
+                <button class="btn btn-primary" onclick="checkWePAO()">Check My PAO</button>
+                <div class="feedback-box" id="wePAOFeedback"></div>
+            </div>
+
+            <div class="card">
+                <h3>🧪 YOU DO: Create Your Own PAO</h3>
+                <p style="margin-bottom: 15px;">Create a complete PAO image for 73:</p>
+
+                <p style="margin-bottom: 10px;"><strong>G-G Person:</strong></p>
+                <input type="text" id="youPerson" placeholder="Famous G-G person">
+
+                <p style="margin-bottom: 10px;"><strong>Their Action:</strong></p>
+                <input type="text" id="youAction" placeholder="Type your answer...">
+
+                <p style="margin-bottom: 10px;"><strong>Object they're using:</strong></p>
+                <input type="text" id="youObject" placeholder="Type your answer...">
+
+                <p style="margin-bottom: 10px;"><strong>Describe the vivid scene:</strong></p>
+                <textarea id="youPAOImage" placeholder="Paint a vivid picture of this scene..."></textarea>
+
+                <button class="btn btn-primary" onclick="checkYouPAO()">Submit My PAO</button>
+                <div class="feedback-box" id="youPAOFeedback"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(1)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(3)">Next: Elaboration →</button>
+            </div>
+        </div>
+
+        <!-- TAB 4: ELABORATION -->
+        <div class="content" id="tab3">
+            <h2>🔍 Combining Images for 6-Digit Numbers</h2>
+
+            <div class="card">
+                <h3>🎯 The Power of 6-Digit Loci</h3>
+                <p style="margin-bottom: 15px;">In PAO, each image represents SIX digits. This is 3x more powerful than Dominic!</p>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>6-digit sequence: 428137</strong></p>
+                    <p style="margin-top: 10px;">Position 1 (42 Person+Action, 81 Object): One image</p>
+                    <p>Position 2 (37 Person+Action, ...Object): Next image</p>
+                    <p style="margin-top: 10px; color: #d4af37;">Same memory palace, just 3x more numbers per image!</p>
+                </div>
+            </div>
+
+            <div class="interactive-section">
+                <h3>🎬 Build Your PAO List (00-29)</h3>
+                <p style="margin-bottom: 15px;">Create your personal PAO list for practice:</p>
+                <div id="paoListBuilder"></div>
+            </div>
+
+            <div class="card">
+                <h3>📊 PAO vs Major vs Dominic</h3>
+                <p style="margin-bottom: 15px;"><strong>Efficiency comparison:</strong></p>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px;">
+                    <p style="margin-bottom: 10px;">🔐 Major System: 2 digits = 1 word</p>
+                    <p style="margin-bottom: 10px;">👤 Dominic: 2 digits = 1 person + 1 action</p>
+                    <p style="margin-bottom: 10px; color: #d4af37;">🎬 <strong>PAO: 6 digits = 1 person + 1 action + 1 object</strong></p>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(2)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(4)">Next: Independent →</button>
+            </div>
+        </div>
+
+        <!-- TAB 5: INDEPENDENT PRACTICE -->
+        <div class="content" id="tab4">
+            <h2>💪 Independent PAO Challenges</h2>
+
+            <div class="card">
+                <h3>🎮 Challenge 1: Build PAO Images</h3>
+                <p style="margin-bottom: 15px;">Create complete PAO images:</p>
+
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #d4af37;">
+                    <p style="font-size: 1.1em; color: #d4af37; margin-bottom: 10px;"><strong>61</strong></p>
+                    <p>Person: <input type="text" id="ch1p" style="width: 48%; display: inline-block;"></p>
+                    <p>Action: <input type="text" id="ch1a" style="width: 48%; display: inline-block; margin-left: 2%;"></p>
+                    <p>Object: <input type="text" id="ch1o" style="width: 100%;"></p>
+                </div>
+
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #d4af37;">
+                    <p style="font-size: 1.1em; color: #d4af37; margin-bottom: 10px;"><strong>89</strong></p>
+                    <p>Person: <input type="text" id="ch2p" style="width: 48%; display: inline-block;"></p>
+                    <p>Action: <input type="text" id="ch2a" style="width: 48%; display: inline-block; margin-left: 2%;"></p>
+                    <p>Object: <input type="text" id="ch2o" style="width: 100%;"></p>
+                </div>
+
+                <button class="btn btn-primary" onclick="checkPAOChallenge()">Check My PAOs</button>
+            </div>
+
+            <div class="card">
+                <h3>🎯 Challenge 2: 6-Digit Sequence</h3>
+                <p style="margin-bottom: 15px;">Using PAO, create images for this 6-digit sequence:</p>
+
+                <div class="sequence-box">
+                    <div class="sequence-number">427816</div>
+                </div>
+
+                <p style="margin-bottom: 10px;"><strong>First PAO (42 Person+Action, 78 Object):</strong></p>
+                <textarea id="seq1" placeholder="Describe the scene..."></textarea>
+
+                <p style="margin-bottom: 10px;"><strong>Second PAO (16):</strong></p>
+                <textarea id="seq2" placeholder="Person, action, object..."></textarea>
+
+                <button class="btn btn-secondary" onclick="checkSequence()">Submit Sequence</button>
+            </div>
+
+            <div class="interactive-section">
+                <h3>⏱️ Speed Challenge: 12-Digit PAO Encoding</h3>
+                <p style="margin-bottom: 15px;">Can you encode this in 90 seconds?</p>
+                <div class="sequence-box">
+                    <div class="sequence-number">947328561943</div>
+                </div>
+                <button class="btn btn-secondary" onclick="startSpeedChallenge()">Start 90-Second Timer</button>
+                <p id="speedTimer" style="color: #d4af37; font-weight: bold; margin-top: 10px;"></p>
+                <textarea id="speedPAO" placeholder="Write your response..."></textarea>
+                <button class="btn btn-primary" onclick="checkSpeedChallenge()" style="margin-top: 10px;">Submit</button>
+                <div class="feedback-box" id="speedFeedback"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(3)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(5)">Next: Final Test →</button>
+            </div>
+        </div>
+
+        <!-- TAB 6: FINAL RETRIEVAL -->
+        <div class="content" id="tab5">
+            <h2>🏆 PAO System Mastery</h2>
+
+            <div class="card">
+                <h3>📝 PAO Component Knowledge</h3>
+                <div style="display: grid; gap: 10px; margin: 20px 0;">
+                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong>What does PAO stand for?</strong></p>
+                        <input type="text" id="final1" placeholder="e.g., Person-Action-Object">
+                    </div>
+                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong>How many digits does one PAO image represent?</strong></p>
+                        <input type="text" id="final2" placeholder="e.g., 6">
+                    </div>
+                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong>Why do we include an Object in PAO?</strong></p>
+                        <input type="text" id="final3" placeholder="e.g., to connect to next image">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="checkFinalKnowledge()">Check Answers</button>
+                <div class="score-display" id="knowledgeScore" style="display: none;"></div>
+            </div>
+
+            <div class="card">
+                <h3>🎬 Comprehensive Challenge: Memorize 12 Digits with PAO</h3>
+                <p style="margin-bottom: 15px;">Create 2 complete PAO images for this sequence:</p>
+                <div class="sequence-box">
+                    <div class="sequence-number">628374195062</div>
+                </div>
+
+                <p style="margin-bottom: 10px;"><strong>Image 1 (62 Person+Action, 83 Object):</strong></p>
+                <textarea id="finalImg1" placeholder="Describe the vivid scene..."></textarea>
+
+                <p style="margin-bottom: 10px;"><strong>Image 2 (74 Person+Action, 19 Object):</strong></p>
+                <textarea id="finalImg2" placeholder="Second vivid scene..."></textarea>
+
+                <p style="margin-bottom: 10px;"><strong>Remaining digits (50, 62):</strong></p>
+                <textarea id="finalImg3" placeholder="Complete the sequence..."></textarea>
+
+                <button class="btn btn-primary" onclick="checkFinalChallenge()">Submit Final Challenge</button>
+                <div class="feedback-box" id="finalChallengeFeedback"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(4)">← Back</button>
+                <button class="nav-btn next" disabled>Complete ✓</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(index) {
+            const contents = document.querySelectorAll('.content');
+            const tabs = document.querySelectorAll('.tab');
+            contents.forEach(c => c.classList.remove('active'));
+            tabs.forEach(t => t.classList.remove('active'));
+            contents[index].classList.add('active');
+            tabs[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function initializeContent() {
+            // Build PAO list builder
+            const builder = document.getElementById('paoListBuilder');
+            const samples = [
+                {num: '02', letters: 'O-B', person: 'Oprah Winfrey', action: 'Talking', object: 'Microphone'},
+                {num: '07', letters: 'O-G', person: 'Olivia Wilde', action: 'Acting', object: 'Movie camera'},
+                {num: '12', letters: 'A-B', person: 'Arnold Schwarzenegger', action: 'Flexing', object: 'Dumbbells'},
+                {num: '18', letters: 'A-H', person: 'Albert Einstein', action: 'Thinking', object: 'Chalkboard'},
+                {num: '23', letters: 'B-C', person: 'Barack Obama', action: 'Speaking', object: 'Podium'},
+                {num: '27', letters: 'B-G', person: 'Britney Spears', action: 'Dancing', object: 'Microphone'},
+            ];
+
+            for (let sample of samples) {
+                const item = document.createElement('div');
+                item.style.background = '#0f0f1e';
+                item.style.padding = '12px';
+                item.style.borderRadius = '8px';
+                item.style.border = '1px solid #d4af37';
+                item.style.marginBottom = '10px';
+                item.innerHTML = `
+                    <p><strong>${sample.num} (${sample.letters})</strong> - Example: ${sample.person} → ${sample.action} → ${sample.object}</p>
+                `;
+                builder.appendChild(item);
+            }
+        }
+
+        function checkDominicRecall() {
+            const feedback = document.getElementById('recallFeedback');
+            feedback.classList.add('show', 'correct');
+            feedback.innerHTML = '✓ Great! You remember Dominic. Ready to upgrade to PAO!';
+        }
+
+        function checkWePAO() {
+            const feedback = document.getElementById('wePAOFeedback');
+            const person = document.getElementById('wePerson').value;
+            const action = document.getElementById('weAction').value;
+            const object = document.getElementById('weObject').value;
+            feedback.classList.add('show');
+            if (person.length > 2 && action.length > 2 && object.length > 2) {
+                feedback.classList.add('correct');
+                feedback.innerHTML = '✓ Perfect PAO image! You\'ve got the structure!';
+            } else {
+                feedback.classList.add('incorrect');
+                feedback.innerHTML = 'All three components needed: Person, Action, Object!';
+            }
+        }
+
+        function checkYouPAO() {
+            const feedback = document.getElementById('youPAOFeedback');
+            const image = document.getElementById('youPAOImage').value;
+            feedback.classList.add('show');
+            if (image.length > 30) {
+                feedback.classList.add('correct');
+                feedback.innerHTML = '✓ Excellent PAO image! You\'re ready for advanced encoding!';
+            } else {
+                feedback.classList.add('incorrect');
+                feedback.innerHTML = 'Create a more vivid, detailed image!';
+            }
+        }
+
+        function checkPAOChallenge() {
+            alert('Great! You\'ve created complete PAO images. Keep building your PAO list for better speed!');
+        }
+
+        function checkSequence() {
+            const seq1 = document.getElementById('seq1').value;
+            const seq2 = document.getElementById('seq2').value;
+            if (seq1.length > 20 && seq2.length > 20) {
+                alert('Excellent! You\'ve created a complete 6-digit PAO sequence!');
+            } else {
+                alert('Add more vivid details to both PAO images!');
+            }
+        }
+
+        function startSpeedChallenge() {
+            let seconds = 90;
+            const timer = document.getElementById('speedTimer');
+            const btn = event.target;
+            btn.disabled = true;
+            timer.textContent = `${seconds}s remaining`;
+
+            const interval = setInterval(() => {
+                seconds--;
+                timer.textContent = `${seconds}s remaining`;
+                if (seconds === 0) {
+                    clearInterval(interval);
+                    timer.textContent = 'Time\'s up!';
+                    btn.disabled = false;
+                }
+            }, 1000);
+        }
+
+        function checkSpeedChallenge() {
+            const pao = document.getElementById('speedPAO').value;
+            const feedback = document.getElementById('speedFeedback');
+            feedback.classList.add('show');
+            if (pao.trim().length > 40) {
+                feedback.classList.add('correct');
+                feedback.innerHTML = '✓ Excellent PAO encoding speed! Championship-level progress!';
+            } else {
+                feedback.classList.add('incorrect');
+                feedback.innerHTML = 'Create more detailed PAO images!';
+            }
+        }
+
+        function checkFinalKnowledge() {
+            let correct = 0;
+            const f1 = document.getElementById('final1').value.toLowerCase();
+            const f2 = document.getElementById('final2').value.toLowerCase().trim();
+            const f3 = document.getElementById('final3').value.toLowerCase();
+
+            if (f1.includes('person') && f1.includes('action') && f1.includes('object')) correct++;
+            if (f2 === '6' || f2 === 'six') correct++;
+            if (f3.includes('connect') || f3.includes('link') || f3.includes('next')) correct++;
+
+            const score = document.getElementById('knowledgeScore');
+            score.style.display = 'block';
+            score.innerHTML = `Score: ${correct}/3 - ${correct === 3 ? 'PAO Mastery Complete!' : 'Great progress!'}`;
+        }
+
+        function checkFinalChallenge() {
+            const img1 = document.getElementById('finalImg1').value;
+            const img2 = document.getElementById('finalImg2').value;
+            const img3 = document.getElementById('finalImg3').value;
+            const feedback = document.getElementById('finalChallengeFeedback');
+            feedback.classList.add('show');
+            if (img1.length > 30 && img2.length > 30 && img3.length > 20) {
+                feedback.classList.add('correct');
+                feedback.innerHTML = '✓ Outstanding! You\'ve mastered the PAO System! Ready for number review!';
+            } else {
+                feedback.classList.add('incorrect');
+                feedback.innerHTML = 'Create more complete and vivid PAO images for all 12 digits!';
+            }
+        }
+
+        window.addEventListener('load', initializeContent);
+    </script>
+</body>
+</html>

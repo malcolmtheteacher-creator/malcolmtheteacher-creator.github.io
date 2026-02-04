@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Lesson 10: Number Systems Review & Integration</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #0f0f1e;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(212,175,55,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #1a1a2e;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 1.8em; margin-bottom: 10px; }
+        .level-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        .tabs {
+            display: flex;
+            background: #16213e;
+            overflow-x: auto;
+            border-bottom: 2px solid #d4af37;
+        }
+        .tab {
+            flex: 1;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #aaa;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .tab:hover { background: #1a2744; }
+        .tab.active {
+            background: #d4af37;
+            color: #1a1a2e;
+            border-bottom: 3px solid #d4af37;
+        }
+        .content { padding: 30px; display: none; color: #e0e0e0; }
+        .content.active { display: block; }
+        .content h2 { color: #d4af37; margin-bottom: 20px; }
+        .card {
+            background: #1a2744;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #d4af37;
+        }
+        .card h3 { color: #d4af37; margin-bottom: 10px; }
+        .card p { line-height: 1.6; }
+        .interactive-section {
+            background: #1a2744;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #d4af37;
+        }
+        .interactive-section h3 { color: #d4af37; margin-bottom: 15px; }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: #d4af37;
+            color: #1a1a2e;
+        }
+        .btn-primary:hover { background: #e8c547; transform: translateY(-2px); }
+        .btn-secondary {
+            background: #2a3f5f;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+        }
+        .btn-secondary:hover { background: #1a2744; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            background: #0f0f1e;
+            color: #e0e0e0;
+            font-size: 1em;
+            margin: 10px 0;
+        }
+        textarea { min-height: 100px; resize: vertical; }
+        input:focus, textarea:focus { outline: none; border-color: #e8c547; }
+        .system-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .system-box {
+            background: #0f0f1e;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d4af37;
+            text-align: center;
+        }
+        .system-box .name { color: #d4af37; font-weight: bold; margin-bottom: 8px; }
+        .system-box .use { font-size: 0.85em; color: #aaa; }
+        .feedback-box {
+            background: #1a2744;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid #d4af37;
+            display: none;
+        }
+        .feedback-box.show { display: block; }
+        .feedback-box.correct { border-color: #51cf66; background: rgba(81, 207, 102, 0.1); }
+        .feedback-box.incorrect { border-color: #ff6b6b; background: rgba(255, 107, 107, 0.1); }
+        .score-display {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #1a1a2e;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #2a3f5f;
+        }
+        .nav-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .nav-btn.prev { background: #2a3f5f; color: #d4af37; }
+        .nav-btn.next { background: #d4af37; color: #1a1a2e; }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .timer-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #d4af37;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .challenge-box {
+            background: #0f0f1e;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #d4af37;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .challenge-number {
+            font-size: 1.4em;
+            color: #d4af37;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .quiz-question {
+            background: #0f0f1e;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #d4af37;
+            margin: 15px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .option input[type="radio"] {
+            width: auto;
+            margin: 0 10px 0 0;
+            padding: 0;
+            border: none;
+            background: none;
+        }
+        .achievement-badge {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #1a1a2e;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .tab { padding: 12px 8px; font-size: 0.75em; }
+            .header h1 { font-size: 1.4em; }
+            .system-comparison { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="level-badge">Memory Course - Lesson 10</span>
+            <h1>📊 Number Systems: Review & Integration</h1>
+            <p>Master All Systems & Choose Your Weapon</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab(0)">1. RETRIEVAL</button>
+            <button class="tab" onclick="showTab(1)">2. CONTENT REVIEW</button>
+            <button class="tab" onclick="showTab(2)">3. COMPARISON</button>
+            <button class="tab" onclick="showTab(3)">4. MIXED PRACTICE</button>
+            <button class="tab" onclick="showTab(4)">5. SPEED DRILLS</button>
+            <button class="tab" onclick="showTab(5)">6. FINAL CHALLENGE</button>
+        </div>
+
+        <!-- TAB 1: RETRIEVAL -->
+        <div class="content active" id="tab0">
+            <h2>🔄 Recall All 5 Number Systems</h2>
+            <p style="margin-bottom: 20px;">Test your knowledge of everything you've learned:</p>
+
+            <div class="card">
+                <h3>📝 System Recognition Quiz</h3>
+                <div class="quiz-question">
+                    <p><strong>Which system uses CONSONANT SOUNDS?</strong></p>
+                    <label class="option">
+                        <input type="radio" name="q1" value="major"> The Major System
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="pao"> The PAO System
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="dominic"> The Dominic System
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <p><strong>Which system is best for 6-digit encoding?</strong></p>
+                    <label class="option">
+                        <input type="radio" name="q2" value="shape"> Number-Shape System
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="pao"> The PAO System
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="rhyme"> Number-Rhyme System
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <p><strong>What does PAO stand for?</strong></p>
+                    <label class="option">
+                        <input type="radio" name="q3" value="pao"> Person-Action-Object
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="para"> Paired-Action-Option
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="process"> Process-Algorithm-Output
+                    </label>
+                </div>
+
+                <button class="btn btn-primary" onclick="checkRecallQuiz()">Check My Answers</button>
+                <div class="score-display" id="recallScore" style="display: none;"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" disabled>← Previous</button>
+                <button class="nav-btn next" onclick="showTab(1)">Next: Review →</button>
+            </div>
+        </div>
+
+        <!-- TAB 2: CONTENT REVIEW -->
+        <div class="content" id="tab1">
+            <h2>📚 Complete System Summary</h2>
+
+            <div class="card">
+                <h3>🔢 System 1: Number-Shape</h3>
+                <p><strong>How it works:</strong> Each digit looks like a shape</p>
+                <p style="margin-top: 10px; color: #d4af37;">1=Candle, 2=Swan, 3=Heart, 4=Sailboat, 5=Hook, 6=Elephant, 7=Cliff, 8=Snowman, 9=Balloon, 0=Egg</p>
+                <p style="margin-top: 15px;"><strong>Best for:</strong> Visual learners, 2-4 digit numbers, quick learning</p>
+            </div>
+
+            <div class="card">
+                <h3>🎵 System 2: Number-Rhyme</h3>
+                <p><strong>How it works:</strong> Each digit rhymes with a word</p>
+                <p style="margin-top: 10px; color: #d4af37;">1=Bun, 2=Shoe, 3=Tree, 4=Door, 5=Hive, 6=Sticks, 7=Heaven, 8=Gate, 9=Vine, 0=Hero</p>
+                <p style="margin-top: 15px;"><strong>Best for:</strong> Auditory learners, quick patterns, beginner practice</p>
+            </div>
+
+            <div class="card">
+                <h3>🔐 System 3: Major System</h3>
+                <p><strong>How it works:</strong> Consonant sounds convert to words</p>
+                <p style="margin-top: 10px; color: #d4af37;">0=s/z, 1=t/d, 2=n, 3=m, 4=r, 5=l, 6=j/ch/sh, 7=k/g, 8=f/v, 9=p/b</p>
+                <p style="margin-top: 15px;"><strong>Best for:</strong> Flexible encoding, longer sequences, international use</p>
+            </div>
+
+            <div class="card">
+                <h3>👤 System 4: Dominic System</h3>
+                <p><strong>How it works:</strong> Number pairs become people with actions</p>
+                <p style="margin-top: 10px; color: #d4af37;">0=O, 1=A, 2=B, 3=C, 4=D, 5=E, 6=S, 7=G, 8=H, 9=N</p>
+                <p style="margin-top: 15px;"><strong>Best for:</strong> Memorable images, personal connections, 2-4 digit pairs</p>
+            </div>
+
+            <div class="card">
+                <h3>🎬 System 5: PAO System</h3>
+                <p><strong>How it works:</strong> 6 digits = 1 Person + 1 Action + 1 Object</p>
+                <p style="margin-top: 10px; color: #d4af37;">6 digits per image (3x more efficient than Dominic)</p>
+                <p style="margin-top: 15px;"><strong>Best for:</strong> Championship competition, speed records, maximum efficiency</p>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(0)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(2)">Next: Comparison →</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: COMPARISON & DECISION -->
+        <div class="content" id="tab2">
+            <h2>📊 System Comparison & Decision Guide</h2>
+
+            <div class="card">
+                <h3>🎯 Which System Should I Use?</h3>
+                <div class="system-comparison">
+                    <div class="system-box">
+                        <div class="name">Shape</div>
+                        <div class="use">Beginner<br>Digits per image: 2</div>
+                    </div>
+                    <div class="system-box">
+                        <div class="name">Rhyme</div>
+                        <div class="use">Beginner<br>Digits per image: 2</div>
+                    </div>
+                    <div class="system-box">
+                        <div class="name">Major</div>
+                        <div class="use">Intermediate<br>Digits per image: 2</div>
+                    </div>
+                    <div class="system-box">
+                        <div class="name">Dominic</div>
+                        <div class="use">Intermediate<br>Digits per image: 2</div>
+                    </div>
+                    <div class="system-box">
+                        <div class="name">PAO</div>
+                        <div class="use">Advanced<br>Digits per image: 6</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-section">
+                <h3>🎯 Decision Matrix</h3>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p style="margin-bottom: 10px;"><strong>Need to learn TODAY?</strong> → Use Shape or Rhyme</p>
+                    <p style="margin-bottom: 10px;"><strong>Want flexibility?</strong> → Use Major System</p>
+                    <p style="margin-bottom: 10px;"><strong>Want memorable images?</strong> → Use Dominic</p>
+                    <p style="margin-bottom: 10px;"><strong>Want competition results?</strong> → Use PAO</p>
+                    <p style="margin-top: 15px; color: #d4af37;"><strong>Pro tip:</strong> Learn ONE system deeply, then switch if needed!</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🎬 Interleaving: Using Multiple Systems</h3>
+                <p style="margin-bottom: 15px;">You can use different systems for different challenges:</p>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li><strong>4-digit PIN:</strong> Use Dominic (1 quick image)</li>
+                    <li><strong>8-digit sequence:</strong> Use Major (4 images)</li>
+                    <li><strong>12-digit challenge:</strong> Use PAO (2 images)</li>
+                </ul>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(1)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(3)">Next: Mixed Practice →</button>
+            </div>
+        </div>
+
+        <!-- TAB 4: MIXED PRACTICE -->
+        <div class="content" id="tab3">
+            <h2>🎮 Mixed System Practice</h2>
+
+            <div class="card">
+                <h3>🔄 Choose Your System for Each Number</h3>
+                <p style="margin-bottom: 15px;">For each challenge, decide which system works best:</p>
+
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #d4af37;">
+                    <p style="margin-bottom: 15px;"><strong>Challenge 1: Remember a 4-digit ATM PIN: 7392</strong></p>
+                    <p style="margin-bottom: 10px;">Which system would you choose and why?</p>
+                    <textarea id="ch1" placeholder="e.g., I'd use Dominic because..."></textarea>
+                    <button class="btn btn-secondary" onclick="checkChallenge(1)">Show Best Choice</button>
+                </div>
+
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #d4af37;">
+                    <p style="margin-bottom: 15px;"><strong>Challenge 2: Memorize 10 digits in 30 seconds: 4726815394</strong></p>
+                    <p style="margin-bottom: 10px;">Which system is fastest for this?</p>
+                    <textarea id="ch2" placeholder="I'd choose..."></textarea>
+                    <button class="btn btn-secondary" onclick="checkChallenge(2)">Show Best Choice</button>
+                </div>
+
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #d4af37;">
+                    <p style="margin-bottom: 15px;"><strong>Challenge 3: Memorize 12 digits for competition: 859274163827</strong></p>
+                    <p style="margin-bottom: 10px;">What's the most efficient approach?</p>
+                    <textarea id="ch3" placeholder="I'd choose..."></textarea>
+                    <button class="btn btn-secondary" onclick="checkChallenge(3)">Show Best Choice</button>
+                </div>
+            </div>
+
+            <div class="interactive-section">
+                <h3>🎯 Create a Hybrid Approach</h3>
+                <p style="margin-bottom: 15px;">Describe your personal strategy combining multiple systems:</p>
+                <textarea id="hybrid" placeholder="For beginners like me, I would: 1) Use Dominic for... 2) Use Major for... 3) Use PAO for..."></textarea>
+                <button class="btn btn-primary" onclick="saveHybridApproach()">Save My Strategy</button>
+                <div class="feedback-box" id="hybridFeedback"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(2)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(4)">Next: Speed Drills →</button>
+            </div>
+        </div>
+
+        <!-- TAB 5: SPEED DRILLS -->
+        <div class="content" id="tab4">
+            <h2>⚡ Speed Drill Challenges</h2>
+
+            <div class="interactive-section">
+                <h3>🏃 Drill 1: 30-Second Shape Encoding</h3>
+                <p style="margin-bottom: 15px;">Encode this using the Shape System in 30 seconds:</p>
+                <div class="challenge-box">
+                    <div class="challenge-number">59738</div>
+                </div>
+                <button class="btn btn-secondary" onclick="startDrill('drill1', 30)">Start 30-Second Timer</button>
+                <p id="drill1Timer" style="color: #d4af37; font-weight: bold; margin-top: 10px;"></p>
+                <textarea id="drill1Answer" placeholder="Your Shape images..."></textarea>
+                <button class="btn btn-primary" onclick="checkDrill('drill1')" style="margin-top: 10px;">Submit</button>
+            </div>
+
+            <div class="interactive-section">
+                <h3>🏃 Drill 2: 45-Second Major System</h3>
+                <p style="margin-bottom: 15px;">Encode using Major System in 45 seconds:</p>
+                <div class="challenge-box">
+                    <div class="challenge-number">872945</div>
+                </div>
+                <button class="btn btn-secondary" onclick="startDrill('drill2', 45)">Start 45-Second Timer</button>
+                <p id="drill2Timer" style="color: #d4af37; font-weight: bold; margin-top: 10px;"></p>
+                <textarea id="drill2Answer" placeholder="Your Major System words..."></textarea>
+                <button class="btn btn-primary" onclick="checkDrill('drill2')" style="margin-top: 10px;">Submit</button>
+            </div>
+
+            <div class="interactive-section">
+                <h3>🏃 Drill 3: 60-Second Dominic System</h3>
+                <p style="margin-bottom: 15px;">Create Dominic images in 60 seconds:</p>
+                <div class="challenge-box">
+                    <div class="challenge-number">316482</div>
+                </div>
+                <button class="btn btn-secondary" onclick="startDrill('drill3', 60)">Start 60-Second Timer</button>
+                <p id="drill3Timer" style="color: #d4af37; font-weight: bold; margin-top: 10px;"></p>
+                <textarea id="drill3Answer" placeholder="Your Dominic images..."></textarea>
+                <button class="btn btn-primary" onclick="checkDrill('drill3')" style="margin-top: 10px;">Submit</button>
+            </div>
+
+            <div class="interactive-section">
+                <h3>🏃 Drill 4: 120-Second PAO Challenge</h3>
+                <p style="margin-bottom: 15px;">Encode 12 digits with PAO in 2 minutes:</p>
+                <div class="challenge-box">
+                    <div class="challenge-number">527493618274</div>
+                </div>
+                <button class="btn btn-secondary" onclick="startDrill('drill4', 120)">Start 2-Minute Timer</button>
+                <p id="drill4Timer" style="color: #d4af37; font-weight: bold; margin-top: 10px;"></p>
+                <textarea id="drill4Answer" placeholder="Your PAO images (2 images)..."></textarea>
+                <button class="btn btn-primary" onclick="checkDrill('drill4')" style="margin-top: 10px;">Submit</button>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(3)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(5)">Next: Final Challenge →</button>
+            </div>
+        </div>
+
+        <!-- TAB 6: FINAL CHALLENGE -->
+        <div class="content" id="tab5">
+            <h2>🏆 Comprehensive Number System Challenge</h2>
+
+            <div class="card">
+                <h3>🎯 System Mastery Quiz</h3>
+                <div class="quiz-question">
+                    <p><strong>What is the PRIMARY advantage of the PAO system?</strong></p>
+                    <label class="option">
+                        <input type="radio" name="final1" value="correct"> It encodes 6 digits in one vivid image
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="final1" value="wrong1"> It's easier to learn than other systems
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="final1" value="wrong2"> It works in all languages
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <p><strong>Which system would you use to quickly memorize a 4-digit code TODAY?</strong></p>
+                    <label class="option">
+                        <input type="radio" name="final2" value="correct"> Number-Shape or Number-Rhyme
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="final2" value="wrong1"> Only PAO System
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="final2" value="wrong2"> Major System exclusively
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <p><strong>How many 2-digit pairs can PAO encode in one location?</strong></p>
+                    <label class="option">
+                        <input type="radio" name="final3" value="correct"> 3 pairs (6 digits total)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="final3" value="wrong1"> 2 pairs (4 digits)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="final3" value="wrong2"> 4 pairs (8 digits)
+                    </label>
+                </div>
+
+                <button class="btn btn-primary" onclick="checkFinalQuiz()">Check Answers</button>
+                <div class="score-display" id="finalQuizScore" style="display: none;"></div>
+            </div>
+
+            <div class="card">
+                <h3>🎬 Ultimate Challenge: The Full Stack</h3>
+                <p style="margin-bottom: 15px;">Demonstrate mastery of ALL systems with this 16-digit sequence:</p>
+
+                <div class="challenge-box">
+                    <div class="challenge-number">4729385617482936</div>
+                </div>
+
+                <p style="margin-bottom: 15px;"><strong>Your task:</strong> Encode these 16 digits using the system of YOUR choice and explain why you chose it:</p>
+
+                <textarea id="finalChallenge" placeholder="Type your answer..."></textarea>
+
+                <button class="btn btn-primary" onclick="checkFinalChallenge()">Submit Final Challenge</button>
+                <div class="feedback-box" id="finalChallengeFeedback"></div>
+            </div>
+
+            <div class="card">
+                <h3>🎓 Certification of Completion</h3>
+                <p style="margin-bottom: 15px;">You've mastered 5 different number memorization systems!</p>
+                <div class="achievement-badge">
+                    ⭐ NUMBER SYSTEMS MASTER ⭐<br><br>
+                    You now know:<br>
+                    ✓ Number-Shape System<br>
+                    ✓ Number-Rhyme System<br>
+                    ✓ Major System<br>
+                    ✓ Dominic System<br>
+                    ✓ PAO System<br><br>
+                    Ready to memorize ANYTHING!
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(4)">← Back</button>
+                <button class="nav-btn next" disabled>🏆 Course Complete!</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(index) {
+            const contents = document.querySelectorAll('.content');
+            const tabs = document.querySelectorAll('.tab');
+            contents.forEach(c => c.classList.remove('active'));
+            tabs.forEach(t => t.classList.remove('active'));
+            contents[index].classList.add('active');
+            tabs[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function checkRecallQuiz() {
+            let score = 0;
+            const q1 = document.querySelector('input[name="q1"]:checked').value;
+            const q2 = document.querySelector('input[name="q2"]:checked').value;
+            const q3 = document.querySelector('input[name="q3"]:checked').value;
+
+            if (q1 === 'major') score++;
+            if (q2 === 'pao') score++;
+            if (q3 === 'pao') score++;
+
+            const scoreDisplay = document.getElementById('recallScore');
+            scoreDisplay.style.display = 'block';
+            scoreDisplay.innerHTML = `Score: ${score}/3 - ${score === 3 ? 'Perfect! Ready for integration!' : 'Review and try again!'}`;
+        }
+
+        function checkChallenge(num) {
+            const messages = {
+                1: '✓ Best: Number-Shape or Dominic (fast, memorable)',
+                2: '✓ Best: Major System (flexible, scalable)',
+                3: '✓ Best: PAO System (3x efficiency = 2 images instead of 6!)'
+            };
+            alert(messages[num]);
+        }
+
+        function saveHybridApproach() {
+            const hybrid = document.getElementById('hybrid').value;
+            const feedback = document.getElementById('hybridFeedback');
+            feedback.classList.add('show', 'correct');
+            feedback.innerHTML = '✓ Excellent! You\'ve developed a personalized memory system strategy!';
+        }
+
+        function startDrill(drillId, seconds) {
+            let timeLeft = seconds;
+            const timerId = drillId + 'Timer';
+            const timerEl = document.getElementById(timerId);
+            const btn = event.target;
+            btn.disabled = true;
+            timerEl.textContent = `${timeLeft}s remaining`;
+
+            const interval = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = `${timeLeft}s remaining`;
+                if (timeLeft === 0) {
+                    clearInterval(interval);
+                    timerEl.textContent = 'Time\'s up! Submit your answer.';
+                    btn.disabled = false;
+                }
+            }, 1000);
+        }
+
+        function checkDrill(drillId) {
+            const answerId = drillId + 'Answer';
+            const answer = document.getElementById(answerId).value;
+            if (answer.trim().length > 10) {
+                alert('Great speed encoding! Keep practicing to get even faster!');
+            } else {
+                alert('Add more detail to your encoding!');
+            }
+        }
+
+        function checkFinalQuiz() {
+            let score = 0;
+            const f1 = document.querySelector('input[name="final1"]:checked').value;
+            const f2 = document.querySelector('input[name="final2"]:checked').value;
+            const f3 = document.querySelector('input[name="final3"]:checked').value;
+
+            if (f1 === 'correct') score++;
+            if (f2 === 'correct') score++;
+            if (f3 === 'correct') score++;
+
+            const scoreDisplay = document.getElementById('finalQuizScore');
+            scoreDisplay.style.display = 'block';
+            scoreDisplay.innerHTML = `Score: ${score}/3 - ${score === 3 ? 'Perfect System Understanding!' : 'Review and try again!'}`;
+        }
+
+        function checkFinalChallenge() {
+            const challenge = document.getElementById('finalChallenge').value;
+            const feedback = document.getElementById('finalChallengeFeedback');
+            feedback.classList.add('show');
+            if (challenge.length > 50 && challenge.includes('system') && challenge.includes('why')) {
+                feedback.classList.add('correct');
+                feedback.innerHTML = '✓ OUTSTANDING! You\'ve achieved NUMBER SYSTEMS MASTERY! Your approach shows deep understanding of when and how to use each technique!';
+            } else {
+                feedback.classList.add('incorrect');
+                feedback.innerHTML = 'Provide more detail: which system you chose and WHY, plus your complete encoding!';
+            }
+        }
+    </script>
+</body>
+</html>

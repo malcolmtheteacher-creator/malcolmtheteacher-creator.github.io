@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 13: Memorizing Presentations - The Art of Memory</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #c9a227 100%);
+            color: #1a1a1a;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .header p { font-size: 1.1em; opacity: 0.9; }
+        .tabs-container {
+            display: flex;
+            background: #f5f5f5;
+            border-bottom: 3px solid #d4af37;
+            flex-wrap: wrap;
+        }
+        .tab-button {
+            flex: 1;
+            min-width: 140px;
+            padding: 15px;
+            background: #f5f5f5;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .tab-button:hover { background: #efefef; color: #d4af37; }
+        .tab-button.active { background: white; color: #d4af37; border-bottom-color: #d4af37; }
+        .tab-content { padding: 40px; display: none; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .tab-content h2 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+        }
+        h3 { color: #333; margin: 20px 0 15px 0; font-size: 1.3em; }
+        p { color: #555; margin-bottom: 12px; }
+        .highlight {
+            background: #fffacd;
+            padding: 15px;
+            border-left: 4px solid #d4af37;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .key-points {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .key-points li { margin-bottom: 10px; color: #333; list-style-position: inside; }
+        .interactive-box {
+            background: #f0f8ff;
+            border: 2px solid #d4af37;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .interactive-box h4 { color: #d4af37; margin-bottom: 15px; }
+        button {
+            background: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            margin: 8px 8px 8px 0;
+        }
+        button:hover {
+            background: #c9a227;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #d4af37;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #c9a227;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+        }
+        .quiz-question {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .quiz-question p { font-weight: 600; margin-bottom: 15px; color: #333; }
+        .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+        .quiz-option {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            background: white;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+        }
+        .quiz-option:hover { border-color: #d4af37; background: #fffacd; }
+        .quiz-option.correct { background: #90EE90; border-color: #32CD32; color: #1a1a1a; font-weight: 600; }
+        .quiz-option.incorrect { background: #FFB6C6; border-color: #FF1493; color: #1a1a1a; }
+        .results {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .results.fail { background: #ffebee; border-color: #f44336; }
+        .results h3 { color: #2e7d32; margin-bottom: 10px; }
+        .results.fail h3 { color: #c62828; }
+        .score { font-size: 2em; font-weight: bold; color: #2e7d32; margin: 10px 0; }
+        .results.fail .score { color: #c62828; }
+        .timer { font-size: 1.5em; font-weight: bold; color: #d4af37; text-align: center; margin: 20px 0; }
+        .point-item {
+            background: white;
+            border-left: 4px solid #d4af37;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .point-item strong { color: #d4af37; }
+        @media (max-width: 768px) {
+            .tab-button { min-width: 100px; padding: 12px; font-size: 0.85em; }
+            .header h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Lesson 13: Memorizing Presentations</h1>
+            <p>Master the palace method combined with confidence anchoring for powerful deliveries</p>
+        </div>
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab(event, 'retrieval')">Retrieval</button>
+            <button class="tab-button" onclick="switchTab(event, 'content')">New Content</button>
+            <button class="tab-button" onclick="switchTab(event, 'practice')">Guided Practice</button>
+            <button class="tab-button" onclick="switchTab(event, 'elaboration')">Elaboration</button>
+            <button class="tab-button" onclick="switchTab(event, 'independent')">Independent</button>
+            <button class="tab-button" onclick="switchTab(event, 'final')">Final Retrieval</button>
+        </div>
+
+        <div id="retrieval" class="tab-content active">
+            <h2>Retrieval: Prior Knowledge</h2>
+            <p>Let's test your baseline knowledge about presentation memory techniques.</p>
+            <div class="quiz-question">
+                <p>What is a major challenge when memorizing presentations?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">A) Presentations are too visual</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">B) Maintaining natural delivery while recalling key points</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) Slides contain all the information</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) Memory techniques don't work for speeches</div>
+                </div>
+            </div>
+            <button onclick="scrollToTab('content')">Continue →</button>
+        </div>
+
+        <div id="content" class="tab-content">
+            <h2>New Content: Palace + Confidence Anchoring</h2>
+            <h3>The Palace Method for Presentations</h3>
+            <p>Transform your presentation outline into a mental palace journey. Each room or location contains a key point or talking point.</p>
+            <div class="highlight">
+                <strong>Presentation Palace Process:</strong><br>
+                1. Create outline with 5-10 main points<br>
+                2. Choose a familiar physical location (your home, office, familiar route)<br>
+                3. Assign each point to a specific location/room<br>
+                4. Create vivid, absurd images linking the point to the location<br>
+                5. Walk through the palace mentally multiple times<br>
+                6. Practice delivery while visualizing the palace
+            </div>
+
+            <h3>Confidence Anchoring Technique</h3>
+            <p>Pair each key point with a physical anchor (a gesture or movement) to trigger recall during delivery.</p>
+            <div class="key-points">
+                <ul>
+                    <li><strong>Hand gesture anchor:</strong> Specific hand movement for each point</li>
+                    <li><strong>Body position anchor:</strong> Moving to different parts of the stage</li>
+                    <li><strong>Breathing anchor:</strong> Pause and deep breath before transitioning</li>
+                    <li><strong>Visual anchor:</strong> Looking at specific audience members</li>
+                    <li><strong>Vocal anchor:</strong> Change in tone or pace for each section</li>
+                </ul>
+            </div>
+
+            <h3>Optimal Presentation Structure</h3>
+            <div class="interactive-box">
+                <h4>The 5-Point Framework:</h4>
+                <p><strong>1. Hook:</strong> Grab attention immediately (emotional or surprising)</p>
+                <p><strong>2. Context:</strong> Explain why this matters</p>
+                <p><strong>3. Main Argument:</strong> Your central thesis or idea</p>
+                <p><strong>4. Evidence/Examples:</strong> Support with stories or data</p>
+                <p><strong>5. Call to Action:</strong> What you want audience to do/think</p>
+            </div>
+
+            <h3>Integration with Card Practice</h3>
+            <div class="highlight">
+                For maximum effectiveness, intersperse card memorization practice (10 cards) between presentation sections to maintain cognitive flexibility and build multitasking memory skills.
+            </div>
+            <button onclick="scrollToTab('practice')">Continue →</button>
+        </div>
+
+        <div id="practice" class="tab-content">
+            <h2>Guided Practice: Build Your Presentation Palace</h2>
+            <p>Create a 5-point presentation outline and assign it to locations in your mental palace.</p>
+            
+            <button onclick="startPresentationPractice()">Begin Practice</button>
+            
+            <div id="practice-display" style="display:none; margin-top: 30px;">
+                <div class="interactive-box">
+                    <h4>Presentation Builder</h4>
+                    <p><strong>Your Topic:</strong> "The Future of Remote Work"</p>
+                    <p style="margin-top: 20px; margin-bottom: 10px;"><strong>Point <span id="point-num">1</span>/5:</strong> <span id="point-name">Hook</span></p>
+                    <p id="point-desc" style="color: #666; margin-bottom: 15px; font-size: 0.95em;"></p>
+                    <textarea id="palace-location" placeholder="Which location in your palace? (e.g., Front door, Living room)" style="height: 50px; margin-bottom: 10px;"></textarea>
+                    <textarea id="point-content" placeholder="Type your answer..." style="height: 80px;"></textarea>
+                    <div style="margin-top: 15px;">
+                        <button onclick="nextPresPoint()">Next Point</button>
+                        <span style="color: #666; margin-left: 10px;" id="pres-progress">1/5</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="practice-summary" style="display:none; margin-top: 30px;">
+                <div class="results">
+                    <h3>Presentation Palace Created!</h3>
+                    <p>You've built a mental palace for your 5-point presentation.</p>
+                    <div id="palace-review" style="text-align: left; margin-top: 20px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="elaboration" class="tab-content">
+            <h2>Elaboration: Advanced Delivery Techniques</h2>
+            <h3>The Psychology of Confident Delivery</h3>
+            <p>When you've memorized your presentation using the palace method, your brain shifts from conscious effort to automatic recall, freeing up mental resources for audience engagement and natural delivery.</p>
+            
+            <div class="highlight">
+                <strong>Cognitive Benefits:</strong> Your working memory is no longer consumed with "what comes next?" so you can focus on tone, pacing, eye contact, and adapting to audience reactions.
+            </div>
+
+            <h3>Anchor-Based Recall System</h3>
+            <p>By pairing each point with a physical anchor, you create a backup retrieval path. If you lose your place in the palace, your body automatically guides you back on track.</p>
+            <div class="key-points">
+                <ul>
+                    <li><strong>Stage movement:</strong> Move left for point 1, center for point 2, right for point 3, etc.</li>
+                    <li><strong>Gesture progression:</strong> Hand at chest for personal stories, hands apart for data points</li>
+                    <li><strong>Vocal transitions:</strong> Pause, lower pitch, slow pace to signal transitions</li>
+                    <li><strong>Audience interaction:</strong> Ask questions at transition points to "reset"</li>
+                </ul>
+            </div>
+
+            <h3>Interleaving with Card Practice</h3>
+            <div class="interactive-box">
+                <h4>Why Mix Presentations + Cards?</h4>
+                <p>Interleaving different memory tasks improves overall retention and builds cognitive flexibility. You strengthen your palace method while also maintaining card memorization skills.</p>
+            </div>
+            <button onclick="scrollToTab('independent')">Continue →</button>
+        </div>
+
+        <div id="independent" class="tab-content">
+            <h2>Independent Practice: Present & Perform</h2>
+            <p>Build your presentation outline, memorize it with the palace method, then deliver it with a timed performance.</p>
+            
+            <p style="margin-bottom: 20px;"><strong>Instructions:</strong> Create a 5-point presentation about a topic of your choice, assign it to your mental palace, then deliver it with a timer.</p>
+            
+            <button onclick="startPresentationChallenge()">Start Presentation Challenge</button>
+            
+            <div id="outline-builder" style="display:none; margin-top: 30px;">
+                <h3 style="color: #d4af37; margin-bottom: 20px;">Create Your Presentation</h3>
+                <p style="margin-bottom: 15px;"><strong>Topic:</strong></p>
+                <input type="text" id="topic-input" placeholder="What's your presentation topic?" style="margin-bottom: 20px;">
+                
+                <div id="points-builder"></div>
+                
+                <button onclick="reviewPresentation()" style="margin-top: 30px;">Ready to Deliver</button>
+            </div>
+
+            <div id="delivery-display" style="display:none; margin-top: 30px;">
+                <h3 style="color: #d4af37; margin-bottom: 20px;">Presentation Delivery</h3>
+                <div class="timer">Time: <span id="delivery-timer">0</span>s</div>
+                <div class="interactive-box">
+                    <h4 id="current-point">Current Point</h4>
+                    <p id="current-desc" style="margin: 15px 0;"></p>
+                    <textarea id="delivery-notes" placeholder="Deliver your point here (type or speak aloud)..." style="height: 100px;"></textarea>
+                    <div style="margin-top: 15px;">
+                        <button onclick="nextDeliveryPoint()">Next Point</button>
+                        <button onclick="completePresentation()">Complete Presentation</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="results-display" style="display:none; margin-top: 30px;">
+                <div class="results">
+                    <h3>Presentation Complete!</h3>
+                    <p id="delivery-time" style="color: #666; margin-bottom: 15px;"></p>
+                    <p>Well done! You've successfully delivered a memorized presentation using the palace method and confidence anchoring.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="final" class="tab-content">
+            <h2>Final Retrieval: Presentation Mastery</h2>
+            <div class="quiz-question">
+                <p><strong>Q1:</strong> What is the primary purpose of the memory palace in presentations?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">A) To organize key points and maintain structure</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">B) To replace slides</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) To make the audience remember better</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) To add complexity to delivery</div>
+                </div>
+            </div>
+            <div class="quiz-question">
+                <p><strong>Q2:</strong> What is confidence anchoring?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">A) Holding on to the podium</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">B) Pairing physical cues with key points for reliable recall</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) Ignoring nervousness</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) Memorizing every word</div>
+                </div>
+            </div>
+            <div class="quiz-question">
+                <p><strong>Q3:</strong> How many main points should a strong presentation have?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">A) 2-3 (too few to be effective)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">B) 5 (optimal cognitive load)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) 10+ (more is better)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) As many as possible</div>
+                </div>
+            </div>
+            <div class="quiz-question">
+                <p><strong>Q4:</strong> Why interleave presentations with card practice?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">A) To make learning harder</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">B) To build cognitive flexibility and transfer learning</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">C) To distract from presentations</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">D) To waste time</div>
+                </div>
+            </div>
+            <button onclick="scoreFinal()">Calculate Score</button>
+            <div id="final-results"></div>
+        </div>
+    </div>
+
+    <script>
+        let presPoints = [], currentPoint = 0, deliveryTime = 0, deliveryTimer = null;
+
+        function switchTab(e, id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            e.target.classList.add('active');
+        }
+        function checkAnswer(el, correct) {
+            el.parentElement.querySelectorAll('.quiz-option').forEach(o => o.style.pointerEvents = 'none');
+            el.classList.add(correct ? 'correct' : 'incorrect');
+        }
+        function startPresentationPractice() {
+            presPoints = [];
+            currentPoint = 0;
+            document.querySelector('#practice button').style.display = 'none';
+            document.getElementById('practice-display').style.display = 'block';
+            showPresPoint();
+        }
+        function showPresPoint() {
+            const templates = [
+                {name: "Hook", desc: "A surprising fact or emotional opening to grab attention"},
+                {name: "Context", desc: "Explain the background and why this matters"},
+                {name: "Main Argument", desc: "Present your central idea or thesis"},
+                {name: "Evidence", desc: "Support with examples, data, or stories"},
+                {name: "Call to Action", desc: "What do you want your audience to think or do?"}
+            ];
+            if(currentPoint < 5) {
+                const pt = templates[currentPoint];
+                document.getElementById('point-num').textContent = currentPoint + 1;
+                document.getElementById('point-name').textContent = pt.name;
+                document.getElementById('point-desc').textContent = pt.desc;
+                document.getElementById('palace-location').value = '';
+                document.getElementById('point-content').value = '';
+                document.getElementById('pres-progress').textContent = `${currentPoint+1}/5`;
+            }
+        }
+        function nextPresPoint() {
+            const location = document.getElementById('palace-location').value.trim();
+            const content = document.getElementById('point-content').value.trim();
+            if(!location || !content) { alert('Fill in both fields!'); return; }
+            presPoints.push({location, content});
+            currentPoint++;
+            if(currentPoint < 5) {
+                showPresPoint();
+            } else {
+                document.getElementById('practice-display').style.display = 'none';
+                showPresSummary();
+            }
+        }
+        function showPresSummary() {
+            let html = '';
+            presPoints.forEach((p, i) => {
+                html += `<div class="point-item"><strong>Point ${i+1}: ${p.location}</strong><br>${p.content}</div>`;
+            });
+            document.getElementById('palace-review').innerHTML = html;
+            document.getElementById('practice-summary').style.display = 'block';
+        }
+        function startPresentationChallenge() {
+            const templates = [
+                {name: "Hook", desc: "A surprising fact or emotional opening"},
+                {name: "Context", desc: "Explain the background"},
+                {name: "Main Argument", desc: "Present your central idea"},
+                {name: "Evidence", desc: "Support with examples"},
+                {name: "Call to Action", desc: "What do you want audience to do?"}
+            ];
+            let html = '<div style="margin-bottom: 30px;">';
+            templates.forEach((t, i) => {
+                html += `<div style="margin-bottom: 20px;">
+                    <p style="color: #666; font-weight: 600; margin-bottom: 8px;">Point ${i+1}: ${t.name}</p>
+                    <p style="color: #666; font-size: 0.9em; margin-bottom: 10px;">${t.desc}</p>
+                    <input type="text" placeholder="Your palace location..." class="pres-palace" data-index="${i}" style="margin-bottom: 8px;">
+                    <textarea placeholder="Your key point..." class="pres-content" data-index="${i}" style="height: 70px;"></textarea>
+                </div>`;
+            });
+            html += '</div>';
+            document.getElementById('points-builder').innerHTML = html;
+            document.getElementById('outline-builder').style.display = 'block';
+            document.querySelectorAll('#independent button')[0].style.display = 'none';
+        }
+        function reviewPresentation() {
+            const topic = document.getElementById('topic-input').value.trim();
+            if(!topic) { alert('Enter a topic!'); return; }
+            
+            presPoints = [];
+            document.querySelectorAll('.pres-palace').forEach((el, i) => {
+                const location = el.value.trim();
+                const content = document.querySelectorAll('.pres-content')[i].value.trim();
+                if(location && content) {
+                    presPoints.push({location, content});
+                }
+            });
+            if(presPoints.length < 3) { alert('Create at least 3 points!'); return; }
+            
+            currentPoint = 0;
+            deliveryTime = 0;
+            document.getElementById('outline-builder').style.display = 'none';
+            document.getElementById('delivery-display').style.display = 'block';
+            startDelivery();
+        }
+        function startDelivery() {
+            if(currentPoint < presPoints.length) {
+                const pt = presPoints[currentPoint];
+                document.getElementById('current-point').textContent = `Point ${currentPoint+1}: ${pt.location}`;
+                document.getElementById('current-desc').textContent = pt.content;
+                document.getElementById('delivery-notes').value = '';
+                
+                if(deliveryTimer) clearInterval(deliveryTimer);
+                deliveryTimer = setInterval(() => {
+                    deliveryTime++;
+                    document.getElementById('delivery-timer').textContent = deliveryTime;
+                }, 1000);
+            }
+        }
+        function nextDeliveryPoint() {
+            clearInterval(deliveryTimer);
+            currentPoint++;
+            if(currentPoint < presPoints.length) {
+                startDelivery();
+            }
+        }
+        function completePresentation() {
+            clearInterval(deliveryTimer);
+            document.getElementById('delivery-display').style.display = 'none';
+            document.getElementById('delivery-time').textContent = `Delivery time: ${deliveryTime} seconds`;
+            document.getElementById('results-display').style.display = 'block';
+        }
+        function scoreFinal() {
+            let correct = 0;
+            document.querySelectorAll('.quiz-question').forEach(q => {
+                if(q.querySelector('.quiz-option.correct')) correct++;
+            });
+            const pct = Math.round(correct/4*100);
+            const res = document.createElement('div');
+            res.className = pct >= 75 ? 'results' : 'results fail';
+            res.innerHTML = `<h3>${pct >= 90 ? 'Outstanding!' : pct >= 75 ? 'Excellent!' : 'Good work!'}</h3><div class="score">${correct}/4 (${pct}%)</div><p>Lesson 13: Presentation Memory Mastery</p>`;
+            document.getElementById('final-results').appendChild(res);
+            document.querySelector('#final button').style.display = 'none';
+        }
+        function scrollToTab(id) {
+            const tabs = ['retrieval', 'content', 'practice', 'elaboration', 'independent', 'final'];
+            const idx = tabs.indexOf(id);
+            document.querySelectorAll('.tab-button')[idx].click();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>

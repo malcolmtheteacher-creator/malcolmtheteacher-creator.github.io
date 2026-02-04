@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Lesson 8: The Dominic System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #0f0f1e;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(212,175,55,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #1a1a2e;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 1.8em; margin-bottom: 10px; }
+        .level-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        .tabs {
+            display: flex;
+            background: #16213e;
+            overflow-x: auto;
+            border-bottom: 2px solid #d4af37;
+        }
+        .tab {
+            flex: 1;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #aaa;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .tab:hover { background: #1a2744; }
+        .tab.active {
+            background: #d4af37;
+            color: #1a1a2e;
+            border-bottom: 3px solid #d4af37;
+        }
+        .content { padding: 30px; display: none; color: #e0e0e0; }
+        .content.active { display: block; }
+        .content h2 { color: #d4af37; margin-bottom: 20px; }
+        .card {
+            background: #1a2744;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #d4af37;
+        }
+        .card h3 { color: #d4af37; margin-bottom: 10px; }
+        .card p { line-height: 1.6; }
+        .dominic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .dominic-box {
+            background: #0f0f1e;
+            border: 2px solid #d4af37;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        .dominic-box .pair { font-weight: bold; color: #d4af37; font-size: 1.1em; }
+        .dominic-box .letter { font-size: 0.85em; color: #aaa; margin-top: 5px; }
+        .interactive-section {
+            background: #1a2744;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #d4af37;
+        }
+        .interactive-section h3 { color: #d4af37; margin-bottom: 15px; }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: #d4af37;
+            color: #1a1a2e;
+        }
+        .btn-primary:hover { background: #e8c547; transform: translateY(-2px); }
+        .btn-secondary {
+            background: #2a3f5f;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+        }
+        .btn-secondary:hover { background: #1a2744; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            background: #0f0f1e;
+            color: #e0e0e0;
+            font-size: 1em;
+            margin: 10px 0;
+        }
+        textarea { min-height: 100px; resize: vertical; }
+        input:focus, textarea:focus { outline: none; border-color: #e8c547; }
+        .comparison-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .comparison-cell {
+            background: #0f0f1e;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #d4af37;
+        }
+        .comparison-cell h4 { color: #d4af37; margin-bottom: 10px; }
+        .feedback-box {
+            background: #1a2744;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid #d4af37;
+            display: none;
+        }
+        .feedback-box.show { display: block; }
+        .feedback-box.correct { border-color: #51cf66; background: rgba(81, 207, 102, 0.1); }
+        .feedback-box.incorrect { border-color: #ff6b6b; background: rgba(255, 107, 107, 0.1); }
+        .score-display {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #1a1a2e;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #2a3f5f;
+        }
+        .nav-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .nav-btn.prev { background: #2a3f5f; color: #d4af37; }
+        .nav-btn.next { background: #d4af37; color: #1a1a2e; }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .matching-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .match-item {
+            background: #0f0f1e;
+            padding: 12px;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .match-item:hover { background: #1a2744; }
+        .match-item.selected { background: #d4af37; color: #1a1a2e; }
+        @media (max-width: 768px) {
+            .tab { padding: 12px 8px; font-size: 0.75em; }
+            .header h1 { font-size: 1.4em; }
+            .comparison-table { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="level-badge">Memory Course - Lesson 8</span>
+            <h1>👤 The Dominic System</h1>
+            <p>Number Pairs → People & Actions</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab(0)">1. RETRIEVAL</button>
+            <button class="tab" onclick="showTab(1)">2. NEW CONTENT</button>
+            <button class="tab" onclick="showTab(2)">3. GUIDED PRACTICE</button>
+            <button class="tab" onclick="showTab(3)">4. ELABORATION</button>
+            <button class="tab" onclick="showTab(4)">5. INDEPENDENT</button>
+            <button class="tab" onclick="showTab(5)">6. FINAL RETRIEVAL</button>
+        </div>
+
+        <!-- TAB 1: RETRIEVAL -->
+        <div class="content active" id="tab0">
+            <h2>🔄 Recall: The Major System</h2>
+            <p style="margin-bottom: 20px;">Let's review the consonant sounds from the Major System:</p>
+
+            <div class="card">
+                <h3>📝 Quick Consonant Recall</h3>
+                <div style="display: grid; gap: 10px; margin: 20px 0;">
+                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong>What sounds are 3, 6, and 9?</strong></p>
+                        <input type="text" id="recall1" placeholder="e.g., m, j/ch/sh, p/b">
+                    </div>
+                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong>What sounds are 0, 1, and 5?</strong></p>
+                        <input type="text" id="recall2" placeholder="e.g., s/z, t/d, l">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="checkMajorRecall()">Check Answers</button>
+                <div class="feedback-box" id="recallFeedback"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" disabled>← Previous</button>
+                <button class="nav-btn next" onclick="showTab(1)">Next: Dominic System →</button>
+            </div>
+        </div>
+
+        <!-- TAB 2: NEW CONTENT -->
+        <div class="content" id="tab1">
+            <h2>📚 The Dominic System Explained</h2>
+
+            <div class="card">
+                <h3>🎯 What is the Dominic System?</h3>
+                <p style="margin-bottom: 15px;">Created by 8-time World Memory Champion Dominic O'Brien, this system converts number pairs into PEOPLE and ACTIONS.</p>
+                <ul style="margin-left: 20px; line-height: 2;">
+                    <li>Each number pair (00-99) = one specific person</li>
+                    <li>You assign each person an action</li>
+                    <li>Much easier to remember famous people than abstract words!</li>
+                    <li>Great for competing in memory championships</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🔤 Dominic Letter Code</h3>
+                <p style="margin-bottom: 15px;">Each digit becomes a letter based on its shape or sound:</p>
+                <div class="dominic-grid" id="dominicChart"></div>
+            </div>
+
+            <div class="interactive-section">
+                <h3>💡 How It Works Step-by-Step</h3>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Example: Number 42 → Letters D-B</strong></p>
+                    <p style="margin-top: 10px; color: #d4af37;">D = David, B = Beckham = DAVID BECKHAM</p>
+                    <p style="margin-top: 10px;">You picture David Beckham and assign him an ACTION (e.g., scoring a goal)</p>
+                </div>
+                <p style="margin-top: 15px;"><strong>Key Advantage:</strong> Famous people are MUCH more memorable than random words!</p>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(0)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(2)">Next: Practice →</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: GUIDED PRACTICE -->
+        <div class="content" id="tab2">
+            <h2>🎯 Creating Your Dominic List</h2>
+
+            <div class="card">
+                <h3>📖 I DO: Dominic Encoding Demo</h3>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Number: 17</strong></p>
+                    <p style="margin-top: 10px;">1 = A, 7 = G</p>
+                    <p style="margin-top: 10px; color: #d4af37;"><strong>Person:</strong> Alex Gallagher (or your favorite A-G person)</p>
+                    <p style="margin-top: 10px;"><strong>Action:</strong> Jumping on a trampoline</p>
+                    <p style="margin-top: 10px;"><strong>Memory image:</strong> I see Alex jumping super high on a trampoline!</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>👥 WE DO: Build Images Together</h3>
+                <p style="margin-bottom: 15px;">Let's create Dominic images for some pairs:</p>
+
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>25 = B-E</strong></p>
+                    <p style="margin-top: 10px; color: #aaa;">Who is a famous B-E person you know?</p>
+                    <input type="text" id="weDoName" placeholder="e.g., Beyonce">
+                    <p style="margin-top: 10px;"><strong>What action could they do?</strong></p>
+                    <input type="text" id="weDoAction" placeholder="e.g., singing, dancing">
+                    <button class="btn btn-primary" onclick="checkWeDo()" style="margin-top: 10px;">Check</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🧪 YOU DO: Create Your Own</h3>
+                <p style="margin-bottom: 15px;">Now YOU create a Dominic image for 38 (C-H):</p>
+
+                <p style="margin-bottom: 10px;"><strong>Famous C-H person:</strong></p>
+                <input type="text" id="youDoName" placeholder="Your C-H person">
+
+                <p style="margin-bottom: 10px;"><strong>Their action:</strong></p>
+                <input type="text" id="youDoAction" placeholder="Type your answer...">
+
+                <p style="margin-bottom: 10px;"><strong>Describe the vivid image:</strong></p>
+                <textarea id="youDoImage" placeholder="Tell the complete mental picture..."></textarea>
+                <button class="btn btn-primary" onclick="checkYouDo()">Submit My Dominic Image</button>
+                <div class="feedback-box" id="youDoFeedback"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(1)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(3)">Next: Elaboration →</button>
+            </div>
+        </div>
+
+        <!-- TAB 4: ELABORATION -->
+        <div class="content" id="tab3">
+            <h2>🔍 Dominic vs Major System</h2>
+
+            <div class="card">
+                <h3>📊 Head-to-Head Comparison</h3>
+                <div class="comparison-table">
+                    <div class="comparison-cell">
+                        <h4>🔐 Major System</h4>
+                        <ul style="margin-left: 15px;">
+                            <li>Uses consonant words</li>
+                            <li>Must create vowels</li>
+                            <li>More universal</li>
+                            <li>Words sometimes random</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-cell">
+                        <h4>👤 Dominic System</h4>
+                        <ul style="margin-left: 15px;">
+                            <li>Uses famous people</li>
+                            <li>Assigns actions</li>
+                            <li>More memorable</li>
+                            <li>Personal & emotional</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-section">
+                <h3>🎯 When to Use Each System</h3>
+                <p style="margin-bottom: 15px;"><strong>Use Major System when:</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>You need quick, flexible word creation</li>
+                    <li>The language isn't English</li>
+                    <li>You're just learning memory</li>
+                </ul>
+                <p style="margin-bottom: 15px;"><strong>Use Dominic System when:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>You want MAXIMUM memorability</li>
+                    <li>You have time to build a personal list</li>
+                    <li>You're competing in memory championships</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🎬 Building Your Personal Dominic List</h3>
+                <p style="margin-bottom: 15px;">Create images for your favorite number pairs (0-19):</p>
+                <div id="dominicListBuilder"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(2)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(4)">Next: Independent →</button>
+            </div>
+        </div>
+
+        <!-- TAB 5: INDEPENDENT PRACTICE -->
+        <div class="content" id="tab4">
+            <h2>💪 Independent Dominic Challenges</h2>
+
+            <div class="card">
+                <h3>🎮 Challenge 1: Convert Numbers to People</h3>
+                <p style="margin-bottom: 15px;">For each pair, write the letters and a famous person:</p>
+
+                <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; margin: 10px 0; border: 1px solid #d4af37;">
+                    <p><strong>51:</strong> <input type="text" id="ch1a" placeholder="Letters (A-E)"></p>
+                    <p><strong>Person:</strong> <input type="text" id="ch1p" placeholder="Famous person"></p>
+                </div>
+
+                <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; margin: 10px 0; border: 1px solid #d4af37;">
+                    <p><strong>74:</strong> <input type="text" id="ch2a" placeholder="Letters (G-D)"></p>
+                    <p><strong>Person:</strong> <input type="text" id="ch2p" placeholder="Famous person"></p>
+                </div>
+
+                <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; margin: 10px 0; border: 1px solid #d4af37;">
+                    <p><strong>93:</strong> <input type="text" id="ch3a" placeholder="Letters (N-C)"></p>
+                    <p><strong>Person:</strong> <input type="text" id="ch3p" placeholder="Famous person"></p>
+                </div>
+
+                <button class="btn btn-primary" onclick="checkConversion()">Check My Conversions</button>
+                <div class="feedback-box" id="conversionFeedback"></div>
+            </div>
+
+            <div class="card">
+                <h3>🎯 Challenge 2: Create Complete Dominic Images</h3>
+                <p style="margin-bottom: 15px;">Create full Dominic images (person + action) for 6-digit sequences:</p>
+
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p style="color: #d4af37; font-size: 1.2em; margin-bottom: 15px;"><strong>247593</strong></p>
+                    <p style="margin-bottom: 10px;">Image 1 (24):</p>
+                    <input type="text" id="img1" placeholder="Person - Action">
+                    <p style="margin-bottom: 10px;">Image 2 (75):</p>
+                    <input type="text" id="img2" placeholder="Person - Action">
+                    <p style="margin-bottom: 10px;">Image 3 (93):</p>
+                    <input type="text" id="img3" placeholder="Person - Action">
+                    <button class="btn btn-secondary" onclick="checkDominicChallenge()">Submit</button>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(3)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(5)">Next: Final Test →</button>
+            </div>
+        </div>
+
+        <!-- TAB 6: FINAL RETRIEVAL -->
+        <div class="content" id="tab5">
+            <h2>🏆 Dominic System Mastery Test</h2>
+
+            <div class="card">
+                <h3>📝 Letter Code Recall</h3>
+                <div style="display: grid; gap: 10px; margin: 20px 0;">
+                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong>What letters are 4 and 8?</strong></p>
+                        <input type="text" id="final1" placeholder="e.g., D-H">
+                    </div>
+                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong>What letters are 2 and 6?</strong></p>
+                        <input type="text" id="final2" placeholder="e.g., B-S">
+                    </div>
+                    <div style="background: #0f0f1e; padding: 12px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong>What letters are 0 and 9?</strong></p>
+                        <input type="text" id="final3" placeholder="e.g., O-N">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="checkFinalLetters()">Check Answers</button>
+                <div class="score-display" id="letterScore" style="display: none;"></div>
+            </div>
+
+            <div class="card">
+                <h3>🎬 Comprehensive Challenge: 8-Digit Dominic Encoding</h3>
+                <p style="margin-bottom: 15px;">Create 4 complete Dominic images for this 8-digit number:</p>
+                <div style="background: #0f0f1e; padding: 20px; border-radius: 8px; text-align: center; margin: 15px 0;">
+                    <p style="font-size: 1.4em; color: #d4af37; letter-spacing: 2px;">61527849</p>
+                </div>
+                <p style="margin-bottom: 15px;"><strong>Create one vivid image for each pair:</strong></p>
+                <textarea id="finalChallenge" placeholder="61: [person/action] | 52: [person/action] | 78: [person/action] | 49: [person/action]"></textarea>
+                <button class="btn btn-primary" onclick="checkFinalChallenge()">Submit Final Challenge</button>
+                <div class="feedback-box" id="finalChallengeFeedback"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(4)">← Back</button>
+                <button class="nav-btn next" disabled>Complete ✓</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dominicLetters = {
+            '0': 'O',
+            '1': 'A',
+            '2': 'B',
+            '3': 'C',
+            '4': 'D',
+            '5': 'E',
+            '6': 'S',
+            '7': 'G',
+            '8': 'H',
+            '9': 'N'
+        };
+
+        function showTab(index) {
+            const contents = document.querySelectorAll('.content');
+            const tabs = document.querySelectorAll('.tab');
+            contents.forEach(c => c.classList.remove('active'));
+            tabs.forEach(t => t.classList.remove('active'));
+            contents[index].classList.add('active');
+            tabs[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function initializeContent() {
+            // Build Dominic chart
+            const chart = document.getElementById('dominicChart');
+            for (let i = 0; i < 10; i++) {
+                const box = document.createElement('div');
+                box.className = 'dominic-box';
+                box.innerHTML = `<div class="pair">${i}</div><div class="letter">→ ${dominicLetters[i]}</div>`;
+                chart.appendChild(box);
+            }
+
+            // Build Dominic list builder
+            const builder = document.getElementById('dominicListBuilder');
+            for (let i = 0; i < 20; i++) {
+                const num = i.toString().padStart(2, '0');
+                const letters = dominicLetters[num[0]] + dominicLetters[num[1]];
+                const item = document.createElement('div');
+                item.style.background = '#0f0f1e';
+                item.style.padding = '12px';
+                item.style.borderRadius = '8px';
+                item.style.border = '1px solid #d4af37';
+                item.style.marginBottom = '10px';
+                item.innerHTML = `
+                    <p><strong>${num} (${letters}):</strong></p>
+                    <input type="text" placeholder="Person (${letters})" style="width: 48%; display: inline-block; margin-right: 2%;">
+                    <input type="text" placeholder="Action" style="width: 48%; display: inline-block;">
+                `;
+                builder.appendChild(item);
+            }
+        }
+
+        function checkMajorRecall() {
+            const feedback = document.getElementById('recallFeedback');
+            feedback.classList.add('show', 'correct');
+            feedback.innerHTML = '✓ Great! You remember the Major System foundation. Ready for Dominic!';
+        }
+
+        function checkWeDo() {
+            const feedback = document.getElementById('weDoFeedback');
+            const name = document.getElementById('weDoName').value;
+            const action = document.getElementById('weDoAction').value;
+            if (!feedback) {
+                const fb = document.createElement('div');
+                fb.id = 'weDoFeedback';
+                fb.className = 'feedback-box show correct';
+                fb.innerHTML = '✓ Excellent! You\'ve created a memorable Dominic image!';
+                document.querySelector('.card:nth-child(2)').appendChild(fb);
+            }
+        }
+
+        function checkYouDo() {
+            const name = document.getElementById('youDoName').value;
+            const action = document.getElementById('youDoAction').value;
+            const image = document.getElementById('youDoImage').value;
+            const feedback = document.getElementById('youDoFeedback');
+            feedback.classList.add('show');
+            if (name.length > 2 && action.length > 2 && image.length > 20) {
+                feedback.classList.add('correct');
+                feedback.innerHTML = '✓ Perfect! You\'ve mastered creating vivid Dominic images!';
+            } else {
+                feedback.classList.add('incorrect');
+                feedback.innerHTML = 'Add more detail to your person, action, and image!';
+            }
+        }
+
+        function checkConversion() {
+            const feedback = document.getElementById('conversionFeedback');
+            feedback.classList.add('show', 'correct');
+            feedback.innerHTML = '✓ Great number-to-person conversions! You\'re building your Dominic skills!';
+        }
+
+        function checkDominicChallenge() {
+            alert('Excellent! You\'ve created a complete 6-digit Dominic sequence. Keep building your image list!');
+        }
+
+        function checkFinalLetters() {
+            const answers = {
+                final1: 'D-H',
+                final2: 'B-S',
+                final3: 'O-N'
+            };
+            let correct = 0;
+            for (let [id, answer] of Object.entries(answers)) {
+                const val = document.getElementById(id).value.toUpperCase().replace(/\s/g, '-');
+                if (val === answer || val === answer.replace(/-/g, '')) {
+                    correct++;
+                }
+            }
+            const score = document.getElementById('letterScore');
+            score.style.display = 'block';
+            score.innerHTML = `Score: ${correct}/3 - ${correct === 3 ? 'Perfect! Dominic Letters Mastered!' : 'Good work!'}`;
+        }
+
+        function checkFinalChallenge() {
+            const challenge = document.getElementById('finalChallenge').value;
+            const feedback = document.getElementById('finalChallengeFeedback');
+            feedback.classList.add('show');
+            if (challenge.trim().length > 50 && challenge.includes('|')) {
+                feedback.classList.add('correct');
+                feedback.innerHTML = '✓ Excellent! You\'ve mastered the Dominic System! Ready for PAO next!';
+            } else {
+                feedback.classList.add('incorrect');
+                feedback.innerHTML = 'Create more detailed people-action pairs for each number pair!';
+            }
+        }
+
+        window.addEventListener('load', initializeContent);
+    </script>
+</body>
+</html>

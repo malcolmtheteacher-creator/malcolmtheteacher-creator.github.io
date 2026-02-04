@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Lesson 29: Building Your Practice System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #0f0f1e;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(212,175,55,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #1a1a2e;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 1.8em; margin-bottom: 10px; }
+        .level-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        .tabs {
+            display: flex;
+            background: #16213e;
+            overflow-x: auto;
+            border-bottom: 2px solid #d4af37;
+        }
+        .tab {
+            flex: 1;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #aaa;
+            transition: all 0.3s;
+            white-space: nowrap;
+            min-width: 120px;
+        }
+        .tab:hover { background: #1a2744; }
+        .tab.active {
+            background: #d4af37;
+            color: #1a1a2e;
+            border-bottom: 3px solid #d4af37;
+        }
+        .content { padding: 30px; display: none; color: #e0e0e0; }
+        .content.active { display: block; }
+        .content h2 { color: #d4af37; margin-bottom: 20px; }
+        .card {
+            background: #1a2744;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #d4af37;
+        }
+        .card h3 { color: #d4af37; margin-bottom: 10px; }
+        .card p { line-height: 1.6; margin: 10px 0; }
+        .button {
+            background: #d4af37;
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+        .button:hover {
+            background: #aa8c2c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.4);
+        }
+        .interactive-section {
+            background: #1a2744;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #d4af37;
+        }
+        .interactive-section h3 { color: #d4af37; margin-bottom: 15px; }
+        .input-field {
+            width: 100%;
+            background: #0f0f1e;
+            border: 1px solid #d4af37;
+            border-radius: 5px;
+            padding: 10px;
+            color: #e0e0e0;
+            margin: 10px 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-box {
+            background: #1a2744;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #d4af37;
+            text-align: center;
+        }
+        .stat-box h3 { color: #d4af37; font-size: 0.9em; margin-bottom: 10px; }
+        .stat-value { font-size: 2em; color: #51cf66; font-weight: bold; }
+        .schedule-grid {
+            background: #1a2744;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #d4af37;
+            margin: 15px 0;
+        }
+        .schedule-header {
+            background: #d4af37;
+            color: #1a1a2e;
+            padding: 15px;
+            font-weight: bold;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        .schedule-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #16213e;
+        }
+        .schedule-row:last-child { border-bottom: none; }
+        .schedule-row input {
+            background: #0f0f1e;
+            border: 1px solid #d4af37;
+            border-radius: 5px;
+            padding: 8px;
+            color: #e0e0e0;
+        }
+        .week-view {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .day-cell {
+            background: #1a2744;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .day-cell h3 { color: #d4af37; font-size: 0.95em; margin-bottom: 10px; }
+        .day-cell p { font-size: 0.85em; color: #aaa; }
+        .day-cell.completed {
+            background: #1a2744;
+            border-color: #51cf66;
+        }
+        .day-cell.completed p { color: #51cf66; }
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #16213e;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid #d4af37;
+            margin: 15px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #aa8c2c);
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a2e;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        .timeline-item {
+            margin-bottom: 20px;
+            padding-left: 40px;
+            position: relative;
+        }
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: #d4af37;
+            border-radius: 50%;
+            border: 2px solid #0f0f1e;
+        }
+        .timeline-item:after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 25px;
+            width: 2px;
+            height: 30px;
+            background: #d4af37;
+        }
+        .timeline-item:last-child:after {
+            display: none;
+        }
+        .routine-block {
+            background: #0f0f1e;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .routine-block h4 { color: #d4af37; margin-bottom: 8px; }
+        .routine-block p { font-size: 0.9em; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LESSON 29: Building Your Practice System</h1>
+            <span class="level-badge">Mastery Level</span>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab(event, 'retrieval')">Retrieval</button>
+            <button class="tab" onclick="switchTab(event, 'content')">New Content</button>
+            <button class="tab" onclick="switchTab(event, 'guided')">Guided Practice</button>
+            <button class="tab" onclick="switchTab(event, 'elaboration')">Elaboration</button>
+            <button class="tab" onclick="switchTab(event, 'independent')">Independent</button>
+            <button class="tab" onclick="switchTab(event, 'final')">Final Retrieval</button>
+        </div>
+
+        <div id="retrieval" class="content active">
+            <h2>Retrieval: Consolidating Memory Mastery</h2>
+            <p>Review the core principles before building your sustainable practice system.</p>
+
+            <div class="interactive-section">
+                <h3>Key Principle Recall</h3>
+
+                <div class="card">
+                    <p><strong>1. What is the Spacing Effect?</strong></p>
+                    <p id="qa1" style="color: #999; display: none; margin-top: 10px;">Spacing effect: Learning is enhanced when study sessions are separated by increasing time intervals rather than massed practice.</p>
+                    <button class="button" onclick="toggleAns('qa1')">Reveal</button>
+                </div>
+
+                <div class="card">
+                    <p><strong>2. What is Active Recall?</strong></p>
+                    <p id="qa2" style="color: #999; display: none; margin-top: 10px;">Active recall: Retrieving information from memory without looking at the source material strengthens memory pathways.</p>
+                    <button class="button" onclick="toggleAns('qa2')">Reveal</button>
+                </div>
+
+                <div class="card">
+                    <p><strong>3. How does consistency improve memory?</strong></p>
+                    <p id="qa3" style="color: #999; display: none; margin-top: 10px;">Regular practice rewires neural pathways. Consistency builds automaticity and improves long-term retention.</p>
+                    <button class="button" onclick="toggleAns('qa3')">Reveal</button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h3>Knowledge Level</h3>
+                    <div class="stat-value">Expert</div>
+                </div>
+                <div class="stat-box">
+                    <h3>Ready to Systematize</h3>
+                    <div class="stat-value">Yes</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="content" class="content">
+            <h2>New Content: The Science of Sustainable Practice</h2>
+
+            <div class="card">
+                <h3>Spaced Repetition Schedule Design</h3>
+                <p><strong>The Ebbinghaus Forgetting Curve:</strong> We forget most information rapidly after learning. Strategic spacing fights this:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>First review:</strong> 1 day after learning</li>
+                    <li><strong>Second review:</strong> 3 days after first review</li>
+                    <li><strong>Third review:</strong> 1 week after second review</li>
+                    <li><strong>Fourth review:</strong> 1 month after third review</li>
+                    <li><strong>Maintenance:</strong> Every 3-6 months thereafter</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Daily Routine Architecture</h3>
+                <p><strong>Optimal practice session structure:</strong></p>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                    <p><strong>Warm-up (5 min):</strong> Quick drill on familiar material</p>
+                    <p style="margin-top: 10px;"><strong>Review (10 min):</strong> Active recall on previously learned items</p>
+                    <p style="margin-top: 10px;"><strong>New Learning (20 min):</strong> Introduce new techniques or material</p>
+                    <p style="margin-top: 10px;"><strong>Application (10 min):</strong> Practice techniques on fresh challenges</p>
+                    <p style="margin-top: 10px;"><strong>Reflection (5 min):</strong> Journal progress and insights</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Maintenance Calendar Strategy</h3>
+                <p>Different memory items need different refresh schedules:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Weekly:</strong> Fast refresher drills (10-15 min)</li>
+                    <li><strong>Monthly:</strong> Comprehensive review and new challenges</li>
+                    <li><strong>Quarterly:</strong> Assessment and goal adjustment</li>
+                    <li><strong>Annually:</strong> Complete system evaluation and planning</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Long-Term System Planning</h3>
+                <p>Sustainable mastery requires thinking in months and years:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Months 1-3:</strong> Foundation building with consistent daily practice</li>
+                    <li><strong>Months 4-6:</strong> Technique specialization based on interests</li>
+                    <li><strong>Months 7-12:</strong> Competitive participation or advanced applications</li>
+                    <li><strong>Year 2+:</strong> Mastery maintenance and teaching others</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="guided" class="content">
+            <h2>Guided Practice: Design Your Spaced Repetition Schedule</h2>
+
+            <div class="interactive-section">
+                <h3>Step 1: Define Your Learning Materials</h3>
+                <p style="margin-bottom: 15px;">What material types do you want to memorize?</p>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: flex; align-items: center; margin: 10px 0; cursor: pointer;">
+                        <input type="checkbox" id="mat1" checked style="margin-right: 10px;"> Cards and Number Systems
+                    </label>
+                    <label style="display: flex; align-items: center; margin: 10px 0; cursor: pointer;">
+                        <input type="checkbox" id="mat2" checked style="margin-right: 10px;"> Names and Faces
+                    </label>
+                    <label style="display: flex; align-items: center; margin: 10px 0; cursor: pointer;">
+                        <input type="checkbox" id="mat3" style="margin-right: 10px;"> Languages and Vocabulary
+                    </label>
+                    <label style="display: flex; align-items: center; margin: 10px 0; cursor: pointer;">
+                        <input type="checkbox" id="mat4" style="margin-right: 10px;"> Academic Material
+                    </label>
+                </div>
+            </div>
+
+            <div class="interactive-section">
+                <h3>Step 2: Create Your Spaced Repetition Schedule</h3>
+                <p style="margin-bottom: 15px;">Define when you'll review each category:</p>
+
+                <div class="schedule-grid">
+                    <div class="schedule-header">
+                        <div>Material Type</div>
+                        <div>Review Interval</div>
+                        <div>Duration</div>
+                    </div>
+                    <div class="schedule-row">
+                        <div>First Review</div>
+                        <input type="text" placeholder="e.g., Next Day" id="rev1">
+                        <input type="text" placeholder="e.g., 15 min" id="dur1">
+                    </div>
+                    <div class="schedule-row">
+                        <div>Second Review</div>
+                        <input type="text" placeholder="e.g., 3 Days Later" id="rev2">
+                        <input type="text" placeholder="e.g., 15 min" id="dur2">
+                    </div>
+                    <div class="schedule-row">
+                        <div>Third Review</div>
+                        <input type="text" placeholder="e.g., 1 Week Later" id="rev3">
+                        <input type="text" placeholder="e.g., 20 min" id="dur3">
+                    </div>
+                    <div class="schedule-row">
+                        <div>Maintenance</div>
+                        <input type="text" placeholder="e.g., Monthly" id="rev4">
+                        <input type="text" placeholder="e.g., 10 min" id="dur4">
+                    </div>
+                </div>
+
+                <button class="button" onclick="generateSchedule()" style="margin-top: 15px;">Generate Your Schedule</button>
+            </div>
+
+            <div id="scheduleResult" style="display: none; margin-top: 20px;">
+                <div class="interactive-section">
+                    <h3>Your Personalized Spaced Repetition Schedule</h3>
+                    <div id="scheduleContent" style="color: #51cf66;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="elaboration" class="content">
+            <h2>Elaboration: Daily Routine Builder</h2>
+
+            <div class="card">
+                <h3>Design Your Ideal Memory Practice Routine</h3>
+                <p>Create a structured daily routine that fits your lifestyle while maximizing learning efficiency.</p>
+            </div>
+
+            <div class="interactive-section">
+                <h3>Your Daily Practice Routine</h3>
+
+                <div class="routine-block">
+                    <h4>WARM-UP (5 minutes)</h4>
+                    <input type="text" class="input-field" id="warmup" placeholder="e.g., Review 10 familiar cards or names">
+                    <p style="font-size: 0.85em; color: #aaa; margin-top: 10px;">Quick activation to prime your brain</p>
+                </div>
+
+                <div class="routine-block">
+                    <h4>REVIEW (10 minutes)</h4>
+                    <input type="text" class="input-field" id="review" placeholder="e.g., Active recall on cards from 3 days ago">
+                    <p style="font-size: 0.85em; color: #aaa; margin-top: 10px;">Strengthen previous learning</p>
+                </div>
+
+                <div class="routine-block">
+                    <h4>NEW LEARNING (20 minutes)</h4>
+                    <input type="text" class="input-field" id="newlearn" placeholder="e.g., Learn new palace or technique">
+                    <p style="font-size: 0.85em; color: #aaa; margin-top: 10px;">Introduce new material or advance current skills</p>
+                </div>
+
+                <div class="routine-block">
+                    <h4>APPLICATION (10 minutes)</h4>
+                    <input type="text" class="input-field" id="application" placeholder="e.g., Practice new technique on fresh challenge">
+                    <p style="font-size: 0.85em; color: #aaa; margin-top: 10px;">Apply techniques to real-world scenarios</p>
+                </div>
+
+                <div class="routine-block">
+                    <h4>REFLECTION (5 minutes)</h4>
+                    <input type="text" class="input-field" id="reflection" placeholder="e.g., Journal: What worked? What to improve?">
+                    <p style="font-size: 0.85em; color: #aaa; margin-top: 10px;">Meta-learning and progress tracking</p>
+                </div>
+
+                <button class="button" onclick="saveRoutine()" style="margin-top: 20px;">Save Routine</button>
+            </div>
+
+            <div id="routineDisplay" style="display: none; margin-top: 20px;">
+                <div class="interactive-section">
+                    <h3>Your Daily Routine Timeline</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4 style="color: #d4af37;">8:00 AM - Warm-up (5 min)</h4>
+                            <p id="warmupDisplay"></p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 style="color: #d4af37;">8:05 AM - Review (10 min)</h4>
+                            <p id="reviewDisplay"></p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 style="color: #d4af37;">8:15 AM - New Learning (20 min)</h4>
+                            <p id="newlearnDisplay"></p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 style="color: #d4af37;">8:35 AM - Application (10 min)</h4>
+                            <p id="applicationDisplay"></p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 style="color: #d4af37;">8:45 AM - Reflection (5 min)</h4>
+                            <p id="reflectionDisplay"></p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; background: #0f0f1e; padding: 15px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong style="color: #d4af37;">Total Daily Time Commitment: 50 minutes</strong></p>
+                        <p style="margin-top: 10px; color: #aaa;">Invest 50 minutes daily, build lifetime memory mastery.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="independent" class="content">
+            <h2>Independent Practice: Weekly Maintenance Calendar</h2>
+
+            <div class="card">
+                <h3>Plan Your Sustainable Weekly Schedule</h3>
+                <p>Create a maintenance calendar balancing daily practice with weekly deep work and monthly assessments.</p>
+            </div>
+
+            <div class="interactive-section">
+                <h3>Your Weekly Maintenance Plan</h3>
+
+                <p style="margin-bottom: 15px; font-weight: bold;">Daily: 50-minute routine</p>
+                <p style="margin-bottom: 15px;">Weekly deep work and assessments:</p>
+
+                <div class="week-view">
+                    <div class="day-cell">
+                        <h3>Monday</h3>
+                        <input type="text" class="input-field" placeholder="Activity" style="background: #0f0f1e; border: 1px solid #d4af37; padding: 8px; margin: 5px 0;">
+                    </div>
+                    <div class="day-cell">
+                        <h3>Tuesday</h3>
+                        <input type="text" class="input-field" placeholder="Activity" style="background: #0f0f1e; border: 1px solid #d4af37; padding: 8px; margin: 5px 0;">
+                    </div>
+                    <div class="day-cell">
+                        <h3>Wednesday</h3>
+                        <input type="text" class="input-field" placeholder="Activity" style="background: #0f0f1e; border: 1px solid #d4af37; padding: 8px; margin: 5px 0;">
+                    </div>
+                    <div class="day-cell">
+                        <h3>Thursday</h3>
+                        <input type="text" class="input-field" placeholder="Activity" style="background: #0f0f1e; border: 1px solid #d4af37; padding: 8px; margin: 5px 0;">
+                    </div>
+                    <div class="day-cell">
+                        <h3>Friday</h3>
+                        <input type="text" class="input-field" placeholder="Activity" style="background: #0f0f1e; border: 1px solid #d4af37; padding: 8px; margin: 5px 0;">
+                    </div>
+                    <div class="day-cell">
+                        <h3>Saturday</h3>
+                        <input type="text" class="input-field" placeholder="Activity" style="background: #0f0f1e; border: 1px solid #d4af37; padding: 8px; margin: 5px 0;">
+                    </div>
+                    <div class="day-cell">
+                        <h3>Sunday</h3>
+                        <input type="text" class="input-field" placeholder="Activity" style="background: #0f0f1e; border: 1px solid #d4af37; padding: 8px; margin: 5px 0;">
+                    </div>
+                </div>
+
+                <button class="button" onclick="createWeeklyPlan()" style="margin-top: 20px;">Finalize Weekly Plan</button>
+            </div>
+
+            <div class="interactive-section" style="margin-top: 20px;">
+                <h3>Monthly Maintenance Checklist</h3>
+
+                <label style="display: flex; align-items: center; margin: 10px 0;">
+                    <input type="checkbox" style="margin-right: 10px;"> Complete 4 weekly deep work sessions
+                </label>
+                <label style="display: flex; align-items: center; margin: 10px 0;">
+                    <input type="checkbox" style="margin-right: 10px;"> Maintain daily 50-minute routine
+                </label>
+                <label style="display: flex; align-items: center; margin: 10px 0;">
+                    <input type="checkbox" style="margin-right: 10px;"> Review and update spaced repetition schedule
+                </label>
+                <label style="display: flex; align-items: center; margin: 10px 0;">
+                    <input type="checkbox" style="margin-right: 10px;"> Attempt one competitive-style challenge
+                </label>
+                <label style="display: flex; align-items: center; margin: 10px 0;">
+                    <input type="checkbox" style="margin-right: 10px;"> Track personal records and progress
+                </label>
+                <label style="display: flex; align-items: center; margin: 10px 0;">
+                    <input type="checkbox" style="margin-right: 10px;"> Identify areas for improvement
+                </label>
+
+                <button class="button" onclick="savePlan()" style="margin-top: 15px;">Save Maintenance Plan</button>
+            </div>
+        </div>
+
+        <div id="final" class="content">
+            <h2>Final Retrieval: Your Complete Practice System</h2>
+
+            <div class="interactive-section">
+                <h3>System Mastery Assessment</h3>
+                <p style="margin-bottom: 15px;">Demonstrate your understanding of sustainable practice by building your complete system:</p>
+
+                <button class="button" onclick="startSystemAssessment()">Begin System Assessment</button>
+            </div>
+
+            <div id="assessmentMode" style="display: none; margin-top: 20px;">
+                <div class="interactive-section">
+                    <h3>Complete System Design Challenge</h3>
+
+                    <div class="card">
+                        <h3>Question 1: Your Spaced Repetition Schedule</h3>
+                        <p style="margin-bottom: 10px;">Design a 4-week spaced repetition schedule. Specify:</p>
+                        <textarea class="input-field" id="ansSchedule" placeholder="First review: Day 1
+Second review: Day 4
+Third review: Day 11
+Maintenance: Monthly
+..." style="height: 120px;"></textarea>
+                    </div>
+
+                    <div class="card">
+                        <h3>Question 2: Your Daily Routine</h3>
+                        <p style="margin-bottom: 10px;">Outline a 50-minute daily routine with timing and activities:</p>
+                        <textarea class="input-field" id="ansDailyRoutine" placeholder="Warm-up (5 min): ...
+Review (10 min): ...
+..." style="height: 120px;"></textarea>
+                    </div>
+
+                    <div class="card">
+                        <h3>Question 3: Your Long-Term Plan</h3>
+                        <p style="margin-bottom: 10px;">Design a 12-month progression for memory mastery:</p>
+                        <textarea class="input-field" id="ansLongterm" placeholder="Months 1-3: ...
+Months 4-6: ...
+..." style="height: 120px;"></textarea>
+                    </div>
+
+                    <button class="button" onclick="evaluateSystem()" style="margin-top: 20px;">Evaluate My System</button>
+                </div>
+
+                <div id="systemResults" style="display: none; margin-top: 20px;">
+                    <div class="interactive-section">
+                        <h3>System Assessment Results</h3>
+
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="systemScore" style="width: 0%;">0%</div>
+                        </div>
+
+                        <div id="systemFeedback" style="margin-top: 20px; color: #51cf66;"></div>
+
+                        <div style="margin-top: 20px; padding: 15px; background: #0f0f1e; border-radius: 8px; border: 1px solid #d4af37;">
+                            <h3 style="color: #d4af37; margin-bottom: 10px;">Lesson 29 Complete!</h3>
+                            <p>You have designed a sustainable, science-based memory practice system. This is the foundation for lifetime memory mastery.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(e, tabName) {
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(el => el.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(el => el.classList.remove('active'));
+            e.target.classList.add('active');
+        }
+
+        function toggleAns(id) {
+            const el = document.getElementById(id);
+            el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function generateSchedule() {
+            const schedule = `
+                <h4 style="color: #d4af37; margin-bottom: 15px;">Your Spaced Repetition Schedule</h4>
+                <p><strong>First Review:</strong> ${document.getElementById('rev1').value || 'Day 1'} - ${document.getElementById('dur1').value || '15 min'}</p>
+                <p style="margin-top: 10px;"><strong>Second Review:</strong> ${document.getElementById('rev2').value || 'Day 3'} - ${document.getElementById('dur2').value || '15 min'}</p>
+                <p style="margin-top: 10px;"><strong>Third Review:</strong> ${document.getElementById('rev3').value || 'Day 10'} - ${document.getElementById('dur3').value || '20 min'}</p>
+                <p style="margin-top: 10px;"><strong>Maintenance:</strong> ${document.getElementById('rev4').value || 'Monthly'} - ${document.getElementById('dur4').value || '10 min'}</p>
+                <p style="margin-top: 15px; color: #51cf66;"><strong>✓ Schedule created!</strong> Save this and stick to it for optimal results.</p>
+            `;
+            document.getElementById('scheduleContent').innerHTML = schedule;
+            document.getElementById('scheduleResult').style.display = 'block';
+        }
+
+        function saveRoutine() {
+            const warmup = document.getElementById('warmup').value || 'Review familiar material';
+            const review = document.getElementById('review').value || 'Active recall practice';
+            const newlearn = document.getElementById('newlearn').value || 'Learn new material';
+            const application = document.getElementById('application').value || 'Apply techniques';
+            const reflection = document.getElementById('reflection').value || 'Journal and reflect';
+
+            document.getElementById('warmupDisplay').textContent = warmup;
+            document.getElementById('reviewDisplay').textContent = review;
+            document.getElementById('newlearnDisplay').textContent = newlearn;
+            document.getElementById('applicationDisplay').textContent = application;
+            document.getElementById('reflectionDisplay').textContent = reflection;
+
+            document.getElementById('routineDisplay').style.display = 'block';
+        }
+
+        function createWeeklyPlan() {
+            alert('Weekly plan created! Print this and post it where you practice daily.');
+        }
+
+        function savePlan() {
+            alert('Maintenance plan saved! Review monthly for sustainability.');
+        }
+
+        function startSystemAssessment() {
+            document.getElementById('assessmentMode').style.display = 'block';
+        }
+
+        function evaluateSystem() {
+            const schedule = document.getElementById('ansSchedule').value.length;
+            const daily = document.getElementById('ansDailyRoutine').value.length;
+            const longterm = document.getElementById('ansLongterm').value.length;
+
+            let score = 0;
+            if (schedule > 50) score += 35;
+            if (daily > 50) score += 35;
+            if (longterm > 50) score += 30;
+
+            const scoreEl = document.getElementById('systemScore');
+            scoreEl.style.width = score + '%';
+            scoreEl.textContent = score + '%';
+
+            let feedback = '<p><strong>System Assessment Results:</strong></p>';
+            feedback += '<p style="margin-top: 10px;">✓ Spaced Repetition Schedule: ' + (schedule > 50 ? 'Excellent planning' : 'Needs more detail') + '</p>';
+            feedback += '<p style="margin-top: 10px;">✓ Daily Routine: ' + (daily > 50 ? 'Well structured' : 'Add more structure') + '</p>';
+            feedback += '<p style="margin-top: 10px;">✓ Long-Term Plan: ' + (longterm > 50 ? 'Comprehensive vision' : 'Develop further') + '</p>';
+
+            if (score >= 80) {
+                feedback += '<p style="margin-top: 15px; color: #51cf66; font-weight: bold;">Excellent! Your system is well-designed and sustainable.</p>';
+            } else if (score >= 60) {
+                feedback += '<p style="margin-top: 15px; color: #ffa500;">Good foundation. Add more specific details to make it actionable.</p>';
+            } else {
+                feedback += '<p style="margin-top: 15px; color: #aaa;">Build out more detail in each component for better execution.</p>';
+            }
+
+            feedback += '<p style="margin-top: 15px; color: #51cf66;"><strong>Next Step:</strong> Implement this system today. Consistency is the key to mastery.</p>';
+
+            document.getElementById('systemFeedback').innerHTML = feedback;
+            document.getElementById('systemResults').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

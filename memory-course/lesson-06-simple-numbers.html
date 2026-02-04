@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Lesson 6: Simple Number Systems</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #0f0f1e;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(212,175,55,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #1a1a2e;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 1.8em; margin-bottom: 10px; }
+        .level-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        .tabs {
+            display: flex;
+            background: #16213e;
+            overflow-x: auto;
+            border-bottom: 2px solid #d4af37;
+        }
+        .tab {
+            flex: 1;
+            padding: 15px 10px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #aaa;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .tab:hover { background: #1a2744; }
+        .tab.active {
+            background: #d4af37;
+            color: #1a1a2e;
+            border-bottom: 3px solid #d4af37;
+        }
+        .content { padding: 30px; display: none; color: #e0e0e0; }
+        .content.active { display: block; }
+        .content h2 { color: #d4af37; margin-bottom: 20px; }
+        .card {
+            background: #1a2744;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #d4af37;
+        }
+        .card h3 { color: #d4af37; margin-bottom: 10px; }
+        .card p { line-height: 1.6; }
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .number-box {
+            background: #0f0f1e;
+            border: 2px solid #d4af37;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .number-box:hover { background: #1a2744; transform: scale(1.05); }
+        .number-box .digit { font-size: 1.5em; font-weight: bold; color: #d4af37; }
+        .number-box .shape { font-size: 0.9em; color: #e0e0e0; margin-top: 8px; }
+        .interactive-section {
+            background: #1a2744;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #d4af37;
+        }
+        .interactive-section h3 { color: #d4af37; margin-bottom: 15px; }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: #d4af37;
+            color: #1a1a2e;
+        }
+        .btn-primary:hover { background: #e8c547; transform: translateY(-2px); }
+        .btn-secondary {
+            background: #2a3f5f;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+        }
+        .btn-secondary:hover { background: #1a2744; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            background: #0f0f1e;
+            color: #e0e0e0;
+            font-size: 1em;
+            margin: 10px 0;
+        }
+        textarea { min-height: 100px; resize: vertical; }
+        input:focus, textarea:focus { outline: none; border-color: #e8c547; }
+        .matching-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .match-item {
+            background: #0f0f1e;
+            padding: 15px;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .match-item:hover { background: #1a2744; }
+        .match-item.selected { background: #d4af37; color: #1a1a2e; }
+        .feedback-box {
+            background: #1a2744;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid #d4af37;
+            display: none;
+        }
+        .feedback-box.show { display: block; }
+        .feedback-box.correct { border-color: #51cf66; background: rgba(81, 207, 102, 0.1); }
+        .feedback-box.incorrect { border-color: #ff6b6b; background: rgba(255, 107, 107, 0.1); }
+        .timer-section {
+            text-align: center;
+            padding: 20px;
+            background: #1a2744;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #d4af37;
+        }
+        .timer-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #d4af37;
+            margin: 10px 0;
+        }
+        .score-display {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #1a1a2e;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #2a3f5f;
+        }
+        .nav-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .nav-btn.prev { background: #2a3f5f; color: #d4af37; }
+        .nav-btn.next { background: #d4af37; color: #1a1a2e; }
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        @media (max-width: 768px) {
+            .tab { padding: 12px 8px; font-size: 0.75em; }
+            .header h1 { font-size: 1.4em; }
+            .matching-section { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="level-badge">Memory Course - Lesson 6</span>
+            <h1>🔢 Simple Number Systems</h1>
+            <p>Number-Shape & Number-Rhyme Fundamentals</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab(0)">1. RETRIEVAL</button>
+            <button class="tab" onclick="showTab(1)">2. NEW CONTENT</button>
+            <button class="tab" onclick="showTab(2)">3. GUIDED PRACTICE</button>
+            <button class="tab" onclick="showTab(3)">4. ELABORATION</button>
+            <button class="tab" onclick="showTab(4)">5. INDEPENDENT</button>
+            <button class="tab" onclick="showTab(5)">6. FINAL RETRIEVAL</button>
+        </div>
+
+        <!-- TAB 1: RETRIEVAL -->
+        <div class="content active" id="tab0">
+            <h2>🔄 What Do You Remember About Numbers?</h2>
+            <p style="margin-bottom: 20px;">Before we learn number systems, let's see what you already know about remembering numbers.</p>
+
+            <div class="card">
+                <h3>🎯 Quick Recall Challenge</h3>
+                <p style="margin-bottom: 15px;">Try to remember this 10-digit number for 15 seconds, then write it down:</p>
+                <div style="background: #0f0f1e; padding: 20px; border-radius: 8px; text-align: center; margin: 15px 0;">
+                    <p style="font-size: 1.4em; letter-spacing: 3px; color: #d4af37;" id="recallNumber">3847291056</p>
+                </div>
+                <button class="btn btn-secondary" onclick="startRecallTimer()">Start 15-Second Timer</button>
+                <p id="timerText" style="color: #d4af37; margin-top: 10px; font-weight: bold;"></p>
+                <textarea id="recalledNumber" placeholder="Write the number here after the timer..." style="margin-top: 15px;"></textarea>
+                <button class="btn btn-primary" onclick="checkRecall()">Check My Answer</button>
+                <div class="feedback-box" id="recallFeedback"></div>
+            </div>
+
+            <div class="card">
+                <h3>💭 Reflection</h3>
+                <p style="margin-bottom: 15px;">How did you try to remember that number? Was it easy or hard?</p>
+                <textarea id="reflectionPrior" placeholder="Type your answer..."></textarea>
+                <button class="btn btn-primary" onclick="savePriorKnowledge()">Save My Thoughts</button>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" disabled>← Previous</button>
+                <button class="nav-btn next" onclick="showTab(1)">Next: Learn →</button>
+            </div>
+        </div>
+
+        <!-- TAB 2: NEW CONTENT -->
+        <div class="content" id="tab1">
+            <h2>📚 The Number-Shape System</h2>
+
+            <div class="card">
+                <h3>🎨 How It Works: Number-Shape</h3>
+                <p style="margin-bottom: 15px;">Convert each digit into an image based on its SHAPE. The key is creating vivid mental images!</p>
+                <div class="number-grid" id="shapeGrid"></div>
+            </div>
+
+            <div class="card">
+                <h3>🎵 The Number-Rhyme System</h3>
+                <p style="margin-bottom: 15px;">Convert each digit into a word that RHYMES with the number. This creates a rhythm in your memory!</p>
+                <div class="number-grid" id="rhymeGrid"></div>
+            </div>
+
+            <div class="interactive-section">
+                <h3>💡 KEY DIFFERENCES</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; border-left: 4px solid #d4af37;">
+                        <strong>Number-Shape:</strong>
+                        <ul style="margin-left: 15px; margin-top: 10px;">
+                            <li>Based on visual appearance</li>
+                            <li>Very memorable images</li>
+                            <li>Great for spatial learners</li>
+                        </ul>
+                    </div>
+                    <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; border-left: 4px solid #d4af37;">
+                        <strong>Number-Rhyme:</strong>
+                        <ul style="margin-left: 15px; margin-top: 10px;">
+                            <li>Based on sound/rhyming</li>
+                            <li>Easy to recall aloud</li>
+                            <li>Great for auditory learners</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(0)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(2)">Next: Practice →</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: GUIDED PRACTICE -->
+        <div class="content" id="tab2">
+            <h2>🎯 Let's Practice Together</h2>
+
+            <div class="card">
+                <h3>📖 PART 1: I DO (Watch Me First)</h3>
+                <p style="margin-bottom: 15px;">Let me show you how to encode a number:</p>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Number: 142</strong></p>
+                    <p style="margin-top: 10px;">Using <strong>Shape System:</strong></p>
+                    <p style="margin-top: 5px;">1 = Candle | 4 = Sailboat | 2 = Swan</p>
+                    <p style="margin-top: 10px; color: #d4af37;"><strong>I imagine:</strong> A lit CANDLE sitting in a SAILBOAT with a SWAN flying nearby!</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>👥 PART 2: WE DO (Together)</h3>
+                <p style="margin-bottom: 15px;">Let's match digits to their shapes together:</p>
+                <div id="matchingGame" class="matching-section"></div>
+                <button class="btn btn-primary" onclick="startMatchingGame()">Start Matching Game</button>
+                <div class="feedback-box" id="matchingFeedback"></div>
+            </div>
+
+            <div class="card">
+                <h3>🧪 PART 3: YOU DO (Your Turn)</h3>
+                <p style="margin-bottom: 15px;">Now encode this 4-digit number using the Shape system:</p>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p style="font-size: 1.4em; text-align: center; color: #d4af37; letter-spacing: 3px;">7392</p>
+                </div>
+                <p style="margin-bottom: 10px;"><strong>7=Cliff, 3=Heart, 9=Balloon, 2=Swan</strong></p>
+                <textarea id="yourStory" placeholder="Describe the vivid image you create for this number..."></textarea>
+                <button class="btn btn-primary" onclick="checkYourStory()">Submit My Image</button>
+                <div class="feedback-box" id="storyFeedback"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(1)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(3)">Next: Elaboration →</button>
+            </div>
+        </div>
+
+        <!-- TAB 4: ELABORATION -->
+        <div class="content" id="tab3">
+            <h2>🔍 Deeper Understanding</h2>
+
+            <div class="card">
+                <h3>🎯 Which System Should You Use?</h3>
+                <p style="margin-bottom: 15px;">Different situations call for different systems:</p>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Use Number-Shape When:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>You need a very vivid, memorable image</li>
+                        <li>You have time to create detailed pictures</li>
+                        <li>You're memorizing longer sequences</li>
+                    </ul>
+                </div>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Use Number-Rhyme When:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>You need quick, easy recall</li>
+                        <li>You like creating rhyming patterns</li>
+                        <li>You're practicing under time pressure</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="interactive-section">
+                <h3>📊 Create Your Own System</h3>
+                <p style="margin-bottom: 15px;">You can customize the shapes/rhymes! What works for YOU?</p>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Example customizations:</strong></p>
+                    <p style="margin-top: 10px; color: #aaa;">1 = Candle OR 1 = Pencil OR 1 = Stick</p>
+                    <p style="margin-top: 5px; color: #aaa;">2 = Swan OR 2 = Shoe OR 2 = Goose</p>
+                </div>
+                <textarea id="customSystem" placeholder="Type your answer..."></textarea>
+                <button class="btn btn-primary" onclick="saveCustomSystem()">Save My Custom System</button>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(2)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(4)">Next: Independent →</button>
+            </div>
+        </div>
+
+        <!-- TAB 5: INDEPENDENT PRACTICE -->
+        <div class="content" id="tab4">
+            <h2>💪 Independent Practice</h2>
+
+            <div class="card">
+                <h3>🎮 Interactive Encoding Challenge</h3>
+                <p style="margin-bottom: 15px;">Encode these phone numbers using either system:</p>
+
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Phone #1: 555-249-8316</strong></p>
+                    <p style="margin-top: 10px; color: #aaa;">5=Hook, 5=Hook, 5=Hook, 2=Swan, 4=Sailboat, 9=Balloon, 8=Snowman, 3=Heart, 1=Candle, 6=Elephant</p>
+                    <textarea id="phone1Story" placeholder="Tell me the story you create to remember this number..."></textarea>
+                    <button class="btn btn-secondary" onclick="checkPhoneStory('phone1Story')">Check My Story</button>
+                </div>
+
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <p><strong>Phone #2: 212-555-4039</strong></p>
+                    <p style="margin-top: 10px; color: #aaa;">Or use the Rhyme System: 2=Shoe, 1=Bun, 2=Shoe, 5=Hive, 5=Hive, 5=Hive, 4=Door, 0=Hero, 3=Tree, 9=Vine</p>
+                    <textarea id="phone2Story" placeholder="Write your response..."></textarea>
+                    <button class="btn btn-secondary" onclick="checkPhoneStory('phone2Story')">Check My Story</button>
+                </div>
+            </div>
+
+            <div class="interactive-section">
+                <h3>⏱️ Timed Speed Challenge</h3>
+                <p style="margin-bottom: 15px;">Can you encode this number in 30 seconds?</p>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; text-align: center; margin: 15px 0;">
+                    <p style="font-size: 1.4em; color: #d4af37; letter-spacing: 2px;" id="speedNumber">918472</p>
+                </div>
+                <button class="btn btn-secondary" onclick="startSpeedChallenge()">Start 30-Second Timer</button>
+                <p id="speedTimer" style="color: #d4af37; font-weight: bold; margin-top: 10px;"></p>
+                <textarea id="speedStory" placeholder="Type your answer..."></textarea>
+                <button class="btn btn-primary" onclick="checkSpeedChallenge()" style="margin-top: 10px;">Submit</button>
+                <div class="feedback-box" id="speedFeedback"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(3)">← Back</button>
+                <button class="nav-btn next" onclick="showTab(5)">Next: Final Test →</button>
+            </div>
+        </div>
+
+        <!-- TAB 6: FINAL RETRIEVAL -->
+        <div class="content" id="tab5">
+            <h2>🏆 Final Retrieval Test</h2>
+
+            <div class="card">
+                <h3>📝 Can You Remember These?</h3>
+                <p style="margin-bottom: 15px;">You learned these earlier. Can you recall what digit each shape/rhyme represents?</p>
+
+                <div style="display: grid; gap: 15px; margin: 20px 0;">
+                    <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong>What digit is HEART? (Shape System)</strong></p>
+                        <input type="text" id="q1" maxlength="1" placeholder="0-9">
+                        <span class="feedback-box" id="f1"></span>
+                    </div>
+                    <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong>What digit rhymes with HIVE? (Rhyme System)</strong></p>
+                        <input type="text" id="q2" maxlength="1" placeholder="0-9">
+                        <span class="feedback-box" id="f2"></span>
+                    </div>
+                    <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong>What digit is BALLOON? (Shape System)</strong></p>
+                        <input type="text" id="q3" maxlength="1" placeholder="0-9">
+                        <span class="feedback-box" id="f3"></span>
+                    </div>
+                    <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; border: 1px solid #d4af37;">
+                        <p><strong>What rhymes with DOOR? (Rhyme System)</strong></p>
+                        <input type="text" id="q4" maxlength="1" placeholder="0-9">
+                        <span class="feedback-box" id="f4"></span>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="checkFinalRetrieval()">Check All Answers</button>
+                <div class="score-display" id="finalScore" style="display: none; margin-top: 20px;"></div>
+            </div>
+
+            <div class="card">
+                <h3>🎯 Comprehensive Number Challenge</h3>
+                <p style="margin-bottom: 15px;">Encode this full 8-digit sequence using BOTH systems:</p>
+                <div style="background: #0f0f1e; padding: 15px; border-radius: 8px; text-align: center; margin: 15px 0;">
+                    <p style="font-size: 1.4em; color: #d4af37; letter-spacing: 3px;">49352816</p>
+                </div>
+                <p style="margin-bottom: 15px;"><strong>Using Shape System:</strong> 4=Sailboat, 9=Balloon, 3=Heart, 5=Hook, 2=Swan, 8=Snowman, 1=Candle, 6=Elephant</p>
+                <textarea id="finalChallenge" placeholder="Tell the complete story using the Shape system..."></textarea>
+                <button class="btn btn-secondary" onclick="checkFinalChallenge()">Submit Final Story</button>
+                <div class="feedback-box" id="finalChallengeFeedback"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="showTab(4)">← Back</button>
+                <button class="nav-btn next" disabled>Complete ✓</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const shapeSystem = {
+            '0': 'Egg',
+            '1': 'Candle',
+            '2': 'Swan',
+            '3': 'Heart',
+            '4': 'Sailboat',
+            '5': 'Hook',
+            '6': 'Elephant Trunk',
+            '7': 'Cliff',
+            '8': 'Snowman',
+            '9': 'Balloon'
+        };
+
+        const rhymeSystem = {
+            '0': 'Hero',
+            '1': 'Bun',
+            '2': 'Shoe',
+            '3': 'Tree',
+            '4': 'Door',
+            '5': 'Hive',
+            '6': 'Sticks',
+            '7': 'Heaven',
+            '8': 'Gate',
+            '9': 'Vine'
+        };
+
+        function showTab(index) {
+            const contents = document.querySelectorAll('.content');
+            const tabs = document.querySelectorAll('.tab');
+            contents.forEach(c => c.classList.remove('active'));
+            tabs.forEach(t => t.classList.remove('active'));
+            contents[index].classList.add('active');
+            tabs[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function initializeContent() {
+            // Build shape grid
+            const shapeGrid = document.getElementById('shapeGrid');
+            for (let i = 0; i < 10; i++) {
+                const box = document.createElement('div');
+                box.className = 'number-box';
+                box.innerHTML = `<div class="digit">${i}</div><div class="shape">${shapeSystem[i]}</div>`;
+                shapeGrid.appendChild(box);
+            }
+
+            // Build rhyme grid
+            const rhymeGrid = document.getElementById('rhymeGrid');
+            for (let i = 0; i < 10; i++) {
+                const box = document.createElement('div');
+                box.className = 'number-box';
+                box.innerHTML = `<div class="digit">${i}</div><div class="shape">${rhymeSystem[i]}</div>`;
+                rhymeGrid.appendChild(box);
+            }
+        }
+
+        function startRecallTimer() {
+            let seconds = 15;
+            const timerText = document.getElementById('timerText');
+            const btn = event.target;
+            btn.disabled = true;
+            timerText.textContent = `Time left: ${seconds}s`;
+
+            const interval = setInterval(() => {
+                seconds--;
+                timerText.textContent = `Time left: ${seconds}s`;
+                if (seconds === 0) {
+                    clearInterval(interval);
+                    timerText.textContent = 'Time\'s up! Write it down now.';
+                    btn.disabled = false;
+                }
+            }, 1000);
+        }
+
+        function checkRecall() {
+            const actual = document.getElementById('recallNumber').textContent;
+            const recalled = document.getElementById('recalledNumber').value;
+            const feedback = document.getElementById('recallFeedback');
+
+            let correct = 0;
+            for (let i = 0; i < Math.min(actual.length, recalled.length); i++) {
+                if (actual[i] === recalled[i]) correct++;
+            }
+
+            feedback.classList.add('show');
+            if (recalled === actual) {
+                feedback.classList.add('correct');
+                feedback.innerHTML = '✓ Perfect! You got them all!';
+            } else {
+                feedback.classList.remove('correct');
+                feedback.classList.add('incorrect');
+                feedback.innerHTML = `You got ${correct}/${actual.length} correct. The number was: ${actual}`;
+            }
+        }
+
+        function savePriorKnowledge() {
+            const reflection = document.getElementById('reflectionPrior').value;
+            alert('Great! Your reflection has been saved. Now let\'s learn how to remember better!');
+        }
+
+        function startMatchingGame() {
+            const shapes = ['Candle', 'Swan', 'Heart', 'Sailboat', 'Hook'];
+            const digits = [1, 2, 3, 4, 5];
+            const shuffled = [...digits].sort(() => Math.random() - 0.5);
+
+            const game = document.getElementById('matchingGame');
+            game.innerHTML = '';
+
+            for (let shape of shapes) {
+                const item = document.createElement('div');
+                item.className = 'match-item';
+                item.textContent = shape;
+                item.data = shape;
+                game.appendChild(item);
+            }
+
+            for (let digit of shuffled) {
+                const item = document.createElement('div');
+                item.className = 'match-item';
+                item.textContent = digit;
+                item.data = digit;
+                game.appendChild(item);
+            }
+        }
+
+        function checkYourStory() {
+            const story = document.getElementById('yourStory').value;
+            const feedback = document.getElementById('storyFeedback');
+            feedback.classList.add('show', 'correct');
+            feedback.innerHTML = '✓ Great job creating a vivid image! The more detailed and unusual your mental picture, the better you\'ll remember it.';
+        }
+
+        function saveCustomSystem() {
+            const custom = document.getElementById('customSystem').value;
+            alert('Perfect! Your personalized system has been saved. Using images that work for YOU is much more powerful!');
+        }
+
+        function checkPhoneStory(elemId) {
+            const story = document.getElementById(elemId).value;
+            if (story.trim().length > 10) {
+                alert('Excellent! You\'ve created a memorable image. The key is making it VIVID and UNUSUAL!');
+            } else {
+                alert('Tell me more! Describe the scene in detail - what colors, sounds, and actions do you see?');
+            }
+        }
+
+        function startSpeedChallenge() {
+            let seconds = 30;
+            const timer = document.getElementById('speedTimer');
+            const btn = event.target;
+            btn.disabled = true;
+            timer.textContent = `${seconds}s remaining`;
+
+            const interval = setInterval(() => {
+                seconds--;
+                timer.textContent = `${seconds}s remaining`;
+                if (seconds === 0) {
+                    clearInterval(interval);
+                    timer.textContent = 'Time\'s up! Submit your answer.';
+                    btn.disabled = false;
+                }
+            }, 1000);
+        }
+
+        function checkSpeedChallenge() {
+            const story = document.getElementById('speedStory').value;
+            const feedback = document.getElementById('speedFeedback');
+            feedback.classList.add('show');
+            if (story.trim().length > 20) {
+                feedback.classList.add('correct');
+                feedback.innerHTML = '✓ Excellent speed! You\'re developing the skill of rapid encoding.';
+            } else {
+                feedback.classList.remove('correct');
+                feedback.classList.add('incorrect');
+                feedback.innerHTML = 'Good start! With more practice, you\'ll encode even faster.';
+            }
+        }
+
+        function checkFinalRetrieval() {
+            const answers = {
+                q1: '3', // Heart
+                q2: '5', // Hive
+                q3: '9', // Balloon
+                q4: '4'  // Door
+            };
+
+            let score = 0;
+            for (let [id, correct] of Object.entries(answers)) {
+                const input = document.getElementById(id);
+                const feedback = document.getElementById('f' + id.charAt(1));
+                if (input.value === correct) {
+                    score++;
+                    feedback.classList.add('show', 'correct');
+                    feedback.textContent = '✓ Correct!';
+                } else {
+                    feedback.classList.add('show', 'incorrect');
+                    feedback.textContent = `✗ Incorrect. Answer: ${correct}`;
+                }
+            }
+
+            const scoreDisplay = document.getElementById('finalScore');
+            scoreDisplay.style.display = 'block';
+            scoreDisplay.textContent = `Score: ${score}/4 - ${score === 4 ? 'Perfect!' : 'Great practice!'}`;
+        }
+
+        function checkFinalChallenge() {
+            const story = document.getElementById('finalChallenge').value;
+            const feedback = document.getElementById('finalChallengeFeedback');
+            feedback.classList.add('show');
+            if (story.trim().length > 30) {
+                feedback.classList.add('correct');
+                feedback.innerHTML = '✓ Fantastic! You\'ve mastered creating vivid stories for numbers!';
+            } else {
+                feedback.classList.remove('correct');
+                feedback.classList.add('incorrect');
+                feedback.innerHTML = 'Add more vivid details to your story!';
+            }
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', initializeContent);
+    </script>
+</body>
+</html>

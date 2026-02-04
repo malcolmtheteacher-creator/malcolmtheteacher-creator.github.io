@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 22: Dates & Historical Events - The Art of Memory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+            color: #000;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .tab-container {
+            display: flex;
+            background: #1a1a1a;
+            border-bottom: 2px solid #d4af37;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px;
+            background: #2d2d2d;
+            border: none;
+            color: #d4af37;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            min-width: 140px;
+        }
+
+        .tab-button:hover {
+            background: #3d3d3d;
+            color: #ffd700;
+        }
+
+        .tab-button.active {
+            background: #d4af37;
+            color: #000;
+            border-bottom-color: #ffd700;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #ffd700;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #c0c0c0;
+        }
+
+        .content-box {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid #d4af37;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+
+        .challenge-box {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid #d4af37;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px 10px 0;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .button.secondary {
+            background: rgba(212, 175, 55, 0.3);
+            color: #d4af37;
+            border: 2px solid #d4af37;
+        }
+
+        .button.secondary:hover {
+            background: rgba(212, 175, 55, 0.5);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        th, td {
+            border: 2px solid #d4af37;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(212, 175, 55, 0.3);
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #d4af37 0%, #ffd700 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .timeline-content {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 3px solid #d4af37;
+            padding: 15px;
+            border-radius: 6px;
+            flex: 1;
+        }
+
+        .date-encoder {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #d4af37;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid #d4af37;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .card h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .tip-box {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid #ffd700;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .tip-box strong {
+            color: #ffd700;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #d4af37;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-family: 'Courier New', monospace;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #c0c0c0;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .tab-button {
+                font-size: 0.85em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Lesson 22: Dates & Historical Events</h1>
+            <p>Master year encoding and memorize historical timelines</p>
+        </div>
+
+        <div class="tab-container">
+            <button class="tab-button active" onclick="switchTab('retrieval')">Retrieval</button>
+            <button class="tab-button" onclick="switchTab('content')">New Content</button>
+            <button class="tab-button" onclick="switchTab('practice')">Guided Practice</button>
+            <button class="tab-button" onclick="switchTab('elaboration')">Elaboration</button>
+            <button class="tab-button" onclick="switchTab('independent')">Independent Practice</button>
+            <button class="tab-button" onclick="switchTab('final')">Final Retrieval</button>
+        </div>
+
+        <!-- RETRIEVAL TAB -->
+        <div id="retrieval" class="tab-content active">
+            <h2>Retrieval: Review Number Encoding</h2>
+
+            <h3>Quick Recall: Number Systems</h3>
+            <p>Before we tackle dates, let's review the number systems you've already mastered:</p>
+
+            <div class="challenge-box">
+                <p><strong>Q1: What is the Major System?</strong></p>
+                <button class="button secondary" onclick="toggleAnswer('q1')">Show Answer</button>
+                <p id="q1" style="display:none; margin-top:10px; color:#ffd700;">
+                    <strong>Answer:</strong> A consonant-based system that encodes numbers 0-9 with specific consonant sounds. 0=S/Z, 1=T/D, 2=N, 3=M, etc.
+                </p>
+
+                <p style="margin-top: 20px;"><strong>Q2: What does PAO stand for and what range does it cover?</strong></p>
+                <button class="button secondary" onclick="toggleAnswer('q2')">Show Answer</button>
+                <p id="q2" style="display:none; margin-top:10px; color:#ffd700;">
+                    <strong>Answer:</strong> Person-Action-Object system. It encodes 2-digit numbers (00-99) with a person, action, and object for each number.
+                </p>
+
+                <p style="margin-top: 20px;"><strong>Q3: How do you handle sequences of numbers in a memory palace?</strong></p>
+                <button class="button secondary" onclick="toggleAnswer('q3')">Show Answer</button>
+                <p id="q3" style="display:none; margin-top:10px; color:#ffd700;">
+                    <strong>Answer:</strong> Group them into pairs using PAO, then link the person-action-object to loci in your palace sequentially.
+                </p>
+            </div>
+
+            <div class="content-box">
+                <h3>Why Dates Matter</h3>
+                <p>Historical dates are fundamental to understanding history, yet they're one of the most forgotten pieces of information. With memory techniques, you can memorize:</p>
+                <ul>
+                    <li>Specific year dates (e.g., 1492)</li>
+                    <li>Historical event sequences</li>
+                    <li>Timelines and eras</li>
+                    <li>Personal important dates</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- NEW CONTENT TAB -->
+        <div id="content" class="tab-content">
+            <h2>Year Code Systems & Century Encoding</h2>
+
+            <h3>The Year Code System (4-Digit Numbers)</h3>
+            <p>Years are 4-digit numbers that can be encoded using your existing PAO system by breaking them into pairs:</p>
+
+            <div class="content-box">
+                <h4 style="color: #ffd700; margin-top: 0;">Example: 1492 (Columbus discovers America)</h4>
+                <p style="margin-top: 10px;">
+                    <strong>Step 1:</strong> Break into pairs: 14-92<br>
+                    <strong>Step 2:</strong> Use PAO for 14 = person/action (e.g., "Taylor Swift dancing")<br>
+                    <strong>Step 3:</strong> Use PAO for 92 = object (e.g., "on a ship")<br>
+                    <strong>Complete Image:</strong> Taylor Swift dancing on a ship
+                </p>
+            </div>
+
+            <h3>Year Encoding Reference Table</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Year Pair</th>
+                            <th>PAO Association (Example)</th>
+                            <th>Year Examples</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10-19</td>
+                            <td>Tiger Woods golfing</td>
+                            <td>1001, 1019, 1099</td>
+                        </tr>
+                        <tr>
+                            <td>20-29</td>
+                            <td>Obama speaking</td>
+                            <td>1220, 1729, 2029</td>
+                        </tr>
+                        <tr>
+                            <td>30-39</td>
+                            <td>Marilyn Monroe dancing</td>
+                            <td>1330, 1839, 2039</td>
+                        </tr>
+                        <tr>
+                            <td>40-49</td>
+                            <td>Rowan Atkinson acting</td>
+                            <td>1440, 1749, 2040</td>
+                        </tr>
+                        <tr>
+                            <td>50-59</td>
+                            <td>Leonardo da Vinci painting</td>
+                            <td>1550, 1850, 2050</td>
+                        </tr>
+                        <tr>
+                            <td>60-69</td>
+                            <td>Muhammad Ali boxing</td>
+                            <td>1660, 1960, 2060</td>
+                        </tr>
+                        <tr>
+                            <td>70-79</td>
+                            <td>Queen Elizabeth waving</td>
+                            <td>1770, 1979, 2070</td>
+                        </tr>
+                        <tr>
+                            <td>80-89</td>
+                            <td>Michael Jackson dancing</td>
+                            <td>1880, 1980, 2080</td>
+                        </tr>
+                        <tr>
+                            <td>90-99</td>
+                            <td>Albert Einstein thinking</td>
+                            <td>1990, 1999, 2090</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Century Encoding Strategy</h3>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>1000-1099: Middle Ages</h4>
+                    <p><strong>First digit: 10</strong> (pre-assigned person/action)</p>
+                    <p style="color: #ffd700;">Use castle/medieval themes in palace</p>
+                </div>
+
+                <div class="card">
+                    <h4>1100-1199: Medieval Period</h4>
+                    <p><strong>First digit: 11</strong> (pre-assigned person/action)</p>
+                    <p style="color: #ffd700;">Use knights/feudal imagery</p>
+                </div>
+
+                <div class="card">
+                    <h4>1500-1599: Renaissance</h4>
+                    <p><strong>First digit: 15</strong> (pre-assigned person/action)</p>
+                    <p style="color: #ffd700;">Use art/science imagery</p>
+                </div>
+
+                <div class="card">
+                    <h4>1700-1799: Enlightenment</h4>
+                    <p><strong>First digit: 17</strong> (pre-assigned person/action)</p>
+                    <p style="color: #ffd700;">Use philosophy/reason imagery</p>
+                </div>
+
+                <div class="card">
+                    <h4>1800-1899: Industrial Era</h4>
+                    <p><strong>First digit: 18</strong> (pre-assigned person/action)</p>
+                    <p style="color: #ffd700;">Use machinery/progress imagery</p>
+                </div>
+
+                <div class="card">
+                    <h4>1900-1999: Modern Era</h4>
+                    <p><strong>First digit: 19</strong> (pre-assigned person/action)</p>
+                    <p style="color: #ffd700;">Use contemporary imagery</p>
+                </div>
+            </div>
+
+            <h3>Historical Event Linking</h3>
+            <div class="content-box">
+                <p>To memorize a historical event with its date:</p>
+                <ol>
+                    <li><strong>Encode the year</strong> using PAO pairs (14-92 = "Taylor Swift dancing on ship")</li>
+                    <li><strong>Create a key image</strong> for the event (Columbus sailing/discovering)</li>
+                    <li><strong>Link in your palace:</strong> Place the year's PAO image interacting dramatically with the event image</li>
+                    <li><strong>Example:</strong> At your palace's entrance, Taylor Swift is dancing on a ship while pointing at Columbus discovering America</li>
+                </ol>
+            </div>
+
+            <div class="tip-box">
+                <strong>Pro Tip:</strong> Use a dedicated "History Palace" for historical events. Arrange loci chronologically so the palace itself teaches the timeline order.
+            </div>
+        </div>
+
+        <!-- GUIDED PRACTICE TAB -->
+        <div id="practice" class="tab-content">
+            <h2>Guided Year Encoding Practice</h2>
+
+            <h3>Year Encoding Drill</h3>
+            <p>Practice encoding these famous historical years:</p>
+
+            <div class="challenge-box">
+                <h4 style="color: #ffd700; margin-top: 0;">Exercise 1: Break into PAO Pairs</h4>
+
+                <div class="date-encoder">
+                    <p><strong>Year: 1066</strong> (Norman Conquest)</p>
+                    <p>Break into: <input type="text" id="year1" placeholder="00-00" style="width: 150px;"></p>
+                    <button class="button secondary" onclick="checkYearBreakdown('year1', '10-66')">Check</button>
+                    <p id="year1-result" style="margin-top: 10px;"></p>
+                </div>
+
+                <div class="date-encoder">
+                    <p><strong>Year: 1789</strong> (French Revolution)</p>
+                    <p>Break into: <input type="text" id="year2" placeholder="00-00" style="width: 150px;"></p>
+                    <button class="button secondary" onclick="checkYearBreakdown('year2', '17-89')">Check</button>
+                    <p id="year2-result" style="margin-top: 10px;"></p>
+                </div>
+
+                <div class="date-encoder">
+                    <p><strong>Year: 1945</strong> (End of WWII)</p>
+                    <p>Break into: <input type="text" id="year3" placeholder="00-00" style="width: 150px;"></p>
+                    <button class="button secondary" onclick="checkYearBreakdown('year3', '19-45')">Check</button>
+                    <p id="year3-result" style="margin-top: 10px;"></p>
+                </div>
+            </div>
+
+            <h3>Historical Timeline Challenge</h3>
+            <div class="challenge-box">
+                <p><strong>Memorize these events in order:</strong></p>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">1</div>
+                        <div class="timeline-content">
+                            <strong>1066:</strong> Norman Conquest of England
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2</div>
+                        <div class="timeline-content">
+                            <strong>1492:</strong> Columbus discovers America
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">3</div>
+                        <div class="timeline-content">
+                            <strong>1769:</strong> Industrial Revolution begins
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">4</div>
+                        <div class="timeline-content">
+                            <strong>1859:</strong> Darwin publishes Origin of Species
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker">5</div>
+                        <div class="timeline-content">
+                            <strong>1945:</strong> End of World War II
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="color: #ffd700;">Recall Test:</h4>
+                <p>After viewing these dates, answer:</p>
+                <p><strong>Q1: What year did Columbus discover America?</strong></p>
+                <input type="text" id="recall1" placeholder="Year">
+                <button class="button" onclick="checkRecall('recall1', '1492')">Check</button>
+                <p id="recall1-result" style="margin-top: 10px;"></p>
+
+                <p style="margin-top: 20px;"><strong>Q2: What event occurred in 1859?</strong></p>
+                <input type="text" id="recall2" placeholder="Event">
+                <button class="button" onclick="checkRecall('recall2', 'Darwin')">Check</button>
+                <p id="recall2-result" style="margin-top: 10px;"></p>
+            </div>
+        </div>
+
+        <!-- ELABORATION TAB -->
+        <div id="elaboration" class="tab-content">
+            <h2>Advanced Historical Encoding</h2>
+
+            <h3>Multi-Date Event Sequences</h3>
+            <p>Complex historical periods often have multiple key dates. Link them in sequence:</p>
+
+            <div class="content-box">
+                <h4 style="color: #ffd700; margin-top: 0;">Example: American Civil War</h4>
+                <ul>
+                    <li><strong>1861:</strong> Confederacy formed (PAO: 18-61)</li>
+                    <li><strong>1863:</strong> Emancipation Proclamation (PAO: 18-63)</li>
+                    <li><strong>1865:</strong> War ends (PAO: 18-65)</li>
+                </ul>
+                <p style="margin-top: 15px;">Create a palace with these years linked in sequence, showing cause and effect through vivid interactions.</p>
+            </div>
+
+            <h3>Century Hotspot System</h3>
+            <p>Create dedicated palace locations for major centuries:</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h4>13th Century Palace</h4>
+                    <p>Medieval theme</p>
+                    <p style="font-size: 0.9em; color: #d4af37;">Castles, knights, feudalism</p>
+                </div>
+
+                <div class="card">
+                    <h4>16th Century Palace</h4>
+                    <p>Renaissance theme</p>
+                    <p style="font-size: 0.9em; color: #d4af37;">Art, science, exploration</p>
+                </div>
+
+                <div class="card">
+                    <h4>18th Century Palace</h4>
+                    <p>Enlightenment theme</p>
+                    <p style="font-size: 0.9em; color: #d4af37;">Philosophy, revolution, reason</p>
+                </div>
+
+                <div class="card">
+                    <h4>20th Century Palace</h4>
+                    <p>Modern theme</p>
+                    <p style="font-size: 0.9em; color: #d4af37;">Technology, war, progress</p>
+                </div>
+            </div>
+
+            <h3>Category Method: Organizing by Theme</h3>
+            <div class="content-box">
+                <p>Instead of purely chronological ordering, group dates by historical category:</p>
+                <ul>
+                    <li><strong>Wars & Conflicts:</strong> Use a "battle palace" with battlefield imagery</li>
+                    <li><strong>Scientific Discoveries:</strong> Use a "laboratory palace" with science imagery</li>
+                    <li><strong>Cultural Events:</strong> Use an "arts palace" with artistic imagery</li>
+                    <li><strong>Political Changes:</strong> Use a "government palace" with authority imagery</li>
+                </ul>
+            </div>
+
+            <h3>Creating Your Year Encoding Table</h3>
+            <div class="challenge-box">
+                <p>Build your personalized year encoding system:</p>
+                <textarea placeholder="Write your response..." style="height: 200px;"></textarea>
+                <button class="button">Save My System</button>
+            </div>
+        </div>
+
+        <!-- INDEPENDENT PRACTICE TAB -->
+        <div id="independent" class="tab-content">
+            <h2>Independent Historical Challenges</h2>
+
+            <h3>Challenge 1: Memorize 10 Historical Dates</h3>
+            <div class="challenge-box">
+                <p><strong>Study these 10 historical events:</strong></p>
+                <ol style="color: #c0c0c0; margin-left: 20px;">
+                    <li>1215 - Magna Carta signed</li>
+                    <li>1453 - Fall of Constantinople</li>
+                    <li>1607 - Jamestown settled</li>
+                    <li>1776 - American Independence</li>
+                    <li>1848 - Communist Manifesto published</li>
+                    <li>1869 - Suez Canal opens</li>
+                    <li>1914 - WWI begins</li>
+                    <li>1945 - WWII ends</li>
+                    <li>1969 - Moon landing</li>
+                    <li>1989 - Berlin Wall falls</li>
+                </ol>
+
+                <h4 style="color: #ffd700; margin-top: 20px;">Recall Test (5 minute study time):</h4>
+                <p><strong>1. In what year did the American Declaration of Independence occur?</strong></p>
+                <input type="text" id="test1" placeholder="Year">
+                <button class="button" onclick="checkRecall('test1', '1776')">Check</button>
+                <p id="test1-result" style="margin-top: 10px;"></p>
+
+                <p style="margin-top: 20px;"><strong>2. What happened in 1969?</strong></p>
+                <input type="text" id="test2" placeholder="Event">
+                <button class="button" onclick="checkRecall('test2', 'Moon')">Check</button>
+                <p id="test2-result" style="margin-top: 10px;"></p>
+
+                <p style="margin-top: 20px;"><strong>3. In what year was the Suez Canal opened?</strong></p>
+                <input type="text" id="test3" placeholder="Year">
+                <button class="button" onclick="checkRecall('test3', '1869')">Check</button>
+                <p id="test3-result" style="margin-top: 10px;"></p>
+            </div>
+
+            <h3>Challenge 2: Create Your Own Timeline</h3>
+            <div class="challenge-box">
+                <p>Pick a historical period you're interested in and memorize 5-10 key dates from it:</p>
+                <textarea placeholder="Enter historical events and dates you want to memorize&#10;Format: YYYY - Event description" style="height: 150px;"></textarea>
+                <button class="button">Practice These Dates</button>
+            </div>
+
+            <h3>Challenge 3: Speed Date Recall</h3>
+            <div class="challenge-box">
+                <h4 style="color: #ffd700;">Given the event, name the year (30 second challenge):</h4>
+                <p><strong>French Revolution began:</strong> <input type="text" id="speed1" placeholder="Year" style="width: 100px;"></p>
+                <p><strong>Industrial Revolution started:</strong> <input type="text" id="speed2" placeholder="Year" style="width: 100px;"></p>
+                <p><strong>Einstein published Theory of Relativity:</strong> <input type="text" id="speed3" placeholder="Year" style="width: 100px;"></p>
+
+                <button class="button" onclick="checkSpeedRecall()">Submit Answers</button>
+            </div>
+        </div>
+
+        <!-- FINAL RETRIEVAL TAB -->
+        <div id="final" class="tab-content">
+            <h2>Final Retrieval & Mastery Assessment</h2>
+
+            <h3>Comprehensive Dates & Historical Events Quiz</h3>
+            <div class="challenge-box">
+                <p><strong>1. Explain the PAO pair system for encoding 4-digit years:</strong></p>
+                <textarea placeholder="Your explanation" style="height: 80px;"></textarea>
+                <button class="button secondary" onclick="toggleAnswer('ans1')">Show Answer</button>
+                <p id="ans1" style="display:none; margin-top:10px; color:#ffd700;">
+                    Break the year into two 2-digit pairs and use your PAO system for each pair to create a memorable image.
+                </p>
+
+                <p style="margin-top: 20px;"><strong>2. What is a century hotspot system and why is it useful?</strong></p>
+                <textarea placeholder="Your explanation" style="height: 80px;"></textarea>
+                <button class="button secondary" onclick="toggleAnswer('ans2')">Show Answer</button>
+                <p id="ans2" style="display:none; margin-top:10px; color:#ffd700;">
+                    Dedicated palace locations for major centuries with thematic imagery. It helps organize dates chronologically and provides context for remembering events.
+                </p>
+
+                <p style="margin-top: 20px;"><strong>3. List 5 major historical dates and their events:</strong></p>
+                <textarea placeholder="Your answer" style="height: 100px;"></textarea>
+                <button class="button secondary" onclick="toggleAnswer('ans3')">Show Answer</button>
+                <p id="ans3" style="display:none; margin-top:10px; color:#ffd700;">
+                    Any 5 from the lesson: 1215 (Magna Carta), 1492 (Columbus), 1776 (Independence), 1859 (Darwin), 1945 (WWII end), etc.
+                </p>
+            </div>
+
+            <h3>Mastery Checklist</h3>
+            <div class="content-box">
+                <p>Before moving to the next lesson, confirm you can:</p>
+                <ul>
+                    <li><input type="checkbox"> Break 4-digit years into PAO pairs</li>
+                    <li><input type="checkbox"> Encode years using your existing PAO system</li>
+                    <li><input type="checkbox"> Create century-specific palaces</li>
+                    <li><input type="checkbox"> Link historical events with their dates</li>
+                    <li><input type="checkbox"> Recall at least 10 historical dates accurately</li>
+                    <li><input type="checkbox"> Organize historical information chronologically</li>
+                    <li><input type="checkbox"> Create themed palaces for different historical periods</li>
+                </ul>
+            </div>
+
+            <h3>Key Takeaways</h3>
+            <div class="content-box">
+                <ol>
+                    <li><span class="highlight">Years are PAO pairs:</span> Break 4-digit years into two pairs for easy encoding</li>
+                    <li><span class="highlight">Century context matters:</span> Theme your palace to match the historical period</li>
+                    <li><span class="highlight">Events + dates = complete memory:</span> Link the year image to the event image</li>
+                    <li><span class="highlight">Palaces can be organized chronologically:</span> Use loci order to teach timeline</li>
+                    <li><span class="highlight">Thematic grouping aids recall:</span> Organize by event type (wars, discoveries, etc.)</li>
+                </ol>
+            </div>
+
+            <h3>Next Steps</h3>
+            <div class="content-box">
+                <ul>
+                    <li>Finalize your PAO system for decades (10-99)</li>
+                    <li>Create or designate 2-3 century-specific palaces</li>
+                    <li>Memorize 20+ historical dates from your areas of interest</li>
+                    <li>Practice mixing dates with other information types</li>
+                    <li>When ready, move to Lesson 23: The Ben System Introduction</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function toggleAnswer(id) {
+            const element = document.getElementById(id);
+            element.style.display = element.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function checkYearBreakdown(inputId, expected) {
+            const input = document.getElementById(inputId);
+            const result = document.getElementById(inputId + '-result');
+
+            if (input.value.trim() === expected) {
+                result.innerHTML = '<span style="color: #4ade80; font-weight: bold;">✓ Correct!</span>';
+            } else {
+                result.innerHTML = `<span style="color: #ff6b6b;">Incorrect. Expected: ${expected}</span>`;
+            }
+        }
+
+        function checkRecall(inputId, expected) {
+            const input = document.getElementById(inputId);
+            const result = document.getElementById(inputId + '-result');
+            const userAnswer = input.value.trim().toLowerCase();
+
+            if (userAnswer.includes(expected.toLowerCase())) {
+                result.innerHTML = '<span style="color: #4ade80; font-weight: bold;">✓ Correct!</span>';
+            } else {
+                result.innerHTML = `<span style="color: #ff6b6b;">Incorrect. Expected: ${expected}</span>`;
+            }
+        }
+
+        function checkSpeedRecall() {
+            const answers = {
+                'speed1': '1789',
+                'speed2': '1769',
+                'speed3': '1905'
+            };
+
+            let correct = 0;
+            for (const [id, expected] of Object.entries(answers)) {
+                const value = document.getElementById(id).value.trim();
+                if (value === expected) correct++;
+            }
+
+            alert(`You got ${correct}/3 correct!`);
+        }
+    </script>
+</body>
+</html>

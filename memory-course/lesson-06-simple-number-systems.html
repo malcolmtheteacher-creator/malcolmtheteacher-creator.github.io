@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 6: Simple Number Systems - Art of Memory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e8e8e8;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 2px solid #d4af37;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: #d4af37;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        header .subtitle {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+        }
+
+        .module-badge {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d76d 100%);
+            border-radius: 25px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            color: #a0a0a0;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            border-color: #d4af37;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d76d 100%);
+            color: #1a1a2e;
+            border-color: transparent;
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card h2 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .card h3 {
+            color: #f4d76d;
+            margin: 20px 0 15px 0;
+            font-size: 1.1rem;
+        }
+
+        .card p {
+            margin-bottom: 15px;
+            color: #d0d0d0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(244, 215, 109, 0.15) 100%);
+            border-left: 4px solid #d4af37;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+
+        .highlight-box h4 {
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        .number-system-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .number-card {
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .number-card:hover {
+            background: rgba(212, 175, 55, 0.2);
+            border-color: #d4af37;
+            transform: translateY(-5px);
+        }
+
+        .number-card.active {
+            background: rgba(212, 175, 55, 0.3);
+            border-color: #d4af37;
+        }
+
+        .number-label {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 8px;
+        }
+
+        .number-image {
+            font-size: 2.5rem;
+            margin: 10px 0;
+        }
+
+        .number-meaning {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+
+        .practice-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .input-field {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: #e8e8e8;
+            font-size: 1rem;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d76d 100%);
+            border: none;
+            border-radius: 8px;
+            color: #1a1a2e;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .result-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #10b981;
+        }
+
+        .result-box.error {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        .timer-display {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            color: #d4af37;
+            text-align: center;
+            margin: 20px 0;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .click-reveal {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px dashed rgba(212, 175, 55, 0.4);
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .click-reveal:hover {
+            background: rgba(212, 175, 55, 0.25);
+            border-color: #d4af37;
+        }
+
+        .click-reveal.revealed {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: #d4af37;
+            border-style: solid;
+        }
+
+        .hidden-content {
+            display: none;
+            color: #d0d0d0;
+            margin-top: 15px;
+        }
+
+        .hidden-content.visible {
+            display: block;
+        }
+
+        .comparison-table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .comparison-table th {
+            background: rgba(212, 175, 55, 0.1);
+            color: #d4af37;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .score-display {
+            font-size: 1.8rem;
+            color: #d4af37;
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 12px;
+        }
+
+        .reflection-box {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .reflection-box h4 {
+            color: #d4af37;
+            margin-bottom: 12px;
+        }
+
+        .reflection-textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: #e8e8e8;
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: vertical;
+        }
+
+        .reflection-textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-btn.prev {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #a0a0a0;
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d76d 100%);
+            border: none;
+            color: #1a1a2e;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .number-system-grid { grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); }
+            .tabs { gap: 6px; }
+            .tab-btn { padding: 10px 14px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Simple Number Systems</h1>
+            <p class="subtitle">Lesson 6 - Number Mastery Module</p>
+            <div class="module-badge">Art of Memory Course</div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="retrieval">1. Retrieval</button>
+            <button class="tab-btn" data-tab="new-content">2. New Content</button>
+            <button class="tab-btn" data-tab="guided-practice">3. Guided Practice</button>
+            <button class="tab-btn" data-tab="elaboration">4. Elaboration</button>
+            <button class="tab-btn" data-tab="independent">5. Independent Practice</button>
+            <button class="tab-btn" data-tab="final">6. Final Retrieval</button>
+        </div>
+
+        <!-- Tab 1: Retrieval -->
+        <div class="tab-content active" id="retrieval">
+            <div class="card">
+                <h2>Retrieval: What Do You Remember?</h2>
+                <p>Before we dive into simple number systems, let's recall what we've learned so far about memory techniques.</p>
+
+                <div class="practice-box">
+                    <h3>Quick Recall Challenge</h3>
+                    <p>Answer these questions from previous lessons without looking anything up:</p>
+                    <ol style="margin-left: 20px; margin-top: 15px;">
+                        <li style="margin-bottom: 12px;">What is the Method of Loci and how does it work?</li>
+                        <li style="margin-bottom: 12px;">What does "chunking" mean in memory practice?</li>
+                        <li style="margin-bottom: 12px;">Why do we use vivid, unusual images in memory systems?</li>
+                        <li style="margin-bottom: 12px;">Name one principle of the Memory Palace technique.</li>
+                    </ol>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Why This Matters</h4>
+                    <p>Retrieving previous knowledge strengthens neural pathways and helps you see how number systems build on what you already know. This is called "spaced retrieval practice" — one of the most powerful learning techniques.</p>
+                </div>
+
+                <div class="practice-box">
+                    <p style="margin-bottom: 15px;"><strong>Take 2 minutes:</strong> Write down 2-3 key insights you remember from previous lessons. Did any of them involve numbers?</p>
+                    <textarea class="reflection-textarea" id="retrievalNotes" placeholder="Type your answer..."></textarea>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <div></div>
+                <button class="nav-btn next" onclick="switchTab('new-content')">Continue to New Content →</button>
+            </div>
+        </div>
+
+        <!-- Tab 2: New Content -->
+        <div class="tab-content" id="new-content">
+            <div class="card">
+                <h2>New Content: Two Simple Number Systems</h2>
+                <p>We'll explore two beginner-friendly systems for encoding numbers into memorable images.</p>
+
+                <h3>System 1: NUMBER-SHAPE</h3>
+                <p>This system is based on how each digit LOOKS when written:</p>
+
+                <div class="number-system-grid">
+                    <div class="number-card" onclick="toggleReveal(this)">
+                        <div class="number-label">1</div>
+                        <div class="number-image">🕯️</div>
+                        <div class="number-meaning">CANDLE</div>
+                    </div>
+                    <div class="number-card" onclick="toggleReveal(this)">
+                        <div class="number-label">2</div>
+                        <div class="number-image">🦢</div>
+                        <div class="number-meaning">SWAN</div>
+                    </div>
+                    <div class="number-card" onclick="toggleReveal(this)">
+                        <div class="number-label">3</div>
+                        <div class="number-image">❤️</div>
+                        <div class="number-meaning">HEART/LIPS</div>
+                    </div>
+                    <div class="number-card" onclick="toggleReveal(this)">
+                        <div class="number-label">4</div>
+                        <div class="number-image">⛵</div>
+                        <div class="number-meaning">SAILBOAT</div>
+                    </div>
+                    <div class="number-card" onclick="toggleReveal(this)">
+                        <div class="number-label">5</div>
+                        <div class="number-image">🪝</div>
+                        <div class="number-meaning">HOOK</div>
+                    </div>
+                    <div class="number-card" onclick="toggleReveal(this)">
+                        <div class="number-label">6</div>
+                        <div class="number-image">🐘</div>
+                        <div class="number-meaning">ELEPHANT TRUNK</div>
+                    </div>
+                    <div class="number-card" onclick="toggleReveal(this)">
+                        <div class="number-label">7</div>
+                        <div class="number-image">🗻</div>
+                        <div class="number-meaning">CLIFF</div>
+                    </div>
+                    <div class="number-card" onclick="toggleReveal(this)">
+                        <div class="number-label">8</div>
+                        <div class="number-image">⛄</div>
+                        <div class="number-meaning">SNOWMAN</div>
+                    </div>
+                    <div class="number-card" onclick="toggleReveal(this)">
+                        <div class="number-label">9</div>
+                        <div class="number-image">🎈</div>
+                        <div class="number-meaning">BALLOON</div>
+                    </div>
+                    <div class="number-card" onclick="toggleReveal(this)">
+                        <div class="number-label">0</div>
+                        <div class="number-image">⚽</div>
+                        <div class="number-meaning">BALL</div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Example: Using Shape System</h4>
+                    <p><strong>Number 42:</strong> Combine sailboat (4) + swan (2). Imagine a swan steering a sailboat! The more vivid and unusual, the better it sticks.</p>
+                </div>
+
+                <h3>System 2: NUMBER-RHYME</h3>
+                <p>This system uses rhyming words to remember each digit:</p>
+
+                <table class="comparison-table">
+                    <tr>
+                        <th>Number</th>
+                        <th>Rhyme Word</th>
+                        <th>How to Remember</th>
+                    </tr>
+                    <tr>
+                        <td><strong>1</strong></td>
+                        <td>BUN</td>
+                        <td>Rhymes with "one"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2</strong></td>
+                        <td>SHOE</td>
+                        <td>Rhymes with "two"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3</strong></td>
+                        <td>TREE</td>
+                        <td>Rhymes with "three"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4</strong></td>
+                        <td>DOOR</td>
+                        <td>Rhymes with "four"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5</strong></td>
+                        <td>HIVE</td>
+                        <td>Rhymes with "five"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>6</strong></td>
+                        <td>STICKS</td>
+                        <td>Rhymes with "six"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>7</strong></td>
+                        <td>HEAVEN</td>
+                        <td>Rhymes with "seven"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>8</strong></td>
+                        <td>GATE</td>
+                        <td>Rhymes with "eight"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>9</strong></td>
+                        <td>VINE</td>
+                        <td>Rhymes with "nine"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>0</strong></td>
+                        <td>HERO</td>
+                        <td>Rhymes with "zero"</td>
+                    </tr>
+                </table>
+
+                <div class="highlight-box">
+                    <h4>Example: Using Rhyme System</h4>
+                    <p><strong>Number 73:</strong> Combine heaven (7) + tree (3). Imagine a giant tree growing in heaven! Who's sitting in it?</p>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="switchTab('retrieval')">← Back</button>
+                <button class="nav-btn next" onclick="switchTab('guided-practice')">To Guided Practice →</button>
+            </div>
+        </div>
+
+        <!-- Tab 3: Guided Practice -->
+        <div class="tab-content" id="guided-practice">
+            <div class="card">
+                <h2>Guided Practice: Building Images with Support</h2>
+                <p>Let's practice encoding numbers using both systems with scaffolding and hints.</p>
+
+                <div class="practice-box">
+                    <h3>Practice Set 1: NUMBER-SHAPE System</h3>
+                    <p>I'll give you a 2-digit number. Create a vivid image combining the two shapes.</p>
+
+                    <div style="margin-top: 20px;">
+                        <p><strong>Challenge 1:</strong> The number is <span style="color: #d4af37; font-size: 1.3rem; font-weight: 700;">25</span></p>
+                        <p style="color: #a0a0a0; font-size: 0.9rem; margin-top: 5px;">Hint: Swan + Hook</p>
+                        <textarea class="reflection-textarea" placeholder="Type your answer..."></textarea>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <p><strong>Challenge 2:</strong> The number is <span style="color: #d4af37; font-size: 1.3rem; font-weight: 700;">67</span></p>
+                        <p style="color: #a0a0a0; font-size: 0.9rem; margin-top: 5px;">Hint: Elephant Trunk + Cliff</p>
+                        <textarea class="reflection-textarea" placeholder="Type your answer..."></textarea>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <p><strong>Challenge 3:</strong> The number is <span style="color: #d4af37; font-size: 1.3rem; font-weight: 700;">84</span></p>
+                        <p style="color: #a0a0a0; font-size: 0.9rem; margin-top: 5px;">Hint: Snowman + Sailboat</p>
+                        <textarea class="reflection-textarea" placeholder="Get creative! How do snowman and sailboat interact?"></textarea>
+                    </div>
+                </div>
+
+                <div class="practice-box">
+                    <h3>Practice Set 2: NUMBER-RHYME System</h3>
+                    <p>Now try with the rhyming system. I'll give the number, you create the image.</p>
+
+                    <div style="margin-top: 20px;">
+                        <p><strong>Challenge 4:</strong> The number is <span style="color: #d4af37; font-size: 1.3rem; font-weight: 700;">39</span></p>
+                        <p style="color: #a0a0a0; font-size: 0.9rem; margin-top: 5px;">Hint: Tree + Vine</p>
+                        <textarea class="reflection-textarea" placeholder="Type your answer..."></textarea>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <p><strong>Challenge 5:</strong> The number is <span style="color: #d4af37; font-size: 1.3rem; font-weight: 700;">51</span></p>
+                        <p style="color: #a0a0a0; font-size: 0.9rem; margin-top: 5px;">Hint: Hive + Bun</p>
+                        <textarea class="reflection-textarea" placeholder="How do bees interact with the bun?"></textarea>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Key Guidance</h4>
+                    <p>The more UNUSUAL and VIVID your images, the better they stick. Think of absurd scenarios: animals doing human things, objects that are impossibly large or small, things interacting in impossible ways.</p>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="switchTab('new-content')">← Back</button>
+                <button class="nav-btn next" onclick="switchTab('elaboration')">To Elaboration →</button>
+            </div>
+        </div>
+
+        <!-- Tab 4: Elaboration -->
+        <div class="tab-content" id="elaboration">
+            <div class="card">
+                <h2>Elaboration: Why Does This Work?</h2>
+                <p>Understanding the science behind these systems makes them more powerful and easier to apply.</p>
+
+                <div class="highlight-box">
+                    <h4>Why Visual Encoding Sticks</h4>
+                    <p>Your brain is a visual processing machine. We remember images about 65,000 times better than words. By converting abstract numbers into concrete images, you're hijacking your brain's natural strength.</p>
+                </div>
+
+                <div class="practice-box">
+                    <h3>The Science Behind Shape & Rhyme</h3>
+                    <p><strong>Shape System:</strong> Works through visual similarity. The digit "1" literally looks like a candle. Your brain instantly creates that association.</p>
+                    <p style="margin-top: 15px;"><strong>Rhyme System:</strong> Works through phonetic memory. Your ears remember the rhyme, which then triggers the word, which triggers the number.</p>
+                    <p style="margin-top: 15px;"><strong>The Vivid Image Bridge:</strong> Both systems then use BIZARRE, EMOTIONAL, INTERACTIVE images to hook the numbers together. Your brain ignores boring information but can't forget the weird stuff.</p>
+                </div>
+
+                <h3>Comparing the Two Systems</h3>
+
+                <table class="comparison-table">
+                    <tr>
+                        <th>Quality</th>
+                        <th>Shape System</th>
+                        <th>Rhyme System</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Learning Curve</strong></td>
+                        <td>Very fast — visual recognition</td>
+                        <td>Fast — words you already know</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Speed of Encoding</strong></td>
+                        <td>Slightly slower (need to visualize)</td>
+                        <td>Slightly faster (automatic words)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Best for Long Sequences</strong></td>
+                        <td>Excellent — easy to chain images</td>
+                        <td>Good — but words pile up quickly</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memorability</strong></td>
+                        <td>Very high — visual is powerful</td>
+                        <td>High — familiar words help</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Personal Customization</strong></td>
+                        <td>Hard — visual is fixed</td>
+                        <td>Easy — use YOUR rhyme words</td>
+                    </tr>
+                </table>
+
+                <div class="reflection-box">
+                    <h4>Your Insight Question</h4>
+                    <p style="margin-bottom: 15px;">Think about how YOUR brain works. Are you more visually-oriented or more word-oriented?</p>
+                    <textarea class="reflection-textarea" id="elaborationNotes" placeholder="Which system resonates more with YOU and why?"></textarea>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="switchTab('guided-practice')">← Back</button>
+                <button class="nav-btn next" onclick="switchTab('independent')">To Independent Practice →</button>
+            </div>
+        </div>
+
+        <!-- Tab 5: Independent Practice -->
+        <div class="tab-content" id="independent">
+            <div class="card">
+                <h2>Independent Practice: Full Encoding Challenge</h2>
+                <p>Now you're on your own. Pick a system and memorize a 10-digit challenge number.</p>
+
+                <div class="practice-box">
+                    <h3>Your Memorization Challenge</h3>
+                    <p style="margin-bottom: 15px;">You'll memorize a 10-digit number using your chosen system. Here's how:</p>
+
+                    <div style="background: rgba(212, 175, 55, 0.1); padding: 20px; border-radius: 12px; margin: 20px 0;">
+                        <p style="font-weight: 600; color: #d4af37; font-size: 1.2rem;">Your Challenge Number:</p>
+                        <div class="timer-display" id="challengeNumber">3847591026</div>
+                        <p style="text-align: center; color: #a0a0a0; margin-top: 10px;">Click to start your timer</p>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <p style="margin-bottom: 10px;"><strong>Which system do you choose?</strong></p>
+                        <label style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <input type="radio" name="system" value="shape" checked style="margin-right: 10px; width: 16px; height: 16px;">
+                            <span>Shape System (visual)</span>
+                        </label>
+                        <label style="display: flex; align-items: center;">
+                            <input type="radio" name="system" value="rhyme" style="margin-right: 10px; width: 16px; height: 16px;">
+                            <span>Rhyme System (word-based)</span>
+                        </label>
+                    </div>
+
+                    <textarea class="reflection-textarea" id="encodingNotes" placeholder="Write out your image sequence. For each pair of digits, describe how they interact..."></textarea>
+
+                    <button class="action-btn" onclick="startMemorization()">Start 5-Minute Memorization Timer</button>
+                </div>
+
+                <div id="timerBox" style="display: none; margin: 20px 0;">
+                    <div class="timer-display" id="memTimer">5:00</div>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button class="action-btn" onclick="pauseMemTimer()">Pause</button>
+                        <button class="action-btn" onclick="finishMemorization()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; margin-left: 10px;">I'm Done!</button>
+                    </div>
+                </div>
+
+                <div class="practice-box">
+                    <h3>Recall Test</h3>
+                    <p style="margin-bottom: 15px;">After working with your images, type the number back in here:</p>
+                    <input type="text" class="input-field" id="recallInput" placeholder="Type the 10-digit number from memory..." maxlength="10">
+                    <button class="action-btn" onclick="checkRecall()">Check Answer</button>
+                    <div id="recallResult"></div>
+                </div>
+
+                <div class="reflection-box">
+                    <h4>Reflection</h4>
+                    <p style="margin-bottom: 15px;">How did it feel? Which numbers were easiest to remember? Which were hardest?</p>
+                    <textarea class="reflection-textarea" id="independentReflection" placeholder="Type your answer..."></textarea>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="switchTab('elaboration')">← Back</button>
+                <button class="nav-btn next" onclick="switchTab('final')">To Final Retrieval →</button>
+            </div>
+        </div>
+
+        <!-- Tab 6: Final Retrieval -->
+        <div class="tab-content" id="final">
+            <div class="card">
+                <h2>Final Retrieval: Master the Systems</h2>
+                <p>One last challenge to consolidate your learning and compare the two systems side-by-side.</p>
+
+                <div class="practice-box">
+                    <h3>System Mastery Quiz</h3>
+                    <p style="margin-bottom: 20px;"><strong>Quick Fire:</strong> Without looking back, fill in the missing encodings:</p>
+
+                    <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; margin: 15px 0;">
+                        <p style="margin-bottom: 12px;">1. In the SHAPE system, 6 = _________</p>
+                        <input type="text" class="input-field" id="q1" placeholder="Enter the shape...">
+
+                        <p style="margin-bottom: 12px; margin-top: 15px;">2. In the RHYME system, 8 = _________</p>
+                        <input type="text" class="input-field" id="q2" placeholder="Enter the rhyme word...">
+
+                        <p style="margin-bottom: 12px; margin-top: 15px;">3. In the SHAPE system, 9 = _________</p>
+                        <input type="text" class="input-field" id="q3" placeholder="Enter the shape...">
+
+                        <p style="margin-bottom: 12px; margin-top: 15px;">4. In the RHYME system, 4 = _________</p>
+                        <input type="text" class="input-field" id="q4" placeholder="Enter the rhyme word...">
+
+                        <p style="margin-bottom: 12px; margin-top: 15px;">5. True or False: The Shape system works because digits look like the objects</p>
+                        <select class="input-field" id="q5">
+                            <option value="">Choose...</option>
+                            <option value="true">True</option>
+                            <option value="false">False</option>
+                        </select>
+
+                        <button class="action-btn" onclick="scoreQuiz()" style="margin-top: 20px; width: 100%;">Score My Answers</button>
+                    </div>
+
+                    <div id="quizResult"></div>
+                </div>
+
+                <div class="practice-box">
+                    <h3>Speed Challenge: Random Numbers</h3>
+                    <p style="margin-bottom: 15px;">Pick your system and encode these random 2-digit numbers as fast as you can. Time yourself:</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin: 20px 0;">
+                        <div style="background: rgba(212, 175, 55, 0.15); padding: 20px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 2rem; color: #d4af37; margin-bottom: 10px;">73</div>
+                            <input type="text" class="input-field" placeholder="Your image..." style="font-size: 0.85rem;">
+                        </div>
+                        <div style="background: rgba(212, 175, 55, 0.15); padding: 20px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 2rem; color: #d4af37; margin-bottom: 10px;">45</div>
+                            <input type="text" class="input-field" placeholder="Your image..." style="font-size: 0.85rem;">
+                        </div>
+                        <div style="background: rgba(212, 175, 55, 0.15); padding: 20px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 2rem; color: #d4af37; margin-bottom: 10px;">92</div>
+                            <input type="text" class="input-field" placeholder="Your image..." style="font-size: 0.85rem;">
+                        </div>
+                        <div style="background: rgba(212, 175, 55, 0.15); padding: 20px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 2rem; color: #d4af37; margin-bottom: 10px;">68</div>
+                            <input type="text" class="input-field" placeholder="Your image..." style="font-size: 0.85rem;">
+                        </div>
+                        <div style="background: rgba(212, 175, 55, 0.15); padding: 20px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 2rem; color: #d4af37; margin-bottom: 10px;">17</div>
+                            <input type="text" class="input-field" placeholder="Your image..." style="font-size: 0.85rem;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reflection-box">
+                    <h4>Lesson Reflection: Which System is FOR YOU?</h4>
+                    <p style="margin-bottom: 15px;">You've now practiced both. Which feels more natural to your brain? Why?</p>
+                    <textarea class="reflection-textarea" id="systemComparison" placeholder="Which system worked better for YOU and why?"></textarea>
+                    <p style="margin-top: 15px; color: #a0a0a0; font-size: 0.9rem;">Note: There's no "right" answer. Different people excel with different systems!</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Key Takeaway</h4>
+                    <p>You've learned two beginner-friendly systems for encoding numbers. Both work through the same principle: convert abstract to concrete, make it visual, make it bizarre. Next lesson, we'll tackle the MAJOR SYSTEM — the most powerful tool for number memory.</p>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn prev" onclick="switchTab('independent')">← Back</button>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab Navigation
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchTab(btn.dataset.tab);
+            });
+        });
+
+        function switchTab(tabId) {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Recall Challenge
+        const challengeNumber = '3847591026';
+
+        let memTimer = null;
+        let memSeconds = 300;
+
+        function startMemorization() {
+            document.getElementById('timerBox').style.display = 'block';
+            memSeconds = 300;
+            updateMemTimer();
+            memTimer = setInterval(() => {
+                if (memSeconds > 0) {
+                    memSeconds--;
+                    updateMemTimer();
+                } else {
+                    clearInterval(memTimer);
+                    finishMemorization();
+                }
+            }, 1000);
+        }
+
+        function updateMemTimer() {
+            const mins = Math.floor(memSeconds / 60);
+            const secs = memSeconds % 60;
+            document.getElementById('memTimer').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function pauseMemTimer() {
+            if (memTimer) {
+                clearInterval(memTimer);
+                memTimer = null;
+            }
+        }
+
+        function finishMemorization() {
+            pauseMemTimer();
+            alert('Time to recall! Enter your answer in the Recall Test box below.');
+        }
+
+        function checkRecall() {
+            const answer = document.getElementById('recallInput').value;
+            const resultBox = document.getElementById('recallResult');
+
+            if (answer === challengeNumber) {
+                resultBox.innerHTML = '<div class="result-box">✓ PERFECT! You encoded and recalled all 10 digits correctly!</div>';
+            } else if (answer.length === 10) {
+                let correct = 0;
+                for (let i = 0; i < 10; i++) {
+                    if (answer[i] === challengeNumber[i]) correct++;
+                }
+                resultBox.innerHTML = `<div class="result-box error">${correct}/10 digits correct. Keep practicing!</div>`;
+            } else {
+                resultBox.innerHTML = '<div class="result-box error">Please enter a 10-digit number</div>';
+            }
+        }
+
+        function scoreQuiz() {
+            const answers = {
+                q1: document.getElementById('q1').value.toLowerCase(),
+                q2: document.getElementById('q2').value.toLowerCase(),
+                q3: document.getElementById('q3').value.toLowerCase(),
+                q4: document.getElementById('q4').value.toLowerCase(),
+                q5: document.getElementById('q5').value
+            };
+
+            const correctAnswers = {
+                q1: 'elephant trunk',
+                q2: 'gate',
+                q3: 'balloon',
+                q4: 'door',
+                q5: 'true'
+            };
+
+            let score = 0;
+            if (answers.q1.includes('elephant') || answers.q1.includes('trunk')) score++;
+            if (answers.q2 === 'gate') score++;
+            if (answers.q3 === 'balloon') score++;
+            if (answers.q4 === 'door') score++;
+            if (answers.q5 === 'true') score++;
+
+            const resultBox = document.getElementById('quizResult');
+            resultBox.innerHTML = `<div class="result-box">${score === 5 ? '✓ PERFECT' : '✓ Good Work'}: ${score}/5 correct!</div>`;
+        }
+
+        function toggleReveal(card) {
+            card.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

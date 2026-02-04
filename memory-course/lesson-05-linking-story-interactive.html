@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 5: Linking & Story Method - Art of Memory</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e8e8e8;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 2px solid #d4af37;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: #d4af37;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        header .subtitle {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+        }
+
+        .module-badge {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d76d 100%);
+            border-radius: 25px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            color: #a0a0a0;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            border-color: #d4af37;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d76d 100%);
+            color: #1a1a2e;
+            border-color: transparent;
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card h2 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .card h3 {
+            color: #f4d76d;
+            margin: 20px 0 15px 0;
+            font-size: 1.1rem;
+        }
+
+        .card p {
+            margin-bottom: 15px;
+            color: #d0d0d0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(244, 215, 109, 0.15) 100%);
+            border-left: 4px solid #d4af37;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+
+        .highlight-box h4 {
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: #e8e8e8;
+            font-size: 1rem;
+            font-family: inherit;
+            margin-bottom: 15px;
+        }
+
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d76d 100%);
+            border: none;
+            border-radius: 8px;
+            color: #1a1a2e;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .timer-display {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            color: #d4af37;
+            text-align: center;
+            margin: 20px 0;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .click-reveal {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px dashed rgba(212, 175, 55, 0.4);
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            margin: 20px 0;
+        }
+
+        .click-reveal:hover {
+            background: rgba(212, 175, 55, 0.25);
+            border-color: #d4af37;
+        }
+
+        .hidden-content {
+            display: none;
+            color: #d0d0d0;
+            margin-top: 15px;
+        }
+
+        .hidden-content.visible {
+            display: block;
+        }
+
+        .result-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #10b981;
+        }
+
+        .result-box.error {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        .score-display {
+            font-size: 1.8rem;
+            color: #d4af37;
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 12px;
+        }
+
+        .blank-screen {
+            background: rgba(0,0,0,0.5);
+            border: 2px dashed rgba(212, 175, 55, 0.4);
+            border-radius: 12px;
+            padding: 60px 20px;
+            text-align: center;
+            color: #a0a0a0;
+            font-size: 1.2rem;
+        }
+
+        .quiz-option {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: #d4af37;
+        }
+
+        .quiz-option.selected {
+            background: rgba(212, 175, 55, 0.3);
+            border-color: #d4af37;
+        }
+
+        .quiz-option.correct {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-btn.prev {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #a0a0a0;
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d76d 100%);
+            border: none;
+            color: #1a1a2e;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .tabs { flex-direction: column; }
+            .tab-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lesson 5: Linking & Story Method</h1>
+            <p class="subtitle">Chain items together with bizarre narratives</p>
+            <span class="module-badge">SEQUENTIAL SYSTEMS</span>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0)">1. Retrieval</button>
+            <button class="tab-btn" onclick="switchTab(1)">2. New Content</button>
+            <button class="tab-btn" onclick="switchTab(2)">3. Guided Practice</button>
+            <button class="tab-btn" onclick="switchTab(3)">4. Elaboration</button>
+            <button class="tab-btn" onclick="switchTab(4)">5. Independent</button>
+            <button class="tab-btn" onclick="switchTab(5)">6. Final Retrieval</button>
+        </div>
+
+        <!-- TAB 1: RETRIEVAL -->
+        <div class="tab-content active">
+            <div class="card">
+                <h2>Retrieval: From Palaces to Linking</h2>
+                <p>Quick question: What are the advantages and limitations of memory palaces? When might they NOT be the best choice?</p>
+
+                <textarea id="retrievalText" placeholder="Type your answer..."></textarea>
+                <button class="action-btn" onclick="showRetrievalFeedback()">Submit & Continue</button>
+            </div>
+        </div>
+
+        <!-- TAB 2: NEW CONTENT -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Linking: Chain Items Together</h2>
+
+                <p>Memory palaces are powerful, but they require a familiar location. What if you don't have one? Or what if you need to remember a SEQUENCE that wasn't pre-planned?</p>
+
+                <p>That's where the <strong>Link Method</strong> comes in.</p>
+
+                <div class="highlight-box">
+                    <h4>The Concept:</h4>
+                    <p style="margin: 10px 0;">Create bizarre, exaggerated interactions BETWEEN consecutive items. Item 1 interacts with Item 2. Item 2 interacts with Item 3. And so on, creating a CHAIN.</p>
+                </div>
+
+                <h3>Example: Linking 5 Items</h3>
+
+                <div style="background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 20px; margin: 20px 0;">
+                    <p style="color: #f4d76d; font-weight: 600; margin-bottom: 10px;">Items: APPLE → BICYCLE → ELEPHANT → TELEPHONE → VOLCANO</p>
+
+                    <p style="color: #d0d0d0; margin: 15px 0;"><strong>Link 1 (Apple ↔ Bicycle):</strong> Imagine a GIANT RED APPLE as big as a BICYCLE WHEEL, spinning and rolling down a hill</p>
+
+                    <p style="color: #d0d0d0; margin: 15px 0;"><strong>Link 2 (Bicycle ↔ Elephant):</strong> An ELEPHANT is RIDING the bicycle, with its trunk steering like crazy, feet pedaling</p>
+
+                    <p style="color: #d0d0d0; margin: 15px 0;"><strong>Link 3 (Elephant ↔ Telephone):</strong> The elephant PICKS UP a GIANT telephone and talks into it, making trumpet-like sounds</p>
+
+                    <p style="color: #d0d0d0; margin: 15px 0;"><strong>Link 4 (Telephone ↔ Volcano):</strong> The telephone MELTS and drips into a VOLCANO, causing a MASSIVE ERUPTION with lava everywhere</p>
+                </div>
+
+                <h3 style="margin-top: 30px;">Why Linking Works</h3>
+                <p>When you recall one item, the bizarre interaction automatically triggers the NEXT item in your mind. Apple → think of apple/bicycle interaction → bicycle → think of bicycle/elephant interaction → elephant. It's a chain reaction!</p>
+
+                <h3 style="margin-top: 30px;">The Story Method: Linking with Narrative</h3>
+
+                <p>The Link Method works even better when you create a STORY that connects the items. Instead of random interactions, you weave them into a narrative:</p>
+
+                <div class="click-reveal" onclick="toggleReveal(this)">
+                    <strong>Click to see: Story Method Example</strong>
+                    <div class="hidden-content">
+                        <p style="margin-top: 15px;"><strong>Items: APPLE, BICYCLE, ELEPHANT, TELEPHONE, VOLCANO</strong></p>
+                        <p style="margin: 15px 0; color: #d0d0d0;">You're hiking when you see a GIANT RED APPLE rolling down the mountain. You pick up a BICYCLE to chase it, but suddenly an ELEPHANT jumps in front of you, grabs the bicycle, and rides away on it! You run to a phone booth and CALL the elephant on your TELEPHONE. The elephant's response is so loud it TRIGGERS a nearby VOLCANO to erupt!</p>
+                        <p style="margin-top: 15px; color: #b0b0b0; font-size: 0.9rem;">The story creates natural connections. When you recall the story, all items come back in order!</p>
+                    </div>
+                </div>
+
+                <button class="action-btn" onclick="switchTab(2)">Ready for Practice →</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: GUIDED PRACTICE -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Guided Practice: Create Links & Stories</h2>
+
+                <h3>Exercise 1: Link Method - Create Interactions</h3>
+                <p>I'll give you 5 items. Create BIZARRE interactions between consecutive pairs:</p>
+
+                <div style="background: rgba(212, 175, 55, 0.08); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 20px; margin: 20px 0;">
+                    <p style="color: #f4d76d; font-weight: 600; margin-bottom: 15px;">Items to link:</p>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 8px;">
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37;">1. HAMMER</div>
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37;">2. PENGUIN</div>
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37;">3. PYRAMID</div>
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37;">4. RAINBOW</div>
+                        <div style="background: rgba(212, 175, 55, 0.2); border: 1px solid #d4af37; border-radius: 6px; padding: 10px; color: #d4af37;">5. STAR</div>
+                    </div>
+                </div>
+
+                <p style="margin-top: 20px; color: #f4d76d;">Describe your links (interactions between consecutive items):</p>
+                <textarea id="linksText" placeholder="Type your answer..."></textarea>
+                <button class="action-btn" onclick="checkLinks()">Check My Links</button>
+                <div id="linksResult"></div>
+
+                <h3 style="margin-top: 30px;">Exercise 2: Story Method - Create a Narrative</h3>
+                <p>Using the same 5 items, create a SHORT STORY that weaves them all together in order:</p>
+
+                <textarea id="storyText" placeholder="Type your answer..."></textarea>
+                <button class="action-btn" onclick="checkStory()">Check My Story</button>
+                <div id="storyResult"></div>
+
+                <button class="action-btn" onclick="switchTab(3)" style="margin-top: 30px;">Continue to Elaboration →</button>
+            </div>
+        </div>
+
+        <!-- TAB 4: ELABORATION -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Elaboration: Why Linking Works</h2>
+
+                <h3>Question 1: What's the advantage of linking over memory palaces?</h3>
+                <textarea id="elab1" placeholder="Type your answer..."></textarea>
+
+                <div class="result-box">
+                    Sample: Linking doesn't require a pre-planned location. You can link items on the fly. It's flexible and works for any sequence of items.
+                </div>
+
+                <h3 style="margin-top: 30px;">Question 2: Why does creating a story make linking stronger?</h3>
+                <textarea id="elab2" placeholder="Type your answer..."></textarea>
+
+                <div class="result-box">
+                    Sample: Stories engage semantic meaning and emotion. Your brain is built to remember narratives. A story creates a framework that naturally connects items and makes them feel less arbitrary.
+                </div>
+
+                <h3 style="margin-top: 30px;">Question 3: When would you use linking over a memory palace?</h3>
+                <textarea id="elab3" placeholder="Type your answer..."></textarea>
+
+                <div class="result-box">
+                    Sample: For spontaneous lists, emergency memorization, or when you don't have a familiar location. Also for 5-20 items where a palace might feel overkill.
+                </div>
+
+                <button class="action-btn" onclick="switchTab(4)" style="margin-top: 30px;">Ready for Independent Practice →</button>
+            </div>
+        </div>
+
+        <!-- TAB 5: INDEPENDENT PRACTICE -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Independent Practice: Linking & Story Challenge</h2>
+
+                <h3>Challenge: Remember 15 items using the Story Method</h3>
+                <p>You'll have 2 minutes to create a STORY that links 15 diverse items. Then blank screen recall!</p>
+
+                <div id="linkPhase1" style="display: block;">
+                    <p style="margin: 20px 0; color: #f4d76d;">⏱ You have 120 seconds to create a story linking these 15 items:</p>
+                    <div id="linkItems" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0;">
+                    </div>
+                    <div class="timer-display" id="linkTimer">2:00</div>
+                    <p style="margin: 15px 0; color: #b0b0b0; font-size: 0.9rem;"><em>Create the SILLIEST, MOST BIZARRE story that includes all items in order!</em></p>
+                    <button class="action-btn" onclick="startLinkChallenge()">Start Story Creation</button>
+                </div>
+
+                <div id="linkPhase2" style="display: none;">
+                    <div style="background: rgba(0,0,0,0.5); border: 2px dashed rgba(212, 175, 55, 0.4); border-radius: 12px; padding: 60px 20px; text-align: center; color: #a0a0a0; font-size: 1.2rem; margin: 20px 0;">
+                        📖 Your story is locked in your memory...<br><strong>Ready to recall?</strong>
+                    </div>
+                    <button class="action-btn" onclick="startLinkPhase3()" style="width: 100%;">Blank Screen (Recall Now)</button>
+                </div>
+
+                <div id="linkPhase3" style="display: none;">
+                    <div class="blank-screen">
+                        The story has disappeared.<br><strong>Type all 15 items you remember in order.</strong>
+                    </div>
+                    <textarea id="linkAnswer" style="margin-top: 20px;" placeholder="Type the 15 items in order, separated by commas..."></textarea>
+                    <button class="action-btn" onclick="scoreLinkChallenge()" style="margin-top: 15px; width: 100%;">Check My Score</button>
+                </div>
+
+                <div id="linkResults" style="display: none;">
+                    <div class="score-display" id="linkScore"></div>
+                    <div id="linkFeedback"></div>
+                    <button class="action-btn" onclick="switchTab(5)" style="width: 100%; margin-top: 20px;">Go to Final Retrieval →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: FINAL RETRIEVAL -->
+        <div class="tab-content">
+            <div class="card">
+                <h2>Final Retrieval: Linking & Story Mastery</h2>
+
+                <h3 style="margin-top: 30px;">Question 1: What is the Link Method?</h3>
+                <div id="q1">
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q1', true)">Creating bizarre interactions between consecutive items</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q1', false)">Using a physical location to store items</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q1', false)">Repeating items over and over</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q1', false)">Drawing pictures of items</div>
+                </div>
+
+                <h3 style="margin-top: 30px;">Question 2: What makes the Story Method powerful?</h3>
+                <div id="q2">
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q2', false)">It requires less visualization</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q2', true)">Stories engage semantic meaning and your brain's natural narrative processing</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q2', false)">It only works for short lists</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q2', false)">It doesn't require connections between items</div>
+                </div>
+
+                <h3 style="margin-top: 30px;">Question 3: When is linking preferable to a memory palace?</h3>
+                <div id="q3">
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q3', true)">For spontaneous lists when you don't have a familiar location</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q3', false)">It's never better - palaces are always superior</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q3', false)">Only for very long lists (100+ items)</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q3', false)">It requires you to be more creative</div>
+                </div>
+
+                <h3 style="margin-top: 30px;">Question 4: What's the key to creating a good link?</h3>
+                <div id="q4">
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q4', false)">Make it realistic and boring</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q4', true)">Make it bizarre, exaggerated, and multi-sensory</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q4', false)">Use the same interaction for all items</div>
+                    <div class="quiz-option" onclick="selectQuiz(this, 'q4', false)">Keep it quiet and subtle</div>
+                </div>
+
+                <button class="action-btn" onclick="scoreFinalQuiz()" style="width: 100%; margin-top: 30px;">Submit Answers</button>
+                <div id="finalQuizResults" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn prev" onclick="prevTab()">← Previous</button>
+            <button class="nav-btn next" onclick="nextTab()">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentTab = 0;
+        let linkTimer = null;
+        let linkItems = [];
+        let quizAnswers = {};
+
+        function switchTab(n) {
+            currentTab = n;
+            updateTabs();
+        }
+
+        function updateTabs() {
+            const tabs = document.querySelectorAll('.tab-content');
+            const btns = document.querySelectorAll('.tab-btn');
+
+            tabs.forEach((tab, i) => {
+                tab.classList.remove('active');
+                btns[i].classList.remove('active');
+            });
+
+            tabs[currentTab].classList.add('active');
+            btns[currentTab].classList.add('active');
+        }
+
+        function nextTab() {
+            if (currentTab < 5) switchTab(currentTab + 1);
+        }
+
+        function prevTab() {
+            if (currentTab > 0) switchTab(currentTab - 1);
+        }
+
+        function toggleReveal(el) {
+            const hidden = el.querySelector('.hidden-content');
+            el.classList.toggle('revealed');
+            hidden.classList.toggle('visible');
+        }
+
+        function showRetrievalFeedback() {
+            const text = document.getElementById('retrievalText').value;
+            if (text.trim().length < 10) {
+                alert('Please write your answer.');
+                return;
+            }
+            alert('✓ Good thinking! Linking offers flexibility that palaces don\'t.');
+        }
+
+        function checkLinks() {
+            const text = document.getElementById('linksText').value;
+            if (text.trim().length < 30) {
+                alert('Please describe the links more thoroughly!');
+                return;
+            }
+            document.getElementById('linksResult').innerHTML = 
+                '<div class="result-box">✓ Excellent! You created vivid connections between items!</div>';
+        }
+
+        function checkStory() {
+            const text = document.getElementById('storyText').value;
+            if (text.trim().length < 50) {
+                alert('Please write a longer story that naturally weaves all items together!');
+                return;
+            }
+            document.getElementById('storyResult').innerHTML = 
+                '<div class="result-box">✓ Great story! This narrative approach makes items memorable!</div>';
+        }
+
+        function startLinkChallenge() {
+            linkItems = ['Phoenix', 'Diamond', 'Thunder', 'Telescope', 'Crown',
+                        'Ocean', 'Pyramid', 'Penguin', 'Explosion', 'Butterfly',
+                        'Volcano', 'Crystal', 'Bridge', 'Rocket', 'Dragon'];
+            const itemsDiv = document.getElementById('linkItems');
+            itemsDiv.innerHTML = linkItems.map((item, i) =>
+                `<div style="background: rgba(212, 175, 55, 0.2); border: 2px solid #d4af37; border-radius: 8px; padding: 10px; text-align: center; font-size: 0.95rem; color: #d4af37; font-weight: 600;">${i+1}. ${item}</div>`
+            ).join('');
+
+            document.getElementById('linkPhase1').style.display = 'block';
+            document.getElementById('linkPhase2').style.display = 'none';
+
+            let time = 120;
+            const timerEl = document.getElementById('linkTimer');
+
+            linkTimer = setInterval(() => {
+                const mins = Math.floor(time / 60);
+                const secs = time % 60;
+                timerEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+                if (time === 0) {
+                    clearInterval(linkTimer);
+                    document.getElementById('linkPhase1').style.display = 'none';
+                    document.getElementById('linkPhase2').style.display = 'block';
+                }
+                time--;
+            }, 1000);
+        }
+
+        function startLinkPhase3() {
+            document.getElementById('linkPhase2').style.display = 'none';
+            document.getElementById('linkPhase3').style.display = 'block';
+            document.getElementById('linkAnswer').focus();
+        }
+
+        function scoreLinkChallenge() {
+            const answer = document.getElementById('linkAnswer').value.toLowerCase();
+            const correct = linkItems.map(w => w.toLowerCase());
+
+            const recalled = correct.filter(w => answer.includes(w));
+            const score = Math.round((recalled.length / correct.length) * 100);
+
+            document.getElementById('linkPhase3').style.display = 'none';
+            document.getElementById('linkResults').style.display = 'block';
+
+            document.getElementById('linkScore').textContent =
+                `Score: ${score}% (${recalled.length}/${correct.length} items)`;
+
+            let feedback = `<div class="result-box">You recalled: ${recalled.join(', ')}<br><br>`;
+            if (score === 100) {
+                feedback += 'Perfect! Linking and stories are incredibly powerful!';
+            } else if (score >= 80) {
+                feedback += 'Excellent! You demonstrated strong narrative memory!';
+            } else if (score >= 60) {
+                feedback += 'Great! The story method is working well for you!';
+            } else if (score >= 40) {
+                feedback += 'Good attempt! With more practice, stories become second nature.';
+            } else {
+                feedback += 'Keep practicing! Linking becomes easier with experience.';
+            }
+            feedback += '</div>';
+            document.getElementById('linkFeedback').innerHTML = feedback;
+        }
+
+        function selectQuiz(el, qId, correct) {
+            document.querySelectorAll(`#${qId} .quiz-option`).forEach(o => {
+                o.classList.remove('selected');
+            });
+            el.classList.add('selected');
+            quizAnswers[qId] = correct;
+        }
+
+        function scoreFinalQuiz() {
+            const answers = Object.values(quizAnswers);
+            const correct = answers.filter(a => a === true).length;
+            const percent = Math.round((correct / 4) * 100);
+
+            let resultHtml = `<div class="score-display">Quiz Score: ${percent}%</div>`;
+
+            document.querySelectorAll('[id^="q"]').forEach((q, i) => {
+                const option = q.querySelector('.quiz-option.selected');
+                if (option) {
+                    if (quizAnswers[`q${i+1}`]) {
+                        option.style.background = 'rgba(16, 185, 129, 0.2)';
+                        option.style.borderColor = '#10b981';
+                    } else {
+                        option.style.background = 'rgba(239, 68, 68, 0.2)';
+                        option.style.borderColor = '#ef4444';
+                    }
+                }
+            });
+
+            resultHtml += '<div class="result-box">';
+            if (percent === 100) {
+                resultHml += '✓ Perfect! You\'ve mastered all 5 core memory techniques!';
+            } else if (percent >= 75) {
+                resultHtml += '✓ Excellent! You\'re a memory expert now!';
+            } else {
+                resultHtml += '✓ Great! Review and practice more!';
+            }
+            resultHtml += '</div>';
+
+            document.getElementById('finalQuizResults').innerHTML = resultHtml;
+        }
+    </script>
+</body>
+</html>

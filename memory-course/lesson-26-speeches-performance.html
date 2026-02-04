@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 26: Speeches & Verbal Performance - Memory Course</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #d4af37;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: #d4af37;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .module-badge {
+            display: inline-block;
+            background: #d4af37;
+            color: #1a1a2e;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            background: #2a2a3e;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+        }
+
+        .tab-button:hover {
+            background: #d4af37;
+            color: #1a1a2e;
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            background: #d4af37;
+            color: #1a1a2e;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+            background: #2a2a3e;
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            padding: 30px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #d4af37;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p, li {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+        }
+
+        .highlight {
+            background: rgba(212, 175, 55, 0.2);
+            padding: 15px;
+            border-left: 4px solid #d4af37;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        .interactive-box {
+            background: #1a1a2e;
+            border: 2px dashed #d4af37;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: #d4af37;
+            color: #1a1a2e;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #e6c547;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            background: #1a1a2e;
+            border: 2px solid #d4af37;
+            color: #e0e0e0;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1em;
+            margin: 10px 0;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .output {
+            background: #1a1a2e;
+            border: 2px solid #d4af37;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            min-height: 40px;
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .timer {
+            font-size: 2em;
+            color: #d4af37;
+            text-align: center;
+            padding: 20px;
+            background: #1a1a2e;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #1a1a2e;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            border: 2px solid #d4af37;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #e6c547);
+            width: 0%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a2e;
+            font-weight: bold;
+        }
+
+        .challenge-card {
+            background: #1a1a2e;
+            border-left: 4px solid #d4af37;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+
+        .score-display {
+            font-size: 1.5em;
+            color: #d4af37;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            background: #1a1a2e;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .success {
+            color: #4caf50;
+        }
+
+        .warning {
+            color: #ff9800;
+        }
+
+        .error {
+            color: #f44336;
+        }
+
+        .technique-box {
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid #d4af37;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .example {
+            background: #1a1a2e;
+            padding: 15px;
+            border-left: 4px solid #4caf50;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                width: 100%;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lesson 26: Speeches & Verbal Performance</h1>
+            <p>Master the ancient art of memorable rhetoric through memory palace techniques</p>
+            <span class="module-badge">MASTERY & LIFESTYLE</span>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('retrieval')">1. Retrieval Practice</button>
+            <button class="tab-button" onclick="switchTab('content')">2. New Content</button>
+            <button class="tab-button" onclick="switchTab('guided')">3. Guided Practice</button>
+            <button class="tab-button" onclick="switchTab('elaboration')">4. Elaboration</button>
+            <button class="tab-button" onclick="switchTab('independent')">5. Independent Practice</button>
+            <button class="tab-button" onclick="switchTab('final')">6. Final Retrieval</button>
+        </div>
+
+        <!-- Tab 1: Retrieval Practice -->
+        <div id="retrieval" class="tab-content active">
+            <h2>Retrieval Practice: Warm-up Challenge</h2>
+            <p>Before learning new techniques, let's activate your memory skills. Try to recall core memory concepts from previous lessons.</p>
+
+            <div class="challenge-card">
+                <h3>Quick Recall Challenge</h3>
+                <p>Without looking back, answer these questions:</p>
+                <ol>
+                    <li>What are the two main components of a Memory Palace?</li>
+                    <li>What's the primary rule for effective encoding?</li>
+                    <li>Name three sensory modalities to enhance memory encoding</li>
+                </ol>
+                <button onclick="toggleAnswer('retrieval-answer')">Show Answers</button>
+                <div id="retrieval-answer" style="display:none; margin-top: 20px;">
+                    <div class="highlight">
+                        <p><strong>Answer 1:</strong> Location (the physical/mental space) and Images (the vivid associations)</p>
+                        <p><strong>Answer 2:</strong> Making associations BIZARRE, EXAGGERATED, and EMOTIONALLY ENGAGING</p>
+                        <p><strong>Answer 3:</strong> Any three of: Visual, Auditory, Kinesthetic, Olfactory, Gustatory, Emotional</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="retrieval-progress" style="width: 0%;">0%</div>
+            </div>
+            <button onclick="startRetrievalPractice()">Begin Warm-up (Click after answering)</button>
+        </div>
+
+        <!-- Tab 2: New Content -->
+        <div id="content" class="tab-content">
+            <h2>Rhetorical Memory: Ancient Orators' Techniques</h2>
+
+            <h3>The Art of Memorable Speeches</h3>
+            <p>Ancient Roman and Greek orators like Cicero and Demosthenes delivered hours-long speeches from memory. They didn't use notes—they used memory palaces.</p>
+
+            <div class="technique-box">
+                <h3>Core Principles of Rhetorical Memory</h3>
+                <ol>
+                    <li><strong>Speech Structure = Palace Layout</strong>
+                        <ul>
+                            <li>Introduction = Entrance</li>
+                            <li>Main arguments = Main rooms/corridors</li>
+                            <li>Supporting evidence = Specific locations within rooms</li>
+                            <li>Conclusion = Exit/Final room</li>
+                        </ul>
+                    </li>
+                    <li><strong>Key Phrases as Anchors</strong>
+                        <ul>
+                            <li>Memorize powerful opening and closing phrases</li>
+                            <li>Use memorable transitions between sections</li>
+                            <li>Create vivid anchors for each main point</li>
+                        </ul>
+                    </li>
+                    <li><strong>Body Pegs for Delivery Confidence</strong>
+                        <ul>
+                            <li>Assign each section to a body part (head, shoulders, chest, etc.)</li>
+                            <li>Use body movement to trigger memory during delivery</li>
+                            <li>Gesture naturally while hitting memory markers</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <h3>The Palace + Key Phrase System</h3>
+            <div class="example">
+                <p><strong>Example Speech Structure:</strong></p>
+                <p>Speech Topic: "Why Education Transforms Lives"</p>
+                <ul>
+                    <li><strong>Entrance:</strong> Opening hook - "Every mind is a potential genius waiting to awaken"</li>
+                    <li><strong>Room 1:</strong> Education expands thinking → Vivid image of doors opening in a palace room</li>
+                    <li><strong>Room 2:</strong> Economic opportunity → Treasure chest overflowing with gold</li>
+                    <li><strong>Room 3:</strong> Social mobility → Climbing a grand staircase upward</li>
+                    <li><strong>Room 4:</strong> Personal fulfillment → A mirror reflecting a glowing, happy face</li>
+                    <li><strong>Exit:</strong> Closing statement - "Education is the master key to human potential"</li>
+                </ul>
+            </div>
+
+            <h3>Body Peg System for Confidence</h3>
+            <div class="highlight">
+                <p><strong>Your Body as a Memory Map:</strong></p>
+                <ul>
+                    <li><strong>Head/Face:</strong> Introduction and opening thoughts</li>
+                    <li><strong>Shoulders:</strong> First main argument + supporting evidence</li>
+                    <li><strong>Chest/Heart:</strong> Emotional appeals and powerful stories</li>
+                    <li><strong>Hands:</strong> Call-to-action and engagement points</li>
+                    <li><strong>Legs/Stance:</strong> Building confidence and power towards conclusion</li>
+                </ul>
+                <p style="margin-top: 15px;"><em>During delivery, touch or gesture to these areas to naturally trigger memory recall and boost audience engagement.</em></p>
+            </div>
+
+            <h3>Delivery Best Practices</h3>
+            <ul>
+                <li>Maintain eye contact by knowing your palace so well you need minimal conscious recall</li>
+                <li>Use natural pauses to mentally "walk" to the next location</li>
+                <li>Let body language guide your memory retrieval</li>
+                <li>Practice delivery multiple times to build automatic recall</li>
+            </ul>
+        </div>
+
+        <!-- Tab 3: Guided Practice -->
+        <div id="guided" class="tab-content">
+            <h2>Guided Practice: Build Your Speech Palace</h2>
+
+            <div class="interactive-box">
+                <h3>Step 1: Choose Your Topic</h3>
+                <input type="text" id="speech-topic" placeholder="Enter a speech topic (e.g., 'Team Leadership')">
+
+                <h3>Step 2: Define Key Points (3-5)</h3>
+                <input type="text" id="point1" placeholder="Main Point 1">
+                <input type="text" id="point2" placeholder="Main Point 2">
+                <input type="text" id="point3" placeholder="Main Point 3">
+                <input type="text" id="point4" placeholder="Main Point 4 (Optional)">
+                <input type="text" id="point5" placeholder="Main Point 5 (Optional)">
+
+                <h3>Step 3: Create Vivid Images</h3>
+                <p>For each point, describe a bizarre/memorable image to associate with it:</p>
+                <textarea id="image1" placeholder="Image for Point 1..."></textarea>
+                <textarea id="image2" placeholder="Image for Point 2..."></textarea>
+                <textarea id="image3" placeholder="Image for Point 3..."></textarea>
+
+                <h3>Step 4: Write Opening & Closing</h3>
+                <input type="text" id="opening" placeholder="Powerful opening line">
+                <input type="text" id="closing" placeholder="Memorable closing line">
+
+                <button onclick="buildSpeechPalace()">Build My Speech Palace</button>
+
+                <div id="palace-output" class="output" style="display:none; text-align:left;">
+                    <!-- Output will be generated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4: Elaboration -->
+        <div id="elaboration" class="tab-content">
+            <h2>Elaboration: Advanced Techniques</h2>
+
+            <h3>The Rhetorical Triad</h3>
+            <div class="highlight">
+                <p><strong>Ethos (Credibility):</strong> Build trust with your opening. Use your memory palace to recall relevant credentials and experiences authentically.</p>
+                <p><strong>Pathos (Emotion):</strong> Store emotional stories in prominent locations. Use body pegs to trigger emotional delivery at key moments.</p>
+                <p><strong>Logos (Logic):</strong> Organize facts and evidence systematically through palace rooms for logical flow and clear argumentation.</p>
+            </div>
+
+            <h3>Nested Palaces for Complex Speeches</h3>
+            <p>For longer speeches, use nested palaces:</p>
+            <div class="example">
+                <ul>
+                    <li><strong>Main Palace:</strong> Overall speech structure (5-7 rooms)</li>
+                    <li><strong>Sub-Palaces:</strong> Each room contains a sub-palace with detailed points</li>
+                    <li><strong>Example:</strong> Room 3 (Economic Impact) contains a sub-palace with 4 locations for supporting statistics</li>
+                </ul>
+            </div>
+
+            <h3>Transition Anchors</h3>
+            <p>Create memorable transition phrases between sections to maintain flow:</p>
+            <ul>
+                <li>"This leads us naturally to..." (Move to shoulder area)</li>
+                <li>"Building on this foundation..." (Move to chest)</li>
+                <li>"Now, consider the profound impact..." (Move to hands/gestures)</li>
+                <li>"Therefore, we must conclude..." (Final position)</li>
+            </ul>
+
+            <h3>Practice Delivery Timing</h3>
+            <div class="interactive-box">
+                <p>Use this timer to practice pacing your speech:</p>
+                <div class="timer" id="delivery-timer">0:00</div>
+                <div class="button-group">
+                    <button onclick="startDeliveryTimer()">Start (3-minute speech)</button>
+                    <button onclick="pauseDeliveryTimer()">Pause</button>
+                    <button onclick="resetDeliveryTimer()">Reset</button>
+                </div>
+                <p style="margin-top: 20px;"><strong>Tip:</strong> Aim to deliver your full speech in 2:30-3:30 for a comfortable pace.</p>
+                <div id="timing-feedback" class="output" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- Tab 5: Independent Practice -->
+        <div id="independent" class="tab-content">
+            <h2>Independent Practice: The 3-Minute Challenge</h2>
+
+            <div class="challenge-card">
+                <h3>Your Challenge: Memorize & Deliver a Speech Outline</h3>
+                <p>Create a 3-minute speech using the palace method, then practice delivering it.</p>
+
+                <h3>Sample Speech Outline to Memorize:</h3>
+                <div class="highlight">
+                    <p><strong>Topic: "Innovation in the Digital Age"</strong></p>
+                    <p><strong>Opening:</strong> "The future belongs to those who reimagine what's possible"</p>
+                    <ol>
+                        <li><strong>Why Innovation Matters:</strong> Drives progress and solves real problems</li>
+                        <li><strong>Technology's Role:</strong> Amplifies human creativity exponentially</li>
+                        <li><strong>Common Barriers:</strong> Fear of failure, resource constraints, outdated thinking</li>
+                        <li><strong>The Path Forward:</strong> Experiment, iterate, learn from failure</li>
+                    </ol>
+                    <p><strong>Closing:</strong> "Innovation isn't just a buzzword—it's our responsibility to the future"</p>
+                </div>
+
+                <h3>Create Your Palace for This Speech</h3>
+                <textarea id="palace-description" placeholder="Type your answer..."></textarea>
+
+                <h3>Practice Delivery</h3>
+                <p>Record yourself or practice with the timer below:</p>
+                <div class="timer" id="practice-timer">0:00</div>
+                <div class="button-group">
+                    <button onclick="startPracticeTimer()">Start Practice</button>
+                    <button onclick="pausePracticeTimer()">Pause</button>
+                    <button onclick="resetPracticeTimer()">Reset</button>
+                </div>
+
+                <h3>Delivery Checklist</h3>
+                <div class="interactive-box">
+                    <label><input type="checkbox"> I remembered all 4 main points without notes</label><br>
+                    <label><input type="checkbox"> My opening was confident and engaging</label><br>
+                    <label><input type="checkbox"> My closing tied back to the opening</label><br>
+                    <label><input type="checkbox"> My delivery stayed within 2:30-3:30</label><br>
+                    <label><input type="checkbox"> I used natural body language and gestures</label><br>
+                    <button onclick="evaluatePractice()">Evaluate My Practice</button>
+                </div>
+
+                <div id="practice-feedback" class="output" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- Tab 6: Final Retrieval -->
+        <div id="final" class="tab-content">
+            <h2>Final Retrieval Challenge</h2>
+
+            <div class="challenge-card">
+                <h3>Comprehensive Assessment</h3>
+                <p>Test your mastery of speech memory techniques:</p>
+
+                <h3>Question 1: Core Technique</h3>
+                <p>What is the primary advantage of using body pegs for speech delivery?</p>
+                <input type="text" id="q1-answer" placeholder="Your answer">
+
+                <h3>Question 2: Application</h3>
+                <p>Describe how you would structure a 10-minute speech about climate change using a memory palace:</p>
+                <textarea id="q2-answer" placeholder="Your answer"></textarea>
+
+                <h3>Question 3: Advanced Challenge</h3>
+                <p>Create a nested palace structure for a speech with 3 main points, each with 3-4 sub-points. Describe the layout:</p>
+                <textarea id="q3-answer" placeholder="Your answer"></textarea>
+
+                <h3>Question 4: Practical Skill</h3>
+                <p>What transition phrases would you use to move between main points? Provide at least 3 examples:</p>
+                <textarea id="q4-answer" placeholder="Your answer"></textarea>
+
+                <div class="button-group">
+                    <button onclick="submitFinalAssessment()">Submit Assessment</button>
+                    <button onclick="resetFinalAssessment()">Clear Answers</button>
+                </div>
+
+                <div id="final-feedback" class="output" style="display:none;"></div>
+            </div>
+
+            <div class="challenge-card" style="margin-top: 30px;">
+                <h3>Your Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="final-progress" style="width: 0%;">0%</div>
+                </div>
+                <p id="progress-text" style="margin-top: 10px; text-align: center; font-weight: bold;">Complete all sections to unlock certification</p>
+            </div>
+
+            <div class="highlight" style="margin-top: 30px;">
+                <h3>Next Steps After This Lesson</h3>
+                <ul>
+                    <li>Practice delivering your speech at least 5 times before presentation</li>
+                    <li>Record yourself and review for improvement areas</li>
+                    <li>Try delivering with no notes, using only your memory palace</li>
+                    <li>Apply these techniques to real speeches or presentations</li>
+                    <li>Move on to Lesson 27: Books, Articles & Deep Learning</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let deliveryTimerInterval, practiceTimerInterval;
+        let deliverySeconds = 0, practiceSeconds = 0;
+        let completedSections = {
+            retrieval: false,
+            guided: false,
+            practice: false,
+            final: false
+        };
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Activate button
+            event.target.classList.add('active');
+        }
+
+        function toggleAnswer(elementId) {
+            const element = document.getElementById(elementId);
+            element.style.display = element.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function startRetrievalPractice() {
+            document.getElementById('retrieval-progress').style.width = '100%';
+            document.getElementById('retrieval-progress').textContent = '100%';
+            completedSections.retrieval = true;
+            updateProgress();
+            alert('Warm-up complete! Move to the next tab to learn new content.');
+        }
+
+        function buildSpeechPalace() {
+            const topic = document.getElementById('speech-topic').value;
+            const points = [
+                document.getElementById('point1').value,
+                document.getElementById('point2').value,
+                document.getElementById('point3').value,
+                document.getElementById('point4').value,
+                document.getElementById('point5').value
+            ].filter(p => p);
+
+            if (!topic || points.length < 3) {
+                alert('Please enter a topic and at least 3 main points');
+                return;
+            }
+
+            let output = `<strong>Your Speech Palace: "${topic}"</strong><br><br>`;
+            output += `<strong>Opening:</strong> "${document.getElementById('opening').value}"<br>`;
+            output += `<strong>Main Points:</strong><br>`;
+
+            points.forEach((point, index) => {
+                output += `${index + 1}. ${point}<br>`;
+            });
+
+            output += `<br><strong>Closing:</strong> "${document.getElementById('closing').value}"<br>`;
+            output += `<br><span class="success">✓ Palace created! Practice walking through it mentally 3 times before delivery.</span>`;
+
+            const outputDiv = document.getElementById('palace-output');
+            outputDiv.innerHTML = output;
+            outputDiv.style.display = 'block';
+
+            completedSections.guided = true;
+            updateProgress();
+        }
+
+        function startDeliveryTimer() {
+            if (deliveryTimerInterval) clearInterval(deliveryTimerInterval);
+            deliveryTimerInterval = setInterval(() => {
+                deliverySeconds++;
+                updateTimer('delivery-timer', deliverySeconds);
+            }, 1000);
+        }
+
+        function pauseDeliveryTimer() {
+            if (deliveryTimerInterval) clearInterval(deliveryTimerInterval);
+        }
+
+        function resetDeliveryTimer() {
+            if (deliveryTimerInterval) clearInterval(deliveryTimerInterval);
+            deliverySeconds = 0;
+            document.getElementById('delivery-timer').textContent = '0:00';
+        }
+
+        function startPracticeTimer() {
+            if (practiceTimerInterval) clearInterval(practiceTimerInterval);
+            practiceTimerInterval = setInterval(() => {
+                practiceSeconds++;
+                updateTimer('practice-timer', practiceSeconds);
+            }, 1000);
+        }
+
+        function pausePracticeTimer() {
+            if (practiceTimerInterval) clearInterval(practiceTimerInterval);
+        }
+
+        function resetPracticeTimer() {
+            if (practiceTimerInterval) clearInterval(practiceTimerInterval);
+            practiceSeconds = 0;
+            document.getElementById('practice-timer').textContent = '0:00';
+        }
+
+        function updateTimer(elementId, seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            document.getElementById(elementId).textContent =
+                `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function evaluatePractice() {
+            const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const totalBoxes = document.querySelectorAll('input[type="checkbox"]').length;
+            const score = (checkedBoxes / totalBoxes) * 100;
+
+            let feedback = `<strong>Practice Evaluation</strong><br>`;
+            feedback += `Checklist Score: ${checkedBoxes}/${totalBoxes} (${Math.round(score)}%)<br>`;
+
+            if (score === 100) {
+                feedback += `<span class="success">Excellent! You're ready to deliver this speech!</span>`;
+            } else if (score >= 80) {
+                feedback += `<span class="warning">Good effort! Focus on the unchecked items for next practice session.</span>`;
+            } else {
+                feedback += `<span class="error">Keep practicing. Review your palace and delivery technique.</span>`;
+            }
+
+            completedSections.practice = true;
+            updateProgress();
+
+            const feedbackDiv = document.getElementById('practice-feedback');
+            feedbackDiv.innerHTML = feedback;
+            feedbackDiv.style.display = 'block';
+        }
+
+        function submitFinalAssessment() {
+            const q1 = document.getElementById('q1-answer').value;
+            const q2 = document.getElementById('q2-answer').value;
+            const q3 = document.getElementById('q3-answer').value;
+            const q4 = document.getElementById('q4-answer').value;
+
+            if (!q1 || !q2 || !q3 || !q4) {
+                alert('Please answer all questions');
+                return;
+            }
+
+            let score = 0;
+            let feedback = '<strong>Assessment Results</strong><br><br>';
+
+            // Q1 Evaluation
+            feedback += '<strong>Q1 - Body Pegs Advantage:</strong> ';
+            if (q1.toLowerCase().includes('trigger') || q1.toLowerCase().includes('memory') ||
+                q1.toLowerCase().includes('confidence') || q1.toLowerCase().includes('gesture')) {
+                feedback += '<span class="success">✓ Correct</span><br>';
+                score += 25;
+            } else {
+                feedback += '<span class="warning">Partially Correct - Body pegs help trigger memory during delivery and increase confidence</span><br>';
+                score += 15;
+            }
+
+            // Q2 Evaluation
+            feedback += '<strong>Q2 - Palace Structure:</strong> ';
+            if (q2.length > 100 && (q2.toLowerCase().includes('room') || q2.toLowerCase().includes('location'))) {
+                feedback += '<span class="success">✓ Good Detail</span><br>';
+                score += 25;
+            } else {
+                feedback += '<span class="warning">Partially Correct - Ensure you describe distinct locations/rooms</span><br>';
+                score += 15;
+            }
+
+            // Q3 Evaluation
+            feedback += '<strong>Q3 - Nested Palace:</strong> ';
+            if (q3.length > 150 && q3.toLowerCase().includes('sub')) {
+                feedback += '<span class="success">✓ Excellent Understanding</span><br>';
+                score += 25;
+            } else {
+                feedback += '<span class="warning">Partially Correct - Describe sub-palaces within main palace</span><br>';
+                score += 15;
+            }
+
+            // Q4 Evaluation
+            feedback += '<strong>Q4 - Transitions:</strong> ';
+            if (q4.split(',').length >= 3) {
+                feedback += '<span class="success">✓ Multiple Examples Provided</span><br>';
+                score += 25;
+            } else {
+                feedback += '<span class="warning">Partially Correct - Provide more transition examples</span><br>';
+                score += 15;
+            }
+
+            feedback += `<br><strong>Final Score: ${score}/100</strong>`;
+
+            if (score >= 85) {
+                feedback += '<br><span class="success">MASTERY ACHIEVED! Ready for Lesson 27</span>';
+                completedSections.final = true;
+            } else if (score >= 70) {
+                feedback += '<br><span class="warning">Good progress. Review weak areas and try again.</span>';
+                completedSections.final = true;
+            } else {
+                feedback += '<br><span class="error">Please review the content and retake the assessment.</span>';
+            }
+
+            updateProgress();
+
+            const feedbackDiv = document.getElementById('final-feedback');
+            feedbackDiv.innerHTML = feedback;
+            feedbackDiv.style.display = 'block';
+        }
+
+        function resetFinalAssessment() {
+            document.getElementById('q1-answer').value = '';
+            document.getElementById('q2-answer').value = '';
+            document.getElementById('q3-answer').value = '';
+            document.getElementById('q4-answer').value = '';
+            document.getElementById('final-feedback').style.display = 'none';
+        }
+
+        function updateProgress() {
+            const completed = Object.values(completedSections).filter(v => v).length;
+            const total = Object.keys(completedSections).length;
+            const percentage = (completed / total) * 100;
+
+            document.getElementById('final-progress').style.width = percentage + '%';
+            document.getElementById('final-progress').textContent = Math.round(percentage) + '%';
+            document.getElementById('progress-text').textContent =
+                `Progress: ${completed}/${total} sections complete`;
+        }
+
+        // Initialize first tab
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.tab-button').classList.add('active');
+        });
+    </script>
+</body>
+</html>
