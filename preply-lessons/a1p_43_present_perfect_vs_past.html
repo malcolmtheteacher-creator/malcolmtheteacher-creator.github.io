@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 43: Present Perfect vs Past Simple</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 5px 5px 0 0;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab-button:hover { background: #f0f0f0; }
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            border-bottom-color: #667eea;
+        }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active { display: block; }
+        .learning-intention {
+            background: #e8f4f8;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+        .retrieval-prompt {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border: 2px solid #667eea;
+        }
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .comparison-table tr:hover { background: #f5f5f5; }
+        .example-box {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+            font-style: italic;
+        }
+        .click-reveal {
+            margin: 15px 0;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .reveal-prompt {
+            cursor: pointer;
+            color: #667eea;
+            text-decoration: underline;
+            font-weight: 500;
+            display: inline-block;
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .reveal-content {
+            display: none;
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .reveal-content.show { display: block; }
+        .practice-card {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #f0f7ff;
+        }
+        .textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+        .textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #f0f7ff;
+        }
+        .rule-box {
+            background: #e3f2fd;
+            border: 2px dashed #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .recall-item {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .i-can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            text-align: center;
+            font-weight: bold;
+        }
+        .meta-question {
+            background: #f0f7ff;
+            border: 2px dashed #667eea;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .tabs { flex-direction: column; }
+            .tab-button { width: 100%; }
+            .comparison-table { font-size: 0.9em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚖️ Lesson 43: Present Perfect vs Past Simple</h1>
+            <p>A1 Pathway Transition Unit (A1→A2) • Knowledge Building</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)">1️⃣ Retrieval</button>
+            <button class="tab-button" onclick="showTab(1)">2️⃣ Form Focus</button>
+            <button class="tab-button" onclick="showTab(2)">3️⃣ Guided Practice</button>
+            <button class="tab-button" onclick="showTab(3)">4️⃣ Interleaved</button>
+            <button class="tab-button" onclick="showTab(4)">5️⃣ Elaboration</button>
+            <button class="tab-button" onclick="showTab(5)">6️⃣ Speaking</button>
+            <button class="tab-button" onclick="showTab(6)">7️⃣ Recall Zone</button>
+            <button class="tab-button" onclick="showTab(7)">8️⃣ Test</button>
+        </div>
+
+        <!-- TAB 1: RETRIEVAL + CONTEXT -->
+        <div class="tab-content active">
+            <h2>Tab 1: Retrieval + Context</h2>
+
+            <div class="retrieval-prompt">
+                <h3>🧠 Quick recall — from memory:</h3>
+                <p>Complete these 2 sentences about yourself:</p>
+                <p style="margin-top: 10px;">1. Last year, I _____________ (Past Simple)</p>
+                <input type="text" class="input-field" placeholder="e.g., went to Paris">
+
+                <p style="margin-top: 10px;">2. I've _____________ many times. (Present Perfect)</p>
+                <input type="text" class="input-field" placeholder="e.g., been to the beach">
+
+                <p style="margin-top: 15px;"><em>No notes — just what comes to mind!</em></p>
+            </div>
+
+            <div class="learning-intention">
+                <strong>Today we're working on:</strong> The KEY difference between Present Perfect (life experience) and Past Simple (finished time) — so you can choose the RIGHT tense for what you're saying.
+            </div>
+
+            <div class="rule-box">
+                <h3>🔑 The Main Idea</h3>
+                <p><strong>Past Simple:</strong> When did it happen? (A specific time in the past)</p>
+                <p style="margin-top: 10px;"><strong>Present Perfect:</strong> Has it ever happened? (Anytime in your life, or recently)</p>
+                <p style="margin-top: 15px;"><em>This is THE MOST IMPORTANT distinction for advanced A1 students.</em></p>
+            </div>
+        </div>
+
+        <!-- TAB 2: FORM FOCUS -->
+        <div class="tab-content">
+            <h2>Tab 2: Form Focus</h2>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>PRESENT PERFECT</th>
+                    <th>PAST SIMPLE</th>
+                </tr>
+                <tr>
+                    <td><strong>Have/Has + past participle</strong><br>I have been<br>She has gone<br>They have eaten</td>
+                    <td><strong>Regular: -ed<br>Irregular: special form</strong><br>I went<br>She sat<br>They ate</td>
+                </tr>
+                <tr>
+                    <td><strong>When to use:</strong><br>✓ Life experience (ever?)<br>✓ Recent past<br>✓ Just now<br>✓ How many times?</td>
+                    <td><strong>When to use:</strong><br>✓ Finished time (when?)<br>✓ Yesterday, last week<br>✓ In 1990<br>✓ Completed action</td>
+                </tr>
+                <tr>
+                    <td><strong>Examples:</strong><br>"I've been to Tokyo." (life exp)<br>"She's just arrived." (recent)<br>"Have you eaten lunch?" (question)</td>
+                    <td><strong>Examples:</strong><br>"I went to Tokyo last year." (when?)<br>"She arrived at 5pm." (when?)<br>"Did you eat lunch?" (when?)</td>
+                </tr>
+            </table>
+
+            <p style="margin-top: 20px;"><strong>KEY SIGNAL WORDS:</strong></p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                <div style="background: #c8e6c9; padding: 15px; border-radius: 8px;">
+                    <strong>Present Perfect signals:</strong><br>
+                    • Ever?<br>
+                    • Always, never<br>
+                    • Just<br>
+                    • Yet, already<br>
+                    • How many times?<br>
+                    • Three times<br>
+                    • Recently
+                </div>
+                <div style="background: #ffccbc; padding: 15px; border-radius: 8px;">
+                    <strong>Past Simple signals:</strong><br>
+                    • Yesterday<br>
+                    • Last week/month/year<br>
+                    • In 1995<br>
+                    • When did...?<br>
+                    • Then, afterwards<br>
+                    • At 3 o'clock
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: GUIDED PRACTICE -->
+        <div class="tab-content">
+            <h2>Tab 3: Guided Practice (I Do → We Do → You Do)</h2>
+
+            <div class="practice-card">
+                <h3>I DO — Model</h3>
+                <p><strong>Question:</strong> "How many countries have you visited?"</p>
+                <p><strong>Answer (teacher model):</strong> "I've visited 12 countries. I went to Spain last summer and really enjoyed it."</p>
+                <p style="margin-top: 10px; color: #667eea;"><em>Notice: Present Perfect (ever? = life experience) + Past Simple (when? = last summer)</em></p>
+            </div>
+
+            <div class="practice-card">
+                <h3>WE DO — Together</h3>
+                <p><strong>Question:</strong> "Have you ever tried sushi?"</p>
+                <p><strong>Complete the answer (you fill in the blanks):</strong></p>
+                <p>Yes, I _________ tried sushi (present perfect). I _________ it (past simple) at a Japanese restaurant last month.</p>
+                <input type="text" class="input-field" placeholder="Fill in the verbs...">
+            </div>
+
+            <div class="practice-card">
+                <h3>YOU DO — Independent</h3>
+                <p><strong>Question:</strong> "How often do you go to the gym?"</p>
+                <p><strong>Write a complete answer using BOTH tenses:</strong></p>
+                <textarea class="textarea" placeholder="I've... and I went..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 4: INTERLEAVED PRACTICE -->
+        <div class="tab-content">
+            <h2>Tab 4: Interleaved Practice (Mixed Questions)</h2>
+
+            <p><strong>For each question, decide: Present Perfect or Past Simple?</strong></p>
+
+            <div class="practice-card">
+                <p><strong>1. "Did you watch the match yesterday?"</strong></p>
+                <p>Use: <select><option>---</option><option>Past Simple (specific time)</option><option>Present Perfect (life exp)</option></select></p>
+                <p style="margin-top: 10px;">Your answer: I _____________ the match.</p>
+                <input type="text" class="input-field" placeholder="Type your answer...">
+            </div>
+
+            <div class="practice-card">
+                <p><strong>2. "Have you ever been to a concert?"</strong></p>
+                <p>Use: <select><option>---</option><option>Past Simple (specific time)</option><option>Present Perfect (life exp)</option></select></p>
+                <p style="margin-top: 10px;">Your answer: Yes, I _____________ to many concerts.</p>
+                <input type="text" class="input-field" placeholder="Type your answer...">
+            </div>
+
+            <div class="practice-card">
+                <p><strong>3. "When did you last see your family?"</strong></p>
+                <p>Use: <select><option>---</option><option>Past Simple (specific time)</option><option>Present Perfect (life exp)</option></select></p>
+                <p style="margin-top: 10px;">Your answer: I _____________ them last week.</p>
+                <input type="text" class="input-field" placeholder="Type your answer...">
+            </div>
+
+            <div class="practice-card">
+                <p><strong>4. "How many times have you been to England?"</strong></p>
+                <p>Use: <select><option>---</option><option>Past Simple (specific time)</option><option>Present Perfect (life exp)</option></select></p>
+                <p style="margin-top: 10px;">Your answer: I _____________ there four times.</p>
+                <input type="text" class="input-field" placeholder="Type your answer...">
+            </div>
+        </div>
+
+        <!-- TAB 5: ELABORATION -->
+        <div class="tab-content">
+            <h2>Tab 5: Elaboration — Create Your Own Rule</h2>
+
+            <p><strong>Write a 2-3 sentence rule explaining the difference between Present Perfect and Past Simple:</strong></p>
+
+            <textarea class="textarea" placeholder="Present Perfect is for... Past Simple is for..."></textarea>
+
+            <p style="margin-top: 20px;"><strong>Now create 2 original example sentences (not from this lesson):</strong></p>
+
+            <p style="margin-top: 10px;">Present Perfect example:</p>
+            <input type="text" class="input-field" placeholder="I've...">
+
+            <p style="margin-top: 10px;">Past Simple example:</p>
+            <input type="text" class="input-field" placeholder="I went...">
+        </div>
+
+        <!-- TAB 6: SPEAKING/PRODUCTION -->
+        <div class="tab-content">
+            <h2>Tab 6: Speaking Practice</h2>
+
+            <p><strong>Answer these 5 questions about YOUR LIFE using the correct tense:</strong></p>
+
+            <div class="practice-card">
+                <p>1. How many cities have you lived in?</p>
+                <textarea class="textarea" placeholder="I've lived in..."></textarea>
+
+                <p style="margin-top: 15px;">2. When did you last travel?</p>
+                <textarea class="textarea" placeholder="I traveled..."></textarea>
+
+                <p style="margin-top: 15px;">3. Have you ever had a bad experience at a restaurant?</p>
+                <textarea class="textarea" placeholder="Yes, I've had..."></textarea>
+
+                <p style="margin-top: 15px;">4. What did you do yesterday?</p>
+                <textarea class="textarea" placeholder="I..."></textarea>
+
+                <p style="margin-top: 15px;">5. How many times have you changed jobs?</p>
+                <textarea class="textarea" placeholder="I've changed..."></textarea>
+
+                <p style="margin-top: 20px;"><strong>Self-assessment:</strong> Did you use the correct tense for each question?</p>
+            </div>
+        </div>
+
+        <!-- TAB 7: RECALL ZONE -->
+        <div class="tab-content">
+            <h2>Tab 7: Recall Zone</h2>
+
+            <div class="recall-item">
+                <h3>From Lesson 40 (Unit 4 Review): Could & Would</h3>
+                <p><strong>Recall:</strong> Write a polite request with "Would you mind...?"</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>Example: "Would you mind helping me carry this?"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <h3>From Lesson 28: Present Perfect Introduction</h3>
+                <p><strong>Recall:</strong> Form: have/has + _____________ (what's the grammar term?)</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>have/has + PAST PARTICIPLE (gone, eaten, seen, etc.)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <h3>From Lesson 11: Past Simple Regular Verbs</h3>
+                <p><strong>Recall:</strong> How do you form regular past simple verbs? (think of "liked", "walked")</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>Add -ED to the base form (like + d = liked, walk + ed = walked)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8: RETRIEVAL TEST -->
+        <div class="tab-content">
+            <h2>Tab 8: Retrieval Test + Metacognition</h2>
+
+            <p><strong>From memory (no looking back): Write the rule in your own words:</strong></p>
+            <p style="margin-top: 10px;"><em>When do you use Present Perfect vs Past Simple?</em></p>
+            <textarea class="textarea" placeholder="Present Perfect: ...&#10;Past Simple: ..."></textarea>
+
+            <p style="margin-top: 20px;"><strong>Check yourself against the table:</strong></p>
+            <div class="click-reveal">
+                <div class="reveal-prompt" onclick="toggleReveal(this)">Click to see the answer →</div>
+                <div class="reveal-content">
+                    <p><strong>Present Perfect:</strong> For life experiences, recent past, or "how many times?" questions. Use have/has + past participle.</p>
+                    <p style="margin-top: 10px;"><strong>Past Simple:</strong> For finished actions with a specific time in the past. Use -ed or irregular forms.</p>
+                </div>
+            </div>
+
+            <div class="meta-question">
+                <h3>🧠 Reflection</h3>
+                <p><strong>Which is harder for you: recognizing which tense to use, or forming the tense correctly?</strong></p>
+                <textarea class="textarea" placeholder="It's harder to..."></textarea>
+
+                <p style="margin-top: 15px;"><strong>What will you practice more between now and the next lesson?</strong></p>
+                <textarea class="textarea" placeholder="I will practice..."></textarea>
+            </div>
+
+            <div class="i-can-statement">
+                ✨ I can use Present Perfect and Past Simple correctly to talk about life experiences and completed actions. I understand WHEN to use each tense and can choose appropriately in conversations. ✨
+            </div>
+
+            <p style="margin-top: 20px; text-align: center; color: #666;">
+                <strong>Lesson 43 Complete!</strong> This is a crucial tense distinction for A2 level. Excellent work! 🎉
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(index) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            contents.forEach(c => c.classList.remove('active'));
+            buttons.forEach(b => b.classList.remove('active'));
+            contents[index].classList.add('active');
+            buttons[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('show');
+            element.textContent = content.classList.contains('show') ? '← Hide' : 'Click to reveal →';
+        }
+    </script>
+</body>
+</html>

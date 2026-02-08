@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 47: Discussing Future Plans</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2.5em; }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            border-bottom-color: #667eea;
+        }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active { display: block; }
+        .retrieval-prompt {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+        .learning-intention {
+            background: #e8f4f8;
+            border-left: 4px solid #4a90e2;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        .comparison-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .example-box {
+            background: #f0f0f0;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+        }
+        .input-field, .textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+        .textarea { min-height: 80px; }
+        .practice-card {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .click-reveal {
+            margin: 15px 0;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .reveal-prompt {
+            cursor: pointer;
+            color: #667eea;
+            text-decoration: underline;
+            font-weight: 500;
+            display: inline-block;
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+        .reveal-content {
+            display: none;
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .reveal-content.show { display: block; }
+        .i-can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            text-align: center;
+            font-weight: bold;
+        }
+        .meta-question {
+            background: #f0f7ff;
+            border: 2px dashed #667eea;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Lesson 47: Discussing Future Plans</h1>
+            <p>A1 Pathway Transition Unit (A1→A2) • Curious Conversations</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)">1️⃣ Retrieval</button>
+            <button class="tab-button" onclick="showTab(1)">2️⃣ 3 Future Forms</button>
+            <button class="tab-button" onclick="showTab(2)">3️⃣ Language Focus</button>
+            <button class="tab-button" onclick="showTab(3)">4️⃣ Model Dialogue</button>
+            <button class="tab-button" onclick="showTab(4)">5️⃣ Your Turn</button>
+            <button class="tab-button" onclick="showTab(5)">6️⃣ Deep Dive</button>
+            <button class="tab-button" onclick="showTab(6)">7️⃣ Recall</button>
+            <button class="tab-button" onclick="showTab(7)">8️⃣ Reflection</button>
+        </div>
+
+        <!-- TAB 1 -->
+        <div class="tab-content active">
+            <h2>Tab 1: Retrieval + Hook</h2>
+
+            <div class="retrieval-prompt">
+                <h3>🧠 Let's see what comes to mind...</h3>
+                <p>What are your plans for the next month?</p>
+                <p style="margin-top: 10px;"><em>Write 2-3 sentences — use whatever tense feels natural:</em></p>
+                <textarea class="textarea" placeholder="I will... I'm going to... I'm..."></textarea>
+            </div>
+
+            <div class="learning-intention">
+                <strong>Today we're working on:</strong> Three different ways to talk about future plans — Will, Going to, and Present Continuous — and when to use each one.
+            </div>
+
+            <p style="margin: 20px 0; padding: 20px; background: #fff3cd; border-radius: 5px;">
+                <strong>Why this matters:</strong> Native speakers use all three! It's not just one "future tense" — they choose based on how certain they are, how soon it is, and how planned it is.
+            </p>
+        </div>
+
+        <!-- TAB 2 -->
+        <div class="tab-content">
+            <h2>Tab 2: The 3 Future Forms</h2>
+
+            <table class="comparison-table">
+                <tr style="background: #667eea; color: white;">
+                    <th>WILL</th>
+                    <th>GOING TO</th>
+                    <th>PRESENT CONTINUOUS</th>
+                </tr>
+                <tr>
+                    <td><strong>Form:</strong> I will go</td>
+                    <td><strong>Form:</strong> I'm going to go</td>
+                    <td><strong>Form:</strong> I'm going</td>
+                </tr>
+                <tr>
+                    <td><strong>When:</strong> <br>• Spontaneous decision<br>• Prediction<br>• Not planned</td>
+                    <td><strong>When:</strong><br>• Already planned<br>• Definite intention<br>• Before the decision</td>
+                    <td><strong>When:</strong><br>• Definite arrangement<br>• Specific time/date<br>• Very soon</td>
+                </tr>
+                <tr style="background: #f5f5f5;">
+                    <td><span class="example-box">"I'll call you tomorrow." (Just deciding now)</span></td>
+                    <td><span class="example-box">"I'm going to call you tomorrow." (I decided before)</span></td>
+                    <td><span class="example-box">"I'm calling you tomorrow at 3pm." (Arranged already)</span></td>
+                </tr>
+            </table>
+
+            <p style="margin-top: 20px;"><strong>Quick Practice:</strong> Which form for each situation?</p>
+            <p style="margin-top: 10px;">1. You suddenly decide to learn Spanish:</p>
+            <input type="text" class="input-field" placeholder="I will / I'm going to / I'm">
+
+            <p style="margin-top: 10px;">2. You booked a flight for next month (it's already confirmed):</p>
+            <input type="text" class="input-field" placeholder="I will / I'm going to / I'm">
+
+            <p style="margin-top: 10px;">3. Your friend is meeting you at 5pm (you arranged it):</p>
+            <input type="text" class="input-field" placeholder="I will / I'm going to / I'm">
+        </div>
+
+        <!-- TAB 3 -->
+        <div class="tab-content">
+            <h2>Tab 3: Conversation Language (5 Items)</h2>
+
+            <div class="practice-card">
+                <h3>1️⃣ OPENING QUESTION</h3>
+                <div class="example-box">"What are your plans for...?" / "Do you have anything planned for...?" / "Are you doing anything this weekend?"</div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Ask about someone's plans:</p>
+                <input type="text" class="input-field" placeholder="What...?">
+            </div>
+
+            <div class="practice-card">
+                <h3>2️⃣ EXPRESSING CERTAINTY</h3>
+                <div class="example-box">"I'm definitely going to..." / "I'm probably going to..." / "I might..."</div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Complete about your plans:</p>
+                <input type="text" class="input-field" placeholder="I'm definitely...">
+            </div>
+
+            <div class="practice-card">
+                <h3>3️⃣ ASKING FOR DETAILS</h3>
+                <div class="example-box">"Where are you going?" / "When are you leaving?" / "Who's going with you?"</div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Ask a follow-up detail question:</p>
+                <input type="text" class="input-field" placeholder="When...? Who...? Where...?">
+            </div>
+
+            <div class="practice-card">
+                <h3>4️⃣ EXPRESSING EXCITEMENT/HESITATION</h3>
+                <div class="example-box">"I'm really looking forward to it!" / "I'm a bit nervous about..." / "I can't wait to..."</div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Express your feeling:</p>
+                <input type="text" class="input-field" placeholder="I'm looking forward to...">
+            </div>
+
+            <div class="practice-card">
+                <h3>5️⃣ ENCOURAGING/RESPONDING</h3>
+                <div class="example-box">"That sounds amazing!" / "Good luck with that!" / "Let me know how it goes!"</div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Respond encouragingly:</p>
+                <input type="text" class="input-field" placeholder="That sounds...">
+            </div>
+        </div>
+
+        <!-- TAB 4 -->
+        <div class="tab-content">
+            <h2>Tab 4: Model Conversation</h2>
+
+            <div class="practice-card">
+                <p><strong>A:</strong> "What are you up to this summer?"</p>
+                <p><strong>B:</strong> "I'm going to travel to Thailand! I've already booked the flights."</p>
+                <p><strong>A:</strong> "That sounds amazing! When are you going?"</p>
+                <p><strong>B:</strong> "In July. I'm meeting my friend there. We're exploring Bangkok and Phuket."</p>
+                <p><strong>A:</strong> "I'm so jealous! How long will you stay?"</p>
+                <p><strong>B:</strong> "Three weeks. I can't wait!"</p>
+                <p><strong>A:</strong> "You'll have an incredible time. Let me know how it goes!"</p>
+                <p style="margin-top: 20px;"><strong>ANALYSIS:</strong> Circle the future form in each sentence. Which is Will? Going to? Present Continuous?</p>
+            </div>
+        </div>
+
+        <!-- TAB 5 -->
+        <div class="tab-content">
+            <h2>Tab 5: Your Turn</h2>
+
+            <div class="practice-card">
+                <h3>Discuss your real plans (2-3 minutes speaking):</h3>
+
+                <p><strong>Choose ONE of these:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Your plans for next weekend</li>
+                    <li>Your plans for next month</li>
+                    <li>Your plans for next year</li>
+                </ul>
+
+                <p style="margin-top: 15px;"><strong>Include:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>• What will/are you doing?</li>
+                    <li>• When?</li>
+                    <li>• Who with?</li>
+                    <li>• Why (if relevant)?</li>
+                    <li>• How do you feel about it?</li>
+                </ul>
+
+                <textarea class="textarea" placeholder="Write or speak your plans here..." style="min-height: 120px;"></textarea>
+
+                <p style="margin-top: 15px;"><strong>Self-check:</strong> Did you use at least 2 different future forms (Will, Going to, Present Continuous)?</p>
+            </div>
+        </div>
+
+        <!-- TAB 6 -->
+        <div class="tab-content">
+            <h2>Tab 6: Deep Dive — Complex Plans</h2>
+
+            <p><strong>Imagine a more complex plan. Write a paragraph describing it using all 3 future forms:</strong></p>
+
+            <div class="practice-card">
+                <p><em>Example scenario: Career change in the next 2 years</em></p>
+                <textarea class="textarea" placeholder="I'm going to... I'm studying... I will eventually..." style="min-height: 120px;"></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 7 -->
+        <div class="tab-content">
+            <h2>Tab 7: Recall Zone</h2>
+
+            <div style="background: white; border-left: 4px solid #667eea; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                <h3>From Lesson 21: Present Continuous (Right Now)</h3>
+                <p><strong>Recall:</strong> Form: Am/Is/Are + _____________ (what's the ending?)</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>-ING (I am going, She is working, They are eating)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: white; border-left: 4px solid #667eea; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                <h3>From Lesson 40 (Unit 4): Question Formation</h3>
+                <p><strong>Recall:</strong> How do you form questions with "are you"?</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>"Are you going?" (auxiliary verb at the start)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: white; border-left: 4px solid #667eea; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                <h3>From Lesson 43: Present Perfect vs Past</h3>
+                <p><strong>Recall:</strong> "I've booked" vs "I booked" — what's the difference?</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>"I've booked" = Just happened / Recent | "I booked" = Finished in the past (specific time)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8 -->
+        <div class="tab-content">
+            <h2>Tab 8: Reflection</h2>
+
+            <p><strong>From memory: List the 3 future forms and ONE example for each:</strong></p>
+            <textarea class="textarea" placeholder="1) Will: ...&#10;2) Going to: ...&#10;3) Present Continuous: ..."></textarea>
+
+            <div class="click-reveal">
+                <div class="reveal-prompt" onclick="toggleReveal(this)">Check yourself →</div>
+                <div class="reveal-content">
+                    <p>1) Will: "I'll call you" (spontaneous decision)</p>
+                    <p>2) Going to: "I'm going to call you" (planned intention)</p>
+                    <p>3) Present Continuous: "I'm calling you" (definite arrangement with specific time)</p>
+                </div>
+            </div>
+
+            <div class="meta-question">
+                <h3>🧠 Reflection</h3>
+                <p><strong>Which future form feels most natural to you? Why?</strong></p>
+                <textarea class="textarea" placeholder="I naturally use..."></textarea>
+
+                <p style="margin-top: 15px;"><strong>What will you practice before the next lesson?</strong></p>
+                <textarea class="textarea" placeholder="I will practice..."></textarea>
+            </div>
+
+            <div class="i-can-statement">
+                ✨ I can discuss future plans using three different forms (Will, Going to, Present Continuous) and choose the right one based on the situation. I can engage naturally in conversations about what comes next! ✨
+            </div>
+
+            <p style="margin-top: 20px; text-align: center; color: #666;">
+                <strong>Lesson 47 Complete!</strong> Three more lessons to master the A1 Pathway! 🎉
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(index) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content')[index].classList.add('active');
+            document.querySelectorAll('.tab-button')[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        function toggleReveal(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('show');
+            element.textContent = content.classList.contains('show') ? '← Hide' : 'Click to reveal →';
+        }
+    </script>
+</body>
+</html>

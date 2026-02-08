@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 48: Giving Advice</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            border-bottom-color: #667eea;
+        }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active { display: block; }
+        .learning-intention {
+            background: #e8f4f8;
+            border-left: 4px solid #4a90e2;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .retrieval-prompt {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+        .component-card {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #1a1a2e;
+        }
+        .component-card h3 { color: #667eea; margin-bottom: 10px; }
+        .example-box {
+            background: #f0f0f0;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+        }
+        .input-field, .textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+        .textarea { min-height: 80px; }
+        .practice-card {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .click-reveal {
+            margin: 15px 0;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .reveal-prompt {
+            cursor: pointer;
+            color: #667eea;
+            text-decoration: underline;
+            font-weight: 500;
+            display: inline-block;
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+        .reveal-content {
+            display: none;
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .reveal-content.show { display: block; }
+        .i-can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            text-align: center;
+            font-weight: bold;
+        }
+        .meta-question {
+            background: #f0f7ff;
+            border: 2px dashed #667eea;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💡 Lesson 48: Giving Advice</h1>
+            <p>A1 Pathway Transition Unit (A1→A2) • Skills Training</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)">1️⃣ Retrieval</button>
+            <button class="tab-button" onclick="showTab(1)">2️⃣ Framework</button>
+            <button class="tab-button" onclick="showTab(2)">3️⃣ Examples</button>
+            <button class="tab-button" onclick="showTab(3)">4️⃣ Guided</button>
+            <button class="tab-button" onclick="showTab(4)">5️⃣ Scenarios</button>
+            <button class="tab-button" onclick="showTab(5)">6️⃣ Application</button>
+            <button class="tab-button" onclick="showTab(6)">7️⃣ Recall</button>
+            <button class="tab-button" onclick="showTab(7)">8️⃣ Debrief</button>
+        </div>
+
+        <!-- TAB 1 -->
+        <div class="tab-content active">
+            <h2>Tab 1: Retrieval + Framework</h2>
+
+            <div class="retrieval-prompt">
+                <h3>🧠 When you give advice, what do you say?</h3>
+                <p>Write 2 pieces of advice you've given someone recently:</p>
+                <textarea class="textarea" placeholder="I told someone to..."></textarea>
+            </div>
+
+            <div class="learning-intention">
+                <strong>Today we're working on:</strong> Three patterns for giving advice (You should..., If I were you..., Why don't you...?) — so you can offer suggestions confidently and appropriately.
+            </div>
+
+            <div style="background: #e8f4f8; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea;">
+                <h3>🎯 The Advice Framework: OFFER + REASON + CHECK</h3>
+                <p style="margin-top: 10px;">OFFER: Give the advice (3 different patterns)</p>
+                <p style="margin-top: 5px;">REASON: Explain WHY (your suggestion makes sense)</p>
+                <p style="margin-top: 5px;">CHECK: Ask if they agree or want more ideas</p>
+            </div>
+        </div>
+
+        <!-- TAB 2 -->
+        <div class="tab-content">
+            <h2>Tab 2: Deep Dive — 3 Ways to Advise</h2>
+
+            <div class="component-card">
+                <h3>1️⃣ "You should..."</h3>
+                <p><strong>Use when:</strong> Direct, clear advice</p>
+                <div class="example-box">
+                    "You should take a break." / "You should see a doctor." / "You should apply for that job."
+                </div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Give advice about learning English:</p>
+                <input type="text" class="input-field" placeholder="You should...">
+            </div>
+
+            <div class="component-card">
+                <h3>2️⃣ "If I were you, I would..."</h3>
+                <p><strong>Use when:</strong> Gentle, hypothetical advice ("If I were in your situation...")</p>
+                <div class="example-box">
+                    "If I were you, I'd take the job." / "If I were you, I wouldn't worry about it."
+                </div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Gentle advice about relationships:</p>
+                <input type="text" class="input-field" placeholder="If I were you, I would...">
+            </div>
+
+            <div class="component-card">
+                <h3>3️⃣ "Why don't you...?"</h3>
+                <p><strong>Use when:</strong> Suggesting, not commanding (very friendly)</p>
+                <div class="example-box">
+                    "Why don't you ask for help?" / "Why don't you try a different approach?"
+                </div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Friendly suggestion:</p>
+                <input type="text" class="input-field" placeholder="Why don't you...?">
+            </div>
+
+            <div class="component-card">
+                <h3>4️⃣ REASON + CHECK</h3>
+                <p><strong>Always add WHY:</strong> "Because..." / "That way..." / "So you can..."</p>
+                <p style="margin-top: 10px;"><strong>Always CHECK:</strong> "What do you think?" / "Does that sound good?" / "Have you thought about...?"</p>
+                <div class="example-box">
+                    Full advice: "You should take a break because you're exhausted. You'll think more clearly after rest. What do you think?"
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3 -->
+        <div class="tab-content">
+            <h2>Tab 3: Model Advice Conversations</h2>
+
+            <div class="practice-card">
+                <h3>Scenario: Friend is unhappy at work</h3>
+
+                <p><strong>Friend:</strong> "I hate my job. I come home exhausted every day."</p>
+
+                <p><strong>Good advice:</strong> "If I were you, I'd start looking for another job. Life's too short to be miserable at work. Have you thought about what kind of role you'd prefer?"</p>
+
+                <p style="margin-top: 15px;"><strong>What makes this good?</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>✓ Uses "If I were you" (gentle)</li>
+                    <li>✓ Gives a REASON ("Life's too short...")</li>
+                    <li>✓ Checks their opinion ("Have you thought...?")</li>
+                </ul>
+            </div>
+
+            <div class="practice-card">
+                <h3>Scenario: Friend wants to learn Spanish</h3>
+
+                <p><strong>Friend:</strong> "I want to learn Spanish but I don't know where to start."</p>
+
+                <p><strong>Good advice:</strong> "Why don't you download a language app? They're fun and you can practice anytime. I use one and it really helps. Does that sound interesting?"</p>
+
+                <p style="margin-top: 15px;"><strong>What makes this good?</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>✓ Uses "Why don't you" (friendly suggestion)</li>
+                    <li>✓ Personal reason ("I use one...")</li>
+                    <li>✓ Checks: "Does that sound interesting?"</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 4 -->
+        <div class="tab-content">
+            <h2>Tab 4: Guided Practice</h2>
+
+            <div class="practice-card">
+                <h3>I DO - Model</h3>
+                <p><strong>Problem:</strong> A friend is very stressed about exams.</p>
+                <p><strong>Model advice:</strong> "You should make a study plan. Break everything into small chunks so it feels manageable. That way you won't feel so overwhelmed. What do you think?"</p>
+            </div>
+
+            <div class="practice-card">
+                <h3>WE DO - Together</h3>
+                <p><strong>Problem:</strong> A friend isn't sleeping well.</p>
+                <p>Complete this advice:</p>
+                <p>"If I _____________ you, I _____________ less coffee before bed. It helps because _____________ . Have you _____________?"</p>
+                <textarea class="textarea" placeholder="Fill in the blanks..."></textarea>
+            </div>
+
+            <div class="practice-card">
+                <h3>YOU DO - Your Turn</h3>
+                <p><strong>Problem:</strong> A friend wants to get fit but doesn't know how.</p>
+                <p>Give advice using "Why don't you..." (include reason + check):</p>
+                <textarea class="textarea" placeholder="Why don't you..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 5 -->
+        <div class="tab-content">
+            <h2>Tab 5: Real Scenarios</h2>
+
+            <div class="practice-card">
+                <h3>Scenario A: Money problems</h3>
+                <p><strong>Friend:</strong> "I spend too much money and can't save. What should I do?"</p>
+                <p>Give your advice (use should, if I were you, or why don't you):</p>
+                <textarea class="textarea" placeholder="You should..."></textarea>
+            </div>
+
+            <div class="practice-card">
+                <h3>Scenario B: Shy friend</h3>
+                <p><strong>Friend:</strong> "I'm too shy to make new friends. People think I'm unfriendly."</p>
+                <p>Give your advice with REASON + CHECK:</p>
+                <textarea class="textarea" placeholder="If I were you..."></textarea>
+            </div>
+
+            <div class="practice-card">
+                <h3>Scenario C: Career question</h3>
+                <p><strong>Friend:</strong> "Should I stay at my current job or take a new one?"</p>
+                <p>Give advice (use at least 2 different patterns):</p>
+                <textarea class="textarea" placeholder="You should... Why don't you..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 6 -->
+        <div class="tab-content">
+            <h2>Tab 6: Full Application</h2>
+
+            <p><strong>Role-play: Someone comes to you with a real problem. Give complete advice using the framework.</strong></p>
+
+            <div class="practice-card">
+                <p><strong>The problem (your choice):</strong></p>
+                <select style="width: 100%; padding: 8px; margin: 10px 0;">
+                    <option>Work/career stress</option>
+                    <option>Relationship issue</option>
+                    <option>Health concern</option>
+                    <option>Finance problem</option>
+                    <option>Learning challenge</option>
+                </select>
+
+                <p style="margin-top: 15px;"><strong>Your complete advice (OFFER + REASON + CHECK):</strong></p>
+                <textarea class="textarea" placeholder="You should... / If I were you... / Why don't you...&#10;Because / That way / So you can...&#10;What do you think? Does that sound good?" style="min-height: 120px;"></textarea>
+
+                <p style="margin-top: 15px;"><strong>Self-check:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Did I offer advice (3 patterns available)? ✓</li>
+                    <li>Did I give a REASON? ✓</li>
+                    <li>Did I CHECK their opinion? ✓</li>
+                    <li>Was I respectful and supportive? ✓</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 7 -->
+        <div class="tab-content">
+            <h2>Tab 7: Recall Zone</h2>
+
+            <div style="background: white; border-left: 4px solid #667eea; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                <h3>From Lesson 26: Must & Should</h3>
+                <p><strong>Recall:</strong> What's the difference between "You must..." and "You should..."?</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>Must = stronger, more obligatory | Should = advice, recommendation</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: white; border-left: 4px solid #667eea; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                <h3>From Lesson 39: Could & Would</h3>
+                <p><strong>Recall:</strong> Complete: "Would you _____________ helping me with this?"</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>"Would you mind helping me with this?" (polite request)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: white; border-left: 4px solid #667eea; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                <h3>From Lesson 44: Making Invitations</h3>
+                <p><strong>Recall:</strong> Write one way to decline an invitation politely:</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>"I really appreciate the invite, but I can't make it." / "Thanks, but I'm busy that day."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8 -->
+        <div class="tab-content">
+            <h2>Tab 8: Debrief + Metacognition</h2>
+
+            <p><strong>From memory: Write the 3 advice patterns:</strong></p>
+            <textarea class="textarea" placeholder="1) You should...&#10;2) If I were you...&#10;3) Why don't you..."></textarea>
+
+            <div class="click-reveal">
+                <div class="reveal-prompt" onclick="toggleReveal(this)">Check yourself →</div>
+                <div class="reveal-content">
+                    <p>1) You should + verb</p>
+                    <p>2) If I were you, I would + verb</p>
+                    <p>3) Why don't you + verb?</p>
+                </div>
+            </div>
+
+            <div class="meta-question">
+                <h3>🧠 Reflection</h3>
+                <p><strong>Which advice pattern do you use most naturally?</strong></p>
+                <textarea class="textarea" placeholder="I naturally use..."></textarea>
+
+                <p style="margin-top: 15px;"><strong>When do you find it hardest to give advice?</strong></p>
+                <textarea class="textarea" placeholder="It's hardest when..."></textarea>
+            </div>
+
+            <div class="i-can-statement">
+                ✨ I can give advice using three different patterns, explain my reasoning, and check if the person agrees. I can help others make good decisions with confidence and respect! ✨
+            </div>
+
+            <p style="margin-top: 20px; text-align: center; color: #666;">
+                <strong>Lesson 48 Complete!</strong> Two lessons until you master the A1 Pathway! 🎉
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(index) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content')[index].classList.add('active');
+            document.querySelectorAll('.tab-button')[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        function toggleReveal(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('show');
+            element.textContent = content.classList.contains('show') ? '← Hide' : 'Click to reveal →';
+        }
+    </script>
+</body>
+</html>

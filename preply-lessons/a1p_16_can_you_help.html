@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 16: Can You Help?</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2em; margin-bottom: 10px; }
+        .header .learning-intention {
+            font-size: 1.1em;
+            font-style: italic;
+            margin-top: 15px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background: #4facfe;
+            color: white;
+            border-color: #4facfe;
+        }
+        .tab-button:hover { background: #f0f0f0; }
+        .tab-button.active:hover { background: #4facfe; }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active { display: block; }
+        .card {
+            background: #e0f7ff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #4facfe;
+        }
+        .card h3 { color: #4facfe; margin-bottom: 10px; }
+        .modal-box {
+            background: white;
+            border: 2px solid #4facfe;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .modal-box .phrase { font-size: 1.1em; font-weight: bold; color: #4facfe; }
+        .modal-box .meaning { font-size: 0.9em; color: #666; margin-top: 8px; }
+        .modal-box .example { font-size: 0.9em; color: #555; margin-top: 8px; font-style: italic; }
+        .reveal-button {
+            background: #4facfe;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .reveal-button:hover { background: #0084ff; }
+        .revealed {
+            background: #e8f5e9;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #4caf50;
+        }
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .practice-item {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .practice-item:hover {
+            box-shadow: 0 4px 12px rgba(79, 172, 254, 0.2);
+            border-color: #4facfe;
+        }
+        .ability-table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background: white;
+        }
+        .ability-table th, .ability-table td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .ability-table th {
+            background: #4facfe;
+            color: white;
+            font-weight: 600;
+        }
+        .ability-table tr:nth-child(even) { background: #f9f9f9; }
+        .i-can-statement {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .reflect-question {
+            background: #e0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4facfe;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.5em; }
+            .tabs { flex-direction: column; }
+            .tab-button { width: 100%; text-align: left; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤝 Lesson 16: Can You Help?</h1>
+            <p>Elementary Unit • Knowledge Building</p>
+            <div class="learning-intention">Today we're learning "can" and "can't" to talk about abilities and make polite requests.</div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab(0)">1. Recall Zone</button>
+            <button class="tab-button" onclick="switchTab(1)">2. Abilities</button>
+            <button class="tab-button" onclick="switchTab(2)">3. Can/Can't Forms</button>
+            <button class="tab-button" onclick="switchTab(3)">4. Requests</button>
+            <button class="tab-button" onclick="switchTab(4)">5. Guided Practice</button>
+            <button class="tab-button" onclick="switchTab(5)">6. Speaking</button>
+            <button class="tab-button" onclick="switchTab(6)">7. Final Check</button>
+            <button class="tab-button" onclick="switchTab(7)">8. Reflection</button>
+        </div>
+
+        <!-- TAB 1: RECALL ZONE -->
+        <div class="tab-content active">
+            <h2>🧠 Recall Zone: What Do You Remember?</h2>
+            <p>Quick review from earlier lessons. Answer from MEMORY!</p>
+
+            <div class="card">
+                <h3>Lesson 14: "Going To" Future</h3>
+                <p>Complete: "I _____ (visit) my family next week."</p>
+                <button class="reveal-button" onclick="toggleReveal('recall1')">Check Answer</button>
+                <div id="recall1" style="display:none;" class="revealed">
+                    <p><strong>am going to visit</strong> — Subject + BE + going to + Base Verb</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Lesson 13: Shopping Phrases</h3>
+                <p>How would you ask about the price of bread?</p>
+                <button class="reveal-button" onclick="toggleReveal('recall2')">Model Answer</button>
+                <div id="recall2" style="display:none;" class="revealed">
+                    <p><strong>"How much is the bread?"</strong> OR <strong>"What's the price of bread?"</strong></p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Lesson 12: Irregular Past Verbs</h3>
+                <p>What's the past of "SEE"?</p>
+                <button class="reveal-button" onclick="toggleReveal('recall3')">Check Answer</button>
+                <div id="recall3" style="display:none;" class="revealed">
+                    <p><strong>SAW</strong> — Irregular past, doesn't use -ED</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; font-style: italic; color: #666;">Great! Now we're learning about ABILITIES and REQUESTS with "can".</p>
+        </div>
+
+        <!-- TAB 2: ABILITIES -->
+        <div class="tab-content">
+            <h2>💪 Abilities with "Can"</h2>
+            <p style="font-size: 1.1em; margin: 20px 0;"><strong>"Can" means you have the ability to do something.</strong></p>
+
+            <div class="card">
+                <p><strong>Examples of abilities:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I can swim." (I have the skill to swim)</li>
+                    <li>"She can play piano." (She has the skill)</li>
+                    <li>"I can speak English." (I have the language ability)</li>
+                    <li>"Can you drive?" (Do you have the ability?)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <p style="margin-top: 20px;"><strong>"Can't" means you DON'T have the ability.</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I can't swim." (I don't have this skill)</li>
+                    <li>"He can't speak French." (He doesn't have the ability)</li>
+                    <li>"They can't cook." (They lack this skill)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <p style="margin-top: 20px;"><strong>But also, "CAN" is used for REQUESTS:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"Can you help me?" (A polite request)</li>
+                    <li>"Can I have a coffee?" (Asking for permission/requesting something)</li>
+                    <li>"Can you open the door?" (Polite request for help)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 3: CAN/CAN'T FORMS -->
+        <div class="tab-content">
+            <h2>📚 The Structure of "Can"</h2>
+            <p><strong>One of the easiest modal verbs!</strong></p>
+
+            <table class="ability-table">
+                <tr>
+                    <th>SUBJECT</th>
+                    <th>CAN/CAN'T</th>
+                    <th>BASE VERB</th>
+                    <th>EXAMPLE</th>
+                </tr>
+                <tr>
+                    <td>I, You, He, She, It, We, They</td>
+                    <td>can / can't</td>
+                    <td>swim, speak, cook, help...</td>
+                    <td>"I can swim"</td>
+                </tr>
+            </table>
+
+            <div class="card">
+                <p><strong>Why is "can" special?</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>It's the SAME for all pronouns (no "can't" variation!)</li>
+                    <li>You NEVER add -S or -ED</li>
+                    <li>It's followed by the BASE VERB (can swim, NOT can swims)</li>
+                    <li>Negative is "can't" (NOT "cannot" in speaking)</li>
+                </ul>
+            </div>
+
+            <div class="modal-box">
+                <div class="phrase">Can you...?</div>
+                <div class="meaning">For QUESTIONS and REQUESTS</div>
+                <div class="example">"Can you help me?" / "Can you speak English?"</div>
+            </div>
+
+            <div class="modal-box">
+                <div class="phrase">I can...</div>
+                <div class="meaning">For POSITIVE abilities</div>
+                <div class="example">"I can swim." / "I can speak French."</div>
+            </div>
+
+            <div class="modal-box">
+                <div class="phrase">I can't...</div>
+                <div class="meaning">For NEGATIVE abilities</div>
+                <div class="example">"I can't cook." / "I can't drive."</div>
+            </div>
+        </div>
+
+        <!-- TAB 4: REQUESTS -->
+        <div class="tab-content">
+            <h2>💬 Making Polite Requests with "Can"</h2>
+            <p><strong>In English, "Can you...?" is one of the MOST COMMON polite requests.</strong></p>
+
+            <div class="card">
+                <p><strong>Polite request patterns:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>"Can you help me?"</strong> — Asking for help</li>
+                    <li><strong>"Can I have a coffee?"</strong> — Asking for something</li>
+                    <li><strong>"Can you speak English?"</strong> — Checking ability</li>
+                    <li><strong>"Can I use your pen?"</strong> — Asking permission</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <p style="margin-top: 20px;"><strong>Responses to "Can you...?" questions:</strong></p>
+                <p style="margin: 10px 0;"><strong>Yes:</strong> "Yes, I can." / "Yes, of course!" / "Sure, I can help."</p>
+                <p style="margin: 10px 0;"><strong>No:</strong> "No, I can't." / "Sorry, I can't." / "I'm afraid I can't."</p>
+            </div>
+
+            <div class="modal-box">
+                <div class="phrase">Can I...?</div>
+                <div class="meaning">For asking PERMISSION</div>
+                <div class="example">"Can I have the menu?" / "Can I sit here?"</div>
+            </div>
+
+            <div class="modal-box">
+                <div class="phrase">Can you...?</div>
+                <div class="meaning">For POLITE REQUESTS</div>
+                <div class="example">"Can you pass the salt?" / "Can you help me, please?"</div>
+            </div>
+        </div>
+
+        <!-- TAB 5: GUIDED PRACTICE -->
+        <div class="tab-content">
+            <h2>🤝 Guided Practice: I Do → We Do → You Do</h2>
+
+            <h3 style="margin-top: 20px; color: #4facfe;">STEP 1: I DO (Teacher Model)</h3>
+            <div class="card">
+                <p><strong>Question:</strong> What can you do? What can't you do?</p>
+                <p><strong>My answer:</strong> "I <span style="background: #e8f5f8; padding: 2px 6px; color: #0084ff; font-weight: bold;">can speak</span> English well. I <span style="background: #e8f5f8; padding: 2px 6px; color: #0084ff; font-weight: bold;">can cook</span> traditional food. But I <span style="background: #e8f5f8; padding: 2px 6px; color: #0084ff; font-weight: bold;">can't dance</span>!"</p>
+                <p style="margin-top: 10px; color: #555; font-size: 0.95em;"><em>Notice: Subject + Can/Can't + Base Verb!</em></p>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #4facfe;">STEP 2: WE DO (Teacher + Student Together)</h3>
+            <div class="card">
+                <p><strong>I ask, you answer:</strong></p>
+                <p>Teacher: "Can you swim?"</p>
+                <p><input type="text" placeholder="YOU answer: Yes, I can OR No, I can't" style="width: 100%; padding: 10px; margin-top: 10px; border: 1px solid #4facfe; border-radius: 5px;"></p>
+                <button class="reveal-button" onclick="toggleReveal('wedo1')">Model Responses</button>
+                <div id="wedo1" style="display:none;" class="revealed">
+                    <p><strong>Possible responses:</strong> "Yes, I can." OR "No, I can't, but I want to learn!" OR "Yes, I can swim, but not very well."</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #4facfe;">STEP 3: YOU DO (Student Alone)</h3>
+            <div class="card">
+                <p><strong>Write 5 sentences about what you CAN and CAN'T do.</strong> Use this format:</p>
+                <p style="margin: 10px 0; font-style: italic;">"I can [ability]. I can [ability]. I can't [inability]."</p>
+                <textarea placeholder="Write 5 sentences about your abilities..." style="width: 100%; height: 100px; padding: 10px; margin-top: 15px; border: 1px solid #4facfe; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 6: SPEAKING -->
+        <div class="tab-content">
+            <h2>🗣️ Speaking Activity: Ask for Help</h2>
+            <p><strong>Role play: You need help with something!</strong></p>
+
+            <div class="card">
+                <p style="font-weight: 600; margin-bottom: 15px;"><strong>Scenario:</strong> Your teacher is a helpful person. You ask for help with 3 things:</p>
+                <ol>
+                    <li>Ask: "Can you help me with...?" (something you need)</li>
+                    <li>Ask about a SKILL: "Can you...?" (something they might be able to do)</li>
+                    <li>Make a REQUEST: "Can I...?" (asking permission for something)</li>
+                </ol>
+                <p style="margin-top: 20px; color: #666; font-style: italic;">Examples: "Can you help me with my homework?" / "Can you cook?" / "Can I use your phone?"</p>
+            </div>
+
+            <div class="reflect-question">
+                <strong>📝 After speaking:</strong> Which "can" request felt most natural? Was it about abilities or permission?
+                <textarea placeholder="Your reflection:" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #4facfe; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 7: FINAL CHECK -->
+        <div class="tab-content">
+            <h2>✅ Final Retrieval Check</h2>
+            <p><strong>From memory, complete these "can/can't" sentences:</strong></p>
+
+            <div class="practice-grid">
+                <div class="practice-item">
+                    <p><strong>1.</strong> I _____ speak English. (positive)</p>
+                    <button class="reveal-button" onclick="toggleReveal('fc1')">Answer</button>
+                    <div id="fc1" style="display:none;" class="revealed">
+                        <p><strong>can</strong></p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>2.</strong> He _____ swim. (negative)</p>
+                    <button class="reveal-button" onclick="toggleReveal('fc2')">Answer</button>
+                    <div id="fc2" style="display:none;" class="revealed">
+                        <p><strong>can't</strong></p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>3.</strong> _____ you help me? (question)</p>
+                    <button class="reveal-button" onclick="toggleReveal('fc3')">Answer</button>
+                    <div id="fc3" style="display:none;" class="revealed">
+                        <p><strong>Can</strong></p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>4.</strong> _____ I have some water? (request)</p>
+                    <button class="reveal-button" onclick="toggleReveal('fc4')">Answer</button>
+                    <div id="fc4" style="display:none;" class="revealed">
+                        <p><strong>Can</strong></p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>5.</strong> They _____ cook very well. (positive)</p>
+                    <button class="reveal-button" onclick="toggleReveal('fc5')">Answer</button>
+                    <div id="fc5" style="display:none;" class="revealed">
+                        <p><strong>can</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="i-can-statement">
+                <p>✓ I can talk about abilities and make polite requests with "can"</p>
+            </div>
+
+            <div class="reflect-question">
+                <strong>🧠 What's one thing you learned that will be useful in real conversations?</strong>
+                <textarea placeholder="Your reflection:" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #4facfe; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 8: REFLECTION -->
+        <div class="tab-content">
+            <h2>🎓 Lesson Complete!</h2>
+            <p style="font-size: 1.1em; margin: 20px 0;"><strong>We said you'd be able to talk about abilities and make polite requests. Can you?</strong></p>
+
+            <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin: 20px 0;">
+                <p style="margin: 10px 0;"><strong>✓ You learned:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"Can" = ability (I can swim)</li>
+                    <li>"Can't" = negative ability (I can't dance)</li>
+                    <li>"Can you...?" = polite requests and questions</li>
+                    <li>"Can I...?" = asking permission</li>
+                </ul>
+            </div>
+
+            <div style="background: #f0f4ff; padding: 20px; border-radius: 8px; border-left: 4px solid #4facfe; margin: 20px 0;">
+                <p style="margin: 10px 0;"><strong>📌 Next time:</strong></p>
+                <p>In Lesson 17, we'll learn about DIRECTIONS — how to ask for and give directions ("Turn left", "Go straight", etc.). It's a crucial travel skill!</p>
+            </div>
+
+            <div class="reflect-question">
+                <strong>Final Reflection:</strong>
+                <p style="margin-top: 10px;">Name 2 things you can do and 1 thing you can't do, and tell your teacher:</p>
+                <textarea placeholder="Example: 'I can speak English. I can cook. I can't dance.'" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #4facfe; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(index) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            contents.forEach((content, i) => {
+                content.classList.remove('active');
+                buttons[i].classList.remove('active');
+            });
+            contents[index].classList.add('active');
+            buttons[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(id) {
+            const element = document.getElementById(id);
+            element.style.display = element.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

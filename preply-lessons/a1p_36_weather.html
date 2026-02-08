@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 36: Talking About Weather</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f8f9fa 0%, #e8eef2 100%); color: #1a1a2e; line-height: 1.6; min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); color: white; padding: 30px 20px; text-align: center; }
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        .learning-intention { background: #d6eaf8; border-left: 4px solid #3498db; padding: 15px 20px; margin: 20px; border-radius: 4px; font-weight: 500; color: #1a5276; }
+        .tabs { display: flex; border-bottom: 2px solid #e0e0e0; overflow-x: auto; background: #f8f9fa; }
+        .tab-button { padding: 15px 20px; border: none; background: transparent; cursor: pointer; font-size: 0.95em; font-weight: 500; color: #666; transition: all 0.3s ease; white-space: nowrap; border-bottom: 3px solid transparent; }
+        .tab-button:hover { color: #3498db; }
+        .tab-button.active { color: #3498db; border-bottom-color: #3498db; }
+        .tab-content { display: none; padding: 30px; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .content-section { margin-bottom: 25px; }
+        .section-title { font-size: 1.3em; font-weight: 600; color: #3498db; margin-bottom: 15px; }
+        .retrieval-task { background: #d6eaf8; border-left: 4px solid #3498db; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .retrieval-task textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; min-height: 80px; }
+        .vocab-box { background: white; border: 1px solid #3498db; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .vocab-item { background: #ecf0f1; padding: 12px; margin-bottom: 10px; border-left: 4px solid #3498db; border-radius: 4px; }
+        .example-box { background: #f8f9fa; border: 1px solid #ddd; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .discussion-card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; cursor: pointer; transition: all 0.3s ease; }
+        .discussion-card:hover { box-shadow: 0 2px 8px rgba(52,152,219,0.2); border-color: #3498db; }
+        .discussion-card h4 { color: #3498db; margin-bottom: 10px; }
+        .recall-zone { background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f6 100%); border: 2px solid #28a745; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .recall-zone h3 { color: #28a745; margin-bottom: 15px; }
+        .recall-item { background: white; padding: 12px; border-left: 4px solid #28a745; margin-bottom: 10px; border-radius: 4px; }
+        .reveal-button { background: #3498db; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 500; margin-top: 10px; }
+        .reveal-button:hover { background: #2980b9; }
+        .hidden-content { display: none; background: #e8f5e9; border-left: 4px solid #28a745; padding: 12px; margin-top: 10px; border-radius: 4px; }
+        .hidden-content.revealed { display: block; }
+        .i-can-statement { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; font-size: 1.1em; font-weight: 500; margin-top: 20px; }
+        .metacognition-box { background: #f8f9fa; border: 2px solid #667eea; padding: 15px; border-radius: 8px; }
+        .metacognition-box h4 { color: #667eea; margin-bottom: 10px; }
+        @media (max-width: 768px) { .header h1 { font-size: 1.6em; } .tab-button { padding: 12px 15px; font-size: 0.85em; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>☀️ Lesson 36: Talking About Weather</h1>
+            <p>Master weather vocabulary and small talk</p>
+        </div>
+        
+        <div class="learning-intention">
+            <strong>Learning Intention:</strong> Today we're learning weather vocabulary and expressions so you can use weather as a springboard for natural conversations and small talk.
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(event, 'tab1')">Retrieval + Hook</button>
+            <button class="tab-button" onclick="showTab(event, 'tab2')">Weather Vocab A</button>
+            <button class="tab-button" onclick="showTab(event, 'tab3')">Weather Vocab B</button>
+            <button class="tab-button" onclick="showTab(event, 'tab4')">Your Turn</button>
+            <button class="tab-button" onclick="showTab(event, 'tab5')">Deep Dive</button>
+            <button class="tab-button" onclick="showTab(event, 'tab6')">Recall Zone</button>
+            <button class="tab-button" onclick="showTab(event, 'tab7')">Wrap-Up</button>
+        </div>
+        
+        <!-- TAB 1 -->
+        <div id="tab1" class="tab-content active">
+            <div class="content-section">
+                <div class="section-title">🧠 What do you already know?</div>
+                <div class="retrieval-task">
+                    <p>Write down 5 weather words you already know in English (rain, sun, snow, etc.)</p>
+                    <textarea placeholder="Write weather words..."></textarea>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">☀️ Why Weather Matters</div>
+                <div class="example-box">
+                    <p><strong>"Isn't it hot today?" / "Terrible weather we're having!" / "Beautiful day, isn't it?"</strong></p>
+                    <p style="margin-top: 10px;">Weather is THE universal small talk. On buses, waiting rooms, coffee shops, elevators — strangers bond over weather. It's the safest topic that makes you sound natural and engaged.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 2 -->
+        <div id="tab2" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🌧️ Weather Types & Expressions</div>
+                
+                <div class="vocab-item">
+                    <strong>☀️ Sunny / Clear:</strong> "It's sunny today" / "Clear skies" / "Bright sunshine"
+                </div>
+                
+                <div class="vocab-item">
+                    <strong>🌧️ Rainy / Wet:</strong> "It's raining" / "It's pouring" / "Rainy weather" / "Wet"
+                </div>
+                
+                <div class="vocab-item">
+                    <strong>❄️ Cold / Snow:</strong> "It's freezing" / "It's cold" / "Snowing" / "Icy roads"
+                </div>
+                
+                <div class="vocab-item">
+                    <strong>💨 Windy:</strong> "It's windy" / "Breezy" / "Strong winds"
+                </div>
+                
+                <div class="vocab-item">
+                    <strong>☁️ Cloudy:</strong> "Overcast" / "Cloudy" / "Grey skies"
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">✍️ YOUR TURN: Match the word</div>
+                <div class="discussion-card">
+                    <p><strong>1. If it's wet outside:</strong> "It's _____ (raining / freezing)"</p>
+                    <textarea placeholder="Choose or write..."></textarea>
+                </div>
+                
+                <div class="discussion-card">
+                    <p><strong>2. If it's below 0°C:</strong> "It's _____ (windy / freezing)"</p>
+                    <textarea placeholder="Choose or write..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 3 -->
+        <div id="tab3" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">💬 Weather + Opinions (Describing How Weather Feels)</div>
+                
+                <div class="vocab-item">
+                    <strong>Positive:</strong> "Beautiful day!" / "Perfect weather" / "Lovely sunshine" / "Gorgeous"
+                </div>
+                
+                <div class="vocab-item">
+                    <strong>Negative:</strong> "Terrible weather" / "Awful rain" / "Miserable cold" / "Horrible wind"
+                </div>
+                
+                <div class="vocab-item">
+                    <strong>Impact on you:</strong> "It's so hot I can't work" / "The cold is unbearable" / "Perfect for a walk"
+                </div>
+                
+                <div class="example-box">
+                    <strong>Small talk formulas:</strong><br><br>
+                    "Isn't it [adjective + weather]?"<br>
+                    "What [terrible/beautiful] weather!"<br>
+                    "I [love/hate] this [weather type]"
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">✍️ YOUR TURN: Complete these small talk starters</div>
+                <div class="discussion-card">
+                    <p><strong>1. "Isn't it _____ today?"</strong> (Use a weather adjective)</p>
+                    <textarea placeholder="Write your response..."></textarea>
+                </div>
+                
+                <div class="discussion-card">
+                    <p><strong>2. "The weather is so _____, I _____ ."</strong> (Complete with how it affects you)</p>
+                    <textarea placeholder="Write your response..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 4 -->
+        <div id="tab4" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🎤 Your Turn: Weather Small Talk (70% Your Output)</div>
+                <p>Choose 2-3 scenarios. Speak or write natural weather small talk. No scaffolding — just you and conversation.</p>
+                
+                <div class="discussion-card">
+                    <h4>Scenario 1: Waiting for a bus on a sunny day</h4>
+                    <p>Stranger next to you. You make small talk about the weather.</p>
+                    <textarea placeholder="What would you say?..."></textarea>
+                </div>
+                
+                <div class="discussion-card">
+                    <h4>Scenario 2: In a coffee shop during heavy rain</h4>
+                    <p>Barista comments on the weather. You respond and continue the conversation.</p>
+                    <textarea placeholder="What would you say?..."></textarea>
+                </div>
+                
+                <div class="discussion-card">
+                    <h4>Scenario 3: Meeting a friend on a cold, snowy day</h4>
+                    <p>You greet them and reference the weather. They respond.</p>
+                    <textarea placeholder="What would you say?..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 5 -->
+        <div id="tab5" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🎯 Deep Dive: Extended Weather Talk</div>
+                <div class="example-box">
+                    <strong>Small talk flow:</strong><br><br>
+                    Stranger: "Isn't it hot?"<br>
+                    You: "Yes! I can't believe how hot it is. Unusual for this time of year."<br>
+                    Stranger: "I know. I hope it cools down soon."<br>
+                    You: "Me too. I'm planning to stay inside with air conditioning!"
+                </div>
+                
+                <div class="discussion-card">
+                    <h4>Challenge: Extend a weather conversation</h4>
+                    <p>Start with "Awful weather today!" Then write 3 more lines of conversation developing the topic.</p>
+                    <textarea placeholder="Write the full mini-conversation..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 6 -->
+        <div id="tab6" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🔄 Recall Zone: Spaced Retrieval</div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 19: Describing Things</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What adjectives did you learn for describing objects? (big, small, beautiful, ugly)</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: Any descriptive adjectives work (beautiful, terrible, lovely, awful, horrible, nice, pretty)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 30: Unit 3 Review</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> How do you give an opinion? What expressions start with "I think"?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "I think...", "In my opinion...", "I believe...", "It seems like..."
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 33: First Conditional</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> Form a first conditional about weather: "If it rains tomorrow, ..."</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "If it rains tomorrow, I will stay home" or similar (If + present, will + verb)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 34: Questions</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> Form a WH-question about the weather: "What ... the temperature?"</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "What is the temperature?" or "What's the weather like?" (auxiliary before subject)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 7 -->
+        <div id="tab7" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">📝 Final Retrieval: From Memory</div>
+                
+                <div class="retrieval-task">
+                    <p><strong>1. Write 5 weather words from memory (no looking back):</strong></p>
+                    <textarea placeholder="List them..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>2. Write 3 ways to start weather small talk:</strong></p>
+                    <textarea placeholder="Write starter phrases..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>3. What's one weather small talk tip that will help you tomorrow?</strong></p>
+                    <textarea placeholder="Your reflection..."></textarea>
+                </div>
+            </div>
+            
+            <div class="i-can-statement">
+                ✅ <strong>I can:</strong> Use weather vocabulary naturally, make small talk about weather conditions, and sustain brief weather-related conversations
+            </div>
+            
+            <div class="metacognition-box">
+                <h4>🧠 Metacognition: Learning Tool</h4>
+                <p>Which activity helped you most? The vocab? The examples? The practice conversations?</p>
+                <textarea placeholder="Your reflection..."></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(evt, tabName) {
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
+            var tabbuttons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabbuttons.length; i++) tabbuttons[i].classList.remove("active");
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function toggleReveal(evt) {
+            evt.preventDefault();
+            var button = evt.currentTarget;
+            var hiddenContent = button.nextElementSibling;
+            hiddenContent.classList.toggle("revealed");
+            button.textContent = hiddenContent.classList.contains("revealed") ? "Hide" : "Reveal";
+        }
+    </script>
+</body>
+</html>

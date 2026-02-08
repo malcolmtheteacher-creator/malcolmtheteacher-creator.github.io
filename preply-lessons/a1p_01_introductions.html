@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Lesson 01: Hello! Introductions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f0f5 100%);
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .learning-intention {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab-button {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .tab-button:hover {
+            background: #f0f0f0;
+            border-color: #ff6b6b;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border-color: #ff6b6b;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card {
+            background: #f8f9fa;
+            border-left: 4px solid #ff6b6b;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .content-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        .retrieval-task {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe8a8 100%);
+            border: 2px dashed #ffc107;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .retrieval-task h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+        }
+
+        .example-box {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .example-box strong {
+            color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .reveal {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .emoji-large {
+            font-size: 3em;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .practice-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #ff6b6b;
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(255, 107, 107, 0.2);
+        }
+
+        .card strong {
+            display: block;
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        .card-emoji {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+
+        .i-can {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .practice-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                border-radius: 5px;
+                width: 100%;
+            }
+
+            .tab-content {
+                border-radius: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👋 Hello! Introductions 👋</h1>
+            <p>Lesson 1: Foundation Unit</p>
+        </div>
+
+        <div class="learning-intention">
+            💡 <strong>Today we're working on</strong> introductions and greetings so <strong>you can introduce yourself confidently in English</strong>.
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('tab1')">1. Retrieval</button>
+            <button class="tab-button" onclick="showTab('tab2')">2. Greetings</button>
+            <button class="tab-button" onclick="showTab('tab3')">3. Introducing Yourself</button>
+            <button class="tab-button" onclick="showTab('tab4')">4. Your Turn</button>
+            <button class="tab-button" onclick="showTab('tab5')">5. Deep Dive</button>
+            <button class="tab-button" onclick="showTab('tab6')">6. Practice</button>
+            <button class="tab-button" onclick="showTab('tab7')">7. Wrap-Up & I Can...</button>
+        </div>
+
+        <!-- Tab 1: Retrieval -->
+        <div id="tab1" class="tab-content active">
+            <h2>🧠 What Do You Already Know?</h2>
+            <p>Before we learn new things, let's remember what you might already know about greetings in English. <strong>No notes, no looking things up — just from your memory!</strong></p>
+
+            <div class="retrieval-task">
+                <h3>💭 Recall Task</h3>
+                <p>Write down 2-3 greetings or ways to introduce yourself in English that you already know. What are some ways English speakers say "hello"?</p>
+                <textarea id="retrieval1" placeholder="Write what you remember..."></textarea>
+                <button onclick="saveResponse('retrieval1')">Save My Answer</button>
+            </div>
+
+            <div class="content-card" style="margin-top: 30px;">
+                <h3>✨ Why This Matters</h3>
+                <p>Introductions are <strong>survival English</strong>. Whether you're meeting someone at work, at a café, or online, you need to say hello and share your name. Today we're building confidence with the exact phrases you'll use again and again.</p>
+            </div>
+
+            <div class="emoji-large">🌍 🗣️ ✨</div>
+        </div>
+
+        <!-- Tab 2: Greetings -->
+        <div id="tab2" class="tab-content">
+            <h2>👋 Let's Learn: Greetings</h2>
+            <p>Here are 4 ways to greet someone. Each one has a slightly different feel — some are very casual, some are more formal. Let's explore them.</p>
+
+            <div class="content-card">
+                <h3>1️⃣ "Hi!" / "Hello!"</h3>
+                <div class="emoji-large">👋</div>
+                <p><strong>When to use:</strong> Casual and friendly — works almost anywhere.</p>
+                <p><strong>Example:</strong> "Hi! How are you?"</p>
+                <p><strong>Feel:</strong> Warm and approachable. ✓ Safe choice for beginners</p>
+            </div>
+
+            <div class="content-card">
+                <h3>2️⃣ "Good morning" / "Good afternoon" / "Good evening"</h3>
+                <div class="emoji-large">☀️ 🌤️ 🌙</div>
+                <p><strong>When to use:</strong> More formal — workplace, meetings, with people you don't know well.</p>
+                <p><strong>Example:</strong> "Good morning! I'm Sarah."</p>
+                <p><strong>Feel:</strong> Professional and respectful.</p>
+            </div>
+
+            <div class="content-card">
+                <h3>3️⃣ "How's it going?" / "What's up?"</h3>
+                <div class="emoji-large">😎</div>
+                <p><strong>When to use:</strong> Very casual — with friends, people your age.</p>
+                <p><strong>Example:</strong> "What's up? I'm Jake."</p>
+                <p><strong>Feel:</strong> Relaxed and friendly.</p>
+            </div>
+
+            <div class="content-card">
+                <h3>4️⃣ "Nice to meet you!"</h3>
+                <div class="emoji-large">🤝</div>
+                <p><strong>When to use:</strong> After you introduce yourself or when meeting someone for the first time.</p>
+                <p><strong>Example:</strong> "Hi, I'm Tom. Nice to meet you!"</p>
+                <p><strong>Feel:</strong> Warm and genuine.</p>
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>Quick Check:</strong> Which greeting would you use with your boss? <span onclick="alert('Good morning! / Good afternoon!')" style="cursor: pointer; color: #ff6b6b; font-weight: bold;">Click for answer →</span>
+            </div>
+        </div>
+
+        <!-- Tab 3: Introducing Yourself -->
+        <div id="tab3" class="tab-content">
+            <h2>🎤 Let's Learn: Introducing Yourself</h2>
+            <p>Now that we can greet people, let's learn how to say our name and share a bit about ourselves.</p>
+
+            <div class="content-card">
+                <h3>Pattern 1: "I'm..." (Most Common)</h3>
+                <div class="emoji-large">1️⃣</div>
+                <p><strong>Form:</strong> "I'm [your name]" = "I am [your name]"</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I'm Alex."</li>
+                    <li>"I'm Maria."</li>
+                    <li>"Hi, I'm David!"</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>✓ This is the EASIEST and most common way. Use this when in doubt!</strong></p>
+            </div>
+
+            <div class="content-card">
+                <h3>Pattern 2: "My name is..." (More Formal)</h3>
+                <div class="emoji-large">2️⃣</div>
+                <p><strong>Form:</strong> "My name is [your name]"</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"My name is Emma."</li>
+                    <li>"My name is Carlos."</li>
+                    <li>"Hello, my name is Patricia."</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>Feel:</strong> A bit more formal, often used in professional settings or when meeting for the first time.</p>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎯 Pro Tip:</strong> You can combine greetings + introductions: "Hi! I'm Sophie. Nice to meet you!" or "Hello, my name is Robert. How are you?"
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>Quick Check:</strong> Which is more casual? <span onclick="alert('I\\'m... is more casual and common in everyday conversation.')" style="cursor: pointer; color: #ff6b6b; font-weight: bold;">Click for answer →</span>
+            </div>
+        </div>
+
+        <!-- Tab 4: Your Turn -->
+        <div id="tab4" class="tab-content">
+            <h2>🎯 Your Turn: Create Your Introduction</h2>
+            <p>Now it's your turn! You've seen the patterns. Let's create <strong>3 different ways you could introduce yourself.</strong> You'll speak (or type) these without looking at the examples above.</p>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 1: The Casual Version 😎</h3>
+                <p><strong>Situation:</strong> You're meeting a friend of a friend at a café.</p>
+                <p><strong>Your Task:</strong> Say a casual greeting + your name (use "I'm..."). Speak it out loud or type it below:</p>
+                <textarea id="intro1" placeholder="Example: Hi! I'm Maya. How's it going?"></textarea>
+                <button onclick="saveResponse('intro1')">Save</button>
+            </div>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 2: The Formal Version 💼</h3>
+                <p><strong>Situation:</strong> You're meeting your new boss on your first day at work.</p>
+                <p><strong>Your Task:</strong> Say a formal greeting + your name (use "My name is..." or "Good morning..."). Speak it out loud or type it below:</p>
+                <textarea id="intro2" placeholder="Example: Good morning. My name is Jennifer."></textarea>
+                <button onclick="saveResponse('intro2')">Save</button>
+            </div>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 3: The Full Introduction 🌟</h3>
+                <p><strong>Situation:</strong> A new person joins your class.</p>
+                <p><strong>Your Task:</strong> Create a complete introduction with greeting + name + "nice to meet you":</p>
+                <textarea id="intro3" placeholder="Example: Hi! I'm Paulo. Nice to meet you!"></textarea>
+                <button onclick="saveResponse('intro3')">Save</button>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💪 You just created 3 real introductions!</strong> That's 70% of this lesson. The language patterns are now YOUR language.
+            </div>
+        </div>
+
+        <!-- Tab 5: Deep Dive -->
+        <div id="tab5" class="tab-content">
+            <h2>🔍 Deep Dive: Conversation Flow</h2>
+            <p>Let's see what happens when two people meet for the first time. Watch the flow, then we'll practice.</p>
+
+            <div class="example-box">
+                <strong style="color: #ff6b6b;">Person A:</strong> Hi! I'm Alex. <br>
+                <strong style="color: #667eea;">Person B:</strong> Hello! My name is Sam. Nice to meet you! <br>
+                <strong style="color: #ff6b6b;">Person A:</strong> Nice to meet you too! How are you today?
+            </div>
+
+            <h3 style="margin-top: 20px;">🎯 Your Challenge: Complete the Conversation</h3>
+            <p>You're Person B. The conversation starts with Person A. What do you say? Complete the dialogue:</p>
+
+            <div class="example-box">
+                <strong style="color: #ff6b6b;">Person A:</strong> Good morning! I'm Jordan. <br>
+                <strong style="color: #667eea;">Person B (You):</strong>
+            </div>
+
+            <textarea id="dialogue" placeholder="Write your response..."></textarea>
+            <button onclick="checkDialogue()">Check Your Answer</button>
+            <div id="dialogueResult"></div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px; margin-top: 20px;">
+                <strong>✨ Remember:</strong> There's NO perfect answer here. Any greeting + introduction + kind response is correct! Your job is to show you can use the patterns from Tabs 2 & 3.
+            </div>
+        </div>
+
+        <!-- Tab 6: Practice & Elaboration -->
+        <div id="tab6" class="tab-content">
+            <h2>⏱️ Timed Speaking Practice</h2>
+            <p>You have <strong>3 minutes</strong> to speak about yourself. Imagine you're meeting a group of English learners. Introduce yourself naturally using what we've learned.</p>
+
+            <div style="background: #ffe8e8; border: 2px solid #ff6b6b; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                <strong>💬 Your Task:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Say hello (choose: Hi, Hello, Good morning, etc.)</li>
+                    <li>Introduce your name (choose: "I'm..." or "My name is...")</li>
+                    <li>Say something kind (optional: "Nice to meet you!" or "How are you?")</li>
+                </ul>
+            </div>
+
+            <button onclick="startTimer()" style="background: linear-gradient(135deg, #4caf50 0%, #45a049 100%); width: 100%; padding: 15px; font-size: 1.1em;">Start 3-Minute Timer</button>
+
+            <div id="timer" style="text-align: center; font-size: 2em; font-weight: bold; color: #ff6b6b; margin: 20px 0; display: none;">
+                <span id="timerDisplay">3:00</span>
+            </div>
+
+            <textarea id="speaking" placeholder="Or type your introduction here..." style="display: none; margin-top: 15px;"></textarea>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>📝 Elaboration Prompt:</strong> Why did you choose the greeting you used? When would you use this greeting in real life?
+            </div>
+
+            <textarea id="elaboration" placeholder="Explain your choice..."></textarea>
+            <button onclick="saveResponse('elaboration')">Save My Elaboration</button>
+        </div>
+
+        <!-- Tab 7: Retrieval Wrap-Up & I Can -->
+        <div id="tab7" class="tab-content">
+            <h2>🎓 Wrap-Up & Self-Assessment</h2>
+            <p>Let's see what you can remember from today's lesson — <strong>without looking back at the tabs above!</strong></p>
+
+            <div class="retrieval-task">
+                <h3>📋 Retrieval Challenge</h3>
+                <p>Cover the tabs above (or close your eyes for a moment). Can you write down:</p>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>4 greetings</strong> we learned today</li>
+                    <li><strong>2 ways</strong> to introduce your name</li>
+                    <li><strong>One example sentence</strong> of a complete introduction (greeting + name)</li>
+                </ol>
+                <textarea id="finalRecall" placeholder="Write from memory..."></textarea>
+                <button onclick="revealAnswer()">I'm Ready to Check</button>
+            </div>
+
+            <div id="revealedAnswer" style="display: none; margin-top: 20px;">
+                <div class="reveal">
+                    <h3>✅ Model Answer</h3>
+                    <p><strong>4 Greetings:</strong> Hi, Hello, Good morning, Nice to meet you (or: What's up?, How's it going?)</p>
+                    <p><strong>2 Ways to Introduce:</strong> "I'm..." and "My name is..."</p>
+                    <p><strong>Example Sentence:</strong> "Hi! I'm Sarah. Nice to meet you!" (any greeting + name combo is correct)</p>
+                </div>
+
+                <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                    <strong>💭 Metacognitive Reflection:</strong> Did you remember most of this? What helped you? Was it the examples, the practice, or the conversations?
+                </div>
+            </div>
+
+            <div class="i-can">
+                ✅ <strong>I can introduce myself with confidence using greetings and my name in English.</strong>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎉 Great job on Lesson 1!</strong><br>
+                You've learned the foundation of English conversation — how to greet and introduce yourself. These patterns will appear in every lesson ahead. In Lesson 2, we'll ask "Where are you from?" — building on what you know today.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            contents.forEach(el => el.classList.remove('active'));
+            buttons.forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function saveResponse(id) {
+            const text = document.getElementById(id).value;
+            if (text.trim()) {
+                alert('✅ Saved! Keep practicing and check your answer at the end.');
+            } else {
+                alert('⚠️ Please type something first!');
+            }
+        }
+
+        function checkDialogue() {
+            const answer = document.getElementById('dialogue').value.trim();
+            const result = document.getElementById('dialogueResult');
+            if (answer.length > 10) {
+                result.innerHTML = '<div class="reveal"><strong>✅ Great response!</strong> You greeted them, introduced yourself, and made it warm. Perfect!</div>';
+            } else {
+                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Try writing more — include a greeting + your name introduction.</div>';
+            }
+        }
+
+        function startTimer() {
+            let seconds = 180;
+            const timerDisplay = document.getElementById('timerDisplay');
+            const timerDiv = document.getElementById('timer');
+            const speakingArea = document.getElementById('speaking');
+
+            timerDiv.style.display = 'block';
+            speakingArea.style.display = 'block';
+
+            const interval = setInterval(() => {
+                const mins = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                timerDisplay.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+                if (seconds < 30) {
+                    timerDiv.style.color = '#ff6b6b';
+                    timerDisplay.style.animation = 'pulse 0.5s infinite';
+                }
+
+                if (seconds === 0) {
+                    clearInterval(interval);
+                    alert('⏱️ Time is up! How did that feel?');
+                    timerDiv.style.display = 'none';
+                }
+
+                seconds--;
+            }, 1000);
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealedAnswer').style.display = 'block';
+        }
+
+        // Add pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.7; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

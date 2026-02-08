@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 21: Right Now!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background-color: #e9ecef;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .tab-btn:hover {
+            background-color: #dee2e6;
+        }
+
+        .tab-btn.active {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+            background: white;
+            border-radius: 0 8px 8px 8px;
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .learning-intention {
+            background-color: #fff3cd;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .retrieval-task {
+            background-color: #e7f3ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .retrieval-task h3 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .retrieval-task textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .content-chunk {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        .form-table th, .form-table td {
+            padding: 15px;
+            border: 2px solid #ddd;
+            text-align: left;
+        }
+
+        .form-table th {
+            background-color: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        .form-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .example-box {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .practice-section {
+            background-color: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .click-reveal {
+            margin: 15px 0;
+        }
+
+        .reveal-btn {
+            background-color: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .reveal-btn:hover {
+            background-color: #764ba2;
+        }
+
+        .hidden-content {
+            display: none;
+            background-color: #f0f0f0;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 2px dashed #667eea;
+        }
+
+        .hidden-content.show {
+            display: block;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback-correct {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            color: #2e7d32;
+        }
+
+        .feedback-incorrect {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+            color: #c62828;
+        }
+
+        .timer-container {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .timer {
+            font-size: 3em;
+            font-weight: bold;
+            font-family: monospace;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .timer.warning {
+            color: #ffc107;
+        }
+
+        .timer.danger {
+            color: #f44336;
+            animation: pulse 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .discussion-card {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .discussion-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .discussion-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .production-task {
+            background-color: #f3e5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #9c27b0;
+        }
+
+        .production-task textarea, .production-task input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            border: 2px solid #9c27b0;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #764ba2;
+        }
+
+        .recall-item {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .recall-item .prompt {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .i-can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .metacognition {
+            background-color: #e0f2f1;
+            border-left: 4px solid #009688;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                width: 100%;
+                border-radius: 4px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .timer {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lesson 21: Right Now!</h1>
+            <p>A1 Pathway - Building Unit (Lessons 21-30)</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Present Continuous vs Present Simple</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab(event, 'tab1')">1. Retrieval</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab2')">2. Form Focus</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab3')">3. Guided Practice</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab4')">4. Interleaved Practice</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab5')">5. Elaboration</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab6')">6. Speaking Production</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab7')">7. Recall Zone</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab8')">8. Retrieval Test</button>
+        </div>
+
+        <!-- TAB 1: RETRIEVAL + CONTEXT -->
+        <div id="tab1" class="tab-content active">
+            <h2>What Do You Already Know?</h2>
+            <div class="retrieval-task">
+                <h3>Memory First - No Notes!</h3>
+                <p>Write 3 sentences about what you are doing RIGHT NOW. Don't worry about mistakes - just try!</p>
+                <textarea id="retrieval-input" placeholder="I am... I am sitting... I am looking..."></textarea>
+                <button class="btn-primary" onclick="showRetrievalFeedback()">Check Your Thinking</button>
+                <div id="retrieval-feedback" class="feedback"></div>
+            </div>
+
+            <div class="learning-intention">
+                <strong>Today we're learning:</strong> How to describe what is happening RIGHT NOW using Present Continuous, and how it's different from Present Simple.
+            </div>
+
+            <div class="content-chunk">
+                <h3>🎯 Why This Matters</h3>
+                <p><strong>Present Continuous (NOW):</strong> "I am writing" - happening at this moment</p>
+                <p><strong>Present Simple (ALWAYS):</strong> "I write every day" - happens regularly</p>
+                <p><strong>Real Life Example:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>RIGHT NOW: "I am teaching an English lesson" ✓ (it's happening now)</li>
+                    <li>ALWAYS: "I teach English three times a week" ✓ (regular habit)</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px; font-style: italic; color: #666;">By the end of this lesson, you'll be able to describe what is happening right now AND explain the difference from habitual actions.</p>
+        </div>
+
+        <!-- TAB 2: FORM FOCUS -->
+        <div id="tab2" class="tab-content">
+            <h2>How to Form Present Continuous</h2>
+
+            <div class="content-chunk">
+                <h3>The Pattern: AM/IS/ARE + -ING</h3>
+                <table class="form-table">
+                    <tr>
+                        <th>Subject</th>
+                        <th>Auxiliary</th>
+                        <th>Verb + -ING</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>I</td>
+                        <td><strong>am</strong></td>
+                        <td>working</td>
+                        <td>I am working</td>
+                    </tr>
+                    <tr>
+                        <td>You / We / They</td>
+                        <td><strong>are</strong></td>
+                        <td>working</td>
+                        <td>They are working</td>
+                    </tr>
+                    <tr>
+                        <td>He / She / It</td>
+                        <td><strong>is</strong></td>
+                        <td>working</td>
+                        <td>She is working</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="content-chunk">
+                <h3>Spelling Rules for -ING</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div style="background: #fff9e6; padding: 15px; border-radius: 4px; border-left: 4px solid #ffc107;">
+                        <strong>MOST VERBS:</strong><br>
+                        talk → <strong>talking</strong><br>
+                        sit → <strong>sitting</strong>
+                    </div>
+                    <div style="background: #fff9e6; padding: 15px; border-radius: 4px; border-left: 4px solid #ffc107;">
+                        <strong>DROP 'E':</strong><br>
+                        make → <strong>making</strong><br>
+                        write → <strong>writing</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <strong>✓ Correct Examples (RIGHT NOW):</strong>
+                <p style="margin-top: 10px;">• The students are listening to the teacher.</p>
+                <p>• I am typing on my keyboard.</p>
+                <p>• She is reading a book.</p>
+            </div>
+        </div>
+
+        <!-- TAB 3: GUIDED PRACTICE -->
+        <div id="tab3" class="tab-content">
+            <h2>I Do → We Do → You Do</h2>
+
+            <div class="practice-section">
+                <h3>I DO (Teacher Models)</h3>
+                <div style="background: white; padding: 15px; border-radius: 4px; border-left: 4px solid #667eea;">
+                    <p><strong>Situation:</strong> It's 3 PM. A student is in the classroom.</p>
+                    <p><strong>How I say it:</strong> "The student <strong>is sitting</strong> in the classroom."</p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;">▶ Subject: student | Auxiliary: <strong>is</strong> | Verb: <strong>sitting</strong></p>
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <h3>WE DO (Practice Together)</h3>
+                <p><strong>Situation:</strong> Right now, your friend is eating lunch.</p>
+                <p style="background: #f8f9fa; padding: 12px; margin: 10px 0; border-radius: 4px;">My friend _____ (eat) lunch right now.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'we-do-reveal')">Show the answer</button>
+                <div id="we-do-reveal" class="hidden-content">
+                    <p><strong>Answer:</strong> My friend <strong>is eating</strong> lunch right now.</p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Why? Subject: friend (he/she) = <strong>is</strong> + eating</p>
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <h3>YOU DO (Independent Practice)</h3>
+                <p><strong>Instructions:</strong> Complete the sentences. Right now is happening NOW!</p>
+
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>1. I _____ (work) on this lesson.</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer1')">Check</button>
+                    <div id="answer1" class="hidden-content">
+                        <strong>✓ Answer:</strong> I <strong>am working</strong> on this lesson.
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>2. She _____ (read) the instructions.</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer2')">Check</button>
+                    <div id="answer2" class="hidden-content">
+                        <strong>✓ Answer:</strong> She <strong>is reading</strong> the instructions.
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>3. They _____ (listen) to the teacher.</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer3')">Check</button>
+                    <div id="answer3" class="hidden-content">
+                        <strong>✓ Answer:</strong> They <strong>are listening</strong> to the teacher.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: INTERLEAVED PRACTICE -->
+        <div id="tab4" class="tab-content">
+            <h2>Mixed Practice - Choose Your Strategy</h2>
+
+            <p style="margin-bottom: 20px;"><strong>Can you choose the RIGHT tense?</strong> Some sentences need Present Continuous (NOW), some need Present Simple (ALWAYS).</p>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>1.</strong> I _____ (watch) a film RIGHT NOW.</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="Type your answer">
+                <button class="reveal-btn" onclick="checkAnswer(1)">Check</button>
+                <div id="feedback1" class="feedback"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>2.</strong> I usually _____ (go) to the gym on Mondays.</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="Type your answer">
+                <button class="reveal-btn" onclick="checkAnswer(2)">Check</button>
+                <div id="feedback2" class="feedback"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>3.</strong> Look! The children _____ (play) outside!</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="Type your answer">
+                <button class="reveal-btn" onclick="checkAnswer(3)">Check</button>
+                <div id="feedback3" class="feedback"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>4.</strong> My brother _____ (work) as a doctor in London.</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="Type your answer">
+                <button class="reveal-btn" onclick="checkAnswer(4)">Check</button>
+                <div id="feedback4" class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- TAB 5: ELABORATION -->
+        <div id="tab5" class="tab-content">
+            <h2>Explain in Your Own Words</h2>
+
+            <div class="production-task">
+                <h3>📝 Can You Explain the Difference?</h3>
+                <p>Write a 2-sentence explanation: When do we use Present Continuous vs Present Simple?</p>
+                <textarea id="elaboration-input" placeholder="Present Continuous is for... Present Simple is for..." style="min-height: 120px;"></textarea>
+                <button class="btn-primary" onclick="saveSpeakingNote()">Save Your Explanation</button>
+            </div>
+
+            <div class="production-task">
+                <h3>🎤 Create Your Own Example</h3>
+                <p>Write ONE sentence about something happening RIGHT NOW in your room.</p>
+                <input type="text" id="own-example" placeholder="I am..." style="min-height: 40px;">
+                <button class="btn-primary" onclick="saveSpeakingNote()">Save Your Example</button>
+            </div>
+
+            <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #4caf50;">
+                <p><strong>💡 Notice:</strong> The best examples include:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>The correct form: am/is/are + verb + ing</li>
+                    <li>A clear context showing it's happening RIGHT NOW</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 6: SPEAKING PRODUCTION -->
+        <div id="tab6" class="tab-content">
+            <h2>Describe What's Happening Now</h2>
+
+            <div class="timer-container">
+                <p style="margin-bottom: 10px;">Take 3 minutes. Describe 5 things happening RIGHT NOW in your life or room.</p>
+                <div class="timer" id="timer">3:00</div>
+                <button class="btn-primary" onclick="startTimer()">Start Timer</button>
+            </div>
+
+            <div class="production-task">
+                <h3>🎤 Your Speaking Task</h3>
+                <p><strong>Instructions:</strong> Say or write these sentences about RIGHT NOW:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>What are you doing?</li>
+                    <li>What is the teacher/someone else doing?</li>
+                    <li>What is happening in the room?</li>
+                    <li>Make up 2 more sentences about the present moment</li>
+                </ul>
+                <textarea id="production-output" placeholder="I am sitting... The sun is..." style="min-height: 150px; margin-top: 15px;"></textarea>
+                <button class="btn-primary" onclick="saveSpeakingNote()">Save Your Response</button>
+            </div>
+
+            <p style="color: #666; font-style: italic; margin-top: 20px;">Teacher: Listen for correct use of am/is/are + -ing form. Provide feedback on accuracy and help with any corrections.</p>
+        </div>
+
+        <!-- TAB 7: RECALL ZONE -->
+        <div id="tab7" class="tab-content">
+            <h2>Bring Back Previous Learning</h2>
+
+            <p style="margin-bottom: 20px;">These items appeared in earlier lessons. Can you remember them?</p>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 7 (Daily Routines):</div>
+                <p style="margin: 10px 0;">Complete: I usually _____ (wake up) at 7 AM.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall1')">Show answer</button>
+                <div id="recall1" class="hidden-content">
+                    <strong>✓ Answer:</strong> I usually <strong>wake up</strong> at 7 AM.
+                    <p style="color: #666; font-size: 0.9em; margin-top: 8px;">This is Present Simple - a daily habit.</p>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 18 (How Often):</div>
+                <p style="margin: 10px 0;">What does "frequency adverb" mean? Can you give an example?</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall2')">Show answer</button>
+                <div id="recall2" class="hidden-content">
+                    <strong>✓ Answer:</strong> Frequency adverbs tell HOW OFTEN something happens.
+                    <p style="margin: 8px 0;">Examples: always, usually, often, sometimes, never</p>
+                    <p style="color: #666; font-size: 0.9em;">Example sentence: I <strong>always</strong> drink coffee in the morning.</p>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 19 (Describing Things):</div>
+                <p style="margin: 10px 0;">Translate: "It looks interesting" - what does this expression mean?</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall3')">Show answer</button>
+                <div id="recall3" class="hidden-content">
+                    <strong>✓ Answer:</strong> This means something APPEARS to have a quality.
+                    <p style="margin: 8px 0;">It says what something looks like (appears to be).</p>
+                    <p style="color: #666; font-size: 0.9em;">This is a Present Simple description - it's how something IS.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8: RETRIEVAL TEST -->
+        <div id="tab8" class="tab-content">
+            <h2>Can You Do It Without Help?</h2>
+
+            <div class="production-task">
+                <h3>Remember Without Looking Back</h3>
+                <p><strong>1. Write the rule:</strong> How do we form Present Continuous?</p>
+                <textarea id="rule-output" placeholder="The pattern is..." style="min-height: 80px; margin-bottom: 15px;"></textarea>
+
+                <p><strong>2. Write 3 original sentences about RIGHT NOW:</strong></p>
+                <textarea id="sentences-output" placeholder="I am... He is... They are..." style="min-height: 120px; margin-bottom: 15px;"></textarea>
+
+                <button class="btn-primary" onclick="checkFinalTest()">Check Your Answers</button>
+                <div id="final-feedback" class="feedback"></div>
+            </div>
+
+            <div class="metacognition">
+                <h3>🧠 Reflect on Your Learning</h3>
+                <p><strong>Question:</strong> What helped you remember the Present Continuous? (the table? the examples? the timer? something else?)</p>
+                <textarea id="metacog-input" placeholder="I remembered because..." style="min-height: 80px;"></textarea>
+                <button class="btn-primary" onclick="saveMetacognition()">Save Your Reflection</button>
+            </div>
+
+            <div class="i-can-statement">
+                ✅ I can describe what is happening right now using Present Continuous
+                <br><br>
+                ✅ I can explain the difference between Present Continuous (NOW) and Present Simple (ALWAYS)
+            </div>
+
+            <p style="text-align: center; margin-top: 30px; color: #666; font-style: italic;">
+                We said you'd be able to describe what is happening right now. Can you? What helped you learn that?
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tabbuttons = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(evt, contentId) {
+            var content = document.getElementById(contentId);
+            content.classList.toggle("show");
+            evt.target.textContent = content.classList.contains("show") ? "Hide answer" : "Show answer";
+        }
+
+        function showRetrievalFeedback() {
+            var input = document.getElementById('retrieval-input').value;
+            var feedback = document.getElementById('retrieval-feedback');
+            if (input.trim().length > 0) {
+                feedback.innerHTML = '<strong>✓ Good!</strong> You tried to write sentences. Now let\'s learn the correct form for describing RIGHT NOW.';
+                feedback.classList.add('show', 'feedback-correct');
+            } else {
+                feedback.innerHTML = '<strong>Try again:</strong> Write at least one sentence about what you\'re doing right now.';
+                feedback.classList.add('show', 'feedback-incorrect');
+            }
+        }
+
+        function checkAnswer(number) {
+            var answers = {
+                1: 'am watching',
+                2: 'go',
+                3: 'are playing',
+                4: 'works'
+            };
+            var feedback = document.getElementById('feedback' + number);
+            var correctAnswers = [
+                [1, 'am watching', 'Present Continuous - it is happening NOW'],
+                [2, 'go', 'Present Simple - a regular habit'],
+                [3, 'are playing', 'Present Continuous - they are doing it right now'],
+                [4, 'works', 'Present Simple - his regular job']
+            ];
+
+            feedback.innerHTML = '<strong>✓ Correct!</strong> ' + correctAnswers[number-1][2];
+            feedback.classList.add('show', 'feedback-correct');
+        }
+
+        function startTimer() {
+            var timeLeft = 180;
+            var timerElement = document.getElementById('timer');
+            var interval = setInterval(function() {
+                var minutes = Math.floor(timeLeft / 60);
+                var seconds = timeLeft % 60;
+                timerElement.textContent = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+
+                if (timeLeft <= 30) {
+                    timerElement.classList.add('warning');
+                }
+                if (timeLeft <= 10) {
+                    timerElement.classList.add('danger');
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    timerElement.textContent = 'Time\'s up!';
+                    alert('Your 3 minutes are up!');
+                }
+                timeLeft--;
+            }, 1000);
+        }
+
+        function saveSpeakingNote() {
+            alert('Great! Your response has been saved. In a 1-to-1 lesson, share your answer with your teacher now.');
+        }
+
+        function checkFinalTest() {
+            var ruleOutput = document.getElementById('rule-output').value;
+            var sentencesOutput = document.getElementById('sentences-output').value;
+            var feedback = document.getElementById('final-feedback');
+
+            if (ruleOutput.trim().length > 10 && sentencesOutput.trim().length > 10) {
+                feedback.innerHTML = '<strong>✓ Excellent!</strong> You can form Present Continuous and explain the rule. ' +
+                    'Compare your rule with the pattern: Subject + am/is/are + verb + ing. Compare your sentences with a teacher for feedback.';
+                feedback.classList.add('show', 'feedback-correct');
+            } else {
+                feedback.innerHTML = '<strong>Try again:</strong> Write both the rule and your sentences before checking.';
+                feedback.classList.add('show', 'feedback-incorrect');
+            }
+        }
+
+        function saveMetacognition() {
+            alert('Your reflection has been saved. This helps you understand how YOU learn best.');
+        }
+    </script>
+</body>
+</html>

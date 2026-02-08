@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 45: Review - Advanced Integration</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-button.active {
+            background: #4a90e2;
+            color: white;
+            border-bottom-color: #4a90e2;
+        }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active { display: block; }
+        .progress-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .review-card {
+            background: white;
+            border: 2px solid #4a90e2;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .review-card h3 { color: #4a90e2; margin-bottom: 10px; }
+        .example-box {
+            background: #f0f0f0;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+        .click-reveal {
+            margin: 15px 0;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .reveal-prompt {
+            cursor: pointer;
+            color: #667eea;
+            text-decoration: underline;
+            font-weight: 500;
+            display: inline-block;
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+        .reveal-content {
+            display: none;
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .reveal-content.show { display: block; }
+        .i-can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            text-align: center;
+            font-weight: bold;
+        }
+        .milestone {
+            background: #fff9c4;
+            border: 2px solid #fbc02d;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .milestone h3 { color: #f57f17; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⭐ Lesson 45: Review — Advanced Integration</h1>
+            <p>A1 Pathway Transition Unit (45/50)</p>
+            <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                <strong>Today's Learning Intention:</strong> We're consolidating your most advanced skills—managing extended conversations, telling detailed stories across multiple tenses, and handling real-world social situations with fluency and confidence.
+            </div>
+        </div>
+
+        <div class="progress-box">
+            <h3>📊 Your Progress</h3>
+            <p style="font-size: 1.2em;">You're 90% through the A1 Pathway! 🎯</p>
+            <p style="margin-top: 10px;">Since Lesson 40, you've learned:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>✓ Conversation Management (keeping chats alive)</li>
+                <li>✓ Extended storytelling (all tenses together)</li>
+                <li>✓ Present Perfect vs Past Simple (critical tense distinction)</li>
+                <li>✓ Making invitations (accepting, declining, alternatives)</li>
+            </ul>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)">1️⃣ Retrieval</button>
+            <button class="tab-button" onclick="showTab(1)">2️⃣ Complex Structures</button>
+            <button class="tab-button" onclick="showTab(2)">3️⃣ Interleaved Practice</button>
+            <button class="tab-button" onclick="showTab(3)">4️⃣ Real-World Use</button>
+            <button class="tab-button" onclick="showTab(4)">5️⃣ Recall Deep Dive</button>
+            <button class="tab-button" onclick="showTab(5)">6️⃣ Reflection</button>
+        </div>
+
+        <!-- TAB 1 -->
+        <div class="tab-content active">
+            <h2>Tab 1: Retrieval + Progress Check</h2>
+
+            <div class="review-card">
+                <h3>Let's see what you remember...</h3>
+                <p><strong>Without looking back, complete these:</strong></p>
+
+                <p style="margin-top: 15px;"><strong>1. Conversation Management:</strong> What's one way to keep a conversation going?</p>
+                <textarea class="textarea" placeholder="I can..."></textarea>
+
+                <p style="margin-top: 15px;"><strong>2. Storytelling:</strong> Name the 4 tenses we use in stories:</p>
+                <input type="text" class="input-field" placeholder="1) Past... 2) Past... 3) Present... 4) Present...">
+
+                <p style="margin-top: 15px;"><strong>3. Present Perfect vs Past Simple:</strong> When do you use Present Perfect?</p>
+                <textarea class="textarea" placeholder="You use Present Perfect when..."></textarea>
+
+                <p style="margin-top: 15px;"><strong>4. Invitations:</strong> Write one way to decline politely:</p>
+                <input type="text" class="input-field" placeholder="I would say...">
+            </div>
+
+            <div class="milestone">
+                <h3>🎯 Lessons 41-44 Summary</h3>
+                <p>You've mastered ADVANCED conversation skills that move you toward A2!</p>
+            </div>
+        </div>
+
+        <!-- TAB 2 -->
+        <div class="tab-content">
+            <h2>Tab 2: Complex Structures Review</h2>
+
+            <div class="review-card">
+                <h3>📚 Present Perfect Deep Dive (Lesson 43)</h3>
+                <p><strong>Rule:</strong> Use when asking "Have you ever...?" or "I've never..."</p>
+                <p style="margin-top: 10px;"><strong>Form:</strong> Have/Has + past participle</p>
+
+                <p style="margin-top: 15px;">Complete with Present Perfect:</p>
+                <p>1. I _____________ (see) this movie three times.</p>
+                <input type="text" class="input-field" placeholder="have seen">
+
+                <p style="margin-top: 10px;">2. She _____________ (live) in Paris since 2015.</p>
+                <input type="text" class="input-field" placeholder="has lived">
+            </div>
+
+            <div class="review-card">
+                <h3>📚 Story Connectors (Lesson 42)</h3>
+                <p><strong>Key expressions:</strong> First, Then, While, Suddenly, In the end</p>
+
+                <p style="margin-top: 15px;">Write a 5-sentence story using all 5 connectors:</p>
+                <textarea class="textarea" placeholder="First... Then... While... Suddenly... In the end..." style="min-height: 120px;"></textarea>
+            </div>
+
+            <div class="review-card">
+                <h3>📚 Conversation Techniques (Lesson 41)</h3>
+                <p><strong>CLARITY Framework:</strong></p>
+                <p style="margin: 15px 0;">Which technique should you use for each situation?</p>
+
+                <p>1. Your friend says something you don't understand:</p>
+                <select style="width: 100%; padding: 8px; margin: 10px 0;">
+                    <option>-- Select technique --</option>
+                    <option>Connect (show interest)</option>
+                    <option>Ask for Clarification</option>
+                    <option>React & Share</option>
+                </select>
+
+                <p style="margin-top: 10px;">2. Your friend tells you something interesting:</p>
+                <select style="width: 100%; padding: 8px; margin: 10px 0;">
+                    <option>-- Select technique --</option>
+                    <option>Connect (show interest)</option>
+                    <option>Ask follow-up questions</option>
+                    <option>Turn-Taking</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- TAB 3 -->
+        <div class="tab-content">
+            <h2>Tab 3: Interleaved Practice</h2>
+
+            <div class="review-card">
+                <h3>Mix of Everything!</h3>
+
+                <p><strong>1. Choose the correct tense:</strong></p>
+                <p>"I _____________ (go) to Japan last year, and I _____________ (have) an amazing time. I _____________ (have never seen) anything so beautiful."</p>
+                <input type="text" class="input-field" placeholder="went... had... had never seen">
+
+                <p style="margin-top: 15px;"><strong>2. Invitation response:</strong> Someone asks "Do you want to come to my birthday party?" What do you say if you CAN'T go?</p>
+                <input type="text" class="input-field" placeholder="I would say...">
+
+                <p style="margin-top: 15px;"><strong>3. Story sequence:</strong> Put these in order (1-4):</p>
+                <div style="margin: 10px 0;">
+                    <label><input type="checkbox"> ____ Suddenly, it started raining.</label><br>
+                    <label><input type="checkbox"> ____ In the end, we went home exhausted.</label><br>
+                    <label><input type="checkbox"> ____ First, we decided to go hiking.</label><br>
+                    <label><input type="checkbox"> ____ Then, we put on our hiking boots.</label>
+                </div>
+
+                <p style="margin-top: 15px;"><strong>4. Conversation move:</strong> Which CLARITY technique would you use here?</p>
+                <p><em>"I went to this amazing concert last week. You would have loved it!"</em></p>
+                <select style="width: 100%; padding: 8px; margin: 10px 0;">
+                    <option>-- Select technique --</option>
+                    <option>Connect (show enthusiasm)</option>
+                    <option>Ask for Clarification</option>
+                    <option>Ask follow-up questions</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- TAB 4 -->
+        <div class="tab-content">
+            <h2>Tab 4: Real-World Application</h2>
+
+            <div class="review-card">
+                <h3>🎯 Full Conversation: Tell a Story & Invite Someone</h3>
+
+                <p><strong>Write a conversation where:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>YOU tell a story about a recent experience (use lesson 42 connectors)</li>
+                    <li>YOU use Present Perfect somewhere (lesson 43)</li>
+                    <li>YOU keep the conversation going with CLARITY techniques (lesson 41)</li>
+                    <li>YOU invite them to do something (lesson 44)</li>
+                </ul>
+
+                <textarea class="textarea" placeholder="Your full conversation here..." style="min-height: 200px;"></textarea>
+
+                <p style="margin-top: 20px;"><strong>Self-check:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Did I tell a complete story? ✓</li>
+                    <li>Did I use story connectors? ✓</li>
+                    <li>Did I use Present Perfect? ✓</li>
+                    <li>Did I use CLARITY techniques? ✓</li>
+                    <li>Did I make an invitation? ✓</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 5 -->
+        <div class="tab-content">
+            <h2>Tab 5: Deep Recall from Earlier Units</h2>
+
+            <div class="review-card">
+                <h3>From Lesson 33: First Conditional (If + Present = Will)</h3>
+                <p><strong>Complete:</strong> "If you _____________ (have) time, will you come to my party?"</p>
+                <input type="text" class="input-field" placeholder="have">
+
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Check answer →</div>
+                    <div class="reveal-content">have</div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <h3>From Lesson 39: Could & Would</h3>
+                <p><strong>Write 2 polite requests using Could and Would:</strong></p>
+                <input type="text" class="input-field" placeholder="Could you...?">
+                <input type="text" class="input-field" placeholder="Would you mind...?">
+            </div>
+
+            <div class="review-card">
+                <h3>From Lesson 20: Unit 2 Review</h3>
+                <p><strong>Recall:</strong> Name 3 things you learned in lessons 11-20:</p>
+                <textarea class="textarea" placeholder="1)...&#10;2)...&#10;3)..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 6 -->
+        <div class="tab-content">
+            <h2>Tab 6: Reflection + Next Steps</h2>
+
+            <div class="review-card">
+                <h3>🧠 Metacognitive Reflection</h3>
+
+                <p><strong>Which lesson (41-44) was most useful for you?</strong></p>
+                <textarea class="textarea" placeholder="It was lesson... because..."></textarea>
+
+                <p style="margin-top: 15px;"><strong>Which skill do you want to practice MORE before the final lesson?</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li><label><input type="radio"> Keeping conversations going (Lesson 41)</label></li>
+                    <li><label><input type="radio"> Telling stories (Lesson 42)</label></li>
+                    <li><label><input type="radio"> Present Perfect vs Past (Lesson 43)</label></li>
+                    <li><label><input type="radio"> Making invitations (Lesson 44)</label></li>
+                </ul>
+
+                <p style="margin-top: 20px;"><strong>What are you most confident about?</strong></p>
+                <textarea class="textarea" placeholder="I'm confident about..."></textarea>
+
+                <p style="margin-top: 15px;"><strong>What will you focus on in the final lesson (Lesson 50)?</strong></p>
+                <textarea class="textarea" placeholder="I want to work on..."></textarea>
+            </div>
+
+            <div class="i-can-statement">
+                ✨ I can manage extended conversations, tell detailed stories, distinguish between tenses accurately, and handle social situations with confidence. I'm ready for the final A1 Pathway lesson and A2 challenges! ✨
+            </div>
+
+            <p style="margin-top: 20px; text-align: center; color: #666;">
+                <strong>Lesson 45 Complete!</strong> You're 5 lessons away from mastering the A1 Pathway! 🎉
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(index) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content')[index].classList.add('active');
+            document.querySelectorAll('.tab-button')[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        function toggleReveal(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('show');
+            element.textContent = content.classList.contains('show') ? '← Hide' : 'Click to reveal →';
+        }
+    </script>
+</body>
+</html>

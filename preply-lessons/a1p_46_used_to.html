@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 46: Used To</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+            border-radius: 5px 5px 0 0;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            border-bottom-color: #667eea;
+        }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active { display: block; }
+        .learning-intention {
+            background: #e8f4f8;
+            border-left: 4px solid #4a90e2;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .retrieval-prompt {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+        .example-box {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+            font-style: italic;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+        .practice-card {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .click-reveal {
+            margin: 15px 0;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .reveal-prompt {
+            cursor: pointer;
+            color: #667eea;
+            text-decoration: underline;
+            font-weight: 500;
+            display: inline-block;
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+        .reveal-content {
+            display: none;
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .reveal-content.show { display: block; }
+        .rule-box {
+            background: #e3f2fd;
+            border: 2px dashed #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .i-can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            text-align: center;
+            font-weight: bold;
+        }
+        .meta-question {
+            background: #f0f7ff;
+            border: 2px dashed #667eea;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👶 Lesson 46: Used To</h1>
+            <p>A1 Pathway Transition Unit (A1→A2) • Knowledge Building</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)">1️⃣ Retrieval</button>
+            <button class="tab-button" onclick="showTab(1)">2️⃣ Form</button>
+            <button class="tab-button" onclick="showTab(2)">3️⃣ Guided</button>
+            <button class="tab-button" onclick="showTab(3)">4️⃣ Interleaved</button>
+            <button class="tab-button" onclick="showTab(4)">5️⃣ Elaboration</button>
+            <button class="tab-button" onclick="showTab(5)">6️⃣ Speaking</button>
+            <button class="tab-button" onclick="showTab(6)">7️⃣ Recall</button>
+            <button class="tab-button" onclick="showTab(7)">8️⃣ Test</button>
+        </div>
+
+        <!-- TAB 1 -->
+        <div class="tab-content active">
+            <h2>Tab 1: Retrieval + Context</h2>
+
+            <div class="retrieval-prompt">
+                <h3>🧠 From memory: What's something you did regularly when you were younger?</h3>
+                <p>Write 2 sentences about a past habit:</p>
+                <textarea class="textarea" placeholder="When I was young, I..."></textarea>
+            </div>
+
+            <div class="learning-intention">
+                <strong>Today we're working on:</strong> The "used to" structure for past habits and routines that changed — so you can talk about how you've changed over time.
+            </div>
+
+            <div class="rule-box">
+                <h3>🔑 The Core Idea</h3>
+                <p><strong>Used to + verb:</strong> Something you did regularly in the past but don't do anymore.</p>
+                <div class="example-box">
+                    "I used to play tennis every week." (past habit, not true now)<br>
+                    "We used to live in London." (past reality, changed)<br>
+                    "She didn't use to like coffee." (past, but now she does)
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2 -->
+        <div class="tab-content">
+            <h2>Tab 2: Form Focus</h2>
+
+            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                <tr style="background: #667eea; color: white;">
+                    <th style="padding: 15px; text-align: left;">AFFIRMATIVE</th>
+                    <th style="padding: 15px; text-align: left;">NEGATIVE</th>
+                    <th style="padding: 15px; text-align: left;">QUESTION</th>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 15px;">I used to play football</td>
+                    <td style="padding: 15px;">I didn't use to play football</td>
+                    <td style="padding: 15px;">Did you use to play football?</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd; background: #f5f5f5;">
+                    <td style="padding: 15px;">She used to work here</td>
+                    <td style="padding: 15px;">She didn't use to work here</td>
+                    <td style="padding: 15px;">Did she use to work here?</td>
+                </tr>
+            </table>
+
+            <p><strong>⚠️ IMPORTANT RULE:</strong> Used to has NO -d in negative/questions!</p>
+            <div class="example-box">
+                ✗ "I didn't used to..." (WRONG)<br>
+                ✓ "I didn't use to..." (CORRECT)<br>
+                ✗ "Did you used to...?" (WRONG)<br>
+                ✓ "Did you use to...?" (CORRECT)
+            </div>
+
+            <p style="margin-top: 20px;"><strong>Practice:</strong> Write the negative forms:</p>
+            <p>1. I used to smoke → I _____________ smoke.</p>
+            <input type="text" class="input-field" placeholder="didn't use to">
+
+            <p style="margin-top: 10px;">2. We used to visit them → We _____________ visit them.</p>
+            <input type="text" class="input-field" placeholder="didn't use to">
+        </div>
+
+        <!-- TAB 3 -->
+        <div class="tab-content">
+            <h2>Tab 3: Guided Practice</h2>
+
+            <div class="practice-card">
+                <h3>I DO - Model</h3>
+                <p><strong>Topic:</strong> My job</p>
+                <p><strong>Model:</strong> "I used to work in finance, but now I'm a teacher. I didn't use to enjoy meetings, but I see their value now. Did you use to work in the same field?"</p>
+            </div>
+
+            <div class="practice-card">
+                <h3>WE DO - Together</h3>
+                <p><strong>Topic:</strong> Hobbies when younger</p>
+                <p>Complete this:</p>
+                <p>"When I was a child, I _____________ (use to play) video games every day. My sister _____________ (not use to enjoy) them though."</p>
+                <input type="text" class="input-field" placeholder="Fill in the blanks...">
+            </div>
+
+            <div class="practice-card">
+                <h3>YOU DO - Your Turn</h3>
+                <p><strong>Complete with "used to":</strong></p>
+                <p>"I _____________ (live) in [country/city], but I moved. I _____________ (work) as a [job], but I changed careers."</p>
+                <textarea class="textarea" placeholder="Write your sentences..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 4 -->
+        <div class="tab-content">
+            <h2>Tab 4: Interleaved Practice</h2>
+
+            <div class="practice-card">
+                <p><strong>1. Choose: Used to or Past Simple?</strong></p>
+                <p>"Last week, I _____________ (go) to the bank." → Use: <select style="width: 100%; padding: 8px;"><option>Past Simple</option><option>Used To</option></select></p>
+
+                <p style="margin-top: 10px;">"When I was young, I _____________ (go) to the beach every summer." → Use: <select style="width: 100%; padding: 8px;"><option>Past Simple</option><option>Used To</option></select></p>
+            </div>
+
+            <div class="practice-card">
+                <p><strong>2. Make questions with "used to":</strong></p>
+                <p>Q: "Did you _____________ (smoke)?" A: "No, I didn't use to smoke."</p>
+                <input type="text" class="input-field" placeholder="use to">
+
+                <p style="margin-top: 10px;">Q: "Did she _____________ (live) abroad?" A: "Yes, she used to live in Spain."</p>
+                <input type="text" class="input-field" placeholder="use to">
+            </div>
+
+            <div class="practice-card">
+                <p><strong>3. Complete the conversation:</strong></p>
+                <p>A: "I _____________ (not use to like) coffee, but I love it now."</p>
+                <p>B: "Really? How did that happen?"</p>
+                <p>A: "My colleague _____________ (use to make) great espresso at work, and I got hooked!"</p>
+                <textarea class="textarea" placeholder="Fill in both blanks..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 5 -->
+        <div class="tab-content">
+            <h2>Tab 5: Elaboration</h2>
+
+            <p><strong>Write a rule explaining when to use "used to":</strong></p>
+            <textarea class="textarea" placeholder="Use 'used to' when... Do NOT use 'used to' when..."></textarea>
+
+            <p style="margin-top: 20px;"><strong>Create 3 original sentences about how YOU'VE changed:</strong></p>
+            <textarea class="textarea" placeholder="1) ...&#10;2) ...&#10;3) ..." style="min-height: 100px;"></textarea>
+        </div>
+
+        <!-- TAB 6 -->
+        <div class="tab-content">
+            <h2>Tab 6: Speaking Production</h2>
+
+            <p><strong>Answer these questions about yourself (speak or write):</strong></p>
+
+            <div class="practice-card">
+                <p>1. What did you use to do as a child that you don't do anymore?</p>
+                <textarea class="textarea"></textarea>
+
+                <p style="margin-top: 15px;">2. Did you use to live somewhere different?</p>
+                <textarea class="textarea"></textarea>
+
+                <p style="margin-top: 15px;">3. What habits did you use to have that you've stopped?</p>
+                <textarea class="textarea"></textarea>
+
+                <p style="margin-top: 15px;">4. Did you use to enjoy something you don't enjoy now?</p>
+                <textarea class="textarea"></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 7 -->
+        <div class="tab-content">
+            <h2>Tab 7: Recall Zone</h2>
+
+            <div style="background: white; border-left: 4px solid #667eea; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                <h3>From Lesson 18: Frequency Adverbs</h3>
+                <p><strong>Recall:</strong> Give 3 frequency adverbs (always, never, etc.)</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>Examples: Always, Usually, Often, Sometimes, Rarely, Never</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: white; border-left: 4px solid #667eea; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                <h3>From Lesson 7: Present Simple (Routines)</h3>
+                <p><strong>Recall:</strong> What's the difference between "I go" and "I went"?</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>"I go" = Present (happening now/habits) | "I went" = Past (finished action)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: white; border-left: 4px solid #667eea; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                <h3>From Lesson 42: Past Continuous (was/were + -ing)</h3>
+                <p><strong>Recall:</strong> Complete: "I _____________ cooking when you called."</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>was</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8 -->
+        <div class="tab-content">
+            <h2>Tab 8: Test + Metacognition</h2>
+
+            <p><strong>From memory: Write the 3 forms of "used to" (affirmative, negative, question):</strong></p>
+            <textarea class="textarea" placeholder="Affirmative: ...&#10;Negative: ...&#10;Question: ..."></textarea>
+
+            <div class="click-reveal">
+                <div class="reveal-prompt" onclick="toggleReveal(this)">Check your answer →</div>
+                <div class="reveal-content">
+                    <p>Affirmative: I used to + verb</p>
+                    <p>Negative: I didn't use to + verb (NO -d!)</p>
+                    <p>Question: Did you use to + verb? (NO -d!)</p>
+                </div>
+            </div>
+
+            <div class="meta-question">
+                <h3>🧠 Reflection</h3>
+                <p><strong>What did you find challenging about "used to"?</strong></p>
+                <textarea class="textarea" placeholder="It was challenging because..."></textarea>
+
+                <p style="margin-top: 15px;"><strong>How will you remember to NOT add -d in questions/negatives?</strong></p>
+                <textarea class="textarea" placeholder="I will remember by..."></textarea>
+            </div>
+
+            <div class="i-can-statement">
+                ✨ I can use "used to" correctly to talk about past habits and routines that have changed. I understand the form and can speak about how I've changed over time! ✨
+            </div>
+
+            <p style="margin-top: 20px; text-align: center; color: #666;">
+                <strong>Lesson 46 Complete!</strong> One more skills lesson, then the grand finale! 🎉
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(index) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content')[index].classList.add('active');
+            document.querySelectorAll('.tab-button')[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        function toggleReveal(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('show');
+            element.textContent = content.classList.contains('show') ? '← Hide' : 'Click to reveal →';
+        }
+    </script>
+</body>
+</html>

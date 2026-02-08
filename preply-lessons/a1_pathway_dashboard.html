@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 English Pathway | Complete Beginner to A2 Threshold</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            border-radius: 20px;
+            padding: 80px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200"><defs><pattern id="dots" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="1200" height="200" fill="url(%23dots)"/></svg>');
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .pathway-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.3);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header .subtitle {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            font-weight: 300;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .header .description {
+            font-size: 1.1em;
+            max-width: 700px;
+            margin: 20px auto 0;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .progress-section h2 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 40px;
+            background: #e9ecef;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b 0%, #feca57 100%);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .progress-stat {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .progress-stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        .progress-stat-label {
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 5px;
+        }
+
+        /* Features Section */
+        .features-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-top: 5px solid #feca57;
+            text-align: center;
+        }
+
+        .feature-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        /* Unit Sections */
+        .units-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .unit-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .unit-header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .unit-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .unit-header-content h2 {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .unit-header-content p {
+            font-size: 0.95em;
+            opacity: 0.95;
+        }
+
+        .unit-toggle-icon {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .unit-toggle-icon.collapsed {
+            transform: rotate(-90deg);
+        }
+
+        .unit-content {
+            padding: 40px;
+            display: none;
+        }
+
+        .unit-content.expanded {
+            display: block;
+        }
+
+        .unit-outcomes {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .unit-outcomes h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .unit-outcomes ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .unit-outcomes li {
+            padding: 8px 0;
+            color: #555;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .unit-outcomes li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #feca57;
+            font-weight: bold;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .lesson-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 22px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b 0%, #feca57 100%);
+        }
+
+        .lesson-card:hover {
+            border-color: #ff6b6b;
+            box-shadow: 0 10px 25px rgba(255,107,107,0.15);
+            transform: translateY(-3px);
+        }
+
+        .lesson-card.review {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe8cc 100%);
+            border-color: #feca57;
+        }
+
+        .lesson-card.final {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            border-color: #c2185b;
+        }
+
+        .lesson-number-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+        }
+
+        .lesson-card.review .lesson-number-badge {
+            background: linear-gradient(135deg, #ff9800 0%, #ffc107 100%);
+        }
+
+        .lesson-card.final .lesson-number-badge {
+            background: linear-gradient(135deg, #e91e63 0%, #f06292 100%);
+        }
+
+        .lesson-archetype {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-right: 8px;
+        }
+
+        .archetype-grammar {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .archetype-vocabulary {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .archetype-speaking {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .archetype-skills {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        .archetype-review {
+            background: #fff9c4;
+            color: #f57f17;
+        }
+
+        .archetype-final {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .lesson-title {
+            font-size: 1.2em;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            font-weight: bold;
+            flex-grow: 1;
+        }
+
+        .lesson-card.review .lesson-title,
+        .lesson-card.final .lesson-title {
+            color: #e65100;
+        }
+
+        .lesson-description {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .lesson-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .lesson-link {
+            display: inline-flex;
+            align-items: center;
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .lesson-link:hover {
+            gap: 8px;
+        }
+
+        .lesson-link::after {
+            content: '→';
+            margin-left: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .lesson-card.review .lesson-link {
+            color: #e65100;
+        }
+
+        .lesson-card.final .lesson-link {
+            color: #c2185b;
+        }
+
+        .review-badge {
+            display: inline-block;
+            background: #fff59d;
+            color: #f57f17;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75em;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-left: 8px;
+        }
+
+        .review-badge.final {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        /* Footer */
+        .footer {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .footer h2 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .footer p {
+            color: #666;
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255,107,107,0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 50px 20px;
+            }
+
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .header .subtitle {
+                font-size: 1.2em;
+            }
+
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .unit-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .unit-header-content {
+                width: 100%;
+            }
+
+            .progress-info {
+                justify-content: space-around;
+            }
+        }
+
+        /* Unit-specific colors */
+        .unit-1 .unit-header {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+        }
+
+        .unit-2 .unit-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .unit-3 .unit-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .unit-4 .unit-header {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .unit-5 .unit-header {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="pathway-badge">Complete Beginner to A2 Threshold</div>
+                <h1>🌟 A1 English Pathway</h1>
+                <p class="subtitle">50 Interactive Lessons • Comprehensive Progression</p>
+                <p class="description">
+                    Take your first steps in English with our complete A1 pathway. From survival basics to A2-ready communication,
+                    this course uses proven teaching methods: spaced repetition, 70% student output, and interactive practice.
+                </p>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-section">
+            <h2>Your Learning Journey</h2>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill">50 Lessons • A1 Pathway Complete</div>
+            </div>
+            <div class="progress-info">
+                <div class="progress-stat">
+                    <div class="progress-stat-number">50</div>
+                    <div class="progress-stat-label">Total Lessons</div>
+                </div>
+                <div class="progress-stat">
+                    <div class="progress-stat-number">5</div>
+                    <div class="progress-stat-label">Units</div>
+                </div>
+                <div class="progress-stat">
+                    <div class="progress-stat-number">10</div>
+                    <div class="progress-stat-label">Review Lessons</div>
+                </div>
+                <div class="progress-stat">
+                    <div class="progress-stat-number">70%</div>
+                    <div class="progress-stat-label">Student Output</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features-section">
+            <div class="feature-card">
+                <div class="icon">🎯</div>
+                <h3>Spaced Repetition</h3>
+                <p>Every 5th lesson reviews what you've learned using optimal spacing intervals</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🗣️</div>
+                <h3>70% Speaking</h3>
+                <p>Majority of class time spent practicing and producing English</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📚</div>
+                <h3>Multiple Archetypes</h3>
+                <p>Knowledge building, curious conversations, and practical skills training</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">✅</div>
+                <h3>Clear Goals</h3>
+                <p>"I can..." statements in every lesson to track progress</p>
+            </div>
+        </div>
+
+        <!-- Units -->
+        <div class="units-container">
+            <!-- UNIT 1: Foundation -->
+            <div class="unit-card unit-1">
+                <div class="unit-header" onclick="toggleUnit(this)">
+                    <div class="unit-header-content">
+                        <h2>Unit 1: Foundation</h2>
+                        <p>Survival English & Basic Grammar • Lessons 1-10</p>
+                    </div>
+                    <div class="unit-toggle-icon">▶</div>
+                </div>
+                <div class="unit-content">
+                    <div class="unit-outcomes">
+                        <h3>By the end of this unit, you can...</h3>
+                        <ul>
+                            <li>Introduce yourself and ask basic questions</li>
+                            <li>Talk about your family and daily life</li>
+                            <li>Order simple food and drinks</li>
+                            <li>Describe where things are</li>
+                        </ul>
+                    </div>
+                    <div class="lessons-grid">
+                        <a href="a1p_01_introductions.html" class="lesson-card">
+                            <div class="lesson-number-badge">01</div>
+                            <span class="lesson-archetype archetype-speaking">Curious Conv</span>
+                            <div class="lesson-title">Hello! Introductions</div>
+                            <div class="lesson-description">Greetings, "I'm...", "My name is..."</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_01_introductions.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_02_where_are_you_from.html" class="lesson-card">
+                            <div class="lesson-number-badge">02</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">Where Are You From?</div>
+                            <div class="lesson-description">Countries, nationalities, "I'm from..."</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_02_where_are_you_from.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_03_what_do_you_do.html" class="lesson-card">
+                            <div class="lesson-number-badge">03</div>
+                            <span class="lesson-archetype archetype-speaking">Curious Conv</span>
+                            <div class="lesson-title">What Do You Do?</div>
+                            <div class="lesson-description">Jobs, occupations, present simple basics</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_03_what_do_you_do.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_04_numbers_basics.html" class="lesson-card">
+                            <div class="lesson-number-badge">04</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">Numbers & Basics</div>
+                            <div class="lesson-description">Numbers 1-100, phone numbers, ages</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_04_numbers_basics.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_05_review_foundation.html" class="lesson-card review">
+                            <div class="lesson-number-badge">05</div>
+                            <span class="lesson-archetype archetype-review">Review</span>
+                            <div class="lesson-title">REVIEW: Foundation Check</div>
+                            <div class="lesson-description">Intensive recall of lessons 1-4</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_05_review_foundation.html" class="lesson-link">Start Lesson</a>
+                                <span class="review-badge">REVIEW</span>
+                            </div>
+                        </a>
+
+                        <a href="a1p_06_family_people.html" class="lesson-card">
+                            <div class="lesson-number-badge">06</div>
+                            <span class="lesson-archetype archetype-speaking">Curious Conv</span>
+                            <div class="lesson-title">Family & People</div>
+                            <div class="lesson-description">Family vocab, possessives (my, your, his)</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_06_family_people.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_07_daily_routines.html" class="lesson-card">
+                            <div class="lesson-number-badge">07</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">Daily Routines</div>
+                            <div class="lesson-description">Present simple verbs, time expressions</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_07_daily_routines.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_08_food_drinks.html" class="lesson-card">
+                            <div class="lesson-number-badge">08</div>
+                            <span class="lesson-archetype archetype-speaking">Curious Conv</span>
+                            <div class="lesson-title">Food & Drinks Basics</div>
+                            <div class="lesson-description">Food vocab, "I like/don't like"</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_08_food_drinks.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_09_where_is_it.html" class="lesson-card">
+                            <div class="lesson-number-badge">09</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">Where Is It?</div>
+                            <div class="lesson-description">Prepositions (in, on, under, next to)</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_09_where_is_it.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_10_review_unit1.html" class="lesson-card review">
+                            <div class="lesson-number-badge">10</div>
+                            <span class="lesson-archetype archetype-review">Review</span>
+                            <div class="lesson-title">REVIEW: Unit 1 Complete</div>
+                            <div class="lesson-description">Full Unit 1 consolidation</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_10_review_unit1.html" class="lesson-link">Start Lesson</a>
+                                <span class="review-badge">REVIEW</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UNIT 2: Elementary -->
+            <div class="unit-card unit-2">
+                <div class="unit-header" onclick="toggleUnit(this)">
+                    <div class="unit-header-content">
+                        <h2>Unit 2: Elementary</h2>
+                        <p>Daily Communication • Lessons 11-20</p>
+                    </div>
+                    <div class="unit-toggle-icon">▶</div>
+                </div>
+                <div class="unit-content">
+                    <div class="unit-outcomes">
+                        <h3>By the end of this unit, you can...</h3>
+                        <ul>
+                            <li>Talk about past events and experiences</li>
+                            <li>Make plans and talk about the future</li>
+                            <li>Ask for help and directions</li>
+                            <li>Describe objects and people</li>
+                        </ul>
+                    </div>
+                    <div class="lessons-grid">
+                        <a href="a1p_11_what_did_you_do.html" class="lesson-card">
+                            <div class="lesson-number-badge">11</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">What Did You Do?</div>
+                            <div class="lesson-description">Past simple regular verbs</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_11_what_did_you_do.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_12_yesterdays_story.html" class="lesson-card">
+                            <div class="lesson-number-badge">12</div>
+                            <span class="lesson-archetype archetype-speaking">Curious Conv</span>
+                            <div class="lesson-title">Yesterday's Story</div>
+                            <div class="lesson-description">Past simple irregular verbs, storytelling</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_12_yesterdays_story.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_13_going_shopping.html" class="lesson-card">
+                            <div class="lesson-number-badge">13</div>
+                            <span class="lesson-archetype archetype-skills">Skills Training</span>
+                            <div class="lesson-title">Going Shopping</div>
+                            <div class="lesson-description">Shopping language, prices, "Can I have...?"</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_13_going_shopping.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_14_making_plans.html" class="lesson-card">
+                            <div class="lesson-number-badge">14</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">Making Plans</div>
+                            <div class="lesson-description">"Going to" future, time expressions</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_14_making_plans.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_15_review_past_future.html" class="lesson-card review">
+                            <div class="lesson-number-badge">15</div>
+                            <span class="lesson-archetype archetype-review">Review</span>
+                            <div class="lesson-title">REVIEW: Past & Future</div>
+                            <div class="lesson-description">Consolidate tenses learned</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_15_review_past_future.html" class="lesson-link">Start Lesson</a>
+                                <span class="review-badge">REVIEW</span>
+                            </div>
+                        </a>
+
+                        <a href="a1p_16_can_you_help.html" class="lesson-card">
+                            <div class="lesson-number-badge">16</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">Can You Help?</div>
+                            <div class="lesson-description">Modal "can/can't", requests, abilities</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_16_can_you_help.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_17_asking_directions.html" class="lesson-card">
+                            <div class="lesson-number-badge">17</div>
+                            <span class="lesson-archetype archetype-skills">Skills Training</span>
+                            <div class="lesson-title">Asking for Directions</div>
+                            <div class="lesson-description">Direction language, imperatives</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_17_asking_directions.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_18_how_often.html" class="lesson-card">
+                            <div class="lesson-number-badge">18</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">How Often?</div>
+                            <div class="lesson-description">Frequency adverbs, habits</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_18_how_often.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_19_describing_things.html" class="lesson-card">
+                            <div class="lesson-number-badge">19</div>
+                            <span class="lesson-archetype archetype-speaking">Curious Conv</span>
+                            <div class="lesson-title">Describing Things</div>
+                            <div class="lesson-description">Adjectives, "It's...", "It looks..."</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_19_describing_things.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_20_review_unit2.html" class="lesson-card review">
+                            <div class="lesson-number-badge">20</div>
+                            <span class="lesson-archetype archetype-review">Review</span>
+                            <div class="lesson-title">REVIEW: Unit 2 Complete</div>
+                            <div class="lesson-description">Full communication skills check</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_20_review_unit2.html" class="lesson-link">Start Lesson</a>
+                                <span class="review-badge">REVIEW</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UNIT 3: Building -->
+            <div class="unit-card unit-3">
+                <div class="unit-header" onclick="toggleUnit(this)">
+                    <div class="unit-header-content">
+                        <h2>Unit 3: Building</h2>
+                        <p>Expressing Yourself • Lessons 21-30</p>
+                    </div>
+                    <div class="unit-toggle-icon">▶</div>
+                </div>
+                <div class="unit-content">
+                    <div class="unit-outcomes">
+                        <h3>By the end of this unit, you can...</h3>
+                        <ul>
+                            <li>Compare things and give opinions</li>
+                            <li>Tell stories about your experiences</li>
+                            <li>Make suggestions and recommendations</li>
+                            <li>Talk about life experiences</li>
+                        </ul>
+                    </div>
+                    <div class="lessons-grid">
+                        <a href="a1p_21_right_now.html" class="lesson-card">
+                            <div class="lesson-number-badge">21</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">Right Now!</div>
+                            <div class="lesson-description">Present continuous vs present simple</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_21_right_now.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_22_bigger_better.html" class="lesson-card">
+                            <div class="lesson-number-badge">22</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">Bigger & Better</div>
+                            <div class="lesson-description">Comparatives (bigger, more interesting)</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_22_bigger_better.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_23_giving_opinions.html" class="lesson-card">
+                            <div class="lesson-number-badge">23</div>
+                            <span class="lesson-archetype archetype-speaking">Curious Conv</span>
+                            <div class="lesson-title">Giving Opinions</div>
+                            <div class="lesson-description">"I think...", "In my opinion...", agreeing</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_23_giving_opinions.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_24_the_best.html" class="lesson-card">
+                            <div class="lesson-number-badge">24</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">The Best!</div>
+                            <div class="lesson-description">Superlatives (the biggest, the most)</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_24_the_best.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_25_review_expressing_ideas.html" class="lesson-card review">
+                            <div class="lesson-number-badge">25</div>
+                            <span class="lesson-archetype archetype-review">Review</span>
+                            <div class="lesson-title">REVIEW: Expressing Ideas</div>
+                            <div class="lesson-description">Opinions & descriptions consolidation</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_25_review_expressing_ideas.html" class="lesson-link">Start Lesson</a>
+                                <span class="review-badge">REVIEW</span>
+                            </div>
+                        </a>
+
+                        <a href="a1p_26_must_should.html" class="lesson-card">
+                            <div class="lesson-number-badge">26</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">Must & Should</div>
+                            <div class="lesson-description">Modal verbs obligation/advice</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_26_must_should.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_27_telling_stories.html" class="lesson-card">
+                            <div class="lesson-number-badge">27</div>
+                            <span class="lesson-archetype archetype-speaking">Curious Conv</span>
+                            <div class="lesson-title">Telling Stories</div>
+                            <div class="lesson-description">Narrative tenses, sequencing (then, after)</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_27_telling_stories.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_28_have_you_ever.html" class="lesson-card">
+                            <div class="lesson-number-badge">28</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">Have You Ever...?</div>
+                            <div class="lesson-description">Present perfect introduction</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_28_have_you_ever.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_29_making_suggestions.html" class="lesson-card">
+                            <div class="lesson-number-badge">29</div>
+                            <span class="lesson-archetype archetype-skills">Skills Training</span>
+                            <div class="lesson-title">Making Suggestions</div>
+                            <div class="lesson-description">"Let's...", "Why don't we...?", "Shall we...?"</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_29_making_suggestions.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_30_review_unit3.html" class="lesson-card review">
+                            <div class="lesson-number-badge">30</div>
+                            <span class="lesson-archetype archetype-review">Review</span>
+                            <div class="lesson-title">REVIEW: Unit 3 Complete</div>
+                            <div class="lesson-description">Full expression skills integration</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_30_review_unit3.html" class="lesson-link">Start Lesson</a>
+                                <span class="review-badge">REVIEW</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UNIT 4: Intermediate -->
+            <div class="unit-card unit-4">
+                <div class="unit-header" onclick="toggleUnit(this)">
+                    <div class="unit-header-content">
+                        <h2>Unit 4: Intermediate</h2>
+                        <p>Social & Practical English • Lessons 31-40</p>
+                    </div>
+                    <div class="unit-toggle-icon">▶</div>
+                </div>
+                <div class="unit-content">
+                    <div class="unit-outcomes">
+                        <h3>By the end of this unit, you can...</h3>
+                        <ul>
+                            <li>Handle restaurant and phone situations</li>
+                            <li>Make hypothetical statements</li>
+                            <li>Discuss health and travel needs</li>
+                            <li>Ask and answer complex questions</li>
+                        </ul>
+                    </div>
+                    <div class="lessons-grid">
+                        <a href="a1p_31_at_the_restaurant.html" class="lesson-card">
+                            <div class="lesson-number-badge">31</div>
+                            <span class="lesson-archetype archetype-skills">Skills Training</span>
+                            <div class="lesson-title">At the Restaurant</div>
+                            <div class="lesson-description">Ordering, complaining politely, asking for bill</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_31_at_the_restaurant.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_32_making_phone_calls.html" class="lesson-card">
+                            <div class="lesson-number-badge">32</div>
+                            <span class="lesson-archetype archetype-skills">Skills Training</span>
+                            <div class="lesson-title">Making Phone Calls</div>
+                            <div class="lesson-description">Phone expressions, leaving messages</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_32_making_phone_calls.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_33_if_i_had_time.html" class="lesson-card">
+                            <div class="lesson-number-badge">33</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">If I Had Time...</div>
+                            <div class="lesson-description">First conditional (if + present, will)</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_33_if_i_had_time.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_34_questions_questions.html" class="lesson-card">
+                            <div class="lesson-number-badge">34</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">Questions, Questions!</div>
+                            <div class="lesson-description">Question formation review & practice</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_34_questions_questions.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_35_review_social_skills.html" class="lesson-card review">
+                            <div class="lesson-number-badge">35</div>
+                            <span class="lesson-archetype archetype-review">Review</span>
+                            <div class="lesson-title">REVIEW: Social Skills</div>
+                            <div class="lesson-description">Practical communication consolidation</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_35_review_social_skills.html" class="lesson-link">Start Lesson</a>
+                                <span class="review-badge">REVIEW</span>
+                            </div>
+                        </a>
+
+                        <a href="a1p_36_talking_about_weather.html" class="lesson-card">
+                            <div class="lesson-number-badge">36</div>
+                            <span class="lesson-archetype archetype-speaking">Curious Conv</span>
+                            <div class="lesson-title">Talking About Weather</div>
+                            <div class="lesson-description">Weather vocab, small talk skills</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_36_talking_about_weather.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_37_health_body.html" class="lesson-card">
+                            <div class="lesson-number-badge">37</div>
+                            <span class="lesson-archetype archetype-speaking">Curious Conv</span>
+                            <div class="lesson-title">Health & Body</div>
+                            <div class="lesson-description">Body parts, "I feel...", doctor visit</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_37_health_body.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_38_travel_transport.html" class="lesson-card">
+                            <div class="lesson-number-badge">38</div>
+                            <span class="lesson-archetype archetype-speaking">Curious Conv</span>
+                            <div class="lesson-title">Travel & Transport</div>
+                            <div class="lesson-description">Transport vocab, asking about tickets</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_38_travel_transport.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_39_could_would.html" class="lesson-card">
+                            <div class="lesson-number-badge">39</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">Could & Would</div>
+                            <div class="lesson-description">Polite requests, hypothetical "would"</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_39_could_would.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_40_review_unit4.html" class="lesson-card review">
+                            <div class="lesson-number-badge">40</div>
+                            <span class="lesson-archetype archetype-review">Review</span>
+                            <div class="lesson-title">REVIEW: Unit 4 Complete</div>
+                            <div class="lesson-description">Full intermediate skills check</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_40_review_unit4.html" class="lesson-link">Start Lesson</a>
+                                <span class="review-badge">REVIEW</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UNIT 5: Transition -->
+            <div class="unit-card unit-5">
+                <div class="unit-header" onclick="toggleUnit(this)">
+                    <div class="unit-header-content">
+                        <h2>Unit 5: Transition</h2>
+                        <p>A1 → A2 Preparation • Lessons 41-50</p>
+                    </div>
+                    <div class="unit-toggle-icon">▶</div>
+                </div>
+                <div class="unit-content">
+                    <div class="unit-outcomes">
+                        <h3>By the end of this unit, you can...</h3>
+                        <ul>
+                            <li>Manage extended conversations naturally</li>
+                            <li>Switch between tenses appropriately</li>
+                            <li>Give detailed advice and explanations</li>
+                            <li>Speak with improved fluency and confidence</li>
+                            <li>Ready for A2-level English courses</li>
+                        </ul>
+                    </div>
+                    <div class="lessons-grid">
+                        <a href="a1p_41_conversation_management.html" class="lesson-card">
+                            <div class="lesson-number-badge">41</div>
+                            <span class="lesson-archetype archetype-skills">Skills Training</span>
+                            <div class="lesson-title">Conversation Management</div>
+                            <div class="lesson-description">Keeping conversation going, clarifying</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_41_conversation_management.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_42_describing_experiences.html" class="lesson-card">
+                            <div class="lesson-number-badge">42</div>
+                            <span class="lesson-archetype archetype-speaking">Curious Conv</span>
+                            <div class="lesson-title">Describing Experiences</div>
+                            <div class="lesson-description">Extended descriptions using all tenses</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_42_describing_experiences.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_43_present_perfect_vs_past.html" class="lesson-card">
+                            <div class="lesson-number-badge">43</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">Present Perfect vs Past</div>
+                            <div class="lesson-description">Tense comparison & selection</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_43_present_perfect_vs_past.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_44_making_invitations.html" class="lesson-card">
+                            <div class="lesson-number-badge">44</div>
+                            <span class="lesson-archetype archetype-skills">Skills Training</span>
+                            <div class="lesson-title">Making Invitations</div>
+                            <div class="lesson-description">Inviting, accepting, declining politely</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_44_making_invitations.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_45_review_advanced_integration.html" class="lesson-card review">
+                            <div class="lesson-number-badge">45</div>
+                            <span class="lesson-archetype archetype-review">Review</span>
+                            <div class="lesson-title">REVIEW: Advanced Integration</div>
+                            <div class="lesson-description">Complex structures consolidation</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_45_review_advanced_integration.html" class="lesson-link">Start Lesson</a>
+                                <span class="review-badge">REVIEW</span>
+                            </div>
+                        </a>
+
+                        <a href="a1p_46_used_to.html" class="lesson-card">
+                            <div class="lesson-number-badge">46</div>
+                            <span class="lesson-archetype archetype-vocabulary">Knowledge</span>
+                            <div class="lesson-title">Used To</div>
+                            <div class="lesson-description">Past habits "I used to...", "I didn't use to..."</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_46_used_to.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_47_discussing_future_plans.html" class="lesson-card">
+                            <div class="lesson-number-badge">47</div>
+                            <span class="lesson-archetype archetype-speaking">Curious Conv</span>
+                            <div class="lesson-title">Discussing Future Plans</div>
+                            <div class="lesson-description">Will vs going to vs present continuous</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_47_discussing_future_plans.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_48_giving_advice.html" class="lesson-card">
+                            <div class="lesson-number-badge">48</div>
+                            <span class="lesson-archetype archetype-skills">Skills Training</span>
+                            <div class="lesson-title">Giving Advice</div>
+                            <div class="lesson-description">"You should...", "If I were you...", "Why don't you...?"</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_48_giving_advice.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_49_connected_speech.html" class="lesson-card">
+                            <div class="lesson-number-badge">49</div>
+                            <span class="lesson-archetype archetype-skills">Skills Training</span>
+                            <div class="lesson-title">Connected Speech</div>
+                            <div class="lesson-description">Fluency, linking words, natural speaking</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_49_connected_speech.html" class="lesson-link">Start Lesson</a>
+                            </div>
+                        </a>
+
+                        <a href="a1p_50_pathway_complete.html" class="lesson-card final">
+                            <div class="lesson-number-badge">50</div>
+                            <span class="lesson-archetype archetype-final">Final Review</span>
+                            <div class="lesson-title">A1 PATHWAY COMPLETE</div>
+                            <div class="lesson-description">Comprehensive all-skills final assessment</div>
+                            <div class="lesson-meta">
+                                <a href="a1p_50_pathway_complete.html" class="lesson-link">Start Lesson</a>
+                                <span class="review-badge final">FINAL</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <h2>Ready to Begin Your A1 Journey?</h2>
+            <p>
+                Start with Lesson 1: Hello! Introductions and follow the pathway at your own pace.
+                Each lesson builds on the previous ones, with built-in review lessons every 5 lessons to cement your learning.
+            </p>
+            <p>
+                The A1 Pathway uses proven learning science: spaced repetition, 70% student output,
+                and interactive practice to ensure you truly internalize what you learn.
+            </p>
+            <a href="a1p_01_introductions.html" class="cta-button">Start Lesson 1: Introductions</a>
+        </div>
+    </div>
+
+    <script>
+        function toggleUnit(element) {
+            const unitCard = element.closest('.unit-card');
+            const unitContent = unitCard.querySelector('.unit-content');
+            const toggleIcon = element.querySelector('.unit-toggle-icon');
+
+            unitContent.classList.toggle('expanded');
+            toggleIcon.classList.toggle('collapsed');
+        }
+
+        // Expand first unit by default
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstUnit = document.querySelector('.unit-card');
+            if (firstUnit) {
+                const header = firstUnit.querySelector('.unit-header');
+                toggleUnit(header);
+            }
+        });
+    </script>
+</body>
+</html>

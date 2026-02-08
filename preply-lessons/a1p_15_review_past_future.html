@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 15: REVIEW - Past & Future</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2em; margin-bottom: 10px; }
+        .header .learning-intention {
+            font-size: 1.1em;
+            font-style: italic;
+            margin-top: 15px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background: #f5576c;
+            color: white;
+            border-color: #f5576c;
+        }
+        .tab-button:hover { background: #f0f0f0; }
+        .tab-button.active:hover { background: #f5576c; }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active { display: block; }
+        .card {
+            background: #fff5f7;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #f5576c;
+        }
+        .card h3 { color: #f5576c; margin-bottom: 10px; }
+        .reveal-button {
+            background: #f5576c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .reveal-button:hover { background: #c41e3a; }
+        .revealed {
+            background: #e8f5e9;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #4caf50;
+        }
+        .progress-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .progress-box strong { font-size: 1.2em; }
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .practice-item {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .practice-item:hover {
+            box-shadow: 0 4px 12px rgba(245, 87, 108, 0.2);
+            border-color: #f5576c;
+        }
+        .tense-table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background: white;
+        }
+        .tense-table th, .tense-table td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .tense-table th {
+            background: #f5576c;
+            color: white;
+            font-weight: 600;
+        }
+        .tense-table tr:nth-child(even) { background: #f9f9f9; }
+        .i-can-statement {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .reflect-question {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.5em; }
+            .tabs { flex-direction: column; }
+            .tab-button { width: 100%; text-align: left; }
+            .tense-table th, .tense-table td { padding: 10px; font-size: 0.9em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Lesson 15: REVIEW - Past & Future</h1>
+            <p>Elementary Unit • Review Lesson</p>
+            <div class="learning-intention">Today we're consolidating past and future tenses to build fluency across time.</div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab(0)">1. Extended Recall</button>
+            <button class="tab-button" onclick="switchTab(1)">2. Tense Summary</button>
+            <button class="tab-button" onclick="switchTab(2)">3. Mixed Practice</button>
+            <button class="tab-button" onclick="switchTab(3)">4. Your Story</button>
+            <button class="tab-button" onclick="switchTab(4)">5. Progress Check</button>
+            <button class="tab-button" onclick="switchTab(5)">6. Looking Forward</button>
+        </div>
+
+        <!-- TAB 1: EXTENDED RECALL -->
+        <div class="tab-content active">
+            <h2>🧠 Extended Recall Zone</h2>
+            <p><strong>This is a REVIEW lesson!</strong> Let's retrieve everything from the past lessons. Answer WITHOUT looking back — just from memory!</p>
+
+            <div class="card">
+                <h3>From Lesson 14: "Going To" Future</h3>
+                <p>Complete: "Next week, they _____ (go) to Paris."</p>
+                <button class="reveal-button" onclick="toggleReveal('r1')">Check Answer</button>
+                <div id="r1" style="display:none;" class="revealed">
+                    <p><strong>are going to go</strong> — Subject + BE + going to + Base Verb</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>From Lesson 12: Irregular Past Verbs</h3>
+                <p>What's the past form of "EAT"?</p>
+                <button class="reveal-button" onclick="toggleReveal('r2')">Check Answer</button>
+                <div id="r2" style="display:none;" class="revealed">
+                    <p><strong>ATE</strong> — Irregular verbs don't follow the -ED rule</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>From Lesson 11: Regular Past Verbs</h3>
+                <p>Complete: "I _____ (work) yesterday."</p>
+                <button class="reveal-button" onclick="toggleReveal('r3')">Check Answer</button>
+                <div id="r3" style="display:none;" class="revealed">
+                    <p><strong>worked</strong> — Regular verbs add -ED in past</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>From Lesson 13: Shopping Phrases</h3>
+                <p>You want to buy coffee. What do you say?</p>
+                <button class="reveal-button" onclick="toggleReveal('r4')">Check Answer</button>
+                <div id="r4" style="display:none;" class="revealed">
+                    <p><strong>"Can I have a coffee, please?"</strong> — This works in any shop!</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>From Lesson 7 (Earlier): Daily Routines</h3>
+                <p>Name 3 things you do every morning:</p>
+                <button class="reveal-button" onclick="toggleReveal('r5')">Examples</button>
+                <div id="r5" style="display:none;" class="revealed">
+                    <p>I wake up, I shower, I eat breakfast, I drink coffee, I get dressed, I go to work/school</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; font-style: italic; color: #666;">Excellent! You remember these. Now we're going to COMBINE them!</p>
+        </div>
+
+        <!-- TAB 2: TENSE SUMMARY -->
+        <div class="tab-content">
+            <h2>📊 The Big Picture: Three Tenses</h2>
+            <p><strong>You now know three ways to talk about time:</strong></p>
+
+            <table class="tense-table">
+                <tr>
+                    <th>TENSE</th>
+                    <th>FORM</th>
+                    <th>WHEN TO USE</th>
+                    <th>EXAMPLE</th>
+                </tr>
+                <tr>
+                    <td><strong>Present Simple</strong></td>
+                    <td>Base verb (I work)</td>
+                    <td>Every day, habits, now</td>
+                    <td>"I work every day."</td>
+                </tr>
+                <tr>
+                    <td><strong>Past Simple</strong></td>
+                    <td>Verb + -ED or irregular (worked, went)</td>
+                    <td>Already finished, yesterday</td>
+                    <td>"I worked yesterday." / "I went home."</td>
+                </tr>
+                <tr>
+                    <td><strong>Going To (Future)</strong></td>
+                    <td>Be + going to + verb (am/is/are going to work)</td>
+                    <td>Plans, decisions, tomorrow</td>
+                    <td>"I'm going to work tomorrow."</td>
+                </tr>
+            </table>
+
+            <div class="card">
+                <p><strong>How to CHOOSE the right tense:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><span style="color: #f5576c; font-weight: bold;">Is it happening NOW or EVERY DAY?</span> → Use PRESENT</li>
+                    <li><span style="color: #f5576c; font-weight: bold;">Did it ALREADY HAPPEN?</span> → Use PAST (regular -ED or irregular)</li>
+                    <li><span style="color: #f5576c; font-weight: bold;">Is it a FUTURE PLAN?</span> → Use "GOING TO"</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <p style="margin-top: 20px;"><strong>PAST IRREGULAR VERBS you learned:</strong></p>
+                <p style="margin: 10px 0; font-weight: 600;">GO→went | EAT→ate | SEE→saw | COME→came | GET→got | SLEEP→slept | TAKE→took | MAKE→made | DRINK→drank | LEAVE→left</p>
+                <p style="color: #666; font-style: italic;">These don't follow the -ED rule — you must memorize them!</p>
+            </div>
+        </div>
+
+        <!-- TAB 3: MIXED PRACTICE -->
+        <div class="tab-content">
+            <h2>🎯 Interleaved Practice: MIX ALL THREE TENSES</h2>
+            <p><strong>Below are 10 sentences. Complete them — you decide WHICH TENSE to use!</strong></p>
+
+            <div class="practice-grid">
+                <div class="practice-item">
+                    <p><strong>1.</strong> Every day, I _____ (eat) breakfast.</p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;"><em>What tense?</em></p>
+                    <button class="reveal-button" onclick="toggleReveal('mp1')">Answer</button>
+                    <div id="mp1" style="display:none;" class="revealed">
+                        <p><strong>eat</strong> (Present — every day)</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>2.</strong> Yesterday, I _____ (eat) pizza.</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp2')">Answer</button>
+                    <div id="mp2" style="display:none;" class="revealed">
+                        <p><strong>ate</strong> (Past irregular — yesterday)</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>3.</strong> Tomorrow, I _____ (go) to the park.</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp3')">Answer</button>
+                    <div id="mp3" style="display:none;" class="revealed">
+                        <p><strong>am going to go</strong> (Future — tomorrow)</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>4.</strong> Last week, she _____ (work) hard.</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp4')">Answer</button>
+                    <div id="mp4" style="display:none;" class="revealed">
+                        <p><strong>worked</strong> (Past regular — last week)</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>5.</strong> She _____ (watch) TV every night.</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp5')">Answer</button>
+                    <div id="mp5" style="display:none;" class="revealed">
+                        <p><strong>watches</strong> (Present — every night)</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>6.</strong> He _____ (visit) his family next month.</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp6')">Answer</button>
+                    <div id="mp6" style="display:none;" class="revealed">
+                        <p><strong>is going to visit</strong> (Future — next month)</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>7.</strong> We _____ (sleep) 8 hours last night.</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp7')">Answer</button>
+                    <div id="mp7" style="display:none;" class="revealed">
+                        <p><strong>slept</strong> (Past irregular — last night)</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>8.</strong> They _____ (make) dinner tomorrow.</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp8')">Answer</button>
+                    <div id="mp8" style="display:none;" class="revealed">
+                        <p><strong>are going to make</strong> (Future — tomorrow)</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>9.</strong> I _____ (listen) to music every morning.</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp9')">Answer</button>
+                    <div id="mp9" style="display:none;" class="revealed">
+                        <p><strong>listen</strong> (Present — every morning)</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>10.</strong> They _____ (come) to visit yesterday.</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp10')">Answer</button>
+                    <div id="mp10" style="display:none;" class="revealed">
+                        <p><strong>came</strong> (Past irregular — yesterday)</p>
+                    </div>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; color: #666; font-style: italic;"><strong>Notice:</strong> You HAD to CHOOSE which tense was right for each sentence. That's the skill!</p>
+        </div>
+
+        <!-- TAB 4: YOUR STORY -->
+        <div class="tab-content">
+            <h2>🗣️ Tell Your Three-Time Story</h2>
+            <p><strong>Tell your teacher a story using all three tenses!</strong></p>
+
+            <div class="card">
+                <p style="font-weight: 600; margin-bottom: 15px;">Your Story Should Include:</p>
+                <ol>
+                    <li><strong>PAST:</strong> "Yesterday I..." (at least 2 past tense sentences — use regular AND irregular verbs!)</li>
+                    <li><strong>PRESENT:</strong> "Every day I..." (1-2 present simple sentences)</li>
+                    <li><strong>FUTURE:</strong> "Next week I'm going to..." (1-2 future sentences)</li>
+                </ol>
+                <p style="margin-top: 20px; color: #666; font-style: italic;">Speak naturally — don't prepare a script!</p>
+            </div>
+
+            <div class="reflect-question">
+                <strong>📝 After speaking:</strong> Which tense felt easiest? Which was hardest? Why?
+                <textarea placeholder="Your reflection:" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #ffc107; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 5: PROGRESS CHECK -->
+        <div class="tab-content">
+            <h2>📈 Your Progress Since Lesson 11</h2>
+
+            <div class="progress-box">
+                <p><strong>Lesson 11 (5 lessons ago):</strong> You couldn't talk about the past at all.</p>
+                <p style="margin-top: 10px;"><strong>TODAY:</strong> You can use past regular + irregular, present habits, AND future plans. 🎉</p>
+            </div>
+
+            <div class="card">
+                <p><strong>✓ What you can NOW do:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Describe what you did yesterday (regular AND irregular verbs)</li>
+                    <li>Tell stories about past events</li>
+                    <li>Ask for things in shops</li>
+                    <li>Talk about future plans (going to)</li>
+                    <li>MIX tenses in a natural story</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <p><strong>✓ Verbs you've learned in these 5 lessons:</strong></p>
+                <p style="margin: 15px 0;"><strong>Regular past:</strong> work, walk, watch, cook, listen</p>
+                <p style="margin: 15px 0;"><strong>Irregular past:</strong> go/went, eat/ate, see/saw, come/came, get/got, sleep/slept, take/took, make/made, drink/drank, leave/left</p>
+                <p style="margin: 15px 0;"><strong>That's 20+ verbs you can use in at least two tenses!</strong></p>
+            </div>
+
+            <div class="i-can-statement">
+                <p>✓ I can talk about past, present, and future using different tenses</p>
+            </div>
+        </div>
+
+        <!-- TAB 6: LOOKING FORWARD -->
+        <div class="tab-content">
+            <h2>🚀 What's Next: Lessons 16-20</h2>
+
+            <div class="card">
+                <p style="font-weight: 600; margin-bottom: 15px;"><strong>In the next 5 lessons, you'll learn:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Lesson 16:</strong> Can/Can't — abilities and requests</li>
+                    <li><strong>Lesson 17:</strong> Asking for Directions — real travel language</li>
+                    <li><strong>Lesson 18:</strong> How Often? — frequency adverbs (always, usually, sometimes)</li>
+                    <li><strong>Lesson 19:</strong> Describing Things — adjectives and "It's...It looks..."</li>
+                    <li><strong>Lesson 20:</strong> FINAL REVIEW for Unit 2</li>
+                </ul>
+            </div>
+
+            <div class="progress-box">
+                <p><strong>📌 You're 30% through the A1 Pathway!</strong></p>
+                <p style="margin-top: 10px;">In just 5 lessons, you've gone from no past/future to mixing three tenses. Keep going!</p>
+            </div>
+
+            <div class="reflect-question">
+                <strong>Final Reflection:</strong>
+                <p style="margin-top: 10px;">What's ONE THING you're most proud of learning in the past 5 lessons?</p>
+                <textarea placeholder="Your reflection:" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #ffc107; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(index) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            contents.forEach((content, i) => {
+                content.classList.remove('active');
+                buttons[i].classList.remove('active');
+            });
+            contents[index].classList.add('active');
+            buttons[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(id) {
+            const element = document.getElementById(id);
+            element.style.display = element.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

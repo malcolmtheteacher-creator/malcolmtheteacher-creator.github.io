@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 35: REVIEW - Social Skills</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f8f9fa 0%, #e8eef2 100%); color: #1a1a2e; line-height: 1.6; min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; padding: 30px 20px; text-align: center; }
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        .learning-intention { background: #fadbd8; border-left: 4px solid #e74c3c; padding: 15px 20px; margin: 20px; border-radius: 4px; font-weight: 500; color: #a93226; }
+        .tabs { display: flex; border-bottom: 2px solid #e0e0e0; overflow-x: auto; background: #f8f9fa; }
+        .tab-button { padding: 15px 20px; border: none; background: transparent; cursor: pointer; font-size: 0.95em; font-weight: 500; color: #666; transition: all 0.3s ease; white-space: nowrap; border-bottom: 3px solid transparent; }
+        .tab-button:hover { color: #e74c3c; }
+        .tab-button.active { color: #e74c3c; border-bottom-color: #e74c3c; }
+        .tab-content { display: none; padding: 30px; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .content-section { margin-bottom: 25px; }
+        .section-title { font-size: 1.3em; font-weight: 600; color: #e74c3c; margin-bottom: 15px; }
+        .recall-zone { background: linear-gradient(135deg, #fadbd8 0%, #f5b7b1 100%); border: 2px solid #e74c3c; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .recall-zone h3 { color: #c0392b; margin-bottom: 15px; }
+        .recall-item { background: white; padding: 12px; border-left: 4px solid #e74c3c; margin-bottom: 10px; border-radius: 4px; }
+        .scenario-box { background: #f8f9fa; border: 1px solid #ddd; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .reveal-button { background: #e74c3c; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 500; margin-top: 10px; }
+        .reveal-button:hover { background: #c0392b; }
+        .hidden-content { display: none; background: #d5f4e6; border-left: 4px solid #27ae60; padding: 12px; margin-top: 10px; border-radius: 4px; }
+        .hidden-content.revealed { display: block; }
+        .progress-box { background: #ecf0f1; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .progress-list { list-style: none; margin-left: 0; }
+        .progress-list li { padding: 8px 0; padding-left: 25px; position: relative; }
+        .progress-list li:before { content: "✅"; position: absolute; left: 0; }
+        .i-can-statement { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; font-size: 1.1em; font-weight: 500; margin-top: 20px; }
+        .metacognition-box { background: #f8f9fa; border: 2px solid #667eea; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .metacognition-box h4 { color: #667eea; margin-bottom: 10px; }
+        .retrieval-task { background: #f0f7ff; border-left: 4px solid #4a90e2; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .retrieval-task textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; min-height: 80px; }
+        @media (max-width: 768px) { .header h1 { font-size: 1.6em; } .tab-button { padding: 12px 15px; font-size: 0.85em; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Lesson 35: REVIEW - Social Skills</h1>
+            <p>Consolidate Lessons 31-34: Restaurant, Phone, Conditionals, Questions</p>
+        </div>
+        
+        <div class="learning-intention">
+            <strong>Learning Intention:</strong> Today we're reviewing practical social English from the last 4 lessons so you can use restaurant language, phone confidence, conditional thinking, and natural questioning in real conversations.
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(event, 'tab1')">Progress Check</button>
+            <button class="tab-button" onclick="showTab(event, 'tab2')">Extended Recall Zone</button>
+            <button class="tab-button" onclick="showTab(event, 'tab3')">Interleaved Skills Mix</button>
+            <button class="tab-button" onclick="showTab(event, 'tab4')">Real-World Integration</button>
+            <button class="tab-button" onclick="showTab(event, 'tab5')">Reflection & Next Steps</button>
+        </div>
+        
+        <!-- TAB 1: PROGRESS CHECK -->
+        <div id="tab1" class="tab-content active">
+            <div class="content-section">
+                <div class="section-title">📊 What You've Achieved in Unit 4</div>
+                <div class="progress-box">
+                    <ul class="progress-list">
+                        <li><strong>Lesson 31:</strong> Restaurant ordering, polite complaints, and asking for the bill</li>
+                        <li><strong>Lesson 32:</strong> Phone call openings, answering naturally, leaving voicemails</li>
+                        <li><strong>Lesson 33:</strong> First conditional (If + present, will + future) for real possibilities</li>
+                        <li><strong>Lesson 34:</strong> All question types across all tenses</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">🧠 Quick Check: What do you remember?</div>
+                <div class="retrieval-task">
+                    <p><strong>1. Write the R.A.B. framework from Lesson 31 (restaurant):</strong></p>
+                    <textarea placeholder="R = ... A = ... B = ..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>2. Write the A.M.I. framework from Lesson 32 (phone):</strong></p>
+                    <textarea placeholder="A = ... M = ... I = ..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>3. What's the first conditional pattern?</strong></p>
+                    <textarea placeholder="If + present, ... + ..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>4. What's the word order rule for YES/NO questions?</strong></p>
+                    <textarea placeholder="[What comes first? What comes second?]..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 2: EXTENDED RECALL ZONE -->
+        <div id="tab2" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🔄 Extended Recall: Skills from Earlier Lessons</div>
+                <p>These items come from lessons before Unit 4. Try to retrieve them from memory without looking back.</p>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 29: Making Suggestions</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What are 3 ways to make a suggestion using "Let's", "Why don't", "Shall"?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "Let's go", "Why don't we try...", "Shall we...?"
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 30: Unit 3 Review (Describing & Comparing)</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> How do you form a comparative? Example: "This is ___ (big) than that."</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: Add "-er" for short adjectives (bigger), or "more" for longer ones (more interesting)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 31: At the Restaurant</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What's the pattern for a polite complaint? Start with "I'm sorry, but..."</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "I'm sorry, but [problem]. Could you possibly [solution]?" — Shows politeness without attacking.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 32: Making Phone Calls</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What are the key parts of a good voicemail message?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: Name, reason for calling, phone number (slowly), what they should do next
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 33: First Conditional</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> Write one first conditional sentence from memory:</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: Any correct sentence following: If + present simple, will + verb (Example: "If I study, I will pass")
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 34: Questions</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What's wrong with this question? "Where you are going?" — Fix it.</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: Should be "Where are you going?" — The auxiliary "are" must come BEFORE the subject.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 3: INTERLEAVED SKILLS MIX -->
+        <div id="tab3" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🎯 Mix & Match: Practical Challenges</div>
+                <p>Each challenge combines skills from multiple lessons. YOU choose which framework or language to use.</p>
+                
+                <div class="scenario-box">
+                    <h4>Challenge 1: Phone Ordering (Restaurant + Phone)</h4>
+                    <p>You call a restaurant to book a table. You need to:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Greet them politely (phone skill)</li>
+                        <li>Say what you want (restaurant skill)</li>
+                        <li>Ask a question about availability (question skill)</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>What do you say? Write or describe the conversation:</strong></p>
+                    <textarea placeholder="Write your conversation..."></textarea>
+                </div>
+                
+                <div class="scenario-box">
+                    <h4>Challenge 2: Conditional Planning (First Conditional + Questions)</h4>
+                    <p>You're planning a restaurant dinner with a friend. Use first conditionals and ask questions:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>One "If..." statement about what happens if the restaurant is full</li>
+                        <li>One question asking about their food preferences</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>Write what you would say:</strong></p>
+                    <textarea placeholder="Write your first conditional and question..."></textarea>
+                </div>
+                
+                <div class="scenario-box">
+                    <h4>Challenge 3: Real Complaint (Restaurant + Politeness)</h4>
+                    <p>Your food arrives cold at a restaurant. You need to:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Complain politely (use "I'm sorry, but...")</li>
+                        <li>Ask a question about solutions</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>What do you say to the waiter?</strong></p>
+                    <textarea placeholder="Write your complaint..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 4: REAL-WORLD INTEGRATION -->
+        <div id="tab4" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🌍 Putting It All Together</div>
+                <p>Here's a complete scenario using ALL skills from Unit 4. Read it, then do the practice:</p>
+                
+                <div class="scenario-box">
+                    <h4>📱 SCENARIO: Restaurant Booking by Phone</h4>
+                    <p><strong>Situation:</strong> You want to book dinner at "La Bella" restaurant for 7pm on Saturday. You're calling now (Wednesday). It's a special occasion.</p>
+                    <p style="margin-top: 10px;"><strong>Your conversation must include:</strong></p>
+                    <ul style="margin-left: 20px;">
+                        <li>Phone greeting and introduction (Lesson 32)</li>
+                        <li>A question about availability (Lesson 34 - Question skills)</li>
+                        <li>Your food preference request (Lesson 31 - Ordering)</li>
+                        <li>A conditional statement about dietary needs (Lesson 33 - First conditional)</li>
+                        <li>Asking for confirmation and the bill/cost question (Lesson 31)</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Write or describe the complete phone conversation:</strong></p>
+                    <textarea placeholder="Write the full conversation..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 5: REFLECTION & NEXT STEPS -->
+        <div id="tab5" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🎓 Reflection: Learning Across 4 Lessons</div>
+                
+                <div class="retrieval-task">
+                    <p><strong>1. Which lesson in Unit 4 (31-34) helped you the most? Why?</strong></p>
+                    <textarea placeholder="Your reflection..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>2. What real situation from your life can you now handle in English?</strong></p>
+                    <textarea placeholder="Describe a real scenario..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>3. What do you still find challenging?</strong></p>
+                    <textarea placeholder="Be honest about what's still difficult..."></textarea>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">📚 What's Coming Next?</div>
+                <div class="scenario-box">
+                    <p><strong>In the next 5 lessons (36-40), you'll learn:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Lesson 36:</strong> Talking About Weather (Curious Conversation)</li>
+                        <li><strong>Lesson 37:</strong> Health & Body language (Curious Conversation)</li>
+                        <li><strong>Lesson 38:</strong> Travel & Transport (Curious Conversation)</li>
+                        <li><strong>Lesson 39:</strong> Could & Would (Knowledge Building - Polite Requests)</li>
+                        <li><strong>Lesson 40:</strong> REVIEW: Unit 4 Complete (Consolidation)</li>
+                    </ul>
+                    <p style="margin-top: 15px;">These lessons will extend your social English to weather small talk, health conversations, and travel situations. All with the same frameworks you've learned!</p>
+                </div>
+            </div>
+            
+            <div class="i-can-statement">
+                ✅ <strong>I can:</strong> Handle restaurant situations, make phone calls confidently, use first conditionals for real scenarios, and ask questions naturally across all tenses
+            </div>
+            
+            <div class="metacognition-box">
+                <h4>🧠 Metacognition: How Have You Grown?</h4>
+                <p>Since Lesson 31, what skill feels most natural now? What growth are you most proud of?</p>
+                <textarea placeholder="Your reflection..."></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(evt, tabName) {
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
+            var tabbuttons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabbuttons.length; i++) tabbuttons[i].classList.remove("active");
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function toggleReveal(evt) {
+            evt.preventDefault();
+            var button = evt.currentTarget;
+            var hiddenContent = button.nextElementSibling;
+            hiddenContent.classList.toggle("revealed");
+            button.textContent = hiddenContent.classList.contains("revealed") ? "Hide" : "Reveal";
+        }
+    </script>
+</body>
+</html>

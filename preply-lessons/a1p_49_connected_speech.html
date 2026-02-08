@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 49: Connected Speech & Fluency</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            border-bottom-color: #667eea;
+        }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active { display: block; }
+        .retrieval-prompt {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+        .learning-intention {
+            background: #e8f4f8;
+            border-left: 4px solid #4a90e2;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .technique-box {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .technique-box h3 { color: #667eea; margin-bottom: 10px; }
+        .example-box {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #667eea;
+        }
+        .input-field, .textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+        .textarea { min-height: 80px; }
+        .practice-card {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .click-reveal {
+            margin: 15px 0;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .reveal-prompt {
+            cursor: pointer;
+            color: #667eea;
+            text-decoration: underline;
+            font-weight: 500;
+            display: inline-block;
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+        .reveal-content {
+            display: none;
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .reveal-content.show { display: block; }
+        .i-can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            text-align: center;
+            font-weight: bold;
+        }
+        .meta-question {
+            background: #f0f7ff;
+            border: 2px dashed #667eea;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎤 Lesson 49: Connected Speech & Fluency</h1>
+            <p>A1 Pathway Transition Unit (A1→A2) • Skills Training</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)">1️⃣ Retrieval</button>
+            <button class="tab-button" onclick="showTab(1)">2️⃣ Connected Speech</button>
+            <button class="tab-button" onclick="showTab(2)">3️⃣ Linking</button>
+            <button class="tab-button" onclick="showTab(3)">4️⃣ Fillers</button>
+            <button class="tab-button" onclick="showTab(4)">5️⃣ Natural Flow</button>
+            <button class="tab-button" onclick="showTab(5)">6️⃣ Speaking Practice</button>
+            <button class="tab-button" onclick="showTab(6)">7️⃣ Recall</button>
+            <button class="tab-button" onclick="showTab(7)">8️⃣ Reflection</button>
+        </div>
+
+        <!-- TAB 1 -->
+        <div class="tab-content active">
+            <h2>Tab 1: Retrieval + Hook</h2>
+
+            <div class="retrieval-prompt">
+                <h3>🧠 Listen to yourself speak...</h3>
+                <p>When you speak English, what makes you sound fluent? What makes you sound slow/unnatural?</p>
+                <textarea class="textarea" placeholder="Fluent sounds like...&#10;Slow sounds like..."></textarea>
+            </div>
+
+            <div class="learning-intention">
+                <strong>Today we're working on:</strong> Techniques for sounding more natural — linking words, using fillers, and connecting ideas smoothly — so you move toward A2 fluency.
+            </div>
+
+            <p style="margin: 20px 0; padding: 20px; background: #fff3cd; border-radius: 5px;">
+                <strong>Key insight:</strong> Fluency isn't about perfection. It's about natural rhythm, linking words, and keeping the flow going. Native speakers use CONNECTORS, FILLERS, and LINKING all the time!
+            </p>
+        </div>
+
+        <!-- TAB 2 -->
+        <div class="tab-content">
+            <h2>Tab 2: Connected Speech Techniques</h2>
+
+            <div class="technique-box">
+                <h3>1️⃣ LINKING WORDS (Connectors)</h3>
+                <p><strong>What it is:</strong> Words that join ideas smoothly (so, because, and, but, also, however)</p>
+
+                <div class="example-box">
+                    Unnatural: "I went to France. I had fun. I learned French."<br>
+                    Natural: "I went to France and had fun, so I decided to learn French. However, it's harder than I thought."
+                </div>
+
+                <p style="margin-top: 10px;"><strong>Linking words to practice:</strong> and, but, because, so, also, however, besides, in addition, actually</p>
+
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Connect these 2 ideas with a linking word:</p>
+                <p>"I love coffee. I don't sleep well at night."</p>
+                <input type="text" class="input-field" placeholder="I love coffee, but/however/because I don't sleep well...">
+            </div>
+
+            <div class="technique-box">
+                <h3>2️⃣ FILLERS (Thinking time)</h3>
+                <p><strong>What they do:</strong> Buy you time to think without awkward silence</p>
+
+                <div class="example-box">
+                    "Um, well, I think that..." / "You know, like, it's really..." / "So, basically, what I mean is..."
+                </div>
+
+                <p style="margin-top: 10px;"><strong>Professional fillers:</strong> Well, you know, I mean, basically, actually, I think, in my opinion</p>
+
+                <p style="margin-top: 10px;"><strong>Casual fillers:</strong> Um, like, uh, sort of, kind of, I guess</p>
+
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Say a sentence using a filler:</p>
+                <input type="text" class="input-field" placeholder="Well, I think that...">
+            </div>
+
+            <div class="technique-box">
+                <h3>3️⃣ SOUND LINKING (Pronunciation blending)</h3>
+                <p><strong>What it is:</strong> Connecting the sounds of words so they flow</p>
+
+                <div class="example-box">
+                    Word by word: "Did you go?" (sounds slow)<br>
+                    Linked: "Didja go?" (sounds natural)<br>
+                    <br>
+                    Word by word: "Want to" (sounds careful)<br>
+                    Linked: "Wanna" (sounds natural)
+                </div>
+
+                <p style="margin-top: 10px;"><strong>Common linked forms:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Did you → Didja</li>
+                    <li>Want to → Wanna</li>
+                    <li>Going to → Gonna</li>
+                    <li>Have to → Hafta</li>
+                    <li>Got to → Gotta</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 3 -->
+        <div class="tab-content">
+            <h2>Tab 3: Linking in Action</h2>
+
+            <div class="practice-card">
+                <h3>Unnatural vs Natural Speaking</h3>
+
+                <p><strong>UNNATURAL (word by word):</strong></p>
+                <p style="margin-top: 10px;"><em>"I... um... went... to... the... store. And. I. bought. milk. And. I. bought. bread. Because. I. wanted. to. make. dinner."</em></p>
+
+                <p style="margin-top: 15px;"><strong>NATURAL (with linking + fillers):</strong></p>
+                <p style="margin-top: 10px;"><em>"Well, you know, I went to the store and got milk and bread 'cause I was gonna make dinner, you know?"</em></p>
+
+                <p style="margin-top: 20px;"><strong>What changed?</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>✓ Added connectors ("and", "'cause")</li>
+                    <li>✓ Added fillers ("well", "you know")</li>
+                    <li>✓ Linked sounds ("gonna" instead of "going to")</li>
+                    <li>✓ Smoother pace</li>
+                </ul>
+            </div>
+
+            <div class="practice-card">
+                <h3>Practice: Make this sound natural</h3>
+
+                <p><strong>Unnatural version:</strong></p>
+                <p style="margin-style: 10px;"><em>"I. Like. English. I. Study. Every. Day. It. Is. Difficult. But. I. Want. To. Be. Fluent."</em></p>
+
+                <p style="margin-top: 15px;"><strong>Rewrite naturally (add connectors, fillers, link sounds):</strong></p>
+                <textarea class="textarea" placeholder="Well, I like English... because... you know..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 4 -->
+        <div class="tab-content">
+            <h2>Tab 4: Fillers & Discourse Markers</h2>
+
+            <div class="technique-box">
+                <h3>Starting your thought (buying time)</h3>
+                <div class="example-box">
+                    "Well, I think..." / "Um, let me see..." / "You know, I..." / "So, basically..."
+                </div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Start a response with a filler:</p>
+                <p>Question: "What's your favorite food?"</p>
+                <input type="text" class="input-field" placeholder="Well, I think my favorite...">
+            </div>
+
+            <div class="technique-box">
+                <h3>Clarifying/adding info</h3>
+                <div class="example-box">
+                    "I mean..." / "Actually, what I meant was..." / "Like, for example..." / "In other words..."
+                </div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Clarify something:</p>
+                <input type="text" class="input-field" placeholder="I mean, what I'm trying to say...">
+            </div>
+
+            <div class="technique-box">
+                <h3>Continuing/concluding</h3>
+                <div class="example-box">
+                    "And so..." / "Anyway..." / "So yeah..." / "The point is..."
+                </div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Conclude a thought:</p>
+                <input type="text" class="input-field" placeholder="Anyway, the point is...">
+            </div>
+        </div>
+
+        <!-- TAB 5 -->
+        <div class="tab-content">
+            <h2>Tab 5: Natural Flow Practice</h2>
+
+            <div class="practice-card">
+                <h3>Tell a story using all 3 techniques:</h3>
+
+                <p><strong>Requirements:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Use at least 3 linking words (and, but, because, so)</li>
+                    <li>Use at least 2 fillers ("well", "you know", "I think")</li>
+                    <li>Use at least 1 linked form ("gonna", "wanna", "didja")</li>
+                    <li>Tell a real story (30-60 seconds when spoken)</li>
+                </ul>
+
+                <textarea class="textarea" placeholder="Write your story with natural flow..." style="min-height: 120px;"></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 6 -->
+        <div class="tab-content">
+            <h2>Tab 6: Full Speaking Practice</h2>
+
+            <p><strong>Answer these questions speaking naturally (record yourself if possible!):</strong></p>
+
+            <div class="practice-card">
+                <p>1. Describe your day today using connectors and fillers:</p>
+                <textarea class="textarea" placeholder="Well, let me see... I woke up and..."></textarea>
+
+                <p style="margin-top: 15px;">2. Tell about a trip you took or want to take:</p>
+                <textarea class="textarea" placeholder="So, I'm gonna go to... because I wanna..."></textarea>
+
+                <p style="margin-top: 15px;">3. Explain why you're learning English:</p>
+                <textarea class="textarea" placeholder="You know, I think... and also..."></textarea>
+
+                <p style="margin-top: 20px;"><strong>Self-check:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Did I sound natural? ✓</li>
+                    <li>Did I use fillers (not too many)? ✓</li>
+                    <li>Did I link ideas smoothly? ✓</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 7 -->
+        <div class="tab-content">
+            <h2>Tab 7: Recall Zone</h2>
+
+            <div style="background: white; border-left: 4px solid #667eea; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                <h3>From Lesson 27: Storytelling & Sequencing</h3>
+                <p><strong>Recall:</strong> What are 3 sequencing words? (like First, Then, Finally)</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>First, Then, Next, While, After that, Finally, In the end, Suddenly</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: white; border-left: 4px solid #667eea; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                <h3>From Lesson 23: Giving Opinions</h3>
+                <p><strong>Recall:</strong> Complete: "I think that..." or "In my _____________..."</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>"In my opinion..." / "I think that..." / "In my view..."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: white; border-left: 4px solid #667eea; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                <h3>From Lesson 41: Conversation Management</h3>
+                <p><strong>Recall:</strong> Name 2 ways to keep a conversation going:</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>Ask follow-up questions / Show interest / Ask for clarification / Share your own experience</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8 -->
+        <div class="tab-content">
+            <h2>Tab 8: Reflection + Final Notes</h2>
+
+            <p><strong>From memory: Write the 3 connected speech techniques:</strong></p>
+            <textarea class="textarea" placeholder="1) Linking words: ...&#10;2) Fillers: ...&#10;3) Sound linking: ..."></textarea>
+
+            <div class="click-reveal">
+                <div class="reveal-prompt" onclick="toggleReveal(this)">Check yourself →</div>
+                <div class="reveal-content">
+                    <p>1) LINKING WORDS (and, but, because, so, however) — Connect ideas</p>
+                    <p>2) FILLERS (um, well, you know, I think) — Buy thinking time</p>
+                    <p>3) SOUND LINKING (gonna, wanna, didja) — Blend word sounds</p>
+                </div>
+            </div>
+
+            <div class="meta-question">
+                <h3>🧠 Reflection</h3>
+                <p><strong>Which technique feels most natural for you?</strong></p>
+                <textarea class="textarea" placeholder="I naturally use..."></textarea>
+
+                <p style="margin-top: 15px;"><strong>What will you focus on in your final lesson?</strong></p>
+                <textarea class="textarea" placeholder="I want to review..."></textarea>
+            </div>
+
+            <div class="i-can-statement">
+                ✨ I can speak with natural rhythm, linking words, fillers, and smooth sound connections. I sound more confident and fluent in conversations! ✨
+            </div>
+
+            <p style="margin-top: 20px; text-align: center; color: #666;">
+                <strong>Lesson 49 Complete!</strong> ONE FINAL LESSON to master the entire A1 Pathway! 🎉
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(index) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content')[index].classList.add('active');
+            document.querySelectorAll('.tab-button')[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        function toggleReveal(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('show');
+            element.textContent = content.classList.contains('show') ? '← Hide' : 'Click to reveal →';
+        }
+    </script>
+</body>
+</html>

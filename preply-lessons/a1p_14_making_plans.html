@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 14: Making Plans</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2em; margin-bottom: 10px; }
+        .header .learning-intention {
+            font-size: 1.1em;
+            font-style: italic;
+            margin-top: 15px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .tab-button:hover { background: #f0f0f0; }
+        .tab-button.active:hover { background: #667eea; }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active { display: block; }
+        .card {
+            background: #f0f4ff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .card h3 { color: #667eea; margin-bottom: 10px; }
+        .structure-box {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .structure-box .formula { font-size: 1.1em; font-weight: bold; color: #667eea; }
+        .structure-box .example { font-size: 0.95em; color: #555; margin-top: 10px; font-style: italic; }
+        .reveal-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .reveal-button:hover { background: #764ba2; }
+        .revealed {
+            background: #e8f5e9;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #4caf50;
+        }
+        .timeline {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .timeline-item {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 150px;
+        }
+        .timeline-item strong { color: #667eea; }
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .practice-item {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .practice-item:hover {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+        .i-can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .reflect-question {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.5em; }
+            .tabs { flex-direction: column; }
+            .tab-button { width: 100%; text-align: left; }
+            .timeline { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📅 Lesson 14: Making Plans</h1>
+            <p>Elementary Unit • Knowledge Building</p>
+            <div class="learning-intention">Today we're learning "going to" future so you can talk about plans and what you'll do.</div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab(0)">1. Recall Zone</button>
+            <button class="tab-button" onclick="switchTab(1)">2. Future Plans</button>
+            <button class="tab-button" onclick="switchTab(2)">3. "Going To" Form</button>
+            <button class="tab-button" onclick="switchTab(3)">4. Time Markers</button>
+            <button class="tab-button" onclick="switchTab(4)">5. Guided Practice</button>
+            <button class="tab-button" onclick="switchTab(5)">6. Speaking Plans</button>
+            <button class="tab-button" onclick="switchTab(6)">7. Final Check</button>
+            <button class="tab-button" onclick="switchTab(7)">8. Reflection</button>
+        </div>
+
+        <!-- TAB 1: RECALL ZONE -->
+        <div class="tab-content active">
+            <h2>🧠 Recall Zone: What Do You Remember?</h2>
+            <p>Review from recent lessons. Answer from MEMORY!</p>
+
+            <div class="card">
+                <h3>Lesson 12: Irregular Past Verbs</h3>
+                <p>What's the past form of "GO"?</p>
+                <button class="reveal-button" onclick="toggleReveal('recall1')">Check Answer</button>
+                <div id="recall1" style="display:none;" class="revealed">
+                    <p><strong>WENT</strong> — "I went to the store yesterday."</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Lesson 11: Regular Past Verbs</h3>
+                <p>Complete: "She _____ (watch) a movie yesterday."</p>
+                <button class="reveal-button" onclick="toggleReveal('recall2')">Check Answer</button>
+                <div id="recall2" style="display:none;" class="revealed">
+                    <p><strong>watched</strong> — Regular verbs add -ED in past</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Lesson 10: Food & Daily Routines</h3>
+                <p>Name 2 things you do every day:</p>
+                <button class="reveal-button" onclick="toggleReveal('recall3')">Model</button>
+                <div id="recall3" style="display:none;" class="revealed">
+                    <p>Examples: I eat breakfast, I walk to school, I drink coffee, I sleep, I work</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; font-style: italic; color: #666;">Good! Now let's talk about the FUTURE — what you're GOING TO do!</p>
+        </div>
+
+        <!-- TAB 2: FUTURE PLANS -->
+        <div class="tab-content">
+            <h2>📅 Why Future Language Matters</h2>
+            <p style="font-size: 1.1em; margin: 20px 0;"><strong>Look at the TIMELINE:</strong></p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>PAST</strong><br>I <span style="color: #ff6b6b;">worked</span>
+                </div>
+                <div class="timeline-item">
+                    <strong>NOW</strong><br>I <span style="color: #667eea;">work</span>
+                </div>
+                <div class="timeline-item">
+                    <strong>FUTURE</strong><br>I <span style="color: #4caf50;">am going to work</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <p><strong>Examples of future plans:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I'm going to visit my family next week."</li>
+                    <li>"We're going to have lunch tomorrow."</li>
+                    <li>"She's going to start a new job next month."</li>
+                    <li>"They're going to move to a new house soon."</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Notice:</strong> These are PLANS, DECISIONS, or THINGS YOU'VE ALREADY DECIDED TO DO.</p>
+            </div>
+
+            <p style="margin-top: 20px;">In this lesson, you'll learn to make sentences about the future using "going to" — the most natural way to talk about plans!</p>
+        </div>
+
+        <!-- TAB 3: "GOING TO" FORM -->
+        <div class="tab-content">
+            <h2>📚 The "Going To" Formula</h2>
+            <p><strong>The structure is simple:</strong></p>
+
+            <div class="structure-box">
+                <div class="formula">Subject + BE (am/is/are) + GOING TO + Base Verb</div>
+                <div class="example">I am going to work. / She is going to visit. / They are going to eat.</div>
+            </div>
+
+            <div class="card">
+                <p><strong>Let's break it down with pronouns:</strong></p>
+                <table style="width: 100%; margin-top: 15px; border-collapse: collapse;">
+                    <tr style="background: #f0f4ff;">
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>I</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">am going to</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">work</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>You / We / They</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">are going to</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">work</td>
+                    </tr>
+                    <tr style="background: #f0f4ff;">
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>He / She / It</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">is going to</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">work</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="structure-box">
+                <p style="margin: 10px 0;"><strong>Examples with different verbs:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><span style="color: #667eea; font-weight: bold;">I am going to</span> walk to the park</li>
+                    <li><span style="color: #667eea; font-weight: bold;">She is going to</span> eat dinner at 7</li>
+                    <li><span style="color: #667eea; font-weight: bold;">They are going to</span> watch a movie</li>
+                    <li><span style="color: #667eea; font-weight: bold;">We are going to</span> visit London</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <p><strong>IMPORTANT:</strong> After "going to", you ALWAYS use the BASE FORM of the verb (work, eat, watch) — NOT the past form (worked, ate, watched).</p>
+            </div>
+        </div>
+
+        <!-- TAB 4: TIME MARKERS -->
+        <div class="tab-content">
+            <h2>⏰ Time Words for the Future</h2>
+            <p><strong>Use these time words to show WHEN you're going to do something:</strong></p>
+
+            <div class="practice-grid">
+                <div class="practice-item">
+                    <p><strong>Tomorrow</strong></p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Next day</p>
+                    <p style="font-style: italic; font-size: 0.9em; margin-top: 10px;">"I'm going to <strong>walk tomorrow</strong>."</p>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>Next week / month / year</strong></p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Future time period</p>
+                    <p style="font-style: italic; font-size: 0.9em; margin-top: 10px;">"She's going to <strong>visit next week</strong>."</p>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>Soon</strong></p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Not specific, but near future</p>
+                    <p style="font-style: italic; font-size: 0.9em; margin-top: 10px;">"I'm going to <strong>eat soon</strong>."</p>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>In 5 minutes / 2 hours / 3 days</strong></p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Specific time distance</p>
+                    <p style="font-style: italic; font-size: 0.9em; margin-top: 10px;">"We're going to <strong>leave in 5 minutes</strong>."</p>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>This weekend</strong></p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;">The upcoming weekend</p>
+                    <p style="font-style: italic; font-size: 0.9em; margin-top: 10px;">"I'm going to <strong>rest this weekend</strong>."</p>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>Later</strong></p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Vague future</p>
+                    <p style="font-style: italic; font-size: 0.9em; margin-top: 10px;">"I'm going to <strong>call you later</strong>."</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <p style="margin-top: 20px;"><strong>PATTERN:</strong> "I'm going to [VERB] [TIME]" OR "[TIME], I'm going to [VERB]"</p>
+                <p style="margin-top: 10px; font-style: italic;">Both are correct! "Tomorrow I'm going to sleep late" or "I'm going to sleep late tomorrow"</p>
+            </div>
+        </div>
+
+        <!-- TAB 5: GUIDED PRACTICE -->
+        <div class="tab-content">
+            <h2>🤝 Guided Practice: I Do → We Do → You Do</h2>
+
+            <h3 style="margin-top: 20px; color: #667eea;">STEP 1: I DO (Teacher Model)</h3>
+            <div class="card">
+                <p><strong>Question:</strong> What are you going to do this weekend?</p>
+                <p><strong>My answer:</strong> "This weekend, I'm <span style="background: #e8f5e9; padding: 2px 6px; color: #2e7d32; font-weight: bold;">going to visit</span> my family. I'm <span style="background: #e8f5e9; padding: 2px 6px; color: #2e7d32; font-weight: bold;">going to eat</span> a nice meal. I'm <span style="background: #e8f5e9; padding: 2px 6px; color: #2e7d32; font-weight: bold;">going to watch</span> a movie with them."</p>
+                <p style="margin-top: 10px; color: #555; font-size: 0.95em;"><em>Notice: Subject + "is/are going to" + base verb!</em></p>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #667eea;">STEP 2: WE DO (Teacher + Student Together)</h3>
+            <div class="card">
+                <p><strong>I start, you complete:</strong></p>
+                <p>Teacher: "Tomorrow, I'm going to..."</p>
+                <p><input type="text" placeholder="YOU complete the sentence" style="width: 100%; padding: 10px; margin-top: 10px; border: 1px solid #667eea; border-radius: 5px;"></p>
+                <button class="reveal-button" onclick="toggleReveal('wedo1')">Example Completions</button>
+                <div id="wedo1" style="display:none;" class="revealed">
+                    <p><strong>Possible endings:</strong> ...go to work | ...sleep late | ...walk in the park | ...eat breakfast with friends</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #667eea;">STEP 3: YOU DO (Student Alone)</h3>
+            <div class="card">
+                <p><strong>Write 3 things you're going to do next week.</strong> Use the "going to" formula!</p>
+                <textarea placeholder="Example: 'Next week, I'm going to...' Write 3 sentences." style="width: 100%; height: 100px; padding: 10px; margin-top: 15px; border: 1px solid #667eea; border-radius: 5px; font-family: inherit;"></textarea>
+                <p style="margin-top: 10px; color: #666; font-size: 0.9em;"><em>Don't look above — write from memory!</em></p>
+            </div>
+        </div>
+
+        <!-- TAB 6: SPEAKING PLANS -->
+        <div class="tab-content">
+            <h2>🗣️ Tell Your Plans</h2>
+            <p><strong>Speak about your real plans!</strong> Tell your teacher:</p>
+
+            <div class="card">
+                <ol>
+                    <li><strong>One thing you're going to do today</strong> — use time marker</li>
+                    <li><strong>One thing you're going to do this week</strong> — use "going to"</li>
+                    <li><strong>One thing you're going to do next month</strong> — use "going to"</li>
+                </ol>
+                <p style="margin-top: 20px; color: #666; font-style: italic;">Speak naturally — don't prepare!</p>
+            </div>
+
+            <div class="reflect-question">
+                <strong>📝 After speaking:</strong> Was it easy to talk about future plans? Which part was most natural for you?
+                <textarea placeholder="Your reflection:" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #ffc107; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 7: FINAL CHECK -->
+        <div class="tab-content">
+            <h2>✅ Final Retrieval Check</h2>
+            <p><strong>From memory, complete these future sentences:</strong></p>
+
+            <div class="practice-grid">
+                <div class="practice-item">
+                    <p><strong>1.</strong> I _____ (go) to the shop tomorrow.</p>
+                    <button class="reveal-button" onclick="toggleReveal('fc1')">Answer</button>
+                    <div id="fc1" style="display:none;" class="revealed">
+                        <p><strong>am going to go</strong></p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>2.</strong> She _____ (eat) lunch at noon.</p>
+                    <button class="reveal-button" onclick="toggleReveal('fc2')">Answer</button>
+                    <div id="fc2" style="display:none;" class="revealed">
+                        <p><strong>is going to eat</strong></p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>3.</strong> We _____ (watch) a movie tonight.</p>
+                    <button class="reveal-button" onclick="toggleReveal('fc3')">Answer</button>
+                    <div id="fc3" style="display:none;" class="revealed">
+                        <p><strong>are going to watch</strong></p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>4.</strong> They _____ (visit) next week.</p>
+                    <button class="reveal-button" onclick="toggleReveal('fc4')">Answer</button>
+                    <div id="fc4" style="display:none;" class="revealed">
+                        <p><strong>are going to visit</strong></p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>5.</strong> You _____ (start) your new job soon.</p>
+                    <button class="reveal-button" onclick="toggleReveal('fc5')">Answer</button>
+                    <div id="fc5" style="display:none;" class="revealed">
+                        <p><strong>are going to start</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="i-can-statement">
+                <p>✓ I can make plans and talk about my future using "going to"</p>
+            </div>
+
+            <div class="reflect-question">
+                <strong>🧠 What helped you remember the "going to" formula?</strong>
+                <textarea placeholder="Your reflection:" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #ffc107; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 8: REFLECTION -->
+        <div class="tab-content">
+            <h2>🎓 Lesson Complete!</h2>
+            <p style="font-size: 1.1em; margin: 20px 0;"><strong>We said you'd be able to make plans using "going to". Can you?</strong></p>
+
+            <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin: 20px 0;">
+                <p style="margin: 10px 0;"><strong>✓ You learned:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>The "going to" structure: Subject + BE + going to + Base Verb</li>
+                    <li>Time markers: tomorrow, next week, soon, in [time]</li>
+                    <li>How to talk about plans and decisions</li>
+                </ul>
+            </div>
+
+            <div style="background: #f0f4ff; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea; margin: 20px 0;">
+                <p style="margin: 10px 0;"><strong>📌 Next time:</strong></p>
+                <p>Lesson 15 is a REVIEW! We'll consolidate past and future tenses together — mixing everything you've learned in Lessons 11-14. This is your chance to see how much you know!</p>
+            </div>
+
+            <div class="reflect-question">
+                <strong>Final Reflection:</strong>
+                <p style="margin-top: 10px;">Tell your teacher about your real plan for this weekend using "going to":</p>
+                <textarea placeholder="Example: 'This weekend, I'm going to...'" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #ffc107; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(index) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            contents.forEach((content, i) => {
+                content.classList.remove('active');
+                buttons[i].classList.remove('active');
+            });
+            contents[index].classList.add('active');
+            buttons[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(id) {
+            const element = document.getElementById(id);
+            element.style.display = element.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

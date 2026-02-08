@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 29: Making Suggestions</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 30px; text-align: center; }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid #ddd; }
+        .tab-btn { padding: 12px 20px; background-color: #e9ecef; border: none; cursor: pointer; font-size: 1em; border-radius: 8px 8px 0 0; transition: all 0.3s; font-weight: 500; }
+        .tab-btn.active { background-color: #667eea; color: white; }
+        .tab-content { display: none; padding: 30px; background: white; border-radius: 0 8px 8px 8px; }
+        .tab-content.active { display: block; }
+        .learning-intention { background-color: #fff3cd; border-left: 4px solid #ff6b6b; padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .retrieval-task { background-color: #e7f3ff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea; }
+        .retrieval-task textarea { width: 100%; padding: 12px; font-size: 1em; border: 2px solid #667eea; border-radius: 4px; resize: vertical; min-height: 100px; font-family: inherit; }
+        .content-chunk { background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #764ba2; }
+        .expression-card { background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        .expression-card h4 { color: #667eea; margin-bottom: 10px; font-size: 1.1em; }
+        .example-box { background-color: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .practice-section { background-color: #fff9e6; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107; }
+        .reveal-btn { background-color: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 500; }
+        .hidden-content { display: none; background-color: #f0f0f0; padding: 15px; margin-top: 10px; border-radius: 4px; }
+        .hidden-content.show { display: block; }
+        .discussion-card { background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        .discussion-card h4 { color: #667eea; margin-bottom: 10px; }
+        .production-task { background-color: #f3e5f5; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #9c27b0; }
+        .production-task textarea { width: 100%; padding: 12px; font-size: 1em; border: 2px solid #9c27b0; border-radius: 4px; margin: 10px 0; font-family: inherit; }
+        .btn-primary { background-color: #667eea; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 1em; font-weight: 600; }
+        .btn-primary:hover { background-color: #764ba2; }
+        .recall-item { background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        .recall-item .prompt { font-weight: 600; color: #667eea; margin-bottom: 10px; }
+        .i-can-statement { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 8px; margin-top: 20px; font-size: 1.1em; font-weight: 600; text-align: center; }
+        .metacognition { background-color: #e0f2f1; border-left: 4px solid #009688; padding: 20px; margin: 20px 0; border-radius: 4px; }
+        @media (max-width: 768px) {
+            .tabs { flex-direction: column; }
+            .tab-btn { width: 100%; border-radius: 4px; }
+            header h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lesson 29: Making Suggestions</h1>
+            <p>A1 Pathway - Building Unit (Lessons 21-30)</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Skills Training: Suggestion Framework</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab(event, 'tab1')">1. Retrieval + Framework</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab2')">2. Deep Dive</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab3')">3. Examples</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab4')">4. Guided Practice</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab5')">5. Interleaved Practice</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab6')">6. Application</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab7')">7. Recall Zone</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab8')">8. Retrieval Debrief</button>
+        </div>
+
+        <!-- TAB 1 -->
+        <div id="tab1" class="tab-content active">
+            <h2>The Suggestion Framework</h2>
+            <div class="retrieval-task">
+                <h3>Memory First</h3>
+                <p>Write 3 ways you ask friends to do something with you:</p>
+                <textarea placeholder="Let's... / Shall we... / Why don't we..."></textarea>
+                <button class="btn-primary" onclick="alert('Good! You have intuition about suggestions. Let\\'s make it systematic.')">Continue</button>
+            </div>
+
+            <div class="learning-intention">
+                <strong>Today we're learning:</strong> A framework for making suggestions using "Let's," "Shall we," "Why don't we," and responding positively or politely declining.
+            </div>
+
+            <div class="content-chunk">
+                <h3>🎯 The 3 Levels of Suggestions</h3>
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                    <tr style="background-color: #667eea; color: white;">
+                        <th style="padding: 12px; border: 1px solid #ddd;">Level</th>
+                        <th style="padding: 12px; border: 1px solid #ddd;">Expression</th>
+                        <th style="padding: 12px; border: 1px solid #ddd;">Formality</th>
+                    </tr>
+                    <tr style="background-color: #f8f9fa;">
+                        <td style="padding: 12px; border: 1px solid #ddd;"><strong>1. Casual</strong></td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">"Let's go!"</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">Friends, informal</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #ddd;"><strong>2. Polite</strong></td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">"Why don't we...?"</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">Colleagues, neutral</td>
+                    </tr>
+                    <tr style="background-color: #f8f9fa;">
+                        <td style="padding: 12px; border: 1px solid #ddd;"><strong>3. Formal</strong></td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">"Shall we...?"</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">Formal, respectful</td>
+                    </tr>
+                </table>
+            </div>
+
+            <p style="margin-top: 20px; font-style: italic; color: #666;">By the end, you'll make suggestions confidently at all formality levels.</p>
+        </div>
+
+        <!-- TAB 2 -->
+        <div id="tab2" class="tab-content">
+            <h2>Deep Dive: Suggestion Types</h2>
+
+            <div class="expression-card">
+                <h4>1️⃣ "Let's..." (Most Casual)</h4>
+                <p><strong>Pattern:</strong> Let's + BASE VERB</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>"Let's go to the cinema!" (invite)</li>
+                    <li>"Let's try that new restaurant." (propose)</li>
+                </ul>
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Use with: friends, family, people you know well</p>
+            </div>
+
+            <div class="expression-card">
+                <h4>2️⃣ "Why don't we..." (Polite)</h4>
+                <p><strong>Pattern:</strong> Why don't we + BASE VERB</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>"Why don't we meet tomorrow?" (suggest meeting)</li>
+                    <li>"Why don't we try a different approach?" (problem-solving)</li>
+                </ul>
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Use with: colleagues, strangers, formal contexts</p>
+            </div>
+
+            <div class="expression-card">
+                <h4>3️⃣ "Shall we..." (Formal/Respectful)</h4>
+                <p><strong>Pattern:</strong> Shall we + BASE VERB</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>"Shall we begin the meeting?" (formal start)</li>
+                    <li>"Shall we discuss the plan?" (respectful proposal)</li>
+                </ul>
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Use with: formal situations, showing respect</p>
+            </div>
+
+            <div class="example-box">
+                <strong>✓ Responses to Suggestions:</strong>
+                <p style="margin-top: 10px;">
+                    <strong>Positive:</strong> "Yes, let's!" / "That's a great idea!" / "I'd love to!"<br>
+                    <strong>Decline Politely:</strong> "That sounds nice, but I can't." / "I appreciate the suggestion, but..."
+                </p>
+            </div>
+        </div>
+
+        <!-- TAB 3 -->
+        <div id="tab3" class="tab-content">
+            <h2>Model Dialogues</h2>
+
+            <div style="background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">Model 1: Friends (Casual)</h4>
+                <p><strong>A:</strong> "Let's go to the beach tomorrow!"</p>
+                <p><strong>B:</strong> "Yes, let's! That sounds fun!"</p>
+            </div>
+
+            <div style="background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">Model 2: Colleagues (Polite)</h4>
+                <p><strong>A:</strong> "Why don't we have a meeting on Tuesday?"</p>
+                <p><strong>B:</strong> "That works well for me. Let's do that."</p>
+            </div>
+
+            <div style="background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">Model 3: Formal (Respectful)</h4>
+                <p><strong>A:</strong> "Shall we start the presentation?"</p>
+                <p><strong>B:</strong> "Yes, of course. Let's begin."</p>
+            </div>
+
+            <div style="background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">Model 4: Declining Politely</h4>
+                <p><strong>A:</strong> "Let's go to the gym together."</p>
+                <p><strong>B:</strong> "I appreciate the invitation, but I'm busy today."</p>
+            </div>
+
+            <div class="example-box">
+                <strong>✓ Notice:</strong> The person declining APOLOGIZES and offers A REASON. Not rude, just honest.
+            </div>
+        </div>
+
+        <!-- TAB 4 -->
+        <div id="tab4" class="tab-content">
+            <h2>Guided Practice: I Do → We Do → You Do</h2>
+
+            <div class="practice-section">
+                <h3>I DO</h3>
+                <p><strong>Situation:</strong> You and a friend are bored</p>
+                <p><strong>My suggestion:</strong> "Let's watch a movie!" (casual, friendly)</p>
+            </div>
+
+            <div class="practice-section">
+                <h3>WE DO</h3>
+                <p><strong>Situation:</strong> Team meeting with colleagues</p>
+                <p style="background: #f8f9fa; padding: 12px; margin: 10px 0; border-radius: 4px;">Make a suggestion to start the meeting:</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'we-do-reveal')">Show example</button>
+                <div id="we-do-reveal" class="hidden-content">
+                    <p><strong>Example:</strong> "Why don't we start with the first agenda item?"</p>
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <h3>YOU DO</h3>
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>1. Suggest lunch with a friend (casual):</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer1')">Check</button>
+                    <div id="answer1" class="hidden-content"><strong>✓</strong> "Let's grab lunch!" / "Let's go get food!"</div>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>2. Suggest a meeting time with colleagues (polite):</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer2')">Check</button>
+                    <div id="answer2" class="hidden-content"><strong>✓</strong> "Why don't we meet on Friday?"</div>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>3. Respond positively to a suggestion:</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer3')">Check</button>
+                    <div id="answer3" class="hidden-content"><strong>✓</strong> "That's a great idea!" / "Yes, let's do that!"</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5 -->
+        <div id="tab5" class="tab-content">
+            <h2>Mixed Scenarios</h2>
+
+            <p style="margin-bottom: 20px;"><strong>Identify formality and respond appropriately:</strong></p>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>Scenario 1:</strong> Your manager asks: "Shall we review the project?"</p>
+                <p style="color: #666; margin-top: 8px;">This is FORMAL. Respond politely.</p>
+                <textarea style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; min-height: 60px; font-family: inherit;" placeholder="Yes, of course. / That's a good idea..."></textarea>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>Scenario 2:</strong> Your friend says: "Let's go for a walk!"</p>
+                <p style="color: #666; margin-top: 8px;">This is CASUAL. Respond naturally.</p>
+                <textarea style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; min-height: 60px; font-family: inherit;" placeholder="Yes! That sounds fun! / I'd love to!"></textarea>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>Scenario 3:</strong> Your colleague asks: "Why don't we try a new approach?"</p>
+                <p style="color: #666; margin-top: 8px;">This is POLITE/PROFESSIONAL. Agree or decline respectfully.</p>
+                <textarea style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; min-height: 60px; font-family: inherit;" placeholder="That could work. / I'm concerned about... / Let's try it!"></textarea>
+            </div>
+
+            <button class="btn-primary" style="width: 100%;" onclick="alert('Good responses!')">Check</button>
+        </div>
+
+        <!-- TAB 6 -->
+        <div id="tab6" class="tab-content">
+            <h2>Real Application</h2>
+
+            <div class="production-task">
+                <h3>🎤 Make 3 Suggestions</h3>
+                <p><strong>1. To a friend (casual):</strong></p>
+                <textarea id="casual-suggestion" placeholder="Let's..." style="min-height: 60px;"></textarea>
+
+                <p style="margin-top: 15px;"><strong>2. To a colleague (polite):</strong></p>
+                <textarea id="polite-suggestion" placeholder="Why don't we..." style="min-height: 60px;"></textarea>
+
+                <p style="margin-top: 15px;"><strong>3. In a formal meeting (respectful):</strong></p>
+                <textarea id="formal-suggestion" placeholder="Shall we..." style="min-height: 60px;"></textarea>
+
+                <button class="btn-primary" style="width: 100%; margin-top: 15px;" onclick="alert('Share these with your teacher!')">Save</button>
+            </div>
+        </div>
+
+        <!-- TAB 7 -->
+        <div id="tab7" class="tab-content">
+            <h2>Recall Zone</h2>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 23 (Giving Opinions):</div>
+                <p>How do we respectfully disagree with someone?</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall1')">Show</button>
+                <div id="recall1" class="hidden-content">
+                    <p><strong>✓</strong> "I see what you mean, but..."</p>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 26 (Must & Should):</div>
+                <p>What's the difference between obligation and advice?</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall2')">Show</button>
+                <div id="recall2" class="hidden-content">
+                    <p><strong>✓</strong> MUST = necessary/required. SHOULD = advice/recommendation</p>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 27 (Telling Stories):</div>
+                <p>What's the first sequencing word in a story?</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall3')">Show</button>
+                <div id="recall3" class="hidden-content">
+                    <p><strong>✓</strong> "First" or "In the beginning"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8 -->
+        <div id="tab8" class="tab-content">
+            <h2>Retrieval Debrief</h2>
+
+            <div class="production-task">
+                <h3>From Memory</h3>
+                <p><strong>1. Write the 3 suggestion patterns and their formality levels:</strong></p>
+                <textarea id="framework-output" placeholder="1. Let's (casual)... 2. Why don't we (polite)... 3. Shall we (formal)..." style="min-height: 100px; margin-bottom: 15px;"></textarea>
+
+                <p><strong>2. Create 3 complete suggestion dialogues (A asks, B responds):</strong></p>
+                <textarea id="dialogues-output" placeholder="A: Let's... B: That sounds great!..." style="min-height: 120px; margin-bottom: 15px;"></textarea>
+
+                <button class="btn-primary" onclick="checkFinalTest()">Check</button>
+                <div id="final-feedback" class="feedback"></div>
+            </div>
+
+            <div class="metacognition">
+                <h3>🧠 Reflect</h3>
+                <p>Which formality level (casual/polite/formal) will you use most in your life?</p>
+                <textarea id="metacog-input" placeholder="I think I'll use... because..." style="min-height: 80px;"></textarea>
+                <button class="btn-primary" onclick="alert('Reflection saved!')">Save</button>
+            </div>
+
+            <div class="i-can-statement">
+                ✅ I can make suggestions at all formality levels
+                <br><br>
+                ✅ I can respond positively or politely decline suggestions
+            </div>
+
+            <p style="text-align: center; margin-top: 30px; color: #666; font-style: italic;">
+                We said you'd be able to make suggestions. Can you?
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tabbuttons = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(evt, contentId) {
+            var content = document.getElementById(contentId);
+            content.classList.toggle("show");
+            evt.target.textContent = content.classList.contains("show") ? "Hide" : "Show";
+        }
+
+        function checkFinalTest() {
+            var frameworkOutput = document.getElementById('framework-output').value;
+            var dialoguesOutput = document.getElementById('dialogues-output').value;
+            var feedback = document.getElementById('final-feedback');
+
+            if (frameworkOutput.trim().length > 30 && dialoguesOutput.trim().length > 40) {
+                feedback.innerHTML = '<strong>✓ Excellent!</strong> You can apply the suggestion framework across all formality levels.';
+                feedback.style.backgroundColor = '#e8f5e9';
+                feedback.style.borderLeft = '4px solid #4caf50';
+                feedback.style.color = '#2e7d32';
+                feedback.style.display = 'block';
+            } else {
+                feedback.innerHTML = '<strong>Try again:</strong> Write fuller examples.';
+                feedback.style.backgroundColor = '#ffebee';
+                feedback.style.borderLeft = '4px solid #f44336';
+                feedback.style.color = '#c62828';
+                feedback.style.display = 'block';
+            }
+            feedback.style.padding = '15px';
+            feedback.style.borderRadius = '4px';
+        }
+    </script>
+</body>
+</html>

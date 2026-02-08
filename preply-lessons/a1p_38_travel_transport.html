@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 38: Travel & Transport</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f8f9fa 0%, #e8eef2 100%); color: #1a1a2e; line-height: 1.6; min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); color: white; padding: 30px 20px; text-align: center; }
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        .learning-intention { background: #ebdef0; border-left: 4px solid #9b59b6; padding: 15px 20px; margin: 20px; border-radius: 4px; font-weight: 500; color: #5b2c6f; }
+        .tabs { display: flex; border-bottom: 2px solid #e0e0e0; overflow-x: auto; background: #f8f9fa; }
+        .tab-button { padding: 15px 20px; border: none; background: transparent; cursor: pointer; font-size: 0.95em; font-weight: 500; color: #666; transition: all 0.3s ease; white-space: nowrap; border-bottom: 3px solid transparent; }
+        .tab-button:hover { color: #9b59b6; }
+        .tab-button.active { color: #9b59b6; border-bottom-color: #9b59b6; }
+        .tab-content { display: none; padding: 30px; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .content-section { margin-bottom: 25px; }
+        .section-title { font-size: 1.3em; font-weight: 600; color: #9b59b6; margin-bottom: 15px; }
+        .retrieval-task { background: #ebdef0; border-left: 4px solid #9b59b6; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .retrieval-task textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; min-height: 80px; }
+        .vocab-item { background: #f8f9fa; border-left: 4px solid #9b59b6; padding: 12px; margin-bottom: 10px; border-radius: 4px; }
+        .discussion-card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .discussion-card h4 { color: #9b59b6; margin-bottom: 10px; }
+        .discussion-card textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; min-height: 60px; }
+        .recall-zone { background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f6 100%); border: 2px solid #28a745; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .recall-zone h3 { color: #28a745; margin-bottom: 15px; }
+        .recall-item { background: white; padding: 12px; border-left: 4px solid #28a745; margin-bottom: 10px; border-radius: 4px; }
+        .reveal-button { background: #9b59b6; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 500; margin-top: 10px; }
+        .reveal-button:hover { background: #8e44ad; }
+        .hidden-content { display: none; background: #e8f5e9; border-left: 4px solid #28a745; padding: 12px; margin-top: 10px; border-radius: 4px; }
+        .hidden-content.revealed { display: block; }
+        .i-can-statement { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; font-size: 1.1em; font-weight: 500; margin-top: 20px; }
+        .metacognition-box { background: #f8f9fa; border: 2px solid #667eea; padding: 15px; border-radius: 8px; }
+        .metacognition-box h4 { color: #667eea; margin-bottom: 10px; }
+        @media (max-width: 768px) { .header h1 { font-size: 1.6em; } .tab-button { padding: 12px 15px; font-size: 0.85em; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✈️ Lesson 38: Travel & Transport</h1>
+            <p>Navigate transportation and book trips</p>
+        </div>
+        
+        <div class="learning-intention">
+            <strong>Learning Intention:</strong> Today we're learning travel and transport vocabulary so you can book tickets, ask directions, and discuss trip plans confidently.
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(event, 'tab1')">Retrieval + Hook</button>
+            <button class="tab-button" onclick="showTab(event, 'tab2')">Transport Types & Vocab</button>
+            <button class="tab-button" onclick="showTab(event, 'tab3')">Travel Expressions</button>
+            <button class="tab-button" onclick="showTab(event, 'tab4')">Your Turn</button>
+            <button class="tab-button" onclick="showTab(event, 'tab5')">Deep Dive</button>
+            <button class="tab-button" onclick="showTab(event, 'tab6')">Recall Zone</button>
+            <button class="tab-button" onclick="showTab(event, 'tab7')">Wrap-Up</button>
+        </div>
+        
+        <!-- TAB 1 -->
+        <div id="tab1" class="tab-content active">
+            <div class="content-section">
+                <div class="section-title">🧠 What do you know about travel?</div>
+                <div class="retrieval-task">
+                    <p>Write down transport words and travel experiences you can already describe in English.</p>
+                    <textarea placeholder="car, bus, flight, holiday, suitcase..."></textarea>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">🌍 Why Travel English Matters</div>
+                <div class="vocab-item" style="background: #fff9e6;">
+                    <p><strong>Travel is the moment you NEED English most.</strong> In airports, train stations, on buses — you're navigating systems, asking for help, booking tickets. This lesson gives you the language to move through the world confidently.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 2 -->
+        <div id="tab2" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🚗 Types of Transport</div>
+                
+                <div class="vocab-item">
+                    <strong>Land:</strong> car, bus, train, taxi, motorbike, bicycle, van, truck
+                </div>
+                <div class="vocab-item">
+                    <strong>Air:</strong> plane, airport, flight, terminal, gate, check-in
+                </div>
+                <div class="vocab-item">
+                    <strong>Sea:</strong> boat, ship, ferry, dock, port
+                </div>
+                <div class="vocab-item">
+                    <strong>Public Transport:</strong> bus stop, train station, ticket, platform, schedule, timetable
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">🎫 Booking & Tickets</div>
+                
+                <div class="vocab-item">
+                    <strong>Ticket types:</strong> one-way, round-trip, return, single, adult, child, student
+                </div>
+                <div class="vocab-item">
+                    <strong>Questions to ask:</strong> "How much is a ticket?" / "When does it depart?" / "Does it stop in...?" / "What time does it arrive?"
+                </div>
+                <div class="vocab-item">
+                    <strong>Information:</strong> departure, arrival, seat number, boarding pass, luggage, baggage
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">✍️ YOUR TURN: Travel expressions</div>
+                <div class="discussion-card">
+                    <p><strong>1. You want a round-trip ticket: "I'd like a _____ ticket, please."</strong></p>
+                    <textarea placeholder="Fill in..."></textarea>
+                </div>
+                <div class="discussion-card">
+                    <p><strong>2. Ask when a train arrives: "What _____ will the train _____?"</strong></p>
+                    <textarea placeholder="Fill in..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 3 -->
+        <div id="tab3" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🧳 Travel Conversations</div>
+                
+                <div class="vocab-item">
+                    <strong>Planning a trip:</strong> "I'm going to..." / "I'm traveling to..." / "I'm leaving on Monday" / "I'll be there for 3 days"
+                </div>
+                <div class="vocab-item">
+                    <strong>At a station/airport:</strong> "Where's the ticket counter?" / "Which platform for the train to...?" / "Is this the right gate?"
+                </div>
+                <div class="vocab-item">
+                    <strong>On transport:</strong> "Is this seat taken?" / "Excuse me, I need to get off" / "Do you know how long until...?"
+                </div>
+                <div class="vocab-item">
+                    <strong>Questions about journey:</strong> "How long is the flight?" / "Are there delays?" / "Do we have a layover?"
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 4 -->
+        <div id="tab4" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🗣️ Your Turn: Travel Scenarios</div>
+                <p>Choose 2-3. Write naturally — no scaffolding.</p>
+                
+                <div class="discussion-card">
+                    <h4>Scenario 1: Buying a ticket</h4>
+                    <p>You're at a train station. You want a ticket to Paris for tomorrow, returning next Friday. What do you say?</p>
+                    <textarea placeholder="What would you say?..."></textarea>
+                </div>
+                
+                <div class="discussion-card">
+                    <h4>Scenario 2: On a flight</h4>
+                    <p>You're on a plane. You don't know when you'll arrive. Ask the flight attendant.</p>
+                    <textarea placeholder="What would you say?..."></textarea>
+                </div>
+                
+                <div class="discussion-card">
+                    <h4>Scenario 3: Asking directions at an airport</h4>
+                    <p>You're lost. Ask someone where Gate 24 is.</p>
+                    <textarea placeholder="What would you say?..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 5 -->
+        <div id="tab5" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🎯 Deep Dive: Complete Travel Scenario</div>
+                <div class="vocab-item" style="background: #f8f9fa;">
+                    <strong>Full booking conversation:</strong><br><br>
+                    You: "Hi, I need a ticket to Amsterdam."<br>
+                    Agent: "When are you traveling?"<br>
+                    You: "Next Thursday, returning on Sunday."<br>
+                    Agent: "One-way or round-trip?"<br>
+                    You: "Round-trip, please. How much is it?"<br>
+                    Agent: "That's €120. Your flight leaves at 8am from Gate 5."
+                </div>
+                
+                <div class="discussion-card">
+                    <h4>Challenge: Write a full travel conversation</h4>
+                    <p>You're booking a trip. Write a complete conversation with dates, destinations, and questions.</p>
+                    <textarea placeholder="Write the full conversation..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 6 -->
+        <div id="tab6" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🔄 Recall Zone: Spaced Retrieval</div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 17: Asking for Directions</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> How do you ask for directions?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "Excuse me, where is...?" / "Can you tell me how to get to...?" / "Which way to...?"
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 32: Making Phone Calls</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> How do you ask about information over the phone?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "Could you tell me...?" / "When is...?" / "Do you have...?" (polite requests)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 35: Review</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> Form a first conditional about travel: "If I miss the flight, ..."</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "If I miss the flight, I will need to book another one" (If + present, will + verb)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 36: Weather</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> How would weather affect travel plans? Example: "If it snows, ..."</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "If it snows, the roads will be dangerous" / "If it rains, the flight might be delayed"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 7 -->
+        <div id="tab7" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">📝 Final Retrieval: From Memory</div>
+                
+                <div class="retrieval-task">
+                    <p><strong>1. List 5 types of transport from memory:</strong></p>
+                    <textarea placeholder="Write them..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>2. Write 3 questions you could ask at a ticket counter:</strong></p>
+                    <textarea placeholder="Write them..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>3. What travel situation in English makes you most confident now?</strong></p>
+                    <textarea placeholder="Your reflection..."></textarea>
+                </div>
+            </div>
+            
+            <div class="i-can-statement">
+                ✅ <strong>I can:</strong> Discuss travel plans, book tickets, ask for directions, and navigate transportation situations in English
+            </div>
+            
+            <div class="metacognition-box">
+                <h4>🧠 Metacognition: Learning Tool</h4>
+                <p>Which part was most practical? Vocab? Booking scenarios? Directions? Why?</p>
+                <textarea placeholder="Your reflection..."></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(evt, tabName) {
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
+            var tabbuttons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabbuttons.length; i++) tabbuttons[i].classList.remove("active");
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function toggleReveal(evt) {
+            evt.preventDefault();
+            var button = evt.currentTarget;
+            var hiddenContent = button.nextElementSibling;
+            hiddenContent.classList.toggle("revealed");
+            button.textContent = hiddenContent.classList.contains("revealed") ? "Hide" : "Reveal";
+        }
+    </script>
+</body>
+</html>

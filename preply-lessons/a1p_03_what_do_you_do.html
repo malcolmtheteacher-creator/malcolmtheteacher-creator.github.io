@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Lesson 03: What Do You Do?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f0f5 100%);
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .learning-intention {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab-button {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .tab-button:hover {
+            background: #f0f0f0;
+            border-color: #ff6b6b;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border-color: #ff6b6b;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card {
+            background: #f8f9fa;
+            border-left: 4px solid #ff6b6b;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .content-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        .retrieval-task {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe8a8 100%);
+            border: 2px dashed #ffc107;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .retrieval-task h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+        }
+
+        .example-box {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .example-box strong {
+            color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .reveal {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .emoji-large {
+            font-size: 3em;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .practice-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #ff6b6b;
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(255, 107, 107, 0.2);
+        }
+
+        .card strong {
+            display: block;
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        .card-emoji {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+
+        .i-can {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .recall-zone {
+            background: linear-gradient(135deg, #e1f5ff 0%, #b3e5fc 100%);
+            border: 2px solid #0277bd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .recall-zone h3 {
+            color: #01579b;
+            margin-bottom: 15px;
+        }
+
+        .job-card {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .job-card .emoji {
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .practice-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                border-radius: 5px;
+                width: 100%;
+            }
+
+            .tab-content {
+                border-radius: 5px;
+            }
+
+            .job-card {
+                grid-template-columns: 30px 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💼 What Do You Do? 💼</h1>
+            <p>Lesson 3: Foundation Unit</p>
+        </div>
+
+        <div class="learning-intention">
+            💡 <strong>Today we're working on</strong> jobs and occupations, and the present simple pattern so <strong>you can tell people what job you do</strong>.
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('tab1')">1. Recall Zone</button>
+            <button class="tab-button" onclick="showTab('tab2')">2. Learning: Jobs</button>
+            <button class="tab-button" onclick="showTab('tab3')">3. The Present Simple</button>
+            <button class="tab-button" onclick="showTab('tab4')">4. Your Job</button>
+            <button class="tab-button" onclick="showTab('tab5')">5. Practice</button>
+            <button class="tab-button" onclick="showTab('tab6')">6. Conversation</button>
+            <button class="tab-button" onclick="showTab('tab7')">7. Wrap-Up & I Can...</button>
+        </div>
+
+        <!-- Tab 1: Recall Zone -->
+        <div id="tab1" class="tab-content active">
+            <h2>🧠 Recall Zone: Building on Previous Lessons</h2>
+            <p>Let's recall from <strong>Lessons 1 & 2</strong> so we can build on that foundation today.</p>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 1 & 2</h3>
+                <p><strong>Question:</strong> Write a complete introduction with greeting, name, and where you're from. From memory!</p>
+                <textarea id="recall1" placeholder="Write from memory..."></textarea>
+                <button onclick="checkRecall()">Check</button>
+                <div id="recallResult"></div>
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>✨ Smart building:</strong> After people learn your name and where you're from, the NEXT question is always "What do you do?" — so today's lesson completes the first full conversation!
+            </div>
+
+            <div class="emoji-large">👋 + 🌍 + 💼 = Complete Introduction</div>
+        </div>
+
+        <!-- Tab 2: Learning Jobs -->
+        <div id="tab2" class="tab-content">
+            <h2>💼 Let's Learn: Common Jobs</h2>
+            <p>Here are 8 common jobs people mention when answering "What do you do?" Learn the names and practice saying them:</p>
+
+            <div class="job-card">
+                <div class="emoji">🏫</div>
+                <div><strong>Teacher</strong> - works in a school, teaches students</div>
+            </div>
+
+            <div class="job-card">
+                <div class="emoji">💻</div>
+                <div><strong>Software Developer / Programmer</strong> - writes computer code</div>
+            </div>
+
+            <div class="job-card">
+                <div class="emoji">⚕️</div>
+                <div><strong>Doctor</strong> - helps sick people, works in a hospital</div>
+            </div>
+
+            <div class="job-card">
+                <div class="emoji">🏦</div>
+                <div><strong>Banker</strong> - works with money, in a bank</div>
+            </div>
+
+            <div class="job-card">
+                <div class="emoji">🎨</div>
+                <div><strong>Designer</strong> - creates visual things (logos, websites, clothes)</div>
+            </div>
+
+            <div class="job-card">
+                <div class="emoji">📱</div>
+                <div><strong>Sales Representative</strong> - sells products to customers</div>
+            </div>
+
+            <div class="job-card">
+                <div class="emoji">👨‍⚖️</div>
+                <div><strong>Lawyer</strong> - works with law, helps clients with legal problems</div>
+            </div>
+
+            <div class="job-card">
+                <div class="emoji">🍕</div>
+                <div><strong>Chef</strong> - cooks food, works in a restaurant or kitchen</div>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💭 Your Turn:</strong> Can you think of 2 more jobs? (Nurse, Engineer, Artist, etc.) <span onclick="alert('Great thinking! Add those to your vocabulary list.')" style="cursor: pointer; color: #ff6b6b; font-weight: bold;">→ Click when done</span>
+            </div>
+        </div>
+
+        <!-- Tab 3: The Present Simple Pattern -->
+        <div id="tab3" class="tab-content">
+            <h2>📚 Let's Learn: The Present Simple Pattern</h2>
+            <p>To say what you do for work, we use a simple pattern called the <strong>Present Simple</strong>. Here's how:</p>
+
+            <div class="content-card">
+                <h3>Pattern: "I am a [job]" OR "I'm a [job]"</h3>
+                <p><strong>Most common way:</strong> I + am (I'm) + a + [job name]</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I'm a teacher." 🏫</li>
+                    <li>"I'm a software developer." 💻</li>
+                    <li>"I'm a doctor." ⚕️</li>
+                    <li>"I'm a designer." 🎨</li>
+                    <li>"I'm a lawyer." 👨‍⚖️</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Note:</strong> We use "a" before the job! "I'm a doctor" (correct) ✅ NOT "I'm doctor" ❌</p>
+            </div>
+
+            <div class="content-card">
+                <h3>Alternative: "I work as a [job]"</h3>
+                <p><strong>Slightly more detailed:</strong> I + work as a + [job name]</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I work as a teacher." 🏫</li>
+                    <li>"I work as a software developer." 💻</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Same meaning!</strong> Both are correct. "I'm a teacher" = "I work as a teacher"</p>
+            </div>
+
+            <div class="content-card">
+                <h3>What if you DON'T have a job?</h3>
+                <p><strong>You can say:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I'm a student." 👨‍🎓 (studying at school/university)</li>
+                    <li>"I'm retired." 🏖️ (used to work but don't anymore)</li>
+                    <li>"I'm looking for a job." 🔍 (unemployed, searching)</li>
+                    <li>"I'm a parent." 👨‍👩‍👧 (taking care of children)</li>
+                </ul>
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>⚠️ Important Rule:</strong> Present Simple means this is what you DO REGULARLY. It's your current job/occupation. Not what you did yesterday, not what you will do tomorrow — what you do NOW.
+            </div>
+        </div>
+
+        <!-- Tab 4: Your Job -->
+        <div id="tab4" class="tab-content">
+            <h2>🎯 Your Turn: Create Your Sentences</h2>
+            <p>Without looking back at the examples, create YOUR OWN sentences about what you do:</p>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 1: Simple Sentence 💼</h3>
+                <p><strong>Create:</strong> "I'm a [job]."</p>
+                <textarea id="job1" placeholder="Example: I'm a nurse."></textarea>
+                <button onclick="saveResponse('job1')">Save</button>
+            </div>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 2: Alternative Pattern 🏢</h3>
+                <p><strong>Create:</strong> "I work as a [job]."</p>
+                <textarea id="job2" placeholder="Example: I work as an engineer."></textarea>
+                <button onclick="saveResponse('job2')">Save</button>
+            </div>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 3: Add a Detail 🌟</h3>
+                <p><strong>Create:</strong> "I'm a [job] and I [detail about the job]."</p>
+                <textarea id="job3" placeholder="Example: I'm a teacher and I teach English."></textarea>
+                <button onclick="saveResponse('job3')">Save</button>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎉 Excellent!</strong> You just created original language. This is REAL production — the heart of learning a language!
+            </div>
+        </div>
+
+        <!-- Tab 5: Mixed Practice -->
+        <div id="tab5" class="tab-content">
+            <h2>⚡ Practice: Jobs & Present Simple</h2>
+            <p>Let's practice with different jobs. Create the correct sentence for each:</p>
+
+            <div class="practice-grid">
+                <div class="card">
+                    <div class="card-emoji">🏥</div>
+                    <strong>Nurse</strong>
+                    <p>Use: "I'm a..."</p>
+                    <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
+                </div>
+
+                <div class="card">
+                    <div class="card-emoji">👨‍💼</div>
+                    <strong>Businessman</strong>
+                    <p>Use: "I work as..."</p>
+                    <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
+                </div>
+
+                <div class="card">
+                    <div class="card-emoji">👨‍💻</div>
+                    <strong>Computer Programmer</strong>
+                    <p>Use either pattern</p>
+                    <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
+                </div>
+
+                <div class="card">
+                    <div class="card-emoji">🎬</div>
+                    <strong>Filmmaker</strong>
+                    <p>Create your own</p>
+                    <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
+                </div>
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💡 Tip:</strong> Don't forget the article "a"! "I'm a nurse" ✅ not "I'm nurse" ❌
+            </div>
+        </div>
+
+        <!-- Tab 6: Full Conversation -->
+        <div id="tab6" class="tab-content">
+            <h2>💬 Building a Complete First Conversation</h2>
+            <p>Now you can have a FULL introductory conversation! Complete Person B's three responses:</p>
+
+            <div class="example-box" style="margin-bottom: 30px;">
+                <strong style="color: #ff6b6b;">Person A:</strong> Hi! What's your name? <br><br>
+                <strong style="color: #667eea;">Person B (You):</strong> <input type="text" id="resp1" placeholder="(introduce yourself)"> <br><br>
+                <strong style="color: #ff6b6b;">Person A:</strong> Nice to meet you! Where are you from?<br><br>
+                <strong style="color: #667eea;">Person B (You):</strong> <input type="text" id="resp2" placeholder="(say where you're from)"> <br><br>
+                <strong style="color: #ff6b6b;">Person A:</strong> Cool! What do you do?<br><br>
+                <strong style="color: #667eea;">Person B (You):</strong> <input type="text" id="resp3" placeholder="(say your job)">
+            </div>
+
+            <button onclick="checkFullConversation()">Check Full Conversation</button>
+            <div id="convResult"></div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px; margin-top: 20px;">
+                <strong>🎤 Bonus:</strong> After you answer about your job, you can ask back: "And you? What do you do?" — This keeps the conversation flowing!
+            </div>
+        </div>
+
+        <!-- Tab 7: Wrap-Up & I Can -->
+        <div id="tab7" class="tab-content">
+            <h2>🎓 Wrap-Up & Self-Assessment</h2>
+            <p>Let's check what you've learned — <strong>without looking back!</strong></p>
+
+            <div class="retrieval-task">
+                <h3>📋 Final Recall</h3>
+                <p>From memory, write:</p>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li>4 jobs from today's lesson</li>
+                    <li>The pattern for saying your job (with an example)</li>
+                    <li>A complete 3-part introduction (greeting + name + job)</li>
+                </ol>
+                <textarea id="finalRecall" placeholder="Write from memory..."></textarea>
+                <button onclick="revealAnswer()">I'm Ready to Check</button>
+            </div>
+
+            <div id="revealedAnswer" style="display: none; margin-top: 20px;">
+                <div class="reveal">
+                    <h3>✅ Model Answer</h3>
+                    <p><strong>1. 4 Jobs:</strong> Teacher, Doctor, Software Developer, Designer, Lawyer, Chef, etc.</p>
+                    <p><strong>2. Pattern:</strong> "I'm a [job]" or "I work as a [job]" — Example: "I'm a teacher"</p>
+                    <p><strong>3. Full intro:</strong> "Hello! I'm Maria. I'm from Spain. I'm a designer." (Any complete combo is correct)</p>
+                </div>
+
+                <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                    <strong>💭 Metacognitive Reflection:</strong> Which part felt most natural — talking about jobs, or the previous greetings and locations? Why?
+                </div>
+            </div>
+
+            <div class="i-can">
+                ✅ <strong>I can tell people what job I do using the present simple pattern.</strong>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎉 Lesson 3 Complete!</strong><br>
+                You've now mastered the first part of almost ANY first conversation: "Hi! I'm [name]. I'm from [country]. I'm a [job]."
+                In Lesson 4, we'll add numbers and ages to make your introductions even richer!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            contents.forEach(el => el.classList.remove('active'));
+            buttons.forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function saveResponse(id) {
+            const text = document.getElementById(id).value;
+            if (text.trim()) {
+                alert('✅ Saved! Great production!');
+            } else {
+                alert('⚠️ Please type something first!');
+            }
+        }
+
+        function checkRecall() {
+            const answer = document.getElementById('recall1').value.trim();
+            const result = document.getElementById('recallResult');
+            if (answer.length > 20) {
+                result.innerHTML = '<div class="reveal"><strong>✅ Excellent!</strong> You successfully retrieved Lessons 1 & 2. This is spaced repetition working!</div>';
+            } else {
+                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Try to include greeting, name, and location in one response.</div>';
+            }
+        }
+
+        function checkFullConversation() {
+            const resp1 = document.getElementById('resp1').value.trim();
+            const resp2 = document.getElementById('resp2').value.trim();
+            const resp3 = document.getElementById('resp3').value.trim();
+            const result = document.getElementById('convResult');
+
+            if (resp1.length > 3 && resp2.length > 3 && resp3.length > 3) {
+                result.innerHTML = '<div class="reveal"><strong>✅ Perfect!</strong> You just completed a FULL first conversation. That\'s 3 lessons integrated into real communication!</div>';
+            } else {
+                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">All three responses need content. Remember: greeting + name (L1), location (L2), job (L3).</div>';
+            }
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealedAnswer').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 22: Bigger & Better</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 30px; text-align: center; }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid #ddd; }
+        .tab-btn { padding: 12px 20px; background-color: #e9ecef; border: none; cursor: pointer; font-size: 1em; border-radius: 8px 8px 0 0; transition: all 0.3s; font-weight: 500; }
+        .tab-btn:hover { background-color: #dee2e6; }
+        .tab-btn.active { background-color: #667eea; color: white; }
+        .tab-content { display: none; padding: 30px; background: white; border-radius: 0 8px 8px 8px; animation: fadeIn 0.3s; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .learning-intention { background-color: #fff3cd; border-left: 4px solid #ff6b6b; padding: 15px; margin: 20px 0; border-radius: 4px; font-weight: 500; }
+        .retrieval-task { background-color: #e7f3ff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea; }
+        .retrieval-task h3 { margin-bottom: 15px; color: #667eea; }
+        .retrieval-task textarea { width: 100%; padding: 12px; font-size: 1em; border: 2px solid #667eea; border-radius: 4px; resize: vertical; min-height: 100px; font-family: inherit; }
+        .content-chunk { background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #764ba2; }
+        .form-table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; }
+        .form-table th, .form-table td { padding: 15px; border: 2px solid #ddd; text-align: left; }
+        .form-table th { background-color: #667eea; color: white; font-weight: 600; }
+        .form-table tr:nth-child(even) { background-color: #f8f9fa; }
+        .example-box { background-color: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .practice-section { background-color: #fff9e6; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107; }
+        .click-reveal { margin: 15px 0; }
+        .reveal-btn { background-color: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 500; transition: background-color 0.3s; }
+        .reveal-btn:hover { background-color: #764ba2; }
+        .hidden-content { display: none; background-color: #f0f0f0; padding: 15px; margin-top: 10px; border-radius: 4px; border: 2px dashed #667eea; }
+        .hidden-content.show { display: block; }
+        .feedback { margin-top: 15px; padding: 15px; border-radius: 4px; display: none; }
+        .feedback.show { display: block; }
+        .feedback-correct { background-color: #e8f5e9; border-left: 4px solid #4caf50; color: #2e7d32; }
+        .discussion-card { background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        .production-task { background-color: #f3e5f5; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #9c27b0; }
+        .production-task textarea, .production-task input { width: 100%; padding: 12px; font-size: 1em; border: 2px solid #9c27b0; border-radius: 4px; margin: 10px 0; font-family: inherit; }
+        .btn-primary { background-color: #667eea; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 1em; font-weight: 600; transition: background-color 0.3s; }
+        .btn-primary:hover { background-color: #764ba2; }
+        .recall-item { background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        .recall-item .prompt { font-weight: 600; color: #667eea; margin-bottom: 10px; }
+        .i-can-statement { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 8px; margin-top: 20px; font-size: 1.1em; font-weight: 600; text-align: center; }
+        .metacognition { background-color: #e0f2f1; border-left: 4px solid #009688; padding: 20px; margin: 20px 0; border-radius: 4px; }
+        @media (max-width: 768px) {
+            .tabs { flex-direction: column; }
+            .tab-btn { width: 100%; border-radius: 4px; }
+            header h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lesson 22: Bigger & Better</h1>
+            <p>A1 Pathway - Building Unit (Lessons 21-30)</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Comparative Adjectives</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab(event, 'tab1')">1. Retrieval</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab2')">2. Form Focus</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab3')">3. Guided Practice</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab4')">4. Interleaved Practice</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab5')">5. Elaboration</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab6')">6. Speaking Production</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab7')">7. Recall Zone</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab8')">8. Retrieval Test</button>
+        </div>
+
+        <!-- TAB 1 -->
+        <div id="tab1" class="tab-content active">
+            <h2>Comparing Things</h2>
+            <div class="retrieval-task">
+                <h3>What Do You Know?</h3>
+                <p>Write 3 sentences comparing two things. Example: "A car is ... than a bicycle."</p>
+                <textarea id="retrieval-input" placeholder="A book is... than a phone"></textarea>
+                <button class="btn-primary" onclick="showRetrievalFeedback()">Check Your Thinking</button>
+                <div id="retrieval-feedback" class="feedback"></div>
+            </div>
+
+            <div class="learning-intention">
+                <strong>Today we're learning:</strong> How to compare two things using comparative adjectives (bigger, faster, more interesting).
+            </div>
+
+            <div class="content-chunk">
+                <h3>🎯 Why Comparatives Matter</h3>
+                <p><strong>Comparative:</strong> Compares TWO things</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"A cat is <strong>smaller</strong> than a dog." (comparing two animals)</li>
+                    <li>"English is <strong>easier</strong> than Chinese." (comparing two languages)</li>
+                    <li>"This phone is <strong>more expensive</strong> than that one." (comparing two phones)</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px; font-style: italic; color: #666;">By the end of this lesson, you'll compare things confidently using both -ER and MORE patterns.</p>
+        </div>
+
+        <!-- TAB 2 -->
+        <div id="tab2" class="tab-content">
+            <h2>Two Patterns for Comparatives</h2>
+
+            <div class="content-chunk">
+                <h3>Pattern 1: Short Adjectives + -ER</h3>
+                <table class="form-table">
+                    <tr>
+                        <th>Adjective</th>
+                        <th>Comparative</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>big</td>
+                        <td><strong>bigger</strong></td>
+                        <td>A house is bigger than a car.</td>
+                    </tr>
+                    <tr>
+                        <td>fast</td>
+                        <td><strong>faster</strong></td>
+                        <td>A plane is faster than a car.</td>
+                    </tr>
+                    <tr>
+                        <td>tall</td>
+                        <td><strong>taller</strong></td>
+                        <td>John is taller than Mary.</td>
+                    </tr>
+                    <tr>
+                        <td>old</td>
+                        <td><strong>older</strong></td>
+                        <td>My father is older than my mother.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="content-chunk">
+                <h3>Pattern 2: Long Adjectives + MORE</h3>
+                <table class="form-table">
+                    <tr>
+                        <th>Adjective</th>
+                        <th>Comparative</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>interesting</td>
+                        <td><strong>more interesting</strong></td>
+                        <td>Films are more interesting than books.</td>
+                    </tr>
+                    <tr>
+                        <td>expensive</td>
+                        <td><strong>more expensive</strong></td>
+                        <td>Gold is more expensive than silver.</td>
+                    </tr>
+                    <tr>
+                        <td>beautiful</td>
+                        <td><strong>more beautiful</strong></td>
+                        <td>Roses are more beautiful than daisies.</td>
+                    </tr>
+                    <tr>
+                        <td>important</td>
+                        <td><strong>more important</strong></td>
+                        <td>Health is more important than money.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="example-box">
+                <strong>✓ Correct Pattern:</strong>
+                <p style="margin-top: 10px;">Subject + BE + Comparative + THAN + Object</p>
+                <p>A phone is <strong>smaller</strong> than a computer.</p>
+            </div>
+        </div>
+
+        <!-- TAB 3 -->
+        <div id="tab3" class="tab-content">
+            <h2>I Do → We Do → You Do</h2>
+
+            <div class="practice-section">
+                <h3>I DO (Teacher Models)</h3>
+                <div style="background: white; padding: 15px; border-radius: 4px; border-left: 4px solid #667eea;">
+                    <p><strong>Comparing:</strong> Summer vs Winter</p>
+                    <p><strong>How I say it:</strong> "Summer is <strong>hotter</strong> than winter."</p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;">▶ hot (short) + er = hotter</p>
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <h3>WE DO (Practice Together)</h3>
+                <p><strong>Comparing:</strong> A car vs a bicycle</p>
+                <p style="background: #f8f9fa; padding: 12px; margin: 10px 0; border-radius: 4px;">A car is _____ (fast) than a bicycle.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'we-do-reveal')">Show the answer</button>
+                <div id="we-do-reveal" class="hidden-content">
+                    <p><strong>Answer:</strong> A car is <strong>faster</strong> than a bicycle.</p>
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <h3>YOU DO (Independent Practice)</h3>
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>1. Winter is _____ (cold) than summer.</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer1')">Check</button>
+                    <div id="answer1" class="hidden-content"><strong>✓</strong> Winter is <strong>colder</strong> than summer.</div>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>2. A dictionary is _____ (heavy) than a notebook.</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer2')">Check</button>
+                    <div id="answer2" class="hidden-content"><strong>✓</strong> A dictionary is <strong>heavier</strong> than a notebook.</div>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>3. A smartphone is _____ (expensive) than a pen.</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer3')">Check</button>
+                    <div id="answer3" class="hidden-content"><strong>✓</strong> A smartphone is <strong>more expensive</strong> than a pen.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4 -->
+        <div id="tab4" class="tab-content">
+            <h2>Mixed Practice - Choose Your Pattern</h2>
+            <p style="margin-bottom: 20px;"><strong>Short adjectives:</strong> add -ER. <strong>Long adjectives:</strong> use MORE.</p>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>1.</strong> A dog is _____ (big) than a cat.</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="bigger OR more big?">
+                <button class="reveal-btn" onclick="checkAnswer(1)">Check</button>
+                <div id="feedback1" class="feedback"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>2.</strong> Math is _____ (difficult) than spelling.</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="difficultER OR more difficult?">
+                <button class="reveal-btn" onclick="checkAnswer(2)">Check</button>
+                <div id="feedback2" class="feedback"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>3.</strong> A mountain is _____ (high) than a hill.</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="higher OR more high?">
+                <button class="reveal-btn" onclick="checkAnswer(3)">Check</button>
+                <div id="feedback3" class="feedback"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>4.</strong> Paris is _____ (beautiful) than many cities.</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="beautifulER OR more beautiful?">
+                <button class="reveal-btn" onclick="checkAnswer(4)">Check</button>
+                <div id="feedback4" class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- TAB 5 -->
+        <div id="tab5" class="tab-content">
+            <h2>Explain the Pattern</h2>
+
+            <div class="production-task">
+                <h3>📝 Explain in Your Words</h3>
+                <p>When do we use -ER? When do we use MORE?</p>
+                <textarea id="elaboration-input" placeholder="Short adjectives use... Long adjectives use..." style="min-height: 100px;"></textarea>
+                <button class="btn-primary" onclick="saveSpeakingNote()">Save Your Explanation</button>
+            </div>
+
+            <div class="production-task">
+                <h3>🎤 Create Your Own Comparison</h3>
+                <p>Compare two things you know (people, objects, places, activities).</p>
+                <input type="text" id="own-comparison" placeholder="A ___ is ___ than a ___">
+                <button class="btn-primary" onclick="saveSpeakingNote()">Save Your Comparison</button>
+            </div>
+        </div>
+
+        <!-- TAB 6 -->
+        <div id="tab6" class="tab-content">
+            <h2>Compare Your World</h2>
+
+            <div class="production-task">
+                <h3>🎤 Speaking Task</h3>
+                <p><strong>Make 5 comparisons about things you know:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Compare two cities or countries</li>
+                    <li>Compare two foods or drinks</li>
+                    <li>Compare two people you know</li>
+                    <li>Compare two objects in your room</li>
+                    <li>Compare two activities you like</li>
+                </ul>
+                <textarea id="production-output" placeholder="A ___ is ___ than a ___..." style="min-height: 150px; margin-top: 15px;"></textarea>
+                <button class="btn-primary" onclick="saveSpeakingNote()">Save Your Comparisons</button>
+            </div>
+
+            <p style="color: #666; font-style: italic; margin-top: 20px;">Teacher: Listen for correct use of comparative adjectives and -ER/-MORE patterns.</p>
+        </div>
+
+        <!-- TAB 7 -->
+        <div id="tab7" class="tab-content">
+            <h2>Bring Back Previous Learning</h2>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 18 (How Often):</div>
+                <p>Complete: I _____ (usually) watch TV in the evenings.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall1')">Show answer</button>
+                <div id="recall1" class="hidden-content">
+                    <strong>✓</strong> I <strong>usually</strong> watch TV in the evenings.
+                    <p style="color: #666; font-size: 0.9em; margin-top: 8px;">Frequency adverbs go before the main verb.</p>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 19 (Describing Things):</div>
+                <p>What does "It looks amazing" mean? Give an example.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall2')">Show answer</button>
+                <div id="recall2" class="hidden-content">
+                    <strong>✓</strong> It means something APPEARS amazing in appearance.
+                    <p style="margin: 8px 0;">Example: "That cake looks delicious!"</p>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 20 (Unit 2 Review):</div>
+                <p>How do we ask questions in Present Simple? Example: How do you ask about jobs?</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall3')">Show answer</button>
+                <div id="recall3" class="hidden-content">
+                    <strong>✓</strong> We use DO/DOES + Subject + Verb
+                    <p style="margin: 8px 0;">Example: "Do you like coffee?" / "Does she work here?"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8 -->
+        <div id="tab8" class="tab-content">
+            <h2>Can You Do It Without Help?</h2>
+
+            <div class="production-task">
+                <h3>Remember Without Looking Back</h3>
+                <p><strong>1. Write the two rules for comparatives:</strong></p>
+                <textarea id="rule-output" placeholder="Rule 1: Short adjectives... Rule 2: Long adjectives..." style="min-height: 80px; margin-bottom: 15px;"></textarea>
+
+                <p><strong>2. Write 3 original comparisons from memory:</strong></p>
+                <textarea id="comparisons-output" placeholder="A ___ is ___ than a ___..." style="min-height: 100px; margin-bottom: 15px;"></textarea>
+
+                <button class="btn-primary" onclick="checkFinalTest()">Check Your Answers</button>
+                <div id="final-feedback" class="feedback"></div>
+            </div>
+
+            <div class="metacognition">
+                <h3>🧠 Reflect on Your Learning</h3>
+                <p><strong>Question:</strong> Was the -ER or MORE pattern harder to remember? Why?</p>
+                <textarea id="metacog-input" placeholder="I found... harder because..." style="min-height: 80px;"></textarea>
+                <button class="btn-primary" onclick="saveMetacognition()">Save Your Reflection</button>
+            </div>
+
+            <div class="i-can-statement">
+                ✅ I can use comparative adjectives to compare two things
+                <br><br>
+                ✅ I can choose between -ER and MORE patterns correctly
+            </div>
+
+            <p style="text-align: center; margin-top: 30px; color: #666; font-style: italic;">
+                We said you'd be able to compare things. Can you? What helped you learn that?
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tabbuttons = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(evt, contentId) {
+            var content = document.getElementById(contentId);
+            content.classList.toggle("show");
+            evt.target.textContent = content.classList.contains("show") ? "Hide answer" : "Show answer";
+        }
+
+        function showRetrievalFeedback() {
+            var input = document.getElementById('retrieval-input').value;
+            var feedback = document.getElementById('retrieval-feedback');
+            if (input.trim().length > 10) {
+                feedback.innerHTML = '<strong>✓ Good!</strong> You made a comparison. Now let\'s learn the correct pattern for all comparatives.';
+                feedback.classList.add('show', 'feedback-correct');
+            } else {
+                feedback.innerHTML = '<strong>Try again:</strong> Write at least one sentence comparing two things.';
+                feedback.classList.add('show', 'feedback-incorrect');
+            }
+        }
+
+        function checkAnswer(number) {
+            var feedbackData = [
+                [1, 'bigger', 'Short adjective (big) → add -ER'],
+                [2, 'more difficult', 'Long adjective (difficult) → MORE'],
+                [3, 'higher', 'Short adjective (high) → change Y to IER, then add -ER'],
+                [4, 'more beautiful', 'Long adjective (beautiful) → MORE']
+            ];
+
+            var feedback = document.getElementById('feedback' + number);
+            feedback.innerHTML = '<strong>✓ Correct!</strong> ' + feedbackData[number-1][2];
+            feedback.classList.add('show', 'feedback-correct');
+        }
+
+        function saveSpeakingNote() {
+            alert('Great! Your response has been saved. Share it with your teacher.');
+        }
+
+        function checkFinalTest() {
+            var ruleOutput = document.getElementById('rule-output').value;
+            var comparisonsOutput = document.getElementById('comparisons-output').value;
+            var feedback = document.getElementById('final-feedback');
+
+            if (ruleOutput.trim().length > 10 && comparisonsOutput.trim().length > 20) {
+                feedback.innerHTML = '<strong>✓ Excellent!</strong> You can form comparatives and explain both patterns. ' +
+                    'Check your comparisons: short adjectives + -ER? long adjectives + MORE?';
+                feedback.classList.add('show', 'feedback-correct');
+            } else {
+                feedback.innerHTML = '<strong>Try again:</strong> Write both the rules and your comparisons.';
+                feedback.classList.add('show', 'feedback-incorrect');
+            }
+        }
+
+        function saveMetacognition() {
+            alert('Your reflection has been saved.');
+        }
+    </script>
+</body>
+</html>

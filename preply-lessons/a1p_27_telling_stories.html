@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 27: Telling Stories</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 30px; text-align: center; }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid #ddd; }
+        .tab-btn { padding: 12px 20px; background-color: #e9ecef; border: none; cursor: pointer; font-size: 1em; border-radius: 8px 8px 0 0; transition: all 0.3s; font-weight: 500; }
+        .tab-btn.active { background-color: #667eea; color: white; }
+        .tab-content { display: none; padding: 30px; background: white; border-radius: 0 8px 8px 8px; }
+        .tab-content.active { display: block; }
+        .learning-intention { background-color: #fff3cd; border-left: 4px solid #ff6b6b; padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .retrieval-task { background-color: #e7f3ff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea; }
+        .retrieval-task textarea { width: 100%; padding: 12px; font-size: 1em; border: 2px solid #667eea; border-radius: 4px; resize: vertical; min-height: 100px; font-family: inherit; }
+        .content-chunk { background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #764ba2; }
+        .example-box { background-color: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .practice-section { background-color: #fff9e6; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107; }
+        .reveal-btn { background-color: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 500; }
+        .hidden-content { display: none; background-color: #f0f0f0; padding: 15px; margin-top: 10px; border-radius: 4px; }
+        .hidden-content.show { display: block; }
+        .production-task { background-color: #f3e5f5; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #9c27b0; }
+        .production-task textarea { width: 100%; padding: 12px; font-size: 1em; border: 2px solid #9c27b0; border-radius: 4px; margin: 10px 0; font-family: inherit; }
+        .btn-primary { background-color: #667eea; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 1em; font-weight: 600; }
+        .btn-primary:hover { background-color: #764ba2; }
+        .recall-item { background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        .recall-item .prompt { font-weight: 600; color: #667eea; margin-bottom: 10px; }
+        .i-can-statement { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 8px; margin-top: 20px; font-size: 1.1em; font-weight: 600; text-align: center; }
+        .metacognition { background-color: #e0f2f1; border-left: 4px solid #009688; padding: 20px; margin: 20px 0; border-radius: 4px; }
+        @media (max-width: 768px) {
+            .tabs { flex-direction: column; }
+            .tab-btn { width: 100%; border-radius: 4px; }
+            header h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lesson 27: Telling Stories</h1>
+            <p>A1 Pathway - Building Unit (Lessons 21-30)</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Narrative Sequencing & Past Tenses</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab(event, 'tab1')">1. Retrieval + Hook</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab2')">2. Language Focus A</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab3')">3. Language Focus B</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab4')">4. Your Turn</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab5')">5. Deep Dive</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab6')">6. Recall Zone</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab7')">7. Retrieval Wrap-Up</button>
+        </div>
+
+        <!-- TAB 1 -->
+        <div id="tab1" class="tab-content active">
+            <h2>Tell Me a Story</h2>
+            <div class="retrieval-task">
+                <h3>Memory First</h3>
+                <p>Write a simple story about something that happened to you. Use past tense (what words do you remember?)</p>
+                <textarea placeholder="I went... I saw... Then..."></textarea>
+                <button class="btn-primary" onclick="alert('Great! You shared a memory. Let\\'s learn how to tell stories fluently.')">Continue</button>
+            </div>
+
+            <div class="learning-intention">
+                <strong>Today we're learning:</strong> How to tell stories using past tenses and sequencing words (then, after that, first) to make stories flow naturally.
+            </div>
+
+            <div class="content-chunk">
+                <h3>🎯 Stories Use Special Language</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>📖 <strong>Past Simple:</strong> Main events (She went to the store...)</li>
+                    <li>🔗 <strong>Sequencing words:</strong> Then, after that, finally, first (helps listeners follow)</li>
+                    <li>⏰ <strong>Time markers:</strong> Yesterday, last week (when did it happen?)</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px; font-style: italic; color: #666;">By the end, you'll tell coherent stories with proper sequencing.</p>
+        </div>
+
+        <!-- TAB 2 -->
+        <div id="tab2" class="tab-content">
+            <h2>Sequencing Words (Part 1)</h2>
+
+            <div style="background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">1️⃣ First / In the beginning</h4>
+                <p><strong>Use:</strong> Start of the story</p>
+                <p><strong>Example:</strong> "First, I woke up at 6 AM."</p>
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">This introduces the opening event.</p>
+            </div>
+
+            <div style="background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">2️⃣ Then / After that / Next</h4>
+                <p><strong>Use:</strong> Following events</p>
+                <p><strong>Example:</strong> "Then, I had breakfast. After that, I went to work."</p>
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">These connect events in order.</p>
+            </div>
+
+            <div style="background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">3️⃣ Finally / At the end / In the end</h4>
+                <p><strong>Use:</strong> Conclusion of the story</p>
+                <p><strong>Example:</strong> "Finally, I went to bed at 11 PM."</p>
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">This shows where the story ends.</p>
+            </div>
+
+            <div class="example-box">
+                <strong>✓ Model Story:</strong>
+                <p style="margin-top: 10px;">
+                    "First, I woke up at 7 AM. Then, I had coffee. After that, I went to work. Finally, I came home at 6 PM and watched TV."
+                </p>
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Notice: All verbs are Past Simple + sequencing words connect ideas</p>
+            </div>
+        </div>
+
+        <!-- TAB 3 -->
+        <div id="tab3" class="tab-content">
+            <h2>Time Markers (Part 2)</h2>
+
+            <div style="background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">⏰ When Did It Happen?</h4>
+                <p><strong>Yesterday:</strong> "I went to the beach yesterday."</p>
+                <p><strong>Last week:</strong> "I saw my friend last week."</p>
+                <p><strong>Last year:</strong> "I visited Japan last year."</p>
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Time markers help your listener know WHEN the story happened.</p>
+            </div>
+
+            <div class="example-box">
+                <strong>✓ Complete Story:</strong>
+                <p style="margin-top: 10px;">
+                    <strong>Yesterday,</strong> I had an interesting day. <strong>First,</strong> I woke up late. <strong>Then,</strong> I went to the cafe. <strong>After that,</strong> I met my friend. <strong>Finally,</strong> I went home at 6 PM.
+                </p>
+            </div>
+        </div>
+
+        <!-- TAB 4 -->
+        <div id="tab4" class="tab-content">
+            <h2>Your Turn - Tell Your Story</h2>
+
+            <p style="margin-bottom: 20px;"><strong>Choose ONE and tell your story with sequencing:</strong></p>
+
+            <div style="background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">Story 1: A Good Day</h4>
+                <p>Tell about a really good day. What happened first? Then? Finally?</p>
+                <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 80px; font-family: inherit;" placeholder="First, I... Then... After that... Finally..."></textarea>
+            </div>
+
+            <div style="background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">Story 2: A Problem</h4>
+                <p>Tell about a time you had a problem. How did it start? What happened next?</p>
+                <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 80px; font-family: inherit;" placeholder="At first... Then... After that... Finally..."></textarea>
+            </div>
+
+            <div style="background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">Story 3: A Memorable Event</h4>
+                <p>Tell about an event you won't forget. Use sequencing words.</p>
+                <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 80px; font-family: inherit;" placeholder="Last week... First... Next... Then... Finally..."></textarea>
+            </div>
+
+            <button class="btn-primary" style="width: 100%; margin-top: 15px;" onclick="alert('Great storytelling! Share with your teacher.')">Save</button>
+        </div>
+
+        <!-- TAB 5 -->
+        <div id="tab5" class="tab-content">
+            <h2>Deep Dive - Tell It Fluently</h2>
+
+            <div class="production-task">
+                <h3>🎤 3-Minute Story Challenge</h3>
+                <p>Tell a complete story with clear sequencing. Include:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>When it happened (time marker)</li>
+                    <li>What happened first</li>
+                    <li>What happened next (at least 2 more events with "then" or "after that")</li>
+                    <li>How it ended</li>
+                </ul>
+                <textarea id="story-text" placeholder="Last week, I... First... Then... After that... Finally..." style="min-height: 150px;"></textarea>
+                <button class="btn-primary" onclick="alert('Excellent story! Practice it out loud.')">Save</button>
+            </div>
+        </div>
+
+        <!-- TAB 6 -->
+        <div id="tab6" class="tab-content">
+            <h2>Recall Zone</h2>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 12 (Yesterday's Story):</div>
+                <p>What is an irregular past tense verb? Give examples.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall1')">Show</button>
+                <div id="recall1" class="hidden-content">
+                    <p><strong>✓</strong> Verbs that don't follow the -ED rule:</p>
+                    <p>go → went, see → saw, have → had, do → did, eat → ate</p>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 21 (Right Now):</div>
+                <p>What expression can we use instead of "now"?</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall2')">Show</button>
+                <div id="recall2" class="hidden-content">
+                    <p><strong>✓</strong> "Right now," "at this moment," "at the moment"</p>
+                    <p>All these work with Present Continuous.</p>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 25 (Review):</div>
+                <p>What's the difference between narrative sequencing and giving opinions?</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall3')">Show</button>
+                <div id="recall3" class="hidden-content">
+                    <p><strong>✓</strong> Narrative: "What happened" (past, sequencing)</p>
+                    <p>Opinions: "What I think" (beliefs, perspectives)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 7 -->
+        <div id="tab7" class="tab-content">
+            <h2>Retrieval Wrap-Up</h2>
+
+            <div class="production-task">
+                <h3>Remember Without Looking Back</h3>
+                <p><strong>1. List 5 sequencing words for storytelling:</strong></p>
+                <textarea id="sequencing-output" placeholder="First, Then, After that, Next, Finally..." style="min-height: 80px; margin-bottom: 15px;"></textarea>
+
+                <p><strong>2. Write 1 complete story (with time marker + sequencing + past tense):</strong></p>
+                <textarea id="story-output" placeholder="Yesterday/Last week... First... Then... Finally..." style="min-height: 100px; margin-bottom: 15px;"></textarea>
+
+                <button class="btn-primary" onclick="checkFinalTest()">Check</button>
+                <div id="final-feedback" class="feedback"></div>
+            </div>
+
+            <div class="metacognition">
+                <h3>🧠 Reflect</h3>
+                <p>Was it easier to tell a story once you knew the sequencing words?</p>
+                <textarea id="metacog-input" placeholder="Yes, because... The words helped..." style="min-height: 80px;"></textarea>
+                <button class="btn-primary" onclick="alert('Reflection saved!')">Save</button>
+            </div>
+
+            <div class="i-can-statement">
+                ✅ I can tell stories using past tense and proper sequencing
+                <br><br>
+                ✅ I can use time markers and connecting words naturally
+            </div>
+
+            <p style="text-align: center; margin-top: 30px; color: #666; font-style: italic;">
+                We said you'd be able to tell stories. Can you?
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tabbuttons = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(evt, contentId) {
+            var content = document.getElementById(contentId);
+            content.classList.toggle("show");
+            evt.target.textContent = content.classList.contains("show") ? "Hide" : "Show";
+        }
+
+        function checkFinalTest() {
+            var sequencingOutput = document.getElementById('sequencing-output').value;
+            var storyOutput = document.getElementById('story-output').value;
+            var feedback = document.getElementById('final-feedback');
+
+            if (sequencingOutput.trim().length > 20 && storyOutput.trim().length > 40) {
+                feedback.innerHTML = '<strong>✓ Excellent!</strong> You can list sequencing words and tell a complete story.';
+                feedback.style.backgroundColor = '#e8f5e9';
+                feedback.style.borderLeft = '4px solid #4caf50';
+                feedback.style.color = '#2e7d32';
+                feedback.style.display = 'block';
+            } else {
+                feedback.innerHTML = '<strong>Try again:</strong> Write more complete answers.';
+                feedback.style.backgroundColor = '#ffebee';
+                feedback.style.borderLeft = '4px solid #f44336';
+                feedback.style.color = '#c62828';
+                feedback.style.display = 'block';
+            }
+            feedback.style.padding = '15px';
+            feedback.style.borderRadius = '4px';
+        }
+    </script>
+</body>
+</html>

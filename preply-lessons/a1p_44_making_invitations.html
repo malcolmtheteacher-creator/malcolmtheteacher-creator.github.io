@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 44: Making Invitations</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 5px 5px 0 0;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            border-bottom-color: #667eea;
+        }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active { display: block; }
+        .learning-intention {
+            background: #e8f4f8;
+            border-left: 4px solid #4a90e2;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .retrieval-prompt {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+        .framework-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .component-card {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            color: #1a1a2e;
+        }
+        .component-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .example-box {
+            background: #f0f0f0;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #4a90e2;
+            font-style: italic;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+        .textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .practice-card {
+            background: white;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .recall-item {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .click-reveal {
+            margin: 15px 0;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .reveal-prompt {
+            cursor: pointer;
+            color: #667eea;
+            text-decoration: underline;
+            font-weight: 500;
+            display: inline-block;
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+        .reveal-content {
+            display: none;
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .reveal-content.show { display: block; }
+        .i-can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            text-align: center;
+            font-weight: bold;
+        }
+        .meta-question {
+            background: #f0f7ff;
+            border: 2px dashed #667eea;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Lesson 44: Making Invitations</h1>
+            <p>A1 Pathway Transition Unit (A1→A2) • Skills Training</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)">1️⃣ Retrieval</button>
+            <button class="tab-button" onclick="showTab(1)">2️⃣ Deep Dive</button>
+            <button class="tab-button" onclick="showTab(2)">3️⃣ Examples</button>
+            <button class="tab-button" onclick="showTab(3)">4️⃣ Guided</button>
+            <button class="tab-button" onclick="showTab(4)">5️⃣ Scenarios</button>
+            <button class="tab-button" onclick="showTab(5)">6️⃣ Application</button>
+            <button class="tab-button" onclick="showTab(6)">7️⃣ Recall</button>
+            <button class="tab-button" onclick="showTab(7)">8️⃣ Debrief</button>
+        </div>
+
+        <!-- TAB 1 -->
+        <div class="tab-content active">
+            <h2>Tab 1: Retrieval + Framework</h2>
+
+            <div class="retrieval-prompt">
+                <h3>🧠 Think of a time you invited someone...</h3>
+                <p>What did you say? What did they say back?</p>
+                <textarea class="textarea" placeholder="I said... They said..."></textarea>
+            </div>
+
+            <div class="learning-intention">
+                <strong>Today we're working on:</strong> The complete framework for invitations — asking, accepting, and declining politely — so you can invite people naturally and handle any response.
+            </div>
+
+            <div class="framework-box">
+                <h2>📋 The Invitation Framework: AADI</h2>
+                <p style="margin-top: 15px; font-size: 1.1em;">A - Ask politely | A - Accept warmly | D - Decline kindly | I - Invite alternatives</p>
+            </div>
+        </div>
+
+        <!-- TAB 2 -->
+        <div class="tab-content">
+            <h2>Tab 2: Deep Dive</h2>
+
+            <div class="component-card" style="margin-bottom: 20px;">
+                <h3>A1️⃣ ASK POLITELY</h3>
+                <p><strong>Different levels of formality:</strong></p>
+                <div class="example-box">"Would you like to come to my party?" (Very polite)<br>"Do you want to grab coffee?" (Casual)<br>"Fancy a drink?" (Very casual)</div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Write an invitation to a coworker:</p>
+                <input type="text" class="input-field" placeholder="I could say...">
+            </div>
+
+            <div class="component-card" style="margin-bottom: 20px;">
+                <h3>A2️⃣ ACCEPT WARMLY</h3>
+                <p><strong>Show enthusiasm when you say yes:</strong></p>
+                <div class="example-box">"I'd love to!" (Enthusiastic)<br>"That sounds great!" (Positive)<br>"Yes, definitely!" (Casual)</div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Accept an invitation to dinner:</p>
+                <input type="text" class="input-field" placeholder="I could say...">
+            </div>
+
+            <div class="component-card" style="margin-bottom: 20px;">
+                <h3>D️⃣ DECLINE KINDLY</h3>
+                <p><strong>Say no WITHOUT offending:</strong></p>
+                <div class="example-box">"I really appreciate the invite, but I can't make it." (Warm refusal)<br>"Thanks so much, but I'm busy that day." (Polite)<br>"I wish I could, but..." (Regretful)</div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Decline a party invitation politely:</p>
+                <input type="text" class="input-field" placeholder="I could say...">
+            </div>
+
+            <div class="component-card">
+                <h3>I️⃣ INVITE ALTERNATIVES</h3>
+                <p><strong>When you decline, offer another option:</strong></p>
+                <div class="example-box">"Can we reschedule for next week?" (Request new time)<br>"Maybe next time!" (Show interest)<br>"Let me know if you organize something else." (Stay connected)</div>
+                <p style="margin-top: 10px;"><strong>YOUR TURN:</strong> Suggest an alternative:</p>
+                <input type="text" class="input-field" placeholder="I could say...">
+            </div>
+        </div>
+
+        <!-- TAB 3 -->
+        <div class="tab-content">
+            <h2>Tab 3: Model Conversations</h2>
+
+            <div class="practice-card">
+                <h3>✅ Good Invitation Conversation</h3>
+                <p><strong>Person A:</strong> "Would you like to come to dinner next Friday?" (A - Ask)</p>
+                <p><strong>Person B:</strong> "I'd love to! That sounds wonderful!" (A - Accept)</p>
+                <p><strong>Person A:</strong> "Great! It's at 7pm. Can you make it?"</p>
+                <p><strong>Person B:</strong> "Perfect. I'll be there."</p>
+            </div>
+
+            <div class="practice-card">
+                <h3>✅ Polite Decline Conversation</h3>
+                <p><strong>Person A:</strong> "Want to join us for karaoke tonight?" (A - Ask)</p>
+                <p><strong>Person B:</strong> "Aw, I really appreciate the invite, but I have an early meeting tomorrow." (D - Decline kindly)</p>
+                <p><strong>Person A:</strong> "No problem. Maybe next time?"</p>
+                <p><strong>Person B:</strong> "Definitely! Have fun!" (I - Show interest in future)</p>
+            </div>
+        </div>
+
+        <!-- TAB 4 -->
+        <div class="tab-content">
+            <h2>Tab 4: Guided Practice</h2>
+
+            <div class="practice-card">
+                <h3>Scenario: You're inviting a friend to your birthday</h3>
+
+                <p><strong>I DO (Model):</strong> "Hey! I'm having a little party for my birthday next Saturday. Would you be interested in coming?"</p>
+
+                <p style="margin-top: 15px;"><strong>WE DO (Together - complete this):</strong></p>
+                <p>A friend asks you: "Are you free this weekend?"</p>
+                <p>You: "Well, I _____________ (ask if they want to do something specific). I'm having people over..."</p>
+                <input type="text" class="input-field" placeholder="Complete the sentence...">
+
+                <p style="margin-top: 15px;"><strong>YOU DO (Your turn):</strong></p>
+                <p>Someone declines your invitation. What do you say to show you're not upset?</p>
+                <textarea class="textarea" placeholder="I would say..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 5 -->
+        <div class="tab-content">
+            <h2>Tab 5: Real Scenarios</h2>
+
+            <div class="practice-card">
+                <h3>Scenario A: Casual friend hangout</h3>
+                <p>You want to invite your friend for lunch. Write the FULL conversation (4-5 exchanges):</p>
+                <textarea class="textarea" placeholder="You: ...&#10;Friend: ...&#10;You: ..."></textarea>
+            </div>
+
+            <div class="practice-card">
+                <h3>Scenario B: Work event</h3>
+                <p>You're inviting a coworker to your team lunch. Use more formal language:</p>
+                <textarea class="textarea" placeholder="I'm organizing... Would you like..."></textarea>
+            </div>
+
+            <div class="practice-card">
+                <h3>Scenario C: Declining with an alternative</h3>
+                <p>A friend invites you to go out, but you're busy. Decline and suggest another time:</p>
+                <textarea class="textarea" placeholder="Thanks for the invite... I'm busy... How about..."></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 6 -->
+        <div class="tab-content">
+            <h2>Tab 6: Application</h2>
+
+            <p><strong>Full role-play: You have 5 minutes to invite someone (teacher or imaginary friend) to an event of your choice.</strong></p>
+
+            <div class="practice-card">
+                <p><strong>Event:</strong> What are you inviting them to?</p>
+                <input type="text" class="input-field" placeholder="e.g., Coffee, party, game night, concert">
+
+                <p style="margin-top: 15px;"><strong>Your invitation (speak or write 3-5 sentences):</strong></p>
+                <textarea class="textarea" placeholder="Write your full invitation..."></textarea>
+
+                <p style="margin-top: 15px;"><strong>Self-check:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Did I ask politely? ✓</li>
+                    <li>Did I give details (when/where)? ✓</li>
+                    <li>Did I sound natural? ✓</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 7 -->
+        <div class="tab-content">
+            <h2>Tab 7: Recall Zone</h2>
+
+            <div class="recall-item">
+                <h3>From Lesson 29: Making Suggestions</h3>
+                <p><strong>Recall:</strong> What are 2 ways to suggest something to a friend?</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>"Let's..." / "Why don't we...?" / "Shall we...?"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <h3>From Lesson 14: Going to Future</h3>
+                <p><strong>Recall:</strong> "I am _____________ to the beach tomorrow." (Form)</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>I am GOING to the beach tomorrow. (am/is/are + going to)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <h3>From Lesson 39: Could & Would</h3>
+                <p><strong>Recall:</strong> Write a polite request: "Would you _____________?"</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>"Would you like to come?" / "Would you mind waiting?"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8 -->
+        <div class="tab-content">
+            <h2>Tab 8: Debrief + Metacognition</h2>
+
+            <p><strong>From memory: Write the AADI framework:</strong></p>
+            <textarea class="textarea" placeholder="A - ...&#10;A - ...&#10;D - ...&#10;I - ..."></textarea>
+
+            <div class="click-reveal">
+                <div class="reveal-prompt" onclick="toggleReveal(this)">Click to see the answer →</div>
+                <div class="reveal-content">
+                    <p>A - Ask politely</p>
+                    <p>A - Accept warmly</p>
+                    <p>D - Decline kindly</p>
+                    <p>I - Invite alternatives</p>
+                </div>
+            </div>
+
+            <div class="meta-question">
+                <h3>🧠 Reflection</h3>
+                <p><strong>Is it harder for you to invite someone, or to politely decline an invitation?</strong></p>
+                <textarea class="textarea" placeholder="It's harder for me to..."></textarea>
+
+                <p style="margin-top: 15px;"><strong>How will you practice this skill outside of lessons?</strong></p>
+                <textarea class="textarea" placeholder="I will..."></textarea>
+            </div>
+
+            <div class="i-can-statement">
+                ✨ I can invite people using appropriate language, accept invitations warmly, decline politely without offending, and suggest alternatives. I'm confident in social situations! ✨
+            </div>
+
+            <p style="margin-top: 20px; text-align: center; color: #666;">
+                <strong>Lesson 44 Complete!</strong> You're becoming a social English expert! 🎉
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(index) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content')[index].classList.add('active');
+            document.querySelectorAll('.tab-button')[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        function toggleReveal(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('show');
+            element.textContent = content.classList.contains('show') ? '← Hide' : 'Click to reveal →';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 26: Must & Should</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 30px; text-align: center; }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid #ddd; }
+        .tab-btn { padding: 12px 20px; background-color: #e9ecef; border: none; cursor: pointer; font-size: 1em; border-radius: 8px 8px 0 0; transition: all 0.3s; font-weight: 500; }
+        .tab-btn.active { background-color: #667eea; color: white; }
+        .tab-content { display: none; padding: 30px; background: white; border-radius: 0 8px 8px 8px; }
+        .tab-content.active { display: block; }
+        .learning-intention { background-color: #fff3cd; border-left: 4px solid #ff6b6b; padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .retrieval-task { background-color: #e7f3ff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea; }
+        .retrieval-task textarea { width: 100%; padding: 12px; font-size: 1em; border: 2px solid #667eea; border-radius: 4px; resize: vertical; min-height: 100px; font-family: inherit; }
+        .content-chunk { background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #764ba2; }
+        .form-table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; }
+        .form-table th, .form-table td { padding: 15px; border: 2px solid #ddd; text-align: left; }
+        .form-table th { background-color: #667eea; color: white; font-weight: 600; }
+        .form-table tr:nth-child(even) { background-color: #f8f9fa; }
+        .example-box { background-color: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .practice-section { background-color: #fff9e6; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107; }
+        .reveal-btn { background-color: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 500; }
+        .hidden-content { display: none; background-color: #f0f0f0; padding: 15px; margin-top: 10px; border-radius: 4px; }
+        .hidden-content.show { display: block; }
+        .production-task { background-color: #f3e5f5; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #9c27b0; }
+        .production-task textarea { width: 100%; padding: 12px; font-size: 1em; border: 2px solid #9c27b0; border-radius: 4px; margin: 10px 0; font-family: inherit; }
+        .btn-primary { background-color: #667eea; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 1em; font-weight: 600; }
+        .btn-primary:hover { background-color: #764ba2; }
+        .recall-item { background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        .recall-item .prompt { font-weight: 600; color: #667eea; margin-bottom: 10px; }
+        .i-can-statement { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 8px; margin-top: 20px; font-size: 1.1em; font-weight: 600; text-align: center; }
+        .metacognition { background-color: #e0f2f1; border-left: 4px solid #009688; padding: 20px; margin: 20px 0; border-radius: 4px; }
+        @media (max-width: 768px) {
+            .tabs { flex-direction: column; }
+            .tab-btn { width: 100%; border-radius: 4px; }
+            header h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lesson 26: Must & Should</h1>
+            <p>A1 Pathway - Building Unit (Lessons 21-30)</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Modal Verbs: Obligation & Advice</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab(event, 'tab1')">1. Retrieval</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab2')">2. Form Focus</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab3')">3. Guided Practice</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab4')">4. Interleaved Practice</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab5')">5. Elaboration</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab6')">6. Speaking Production</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab7')">7. Recall Zone</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab8')">8. Retrieval Test</button>
+        </div>
+
+        <!-- TAB 1 -->
+        <div id="tab1" class="tab-content active">
+            <h2>What Do You Do When...?</h2>
+            <div class="retrieval-task">
+                <h3>From Memory</h3>
+                <p>Write what you do/should do in these situations:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>When you're sick</li>
+                    <li>When you're tired</li>
+                    <li>When you're late to work</li>
+                </ul>
+                <textarea placeholder="When I'm sick, I... When I'm tired, I should... When I'm late..."></textarea>
+                <button class="btn-primary" onclick="alert('Good thinking! Let\\'s learn how to express obligation and advice in English.')">Continue</button>
+            </div>
+
+            <div class="learning-intention">
+                <strong>Today we're learning:</strong> Modal verbs MUST (strong obligation) and SHOULD (advice/recommendation) to express what is necessary and what is a good idea.
+            </div>
+
+            <div class="content-chunk">
+                <h3>🎯 When Do We Use These?</h3>
+                <p><strong>MUST:</strong> Something is necessary or required</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"You <strong>must</strong> go to school." (It's a rule/law)</li>
+                    <li>"You <strong>must</strong> see this film!" (Strong recommendation)</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>SHOULD:</strong> Something is a good idea or advice</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"You <strong>should</strong> drink more water." (Advice)</li>
+                    <li>"You <strong>should</strong> exercise." (Recommendation)</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px; font-style: italic; color: #666;">By the end, you'll express obligations and give advice confidently.</p>
+        </div>
+
+        <!-- TAB 2 -->
+        <div id="tab2" class="tab-content">
+            <h2>How to Use MUST & SHOULD</h2>
+
+            <div class="content-chunk">
+                <h3>Pattern: Modal + Base Verb (No -S, No -ED)</h3>
+                <table class="form-table">
+                    <tr>
+                        <th>Modal</th>
+                        <th>Meaning</th>
+                        <th>Strength</th>
+                        <th>Examples</th>
+                    </tr>
+                    <tr>
+                        <td><strong>MUST</strong></td>
+                        <td>Necessary/Required</td>
+                        <td>Very Strong ⚡⚡⚡</td>
+                        <td>I must go. They must study.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SHOULD</strong></td>
+                        <td>Good idea/Advice</td>
+                        <td>Moderate ⚡⚡</td>
+                        <td>You should rest. She should call.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="content-chunk">
+                <h3>Negative Forms</h3>
+                <table class="form-table">
+                    <tr>
+                        <th>Positive</th>
+                        <th>Negative</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>I <strong>must</strong> go</td>
+                        <td>I <strong>must not</strong> go (mustn't)</td>
+                        <td>You mustn't be late.</td>
+                    </tr>
+                    <tr>
+                        <td>I <strong>should</strong> rest</td>
+                        <td>I <strong>should not</strong> (shouldn't)</td>
+                        <td>You shouldn't work too hard.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="example-box">
+                <strong>✓ Important Rule:</strong>
+                <p style="margin-top: 10px;">Modal + <strong>INFINITIVE</strong> (base verb, no -S)</p>
+                <p>✓ Correct: "You <strong>must go</strong>" NOT "You must goes"</p>
+                <p>✓ Correct: "I <strong>should study</strong>" NOT "I should studies"</p>
+            </div>
+        </div>
+
+        <!-- TAB 3 -->
+        <div id="tab3" class="tab-content">
+            <h2>I Do → We Do → You Do</h2>
+
+            <div class="practice-section">
+                <h3>I DO</h3>
+                <p><strong>Situation:</strong> Your health is bad</p>
+                <p><strong>My sentence:</strong> "You <strong>should</strong> see a doctor."</p>
+            </div>
+
+            <div class="practice-section">
+                <h3>WE DO</h3>
+                <p><strong>Situation:</strong> You have an exam tomorrow</p>
+                <p style="background: #f8f9fa; padding: 12px; margin: 10px 0; border-radius: 4px;">You _____ (must/should) study tonight.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'we-do-reveal')">Show answer</button>
+                <div id="we-do-reveal" class="hidden-content">
+                    <p><strong>Answer:</strong> You <strong>must</strong> study tonight. (Strong - exam is important!)</p>
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <h3>YOU DO</h3>
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>1. You _____ (should/must) drink water every day.</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer1')">Check</button>
+                    <div id="answer1" class="hidden-content"><strong>✓</strong> You <strong>should</strong> drink water every day. (Good advice)</div>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>2. You _____ (must/should) follow traffic rules.</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer2')">Check</button>
+                    <div id="answer2" class="hidden-content"><strong>✓</strong> You <strong>must</strong> follow traffic rules. (It's the law!)</div>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>3. You _____ (must/should) be honest with friends.</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer3')">Check</button>
+                    <div id="answer3" class="hidden-content"><strong>✓</strong> You <strong>should</strong> be honest with friends. (Good principle)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4 -->
+        <div id="tab4" class="tab-content">
+            <h2>Mixed Practice</h2>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>1.</strong> If you're tired, you _____ (rest/sleep).</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="should or must?">
+                <button class="reveal-btn" onclick="checkAnswer(1)">Check</button>
+                <div id="feedback1" class="feedback"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>2.</strong> Children _____ (go) to school.</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="should go or must go?">
+                <button class="reveal-btn" onclick="checkAnswer(2)">Check</button>
+                <div id="feedback2" class="feedback"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>3.</strong> You _____ (not/be) late for work.</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="shouldn't or mustn't?">
+                <button class="reveal-btn" onclick="checkAnswer(3)">Check</button>
+                <div id="feedback3" class="feedback"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>4.</strong> You _____ (eat) more vegetables for your health.</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="should or must?">
+                <button class="reveal-btn" onclick="checkAnswer(4)">Check</button>
+                <div id="feedback4" class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- TAB 5 -->
+        <div id="tab5" class="tab-content">
+            <h2>Explain in Your Words</h2>
+
+            <div class="production-task">
+                <h3>📝 When Do We Use Each Modal?</h3>
+                <p>Explain the difference between MUST and SHOULD in your own words.</p>
+                <textarea id="elaboration-input" placeholder="MUST is for... SHOULD is for..." style="min-height: 100px;"></textarea>
+                <button class="btn-primary" onclick="alert('Good explanation!')">Save</button>
+            </div>
+
+            <div class="production-task">
+                <h3>🎤 Give Advice</h3>
+                <p>Write 3 pieces of advice to a friend using SHOULD or MUST.</p>
+                <textarea id="advice-text" placeholder="You should... You must... You shouldn't..." style="min-height: 100px;"></textarea>
+                <button class="btn-primary" onclick="alert('Great advice!')">Save</button>
+            </div>
+        </div>
+
+        <!-- TAB 6 -->
+        <div id="tab6" class="tab-content">
+            <h2>Speaking: Give Advice</h2>
+
+            <div class="production-task">
+                <h3>🎤 What Should They Do?</h3>
+                <p><strong>Scenario 1:</strong> Your friend wants to learn English but finds it difficult.</p>
+                <p>What should they do? What must they do?</p>
+                <textarea id="scenario1" placeholder="You should... You must..." style="min-height: 80px;"></textarea>
+
+                <p style="margin-top: 20px;"><strong>Scenario 2:</strong> Someone at work is always late.</p>
+                <p>What should happen? What must they do?</p>
+                <textarea id="scenario2" placeholder="They should... They must..." style="min-height: 80px;"></textarea>
+
+                <p style="margin-top: 20px;"><strong>Scenario 3:</strong> Your health is getting worse.</p>
+                <p>What must you do? What should you change?</p>
+                <textarea id="scenario3" placeholder="I must... I should..." style="min-height: 80px;"></textarea>
+
+                <button class="btn-primary" style="width: 100%; margin-top: 15px;" onclick="alert('Share these with your teacher!')">Save</button>
+            </div>
+        </div>
+
+        <!-- TAB 7 -->
+        <div id="tab7" class="tab-content">
+            <h2>Recall Zone</h2>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 16 (Can You Help?):</div>
+                <p>What modal verb means "ability"? Give an example.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall1')">Show</button>
+                <div id="recall1" class="hidden-content">
+                    <p><strong>✓</strong> CAN/CAN'T for ability</p>
+                    <p>Example: "I can swim." / "I can't speak Chinese."</p>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 22 (Bigger & Better):</div>
+                <p>Complete: Paris is _____ (beautiful) than many cities.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall2')">Show</button>
+                <div id="recall2" class="hidden-content">
+                    <p><strong>✓</strong> Paris is <strong>more beautiful</strong> than many cities.</p>
+                    <p>Long adjectives use MORE.</p>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 23 (Giving Opinions):</div>
+                <p>What expression means strong disagreement while respecting the other person?</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall3')">Show</button>
+                <div id="recall3" class="hidden-content">
+                    <p><strong>✓</strong> "I see what you mean, but..."</p>
+                    <p>This shows respect while offering another view.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8 -->
+        <div id="tab8" class="tab-content">
+            <h2>Final Retrieval Test</h2>
+
+            <div class="production-task">
+                <h3>From Memory</h3>
+                <p><strong>1. Explain MUST and SHOULD:</strong></p>
+                <textarea id="rule-output" placeholder="MUST means... SHOULD means..." style="min-height: 80px; margin-bottom: 15px;"></textarea>
+
+                <p><strong>2. Write 3 original sentences (mix of MUST and SHOULD):</strong></p>
+                <textarea id="sentences-output" placeholder="I must... You should... They must..." style="min-height: 100px; margin-bottom: 15px;"></textarea>
+
+                <button class="btn-primary" onclick="checkFinalTest()">Check</button>
+                <div id="final-feedback" class="feedback"></div>
+            </div>
+
+            <div class="metacognition">
+                <h3>🧠 Reflect</h3>
+                <p>Which modal feels more natural to you - MUST or SHOULD? Why?</p>
+                <textarea id="metacog-input" placeholder="I find... easier because..." style="min-height: 80px;"></textarea>
+                <button class="btn-primary" onclick="alert('Reflection saved!')">Save</button>
+            </div>
+
+            <div class="i-can-statement">
+                ✅ I can use MUST for obligations and necessities
+                <br><br>
+                ✅ I can use SHOULD for advice and recommendations
+            </div>
+
+            <p style="text-align: center; margin-top: 30px; color: #666; font-style: italic;">
+                We said you'd be able to give advice and express obligation. Can you?
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tabbuttons = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(evt, contentId) {
+            var content = document.getElementById(contentId);
+            content.classList.toggle("show");
+            evt.target.textContent = content.classList.contains("show") ? "Hide" : "Show";
+        }
+
+        function checkAnswer(number) {
+            var feedbackData = [
+                [1, 'should rest', 'Advice, not obligation'],
+                [2, 'must go', 'Legal requirement'],
+                [3, 'mustn\'t be', 'Prohibition/obligation not to'],
+                [4, 'should eat', 'Advice for health']
+            ];
+
+            var feedback = document.getElementById('feedback' + number);
+            feedback.innerHTML = '<strong>✓ Correct!</strong> ' + feedbackData[number-1][2];
+            feedback.style.backgroundColor = '#e8f5e9';
+            feedback.style.borderLeft = '4px solid #4caf50';
+            feedback.style.color = '#2e7d32';
+            feedback.style.padding = '15px';
+            feedback.style.borderRadius = '4px';
+            feedback.style.display = 'block';
+        }
+
+        function checkFinalTest() {
+            var ruleOutput = document.getElementById('rule-output').value;
+            var sentencesOutput = document.getElementById('sentences-output').value;
+            var feedback = document.getElementById('final-feedback');
+
+            if (ruleOutput.trim().length > 20 && sentencesOutput.trim().length > 30) {
+                feedback.innerHTML = '<strong>✓ Excellent!</strong> You can distinguish between MUST and SHOULD and use both correctly.';
+                feedback.style.backgroundColor = '#e8f5e9';
+                feedback.style.borderLeft = '4px solid #4caf50';
+                feedback.style.color = '#2e7d32';
+                feedback.style.display = 'block';
+            } else {
+                feedback.innerHTML = '<strong>Try again:</strong> Write both explanations and sentences.';
+                feedback.style.backgroundColor = '#ffebee';
+                feedback.style.borderLeft = '4px solid #f44336';
+                feedback.style.color = '#c62828';
+                feedback.style.display = 'block';
+            }
+            feedback.style.padding = '15px';
+            feedback.style.borderRadius = '4px';
+        }
+    </script>
+</body>
+</html>

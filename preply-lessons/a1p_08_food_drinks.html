@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Lesson 08: Food & Drinks Basics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f0f5 100%);
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .learning-intention {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab-button {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .tab-button:hover {
+            background: #f0f0f0;
+            border-color: #ff6b6b;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border-color: #ff6b6b;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card {
+            background: #f8f9fa;
+            border-left: 4px solid #ff6b6b;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .content-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        .retrieval-task {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe8a8 100%);
+            border: 2px dashed #ffc107;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .retrieval-task h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .reveal {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .emoji-large {
+            font-size: 3em;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .food-card {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .food-card .emoji {
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        .food-card strong {
+            color: #667eea;
+        }
+
+        .i-can {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .recall-zone {
+            background: linear-gradient(135deg, #e1f5ff 0%, #b3e5fc 100%);
+            border: 2px solid #0277bd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .recall-zone h3 {
+            color: #01579b;
+            margin-bottom: 15px;
+        }
+
+        .practice-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .practice-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                border-radius: 5px;
+                width: 100%;
+            }
+
+            .tab-content {
+                border-radius: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍕 Food & Drinks Basics 🍕</h1>
+            <p>Lesson 8: Foundation Unit (Second Half)</p>
+        </div>
+
+        <div class="learning-intention">
+            💡 <strong>Today we're working on</strong> food vocabulary, likes/dislikes, and basic ordering so <strong>you can talk about food and order at restaurants</strong>.
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('tab1')">1. Recall Zone</button>
+            <button class="tab-button" onclick="showTab('tab2')">2. Food & Drinks</button>
+            <button class="tab-button" onclick="showTab('tab3')">3. Like / Don't Like</button>
+            <button class="tab-button" onclick="showTab('tab4')">4. Your Preferences</button>
+            <button class="tab-button" onclick="showTab('tab5')">5. Simple Ordering</button>
+            <button class="tab-button" onclick="showTab('tab6')">6. Conversation</button>
+            <button class="tab-button" onclick="showTab('tab7')">7. Wrap-Up & I Can...</button>
+        </div>
+
+        <!-- Tab 1: Recall Zone -->
+        <div id="tab1" class="tab-content active">
+            <h2>🧠 Recall Zone: From Lessons 4, 5, 6</h2>
+            <p>Let's retrieve using optimal spacing from previous lessons:</p>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 4 (4 lessons back)</h3>
+                <p><strong>Question:</strong> Write numbers 11, 28, 75 in English:</p>
+                <textarea id="recall1" placeholder="Write from memory..."></textarea>
+            </div>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 5 (Review - 3 lessons back)</h3>
+                <p><strong>Question:</strong> Write one "I can..." statement from the foundation unit:</p>
+                <textarea id="recall2" placeholder="Write from memory..."></textarea>
+            </div>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 6 (2 lessons back)</h3>
+                <p><strong>Question:</strong> Write possessives (my, your, his, her) and use one in a sentence:</p>
+                <textarea id="recall3" placeholder="Write from memory..."></textarea>
+            </div>
+
+            <button onclick="alert('✅ Spaced recall complete! You\'re maintaining long-term memory!')" style="width: 100%; margin-top: 15px; padding: 12px;">Check Recalls</button>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>📌 Pattern:</strong> These are spaced from L4 (4 back), L5 (3 back), L6 (2 back). This spacing is based on research about memory!
+            </div>
+        </div>
+
+        <!-- Tab 2: Food & Drinks Vocabulary -->
+        <div id="tab2" class="tab-content">
+            <h2>🍽️ Let's Learn: Food & Drinks</h2>
+            <p>Essential vocabulary for talking about meals and ordering at restaurants:</p>
+
+            <h3 style="margin-top: 20px; color: #667eea;">🍴 Foods</h3>
+
+            <div class="food-card">
+                <div class="emoji">🍔</div>
+                <div><strong>Hamburger / Burger</strong> - meat between bread</div>
+            </div>
+
+            <div class="food-card">
+                <div class="emoji">🍕</div>
+                <div><strong>Pizza</strong> - Italian bread with cheese and toppings</div>
+            </div>
+
+            <div class="food-card">
+                <div class="emoji">🍝</div>
+                <div><strong>Pasta</strong> - Italian noodles with sauce</div>
+            </div>
+
+            <div class="food-card">
+                <div class="emoji">🥗</div>
+                <div><strong>Salad</strong> - vegetables, often with dressing</div>
+            </div>
+
+            <div class="food-card">
+                <div class="emoji">🐔</div>
+                <div><strong>Chicken</strong> - poultry meat</div>
+            </div>
+
+            <div class="food-card">
+                <div class="emoji">🥩</div>
+                <div><strong>Beef / Steak</strong> - cow meat</div>
+            </div>
+
+            <div class="food-card">
+                <div class="emoji">🍜</div>
+                <div><strong>Soup</strong> - hot liquid with vegetables/meat</div>
+            </div>
+
+            <div class="food-card">
+                <div class="emoji">🍱</div>
+                <div><strong>Rice</strong> - grain staple in many countries</div>
+            </div>
+
+            <h3 style="margin-top: 25px; margin-bottom: 10px; color: #667eea;">🥤 Drinks</h3>
+
+            <div class="food-card">
+                <div class="emoji">☕</div>
+                <div><strong>Coffee</strong> - hot caffeinated drink</div>
+            </div>
+
+            <div class="food-card">
+                <div class="emoji">🍵</div>
+                <div><strong>Tea</strong> - hot drink from leaves</div>
+            </div>
+
+            <div class="food-card">
+                <div class="emoji">🥤</div>
+                <div><strong>Water</strong> - essential, no calories</div>
+            </div>
+
+            <div class="food-card">
+                <div class="emoji">🧃</div>
+                <div><strong>Juice</strong> - fruit drink</div>
+            </div>
+
+            <div class="food-card">
+                <div class="emoji">🍺</div>
+                <div><strong>Beer</strong> - alcoholic drink (for adults)</div>
+            </div>
+
+            <div class="food-card">
+                <div class="emoji">🥛</div>
+                <div><strong>Milk</strong> - dairy drink</div>
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💡 Tip:</strong> In English-speaking countries, "Can I have a coffee?" is very common. "May I have" is more formal.
+            </div>
+        </div>
+
+        <!-- Tab 3: Like / Don't Like -->
+        <div id="tab3" class="tab-content">
+            <h2>💚 Let's Learn: Expressing Likes & Dislikes</h2>
+            <p>To talk about food, you need to show your preferences:</p>
+
+            <div class="content-card">
+                <h3>Positive: "I like..."</h3>
+                <p><strong>Pattern:</strong> I + like + [food]</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I like pizza." ✓ (positive)</li>
+                    <li>"I like coffee." ✓</li>
+                    <li>"I really like Italian food." ✓ (add "really" for emphasis)</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Negative: "I don't like..."</h3>
+                <p><strong>Pattern:</strong> I + don't like + [food]</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I don't like fish." ✓ (negative)</li>
+                    <li>"I don't like spicy food." ✓</li>
+                    <li>"I really don't like vegetables." ✓ (emphasis)</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Advanced: "I love..." and "I hate..."</h3>
+                <p><strong>Stronger feelings:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I <strong>love</strong> chocolate!" ♥️ (very positive)</li>
+                    <li>"I <strong>hate</strong> mushrooms." ✗ (very negative)</li>
+                </ul>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💡 Grammar Note:</strong> "I like pizza" (no 's' on pizza). Nouns don't change!
+            </div>
+        </div>
+
+        <!-- Tab 4: Your Food Preferences -->
+        <div id="tab4" class="tab-content">
+            <h2>🎯 Your Turn: Share Your Food Preferences</h2>
+            <p>Create sentences about REAL foods you like and don't like. No models — produce from memory:</p>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 1: Simple Like/Dislike 🍕</h3>
+                <p><strong>Task:</strong> "I like [food]" and "I don't like [food]"</p>
+                <textarea id="food1" placeholder="Example: I like pizza. I don't like fish."></textarea>
+                <button onclick="saveResponse('food1')">Save</button>
+            </div>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 2: With Emphasis 💪</h3>
+                <p><strong>Task:</strong> Use "really" or "love/hate" for stronger feeling</p>
+                <textarea id="food2" placeholder="Example: I really like coffee. I hate spicy food."></textarea>
+                <button onclick="saveResponse('food2')">Save</button>
+            </div>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 3: Mix Drink & Food 🍴</h3>
+                <p><strong>Task:</strong> Combine food AND drink preferences in one response</p>
+                <textarea id="food3" placeholder="Example: I like pizza and coffee. I don't like beer."></textarea>
+                <button onclick="saveResponse('food3')">Save</button>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎉 EXCELLENT!</strong> You're expressing your real preferences in English. That's authentic communication!
+            </div>
+        </div>
+
+        <!-- Tab 5: Simple Ordering -->
+        <div id="tab5" class="tab-content">
+            <h2>📋 Let's Learn: Ordering at a Restaurant</h2>
+            <p>The most practical use of food vocabulary — ordering food!</p>
+
+            <div class="content-card">
+                <h3>Basic Ordering Pattern</h3>
+                <p><strong>Polite way:</strong> "Can I have [food], please?" or "I'll have [food], please."</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"Can I have a coffee, please?" ☕</li>
+                    <li>"I'll have a pizza, please." 🍕</li>
+                    <li>"Can I have water, please?" 🥤</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Adding Details</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"Can I have a coffee <strong>with milk</strong>, please?"</li>
+                    <li>"I'll have a pizza <strong>with cheese and vegetables</strong>."</li>
+                    <li>"Can I have <strong>two</strong> salads, please?"</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Simple Dialogue at Restaurant</h3>
+                <p><strong>Waiter:</strong> "What can I get you?"</p>
+                <p><strong>You:</strong> "Can I have a pizza and a coffee, please?"</p>
+                <p><strong>Waiter:</strong> "Anything else?"</p>
+                <p><strong>You:</strong> "No, thank you. That's all."</p>
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💡 Tip:</strong> "Please" and "Thank you" are very important in English restaurants. Never forget them!
+            </div>
+        </div>
+
+        <!-- Tab 6: Restaurant Conversation -->
+        <div id="tab6" class="tab-content">
+            <h2>💬 Practice: Ordering at a Restaurant</h2>
+            <p>You're at a restaurant. The waiter asks "What would you like?" Complete the conversation:</p>
+
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                <strong style="color: #667eea;">Waiter:</strong> "Hello! What can I get you?"<br><br>
+                <strong style="color: #ff6b6b;">You:</strong>
+            </div>
+
+            <textarea id="order" placeholder="Write your complete order (include food + drink + politeness)..."></textarea>
+            <button onclick="checkOrder()">Check My Order</button>
+            <div id="orderResult"></div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎤 Challenge:</strong> Try saying your order OUT LOUD. Imagine you're actually in a restaurant!
+            </div>
+        </div>
+
+        <!-- Tab 7: Wrap-Up & I Can -->
+        <div id="tab7" class="tab-content">
+            <h2>🎓 Wrap-Up & Self-Assessment</h2>
+            <p>Let's check what you learned — <strong>without looking back!</strong></p>
+
+            <div class="retrieval-task">
+                <h3>📋 Final Recall</h3>
+                <p>From memory, write:</p>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li>5 foods or drinks from today</li>
+                    <li>2 like statements and 2 don't like statements</li>
+                    <li>A complete restaurant order</li>
+                </ol>
+                <textarea id="finalRecall" placeholder="Write from memory..."></textarea>
+                <button onclick="revealAnswer()">I'm Ready to Check</button>
+            </div>
+
+            <div id="revealedAnswer" style="display: none; margin-top: 20px;">
+                <div class="reveal">
+                    <h3>✅ Model Answer</h3>
+                    <p><strong>1. Foods/drinks:</strong> Pizza, burger, pasta, coffee, water, tea, chicken, beer, salad, milk, juice</p>
+                    <p><strong>2. Like statements:</strong> "I like pizza" / "I really like coffee" / "I don't like fish" / "I hate spicy food"</p>
+                    <p><strong>3. Order:</strong> "Can I have a pizza and a coffee with milk, please?"</p>
+                </div>
+
+                <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                    <strong>💭 Metacognitive Reflection:</strong> Which was easier — remembering food words or expressing preferences? Why?
+                </div>
+            </div>
+
+            <div class="i-can">
+                ✅ <strong>I can talk about my food preferences and order at a restaurant in English.</strong>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎉 Lesson 8 Complete!</strong><br>
+                You can now order food and drinks anywhere English is spoken. Next lesson, we'll learn about location and prepositions — describing WHERE things are!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            contents.forEach(el => el.classList.remove('active'));
+            buttons.forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function saveResponse(id) {
+            const text = document.getElementById(id).value;
+            if (text.trim()) {
+                alert('✅ Saved! Great food preferences!');
+            } else {
+                alert('⚠️ Please type something first!');
+            }
+        }
+
+        function checkOrder() {
+            const order = document.getElementById('order').value.trim();
+            const result = document.getElementById('orderResult');
+
+            if (order.length > 15) {
+                const hasFood = /pizza|burger|pasta|salad|coffee|water|tea|beer|chicken/i.test(order);
+                const hasPolite = /please|thank|can i have/i.test(order);
+
+                if (hasFood && hasPolite) {
+                    result.innerHTML = '<div class="reveal"><strong>✅ Perfect order!</strong> You were polite and clear. Any waiter would understand you!</div>';
+                } else if (hasFood) {
+                    result.innerHTML = '<div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; border-radius: 5px;"><strong>Good!</strong> Next time add "please" to be more polite.</div>';
+                } else {
+                    result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Include at least one food or drink item!</div>';
+                }
+            } else {
+                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Write a complete order with food, drink, and politeness!</div>';
+            }
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealedAnswer').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

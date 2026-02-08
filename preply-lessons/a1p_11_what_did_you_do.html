@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 11: What Did You Do?</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2em; margin-bottom: 10px; }
+        .header .learning-intention {
+            font-size: 1.1em;
+            font-style: italic;
+            margin-top: 15px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .tab-button:hover {
+            background: #f0f0f0;
+        }
+        .tab-button.active:hover {
+            background: #667eea;
+        }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .card {
+            background: #f0f4ff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .card h3 { color: #667eea; margin-bottom: 10px; }
+        .card .form { margin-top: 15px; }
+        .card .form textarea, .card .form input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1em;
+        }
+        .verb-box {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .verb-box .infinitive { font-size: 1.2em; font-weight: bold; color: #667eea; }
+        .verb-box .past { font-size: 1.2em; font-weight: bold; color: #764ba2; margin-top: 10px; }
+        .verb-box .example { font-size: 0.95em; color: #555; margin-top: 10px; font-style: italic; }
+        .reveal-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .reveal-button:hover { background: #764ba2; }
+        .revealed {
+            background: #e8f5e9;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #4caf50;
+        }
+        .timer-container {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .timer {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 15px 0;
+            transition: color 0.3s ease;
+        }
+        .timer.warning { color: #ffc107; }
+        .timer.danger { color: #f44336; animation: pulse 0.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .timer-controls button {
+            margin: 5px;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .timer-controls button:hover { background: #764ba2; }
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .practice-item {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .practice-item:hover {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+        .practice-item.correct { background: #e8f5e9; border-color: #4caf50; }
+        .practice-item.incorrect { background: #ffebee; border-color: #f44336; }
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+        .feedback.success {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            color: #2e7d32;
+        }
+        .feedback.error {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            color: #c62828;
+        }
+        .i-can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .reflect-question {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+        .reflect-question strong { color: #f57f17; }
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.5em; }
+            .tabs { flex-direction: column; }
+            .tab-button { width: 100%; text-align: left; }
+            .timer { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📖 Lesson 11: What Did You Do?</h1>
+            <p>Elementary Unit • Knowledge Building</p>
+            <div class="learning-intention">Today we're learning past simple regular verbs so you can talk about what you did yesterday.</div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab(0)">1. Recall Zone</button>
+            <button class="tab-button" onclick="switchTab(1)">2. Learning Goal</button>
+            <button class="tab-button" onclick="switchTab(2)">3. Form Focus</button>
+            <button class="tab-button" onclick="switchTab(3)">4. Guided Practice</button>
+            <button class="tab-button" onclick="switchTab(4)">5. Your Practice</button>
+            <button class="tab-button" onclick="switchTab(5)">6. Speaking Task</button>
+            <button class="tab-button" onclick="switchTab(6)">7. Final Check</button>
+            <button class="tab-button" onclick="switchTab(7)">8. Reflection</button>
+        </div>
+
+        <!-- TAB 1: RECALL ZONE -->
+        <div class="tab-content active">
+            <h2>🧠 Recall Zone: What Do You Remember?</h2>
+            <p><strong>Before we start:</strong> Let's retrieve what you learned in earlier lessons. Write or say your answers <strong>without looking back</strong> — just from memory!</p>
+
+            <div class="card">
+                <h3>Lesson 9: Prepositions</h3>
+                <p>Where are these things? Use: in, on, under, next to</p>
+                <ol>
+                    <li>The book _____ the desk</li>
+                    <li>The cat _____ the bed</li>
+                    <li>The phone _____ the table</li>
+                </ol>
+                <button class="reveal-button" onclick="toggleReveal('recall1')">Show Answers</button>
+                <div id="recall1" style="display:none;" class="revealed">
+                    <p>1. on (The book is ON the desk) | 2. under (The cat is UNDER the bed) | 3. next to (The phone is NEXT TO the table)</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Lesson 8: Food & "Like/Don't Like"</h3>
+                <p>Complete with your own ideas:</p>
+                <ol>
+                    <li>I like _____</li>
+                    <li>I don't like _____</li>
+                    <li>What do YOU like to eat?</li>
+                </ol>
+                <button class="reveal-button" onclick="toggleReveal('recall2')">Show Model</button>
+                <div id="recall2" style="display:none;" class="revealed">
+                    <p>1. I like pizza / coffee / chocolate (your choice!) | 2. I don't like spicy food / fish (your choice!) | 3. This is YOUR answer — there's no wrong answer!</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Lesson 7: Daily Routines</h3>
+                <p>What do you do every morning? Name 3 things:</p>
+                <ol>
+                    <li>_____</li>
+                    <li>_____</li>
+                    <li>_____</li>
+                </ol>
+                <button class="reveal-button" onclick="toggleReveal('recall3')">Show Examples</button>
+                <div id="recall3" style="display:none;" class="revealed">
+                    <p>Examples: I wake up, I eat breakfast, I shower, I get dressed, I drink coffee. YOUR answer is what YOU do!</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; font-style: italic; color: #666;">Good! You remember these. Today we'll use similar language BUT in the past form.</p>
+        </div>
+
+        <!-- TAB 2: LEARNING GOAL -->
+        <div class="tab-content">
+            <h2>🎯 Today's Goal</h2>
+            <p>Look at these two sentences:</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                <div class="card">
+                    <strong style="color: #667eea;">PRESENT (NOW)</strong>
+                    <p style="margin-top: 10px;">I work every day.</p>
+                    <p>I walk to the shop.</p>
+                    <p>I watch TV.</p>
+                </div>
+                <div class="card">
+                    <strong style="color: #764ba2;">PAST (YESTERDAY)</strong>
+                    <p style="margin-top: 10px;">I <span style="background: #fff9e6; padding: 2px 6px;">worked</span> yesterday.</p>
+                    <p>I <span style="background: #fff9e6; padding: 2px 6px;">walked</span> to the shop.</p>
+                    <p>I <span style="background: #fff9e6; padding: 2px 6px;">watched</span> TV.</p>
+                </div>
+            </div>
+            <p><strong>The Pattern:</strong> For regular verbs in the past, we add <span style="background: #ffc107; padding: 4px 8px; font-weight: bold;">-ED</span></p>
+            <p style="margin-top: 20px; font-size: 1.1em;">By the end of this lesson, you'll be able to talk about what you did yesterday using past simple regular verbs. ✓</p>
+        </div>
+
+        <!-- TAB 3: FORM FOCUS -->
+        <div class="tab-content">
+            <h2>📚 How to Make Regular Past Verbs</h2>
+            <p><strong>Rule:</strong> Base verb + <span style="background: #ffc107; padding: 4px 8px; font-weight: bold;">-ED</span> = Past tense</p>
+
+            <h3 style="margin-top: 30px; color: #667eea;">The Verbs We'll Learn Today:</h3>
+
+            <div class="verb-box">
+                <div class="infinitive">WORK</div>
+                <div class="past">→ WORKED</div>
+                <div class="example">I worked yesterday. / She worked hard.</div>
+            </div>
+
+            <div class="verb-box">
+                <div class="infinitive">WALK</div>
+                <div class="past">→ WALKED</div>
+                <div class="example">I walked to school. / He walked home.</div>
+            </div>
+
+            <div class="verb-box">
+                <div class="infinitive">WATCH</div>
+                <div class="past">→ WATCHED</div>
+                <div class="example">I watched TV. / We watched a movie.</div>
+            </div>
+
+            <div class="verb-box">
+                <div class="infinitive">COOK</div>
+                <div class="past">→ COOKED</div>
+                <div class="example">I cooked breakfast. / She cooked dinner.</div>
+            </div>
+
+            <div class="verb-box">
+                <div class="infinitive">LISTEN</div>
+                <div class="past">→ LISTENED</div>
+                <div class="example">I listened to music. / They listened carefully.</div>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #764ba2;">Why -ED?</h3>
+            <p>In English, <strong>most</strong> regular verbs show the past by adding -ED. It's the most common way to talk about something that already happened. Only a few "irregular" verbs (like GO → WENT, EAT → ATE) don't follow this rule — we'll learn those later.</p>
+        </div>
+
+        <!-- TAB 4: GUIDED PRACTICE -->
+        <div class="tab-content">
+            <h2>🤝 Guided Practice: I Do → We Do → You Do</h2>
+
+            <h3 style="margin-top: 20px; color: #667eea;">STEP 1: I DO (Teacher Model)</h3>
+            <div class="card">
+                <p><strong>Question:</strong> What did you do yesterday?</p>
+                <p><strong>My answer:</strong> "Yesterday, I <span style="background: #e8f5e9; padding: 2px 6px; color: #2e7d32; font-weight: bold;">walked</span> in the park. I <span style="background: #e8f5e9; padding: 2px 6px; color: #2e7d32; font-weight: bold;">watched</span> a movie. I <span style="background: #e8f5e9; padding: 2px 6px; color: #2e7d32; font-weight: bold;">cooked</span> dinner."</p>
+                <p style="margin-top: 10px; color: #555; font-size: 0.95em;"><em>Notice: All three verbs use the -ED past form!</em></p>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #667eea;">STEP 2: WE DO (Teacher + Student Together)</h3>
+            <div class="card">
+                <p><strong>I start a sentence, you finish it:</strong></p>
+                <p>Teacher: "Yesterday, I walked to..."</p>
+                <p><input type="text" placeholder="YOU finish: ...to where?" style="width: 100%; padding: 10px; margin-top: 10px; border: 1px solid #667eea; border-radius: 5px;"></p>
+                <button class="reveal-button" onclick="toggleReveal('wedo1')">Show Examples</button>
+                <div id="wedo1" style="display:none;" class="revealed">
+                    <p><strong>Possible completions:</strong> ...to school | ...to the store | ...to my friend's house | ...to the park</p>
+                    <p><em>Your sentence: "Yesterday, I walked to [your place]."</em></p>
+                </div>
+            </div>
+
+            <div class="card">
+                <p><strong>Another example:</strong></p>
+                <p>Teacher: "I watched..."</p>
+                <p><input type="text" placeholder="YOU finish: ...what?" style="width: 100%; padding: 10px; margin-top: 10px; border: 1px solid #667eea; border-radius: 5px;"></p>
+                <button class="reveal-button" onclick="toggleReveal('wedo2')">Show Examples</button>
+                <div id="wedo2" style="display:none;" class="revealed">
+                    <p><strong>Possible completions:</strong> ...a movie | ...TV | ...a football game | ...my friend's dog</p>
+                    <p><em>Your sentence: "I watched [your thing]."</em></p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #667eea;">STEP 3: YOU DO (Student Alone)</h3>
+            <div class="card">
+                <p><strong>Now YOU write two sentences about what you did yesterday.</strong> Use these verbs:</p>
+                <p style="margin: 15px 0; font-weight: bold;">WORKED • LISTENED • COOKED</p>
+                <textarea placeholder="Write your two sentences here. Example: 'I worked... I listened...' Don't look at the model — try it yourself first!" style="height: 100px; font-size: 1em;"></textarea>
+                <p style="margin-top: 10px; color: #666; font-size: 0.9em;"><em>Take your time. There's no perfect answer — just use past simple + -ED!</em></p>
+            </div>
+        </div>
+
+        <!-- TAB 5: YOUR PRACTICE -->
+        <div class="tab-content">
+            <h2>🎯 Interleaved Practice</h2>
+            <p><strong>Mix it up!</strong> Below are 8 sentences. Some are present, some are past. You complete them with the correct form.</p>
+
+            <div class="practice-grid">
+                <div class="practice-item">
+                    <p><strong>1.</strong> I _____ (walk) to school every day.</p>
+                    <p style="color: #667eea; font-size: 0.9em; margin-top: 10px;"><em>Present or Past?</em></p>
+                    <button class="reveal-button" onclick="toggleReveal('q1')">Answer</button>
+                    <div id="q1" style="display:none;" class="revealed">
+                        <p><strong>WALK</strong> (present) — "every day" = now</p>
+                        <p>I <strong>walk</strong> to school every day.</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>2.</strong> Yesterday, I _____ (cook) dinner.</p>
+                    <button class="reveal-button" onclick="toggleReveal('q2')">Answer</button>
+                    <div id="q2" style="display:none;" class="revealed">
+                        <p><strong>COOKED</strong> (past) — "Yesterday" = already happened</p>
+                        <p>Yesterday, I <strong>cooked</strong> dinner.</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>3.</strong> She _____ (listen) to music right now.</p>
+                    <button class="reveal-button" onclick="toggleReveal('q3')">Answer</button>
+                    <div id="q3" style="display:none;" class="revealed">
+                        <p><strong>LISTENS</strong> (present) — "right now" = this moment</p>
+                        <p>She <strong>listens</strong> to music right now.</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>4.</strong> Last week, he _____ (work) every day.</p>
+                    <button class="reveal-button" onclick="toggleReveal('q4')">Answer</button>
+                    <div id="q4" style="display:none;" class="revealed">
+                        <p><strong>WORKED</strong> (past) — "Last week" = finished</p>
+                        <p>Last week, he <strong>worked</strong> every day.</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>5.</strong> They _____ (watch) TV together every evening.</p>
+                    <button class="reveal-button" onclick="toggleReveal('q5')">Answer</button>
+                    <div id="q5" style="display:none;" class="revealed">
+                        <p><strong>WATCH</strong> (present) — "every evening" = regular habit</p>
+                        <p>They <strong>watch</strong> TV together every evening.</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>6.</strong> I _____ (walk) home yesterday.</p>
+                    <button class="reveal-button" onclick="toggleReveal('q6')">Answer</button>
+                    <div id="q6" style="display:none;" class="revealed">
+                        <p><strong>WALKED</strong> (past) — "yesterday" = already happened</p>
+                        <p>I <strong>walked</strong> home yesterday.</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>7.</strong> We _____ (listen) to the teacher every day.</p>
+                    <button class="reveal-button" onclick="toggleReveal('q7')">Answer</button>
+                    <div id="q7" style="display:none;" class="revealed">
+                        <p><strong>LISTEN</strong> (present) — "every day" = regular</p>
+                        <p>We <strong>listen</strong> to the teacher every day.</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>8.</strong> You _____ (cook) breakfast this morning.</p>
+                    <button class="reveal-button" onclick="toggleReveal('q8')">Answer</button>
+                    <div id="q8" style="display:none;" class="revealed">
+                        <p><strong>COOKED</strong> (past) — "this morning" = already finished</p>
+                        <p>You <strong>cooked</strong> breakfast this morning.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #764ba2;">What Did You Notice?</h3>
+            <p><strong>Elaboration question:</strong> In your own words, how do you decide if a verb should be past or present? What words help you know?</p>
+            <textarea placeholder="Your explanation (2-3 sentences):" style="width: 100%; height: 80px; padding: 10px; margin-top: 10px; border: 1px solid #667eea; border-radius: 5px; font-family: inherit;"></textarea>
+        </div>
+
+        <!-- TAB 6: SPEAKING TASK -->
+        <div class="tab-content">
+            <h2>🗣️ Speaking Task: Tell Your Story</h2>
+            <p><strong>No timer this time — just speak naturally.</strong> Tell your teacher about your day yesterday. Use at least 3 of these verbs in the past:</p>
+            <p style="font-weight: bold; margin: 20px 0;">WORKED • WALKED • WATCHED • COOKED • LISTENED</p>
+
+            <div class="card">
+                <p><strong>Your Task:</strong></p>
+                <ol>
+                    <li>Tell your teacher 3-4 things you did yesterday</li>
+                    <li>Use past simple (add -ED)</li>
+                    <li>Try to use at least 3 of the verbs listed above</li>
+                    <li>Speak naturally — don't read from a script</li>
+                </ol>
+                <p style="margin-top: 20px; color: #666; font-style: italic;">If you forget a word, that's OK — your teacher will help. The goal is to SPEAK, not to be perfect!</p>
+            </div>
+
+            <div class="reflect-question">
+                <strong>📝 After speaking:</strong> Which of the 5 verbs did you use most easily? Which was hardest? Why?
+                <textarea placeholder="Your reflection:" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #f57f17; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 7: FINAL CHECK -->
+        <div class="tab-content">
+            <h2>✅ Final Retrieval Check</h2>
+            <p><strong>Now, test yourself!</strong> From memory (without looking back), write the past form of these verbs:</p>
+
+            <div class="card">
+                <p style="margin-bottom: 20px;"><strong>Complete the sentence with the PAST form. Don't look above!</strong></p>
+                <ol>
+                    <li>WORK → I _____ yesterday</li>
+                    <li>WALK → She _____ to school</li>
+                    <li>WATCH → We _____ a movie</li>
+                    <li>COOK → He _____ breakfast</li>
+                    <li>LISTEN → I _____ to music</li>
+                </ol>
+                <button class="reveal-button" onclick="toggleReveal('final')">Check Your Answers</button>
+                <div id="final" style="display:none;" class="revealed">
+                    <p><strong>Correct answers:</strong></p>
+                    <p>1. worked | 2. walked | 3. watched | 4. cooked | 5. listened</p>
+                    <p style="margin-top: 15px; font-weight: 600; color: #2e7d32;">Did you get them all? Great! If you missed some, don't worry — you'll see these verbs again in future lessons.</p>
+                </div>
+            </div>
+
+            <div class="i-can-statement">
+                <p>✓ I can talk about past activities using regular past simple verbs</p>
+            </div>
+
+            <div class="reflect-question">
+                <strong>🧠 Metacognition: How Did You Learn Best Today?</strong>
+                <p style="margin-top: 10px; font-size: 0.95em;">Was it the verb boxes? The guided practice? The speaking task? The interleaved questions? What helped you remember the -ED pattern most?</p>
+                <textarea placeholder="Your reflection:" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #f57f17; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 8: REFLECTION -->
+        <div class="tab-content">
+            <h2>🎓 Lesson Complete!</h2>
+            <p style="font-size: 1.1em; margin: 20px 0;"><strong>We said you'd be able to talk about what you did yesterday using past simple regular verbs. Can you?</strong></p>
+
+            <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin: 20px 0;">
+                <p style="margin: 10px 0;"><strong>✓ You learned:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Regular past simple = Base verb + -ED</li>
+                    <li>5 common verbs: worked, walked, watched, cooked, listened</li>
+                    <li>How to tell past from present (keywords like "yesterday", "last week")</li>
+                </ul>
+            </div>
+
+            <div style="background: #f0f4ff; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea; margin: 20px 0;">
+                <p style="margin: 10px 0;"><strong>📌 Next time:</strong></p>
+                <p>In Lesson 12, we'll learn the TRICKY verbs — the ones that DON'T use -ED. These are called "irregular verbs". Examples: GO → WENT, EAT → ATE, SLEEP → SLEPT. Get ready for some fun surprises!</p>
+            </div>
+
+            <div class="reflect-question">
+                <strong>Final Reflection:</strong>
+                <p style="margin-top: 10px;">What's one sentence you could say right now about your day yesterday? (Practice it once before answering!)</p>
+                <textarea placeholder="Your sentence:" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #f57f17; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(index) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            contents.forEach((content, i) => {
+                content.classList.remove('active');
+                buttons[i].classList.remove('active');
+            });
+
+            contents[index].classList.add('active');
+            buttons[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(id) {
+            const element = document.getElementById(id);
+            if (element.style.display === 'none') {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        }
+
+        // Timer function (if used)
+        function startTimer(duration, display) {
+            let time = duration;
+            const timer = setInterval(() => {
+                const minutes = parseInt(time / 60, 10);
+                const seconds = parseInt(time % 60, 10);
+
+                display.textContent = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+                if (time > 0) {
+                    time--;
+                } else {
+                    clearInterval(timer);
+                    display.textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

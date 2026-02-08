@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 12: Yesterday's Story</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2em; margin-bottom: 10px; }
+        .header .learning-intention {
+            font-size: 1.1em;
+            font-style: italic;
+            margin-top: 15px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background: #ff6b6b;
+            color: white;
+            border-color: #ff6b6b;
+        }
+        .tab-button:hover { background: #f0f0f0; }
+        .tab-button.active:hover { background: #ff6b6b; }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active { display: block; }
+        .card {
+            background: #fff9e6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+        }
+        .card h3 { color: #ff6b6b; margin-bottom: 10px; }
+        .verb-box {
+            background: white;
+            border: 2px solid #ff6b6b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .verb-box .infinitive { font-size: 1.2em; font-weight: bold; color: #ff6b6b; }
+        .verb-box .past { font-size: 1.2em; font-weight: bold; color: #e74c3c; margin-top: 10px; }
+        .verb-box .example { font-size: 0.95em; color: #555; margin-top: 10px; font-style: italic; }
+        .reveal-button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .reveal-button:hover { background: #e74c3c; }
+        .revealed {
+            background: #e8f5e9;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #4caf50;
+        }
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .practice-item {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .practice-item:hover {
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+            border-color: #ff6b6b;
+        }
+        .i-can-statement {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .reflect-question {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.5em; }
+            .tabs { flex-direction: column; }
+            .tab-button { width: 100%; text-align: left; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📖 Lesson 12: Yesterday's Story</h1>
+            <p>Elementary Unit • Curious Conversations</p>
+            <div class="learning-intention">Today we're learning irregular past verbs so you can tell stories about what happened.</div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab(0)">1. Recall Zone</button>
+            <button class="tab-button" onclick="switchTab(1)">2. The Story Hook</button>
+            <button class="tab-button" onclick="switchTab(2)">3. Irregular Verbs A</button>
+            <button class="tab-button" onclick="switchTab(3)">4. Irregular Verbs B</button>
+            <button class="tab-button" onclick="switchTab(4)">5. Your Turn</button>
+            <button class="tab-button" onclick="switchTab(5)">6. Deep Dive Story</button>
+            <button class="tab-button" onclick="switchTab(6)">7. Final Check</button>
+            <button class="tab-button" onclick="switchTab(7)">8. Reflection</button>
+        </div>
+
+        <!-- TAB 1: RECALL ZONE -->
+        <div class="tab-content active">
+            <h2>🧠 Recall Zone: What Do You Remember?</h2>
+            <p>Let's quickly review from your recent lessons. Write answers WITHOUT looking back!</p>
+
+            <div class="card">
+                <h3>Lesson 11: Past Simple Regular Verbs</h3>
+                <p>Complete these past simple sentences:</p>
+                <ol>
+                    <li>I _____ (work) yesterday</li>
+                    <li>She _____ (walk) to school</li>
+                    <li>We _____ (watch) a movie</li>
+                </ol>
+                <button class="reveal-button" onclick="toggleReveal('recall1')">Check Answers</button>
+                <div id="recall1" style="display:none;" class="revealed">
+                    <p>1. worked | 2. walked | 3. watched | All use the -ED ending!</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Lesson 10: Food & "Like"</h3>
+                <p>Name 2 foods you like and 1 you don't like:</p>
+                <button class="reveal-button" onclick="toggleReveal('recall2')">Model Answers</button>
+                <div id="recall2" style="display:none;" class="revealed">
+                    <p>Example: I like pizza and coffee. I don't like spicy food. (YOUR answers are YOUR choice!)</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Lesson 9: Prepositions</h3>
+                <p>What prepositions do you remember? Name 3:</p>
+                <button class="reveal-button" onclick="toggleReveal('recall3')">Examples</button>
+                <div id="recall3" style="display:none;" class="revealed">
+                    <p>in, on, under, next to, behind, in front of — pick any 3 you remember!</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; font-style: italic; color: #666;">Good! Today we're adding SPECIAL past verbs that break the -ED rule.</p>
+        </div>
+
+        <!-- TAB 2: THE STORY HOOK -->
+        <div class="tab-content">
+            <h2>📚 Why Irregular Verbs Matter</h2>
+            <p style="font-size: 1.1em; margin: 20px 0;"><strong>Look at this story:</strong></p>
+
+            <div class="card">
+                <p>"Yesterday, I <span style="background: #fff9e6; padding: 2px 6px; font-weight: bold;">woke up</span> late. I <span style="background: #fff9e6; padding: 2px 6px; font-weight: bold;">ate</span> breakfast quickly. I <span style="background: #fff9e6; padding: 2px 6px; font-weight: bold;">ran</span> to the bus. I <span style="background: #fff9e6; padding: 2px 6px; font-weight: bold;">sat</span> down and <span style="background: #fff9e6; padding: 2px 6px; font-weight: bold;">felt</span> tired. But I <span style="background: #fff9e6; padding: 2px 6px; font-weight: bold;">had</span> a good day!"</p>
+            </div>
+
+            <p style="margin: 20px 0;"><strong>Did you notice?</strong> These verbs DON'T use -ED! They change completely:</p>
+            <ul style="margin-left: 20px; margin: 20px 0;">
+                <li><strong>WAKE</strong> → WOKE (not "waked")</li>
+                <li><strong>EAT</strong> → ATE (not "eated")</li>
+                <li><strong>RUN</strong> → RAN (not "runned")</li>
+                <li><strong>SIT</strong> → SAT (not "sitted")</li>
+                <li><strong>FEEL</strong> → FELT (not "feeled")</li>
+                <li><strong>HAVE</strong> → HAD (not "haved")</li>
+            </ul>
+
+            <p style="margin-top: 20px;"><strong>These are IRREGULAR verbs.</strong> They're broken, unusual, special — and they're VERY common. The more you use English, the more you'll recognize them naturally.</p>
+        </div>
+
+        <!-- TAB 3: IRREGULAR VERBS A -->
+        <div class="tab-content">
+            <h2>📚 First Group of Irregular Verbs</h2>
+            <p><strong>Learn these 5 irregular verbs:</strong></p>
+
+            <div class="verb-box">
+                <div class="infinitive">GO</div>
+                <div class="past">→ WENT</div>
+                <div class="example">I went to the store. / She went home.</div>
+            </div>
+
+            <div class="verb-box">
+                <div class="infinitive">SEE</div>
+                <div class="past">→ SAW</div>
+                <div class="example">I saw a movie. / We saw a friend.</div>
+            </div>
+
+            <div class="verb-box">
+                <div class="infinitive">GET</div>
+                <div class="past">→ GOT</div>
+                <div class="example">I got a new phone. / He got home late.</div>
+            </div>
+
+            <div class="verb-box">
+                <div class="infinitive">COME</div>
+                <div class="past">→ CAME</div>
+                <div class="example">They came to visit. / She came early.</div>
+            </div>
+
+            <div class="verb-box">
+                <div class="infinitive">MAKE</div>
+                <div class="past">→ MADE</div>
+                <div class="example">I made dinner. / We made a cake.</div>
+            </div>
+
+            <p style="margin-top: 20px; color: #666;"><em>Notice: These don't follow a pattern. You must MEMORIZE them.</em></p>
+        </div>
+
+        <!-- TAB 4: IRREGULAR VERBS B -->
+        <div class="tab-content">
+            <h2>📚 Second Group of Irregular Verbs</h2>
+            <p><strong>Learn these 5 more irregular verbs:</strong></p>
+
+            <div class="verb-box">
+                <div class="infinitive">EAT</div>
+                <div class="past">→ ATE</div>
+                <div class="example">I ate breakfast. / We ate pizza.</div>
+            </div>
+
+            <div class="verb-box">
+                <div class="infinitive">SLEEP</div>
+                <div class="past">→ SLEPT</div>
+                <div class="example">I slept 8 hours. / She slept well.</div>
+            </div>
+
+            <div class="verb-box">
+                <div class="infinitive">DRINK</div>
+                <div class="past">→ DRANK</div>
+                <div class="example">I drank coffee. / He drank water.</div>
+            </div>
+
+            <div class="verb-box">
+                <div class="infinitive">TAKE</div>
+                <div class="past">→ TOOK</div>
+                <div class="example">I took a photo. / She took the bus.</div>
+            </div>
+
+            <div class="verb-box">
+                <div class="infinitive">LEAVE</div>
+                <div class="past">→ LEFT</div>
+                <div class="example">I left home early. / They left the party.</div>
+            </div>
+
+            <p style="margin-top: 20px; color: #666;"><em>Again: These don't follow a pattern. MEMORIZE the pairs.</em></p>
+        </div>
+
+        <!-- TAB 5: YOUR TURN -->
+        <div class="tab-content">
+            <h2>🎯 Discussion Cards: Tell Your Story</h2>
+            <p><strong>Pick 2-3 of these questions. Answer with PAST IRREGULAR VERBS from above!</strong></p>
+
+            <div class="practice-grid">
+                <div class="practice-item">
+                    <p><strong>1. Where did you go yesterday?</strong></p>
+                    <p style="margin-top: 15px; font-size: 0.9em; color: #666;"><em>Use: GO → WENT</em></p>
+                    <textarea placeholder="I went to..." style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #ff6b6b; border-radius: 5px; font-family: inherit;"></textarea>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>2. What did you eat for breakfast?</strong></p>
+                    <p style="margin-top: 15px; font-size: 0.9em; color: #666;"><em>Use: EAT → ATE</em></p>
+                    <textarea placeholder="I ate..." style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #ff6b6b; border-radius: 5px; font-family: inherit;"></textarea>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>3. What did you see yesterday?</strong></p>
+                    <p style="margin-top: 15px; font-size: 0.9em; color: #666;"><em>Use: SEE → SAW</em></p>
+                    <textarea placeholder="I saw..." style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #ff6b6b; border-radius: 5px; font-family: inherit;"></textarea>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>4. Did anyone come visit you recently?</strong></p>
+                    <p style="margin-top: 15px; font-size: 0.9em; color: #666;"><em>Use: COME → CAME</em></p>
+                    <textarea placeholder="Yes, [person] came to..." style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #ff6b6b; border-radius: 5px; font-family: inherit;"></textarea>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>5. What did you make or do yesterday?</strong></p>
+                    <p style="margin-top: 15px; font-size: 0.9em; color: #666;"><em>Use: MAKE → MADE or GET → GOT</em></p>
+                    <textarea placeholder="I made..." style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #ff6b6b; border-radius: 5px; font-family: inherit;"></textarea>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>6. How much did you sleep last night?</strong></p>
+                    <p style="margin-top: 15px; font-size: 0.9em; color: #666;"><em>Use: SLEEP → SLEPT</em></p>
+                    <textarea placeholder="I slept..." style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #ff6b6b; border-radius: 5px; font-family: inherit;"></textarea>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; font-style: italic; color: #666;"><strong>Remember:</strong> You're learning from MEMORY now — don't look at the verb boxes unless you really need to!</p>
+        </div>
+
+        <!-- TAB 6: DEEP DIVE STORY -->
+        <div class="tab-content">
+            <h2>🗣️ Deep Dive: Tell a Complete Story</h2>
+            <p><strong>Create a short story about your yesterday using at least 6 different irregular verbs!</strong></p>
+
+            <div class="card">
+                <p><strong>Choose 2 of these story starters:</strong></p>
+                <ol>
+                    <li>"Yesterday morning, I woke up late. Then I..."</li>
+                    <li>"Last night, I went somewhere interesting. When I got there, I..."</li>
+                    <li>"My friend came to visit me yesterday. We..."</li>
+                </ol>
+                <p style="margin-top: 20px; font-weight: 600;">Try to use at least these verbs:</p>
+                <p style="margin: 10px 0; font-weight: 600;">WOKE (UP) • ATE • WENT • SAW • TOOK • SLEPT • CAME • MADE • GOT • LEFT</p>
+                <textarea placeholder="Write your story here. Use past tense! Example: 'I woke up late. I ate breakfast quickly. I went to...' Don't worry about perfect grammar — just practice using the irregular verbs!" style="width: 100%; height: 150px; padding: 10px; margin-top: 15px; border: 1px solid #ff6b6b; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+
+            <div class="reflect-question">
+                <strong>📝 After writing:</strong> Which 3 irregular verbs did you use most naturally? Did any feel strange?
+                <textarea placeholder="Your reflection:" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #f57f17; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 7: FINAL CHECK -->
+        <div class="tab-content">
+            <h2>✅ Final Retrieval Test</h2>
+            <p><strong>From MEMORY (no looking back!), write the past form:</strong></p>
+
+            <div class="practice-grid">
+                <div class="practice-item">
+                    <p><strong>GO</strong> → _____</p>
+                    <button class="reveal-button" onclick="toggleReveal('f1')">Answer</button>
+                    <div id="f1" style="display:none;" class="revealed">WENT</div>
+                </div>
+                <div class="practice-item">
+                    <p><strong>EAT</strong> → _____</p>
+                    <button class="reveal-button" onclick="toggleReveal('f2')">Answer</button>
+                    <div id="f2" style="display:none;" class="revealed">ATE</div>
+                </div>
+                <div class="practice-item">
+                    <p><strong>SEE</strong> → _____</p>
+                    <button class="reveal-button" onclick="toggleReveal('f3')">Answer</button>
+                    <div id="f3" style="display:none;" class="revealed">SAW</div>
+                </div>
+                <div class="practice-item">
+                    <p><strong>COME</strong> → _____</p>
+                    <button class="reveal-button" onclick="toggleReveal('f4')">Answer</button>
+                    <div id="f4" style="display:none;" class="revealed">CAME</div>
+                </div>
+                <div class="practice-item">
+                    <p><strong>GET</strong> → _____</p>
+                    <button class="reveal-button" onclick="toggleReveal('f5')">Answer</button>
+                    <div id="f5" style="display:none;" class="revealed">GOT</div>
+                </div>
+                <div class="practice-item">
+                    <p><strong>SLEEP</strong> → _____</p>
+                    <button class="reveal-button" onclick="toggleReveal('f6')">Answer</button>
+                    <div id="f6" style="display:none;" class="revealed">SLEPT</div>
+                </div>
+                <div class="practice-item">
+                    <p><strong>TAKE</strong> → _____</p>
+                    <button class="reveal-button" onclick="toggleReveal('f7')">Answer</button>
+                    <div id="f7" style="display:none;" class="revealed">TOOK</div>
+                </div>
+                <div class="practice-item">
+                    <p><strong>MAKE</strong> → _____</p>
+                    <button class="reveal-button" onclick="toggleReveal('f8')">Answer</button>
+                    <div id="f8" style="display:none;" class="revealed">MADE</div>
+                </div>
+                <div class="practice-item">
+                    <p><strong>DRINK</strong> → _____</p>
+                    <button class="reveal-button" onclick="toggleReveal('f9')">Answer</button>
+                    <div id="f9" style="display:none;" class="revealed">DRANK</div>
+                </div>
+                <div class="practice-item">
+                    <p><strong>LEAVE</strong> → _____</p>
+                    <button class="reveal-button" onclick="toggleReveal('f10')">Answer</button>
+                    <div id="f10" style="display:none;" class="revealed">LEFT</div>
+                </div>
+            </div>
+
+            <div class="i-can-statement">
+                <p>✓ I can tell stories about past events using irregular verbs</p>
+            </div>
+
+            <div class="reflect-question">
+                <strong>🧠 What helped you remember these irregular verbs?</strong>
+                <p style="margin-top: 10px; font-size: 0.95em;">Was it repetition? The visual verb boxes? Telling your own story? Saying them out loud?</p>
+                <textarea placeholder="Your reflection:" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #f57f17; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 8: REFLECTION -->
+        <div class="tab-content">
+            <h2>🎓 Lesson Complete!</h2>
+            <p style="font-size: 1.1em; margin: 20px 0;"><strong>We said you'd be able to tell stories about what happened. Can you?</strong></p>
+
+            <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin: 20px 0;">
+                <p style="margin: 10px 0;"><strong>✓ You learned:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>10 irregular verbs (verbs that break the -ED rule)</li>
+                    <li>How to recognize them (no pattern — just memorize!)</li>
+                    <li>How to use them in stories about the past</li>
+                </ul>
+            </div>
+
+            <div style="background: #f0f4ff; padding: 20px; border-radius: 8px; border-left: 4px solid #ff6b6b; margin: 20px 0;">
+                <p style="margin: 10px 0;"><strong>📌 Next time:</strong></p>
+                <p>In Lesson 13, we'll practice SHOPPING — asking for things, saying what you want, discussing prices. It's a real conversation skill you'll use everywhere!</p>
+            </div>
+
+            <div class="reflect-question">
+                <strong>Final Reflection:</strong>
+                <p style="margin-top: 10px;">Tell your teacher one thing you did yesterday using at least 2 irregular verbs:</p>
+                <textarea placeholder="Example: 'I woke up late and ate breakfast. Then I went to...'" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #f57f17; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(index) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            contents.forEach((content, i) => {
+                content.classList.remove('active');
+                buttons[i].classList.remove('active');
+            });
+            contents[index].classList.add('active');
+            buttons[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(id) {
+            const element = document.getElementById(id);
+            element.style.display = element.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

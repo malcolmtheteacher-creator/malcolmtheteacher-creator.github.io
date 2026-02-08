@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 34: Questions, Questions!</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f8f9fa 0%, #e8eef2 100%); color: #1a1a2e; line-height: 1.6; min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: white; padding: 30px 20px; text-align: center; }
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        .learning-intention { background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px 20px; margin: 20px; border-radius: 4px; font-weight: 500; color: #1b5e20; }
+        .tabs { display: flex; border-bottom: 2px solid #e0e0e0; overflow-x: auto; background: #f8f9fa; }
+        .tab-button { padding: 15px 20px; border: none; background: transparent; cursor: pointer; font-size: 0.95em; font-weight: 500; color: #666; transition: all 0.3s ease; white-space: nowrap; border-bottom: 3px solid transparent; }
+        .tab-button:hover { color: #2ecc71; }
+        .tab-button.active { color: #2ecc71; border-bottom-color: #2ecc71; }
+        .tab-content { display: none; padding: 30px; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .content-section { margin-bottom: 25px; }
+        .section-title { font-size: 1.3em; font-weight: 600; color: #2ecc71; margin-bottom: 15px; }
+        .retrieval-task { background: #f1f8e9; border-left: 4px solid #4caf50; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .retrieval-task textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; min-height: 80px; }
+        .example-box { background: #f8f9fa; border: 1px solid #ddd; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .practice-box { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .reveal-button { background: #2ecc71; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 500; margin-top: 10px; }
+        .reveal-button:hover { background: #27ae60; }
+        .hidden-content { display: none; background: #e8f5e9; border-left: 4px solid #2ecc71; padding: 12px; margin-top: 10px; border-radius: 4px; }
+        .hidden-content.revealed { display: block; }
+        .recall-zone { background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f6 100%); border: 2px solid #28a745; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .recall-zone h3 { color: #28a745; margin-bottom: 15px; }
+        .recall-item { background: white; padding: 12px; border-left: 4px solid #28a745; margin-bottom: 10px; border-radius: 4px; }
+        .i-can-statement { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; font-size: 1.1em; font-weight: 500; margin-top: 20px; }
+        .metacognition-box { background: #f8f9fa; border: 2px solid #667eea; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .metacognition-box h4 { color: #667eea; margin-bottom: 10px; }
+        @media (max-width: 768px) { .header h1 { font-size: 1.6em; } .tab-button { padding: 12px 15px; font-size: 0.85em; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>❓ Lesson 34: Questions, Questions!</h1>
+            <p>Master the art of asking questions</p>
+        </div>
+        
+        <div class="learning-intention">
+            <strong>Learning Intention:</strong> Today we're reviewing all question types (yes/no, wh-, with modals, with different tenses) so you can ask naturally in any conversation.
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(event, 'tab1')">Retrieval + Context</button>
+            <button class="tab-button" onclick="showTab(event, 'tab2')">Question Types</button>
+            <button class="tab-button" onclick="showTab(event, 'tab3')">Word Order Deep Dive</button>
+            <button class="tab-button" onclick="showTab(event, 'tab4')">Guided Practice</button>
+            <button class="tab-button" onclick="showTab(event, 'tab5')">Interleaved Practice</button>
+            <button class="tab-button" onclick="showTab(event, 'tab6')">Recall Zone</button>
+            <button class="tab-button" onclick="showTab(event, 'tab7')">Assessment</button>
+        </div>
+        
+        <!-- TAB 1 -->
+        <div id="tab1" class="tab-content active">
+            <div class="content-section">
+                <div class="section-title">🧠 What question types do you know?</div>
+                <div class="retrieval-task">
+                    <p>Write down different types of questions you can ask in English. Try to write an example for each type.</p>
+                    <textarea placeholder="Example: 'Do you like coffee?' (yes/no question)..."></textarea>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">📖 Why Questions Matter</div>
+                <div class="example-box">
+                    <p>Questions are how you CONNECT with people. Whether you're making small talk, solving a problem, or having a real conversation, <strong>you need to ask questions naturally</strong>. This lesson brings together everything you've learned about forming questions across different tenses and structures.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 2 -->
+        <div id="tab2" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🎯 The Four Main Question Types</div>
+                
+                <h4 style="color: #2ecc71; margin-top: 15px; margin-bottom: 10px;">1️⃣ YES/NO QUESTIONS (Do...? Is...? Are...?)</h4>
+                <div class="example-box">
+                    "Do you like coffee?" / "Is it raining?" / "Will you come tomorrow?"<br>
+                    <strong>Pattern:</strong> [Auxiliary] + [Subject] + [Verb] + [Rest]?
+                </div>
+                
+                <h4 style="color: #2ecc71; margin-top: 15px; margin-bottom: 10px;">2️⃣ WH-QUESTIONS (What, Where, When, Why, Who, How)</h4>
+                <div class="example-box">
+                    "What time is it?" / "Where do you live?" / "Why did she leave?"<br>
+                    <strong>Pattern:</strong> [WH-word] + [Auxiliary] + [Subject] + [Verb] + [Rest]?
+                </div>
+                
+                <h4 style="color: #2ecc71; margin-top: 15px; margin-bottom: 10px;">3️⃣ MODAL QUESTIONS (Can, Could, Would, Should)</h4>
+                <div class="example-box">
+                    "Can you help?" / "Would you like coffee?" / "Could you wait?"<br>
+                    <strong>Pattern:</strong> [Modal] + [Subject] + [Verb] + [Rest]?
+                </div>
+                
+                <h4 style="color: #2ecc71; margin-top: 15px; margin-bottom: 10px;">4️⃣ QUESTIONS WITH DIFFERENT TENSES</h4>
+                <div class="example-box">
+                    Present simple: "Do you work here?"<br>
+                    Past simple: "Did you go yesterday?"<br>
+                    Present continuous: "Are you working now?"<br>
+                    Present perfect: "Have you finished?"
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 3 -->
+        <div id="tab3" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🔧 Word Order: The Golden Rule</div>
+                <div class="example-box">
+                    <strong>For YES/NO questions:</strong><br>
+                    ✓ "Do you like it?" (Auxiliary BEFORE subject)<br>
+                    ✗ "You do like it?" (Wrong order)<br><br>
+                    <strong>For WH-questions:</strong><br>
+                    ✓ "What do you do?" (WH + Auxiliary + Subject)<br>
+                    ✗ "What you do?" (Missing auxiliary)<br><br>
+                    <strong>For MODALS:</strong><br>
+                    ✓ "Can you help?" (Modal BEFORE subject)<br>
+                    ✗ "You can help?" (Wrong — sounds like a statement)
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 4 -->
+        <div id="tab4" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">👨‍🏫 I DO (Model)</div>
+                <div class="example-box">
+                    <strong>I'm forming a question about what you did yesterday:</strong><br>
+                    "What did you do yesterday?"<br><br>
+                    <strong>Breaking it down:</strong> [WH-word: What] + [Auxiliary: did] + [Subject: you] + [Verb: do]<br>
+                    <strong>Why:</strong> Past simple needs "did", so "did" comes BEFORE the subject.
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">👥 WE DO (Together)</div>
+                <div class="practice-box">
+                    <p><strong>Form a question:</strong> Present continuous — "Where are you going?"</p>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal Analysis</button>
+                    <div class="hidden-content">
+                        <strong>Breakdown:</strong> [WH: Where] + [Auxiliary: are] + [Subject: you] + [Verb: going]<br>
+                        Present continuous uses "are", which goes BEFORE the subject in questions.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">🎓 YOU DO (Independent)</div>
+                <div class="practice-box">
+                    <p><strong>Form your own question using each type:</strong></p>
+                    <p>• Yes/no question: ________________</p>
+                    <p>• WH-question: ________________</p>
+                    <p>• Modal question: ________________</p>
+                    <textarea placeholder="Write three questions..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 5 -->
+        <div id="tab5" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🎯 Interleaved Practice</div>
+                <p>Each question requires you to CHOOSE the right form. Mix of question types and tenses:</p>
+                
+                <div class="practice-box">
+                    <p><strong>1.</strong> Form a question to ask if someone is coming tomorrow (future with will):</p>
+                    <p>   "__________ you __________ tomorrow?"</p>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                    <div class="hidden-content">
+                        Answer: "Will you come tomorrow?"
+                    </div>
+                </div>
+                
+                <div class="practice-box">
+                    <p><strong>2.</strong> Form a yes/no question in present simple:</p>
+                    <p>   "__________ they live in London?"</p>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                    <div class="hidden-content">
+                        Answer: "Do they live in London?"
+                    </div>
+                </div>
+                
+                <div class="practice-box">
+                    <p><strong>3.</strong> Form a modal question (Can/Could):</p>
+                    <p>   "__________ you help me?"</p>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                    <div class="hidden-content">
+                        Answer: "Can you help me?" or "Could you help me?"
+                    </div>
+                </div>
+                
+                <div class="practice-box">
+                    <p><strong>4.</strong> Form a WH-question about when (past simple):</p>
+                    <p>   "When __________ you __________ home?"</p>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                    <div class="hidden-content">
+                        Answer: "When did you come home?"
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 6 -->
+        <div id="tab6" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🔄 Recall Zone: Spaced Retrieval</div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 2: Where Are You From?</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> How do you ask someone where they're from?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "Where are you from?"
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 17: Asking for Directions</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> Write a question to ask for directions.</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "Excuse me, where is the station?" / "Can you tell me how to get to...?"
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 23: Giving Opinions</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> How do you ask someone their opinion?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "What do you think?" / "Do you like it?" / "What's your opinion?"
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 28: Have You Ever...?</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What's the pattern for "Have you ever...?" questions?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "Have you ever [past participle]?" — Example: "Have you ever been to France?"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 7 -->
+        <div id="tab7" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">📝 Final Assessment: From Memory</div>
+                
+                <div class="retrieval-task">
+                    <p><strong>1. Write the four question types from memory:</strong></p>
+                    <textarea placeholder="List and give examples..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>2. Form 5 different questions (no repeats from earlier) using different tenses:</strong></p>
+                    <textarea placeholder="Write five questions..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>3. What's the most important rule about forming questions?</strong></p>
+                    <textarea placeholder="Your reflection..."></textarea>
+                </div>
+            </div>
+            
+            <div class="i-can-statement">
+                ✅ <strong>I can:</strong> Form accurate questions across all tenses and question types, and use them naturally in conversations
+            </div>
+            
+            <div class="metacognition-box">
+                <h4>🧠 Metacognition: What Helped?</h4>
+                <p>What was the key insight that helped you understand question formation?</p>
+                <textarea placeholder="Your reflection..."></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(evt, tabName) {
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
+            var tabbuttons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabbuttons.length; i++) tabbuttons[i].classList.remove("active");
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function toggleReveal(evt) {
+            evt.preventDefault();
+            var button = evt.currentTarget;
+            var hiddenContent = button.nextElementSibling;
+            hiddenContent.classList.toggle("revealed");
+            button.textContent = hiddenContent.classList.contains("revealed") ? "Hide" : "Reveal";
+        }
+    </script>
+</body>
+</html>

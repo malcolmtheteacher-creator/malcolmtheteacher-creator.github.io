@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 40: REVIEW - Unit 4 Complete</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f8f9fa 0%, #e8eef2 100%); color: #1a1a2e; line-height: 1.6; min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #27ae60 0%, #229954 100%); color: white; padding: 30px 20px; text-align: center; }
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        .header p { font-size: 1.1em; opacity: 0.95; }
+        .learning-intention { background: #d5f4e6; border-left: 4px solid #27ae60; padding: 15px 20px; margin: 20px; border-radius: 4px; font-weight: 500; color: #145a32; }
+        .tabs { display: flex; border-bottom: 2px solid #e0e0e0; overflow-x: auto; background: #f8f9fa; }
+        .tab-button { padding: 15px 20px; border: none; background: transparent; cursor: pointer; font-size: 0.95em; font-weight: 500; color: #666; transition: all 0.3s ease; white-space: nowrap; border-bottom: 3px solid transparent; }
+        .tab-button:hover { color: #27ae60; }
+        .tab-button.active { color: #27ae60; border-bottom-color: #27ae60; }
+        .tab-content { display: none; padding: 30px; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .content-section { margin-bottom: 25px; }
+        .section-title { font-size: 1.3em; font-weight: 600; color: #27ae60; margin-bottom: 15px; }
+        .recall-zone { background: linear-gradient(135deg, #d5f4e6 0%, #a9dfbf 100%); border: 2px solid #27ae60; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .recall-zone h3 { color: #145a32; margin-bottom: 15px; }
+        .recall-item { background: white; padding: 12px; border-left: 4px solid #27ae60; margin-bottom: 10px; border-radius: 4px; }
+        .progress-box { background: #ecf0f1; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .progress-list { list-style: none; margin-left: 0; }
+        .progress-list li { padding: 8px 0; padding-left: 25px; position: relative; }
+        .progress-list li:before { content: "✅"; position: absolute; left: 0; }
+        .reveal-button { background: #27ae60; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 500; margin-top: 10px; }
+        .reveal-button:hover { background: #229954; }
+        .hidden-content { display: none; background: #d5f4e6; border-left: 4px solid #27ae60; padding: 12px; margin-top: 10px; border-radius: 4px; }
+        .hidden-content.revealed { display: block; }
+        .scenario-box { background: #f8f9fa; border: 1px solid #ddd; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .i-can-statement { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; font-size: 1.1em; font-weight: 500; margin-top: 20px; }
+        .metacognition-box { background: #f8f9fa; border: 2px solid #667eea; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .metacognition-box h4 { color: #667eea; margin-bottom: 10px; }
+        .metacognition-box textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; min-height: 80px; }
+        .retrieval-task { background: #d5f4e6; border-left: 4px solid #27ae60; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .retrieval-task textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; min-height: 80px; }
+        @media (max-width: 768px) { .header h1 { font-size: 1.6em; } .tab-button { padding: 12px 15px; font-size: 0.85em; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏆 Lesson 40: REVIEW - Unit 4 Complete</h1>
+            <p>Consolidate the Intermediate Unit (Lessons 31-39)</p>
+        </div>
+        
+        <div class="learning-intention">
+            <strong>Learning Intention:</strong> Today we're reviewing all of Unit 4 (social & practical English) so you can demonstrate intermediate-level confidence in restaurant, phone, travel, and hypothetical situations.
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(event, 'tab1')">Progress & Achievement</button>
+            <button class="tab-button" onclick="showTab(event, 'tab2')">Extended Recall Zone</button>
+            <button class="tab-button" onclick="showTab(event, 'tab3')">Interleaved Consolidation</button>
+            <button class="tab-button" onclick="showTab(event, 'tab4')">Real-World Scenarios</button>
+            <button class="tab-button" onclick="showTab(event, 'tab5')">Forward Trajectory</button>
+        </div>
+        
+        <!-- TAB 1: PROGRESS & ACHIEVEMENT -->
+        <div id="tab1" class="tab-content active">
+            <div class="content-section">
+                <div class="section-title">📊 Unit 4 Mastery: Lessons 31-39</div>
+                <div class="progress-box">
+                    <ul class="progress-list">
+                        <li><strong>Lesson 31:</strong> At the Restaurant (R.A.B. framework: Request, Address problems, Bill)</li>
+                        <li><strong>Lesson 32:</strong> Making Phone Calls (A.M.I. framework: Answer, Message, Identify next steps)</li>
+                        <li><strong>Lesson 33:</strong> If I Had Time... (First Conditional: If + present, will + future)</li>
+                        <li><strong>Lesson 34:</strong> Questions, Questions! (All question types across all tenses)</li>
+                        <li><strong>Lesson 35:</strong> REVIEW: Social Skills (Consolidated lessons 31-34)</li>
+                        <li><strong>Lesson 36:</strong> Talking About Weather (Vocabulary + small talk skills)</li>
+                        <li><strong>Lesson 37:</strong> Health & Body (Medical vocabulary + doctor conversations)</li>
+                        <li><strong>Lesson 38:</strong> Travel & Transport (Booking, tickets, directions)</li>
+                        <li><strong>Lesson 39:</strong> Could & Would (Polite requests + hypothetical thinking)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">🎯 Quick Self-Check</div>
+                <div class="retrieval-task">
+                    <p><strong>1. What's the R.A.B. framework (restaurant)?</strong></p>
+                    <textarea placeholder="R = ... A = ... B = ..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>2. What's the A.M.I. framework (phone)?</strong></p>
+                    <textarea placeholder="A = ... M = ... I = ..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>3. First conditional pattern:</strong></p>
+                    <textarea placeholder="If ... , ..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>4. When do you use "Could" for requests?</strong></p>
+                    <textarea placeholder="Explain..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>5. When do you use "Would" for hypothetical?</strong></p>
+                    <textarea placeholder="Explain..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 2: EXTENDED RECALL ZONE -->
+        <div id="tab2" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🔄 Retrieve Skills from Earlier in Unit 4</div>
+                <p>These are items you studied in earlier Unit 4 lessons. Try without looking back:</p>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 31: Restaurant - Polite Complaints</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What's the pattern for a polite complaint?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "I'm sorry, but [problem]. Could you possibly [solution]?"
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 32: Phone - Voicemail Message</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What are the 4 parts of a good voicemail?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: (1) Name, (2) Reason for calling, (3) Phone number (slowly), (4) What you want them to do
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 33: First Conditional Pattern</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> Write one first conditional about a real possibility in your life:</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: Any correct sentence (e.g., "If I study hard, I will pass the exam")
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 34: Question Word Order</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What's wrong with "Where you are going?" — Fix it.</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "Where are you going?" — Auxiliary BEFORE subject.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 36: Weather Small Talk</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> Give 3 ways to start weather small talk:</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "Isn't it [adjective]?" / "What [adjective] weather!" / "I [love/hate] this [weather]"
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 37: Health - "I have a..."</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> Name 4 things you can "have a" in health: "I have a ___..."</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: headache, backache, stomachache, toothache, fever, cough, sore throat, cold, etc.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 38: Travel - Booking Questions</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> Write 2 questions to ask at a train ticket counter:</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "How much is a ticket?" / "When does it depart?" / "Does it stop in...?" / "What time does it arrive?"
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 39: Could & Would</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> Use both: Write a sentence with "Could" (request) and one with "Would" (hypothetical):</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "Could you help?" / "If you won the lottery, would you travel?"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 3: INTERLEAVED CONSOLIDATION -->
+        <div id="tab3" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🎯 Mix & Master: Combined Skills</div>
+                <p>Each challenge uses skills from MULTIPLE Unit 4 lessons. Choose the right approach:</p>
+                
+                <div class="scenario-box">
+                    <h4>Challenge 1: Phone + Restaurant</h4>
+                    <p>You're calling a restaurant to make a reservation. Use phone openings (Lesson 32) and restaurant language (Lesson 31). What do you say?</p>
+                    <textarea placeholder="Write your call..."></textarea>
+                </div>
+                
+                <div class="scenario-box">
+                    <h4>Challenge 2: Travel + Questions</h4>
+                    <p>You're at an airport (Lesson 38) and need to ask questions (Lesson 34). Write 3 questions you might ask at the information desk.</p>
+                    <textarea placeholder="Write your questions..."></textarea>
+                </div>
+                
+                <div class="scenario-box">
+                    <h4>Challenge 3: Health + Could/Would</h4>
+                    <p>You're at a doctor (Lesson 37). Use "Could" for a polite request (Lesson 39) and describe your symptoms. Write what you say.</p>
+                    <textarea placeholder="Write your doctor conversation..."></textarea>
+                </div>
+                
+                <div class="scenario-box">
+                    <h4>Challenge 4: Weather + First Conditional</h4>
+                    <p>You're having small talk about weather (Lesson 36) but you want to use first conditional thinking (Lesson 33). Example: "If this rain continues, I won't be able to go outside." Create your own sentence.</p>
+                    <textarea placeholder="Write your sentence..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 4: REAL-WORLD SCENARIOS -->
+        <div id="tab4" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🌍 Full Integration: Complete Scenarios</div>
+                <p>Here's an extended scenario that pulls together EVERYTHING from Unit 4. Read, then respond:</p>
+                
+                <div class="scenario-box">
+                    <h4>📋 SCENARIO: Weekend Trip to Paris</h4>
+                    <p><strong>You're planning a weekend trip to Paris. Here's what you need to do (using Unit 4 skills):</strong></p>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Phone the travel agent (Lesson 32):</strong> Call to ask about flight options. Introduce yourself, state your reason for calling, ask questions.</li>
+                        <li><strong>Book a restaurant (Lesson 31):</strong> Once in Paris, call a restaurant. Request a table, ask about dietary options, confirm the booking.</li>
+                        <li><strong>Weather planning (Lesson 36):</strong> Talk about the weather forecast. Is it sunny or rainy? How will this affect your plans?</li>
+                        <li><strong>First conditional thinking (Lesson 33):</strong> Create backup plans. "If it rains, I'll visit museums." "If there's no availability, I'll try a different restaurant."</li>
+                        <li><strong>Health check (Lesson 37):</strong> Before traveling, describe how you feel. Are you ready to go?</li>
+                        <li><strong>Polite requests (Lesson 39):</strong> Use "Could" when asking for help: "Could you recommend a hotel?" "Would you suggest a good restaurant?"</li>
+                    </ol>
+                    <p style="margin-top: 15px;"><strong>Your task: Write the complete dialogue for ONE of these situations (your choice):</strong></p>
+                    <textarea placeholder="Write your full conversation..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 5: FORWARD TRAJECTORY -->
+        <div id="tab5" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🚀 What's Next? Unit 5: Transition to A2</div>
+                <div class="scenario-box">
+                    <p><strong>You've completed 40 lessons. The next 10 lessons (41-50) will:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Extend your conversation management skills</li>
+                        <li>Compare tenses (Present Perfect vs Past Simple)</li>
+                        <li>Master extended speaking</li>
+                        <li>Prepare you for A2-level fluency</li>
+                    </ul>
+                    <p style="margin-top: 15px;">You're now at the <strong>A1 Advanced threshold</strong> — ready to move toward A2 confidence.</p>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">📚 A1 Pathway Progress</div>
+                <div class="progress-box">
+                    <ul class="progress-list">
+                        <li>Unit 1 (Lessons 1-10): Foundation ✅</li>
+                        <li>Unit 2 (Lessons 11-20): Elementary ✅</li>
+                        <li>Unit 3 (Lessons 21-30): Building ✅</li>
+                        <li>Unit 4 (Lessons 31-40): Intermediate ✅ YOU ARE HERE</li>
+                        <li>Unit 5 (Lessons 41-50): Transition to A2 (COMING NEXT)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">🎓 Your Growth Since Lesson 1</div>
+                <div class="retrieval-task">
+                    <p><strong>Reflect on your journey:</strong> What can you do NOW that you couldn't do at Lesson 1?</p>
+                    <textarea placeholder="List your achievements..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>What's your biggest win in Unit 4?</strong></p>
+                    <textarea placeholder="Your reflection..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>What do you want to master in the next 10 lessons (Unit 5)?</strong></p>
+                    <textarea placeholder="Your goals..."></textarea>
+                </div>
+            </div>
+            
+            <div class="i-can-statement">
+                ✅ <strong>I can:</strong> Handle social and practical English situations (restaurants, phones, travel, weather, health), form questions naturally, use first conditionals, make polite requests with "Could," and discuss hypothetical situations with "Would"
+            </div>
+            
+            <div class="metacognition-box">
+                <h4>🧠 Metacognition: Reflecting on Unit 4</h4>
+                <p>What learning strategy worked best for you in this unit? Which lessons helped most? What would you do differently next time?</p>
+                <textarea placeholder="Your reflection..."></textarea>
+            </div>
+            
+            <div style="background: #d5f4e6; padding: 20px; border-radius: 8px; margin-top: 20px; text-align: center;">
+                <p style="font-size: 1.2em; font-weight: 600; color: #145a32;">🎉 Unit 4 Complete!</p>
+                <p style="margin-top: 10px; color: #145a32;">You're now ready for Unit 5 (A2 Preparation). See you in Lesson 41!</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(evt, tabName) {
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
+            var tabbuttons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabbuttons.length; i++) tabbuttons[i].classList.remove("active");
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function toggleReveal(evt) {
+            evt.preventDefault();
+            var button = evt.currentTarget;
+            var hiddenContent = button.nextElementSibling;
+            hiddenContent.classList.toggle("revealed");
+            button.textContent = hiddenContent.classList.contains("revealed") ? "Hide" : "Reveal";
+        }
+    </script>
+</body>
+</html>

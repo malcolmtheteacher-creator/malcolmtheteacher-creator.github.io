@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 42: Describing Experiences</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .header p { font-size: 1.1em; }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 5px 5px 0 0;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab-button:hover { background: #f0f0f0; }
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            border-bottom-color: #667eea;
+        }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active { display: block; }
+        .learning-intention {
+            background: #e8f4f8;
+            border-left: 4px solid #4a90e2;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+        .retrieval-prompt {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+        .example-box {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #4a90e2;
+            font-style: italic;
+        }
+        .click-reveal {
+            margin: 15px 0;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+        .reveal-prompt {
+            cursor: pointer;
+            color: #667eea;
+            text-decoration: underline;
+            font-weight: 500;
+            display: inline-block;
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .reveal-content {
+            display: none;
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .reveal-content.show { display: block; }
+        .practice-card {
+            background: white;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #f0f7ff;
+        }
+        .textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+        .textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #f0f7ff;
+        }
+        .language-focus {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .language-focus h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        .recall-item {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .i-can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            text-align: center;
+            font-weight: bold;
+        }
+        .meta-question {
+            background: #f0f7ff;
+            border: 2px dashed #667eea;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .tabs { flex-direction: column; }
+            .tab-button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📖 Lesson 42: Describing Experiences</h1>
+            <p>A1 Pathway Transition Unit (A1→A2)</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)">1️⃣ Retrieval</button>
+            <button class="tab-button" onclick="showTab(1)">2️⃣ All Tenses</button>
+            <button class="tab-button" onclick="showTab(2)">3️⃣ Language Focus</button>
+            <button class="tab-button" onclick="showTab(3)">4️⃣ Model Story</button>
+            <button class="tab-button" onclick="showTab(4)">5️⃣ Your Story</button>
+            <button class="tab-button" onclick="showTab(5)">6️⃣ Deep Dive</button>
+            <button class="tab-button" onclick="showTab(6)">7️⃣ Recall Zone</button>
+            <button class="tab-button" onclick="showTab(7)">8️⃣ Reflection</button>
+        </div>
+
+        <!-- TAB 1: RETRIEVAL -->
+        <div class="tab-content active">
+            <h2>Tab 1: Retrieval + Hook</h2>
+
+            <div class="retrieval-prompt">
+                <h3>🧠 Let's see what comes to mind...</h3>
+                <p>Think of an interesting experience from your life. What tenses would you use to tell the story?</p>
+                <p style="margin-top: 10px; font-size: 0.9em;"><em>Write 2-3 sentences using whatever tenses come naturally to you — don't worry about mistakes!</em></p>
+                <textarea class="textarea" placeholder="Write your experience..."></textarea>
+            </div>
+
+            <div class="learning-intention">
+                <strong>Today we're working on:</strong> Using different tenses together to tell extended stories and describe past experiences with context and detail — so you can paint a vivid picture when you talk about your life.
+            </div>
+
+            <div style="background: #e8f4f8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3>🎯 The Challenge</h3>
+                <p>Native speakers switch between tenses CONSTANTLY when telling stories. A1 students often get stuck on one tense. Here's what good storytellers do:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Past Simple:</strong> For the main events ("I went to Paris...")</li>
+                    <li><strong>Past Continuous:</strong> For the background ("While I was walking...")</li>
+                    <li><strong>Present Perfect:</strong> For recent experiences ("I've never seen anything like it.")</li>
+                    <li><strong>Present Simple:</strong> For general truths ("People always say...")</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>The result?</strong> Stories that are alive, detailed, and interesting. Not boring single-tense narratives.</p>
+            </div>
+        </div>
+
+        <!-- TAB 2: ALL TENSES -->
+        <div class="tab-content">
+            <h2>Tab 2: Tense Review — All 4 Together</h2>
+
+            <div class="language-focus">
+                <h3>⏰ PAST SIMPLE (Main events)</h3>
+                <p><strong>Form:</strong> I went | He walked | They ate</p>
+                <p><strong>Use:</strong> Finished actions in the past</p>
+                <div class="example-box">
+                    "I went to a concert last week. It started at 7pm. I bought a ticket and found my seat."
+                </div>
+            </div>
+
+            <div class="language-focus">
+                <h3>🔄 PAST CONTINUOUS (Background/context)</h3>
+                <p><strong>Form:</strong> Was/were + -ing (I was walking | They were sitting)</p>
+                <p><strong>Use:</strong> Actions happening when something else occurred</p>
+                <div class="example-box">
+                    "While I was waiting for the concert to start, the lights went down. People were cheering loudly."
+                </div>
+            </div>
+
+            <div class="language-focus">
+                <h3>✨ PRESENT PERFECT (Recent experiences)</h3>
+                <p><strong>Form:</strong> Have/has + past participle (I've been | She's seen)</p>
+                <p><strong>Use:</strong> Recent or life experiences that connect to now</p>
+                <div class="example-box">
+                    "I've never heard them live before. My friend has told me they're amazing, and now I understand why!"
+                </div>
+            </div>
+
+            <div class="language-focus">
+                <h3>📖 PRESENT SIMPLE (General truths in stories)</h3>
+                <p><strong>Form:</strong> I go | They like | He plays</p>
+                <p><strong>Use:</strong> Habits, facts, even in past stories for effect</p>
+                <div class="example-box">
+                    "The venue holds 10,000 people. Concerts there are always packed. People say it's the best acoustics in the city."
+                </div>
+            </div>
+
+            <p style="margin-top: 20px;"><strong>📝 YOUR TURN:</strong> Write 4 sentences using each tense above to describe a shopping experience:</p>
+            <textarea class="textarea" placeholder="Past Simple: ...&#10;Past Continuous: ...&#10;Present Perfect: ...&#10;Present Simple: ..."></textarea>
+        </div>
+
+        <!-- TAB 3: LANGUAGE FOCUS -->
+        <div class="tab-content">
+            <h2>Tab 3: Storytelling Expressions</h2>
+
+            <p><strong>Speakers use these 5 expressions to make stories flow and feel natural:</strong></p>
+
+            <div class="language-focus">
+                <h3>1️⃣ First/To begin with</h3>
+                <p><strong>Use:</strong> Start the story</p>
+                <div class="example-box">"First, I arrived at the station. / To begin with, I was nervous."</div>
+                <p style="margin-top: 10px;"><strong>Try it:</strong></p>
+                <input type="text" class="input-field" placeholder="First, I...">
+            </div>
+
+            <div class="language-focus">
+                <h3>2️⃣ Then / After that / Next</h3>
+                <p><strong>Use:</strong> Connect events in sequence</p>
+                <div class="example-box">"Then the train arrived. / After that, we boarded. / Next, I realized I'd forgotten my ticket."</div>
+                <p style="margin-top: 10px;"><strong>Try it:</strong></p>
+                <input type="text" class="input-field" placeholder="Then I...">
+            </div>
+
+            <div class="language-focus">
+                <h3>3️⃣ While / During / Meanwhile</h3>
+                <p><strong>Use:</strong> Show things happening at the same time</p>
+                <div class="example-box">"While I was looking for my seat, my friend was buying snacks. / During the show, people were singing along."</div>
+                <p style="margin-top: 10px;"><strong>Try it:</strong></p>
+                <input type="text" class="input-field" placeholder="While I was...">
+            </div>
+
+            <div class="language-focus">
+                <h3>4️⃣ Suddenly / All of a sudden</h3>
+                <p><strong>Use:</strong> Dramatic moment (surprise twist!)</p>
+                <div class="example-box">"Suddenly, the power went out. / All of a sudden, I heard someone shout."</div>
+                <p style="margin-top: 10px;"><strong>Try it:</strong></p>
+                <input type="text" class="input-field" placeholder="Suddenly...">
+            </div>
+
+            <div class="language-focus">
+                <h3>5️⃣ In the end / Finally</h3>
+                <p><strong>Use:</strong> Finish the story</p>
+                <div class="example-box">"In the end, it was one of the best concerts ever. / Finally, we went home exhausted but happy."</div>
+                <p style="margin-top: 10px;"><strong>Try it:</strong></p>
+                <input type="text" class="input-field" placeholder="Finally, I...">
+            </div>
+        </div>
+
+        <!-- TAB 4: MODEL STORY -->
+        <div class="tab-content">
+            <h2>Tab 4: Model Story Analysis</h2>
+
+            <div class="practice-card">
+                <h3>A Travel Story (Full Example)</h3>
+
+                <p><strong>First</strong>, I decided to visit my cousin in Barcelona. <span style="background: #fff9c4;">I booked a flight (PAST SIMPLE)</span> and <span style="background: #fff9c4;">paid €50 (PAST SIMPLE)</span> for the ticket.</p>
+
+                <p>The day I arrived, <span style="background: #c8e6c9;">while I was walking from the airport (PAST CONTINUOUS)</span>, <span style="background: #fff9c4;">I saw the beach for the first time (PAST SIMPLE)</span>. My cousin <span style="background: #c8e6c9;">was waiting for me (PAST CONTINUOUS)</span> at the station.</p>
+
+                <p><span style="background: #ffccbc;">I've never been to Spain before (PRESENT PERFECT)</span>, and it <span style="background: #c5cae9;">was incredible (PAST SIMPLE)</span>. <span style="background: #d4e5f7;">Barcelona is known for its architecture (PRESENT SIMPLE)</span>, and I could finally understand why.</p>
+
+                <p><strong>Then</strong>, <span style="background: #ffccbc;">we've spent the week exploring (PRESENT PERFECT)</span> the city. We <span style="background: #fff9c4;">walked down Las Ramblas (PAST SIMPLE)</span> and <span style="background: #fff9c4;">ate fresh seafood (PAST SIMPLE)</span>.</p>
+
+                <p><strong>Suddenly</strong>, <span style="background: #fff9c4;">it started raining (PAST SIMPLE)</span>, but we <span style="background: #c8e6c9;">were having so much fun (PAST CONTINUOUS)</span> that we didn't care. <span style="background: #d4e5f7;">Good memories are made in any weather (PRESENT SIMPLE)</span>.</p>
+
+                <p><strong>In the end</strong>, I <span style="background: #c5cae9;">have had (PRESENT PERFECT)</span> the most amazing trip. I'll never forget it.</p>
+            </div>
+
+            <p style="margin-top: 20px;"><strong>COLOUR KEY:</strong></p>
+            <ul style="margin-left: 20px;">
+                <li><span style="background: #fff9c4;">Yellow = PAST SIMPLE</span></li>
+                <li><span style="background: #c8e6c9;">Green = PAST CONTINUOUS</span></li>
+                <li><span style="background: #ffccbc;">Orange = PRESENT PERFECT</span></li>
+                <li><span style="background: #d4e5f7;">Blue = PRESENT SIMPLE</span></li>
+            </ul>
+
+            <p style="margin-top: 20px;"><strong>📝 ANALYSIS:</strong> In this story, which tense is used most? Why do you think that is?</p>
+            <textarea class="textarea" placeholder="I think..."></textarea>
+        </div>
+
+        <!-- TAB 5: YOUR STORY -->
+        <div class="tab-content">
+            <h2>Tab 5: Tell Your Own Story</h2>
+
+            <p><strong>Choose one experience and tell it using all 4 tenses:</strong></p>
+
+            <div class="practice-card">
+                <h3>📝 Story Checklist</h3>
+                <ul style="margin-left: 20px;">
+                    <li>Start with "First" or "To begin with" — set the scene (Past Simple)</li>
+                    <li>Use "Then" or "While" — describe what happened (mix tenses)</li>
+                    <li>Use "Suddenly" — add a moment of interest or surprise</li>
+                    <li>Include "I've..." — reference a life experience (Present Perfect)</li>
+                    <li>Use "In the end" — finish the story</li>
+                    <li><strong>Minimum 100 words</strong></li>
+                </ul>
+
+                <textarea class="textarea" placeholder="Write your story here..." style="min-height: 200px;"></textarea>
+
+                <p style="margin-top: 20px;"><strong>Self-check:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Did I use at least 3 different tenses? ✓</li>
+                    <li>Did I use connecting words (First, Then, While, Suddenly)? ✓</li>
+                    <li>Did I tell a real experience? ✓</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 6: DEEP DIVE -->
+        <div class="tab-content">
+            <h2>Tab 6: Advanced Technique — Describing Feelings & Reactions</h2>
+
+            <p><strong>The best stories include HOW you felt, not just WHAT happened:</strong></p>
+
+            <div class="language-focus">
+                <h3>Describing Feelings (Past)</h3>
+                <div class="example-box">
+                    "I was nervous." (Past Continuous)<br>
+                    "I felt anxious." (Past Simple)<br>
+                    "I was excited!" (Past Continuous)<br>
+                </div>
+            </div>
+
+            <div class="language-focus">
+                <h3>Describing Reactions (with "I've never...")</h3>
+                <div class="example-box">
+                    "I've never felt so happy." (Present Perfect)<br>
+                    "I'd never seen anything so beautiful." (Past Perfect)<br>
+                    "I've never been so embarrassed." (Present Perfect)<br>
+                </div>
+            </div>
+
+            <p style="margin-top: 20px;"><strong>📝 Rewrite your story from Tab 5, adding 2-3 feeling descriptions:</strong></p>
+            <textarea class="textarea" placeholder="Add emotional details to your story..." style="min-height: 150px;"></textarea>
+        </div>
+
+        <!-- TAB 7: RECALL ZONE -->
+        <div class="tab-content">
+            <h2>Tab 7: Recall Zone</h2>
+
+            <div class="recall-item">
+                <h3>From Lesson 28: Present Perfect Introduction</h3>
+                <p><strong>Recall:</strong> What's the difference between "I went to Paris" and "I've been to Paris"?</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>"I went to Paris" = specific time in the past (finished action)</p>
+                        <p>"I've been to Paris" = anytime in your life (experience connected to now)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <h3>From Lesson 12: Past Simple Irregular Verbs</h3>
+                <p><strong>Recall:</strong> Write the past tense: "go" → ____, "see" → ____, "eat" → ____</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>"go" → went</p>
+                        <p>"see" → saw</p>
+                        <p>"eat" → ate</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <h3>From Lesson 36: Weather Vocabulary</h3>
+                <p><strong>Recall:</strong> Complete: "It was ____ and ____." (Write 2 weather conditions)</p>
+                <div class="click-reveal">
+                    <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
+                    <div class="reveal-content">
+                        <p>Possible answers: cold and rainy, sunny and hot, windy and cloudy, etc.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8: REFLECTION -->
+        <div class="tab-content">
+            <h2>Tab 8: Reflection + Metacognition</h2>
+
+            <p><strong>From memory: List the 5 storytelling expressions we learned today:</strong></p>
+            <textarea class="textarea" placeholder="1) ...&#10;2) ...&#10;3) ...&#10;4) ...&#10;5) ..."></textarea>
+
+            <div class="meta-question">
+                <h3>🧠 Metacognitive Reflection</h3>
+                <p><strong>Which tense was hardest for you to remember in your story?</strong></p>
+                <textarea class="textarea" placeholder="It was..."></textarea>
+
+                <p style="margin-top: 15px;"><strong>What will you do next time to use it correctly?</strong></p>
+                <textarea class="textarea" placeholder="I will..."></textarea>
+            </div>
+
+            <div class="i-can-statement">
+                ✨ I can tell extended stories using multiple tenses (Past Simple, Past Continuous, Present Perfect, and Present Simple) to describe experiences with detail, emotion, and natural flow. I'm building fluency for A2 conversations! ✨
+            </div>
+
+            <p style="margin-top: 20px; text-align: center; color: #666;">
+                <strong>Lesson 42 Complete!</strong> You're developing storytelling skills that will impress anyone! 🎉
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(index) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            contents.forEach(c => c.classList.remove('active'));
+            buttons.forEach(b => b.classList.remove('active'));
+
+            contents[index].classList.add('active');
+            buttons[index].classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(element) {
+            const content = element.nextElementSibling;
+            content.classList.toggle('show');
+            element.textContent = content.classList.contains('show') ? '← Hide' : 'Click to reveal →';
+        }
+    </script>
+</body>
+</html>

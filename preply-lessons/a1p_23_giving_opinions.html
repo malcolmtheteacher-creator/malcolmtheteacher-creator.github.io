@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 23: Giving Opinions</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 30px; text-align: center; }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid #ddd; }
+        .tab-btn { padding: 12px 20px; background-color: #e9ecef; border: none; cursor: pointer; font-size: 1em; border-radius: 8px 8px 0 0; transition: all 0.3s; font-weight: 500; }
+        .tab-btn.active { background-color: #667eea; color: white; }
+        .tab-content { display: none; padding: 30px; background: white; border-radius: 0 8px 8px 8px; }
+        .tab-content.active { display: block; }
+        .learning-intention { background-color: #fff3cd; border-left: 4px solid #ff6b6b; padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .retrieval-task { background-color: #e7f3ff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea; }
+        .retrieval-task textarea { width: 100%; padding: 12px; font-size: 1em; border: 2px solid #667eea; border-radius: 4px; resize: vertical; min-height: 100px; font-family: inherit; }
+        .content-chunk { background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #764ba2; }
+        .example-box { background-color: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .expression-card { background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        .expression-card h4 { color: #667eea; margin-bottom: 10px; font-size: 1.1em; }
+        .reveal-btn { background-color: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 500; }
+        .reveal-btn:hover { background-color: #764ba2; }
+        .hidden-content { display: none; background-color: #f0f0f0; padding: 15px; margin-top: 10px; border-radius: 4px; }
+        .hidden-content.show { display: block; }
+        .discussion-card { background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        .discussion-card h4 { color: #667eea; margin-bottom: 10px; }
+        .production-task { background-color: #f3e5f5; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #9c27b0; }
+        .production-task textarea { width: 100%; padding: 12px; font-size: 1em; border: 2px solid #9c27b0; border-radius: 4px; margin: 10px 0; font-family: inherit; }
+        .btn-primary { background-color: #667eea; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 1em; font-weight: 600; }
+        .btn-primary:hover { background-color: #764ba2; }
+        .recall-item { background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        .recall-item .prompt { font-weight: 600; color: #667eea; margin-bottom: 10px; }
+        .i-can-statement { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 8px; margin-top: 20px; font-size: 1.1em; font-weight: 600; text-align: center; }
+        .metacognition { background-color: #e0f2f1; border-left: 4px solid #009688; padding: 20px; margin: 20px 0; border-radius: 4px; }
+        @media (max-width: 768px) {
+            .tabs { flex-direction: column; }
+            .tab-btn { width: 100%; border-radius: 4px; }
+            header h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lesson 23: Giving Opinions</h1>
+            <p>A1 Pathway - Building Unit (Lessons 21-30)</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Opinion Expressions & Agreement</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab(event, 'tab1')">1. Retrieval + Hook</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab2')">2. Language Focus A</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab3')">3. Language Focus B</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab4')">4. Your Turn</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab5')">5. Deep Dive</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab6')">6. Recall Zone</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab7')">7. Retrieval Wrap-Up</button>
+        </div>
+
+        <!-- TAB 1 -->
+        <div id="tab1" class="tab-content active">
+            <h2>What Do You Think?</h2>
+            <div class="retrieval-task">
+                <h3>Memory First</h3>
+                <p>Write 3 things you have a strong opinion about. What do you think about them?</p>
+                <textarea placeholder="I think coffee is... I believe smartphones are... In my opinion, winter is..."></textarea>
+                <button class="btn-primary" onclick="alert('Good! You shared your thinking. Let\'s learn how to express opinions clearly in English.')">Continue</button>
+            </div>
+
+            <div class="learning-intention">
+                <strong>Today we're learning:</strong> How to give opinions using expressions like "I think," "In my opinion," and how to agree or disagree with others.
+            </div>
+
+            <div class="content-chunk">
+                <h3>🎯 Opinion Statistics</h3>
+                <p><strong>Did you know?</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>📊 68% of conversations include giving or listening to opinions</li>
+                    <li>💬 Saying "I think..." instead of "It is..." sounds more polite in English</li>
+                    <li>👥 Agreeing with others builds better relationships</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px; font-style: italic; color: #666;">By the end, you'll express opinions confidently and respond to others' opinions naturally.</p>
+        </div>
+
+        <!-- TAB 2 -->
+        <div id="tab2" class="tab-content">
+            <h2>Expressing Your Opinion (Part 1)</h2>
+
+            <div class="expression-card">
+                <h4>1️⃣ "I think..." (Most common)</h4>
+                <p><strong>Form:</strong> I think + CLAUSE</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>I think coffee is delicious.</li>
+                    <li>I think English is interesting.</li>
+                </ul>
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">👂 Pronunciation: "I THINK" (stress on THINK)</p>
+            </div>
+
+            <div class="expression-card">
+                <h4>2️⃣ "I believe..." (Stronger opinion)</h4>
+                <p><strong>Form:</strong> I believe + CLAUSE</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>I believe technology is important.</li>
+                    <li>I believe exercise is healthy.</li>
+                </ul>
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Note: More formal than "I think"</p>
+            </div>
+
+            <div class="expression-card">
+                <h4>3️⃣ "In my opinion..." (Formal, respectful)</h4>
+                <p><strong>Form:</strong> In my opinion, SUBJECT + VERB</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>In my opinion, music is important for the soul.</li>
+                    <li>In my opinion, travel is valuable for education.</li>
+                </ul>
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Note: Use comma after "In my opinion"</p>
+            </div>
+
+            <div class="example-box">
+                <strong>✓ NOW YOU TRY:</strong>
+                <p style="margin-top: 10px;">Complete with YOUR opinion:</p>
+                <p>I think _____ is important.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'your-opinion')">Share Your Thinking</button>
+                <div id="your-opinion" class="hidden-content">
+                    <p>Great! Everyone has different opinions. That's normal and okay!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3 -->
+        <div id="tab3" class="tab-content">
+            <h2>Reacting to Opinions</h2>
+
+            <div class="expression-card">
+                <h4>4️⃣ "I agree." (Positive response)</h4>
+                <p><strong>Usage:</strong> Someone says opinion → You say "I agree"</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>Person A: "Coffee is delicious."</li>
+                    <li>Person B: "I agree!"</li>
+                </ul>
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">You can also say: "That's right!" or "You're right!"</p>
+            </div>
+
+            <div class="expression-card">
+                <h4>5️⃣ "I disagree." / "I don't agree." (Polite disagreement)</h4>
+                <p><strong>Usage:</strong> Someone says opinion → You disagree politely</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>Person A: "Winter is the best season."</li>
+                    <li>Person B: "I disagree. I prefer summer."</li>
+                </ul>
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">Important: Add your opinion after! Don't just say "no".</p>
+            </div>
+
+            <div class="expression-card">
+                <h4>6️⃣ "I see what you mean, but..." (Partial disagreement)</h4>
+                <p><strong>Usage:</strong> You understand BUT have a different view</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>Person A: "Smartphones are bad for children."</li>
+                    <li>Person B: "I see what you mean, but they're also educational tools."</li>
+                </ul>
+                <p style="color: #666; font-size: 0.9em; margin-top: 10px;">This shows respect for their opinion while offering another view.</p>
+            </div>
+
+            <div class="example-box">
+                <strong>✓ PRACTICE:</strong>
+                <p style="margin-top: 10px;">If someone says "Online learning is better than classroom learning," how would YOU respond?</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'practice-response')">See possible answers</button>
+                <div id="practice-response" class="hidden-content">
+                    <p><strong>Agree:</strong> "I agree! I prefer online learning."</p>
+                    <p><strong>Disagree:</strong> "I disagree. I think classroom learning is better."</p>
+                    <p><strong>Partial:</strong> "I see what you mean, but classroom learning has benefits too."</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4 -->
+        <div id="tab4" class="tab-content">
+            <h2>Your Turn - Discussion Topics</h2>
+
+            <p style="margin-bottom: 20px;"><strong>Choose 2-3 topics and give YOUR opinion. Use "I think," "I believe," or "In my opinion."</strong></p>
+
+            <div class="discussion-card">
+                <h4>💡 Topic 1: Technology</h4>
+                <p>Are smartphones good or bad? What do you think?</p>
+                <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 80px; font-family: inherit;" placeholder="I think smartphones..."></textarea>
+            </div>
+
+            <div class="discussion-card">
+                <h4>🍕 Topic 2: Food</h4>
+                <p>What's your opinion about fast food? Why?</p>
+                <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 80px; font-family: inherit;" placeholder="In my opinion, fast food..."></textarea>
+            </div>
+
+            <div class="discussion-card">
+                <h4>🎓 Topic 3: Learning</h4>
+                <p>Is English important to learn? Why do you think so?</p>
+                <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 80px; font-family: inherit;" placeholder="I believe English..."></textarea>
+            </div>
+
+            <div class="discussion-card">
+                <h4>🌍 Topic 4: Environment</h4>
+                <p>What's your opinion: Is it important to protect nature?</p>
+                <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 80px; font-family: inherit;" placeholder="In my opinion..."></textarea>
+            </div>
+
+            <div class="discussion-card">
+                <h4>🎭 Topic 5: Entertainment</h4>
+                <p>Do you prefer books, films, or games? What's your opinion?</p>
+                <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 80px; font-family: inherit;" placeholder="I think..."></textarea>
+            </div>
+
+            <div class="discussion-card">
+                <h4>👥 Topic 6: Friendship</h4>
+                <p>What makes a good friend? What do you believe?</p>
+                <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 80px; font-family: inherit;" placeholder="I believe a good friend..."></textarea>
+            </div>
+
+            <button class="btn-primary" style="width: 100%; margin-top: 15px;" onclick="alert('Excellent! You shared your opinions. In a lesson with your teacher, they will listen and respond to your opinions.')">Save Your Responses</button>
+        </div>
+
+        <!-- TAB 5 -->
+        <div id="tab5" class="tab-content">
+            <h2>Deep Dive - Elaborate on Your Opinion</h2>
+
+            <div style="background: #fff9e6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3>📝 Prepare to Explain</h3>
+                <p><strong>Challenge:</strong> Choose ONE opinion from Tab 4. Now write WHY you think that way.</p>
+                <p style="margin-top: 15px;"><strong>Formula:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Line 1: Your opinion ("I think...")</li>
+                    <li>Line 2: Reason ("Because..." or "...because...")</li>
+                    <li>Line 3: Example ("For example...")</li>
+                </ul>
+            </div>
+
+            <div class="production-task">
+                <h3>🎤 Write Your Elaboration</h3>
+                <textarea id="elaboration-text" placeholder="I think... Because... For example..." style="min-height: 120px;"></textarea>
+                <button class="btn-primary" onclick="alert('Great elaboration! This shows you can support your opinions with reasons.')">Save Your Elaboration</button>
+            </div>
+        </div>
+
+        <!-- TAB 6 -->
+        <div id="tab6" class="tab-content">
+            <h2>Recall from Previous Lessons</h2>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 19 (Describing Things):</div>
+                <p>What are 3 adjectives we learned for describing? Give examples.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall1')">Show answer</button>
+                <div id="recall1" class="hidden-content">
+                    <p><strong>✓ Examples:</strong> interesting, beautiful, amazing, terrible, wonderful</p>
+                    <p style="margin-top: 8px;">Example: "That's a beautiful painting."</p>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 20 (Unit 2 Review):</div>
+                <p>How do we ask "Do you like...?" questions?</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall2')">Show answer</button>
+                <div id="recall2" class="hidden-content">
+                    <p><strong>✓ Pattern:</strong> Do you like + NOUN?</p>
+                    <p style="margin-top: 8px;">Examples: "Do you like coffee?" "Do you like music?"</p>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 21 (Right Now):</div>
+                <p>How do we form Present Continuous? Give the pattern.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall3')">Show answer</button>
+                <div id="recall3" class="hidden-content">
+                    <p><strong>✓ Pattern:</strong> am/is/are + verb + ing</p>
+                    <p style="margin-top: 8px;">Example: "I am learning English right now."</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 7 -->
+        <div id="tab7" class="tab-content">
+            <h2>Retrieval Wrap-Up</h2>
+
+            <div class="production-task">
+                <h3>Remember Without Looking Back</h3>
+                <p><strong>1. Write 5 ways to give an opinion in English:</strong></p>
+                <textarea id="ways-output" placeholder="1. I think... 2. I believe... 3..." style="min-height: 100px; margin-bottom: 15px;"></textarea>
+
+                <p><strong>2. Write 3 examples of opinions YOU have:</strong></p>
+                <textarea id="opinions-output" placeholder="I think... In my opinion... I believe..." style="min-height: 100px; margin-bottom: 15px;"></textarea>
+
+                <button class="btn-primary" onclick="checkFinalTest()">Check Your Answers</button>
+                <div id="final-feedback" style="margin-top: 15px; padding: 15px; border-radius: 4px; display: none;"></div>
+            </div>
+
+            <div class="metacognition">
+                <h3>🧠 Reflect</h3>
+                <p><strong>Which expression felt most natural for you: "I think," "I believe," or "In my opinion"? Why?</strong></p>
+                <textarea id="metacog-input" placeholder="I found... easiest because..." style="min-height: 80px;"></textarea>
+                <button class="btn-primary" onclick="alert('Your reflection saved!')">Save</button>
+            </div>
+
+            <div class="i-can-statement">
+                ✅ I can express my opinions using "I think," "I believe," "In my opinion"
+                <br><br>
+                ✅ I can agree and disagree with others' opinions respectfully
+            </div>
+
+            <p style="text-align: center; margin-top: 30px; color: #666; font-style: italic;">
+                We said you'd be able to give opinions. Can you? What helped you learn that?
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tabbuttons = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(evt, contentId) {
+            var content = document.getElementById(contentId);
+            content.classList.toggle("show");
+            evt.target.textContent = content.classList.contains("show") ? "Hide answer" : "Show answer";
+        }
+
+        function checkFinalTest() {
+            var waysOutput = document.getElementById('ways-output').value;
+            var opinionsOutput = document.getElementById('opinions-output').value;
+            var feedback = document.getElementById('final-feedback');
+
+            if (waysOutput.trim().length > 20 && opinionsOutput.trim().length > 20) {
+                feedback.innerHTML = '<strong style="color: #2e7d32;">✓ Excellent!</strong> You can express opinions in multiple ways and share your own views. ' +
+                    'Compare your answers with a teacher for specific feedback.';
+                feedback.style.backgroundColor = '#e8f5e9';
+                feedback.style.borderLeft = '4px solid #4caf50';
+                feedback.style.display = 'block';
+            } else {
+                feedback.innerHTML = '<strong style="color: #c62828;">Try again:</strong> Write more examples for both questions.';
+                feedback.style.backgroundColor = '#ffebee';
+                feedback.style.borderLeft = '4px solid #f44336';
+                feedback.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

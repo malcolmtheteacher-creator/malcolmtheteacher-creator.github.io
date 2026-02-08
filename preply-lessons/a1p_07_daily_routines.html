@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Lesson 07: Daily Routines</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f0f5 100%);
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .learning-intention {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab-button {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .tab-button:hover {
+            background: #f0f0f0;
+            border-color: #ff6b6b;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border-color: #ff6b6b;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card {
+            background: #f8f9fa;
+            border-left: 4px solid #ff6b6b;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .content-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        .retrieval-task {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe8a8 100%);
+            border: 2px dashed #ffc107;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .retrieval-task h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .reveal {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .emoji-large {
+            font-size: 3em;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .activity-card {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .activity-card .emoji {
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        .activity-card strong {
+            color: #667eea;
+        }
+
+        .i-can {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .recall-zone {
+            background: linear-gradient(135deg, #e1f5ff 0%, #b3e5fc 100%);
+            border: 2px solid #0277bd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .recall-zone h3 {
+            color: #01579b;
+            margin-bottom: 15px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 15px;
+            margin: 15px 0;
+            padding-left: 20px;
+            border-left: 3px solid #ff6b6b;
+        }
+
+        .timeline-item strong {
+            color: #ff6b6b;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                border-radius: 5px;
+                width: 100%;
+            }
+
+            .tab-content {
+                border-radius: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⏰ Daily Routines ⏰</h1>
+            <p>Lesson 7: Foundation Unit (Second Half)</p>
+        </div>
+
+        <div class="learning-intention">
+            💡 <strong>Today we're working on</strong> present simple verbs, time expressions, and daily activities so <strong>you can describe your typical day</strong>.
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('tab1')">1. Recall Zone</button>
+            <button class="tab-button" onclick="showTab('tab2')">2. Action Verbs</button>
+            <button class="tab-button" onclick="showTab('tab3')">3. Time Expressions</button>
+            <button class="tab-button" onclick="showTab('tab4')">4. Your Routine</button>
+            <button class="tab-button" onclick="showTab('tab5')">5. Building a Timeline</button>
+            <button class="tab-button" onclick="showTab('tab6')">6. Practice</button>
+            <button class="tab-button" onclick="showTab('tab7')">7. Wrap-Up & I Can...</button>
+        </div>
+
+        <!-- Tab 1: Recall Zone -->
+        <div id="tab1" class="tab-content active">
+            <h2>🧠 Recall Zone: From Lessons 3, 4, 5</h2>
+            <p>Let's retrieve from previous lessons using optimal spacing intervals:</p>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 3 (4 lessons back)</h3>
+                <p><strong>Question:</strong> Write 2 jobs and the present simple pattern for saying them:</p>
+                <textarea id="recall1" placeholder="Write from memory..."></textarea>
+            </div>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 4 (3 lessons back)</h3>
+                <p><strong>Question:</strong> Write numbers: 9, 34, 56, 99 in English words:</p>
+                <textarea id="recall2" placeholder="Write from memory..."></textarea>
+            </div>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 5 (Review from 2 lessons back)</h3>
+                <p><strong>Question:</strong> What are 3 things you learned you could do (I can... statements)?</p>
+                <textarea id="recall3" placeholder="Write from memory..."></textarea>
+            </div>
+
+            <button onclick="alert('✅ Great retrieval practice! You\'re strengthening long-term memory!')" style="width: 100%; margin-top: 15px; padding: 12px;">Check Recalls</button>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>📌 Spaced Repetition Note:</strong> These recalls come from L3 (4 lessons back), L4 (3 lessons back), L5 (2 lessons back). The spacing fights the forgetting curve!
+            </div>
+        </div>
+
+        <!-- Tab 2: Action Verbs for Daily Routines -->
+        <div id="tab2" class="tab-content">
+            <h2>🏃 Let's Learn: Action Verbs (Present Simple)</h2>
+            <p>These are the verbs you use to describe what you do every day. Here's a realistic daily routine:</p>
+
+            <div class="activity-card">
+                <div class="emoji">🛏️</div>
+                <div><strong>Wake up</strong> - stop sleeping, open your eyes in the morning</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="emoji">🚿</div>
+                <div><strong>Shower</strong> - wash your body with water</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="emoji">🍽️</div>
+                <div><strong>Eat breakfast</strong> - have your first meal of the day</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="emoji">💼</div>
+                <div><strong>Go to work</strong> - travel to your workplace</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="emoji">💻</div>
+                <div><strong>Work</strong> - do your job</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="emoji">🍽️</div>
+                <div><strong>Have lunch</strong> - eat your midday meal</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="emoji">🏠</div>
+                <div><strong>Come home</strong> - return to your house</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="emoji">🍳</div>
+                <div><strong>Cook</strong> - prepare food</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="emoji">📺</div>
+                <div><strong>Watch TV</strong> - look at television</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="emoji">😴</div>
+                <div><strong>Go to bed</strong> - lie down to sleep</div>
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💡 Grammar Note:</strong> With "I", we use the base verb: "I wake up", "I eat", "I work" (NOT "I wakes" or "I eats")
+            </div>
+        </div>
+
+        <!-- Tab 3: Time Expressions -->
+        <div id="tab3" class="tab-content">
+            <h2>🕐 Let's Learn: Time Expressions</h2>
+            <p>To describe routines, you need words for WHEN you do things:</p>
+
+            <div class="content-card">
+                <h3>Morning / Afternoon / Evening / Night</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I wake up at <strong>7 o'clock in the morning</strong>."</li>
+                    <li>"I have lunch at <strong>noon / 12 o'clock</strong>."</li>
+                    <li>"I work in the <strong>afternoon</strong>."</li>
+                    <li>"I watch TV in the <strong>evening</strong>."</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Days of the Week</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday</li>
+                    <li>"I <strong>always</strong> work on Monday."</li>
+                    <li>"I <strong>never</strong> work on Sunday."</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Frequency Adverbs (How often?)</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Always</strong> = every time, 100%</li>
+                    <li><strong>Usually</strong> = most times, ~80%</li>
+                    <li><strong>Often</strong> = many times, ~60%</li>
+                    <li><strong>Sometimes</strong> = occasionally, ~40%</li>
+                    <li><strong>Never</strong> = 0%, not at all</li>
+                </ul>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💡 Pattern:</strong> "I [frequency adverb] [verb]" → "I always wake up at 7" / "I never eat breakfast"
+            </div>
+        </div>
+
+        <!-- Tab 4: Your Routine -->
+        <div id="tab4" class="tab-content">
+            <h2>🎯 Your Turn: Describe Your Actual Routine</h2>
+            <p>Create sentences about what YOU actually do. No models — produce from memory and experience:</p>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 1: Morning Routine ☀️</h3>
+                <p><strong>Task:</strong> "I wake up at [time]. I [action] and then I [action]."</p>
+                <textarea id="routine1" placeholder="Example: I wake up at 7 o'clock. I shower and then I eat breakfast."></textarea>
+                <button onclick="saveResponse('routine1')">Save</button>
+            </div>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 2: Frequency Statement 🔄</h3>
+                <p><strong>Task:</strong> "I [always/usually/sometimes/never] [verb] [time/day]."</p>
+                <textarea id="routine2" placeholder="Example: I always work on weekdays. I usually watch TV in the evening."></textarea>
+                <button onclick="saveResponse('routine2')">Save</button>
+            </div>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 3: Full Day Description 📅</h3>
+                <p><strong>Task:</strong> Describe 3-4 things you do in a typical day with times:</p>
+                <textarea id="routine3" placeholder="Example: I wake up at 6am. I go to work at 8am. I have lunch at noon. I come home at 5pm."></textarea>
+                <button onclick="saveResponse('routine3')">Save</button>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎉 PERFECT!</strong> You're creating your actual routine in English. That's authentic, personalized language production!
+            </div>
+        </div>
+
+        <!-- Tab 5: Building a Timeline -->
+        <div id="tab5" class="tab-content">
+            <h2>📍 Creating a Daily Timeline</h2>
+            <p>Let's organize a complete day, hour by hour. This shows how times and verbs connect:</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>6:00 AM</strong>
+                    <div>Wake up ☀️</div>
+                </div>
+                <div class="timeline-item">
+                    <strong>6:30 AM</strong>
+                    <div>Shower 🚿</div>
+                </div>
+                <div class="timeline-item">
+                    <strong>7:00 AM</strong>
+                    <div>Eat breakfast 🍞</div>
+                </div>
+                <div class="timeline-item">
+                    <strong>8:00 AM</strong>
+                    <div>Go to work 💼</div>
+                </div>
+                <div class="timeline-item">
+                    <strong>12:00 PM</strong>
+                    <div>Have lunch 🍽️</div>
+                </div>
+                <div class="timeline-item">
+                    <strong>5:00 PM</strong>
+                    <div>Come home 🏠</div>
+                </div>
+                <div class="timeline-item">
+                    <strong>7:00 PM</strong>
+                    <div>Cook dinner 🍳</div>
+                </div>
+                <div class="timeline-item">
+                    <strong>10:00 PM</strong>
+                    <div>Go to bed 😴</div>
+                </div>
+            </div>
+
+            <p style="margin-top: 20px;"><strong>Now create YOUR timeline:</strong> List 5 important times in YOUR day and what you do at each time:</p>
+
+            <textarea id="timeline" placeholder="Example: 7am - wake up, 8am - have breakfast, 9am - go to work, 12pm - have lunch, 5pm - come home"></textarea>
+            <button onclick="saveResponse('timeline')">Save My Timeline</button>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💡 Spoken Output Tip:</strong> Try reading your timeline OUT LOUD 3 times. This helps pronunciation and fluency!
+            </div>
+        </div>
+
+        <!-- Tab 6: Practice -->
+        <div id="tab6" class="tab-content">
+            <h2>⚡ Practice: Routines in Context</h2>
+            <p>Answer these routine questions naturally:</p>
+
+            <div style="margin: 20px 0;">
+                <h3>Question 1: What time do you wake up?</h3>
+                <p>Create a sentence: "I wake up at [time]."</p>
+                <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <h3>Question 2: How often do you exercise?</h3>
+                <p>Create a sentence: "I [frequency] exercise [when]."</p>
+                <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <h3>Question 3: What do you do in the evening?</h3>
+                <p>Create 1-2 sentences about your evening routine.</p>
+                <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <h3>Question 4: Describe your typical day</h3>
+                <p>Create 3-4 sentences with times and activities.</p>
+                <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💪 Remember:</strong> Always include TIME with your routine! "I work" is incomplete. "I work from 9am to 5pm" is complete.
+            </div>
+        </div>
+
+        <!-- Tab 7: Wrap-Up & I Can -->
+        <div id="tab7" class="tab-content">
+            <h2>🎓 Wrap-Up & Self-Assessment</h2>
+            <p>Let's test what you learned — <strong>without looking back!</strong></p>
+
+            <div class="retrieval-task">
+                <h3>📋 Final Recall</h3>
+                <p>From memory, write:</p>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li>5 daily routine verbs (wake up, eat, work, etc.)</li>
+                    <li>3 time expressions or frequency adverbs (morning, always, etc.)</li>
+                    <li>Your complete morning routine in 2-3 sentences with times</li>
+                </ol>
+                <textarea id="finalRecall" placeholder="Write from memory..."></textarea>
+                <button onclick="revealAnswer()">I'm Ready to Check</button>
+            </div>
+
+            <div id="revealedAnswer" style="display: none; margin-top: 20px;">
+                <div class="reveal">
+                    <h3>✅ Model Answer</h3>
+                    <p><strong>1. Verbs:</strong> Wake up, shower, eat, work, have lunch, come home, cook, watch TV, go to bed, exercise</p>
+                    <p><strong>2. Time expressions:</strong> At 7 o'clock, in the morning, in the evening, always, usually, never, Monday, Friday</p>
+                    <p><strong>3. Example:</strong> "I wake up at 6am. I shower for 15 minutes. I eat breakfast at 6:45am."</p>
+                </div>
+
+                <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                    <strong>💭 Metacognitive Reflection:</strong> Was it easier to remember verbs, times, or your own routine? Why?
+                </div>
+            </div>
+
+            <div class="i-can">
+                ✅ <strong>I can describe my daily routine using present simple verbs and time expressions.</strong>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎉 Lesson 7 Complete!</strong><br>
+                You can now describe EVERYTHING about your typical day. Next lesson, we'll talk about food and drinks — another essential daily topic!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            contents.forEach(el => el.classList.remove('active'));
+            buttons.forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function saveResponse(id) {
+            const text = document.getElementById(id).value;
+            if (text.trim()) {
+                alert('✅ Saved! Great routine description!');
+            } else {
+                alert('⚠️ Please type something first!');
+            }
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealedAnswer').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

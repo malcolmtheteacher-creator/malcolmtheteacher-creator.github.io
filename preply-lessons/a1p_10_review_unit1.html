@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Lesson 10: REVIEW - Unit 1 Complete</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f0f5 100%);
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .learning-intention {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab-button {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .tab-button:hover {
+            background: #f0f0f0;
+            border-color: #667eea;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .content-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .retrieval-task {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe8a8 100%);
+            border: 2px dashed #ffc107;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .retrieval-task h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .reveal {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .emoji-large {
+            font-size: 3em;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .i-can {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .milestone {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe8a8 100%);
+            border: 3px solid #ffc107;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+
+        .progress-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .progress-list li {
+            padding: 12px;
+            margin: 8px 0;
+            background: #f0f0f0;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+
+        .progress-list li:before {
+            content: "✅ ";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .recall-zone {
+            background: linear-gradient(135deg, #e1f5ff 0%, #b3e5fc 100%);
+            border: 2px solid #0277bd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .recall-zone h3 {
+            color: #01579b;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                border-radius: 5px;
+                width: 100%;
+            }
+
+            .tab-content {
+                border-radius: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 REVIEW: Unit 1 Complete 🎉</h1>
+            <p>Lesson 10: Consolidating All 9 Lessons</p>
+        </div>
+
+        <div class="milestone">
+            🌟 <strong>MAJOR MILESTONE!</strong> You've completed the Foundation Unit! 20% of the A1 Pathway is done. Excellent progress!
+        </div>
+
+        <div class="learning-intention">
+            💡 <strong>Today we're reviewing</strong> everything from Lessons 1-9 so <strong>you can consolidate your foundation and prepare for Unit 2</strong>.
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('tab1')">1. What You've Learned</button>
+            <button class="tab-button" onclick="showTab('tab2')">2. Spaced Recall</button>
+            <button class="tab-button" onclick="showTab('tab3')">3. Integrated Test</button>
+            <button class="tab-button" onclick="showTab('tab4')">4. Progress Track</button>
+            <button class="tab-button" onclick="showTab('tab5')">5. Looking Ahead</button>
+            <button class="tab-button" onclick="showTab('tab6')">6. I Can... Statements</button>
+        </div>
+
+        <!-- Tab 1: Complete Learning Summary -->
+        <div id="tab1" class="tab-content active">
+            <h2>📚 Complete Unit 1 Summary</h2>
+            <p>Here's everything you've mastered in 9 lessons:</p>
+
+            <div class="content-card">
+                <h3>✅ Lesson 1: Introductions</h3>
+                <ul class="progress-list">
+                    <li>Greetings: Hi, Hello, Good morning, Nice to meet you</li>
+                    <li>Introduction patterns: I'm..., My name is...</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>✅ Lesson 2: Where Are You From?</h3>
+                <ul class="progress-list">
+                    <li>Countries and locations: I'm from Brazil</li>
+                    <li>Nationalities: Brazilian, Japanese, French</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>✅ Lesson 3: What Do You Do?</h3>
+                <ul class="progress-list">
+                    <li>Jobs and occupations: teacher, doctor, engineer</li>
+                    <li>Present simple: I'm a..., I work as a...</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>✅ Lesson 4: Numbers & Basics</h3>
+                <ul class="progress-list">
+                    <li>Numbers 1-100 in English</li>
+                    <li>Ages, phone numbers, prices</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>✅ Lesson 5: REVIEW</h3>
+                <ul class="progress-list">
+                    <li>Consolidated lessons 1-4</li>
+                    <li>Practiced integration and spaced recall</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>✅ Lesson 6: Family & People</h3>
+                <ul class="progress-list">
+                    <li>Family members: mother, father, sister, brother</li>
+                    <li>Possessives: My, Your, His, Her</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>✅ Lesson 7: Daily Routines</h3>
+                <ul class="progress-list">
+                    <li>Action verbs: Wake up, shower, work, eat, sleep</li>
+                    <li>Time expressions: Morning, afternoon, always, never</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>✅ Lesson 8: Food & Drinks</h3>
+                <ul class="progress-list">
+                    <li>Food vocabulary: Pizza, chicken, pasta, salad</li>
+                    <li>Likes/Dislikes: I like..., I don't like...</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>✅ Lesson 9: Where Is It?</h3>
+                <ul class="progress-list">
+                    <li>Prepositions: IN, ON, UNDER, NEXT TO, BETWEEN</li>
+                    <li>Location descriptions: "The book is on the table"</li>
+                </ul>
+            </div>
+
+            <div class="emoji-large">👋 + 🌍 + 💼 + 🔢 + 👨‍👩‍👧 + ⏰ + 🍕 + 📍 = Complete Foundation</div>
+        </div>
+
+        <!-- Tab 2: Comprehensive Spaced Recall -->
+        <div id="tab2" class="tab-content">
+            <h2>🧠 Spaced Recall Zone: Full Unit Challenge</h2>
+            <p>Retrieval from Lessons 3, 6, 7, 8 (using optimal spacing intervals):</p>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 3 (7 lessons back - long-term recall)</h3>
+                <p><strong>Question:</strong> Write 3 jobs/occupations and the pattern for saying them:</p>
+                <textarea id="recall1" placeholder="Write from memory..."></textarea>
+            </div>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 6 (4 lessons back - medium-term recall)</h3>
+                <p><strong>Question:</strong> Write 5 family members and use possessives in 1 sentence:</p>
+                <textarea id="recall2" placeholder="Write from memory..."></textarea>
+            </div>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 7 (3 lessons back - recent recall)</h3>
+                <p><strong>Question:</strong> Write 3 daily routines with time expressions:</p>
+                <textarea id="recall3" placeholder="Write from memory..."></textarea>
+            </div>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 8 (2 lessons back - fresh recall)</h3>
+                <p><strong>Question:</strong> Write 3 foods/drinks and like/dislike statements:</p>
+                <textarea id="recall4" placeholder="Write from memory..."></textarea>
+            </div>
+
+            <button onclick="checkAllRecalls()" style="width: 100%; margin-top: 15px; padding: 12px; font-size: 1em;">Check All Recalls</button>
+            <div id="recallResult"></div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>📌 Spacing Pattern:</strong> L3 (7 back), L6 (4 back), L7 (3 back), L8 (2 back). This spacing creates long-term retention!
+            </div>
+        </div>
+
+        <!-- Tab 3: Integrated Capstone Test -->
+        <div id="tab3" class="tab-content">
+            <h2>🎯 Capstone Test: Complete Integration</h2>
+            <p>This is the ultimate test. Create a COMPLETE, REAL introduction and daily life description combining ALL 9 lessons. No scaffolding — just produce:</p>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                <strong>🎤 Scenario:</strong> You're at an international conference. Someone asks: "Tell me about yourself." They want to know: Who you are, where you're from, what you do, basic info about your life (family, daily routine, food preferences, where things are in your home).
+            </div>
+
+            <textarea id="capstone" placeholder="Write a complete introduction/description combining everything you've learned (at least 10-15 sentences)..." style="min-height: 200px;"></textarea>
+            <button onclick="checkCapstone()">Check My Capstone</button>
+            <div id="capstoneResult"></div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💡 What to include:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Greeting + name (L1)</li>
+                    <li>Location/nationality (L2)</li>
+                    <li>Job (L3)</li>
+                    <li>Age/numbers (L4)</li>
+                    <li>Family info (L6)</li>
+                    <li>Daily routine (L7)</li>
+                    <li>Food preferences (L8)</li>
+                    <li>Descriptions using locations (L9)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tab 4: Progress Tracking -->
+        <div id="tab4" class="tab-content">
+            <h2>📊 Your Foundation Unit Progress</h2>
+            <p>Self-assess your mastery of each lesson:</p>
+
+            <div style="margin: 20px 0;">
+                <h3 style="color: #667eea; margin-bottom: 15px;">Rate Your Confidence (1-5):</h3>
+
+                <div style="background: #f0f0f0; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                    <p><strong>L1: Introductions</strong> How confident are you greeting people and introducing yourself?</p>
+                    <div style="margin-top: 10px;">
+                        <button onclick="rate('L1', 5)" style="padding: 8px 12px; margin: 5px;">⭐⭐⭐⭐⭐ Very Confident</button>
+                        <button onclick="rate('L1', 3)" style="padding: 8px 12px; margin: 5px;">⭐⭐⭐ Okay</button>
+                        <button onclick="rate('L1', 1)" style="padding: 8px 12px; margin: 5px;">⭐ Need Practice</button>
+                    </div>
+                </div>
+
+                <div style="background: #f0f0f0; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                    <p><strong>L2: Locations</strong> Can you say where you're from with confidence?</p>
+                    <div style="margin-top: 10px;">
+                        <button onclick="rate('L2', 5)" style="padding: 8px 12px; margin: 5px;">⭐⭐⭐⭐⭐ Very Confident</button>
+                        <button onclick="rate('L2', 3)" style="padding: 8px 12px; margin: 5px;">⭐⭐⭐ Okay</button>
+                        <button onclick="rate('L2', 1)" style="padding: 8px 12px; margin: 5px;">⭐ Need Practice</button>
+                    </div>
+                </div>
+
+                <div style="background: #f0f0f0; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                    <p><strong>L3-L9: Overall</strong> How well do you understand all the foundation content?</p>
+                    <div style="margin-top: 10px;">
+                        <button onclick="rate('Overall', 5)" style="padding: 8px 12px; margin: 5px;">⭐⭐⭐⭐⭐ Ready for Unit 2!</button>
+                        <button onclick="rate('Overall', 3)" style="padding: 8px 12px; margin: 5px;">⭐⭐⭐ Somewhat Ready</button>
+                        <button onclick="rate('Overall', 1)" style="padding: 8px 12px; margin: 5px;">⭐ Need More Review</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎯 Note:</strong> If you rated yourself 1 or 2 anywhere, that's fine! You now KNOW where to focus your extra review practice!
+            </div>
+        </div>
+
+        <!-- Tab 5: Looking Ahead to Unit 2 -->
+        <div id="tab5" class="tab-content">
+            <h2>🔮 Unit 2 Preview: Elementary (Lessons 11-20)</h2>
+            <p>You've built the foundation. Now Unit 2 takes you deeper into communication:</p>
+
+            <div class="content-card">
+                <h3>📖 Lesson 11: What Did You Do?</h3>
+                <p>Past simple regular verbs — talking about yesterday and past events</p>
+            </div>
+
+            <div class="content-card">
+                <h3>📖 Lesson 12: Yesterday's Story</h3>
+                <p>Past simple irregular verbs, storytelling, sequencing</p>
+            </div>
+
+            <div class="content-card">
+                <h3>📖 Lesson 13: Going Shopping</h3>
+                <p>Shopping language, prices, polite requests</p>
+            </div>
+
+            <div class="content-card">
+                <h3>📖 Lesson 14: Making Plans</h3>
+                <p>"Going to" future, time expressions for the future</p>
+            </div>
+
+            <div class="content-card">
+                <h3>📖 Lesson 15: REVIEW: Past & Future</h3>
+                <p>Consolidating tenses learned across Unit 2 so far</p>
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc104; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💡 Connection:</strong> Unit 2 builds on Foundation vocabulary + grammar. You'll keep using families, jobs, foods, locations — PLUS learn to talk about them in the PAST and FUTURE!
+            </div>
+
+            <div class="emoji-large">⏳ ➡️ 📅</div>
+        </div>
+
+        <!-- Tab 6: Unit 1 "I Can..." Statements -->
+        <div id="tab6" class="tab-content">
+            <h2>✅ Unit 1 Complete: Official "I Can..." Statements</h2>
+            <p>These are your certified learning outcomes. Check which ones you can DO:</p>
+
+            <div style="margin: 20px 0;">
+                <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
+                    <input type="checkbox" checked disabled>
+                    <strong>I can introduce myself with greeting, name, and use multiple patterns</strong>
+                </label>
+
+                <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
+                    <input type="checkbox" checked disabled>
+                    <strong>I can tell people where I'm from (country, city, nationality) confidently</strong>
+                </label>
+
+                <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
+                    <input type="checkbox" checked disabled>
+                    <strong>I can describe my job/occupation using present simple</strong>
+                </label>
+
+                <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
+                    <input type="checkbox" checked disabled>
+                    <strong>I can say and understand numbers 1-100, ages, phone numbers</strong>
+                </label>
+
+                <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
+                    <input type="checkbox" checked disabled>
+                    <strong>I can talk about my family and use possessives (my, your, his, her)</strong>
+                </label>
+
+                <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
+                    <input type="checkbox" checked disabled>
+                    <strong>I can describe my daily routine with times and frequency adverbs</strong>
+                </label>
+
+                <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
+                    <input type="checkbox" checked disabled>
+                    <strong>I can talk about food preferences and order at a restaurant</strong>
+                </label>
+
+                <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
+                    <input type="checkbox" checked disabled>
+                    <strong>I can describe where things are using prepositions of location</strong>
+                </label>
+
+                <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
+                    <input type="checkbox" checked disabled>
+                    <strong>I can have the beginning of a real conversation in English</strong>
+                </label>
+            </div>
+
+            <div class="i-can">
+                🌟 <strong>UNIT 1 COMPLETE!</strong><br>
+                I can introduce myself, describe my life (job, family, daily routine), talk about food, and describe locations with confidence and accuracy. I am ready for Unit 2: Elementary English Communication.
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎉 Celebration Moment:</strong><br>
+                You've completed 10% of the A1 Pathway! You've mastered survival English and can have basic conversations. The foundation is solid. Well done!
+            </div>
+
+            <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe8a8 100%); border: 3px solid #ffc107; padding: 20px; border-radius: 5px; text-align: center; margin: 20px 0;">
+                <h2 style="color: #ff6b6b; font-size: 1.5em;">🎊 READY FOR UNIT 2? 🎊</h2>
+                <p style="font-size: 1.1em; margin-top: 10px;">You have 40 more lessons ahead. Each one builds on this foundation. You're not starting from zero anymore — you're building real fluency!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            contents.forEach(el => el.classList.remove('active'));
+            buttons.forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function checkAllRecalls() {
+            const r1 = document.getElementById('recall1').value.trim().length;
+            const r2 = document.getElementById('recall2').value.trim().length;
+            const r3 = document.getElementById('recall3').value.trim().length;
+            const r4 = document.getElementById('recall4').value.trim().length;
+
+            const completed = [r1, r2, r3, r4].filter(r => r > 15).length;
+            const result = document.getElementById('recallResult');
+
+            if (completed === 4) {
+                result.innerHTML = '<div class="reveal"><strong>✅ PERFECT RECALL!</strong> You retrieved from all 4 lessons across the unit. Long-term memory is working beautifully!</div>';
+            } else if (completed >= 2) {
+                result.innerHTML = '<div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; border-radius: 5px;"><strong>💪 Good recall!</strong> You got ' + completed + ' out of 4. That\'s solid spaced repetition working!</div>';
+            } else {
+                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Try harder on these recalls. It\'s OK to look back — that\'s learning! Then try again.</div>';
+            }
+        }
+
+        function checkCapstone() {
+            const capstone = document.getElementById('capstone').value.trim();
+            const result = document.getElementById('capstoneResult');
+
+            if (capstone.length > 100) {
+                const hasIntro = /hi|hello|name/i.test(capstone);
+                const hasLocation = /from|country|city/i.test(capstone);
+                const hasJob = /work|do|job|teacher|engineer/i.test(capstone);
+                const hasFamily = /family|mother|father|brother|sister/i.test(capstone);
+                const hasRoutine = /morning|wake|work|day|routine/i.test(capstone);
+
+                let score = 0;
+                if (hasIntro) score++;
+                if (hasLocation) score++;
+                if (hasJob) score++;
+                if (hasFamily) score++;
+                if (hasRoutine) score++;
+
+                if (score >= 4) {
+                    result.innerHTML = '<div class="reveal"><strong>✅ EXCELLENT CAPSTONE!</strong> You integrated ' + score + ' out of 5 major topics! That\'s integration mastery!</div>';
+                } else if (score >= 2) {
+                    result.innerHTML = '<div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; border-radius: 5px;"><strong>Good effort!</strong> Try including more of these elements: introduction, location, job, family, routine, food preferences, location descriptions.</div>';
+                } else {
+                    result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">This is a major test! Try writing 15+ sentences covering all 9 lessons. Every lesson should appear somehow.</div>';
+                }
+            } else {
+                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Write more! Aim for at least 10-15 sentences covering all major topics from the foundation unit.</div>';
+            }
+        }
+
+        function rate(lesson, score) {
+            alert('✅ Noted! Self-assessment helps you track progress. You\'re doing great!');
+        }
+    </script>
+</body>
+</html>

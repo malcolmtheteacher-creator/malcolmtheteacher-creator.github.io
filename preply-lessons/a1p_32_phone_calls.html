@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 32: Making Phone Calls</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8eef2 100%);
+            color: #1a1a2e;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .learning-intention {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 20px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+            background: #f8f9fa;
+        }
+        
+        .tab-button {
+            padding: 15px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab-button:hover {
+            color: #ff6b6b;
+        }
+        
+        .tab-button.active {
+            color: #ff6b6b;
+            border-bottom-color: #ff6b6b;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .content-section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .retrieval-task {
+            background: #f0f7ff;
+            border-left: 4px solid #4a90e2;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        
+        .retrieval-task textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            min-height: 80px;
+            font-size: 0.95em;
+        }
+        
+        .framework-box {
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe8ed 100%);
+            border: 2px solid #ff6b6b;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .framework-box h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        
+        .framework-step {
+            background: white;
+            border-left: 4px solid #ff6b6b;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        
+        .example-box {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .practice-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .practice-card:hover {
+            box-shadow: 0 2px 8px rgba(255,107,107,0.2);
+            border-color: #ff6b6b;
+        }
+        
+        .practice-card h4 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        
+        .scenario {
+            background: #f0f7ff;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .response-area {
+            background: #fff3cd;
+            padding: 12px;
+            border-radius: 4px;
+            min-height: 60px;
+            border: 1px dashed #ffc107;
+        }
+        
+        .reveal-button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .reveal-button:hover {
+            background: #357abd;
+        }
+        
+        .hidden-content {
+            display: none;
+            background: #e8f5e9;
+            border-left: 4px solid #28a745;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        
+        .hidden-content.revealed {
+            display: block;
+        }
+        
+        .recall-zone {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f6 100%);
+            border: 2px solid #28a745;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .recall-zone h3 {
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+        
+        .recall-item {
+            background: white;
+            padding: 12px;
+            border-left: 4px solid #28a745;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        
+        .i-can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+        
+        .metacognition-box {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .metacognition-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.6em; }
+            .tab-button { padding: 12px 15px; font-size: 0.85em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>☎️ Lesson 32: Making Phone Calls</h1>
+            <p>Speak confidently on the phone in English</p>
+        </div>
+        
+        <div class="learning-intention">
+            <strong>Learning Intention:</strong> Today we're learning phone expressions so you can answer calls, leave messages, and handle requests confidently without face-to-face cues.
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(event, 'tab1')">Retrieval + Framework</button>
+            <button class="tab-button" onclick="showTab(event, 'tab2')">Phone Openings</button>
+            <button class="tab-button" onclick="showTab(event, 'tab3')">Leaving Messages</button>
+            <button class="tab-button" onclick="showTab(event, 'tab4')">Guided Practice</button>
+            <button class="tab-button" onclick="showTab(event, 'tab5')">Real Calls</button>
+            <button class="tab-button" onclick="showTab(event, 'tab6')">Recall Zone</button>
+            <button class="tab-button" onclick="showTab(event, 'tab7')">Wrap-Up & Assessment</button>
+        </div>
+        
+        <!-- TAB 1: RETRIEVAL + FRAMEWORK -->
+        <div id="tab1" class="tab-content active">
+            <div class="content-section">
+                <div class="section-title">🧠 Your phone experience</div>
+                <div class="retrieval-task">
+                    <h3>Think of a time you made a phone call in English</h3>
+                    <p>What was hard? What went well? What expressions did you use?</p>
+                    <textarea placeholder="Describe your experience..."></textarea>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">📞 The Phone Call Framework (A.M.I.)</div>
+                <div class="framework-box">
+                    <h3>Three Steps to Phone Confidence</h3>
+                    <div class="framework-step">
+                        <strong>A = ANSWER & IDENTIFY</strong> - Who am I? Who are you? Why are you calling?
+                    </div>
+                    <div class="framework-step">
+                        <strong>M = MESSAGE OR REASON</strong> - What's this call about? What do you need?
+                    </div>
+                    <div class="framework-step">
+                        <strong>I = IDENTIFY NEXT STEPS</strong> - What happens now? Should I call back? Leave a message?
+                    </div>
+                </div>
+                <p style="margin-top: 15px; font-style: italic; color: #666;">Why A.M.I. works: Without seeing faces, you need to be CLEAR about who you are and what you want. This framework keeps you organized.</p>
+            </div>
+        </div>
+        
+        <!-- TAB 2: PHONE OPENINGS -->
+        <div id="tab2" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">📞 Step 1: ANSWER & IDENTIFY</div>
+                
+                <div style="margin-top: 15px;">
+                    <h4 style="color: #ff6b6b; margin-bottom: 10px;">🟢 When YOU answer the phone:</h4>
+                    <div class="example-box">
+                        "Hello?" / "Hi, this is [Your Name] speaking" / "Yes, hello?"
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px;">
+                    <h4 style="color: #ff6b6b; margin-bottom: 10px;">🟢 When YOU call someone:</h4>
+                    <div class="example-box">
+                        "Hi, is this [Person's Name]?" / "Hello, could I speak to [Name]?"
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px;">
+                    <h4 style="color: #ff6b6b; margin-bottom: 10px;">🟢 If the person is not there:</h4>
+                    <div class="example-box">
+                        "Could you tell them I called?" / "When will they be back?" / "May I leave a message?"
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">✍️ YOUR TURN: Phone openings</div>
+                <div class="retrieval-task">
+                    <p><strong>1. Someone calls you. You answer. Say:</strong> "Hello, this is ________________"</p>
+                    <textarea placeholder="Complete your phone greeting..."></textarea>
+                </div>
+                <div class="retrieval-task">
+                    <p><strong>2. You call to speak to your friend. Say:</strong> "Hi, is this ________________?"</p>
+                    <textarea placeholder="Complete your opening line..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 3: LEAVING MESSAGES -->
+        <div id="tab3" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">💬 Step 2 & 3: MESSAGE & NEXT STEPS</div>
+                
+                <div style="margin-top: 15px;">
+                    <h4 style="color: #ff6b6b; margin-bottom: 10px;">🟢 Leaving a voicemail message:</h4>
+                    <div class="example-box">
+                        "Hi [Name], this is [Your Name]. I'm calling about [reason]. Could you call me back at [number]? Thanks!"
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px;">
+                    <h4 style="color: #ff6b6b; margin-bottom: 10px;">🟢 Taking a message for someone else:</h4>
+                    <div class="example-box">
+                        "I'm sorry, she's not here right now. Can I take a message?" / "May I ask who's calling?"
+                    </div>
+                </div>
+                
+                <div style="background: #fff3cd; padding: 15px; border-radius: 4px; margin-top: 15px;">
+                    <strong>Voicemail Pattern:</strong>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li>Say your name clearly</li>
+                        <li>Say why you're calling</li>
+                        <li>Say your phone number SLOWLY</li>
+                        <li>Say "please call me back" or "I'll try again later"</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 4: GUIDED PRACTICE -->
+        <div id="tab4" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">👨‍🏫 I DO (Model)</div>
+                <p>Watch how I handle a phone call:</p>
+                <div class="example-box">
+                    <strong>Situation:</strong> I'm calling to book a dentist appointment.<br><br>
+                    <strong>My call:</strong> "Hello, I'm calling to book a dental appointment. Is the dentist available next Tuesday?"<br><br>
+                    <strong>Why:</strong> I introduce myself, say why I'm calling, and ask a specific question.
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">👥 WE DO (Together)</div>
+                <div class="practice-card">
+                    <h4>Scenario: You call a friend</h4>
+                    <div class="scenario">
+                        <strong>Friend answers:</strong> "Hello?"
+                    </div>
+                    <div class="response-area">
+                        <strong>What do you say?</strong> Greet them and explain you're calling about weekend plans.
+                    </div>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Show Model</button>
+                    <div class="hidden-content">
+                        <strong>Model:</strong> "Hi! It's [Your Name]. I'm calling about our weekend plans. Are you still free Saturday?"<br><br>
+                        <strong>What worked:</strong> Friendly greeting, identified myself, explained the reason.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">🎓 YOU DO (Independent)</div>
+                <div class="practice-card">
+                    <h4>Scenario: Leaving a voicemail</h4>
+                    <div class="scenario">
+                        You're calling your doctor. The receptionist's voicemail answers. Leave a message saying you need an appointment and your callback number is 555-1234.
+                    </div>
+                    <div class="response-area">
+                        <strong>What do you say?</strong> Leave a complete voicemail message.
+                    </div>
+                    <textarea placeholder="Write or describe your voicemail..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 5: REAL CALLS -->
+        <div id="tab5" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">☎️ Real Phone Situations</div>
+                <p>Choose 2 scenarios. Speak or write what YOU would say. No scaffolding.</p>
+                
+                <div class="practice-card">
+                    <h4>Scenario 1: Calling to Reschedule</h4>
+                    <div class="scenario">
+                        You need to reschedule your dentist appointment from Thursday to Friday. Call the office.
+                    </div>
+                    <textarea placeholder="Write what you would say..."></textarea>
+                </div>
+                
+                <div class="practice-card">
+                    <h4>Scenario 2: Wrong Number</h4>
+                    <div class="scenario">
+                        You dial a number. An angry voice says "What do you want?" You realize it's the wrong number. What do you say?
+                    </div>
+                    <textarea placeholder="Write your response..."></textarea>
+                </div>
+                
+                <div class="practice-card">
+                    <h4>Scenario 3: Someone Calls for You</h4>
+                    <div class="scenario">
+                        Your roommate gets a call from a client. Your roommate needs to take a message for you. What information should your roommate ask for?
+                    </div>
+                    <textarea placeholder="List the information they should collect..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 6: RECALL ZONE -->
+        <div id="tab6" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🔄 Recall Zone: Spaced Retrieval</div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 4: Numbers & Basics</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> How do you say your phone number aloud?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            <strong>Answer:</strong> Say each digit separately: "five-five-five, one-two-three-four" (with a pause between groups)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 26: Must & Should</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What modal verb do you use to give advice or say something is necessary?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            <strong>Answer:</strong> "Must" (very important) and "should" (advice). Example: "You should call back tomorrow."
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 29-30: Making Suggestions</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> How do you ask someone to do something politely on the phone?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            <strong>Answer:</strong> "Could you...?", "Would you mind...?", "Can you...?", "May I ask you to...?"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 7: WRAP-UP & ASSESSMENT -->
+        <div id="tab7" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">📝 Final Retrieval: Do you remember?</div>
+                
+                <div class="retrieval-task">
+                    <p><strong>1. Write the A.M.I. framework from memory:</strong></p>
+                    <p>A = ________________</p>
+                    <p>M = ________________</p>
+                    <p>I = ________________</p>
+                    <textarea placeholder="Write the three steps..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>2. Write one sentence for EACH phone situation:</strong></p>
+                    <p>• Answering the phone: ________________</p>
+                    <p>• Asking to speak to someone: ________________</p>
+                    <p>• Leaving a voicemail: ________________</p>
+                    <textarea placeholder="Write three sentences..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>3. What was the hardest part of phone calls for you? How did today's practice help?</strong></p>
+                    <textarea placeholder="Your reflection..."></textarea>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="i-can-statement">
+                    ✅ <strong>I can:</strong> Answer phone calls naturally, introduce myself clearly, leave voicemail messages, and handle phone situations confidently
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="metacognition-box">
+                    <h4>🧠 Metacognition: What helped you learn?</h4>
+                    <textarea placeholder="Was it the framework? The examples? The practice scenarios?..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(evt, tabName) {
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            var tabbuttons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        
+        function toggleReveal(evt) {
+            evt.preventDefault();
+            var button = evt.currentTarget;
+            var hiddenContent = button.nextElementSibling;
+            hiddenContent.classList.toggle("revealed");
+            button.textContent = hiddenContent.classList.contains("revealed") ? "Hide" : "Reveal";
+        }
+    </script>
+</body>
+</html>

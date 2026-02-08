@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Lesson 02: Where Are You From?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f0f5 100%);
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .learning-intention {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab-button {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .tab-button:hover {
+            background: #f0f0f0;
+            border-color: #ff6b6b;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border-color: #ff6b6b;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card {
+            background: #f8f9fa;
+            border-left: 4px solid #ff6b6b;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .content-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        .retrieval-task {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe8a8 100%);
+            border: 2px dashed #ffc107;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .retrieval-task h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+        }
+
+        .example-box {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .example-box strong {
+            color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .reveal {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .emoji-large {
+            font-size: 3em;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .practice-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #ff6b6b;
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(255, 107, 107, 0.2);
+        }
+
+        .card strong {
+            display: block;
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        .card-emoji {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+
+        .i-can {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .recall-zone {
+            background: linear-gradient(135deg, #e1f5ff 0%, #b3e5fc 100%);
+            border: 2px solid #0277bd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .recall-zone h3 {
+            color: #01579b;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .practice-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                border-radius: 5px;
+                width: 100%;
+            }
+
+            .tab-content {
+                border-radius: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌍 Where Are You From? 🌍</h1>
+            <p>Lesson 2: Foundation Unit</p>
+        </div>
+
+        <div class="learning-intention">
+            💡 <strong>Today we're working on</strong> countries, nationalities, and location so <strong>you can tell people where you're from</strong>.
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('tab1')">1. Recall Zone</button>
+            <button class="tab-button" onclick="showTab('tab2')">2. Learning: Countries</button>
+            <button class="tab-button" onclick="showTab('tab3')">3. Learning: Nationalities</button>
+            <button class="tab-button" onclick="showTab('tab4')">4. Your Descriptions</button>
+            <button class="tab-button" onclick="showTab('tab5')">5. Practice</button>
+            <button class="tab-button" onclick="showTab('tab6')">6. Conversation</button>
+            <button class="tab-button" onclick="showTab('tab7')">7. Wrap-Up & I Can...</button>
+        </div>
+
+        <!-- Tab 1: Recall Zone -->
+        <div id="tab1" class="tab-content active">
+            <h2>🧠 Recall Zone: What Do You Remember?</h2>
+            <p>Before we learn new content, let's retrieve what you learned in <strong>Lesson 1: Introductions</strong>. No notes — just from memory!</p>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 1</h3>
+                <p><strong>Question:</strong> Can you write 2 greetings we learned? Then write one way to introduce your name?</p>
+                <textarea id="recall1" placeholder="Write from memory..."></textarea>
+                <button onclick="checkRecall1()">Check Answer</button>
+                <div id="recallResult1"></div>
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>✨ Good news:</strong> You're going to use these introductions AGAIN today. People ask "Where are you from?" right after you say your name. So these two lessons work together!
+            </div>
+
+            <div class="emoji-large">🎯 → 🌍</div>
+        </div>
+
+        <!-- Tab 2: Learning Countries -->
+        <div id="tab2" class="tab-content">
+            <h2>🗺️ Let's Learn: Countries & Locations</h2>
+            <p>When people ask "Where are you from?" they're asking about your country or city. Here are some countries with the pattern for talking about them.</p>
+
+            <div class="content-card">
+                <h3>Pattern: "I'm from [country]"</h3>
+                <p><strong>Structure:</strong> I + am (I'm) + from + country name</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I'm from Brazil." 🇧🇷</li>
+                    <li>"I'm from Japan." 🇯🇵</li>
+                    <li>"I'm from Canada." 🇨🇦</li>
+                    <li>"I'm from Spain." 🇪🇸</li>
+                    <li>"I'm from South Korea." 🇰🇷</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>You Can Also Say: "I'm from [city], [country]"</h3>
+                <p><strong>More specific:</strong> Add your city for more detail!</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I'm from Bangkok, Thailand." 🇹🇭</li>
+                    <li>"I'm from Berlin, Germany." 🇩🇪</li>
+                    <li>"I'm from Sydney, Australia." 🇦🇺</li>
+                    <li>"I'm from Mexico City, Mexico." 🇲🇽</li>
+                </ul>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💪 Quick Practice:</strong> Which of these is CORRECT? <br>
+                A) "I'm from France." ✅ Correct! <br>
+                B) "I'm France from." ❌ Wrong word order <br>
+                C) "I from France." ❌ Missing "am" (need "I'm" or "I am")
+            </div>
+        </div>
+
+        <!-- Tab 3: Learning Nationalities -->
+        <div id="tab3" class="tab-content">
+            <h2>🎌 Let's Learn: Nationalities</h2>
+            <p>When you say "I'm from [country]", people might ask "What nationality are you?" Here's the pattern:</p>
+
+            <div class="content-card">
+                <h3>Pattern: "I'm [nationality]."</h3>
+                <p><strong>Structure:</strong> I + am (I'm) + nationality adjective</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I'm Brazilian." (from Brazil) 🇧🇷</li>
+                    <li>"I'm Japanese." (from Japan) 🇯🇵</li>
+                    <li>"I'm Canadian." (from Canada) 🇨🇦</li>
+                    <li>"I'm Spanish." (from Spain) 🇪🇸</li>
+                    <li>"I'm French." (from France) 🇫🇷</li>
+                    <li>"I'm German." (from Germany) 🇩🇪</li>
+                    <li>"I'm Thai." (from Thailand) 🇹🇭</li>
+                    <li>"I'm Turkish." (from Turkey) 🇹🇷</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>⚠️ Important: Country ≠ Nationality</h3>
+                <p><strong>Country:</strong> "France" (noun) → <strong>Nationality:</strong> "French" (adjective)</p>
+                <p><strong>Country:</strong> "Germany" (noun) → <strong>Nationality:</strong> "German" (adjective)</p>
+                <p><strong>Country:</strong> "Brazil" (noun) → <strong>Nationality:</strong> "Brazilian" (adjective)</p>
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💡 Tip:</strong> You can say BOTH: "I'm from Brazil" AND "I'm Brazilian" — they mean the same thing and both are correct!
+            </div>
+        </div>
+
+        <!-- Tab 4: Your Descriptions -->
+        <div id="tab4" class="tab-content">
+            <h2>🎯 Your Turn: Describe Where You're From</h2>
+            <p>Now create your OWN sentences about your location. No looking back at Tabs 2-3! Let's see what you can produce:</p>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 1: Simple Location 🗺️</h3>
+                <p><strong>Create a sentence:</strong> "I'm from [your country]."</p>
+                <textarea id="location1" placeholder="Example: I'm from Turkey."></textarea>
+                <button onclick="saveResponse('location1')">Save</button>
+            </div>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 2: Detailed Location 🏙️</h3>
+                <p><strong>Create a sentence:</strong> "I'm from [city], [country]."</p>
+                <textarea id="location2" placeholder="Example: I'm from Istanbul, Turkey."></textarea>
+                <button onclick="saveResponse('location2')">Save</button>
+            </div>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 3: Nationality Statement 🌟</h3>
+                <p><strong>Create a sentence:</strong> "I'm [nationality]."</p>
+                <textarea id="location3" placeholder="Example: I'm Turkish."></textarea>
+                <button onclick="saveResponse('location3')">Save</button>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎉 Excellent!</strong> You just created 3 sentences from your own knowledge. That's exactly what fluency is — producing language, not just reading it.
+            </div>
+        </div>
+
+        <!-- Tab 5: Practice -->
+        <div id="tab5" class="tab-content">
+            <h2>⚡ Mixed Practice: Countries & Nationalities</h2>
+            <p>Now we'll mix them up. Sometimes we ask about country, sometimes nationality. You need to produce the right form:</p>
+
+            <div class="practice-grid">
+                <div class="card">
+                    <div class="card-emoji">🇦🇹</div>
+                    <strong>Austria</strong>
+                    <p>Say the nationality:</p>
+                    <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
+                </div>
+
+                <div class="card">
+                    <div class="card-emoji">🇮🇹</div>
+                    <strong>I'm from Italy...</strong>
+                    <p>Complete with nationality:</p>
+                    <textarea placeholder="I'm..." style="width: 100%; min-height: 60px;"></textarea>
+                </div>
+
+                <div class="card">
+                    <div class="card-emoji">🇵🇱</div>
+                    <strong>I'm Polish</strong>
+                    <p>Say where from:</p>
+                    <textarea placeholder="I'm from..." style="width: 100%; min-height: 60px;"></textarea>
+                </div>
+
+                <div class="card">
+                    <div class="card-emoji">🇬🇷</div>
+                    <strong>Greece</strong>
+                    <p>Nationality + Country:</p>
+                    <textarea placeholder="I'm... from..." style="width: 100%; min-height: 60px;"></textarea>
+                </div>
+            </div>
+
+            <button onclick="alert('Remember: Country = noun (France, Japan). Nationality = adjective (French, Japanese).')">Need a Hint?</button>
+        </div>
+
+        <!-- Tab 6: Conversation -->
+        <div id="tab6" class="tab-content">
+            <h2>💬 Building a Real Conversation</h2>
+            <p>Someone asks you about where you're from. Let's build the conversation step by step. You're completing Person B:</p>
+
+            <div class="example-box">
+                <strong style="color: #ff6b6b;">Person A:</strong> Hi! I'm Marco. What's your name? <br>
+                <strong style="color: #667eea;">Person B (You):</strong> [YOUR RESPONSE - use what you learned in Lesson 1]<br>
+                <strong style="color: #ff6b6b;">Person A:</strong> Nice to meet you! Where are you from?<br>
+                <strong style="color: #667eea;">Person B (You):</strong> [YOUR RESPONSE - use what you learned in Lesson 2]
+            </div>
+
+            <p style="margin-top: 20px;"><strong>Your Task:</strong> Complete both of Person B's responses below (no looking at previous tabs!):</p>
+
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                <p><strong>Response 1 - Introduce yourself:</strong></p>
+                <textarea id="conv1" placeholder="(greeting + your name)"></textarea>
+
+                <p style="margin-top: 15px;"><strong>Response 2 - Say where you're from:</strong></p>
+                <textarea id="conv2" placeholder="(country/city or nationality)"></textarea>
+
+                <button onclick="checkConversation()">Check Your Responses</button>
+                <div id="convResult"></div>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎤 Pro Tip:</strong> After you say where you're from, you can ADD a question to keep the conversation going: "Where are you from?" — This builds fluency and real conversation skills!
+            </div>
+        </div>
+
+        <!-- Tab 7: Wrap-Up & I Can -->
+        <div id="tab7" class="tab-content">
+            <h2>🎓 Wrap-Up & Self-Assessment</h2>
+            <p>Now, <strong>without looking back</strong>, can you remember and explain what you learned today?</p>
+
+            <div class="retrieval-task">
+                <h3>📋 Final Recall</h3>
+                <p>Write down (from memory):</p>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li>The pattern for saying where you're from (example: "I'm from...")</li>
+                    <li>A nationality example (example: "I'm British")</li>
+                    <li>The difference between country and nationality</li>
+                </ol>
+                <textarea id="finalRecall" placeholder="Write from memory..."></textarea>
+                <button onclick="revealAnswer()">I'm Ready to Check</button>
+            </div>
+
+            <div id="revealedAnswer" style="display: none; margin-top: 20px;">
+                <div class="reveal">
+                    <h3>✅ Model Answer</h3>
+                    <p><strong>1. Pattern:</strong> "I'm from [country/city]" — can also be "I'm from [city], [country]"</p>
+                    <p><strong>2. Nationality:</strong> "I'm British" / "I'm Spanish" / "I'm Japanese" / etc.</p>
+                    <p><strong>3. Difference:</strong> Country is a noun (France, Germany), nationality is an adjective describing people (French, German)</p>
+                </div>
+
+                <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                    <strong>💭 Metacognitive Reflection:</strong> Which was easier — remembering countries or nationalities? Why do you think that is?
+                </div>
+            </div>
+
+            <div class="i-can">
+                ✅ <strong>I can tell people where I'm from using countries, cities, and nationalities.</strong>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎉 Lesson 2 Complete!</strong><br>
+                You can now have the beginning of a real conversation: Hello, I'm [name]. I'm from [country/city]. You've doubled your foundation! Next lesson, we'll learn about jobs and professions.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            contents.forEach(el => el.classList.remove('active'));
+            buttons.forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function saveResponse(id) {
+            const text = document.getElementById(id).value;
+            if (text.trim()) {
+                alert('✅ Saved! Keep practicing.');
+            } else {
+                alert('⚠️ Please type something first!');
+            }
+        }
+
+        function checkRecall1() {
+            const answer = document.getElementById('recall1').value.trim();
+            const result = document.getElementById('recallResult1');
+            if (answer.length > 10) {
+                result.innerHTML = '<div class="reveal"><strong>✅ Excellent!</strong> You remembered Lesson 1. This shows the spaced repetition is working!</div>';
+            } else {
+                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;"><strong>💡 Try harder:</strong> Think of greetings like "Hi" or "Hello" and introduction patterns like "I\'m..."</div>';
+            }
+        }
+
+        function checkConversation() {
+            const conv1 = document.getElementById('conv1').value.trim();
+            const conv2 = document.getElementById('conv2').value.trim();
+            const result = document.getElementById('convResult');
+
+            if (conv1.length > 5 && conv2.length > 5) {
+                result.innerHTML = '<div class="reveal"><strong>✅ Perfect conversation!</strong> You combined Lesson 1 (intro) with Lesson 2 (location). That\'s fluency building!</div>';
+            } else {
+                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Both responses need content. Use what you learned in previous tabs!</div>';
+            }
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealedAnswer').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

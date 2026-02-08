@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 39: Could & Would</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f8f9fa 0%, #e8eef2 100%); color: #1a1a2e; line-height: 1.6; min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #f39c12 0%, #d68910 100%); color: white; padding: 30px 20px; text-align: center; }
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        .learning-intention { background: #fdeaa8; border-left: 4px solid #f39c12; padding: 15px 20px; margin: 20px; border-radius: 4px; font-weight: 500; color: #7d3c0c; }
+        .tabs { display: flex; border-bottom: 2px solid #e0e0e0; overflow-x: auto; background: #f8f9fa; }
+        .tab-button { padding: 15px 20px; border: none; background: transparent; cursor: pointer; font-size: 0.95em; font-weight: 500; color: #666; transition: all 0.3s ease; white-space: nowrap; border-bottom: 3px solid transparent; }
+        .tab-button:hover { color: #f39c12; }
+        .tab-button.active { color: #f39c12; border-bottom-color: #f39c12; }
+        .tab-content { display: none; padding: 30px; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .content-section { margin-bottom: 25px; }
+        .section-title { font-size: 1.3em; font-weight: 600; color: #f39c12; margin-bottom: 15px; }
+        .retrieval-task { background: #fdeaa8; border-left: 4px solid #f39c12; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .retrieval-task textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; min-height: 80px; }
+        .form-box { background: #fff9e6; border-left: 4px solid #f39c12; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .example-box { background: #f8f9fa; border: 1px solid #ddd; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .practice-box { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .reveal-button { background: #f39c12; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 500; margin-top: 10px; }
+        .reveal-button:hover { background: #d68910; }
+        .hidden-content { display: none; background: #e8f5e9; border-left: 4px solid #28a745; padding: 12px; margin-top: 10px; border-radius: 4px; }
+        .hidden-content.revealed { display: block; }
+        .recall-zone { background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f6 100%); border: 2px solid #28a745; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .recall-zone h3 { color: #28a745; margin-bottom: 15px; }
+        .recall-item { background: white; padding: 12px; border-left: 4px solid #28a745; margin-bottom: 10px; border-radius: 4px; }
+        .i-can-statement { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; font-size: 1.1em; font-weight: 500; margin-top: 20px; }
+        .metacognition-box { background: #f8f9fa; border: 2px solid #667eea; padding: 15px; border-radius: 8px; }
+        .metacognition-box h4 { color: #667eea; margin-bottom: 10px; }
+        @media (max-width: 768px) { .header h1 { font-size: 1.6em; } .tab-button { padding: 12px 15px; font-size: 0.85em; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤔 Lesson 39: Could & Would</h1>
+            <p>Polite requests and hypothetical thinking</p>
+        </div>
+        
+        <div class="learning-intention">
+            <strong>Learning Intention:</strong> Today we're learning Could & Would for polite requests and hypothetical statements so you can ask for help politely and discuss imaginary situations naturally.
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(event, 'tab1')">Retrieval + Context</button>
+            <button class="tab-button" onclick="showTab(event, 'tab2')">Could: Ability & Requests</button>
+            <button class="tab-button" onclick="showTab(event, 'tab3')">Would: Hypothetical</button>
+            <button class="tab-button" onclick="showTab(event, 'tab4')">Guided Practice</button>
+            <button class="tab-button" onclick="showTab(event, 'tab5')">Interleaved Practice</button>
+            <button class="tab-button" onclick="showTab(event, 'tab6')">Recall Zone</button>
+            <button class="tab-button" onclick="showTab(event, 'tab7')">Assessment</button>
+        </div>
+        
+        <!-- TAB 1 -->
+        <div id="tab1" class="tab-content active">
+            <div class="content-section">
+                <div class="section-title">🧠 What do you know?</div>
+                <div class="retrieval-task">
+                    <p>Write 2-3 sentences using "could" or "would" if you can. Don't worry about being perfect.</p>
+                    <textarea placeholder="Try some sentences..."></textarea>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">💡 Why Could & Would Matter</div>
+                <div class="example-box">
+                    <p><strong>"Could you help?" vs "Can you help?" vs "Would you mind helping?"</strong></p>
+                    <p style="margin-top: 10px;">These are DIFFERENT levels of politeness. In real English, you use these modals every day to ask politely, hypothesize, and suggest alternatives. This lesson makes your requests more natural and sophisticated.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 2 -->
+        <div id="tab2" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🤐 Could: Two Meanings</div>
+                
+                <h4 style="color: #f39c12; margin-top: 15px; margin-bottom: 10px;">1️⃣ PAST ABILITY (What was possible before)</h4>
+                <div class="example-box">
+                    "I could swim when I was 5." (I had the ability then)<br>
+                    "He couldn't speak English last year." (He didn't have that ability)
+                </div>
+                
+                <h4 style="color: #f39c12; margin-top: 15px; margin-bottom: 10px;">2️⃣ POLITE REQUEST (More formal than "Can")</h4>
+                <div class="example-box">
+                    "Could you help me?" (MORE POLITE than "Can you help?")<br>
+                    "Could I have the salt, please?" (MORE FORMAL than "Can I have...")<br>
+                    "Could you possibly wait?" (VERY POLITE)
+                </div>
+                
+                <div class="form-box">
+                    <strong>Key difference:</strong> "Could" is the past form of "can", but we use it NOW to be MORE POLITE. It's softer, more formal, more respectful.
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">✍️ YOUR TURN: Could requests</div>
+                <div class="practice-box">
+                    <p><strong>1. Ask politely for a pen: "Could _____ ?"</strong></p>
+                    <textarea placeholder="Write a polite request..."></textarea>
+                </div>
+                <div class="practice-box">
+                    <p><strong>2. Ask if your friend could help: "Could you _____ ?"</strong></p>
+                    <textarea placeholder="Write a polite request..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 3 -->
+        <div id="tab3" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🌈 Would: Hypothetical & Habit</div>
+                
+                <h4 style="color: #f39c12; margin-top: 15px; margin-bottom: 10px;">1️⃣ HYPOTHETICAL (Imaginary situation — second conditional)</h4>
+                <div class="example-box">
+                    "If I had money, I would travel." (Imaginary: I don't have money NOW)<br>
+                    "Would you go to Paris if you could?" (Question about an imaginary scenario)<br>
+                    "If it rained, I would stay home." (But it's not raining NOW)
+                </div>
+                
+                <h4 style="color: #f39c12; margin-top: 15px; margin-bottom: 10px;">2️⃣ POLITE PREFERENCE (What do you want?)</h4>
+                <div class="example-box">
+                    "Would you like coffee?" (POLITE way to offer something)<br>
+                    "I would prefer tea." (What you choose)<br>
+                    "Would you like to sit down?" (Invitation)
+                </div>
+                
+                <h4 style="color: #f39c12; margin-top: 15px; margin-bottom: 10px;">3️⃣ PAST HABIT (What you used to do regularly)</h4>
+                <div class="example-box">
+                    "When I was a child, I would play in the park every day." (Regular action)<br>
+                    "Every morning, she would drink coffee." (Repeated past habit)
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 4 -->
+        <div id="tab4" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">👨‍🏫 I DO (Model)</div>
+                <div class="example-box">
+                    <strong>Polite request with "Could":</strong><br>
+                    "Could you pass the salt, please?"<br><br>
+                    <strong>Why:</strong> "Could" is softer and more formal than "Can you...?" It shows respect.
+                </div>
+                
+                <div class="example-box">
+                    <strong>Hypothetical with "Would":</strong><br>
+                    "If you won the lottery, what would you do?"<br><br>
+                    <strong>Why:</strong> This is imaginary (you probably won't win), so we use "would" to show it's not real.
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">👥 WE DO (Together)</div>
+                <div class="practice-box">
+                    <p><strong>Finish this polite request:</strong> "Could you possibly ________________?"</p>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal Options</button>
+                    <div class="hidden-content">
+                        Examples: "Could you possibly wait?" / "Could you possibly help me?" / "Could you possibly come tomorrow?"<br>
+                        <strong>Pattern:</strong> Could + you + infinitive verb (without "to")
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">🎓 YOU DO (Independent)</div>
+                <div class="practice-box">
+                    <p><strong>Create your own sentences:</strong></p>
+                    <p>• One polite request with "Could":</p>
+                    <p>• One hypothetical with "Would":</p>
+                    <textarea placeholder="Write your two sentences..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 5 -->
+        <div id="tab5" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🎯 Interleaved Practice: Mix old & new</div>
+                
+                <div class="practice-box">
+                    <p><strong>1.</strong> Choose: "I _______ (could/would) swim well as a child."</p>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                    <div class="hidden-content">
+                        Answer: "could" — past ability
+                    </div>
+                </div>
+                
+                <div class="practice-box">
+                    <p><strong>2.</strong> Fix: "Can you possibly wait?" — Make it MORE polite with "Could":</p>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                    <div class="hidden-content">
+                        Answer: "Could you possibly wait?"
+                    </div>
+                </div>
+                
+                <div class="practice-box">
+                    <p><strong>3.</strong> Complete hypothetical: "If I _______ (be) you, I _______ (apply) for that job."</p>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                    <div class="hidden-content">
+                        Answer: "If I were you, I would apply for that job." (Second conditional)
+                    </div>
+                </div>
+                
+                <div class="practice-box">
+                    <p><strong>4.</strong> Polite offer: "_______ you like some tea?"</p>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                    <div class="hidden-content">
+                        Answer: "Would you like some tea?" (Polite preference)
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 6 -->
+        <div id="tab6" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🔄 Recall Zone: Spaced Retrieval</div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 16: Can You Help?</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What's the difference between "can" and "could" for requests?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "Can" is direct, "could" is more polite and formal. Both are acceptable.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 26: Must & Should</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What modal verb means to give advice?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "Should" — Example: "You should go to bed early" / "I should study more"
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 33: First Conditional</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What's the difference between first conditional (If + present, will) and second conditional (If + past, would)?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: First = real possibility. Second = imaginary/unlikely. Example: "If I study, I will pass" vs "If I were rich, I would travel"
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 37: Health & Body</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> Write a polite request at a doctor's office using "Could":</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "Could you tell me what's wrong?" / "Could you help me with this pain?" / "Could you prescribe something?"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 7 -->
+        <div id="tab7" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">📝 Final Assessment: From Memory</div>
+                
+                <div class="retrieval-task">
+                    <p><strong>1. Write the three uses of "Would" from memory:</strong></p>
+                    <textarea placeholder="Write them..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>2. Write the two uses of "Could" from memory:</strong></p>
+                    <textarea placeholder="Write them..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>3. Write 3 example sentences using Could or Would (DIFFERENT from the lesson):</strong></p>
+                    <textarea placeholder="Write three sentences..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>4. When would you use "Could" instead of "Can" in real life?</strong></p>
+                    <textarea placeholder="Your reflection..."></textarea>
+                </div>
+            </div>
+            
+            <div class="i-can-statement">
+                ✅ <strong>I can:</strong> Use "Could" for polite requests and past ability, and use "Would" for hypothetical situations and preferences
+            </div>
+            
+            <div class="metacognition-box">
+                <h4>🧠 Metacognition: What Helped?</h4>
+                <p>Was it the examples? The practice? The comparison between meanings? What made it click?</p>
+                <textarea placeholder="Your reflection..."></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(evt, tabName) {
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
+            var tabbuttons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabbuttons.length; i++) tabbuttons[i].classList.remove("active");
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function toggleReveal(evt) {
+            evt.preventDefault();
+            var button = evt.currentTarget;
+            var hiddenContent = button.nextElementSibling;
+            hiddenContent.classList.toggle("revealed");
+            button.textContent = hiddenContent.classList.contains("revealed") ? "Hide" : "Reveal";
+        }
+    </script>
+</body>
+</html>

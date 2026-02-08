@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 28: Have You Ever...?</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 30px; text-align: center; }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid #ddd; }
+        .tab-btn { padding: 12px 20px; background-color: #e9ecef; border: none; cursor: pointer; font-size: 1em; border-radius: 8px 8px 0 0; transition: all 0.3s; font-weight: 500; }
+        .tab-btn.active { background-color: #667eea; color: white; }
+        .tab-content { display: none; padding: 30px; background: white; border-radius: 0 8px 8px 8px; }
+        .tab-content.active { display: block; }
+        .learning-intention { background-color: #fff3cd; border-left: 4px solid #ff6b6b; padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .retrieval-task { background-color: #e7f3ff; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea; }
+        .retrieval-task textarea { width: 100%; padding: 12px; font-size: 1em; border: 2px solid #667eea; border-radius: 4px; resize: vertical; min-height: 100px; font-family: inherit; }
+        .content-chunk { background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #764ba2; }
+        .form-table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; }
+        .form-table th, .form-table td { padding: 15px; border: 2px solid #ddd; text-align: left; }
+        .form-table th { background-color: #667eea; color: white; font-weight: 600; }
+        .form-table tr:nth-child(even) { background-color: #f8f9fa; }
+        .example-box { background-color: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .practice-section { background-color: #fff9e6; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107; }
+        .reveal-btn { background-color: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 500; }
+        .hidden-content { display: none; background-color: #f0f0f0; padding: 15px; margin-top: 10px; border-radius: 4px; }
+        .hidden-content.show { display: block; }
+        .production-task { background-color: #f3e5f5; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #9c27b0; }
+        .production-task textarea { width: 100%; padding: 12px; font-size: 1em; border: 2px solid #9c27b0; border-radius: 4px; margin: 10px 0; font-family: inherit; }
+        .btn-primary { background-color: #667eea; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 1em; font-weight: 600; }
+        .btn-primary:hover { background-color: #764ba2; }
+        .recall-item { background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        .recall-item .prompt { font-weight: 600; color: #667eea; margin-bottom: 10px; }
+        .i-can-statement { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 8px; margin-top: 20px; font-size: 1.1em; font-weight: 600; text-align: center; }
+        .metacognition { background-color: #e0f2f1; border-left: 4px solid #009688; padding: 20px; margin: 20px 0; border-radius: 4px; }
+        @media (max-width: 768px) {
+            .tabs { flex-direction: column; }
+            .tab-btn { width: 100%; border-radius: 4px; }
+            header h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lesson 28: Have You Ever...?</h1>
+            <p>A1 Pathway - Building Unit (Lessons 21-30)</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Present Perfect Introduction</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab(event, 'tab1')">1. Retrieval</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab2')">2. Form Focus</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab3')">3. Guided Practice</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab4')">4. Interleaved Practice</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab5')">5. Elaboration</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab6')">6. Speaking Production</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab7')">7. Recall Zone</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab8')">8. Retrieval Test</button>
+        </div>
+
+        <!-- TAB 1 -->
+        <div id="tab1" class="tab-content active">
+            <h2>Life Experiences</h2>
+            <div class="retrieval-task">
+                <h3>What Have You Done?</h3>
+                <p>Write 3 experiences you have had (things you've done in your life so far):</p>
+                <textarea placeholder="I have traveled to... I have eaten... I have learned..."></textarea>
+                <button class="btn-primary" onclick="alert('Good! You shared experiences. Now let\\'s learn the grammar pattern.')">Continue</button>
+            </div>
+
+            <div class="learning-intention">
+                <strong>Today we're learning:</strong> How to ask and talk about life experiences using "Have you ever...?" and Present Perfect (have/has + past participle).
+            </div>
+
+            <div class="content-chunk">
+                <h3>🎯 Why Present Perfect?</h3>
+                <p><strong>Present Perfect:</strong> Something happened in the past, but it connects to NOW</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"Have you ever eaten sushi?" (Anytime in your life → relevant now)</li>
+                    <li>"I have traveled to five countries." (Past experiences → part of who I am)</li>
+                    <li>"She has never tried snow." (Life experience she hasn't had)</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px; font-style: italic; color: #666;">By the end, you'll ask about and share life experiences naturally.</p>
+        </div>
+
+        <!-- TAB 2 -->
+        <div id="tab2" class="tab-content">
+            <h2>How to Form Present Perfect</h2>
+
+            <div class="content-chunk">
+                <h3>Pattern: HAVE/HAS + PAST PARTICIPLE</h3>
+                <table class="form-table">
+                    <tr>
+                        <th>Subject</th>
+                        <th>Auxiliary</th>
+                        <th>Past Participle</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>I / You / We / They</td>
+                        <td><strong>have</strong></td>
+                        <td>eaten</td>
+                        <td>I have eaten sushi.</td>
+                    </tr>
+                    <tr>
+                        <td>He / She / It</td>
+                        <td><strong>has</strong></td>
+                        <td>eaten</td>
+                        <td>She has eaten sushi.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="content-chunk">
+                <h3>Past Participles - Regular & Irregular</h3>
+                <p><strong>Regular:</strong> Base + -ED</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>play → played | work → worked | study → studied</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Irregular:</strong> Must memorize</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>eat → eaten | go → gone | see → seen | do → done</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <strong>✓ Correct Pattern:</strong>
+                <p style="margin-top: 10px;">Subject + have/has + past participle</p>
+                <p>"I have been to Paris." "She has never tried ice cream."</p>
+            </div>
+        </div>
+
+        <!-- TAB 3 -->
+        <div id="tab3" class="tab-content">
+            <h2>I Do → We Do → You Do</h2>
+
+            <div class="practice-section">
+                <h3>I DO</h3>
+                <p><strong>Experience:</strong> Visit a foreign country</p>
+                <p><strong>My sentence:</strong> "I <strong>have been</strong> to Japan."</p>
+            </div>
+
+            <div class="practice-section">
+                <h3>WE DO</h3>
+                <p><strong>Experience:</strong> Try a new food</p>
+                <p style="background: #f8f9fa; padding: 12px; margin: 10px 0; border-radius: 4px;">She _____ (eat) Thai food before.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'we-do-reveal')">Show answer</button>
+                <div id="we-do-reveal" class="hidden-content">
+                    <p><strong>Answer:</strong> She <strong>has eaten</strong> Thai food before.</p>
+                </div>
+            </div>
+
+            <div class="practice-section">
+                <h3>YOU DO</h3>
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>1. I _____ (see) that film three times.</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer1')">Check</button>
+                    <div id="answer1" class="hidden-content"><strong>✓</strong> I <strong>have seen</strong> that film three times.</div>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>2. He _____ (never/try) pizza.</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer2')">Check</button>
+                    <div id="answer2" class="hidden-content"><strong>✓</strong> He <strong>has never tried</strong> pizza.</div>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
+                    <p>3. They _____ (go) to the beach.</p>
+                    <button class="reveal-btn" onclick="toggleReveal(event, 'answer3')">Check</button>
+                    <div id="answer3" class="hidden-content"><strong>✓</strong> They <strong>have gone</strong> to the beach.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4 -->
+        <div id="tab4" class="tab-content">
+            <h2>Mixed Practice</h2>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>1.</strong> _____ you ever _____ (be) to London?</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="Have... been OR Do... go?">
+                <button class="reveal-btn" onclick="checkAnswer(1)">Check</button>
+                <div id="feedback1" class="feedback"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>2.</strong> I _____ (never/eat) Chinese food.</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="have never eaten OR don't eat?">
+                <button class="reveal-btn" onclick="checkAnswer(2)">Check</button>
+                <div id="feedback2" class="feedback"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>3.</strong> She _____ (live) in Paris for two years.</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="has lived OR lived?">
+                <button class="reveal-btn" onclick="checkAnswer(3)">Check</button>
+                <div id="feedback3" class="feedback"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
+                <p><strong>4.</strong> _____ you _____ (do) your homework?</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="Have... done OR Do... do?">
+                <button class="reveal-btn" onclick="checkAnswer(4)">Check</button>
+                <div id="feedback4" class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- TAB 5 -->
+        <div id="tab5" class="tab-content">
+            <h2>Explain in Your Words</h2>
+
+            <div class="production-task">
+                <h3>📝 When Do We Use Present Perfect?</h3>
+                <p>Explain: When do we ask "Have you ever...?"</p>
+                <textarea id="elaboration-input" placeholder="We use Present Perfect to talk about... because..." style="min-height: 100px;"></textarea>
+                <button class="btn-primary" onclick="alert('Good explanation!')">Save</button>
+            </div>
+
+            <div class="production-task">
+                <h3>🎤 Your Life Experiences</h3>
+                <p>Write 5 things you have done or experiences you have had.</p>
+                <textarea id="experiences-text" placeholder="I have been... I have tried... I have never..." style="min-height: 100px;"></textarea>
+                <button class="btn-primary" onclick="alert('Great experiences!')">Save</button>
+            </div>
+        </div>
+
+        <!-- TAB 6 -->
+        <div id="tab6" class="tab-content">
+            <h2>Speaking Task</h2>
+
+            <div class="production-task">
+                <h3>🎤 Ask & Answer Questions</h3>
+                <p><strong>Write answers to these "Have you ever...?" questions:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Have you ever traveled abroad?</li>
+                    <li>Have you ever tried a new language?</li>
+                    <li>Have you ever made a new friend?</li>
+                    <li>Have you ever had a scary experience?</li>
+                    <li>Have you ever achieved something difficult?</li>
+                </ul>
+                <textarea id="qa-text" placeholder="Yes, I have... / No, I haven't... / I have never..." style="min-height: 150px; margin-top: 15px;"></textarea>
+                <button class="btn-primary" onclick="alert('Share these answers with your teacher!')">Save</button>
+            </div>
+        </div>
+
+        <!-- TAB 7 -->
+        <div id="tab7" class="tab-content">
+            <h2>Recall Zone</h2>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 11 (What Did You Do?):</div>
+                <p>What tense do we use for finished past actions?</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall1')">Show</button>
+                <div id="recall1" class="hidden-content">
+                    <p><strong>✓</strong> Past Simple</p>
+                    <p>Example: "I went to school yesterday."</p>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 23 (Giving Opinions):</div>
+                <p>How do we introduce an opinion politely?</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall2')">Show</button>
+                <div id="recall2" class="hidden-content">
+                    <p><strong>✓</strong> "I think..." / "I believe..." / "In my opinion..."</p>
+                </div>
+            </div>
+
+            <div class="recall-item">
+                <div class="prompt">💭 From Lesson 25 (Review):</div>
+                <p>What connecting words help tell stories?</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall3')">Show</button>
+                <div id="recall3" class="hidden-content">
+                    <p><strong>✓</strong> First, Then, After that, Next, Finally</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 8 -->
+        <div id="tab8" class="tab-content">
+            <h2>Final Retrieval Test</h2>
+
+            <div class="production-task">
+                <h3>From Memory</h3>
+                <p><strong>1. Explain Present Perfect:</strong></p>
+                <textarea id="rule-output" placeholder="Present Perfect is used to..." style="min-height: 80px; margin-bottom: 15px;"></textarea>
+
+                <p><strong>2. Write 3 original Present Perfect sentences about YOUR life:</strong></p>
+                <textarea id="sentences-output" placeholder="I have... She has... They have never..." style="min-height: 100px; margin-bottom: 15px;"></textarea>
+
+                <button class="btn-primary" onclick="checkFinalTest()">Check</button>
+                <div id="final-feedback" class="feedback"></div>
+            </div>
+
+            <div class="metacognition">
+                <h3>🧠 Reflect</h3>
+                <p>Is Present Perfect easier or harder than Past Simple? Why?</p>
+                <textarea id="metacog-input" placeholder="I think... because..." style="min-height: 80px;"></textarea>
+                <button class="btn-primary" onclick="alert('Reflection saved!')">Save</button>
+            </div>
+
+            <div class="i-can-statement">
+                ✅ I can ask "Have you ever...?" questions
+                <br><br>
+                ✅ I can talk about life experiences using Present Perfect
+            </div>
+
+            <p style="text-align: center; margin-top: 30px; color: #666; font-style: italic;">
+                We said you'd be able to talk about life experiences. Can you?
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tabbuttons = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(evt, contentId) {
+            var content = document.getElementById(contentId);
+            content.classList.toggle("show");
+            evt.target.textContent = content.classList.contains("show") ? "Hide" : "Show";
+        }
+
+        function checkAnswer(number) {
+            var feedbackData = [
+                [1, 'Have... been', 'Question word: Have you ever been...?'],
+                [2, 'have never eaten', 'Life experience: I have never eaten Chinese food'],
+                [3, 'has lived', 'Present Perfect: She has lived in Paris'],
+                [4, 'Have... done', 'Question: Have you done your homework?']
+            ];
+
+            var feedback = document.getElementById('feedback' + number);
+            feedback.innerHTML = '<strong>✓ Correct!</strong> ' + feedbackData[number-1][2];
+            feedback.style.backgroundColor = '#e8f5e9';
+            feedback.style.borderLeft = '4px solid #4caf50';
+            feedback.style.color = '#2e7d32';
+            feedback.style.padding = '15px';
+            feedback.style.borderRadius = '4px';
+            feedback.style.display = 'block';
+        }
+
+        function checkFinalTest() {
+            var ruleOutput = document.getElementById('rule-output').value;
+            var sentencesOutput = document.getElementById('sentences-output').value;
+            var feedback = document.getElementById('final-feedback');
+
+            if (ruleOutput.trim().length > 20 && sentencesOutput.trim().length > 30) {
+                feedback.innerHTML = '<strong>✓ Excellent!</strong> You understand Present Perfect and can form sentences.';
+                feedback.style.backgroundColor = '#e8f5e9';
+                feedback.style.borderLeft = '4px solid #4caf50';
+                feedback.style.color = '#2e7d32';
+                feedback.style.display = 'block';
+            } else {
+                feedback.innerHTML = '<strong>Try again:</strong> Write fuller answers.';
+                feedback.style.backgroundColor = '#ffebee';
+                feedback.style.borderLeft = '4px solid #f44336';
+                feedback.style.color = '#c62828';
+                feedback.style.display = 'block';
+            }
+            feedback.style.padding = '15px';
+            feedback.style.borderRadius = '4px';
+        }
+    </script>
+</body>
+</html>

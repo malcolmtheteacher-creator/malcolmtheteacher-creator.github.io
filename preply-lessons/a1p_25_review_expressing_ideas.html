@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 25: REVIEW - Expressing Ideas</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; color: #1a1a2e; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 30px; text-align: center; }
+        header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .tabs { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid #ddd; }
+        .tab-btn { padding: 12px 20px; background-color: #e9ecef; border: none; cursor: pointer; font-size: 1em; border-radius: 8px 8px 0 0; transition: all 0.3s; font-weight: 500; }
+        .tab-btn.active { background-color: #ffc107; color: #1a1a2e; }
+        .tab-content { display: none; padding: 30px; background: white; border-radius: 0 8px 8px 8px; }
+        .tab-content.active { display: block; }
+        .milestone { background-color: #fff3cd; border-left: 4px solid #ff6b6b; padding: 20px; margin: 20px 0; border-radius: 4px; font-weight: 500; text-align: center; font-size: 1.1em; }
+        .recall-section { background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #ffc107; }
+        .recall-card { background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        .recall-card h4 { color: #ff9800; margin-bottom: 10px; }
+        .reveal-btn { background-color: #ff9800; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 500; }
+        .reveal-btn:hover { background-color: #f57c00; }
+        .hidden-content { display: none; background-color: #f0f0f0; padding: 15px; margin-top: 10px; border-radius: 4px; border: 2px dashed #ff9800; }
+        .hidden-content.show { display: block; }
+        .practice-task { background-color: #fff9e6; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107; }
+        .production-task { background-color: #f3e5f5; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #9c27b0; }
+        .production-task textarea { width: 100%; padding: 12px; font-size: 1em; border: 2px solid #9c27b0; border-radius: 4px; margin: 10px 0; font-family: inherit; }
+        .btn-primary { background-color: #ff9800; color: white; border: none; padding: 12px 24px; border-radius: 4px; cursor: pointer; font-size: 1em; font-weight: 600; }
+        .btn-primary:hover { background-color: #f57c00; }
+        .progress-box { background: white; border: 2px solid #ddd; padding: 20px; margin: 15px 0; border-radius: 8px; }
+        .i-can-statement { background: linear-gradient(135deg, #ff9800 0%, #ffc107 100%); color: white; padding: 25px; border-radius: 8px; margin-top: 20px; font-size: 1.1em; font-weight: 600; text-align: center; }
+        .metacognition { background-color: #e0f2f1; border-left: 4px solid #009688; padding: 20px; margin: 20px 0; border-radius: 4px; }
+        @media (max-width: 768px) {
+            .tabs { flex-direction: column; }
+            .tab-btn { width: 100%; border-radius: 4px; }
+            header h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⭐ Lesson 25: REVIEW - Expressing Ideas</h1>
+            <p>A1 Pathway - Building Unit Review</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Consolidation of Lessons 21-24</p>
+            <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                <strong>Today's Learning Intention:</strong> We're consolidating comparative, superlative, and opinion language so you can express complex ideas with confidence.
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab(event, 'tab1')">1. Retrieval First</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab2')">2. Core Review</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab3')">3. Interleaved Practice</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab4')">4. Production Task</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab5')">5. Reflection</button>
+        </div>
+
+        <!-- TAB 1: RETRIEVAL FIRST -->
+        <div id="tab1" class="tab-content active">
+            <h2>Bring It All Back: Intensive Retrieval</h2>
+
+            <p style="margin-bottom: 20px;"><strong>Intensive retrieval from Lessons 18, 21, 22, 23:</strong> No notes. Try from memory first!</p>
+
+            <div class="recall-card">
+                <h4>💭 Lesson 18 - How Often (Frequency Adverbs)</h4>
+                <p>Complete: I _____ (usually) read books at night.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall1')">Show answer</button>
+                <div id="recall1" class="hidden-content">
+                    <strong>✓ Answer:</strong> I <strong>usually</strong> read books at night.
+                    <p style="margin-top: 8px;">Frequency adverbs: always, usually, often, sometimes, rarely, never</p>
+                </div>
+            </div>
+
+            <div class="recall-card">
+                <h4>💭 Lesson 21 - Right Now (Present Continuous)</h4>
+                <p>Form the present continuous: "I eat lunch right now." (Make it continuous)</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall2')">Show answer</button>
+                <div id="recall2" class="hidden-content">
+                    <strong>✓ Answer:</strong> I <strong>am eating</strong> lunch right now.
+                    <p style="margin-top: 8px;">Pattern: am/is/are + verb + ing</p>
+                </div>
+            </div>
+
+            <div class="recall-card">
+                <h4>💭 Lesson 22 - Bigger & Better (Comparatives)</h4>
+                <p>Complete: A car is _____ (fast) than a bicycle.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall3')">Show answer</button>
+                <div id="recall3" class="hidden-content">
+                    <strong>✓ Answer:</strong> A car is <strong>faster</strong> than a bicycle.
+                    <p style="margin-top: 8px;">Short adjectives: add -ER. Long adjectives: use MORE</p>
+                </div>
+            </div>
+
+            <div class="recall-card">
+                <h4>💭 Lesson 23 - Giving Opinions</h4>
+                <p>Write 3 ways to start an opinion sentence.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall4')">Show answer</button>
+                <div id="recall4" class="hidden-content">
+                    <strong>✓ Answer Examples:</strong>
+                    <p style="margin-top: 8px;">1. "I think..."<br>2. "I believe..."<br>3. "In my opinion..."</p>
+                </div>
+            </div>
+
+            <div class="recall-card">
+                <h4>💭 Lesson 24 - The Best! (Superlatives)</h4>
+                <p>Complete: Mount Everest is _____ (high) mountain in the world.</p>
+                <button class="reveal-btn" onclick="toggleReveal(event, 'recall5')">Show answer</button>
+                <div id="recall5" class="hidden-content">
+                    <strong>✓ Answer:</strong> Mount Everest is <strong>the highest</strong> mountain in the world.
+                    <p style="margin-top: 8px;">Pattern: THE + (adjective + EST) or THE MOST + (adjective)</p>
+                </div>
+            </div>
+
+            <div class="milestone" style="margin-top: 30px;">
+                🎉 YOU'VE COMPLETED HALF OF UNIT 3: BUILDING (EXPRESSING YOURSELF)
+            </div>
+        </div>
+
+        <!-- TAB 2: CORE REVIEW -->
+        <div id="tab2" class="tab-content">
+            <h2>Progress So Far</h2>
+
+            <div class="progress-box">
+                <h3>Since Lesson 21, You Can Now:</h3>
+                <ul style="margin-left: 20px; margin-top: 15px;">
+                    <li>✅ Describe what is happening RIGHT NOW (Present Continuous)</li>
+                    <li>✅ Compare two things (Comparative adjectives)</li>
+                    <li>✅ Express your opinions and listen to others' opinions</li>
+                    <li>✅ Identify the BEST, WORST, MOST important (Superlatives)</li>
+                </ul>
+            </div>
+
+            <div class="progress-box">
+                <h3>Key Skills You've Built:</h3>
+                <ul style="margin-left: 20px; margin-top: 15px;">
+                    <li>🎯 Grammar: Present Continuous, Comparatives, Superlatives</li>
+                    <li>💬 Speaking: Expressing opinions, agreeing, disagreeing respectfully</li>
+                    <li>📝 Writing: Comparing, evaluating, describing in comparative/superlative forms</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 30px; background: #e8f5e9; padding: 15px; border-radius: 4px; border-left: 4px solid #4caf50;">
+                <strong>Next 5 lessons (26-30):</strong> We'll learn modals (must/should), telling stories with past tenses, present perfect (have you ever...?), and making suggestions. These will help you express even more complex ideas!
+            </p>
+        </div>
+
+        <!-- TAB 3: INTERLEAVED PRACTICE -->
+        <div id="tab3" class="tab-content">
+            <h2>Interleaved Consolidation Practice</h2>
+
+            <p style="margin-bottom: 20px;"><strong>Mixed practice with multiple exercise types:</strong></p>
+
+            <h3 style="color: #ff9800; margin-top: 25px;">FILL-IN-THE-BLANK</h3>
+            <p style="margin-bottom: 15px;">Which grammar structure does each sentence need?</p>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #ff9800;">
+                <p><strong>1.</strong> I think summer is _____ (hot) season of the year.</p>
+                <select style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" onchange="checkAnswer(this, 1)">
+                    <option value="">Choose...</option>
+                    <option value="the hottest">the hottest (Superlative)</option>
+                    <option value="hotter">hotter (Comparative)</option>
+                    <option value="hot">hot (Basic)</option>
+                </select>
+                <div id="feedback1" style="margin-top: 10px;"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #ff9800;">
+                <p><strong>2.</strong> Right now, I _____ (study) Present Continuous grammar.</p>
+                <select style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" onchange="checkAnswer(this, 2)">
+                    <option value="">Choose...</option>
+                    <option value="am studying">am studying (Present Continuous)</option>
+                    <option value="study">study (Present Simple)</option>
+                    <option value="studied">studied (Past Simple)</option>
+                </select>
+                <div id="feedback2" style="margin-top: 10px;"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #ff9800;">
+                <p><strong>3.</strong> In my opinion, learning languages is _____ (important) than learning math.</p>
+                <select style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" onchange="checkAnswer(this, 3)">
+                    <option value="">Choose...</option>
+                    <option value="more important">more important (Comparative)</option>
+                    <option value="the most important">the most important (Superlative)</option>
+                    <option value="important">important (Basic)</option>
+                </select>
+                <div id="feedback3" style="margin-top: 10px;"></div>
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #ff9800;">
+                <p><strong>4.</strong> I disagree. I think coffee is _____ (delicious) than tea.</p>
+                <select style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" onchange="checkAnswer(this, 4)">
+                    <option value="">Choose...</option>
+                    <option value="more delicious">more delicious (Comparative)</option>
+                    <option value="the most delicious">the most delicious (Superlative)</option>
+                    <option value="delicious">delicious (Basic)</option>
+                </select>
+                <div id="feedback4" style="margin-top: 10px;"></div>
+            </div>
+
+            <h3 style="color: #ff9800; margin-top: 25px;">REORDERING SENTENCES</h3>
+            <p style="margin-bottom: 15px;">Put the words in the correct order:</p>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #ff9800;">
+                <p><strong>5.</strong> Rearrange: "is / most / This / interesting / the / book"</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="This is the most interesting book">
+            </div>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #ff9800;">
+                <p><strong>6.</strong> Rearrange: "are / now / We / learning / English"</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="We are learning English now">
+            </div>
+
+            <h3 style="color: #ff9800; margin-top: 25px;">MATCHING EXERCISE</h3>
+            <p style="margin-bottom: 15px;">Match opinion starters with appropriate continuations:</p>
+
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #ff9800;">
+                <p><strong>7.</strong> Match A with B:</p>
+                <p><strong>A:</strong> I think...</p>
+                <p><strong>B:</strong> This is the best way to learn</p>
+                <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="Match the items">
+                <p style="margin-top: 10px; font-size: 0.9em; color: #666;">Practice matching opinion phrases with responses that make sense.</p>
+            </div>
+
+            <h3 style="color: #ff9800; margin-top: 25px;">✨ TIMED SPEAKING CHALLENGE</h3>
+            <p style="margin-bottom: 15px;">You have 2-3 minutes to speak:</p>
+            <div style="background: #fff3e0; padding: 15px; border-radius: 4px; margin: 15px 0; border-left: 4px solid #ff9800;">
+                <p><strong>Challenge:</strong> Describe two things you're comparing and give your opinion about them.</p>
+                <p style="margin-top: 10px;">Include:</p>
+                <ul style="margin-left: 20px; margin-top: 8px;">
+                    <li>At least one comparative ("X is more ... than Y")</li>
+                    <li>At least one superlative ("The most ...")</li>
+                    <li>An opinion phrase ("I think ...", "In my opinion ...")</li>
+                </ul>
+                <button class="btn-primary" style="width: 100%; margin-top: 15px;" onclick="startSpeakingChallenge()">Start 2-3 Minute Challenge</button>
+                <div id="timerDisplay" style="display: none; margin-top: 15px; font-size: 1.3em; font-weight: bold; color: #ff9800; text-align: center;">Time: <span id="timerValue">3:00</span></div>
+            </div>
+        </div>
+
+        <!-- TAB 4 -->
+        <div id="tab4" class="tab-content">
+            <h2>Production: Integrate All Skills</h2>
+
+            <div class="production-task">
+                <h3>Task 1: Comparative Analysis</h3>
+                <p>Compare two things you know. Include: present situation + comparative opinion</p>
+                <p style="font-size: 0.9em; color: #666; margin-top: 10px;">Example: "Right now, I am studying. I think studying languages is more interesting than studying math."</p>
+                <textarea id="comparison-text" placeholder="Right now... I think... is more/less ... than..." style="min-height: 100px;"></textarea>
+            </div>
+
+            <div class="production-task">
+                <h3>Task 2: Superlative Ranking</h3>
+                <p>Give your opinion about the BEST thing in three categories. Use "In my opinion..."</p>
+                <textarea id="superlative-text" placeholder="In my opinion, the best food is... The most beautiful place is... The fastest animal is..." style="min-height: 100px;"></textarea>
+            </div>
+
+            <div class="production-task">
+                <h3>Task 3: Mixed Expression</h3>
+                <p>Write 1 sentence for each:</p>
+                <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 15px;">
+                    <li>Something happening right now (Present Continuous)</li>
+                    <li>Your opinion about it</li>
+                    <li>How it compares to something else</li>
+                </ul>
+                <textarea id="mixed-text" placeholder="I am... I think... It is more... than..." style="min-height: 100px;"></textarea>
+            </div>
+
+            <button class="btn-primary" style="width: 100%;" onclick="alert('Great work! Share these with your teacher for feedback.')">Save All Responses</button>
+        </div>
+
+        <!-- TAB 5 -->
+        <div id="tab5" class="tab-content">
+            <h2>Reflection & Forward Look</h2>
+
+            <div class="metacognition">
+                <h3>🧠 What's Been Easiest?</h3>
+                <p>Which skill has been easiest to understand and use?</p>
+                <textarea id="metacog1" placeholder="Present Continuous / Comparatives / Superlatives / Opinions..." style="min-height: 80px;"></textarea>
+                <button class="btn-primary" onclick="alert('Reflection saved!')">Save</button>
+            </div>
+
+            <div class="metacognition">
+                <h3>🧠 What Needs More Practice?</h3>
+                <p>Which skill still feels confusing?</p>
+                <textarea id="metacog2" placeholder="I need more practice with..." style="min-height: 80px;"></textarea>
+                <button class="btn-primary" onclick="alert('Reflection saved!')">Save</button>
+            </div>
+
+            <div class="progress-box" style="margin-top: 30px;">
+                <h3>🚀 Coming Next (Lessons 26-30):</h3>
+                <ul style="margin-left: 20px; margin-top: 15px;">
+                    <li><strong>Lesson 26:</strong> Must & Should (modal verbs for obligation and advice)</li>
+                    <li><strong>Lesson 27:</strong> Telling Stories (narrative past tenses)</li>
+                    <li><strong>Lesson 28:</strong> Have You Ever...? (Present Perfect introduction)</li>
+                    <li><strong>Lesson 29:</strong> Making Suggestions (Let's, Why don't we, Shall we)</li>
+                    <li><strong>Lesson 30:</strong> UNIT 3 FINAL REVIEW</li>
+                </ul>
+            </div>
+
+            <div class="i-can-statement" style="margin-top: 30px;">
+                ✅ I can describe what is happening now
+                <br>✅ I can compare and contrast things
+                <br>✅ I can express opinions and react to others' opinions
+                <br>✅ I can identify and use superlatives
+                <br><br>
+                <strong>I'm ready for the next 5 lessons!</strong>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tabbuttons = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(evt, contentId) {
+            var content = document.getElementById(contentId);
+            content.classList.toggle("show");
+            evt.target.textContent = content.classList.contains("show") ? "Hide" : "Show answer";
+        }
+
+        function checkAnswer(selectElement, number) {
+            var value = selectElement.value;
+            var feedback = document.getElementById('feedback' + number);
+
+            if (value) {
+                feedback.innerHTML = '<strong>✓ Correct!</strong> You identified the right structure.';
+                feedback.style.backgroundColor = '#e8f5e9';
+                feedback.style.color = '#2e7d32';
+                feedback.style.borderLeft = '4px solid #4caf50';
+                feedback.style.padding = '10px';
+                feedback.style.borderRadius = '4px';
+            }
+        }
+
+        function startSpeakingChallenge() {
+            var timerDisplay = document.getElementById('timerDisplay');
+            var timerValue = document.getElementById('timerValue');
+            timerDisplay.style.display = 'block';
+
+            var timeRemaining = 180; // 3 minutes
+            var timerInterval = setInterval(function() {
+                var minutes = Math.floor(timeRemaining / 60);
+                var seconds = timeRemaining % 60;
+                timerValue.textContent = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    timerValue.textContent = '0:00 - Time\'s up! Great effort!';
+                    alert('Your 3-minute speaking challenge is complete! Great work!');
+                }
+                timeRemaining--;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

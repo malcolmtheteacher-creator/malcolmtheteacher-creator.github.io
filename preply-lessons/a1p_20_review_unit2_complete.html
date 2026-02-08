@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Pathway Lesson 20: REVIEW - Unit 2 Complete</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        .header .subtitle { font-size: 1.2em; margin: 10px 0; }
+        .header .learning-intention {
+            font-size: 1.1em;
+            font-style: italic;
+            margin-top: 15px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+        .tab-button {
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .tab-button:hover { background: #f0f0f0; }
+        .tab-button.active:hover { background: #667eea; }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .tab-content.active { display: block; }
+        .card {
+            background: #f0f4ff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .card h3 { color: #667eea; margin-bottom: 10px; }
+        .reveal-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .reveal-button:hover { background: #764ba2; }
+        .revealed {
+            background: #e8f5e9;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #4caf50;
+        }
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .practice-item {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .practice-item:hover {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+        .progress-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .progress-box strong { font-size: 1.15em; }
+        .skills-summary {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .skill-badge {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            color: #667eea;
+        }
+        .i-can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .reflect-question {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.6em; }
+            .tabs { flex-direction: column; }
+            .tab-button { width: 100%; text-align: left; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 Lesson 20: REVIEW - Unit 2 Complete</h1>
+            <p class="subtitle">Congratulations! You're halfway through the A1 Pathway!</p>
+            <p>Elementary Unit • Final Review</p>
+            <div class="learning-intention">Today we're consolidating all Unit 2 skills and checking your communication progress.</div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab(0)">1. Extended Recall</button>
+            <button class="tab-button" onclick="switchTab(1)">2. What You've Learned</button>
+            <button class="tab-button" onclick="switchTab(2)">3. Mixed Practice</button>
+            <button class="tab-button" onclick="switchTab(3)">4. Full Conversation</button>
+            <button class="tab-button" onclick="switchTab(4)">5. Your Progress</button>
+            <button class="tab-button" onclick="switchTab(5)">6. Looking Ahead</button>
+        </div>
+
+        <!-- TAB 1: EXTENDED RECALL -->
+        <div class="tab-content active">
+            <h2>🧠 Extended Recall: Unit 2 Foundations</h2>
+            <p><strong>This is a FINAL REVIEW for Unit 2!</strong> Test yourself on lessons 11-19. Answer from MEMORY!</p>
+
+            <div class="card">
+                <h3>Lesson 18: Frequency Adverbs</h3>
+                <p>Complete: "I _____ drink coffee." (About 80-90% of the time)</p>
+                <button class="reveal-button" onclick="toggleReveal('r1')">Check Answer</button>
+                <div id="r1" style="display:none;" class="revealed">
+                    <p><strong>usually</strong> — One of the most common frequencies</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Lesson 19: Describing with Adjectives</h3>
+                <p>What's the opposite of "new"?</p>
+                <button class="reveal-button" onclick="toggleReveal('r2')">Check Answer</button>
+                <div id="r2" style="display:none;" class="revealed">
+                    <p><strong>old</strong> — You learned 10 adjective pairs</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Lesson 17: Asking for Directions</h3>
+                <p>Complete: "The café is on your _____."</p>
+                <button class="reveal-button" onclick="toggleReveal('r3')">Model</button>
+                <div id="r3" style="display:none;" class="revealed">
+                    <p><strong>left OR right</strong> — You describe location</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Lesson 16: Can/Can't</h3>
+                <p>How do you ask "Do you have the ability to drive?"</p>
+                <button class="reveal-button" onclick="toggleReveal('r4')">Model</button>
+                <div id="r4" style="display:none;" class="revealed">
+                    <p><strong>"Can you drive?"</strong> — This is the standard form</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Lesson 14: Making Plans (Future)</h3>
+                <p>Complete: "They _____ (visit) us next month."</p>
+                <button class="reveal-button" onclick="toggleReveal('r5')">Check Answer</button>
+                <div id="r5" style="display:none;" class="revealed">
+                    <p><strong>are going to visit</strong> — "Going to" future structure</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Lesson 12: Irregular Past Verbs</h3>
+                <p>What's the past of "eat"?</p>
+                <button class="reveal-button" onclick="toggleReveal('r6')">Check Answer</button>
+                <div id="r6" style="display:none;" class="revealed">
+                    <p><strong>ate</strong> — One of the 10 irregular verbs you learned</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; font-style: italic; color: #666;">Excellent! You remember these. Now let's consolidate everything together!</p>
+        </div>
+
+        <!-- TAB 2: WHAT YOU'VE LEARNED -->
+        <div class="tab-content">
+            <h2>📊 Complete Unit 2 Summary</h2>
+
+            <div class="progress-box">
+                <p><strong>🎯 From Lesson 11 to Lesson 20 (10 lessons):</strong></p>
+                <p style="margin-top: 10px;">You've gone from NOT being able to talk about past/future to mixing multiple tenses naturally!</p>
+            </div>
+
+            <div class="skills-summary">
+                <p style="font-weight: 600; margin-bottom: 15px;"><strong>Lessons 11-15: PAST & FUTURE TENSES</strong></p>
+                <div class="skills-grid">
+                    <div class="skill-badge">Past Regular (-ED)</div>
+                    <div class="skill-badge">Past Irregular (10 verbs)</div>
+                    <div class="skill-badge">"Going To" Future</div>
+                    <div class="skill-badge">Storytelling</div>
+                    <div class="skill-badge">Tense Mixing</div>
+                </div>
+            </div>
+
+            <div class="skills-summary">
+                <p style="font-weight: 600; margin-bottom: 15px;"><strong>Lessons 16-20: COMMUNICATION SKILLS</strong></p>
+                <div class="skills-grid">
+                    <div class="skill-badge">Can/Can't (Abilities)</div>
+                    <div class="skill-badge">Directions (Imperatives)</div>
+                    <div class="skill-badge">Frequency Adverbs</div>
+                    <div class="skill-badge">Describing Things</div>
+                    <div class="skill-badge">Conversation Skills</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <p style="font-weight: 600; color: #667eea; margin-bottom: 15px;"><strong>✓ VERBS you now control:</strong></p>
+                <p><span style="background: #f0f4ff; padding: 5px 10px; border-radius: 5px; margin-right: 5px;">work/worked</span> <span style="background: #f0f4ff; padding: 5px 10px; border-radius: 5px; margin-right: 5px;">walk/walked</span> <span style="background: #f0f4ff; padding: 5px 10px; border-radius: 5px; margin-right: 5px;">watch/watched</span> <span style="background: #f0f4ff; padding: 5px 10px; border-radius: 5px; margin-right: 5px;">go/went</span> <span style="background: #f0f4ff; padding: 5px 10px; border-radius: 5px; margin-right: 5px;">eat/ate</span> <span style="background: #f0f4ff; padding: 5px 10px; border-radius: 5px; margin-right: 5px;">see/saw</span> <span style="background: #f0f4ff; padding: 5px 10px; border-radius: 5px; margin-right: 5px;">come/came</span> <span style="background: #f0f4ff; padding: 5px 10px; border-radius: 5px; margin-right: 5px;">get/got</span> <span style="background: #f0f4ff; padding: 5px 10px; border-radius: 5px; margin-right: 5px;">sleep/slept</span> <span style="background: #f0f4ff; padding: 5px 10px; border-radius: 5px; margin-right: 5px;">take/took</span></p>
+            </div>
+
+            <div class="card">
+                <p style="font-weight: 600; color: #667eea; margin-bottom: 15px;"><strong>✓ VOCABULARY:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>10 irregular verbs (and 10+ regular verbs)</li>
+                    <li>Shopping phrases</li>
+                    <li>Direction language (imperatives)</li>
+                    <li>6 frequency adverbs</li>
+                    <li>10 common adjectives with opposites</li>
+                    <li>Modal verbs: "can/can't"</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 3: MIXED PRACTICE -->
+        <div class="tab-content">
+            <h2>🎯 Consolidation Challenge: MIX ALL SKILLS</h2>
+            <p><strong>Below are 6 scenarios. Complete them using ALL Unit 2 skills:</strong></p>
+
+            <div class="practice-grid">
+                <div class="practice-item">
+                    <p><strong>1. PAST</strong></p>
+                    <p>What did you do yesterday?</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp1')">Model</button>
+                    <div id="mp1" style="display:none;" class="revealed">
+                        <p>"Yesterday, I worked hard. I ate lunch at the café. I went home and watched a movie."</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>2. FUTURE</strong></p>
+                    <p>What are you going to do next week?</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp2')">Model</button>
+                    <div id="mp2" style="display:none;" class="revealed">
+                        <p>"Next week, I'm going to visit my family. I'm going to shop for new clothes. I'm going to cook dinner."</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>3. SHOPPING</strong></p>
+                    <p>Ask for something in a café</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp3')">Model</button>
+                    <div id="mp3" style="display:none;" class="revealed">
+                        <p>"Can I have a coffee, please? How much is it? Here you are."</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>4. DIRECTIONS</strong></p>
+                    <p>Ask where something is</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp4')">Model</button>
+                    <div id="mp4" style="display:none;" class="revealed">
+                        <p>"Excuse me! Where is the train station? Is it far? Can you help me?"</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>5. ABILITIES</strong></p>
+                    <p>Talk about what you can/can't do</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp5')">Model</button>
+                    <div id="mp5" style="display:none;" class="revealed">
+                        <p>"I can speak English well. I can cook. I can't dance very well."</p>
+                    </div>
+                </div>
+
+                <div class="practice-item">
+                    <p><strong>6. DESCRIPTIONS</strong></p>
+                    <p>Describe 2 objects</p>
+                    <button class="reveal-button" onclick="toggleReveal('mp6')">Model</button>
+                    <div id="mp6" style="display:none;" class="revealed">
+                        <p>"My phone is new and fast. The building is big and beautiful. It looks expensive."</p>
+                    </div>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; color: #666; font-style: italic;"><strong>Notice:</strong> You can now handle 6 completely different communication situations!</p>
+        </div>
+
+        <!-- TAB 4: FULL CONVERSATION -->
+        <div class="tab-content">
+            <h2>🗣️ Full Conversation: A Complete Unit 2 Test</h2>
+            <p><strong>Have a 5-minute natural conversation with your teacher mixing ALL Unit 2 skills!</strong></p>
+
+            <div class="card">
+                <p style="font-weight: 600; margin-bottom: 15px;"><strong>Your conversation should include:</strong></p>
+                <ol>
+                    <li><strong>PAST:</strong> Tell them one thing you did last week</li>
+                    <li><strong>PRESENT:</strong> Say what you usually do daily (frequency adverb)</li>
+                    <li><strong>FUTURE:</strong> Talk about one plan for next month</li>
+                    <li><strong>ABILITY:</strong> Say one thing you can do and one you can't</li>
+                    <li><strong>DESCRIBING:</strong> Describe an object near you using 2 adjectives</li>
+                    <li><strong>SHOPPING:</strong> Ask about price or permission using "Can I have...?"</li>
+                </ol>
+                <p style="margin-top: 20px; color: #666; font-style: italic;">Don't prepare — just speak naturally! Your teacher will guide the conversation.</p>
+            </div>
+
+            <div class="reflect-question">
+                <strong>📝 After conversation:</strong> Which skill felt most natural? Which was most challenging?
+                <textarea placeholder="Your reflection:" style="width: 100%; height: 70px; padding: 10px; margin-top: 10px; border: 1px solid #ffc107; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+
+        <!-- TAB 5: YOUR PROGRESS -->
+        <div class="tab-content">
+            <h2>📈 Your Growth: 20 Lessons of Progress</h2>
+
+            <div class="progress-box">
+                <p><strong>Lesson 1:</strong> "Hello! Introductions"</p>
+                <p style="margin-top: 10px;"><strong>TODAY (Lesson 20):</strong> You can have multi-topic conversations mixing past, present, future, abilities, and descriptions! 🎉</p>
+            </div>
+
+            <div class="card">
+                <p style="font-weight: 600; color: #667eea; margin-bottom: 15px;"><strong>What you couldn't do in Lesson 1:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Talk about anything past or future</li>
+                    <li>Ask for things in shops</li>
+                    <li>Describe your abilities</li>
+                    <li>Talk about routines with frequency</li>
+                    <li>Describe objects or people</li>
+                    <li>Give or understand directions</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <p style="font-weight: 600; color: #667eea; margin-bottom: 15px;"><strong>What you CAN do NOW:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li><strong>✓</strong> Tell stories about the past (regular AND irregular)</li>
+                    <li><strong>✓</strong> Make plans for the future</li>
+                    <li><strong>✓</strong> Ask for things naturally in shops</li>
+                    <li><strong>✓</strong> Talk about your abilities and limitations</li>
+                    <li><strong>✓</strong> Describe your daily routine with frequency</li>
+                    <li><strong>✓</strong> Describe people, objects, and places vividly</li>
+                    <li><strong>✓</strong> Ask for and give directions</li>
+                    <li><strong>✓</strong> Mix tenses in natural conversation</li>
+                </ul>
+            </div>
+
+            <div class="progress-box">
+                <p><strong>📊 STATISTICS:</strong></p>
+                <p style="margin-top: 10px;">20 verbs across past/present/future • 20+ vocabulary sets • 6 different communication skills • 70%+ student output in every lesson</p>
+            </div>
+
+            <div class="i-can-statement">
+                <p>✓ I can conduct multi-topic conversations in English with confidence</p>
+                <p style="margin-top: 15px; font-size: 1em;">✓ I am ready for Unit 3: Expressing Yourself</p>
+            </div>
+        </div>
+
+        <!-- TAB 6: LOOKING AHEAD -->
+        <div class="tab-content">
+            <h2>🚀 What Comes Next: Unit 3 (Lessons 21-30)</h2>
+
+            <div class="card">
+                <p style="font-weight: 600; margin-bottom: 15px;"><strong>Unit 3 Title: "BUILDING" — Expressing Yourself</strong></p>
+                <p style="margin-top: 10px; color: #666;">You'll go from basic communication to expressing opinions, comparing things, and telling more complex stories.</p>
+            </div>
+
+            <div class="card">
+                <p style="font-weight: 600; color: #667eea; margin-bottom: 15px;"><strong>Preview of Unit 3 Lessons:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Lesson 21:</strong> Right Now! — Present Continuous (What are you doing?)</li>
+                    <li><strong>Lesson 22:</strong> Bigger & Better — Comparatives (This is bigger than that)</li>
+                    <li><strong>Lesson 23:</strong> Giving Opinions — "I think...", "In my opinion..."</li>
+                    <li><strong>Lesson 24:</strong> The Best! — Superlatives (The biggest, the most beautiful)</li>
+                    <li><strong>Lesson 25:</strong> REVIEW: Expressing Ideas</li>
+                    <li><strong>Lessons 26-30:</strong> Modal verbs, storytelling, "Have you ever...?", suggestions</li>
+                </ul>
+            </div>
+
+            <div class="progress-box">
+                <p><strong>📌 YOU'RE 40% THROUGH THE A1 PATHWAY!</strong></p>
+                <p style="margin-top: 10px;">20 lessons completed • 30 more to go • You're building amazing momentum!</p>
+            </div>
+
+            <div class="card">
+                <p style="font-weight: 600; color: #667eea; margin-bottom: 15px;"><strong>By the end of Unit 3, you'll be able to:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Give opinions and reasons</li>
+                    <li>Compare two things or people</li>
+                    <li>Tell stories using multiple tenses</li>
+                    <li>Make suggestions and recommendations</li>
+                    <li>Talk about life experiences</li>
+                </ul>
+            </div>
+
+            <div class="reflect-question">
+                <strong>Final Reflection: Looking Back & Looking Forward</strong>
+                <p style="margin-top: 10px;"><strong>1. What's your biggest achievement in Unit 2?</strong></p>
+                <textarea placeholder="Example: 'Learning to talk about the past' OR 'Being able to have conversations about different times'" style="width: 100%; height: 60px; padding: 10px; margin-top: 10px; border: 1px solid #ffc107; border-radius: 5px; font-family: inherit;"></textarea>
+
+                <p style="margin-top: 20px; font-weight: 600;"><strong>2. What are you most excited to learn in Unit 3?</strong></p>
+                <textarea placeholder="What aspect of expressing yourself interests you most?" style="width: 100%; height: 60px; padding: 10px; margin-top: 10px; border: 1px solid #ffc107; border-radius: 5px; font-family: inherit;"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(index) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            contents.forEach((content, i) => {
+                content.classList.remove('active');
+                buttons[i].classList.remove('active');
+            });
+            contents[index].classList.add('active');
+            buttons[index].classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(id) {
+            const element = document.getElementById(id);
+            element.style.display = element.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

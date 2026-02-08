@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 33: If I Had Time...</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f8f9fa 0%, #e8eef2 100%); color: #1a1a2e; line-height: 1.6; min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%); color: white; padding: 30px 20px; text-align: center; }
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        .header p { font-size: 1.1em; opacity: 0.95; }
+        .learning-intention { background: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px 20px; margin: 20px; border-radius: 4px; font-weight: 500; color: #0d47a1; }
+        .tabs { display: flex; border-bottom: 2px solid #e0e0e0; overflow-x: auto; background: #f8f9fa; }
+        .tab-button { padding: 15px 20px; border: none; background: transparent; cursor: pointer; font-size: 0.95em; font-weight: 500; color: #666; transition: all 0.3s ease; white-space: nowrap; border-bottom: 3px solid transparent; }
+        .tab-button:hover { color: #4a90e2; }
+        .tab-button.active { color: #4a90e2; border-bottom-color: #4a90e2; }
+        .tab-content { display: none; padding: 30px; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .content-section { margin-bottom: 25px; }
+        .section-title { font-size: 1.3em; font-weight: 600; color: #4a90e2; margin-bottom: 15px; }
+        .retrieval-task { background: #f0f7ff; border-left: 4px solid #4a90e2; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .retrieval-task textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; min-height: 80px; }
+        .form-box { background: #fff9e6; border-left: 4px solid #ff9800; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .form-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .form-table td { padding: 8px; border: 1px solid #ddd; }
+        .form-table tr:nth-child(odd) { background: #fafafa; }
+        .example-box { background: #f8f9fa; border: 1px solid #ddd; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .practice-box { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .reveal-button { background: #4a90e2; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 500; margin-top: 10px; }
+        .reveal-button:hover { background: #357abd; }
+        .hidden-content { display: none; background: #e8f5e9; border-left: 4px solid #28a745; padding: 12px; margin-top: 10px; border-radius: 4px; }
+        .hidden-content.revealed { display: block; }
+        .recall-zone { background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f6 100%); border: 2px solid #28a745; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .recall-zone h3 { color: #28a745; margin-bottom: 15px; }
+        .recall-item { background: white; padding: 12px; border-left: 4px solid #28a745; margin-bottom: 10px; border-radius: 4px; }
+        .i-can-statement { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; font-size: 1.1em; font-weight: 500; margin-top: 20px; }
+        .metacognition-box { background: #f8f9fa; border: 2px solid #667eea; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .metacognition-box h4 { color: #667eea; margin-bottom: 10px; }
+        @media (max-width: 768px) { .header h1 { font-size: 1.6em; } .tab-button { padding: 12px 15px; font-size: 0.85em; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>❓ Lesson 33: If I Had Time...</h1>
+            <p>The First Conditional: If + Present, Will + Future</p>
+        </div>
+        
+        <div class="learning-intention">
+            <strong>Learning Intention:</strong> Today we're learning the first conditional (If + present, will + future) so you can talk about real possibilities and natural consequences.
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(event, 'tab1')">Retrieval + Context</button>
+            <button class="tab-button" onclick="showTab(event, 'tab2')">Form & Structure</button>
+            <button class="tab-button" onclick="showTab(event, 'tab3')">Guided Practice</button>
+            <button class="tab-button" onclick="showTab(event, 'tab4')">Interleaved Practice</button>
+            <button class="tab-button" onclick="showTab(event, 'tab5')">Elaboration & Production</button>
+            <button class="tab-button" onclick="showTab(event, 'tab6')">Recall Zone</button>
+            <button class="tab-button" onclick="showTab(event, 'tab7')">Retrieval Test & Assessment</button>
+        </div>
+        
+        <!-- TAB 1 -->
+        <div id="tab1" class="tab-content active">
+            <div class="content-section">
+                <div class="section-title">🧠 What do you already know?</div>
+                <div class="retrieval-task">
+                    <p>Try writing 2-3 sentences about what will happen if something occurs. For example: "If I study hard, ..."</p>
+                    <textarea placeholder="Write sentences about possibilities..."></textarea>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">📖 Why This Matters</div>
+                <div class="example-box">
+                    <p>The first conditional describes <strong>real possibilities</strong> — things that could happen. In English, we use this structure every day:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>"If I wake up early, I'll exercise."</li>
+                        <li>"If it rains tomorrow, we'll stay inside."</li>
+                        <li>"If you don't finish homework, your teacher will be unhappy."</li>
+                    </ul>
+                    <p style="margin-top: 10px;">It's not fantasy — it's talking about <strong>likely outcomes</strong> in your daily life.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 2 -->
+        <div id="tab2" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🔧 The Form: If + Present, Will + Verb</div>
+                
+                <div class="form-box">
+                    <h3>Structure:</h3>
+                    <table class="form-table">
+                        <tr style="background: #ff9800; color: white;">
+                            <td><strong>If clause (present simple)</strong></td>
+                            <td><strong>Main clause (will + verb)</strong></td>
+                        </tr>
+                        <tr>
+                            <td>If I wake up early</td>
+                            <td>I will exercise</td>
+                        </tr>
+                        <tr>
+                            <td>If it rains</td>
+                            <td>we will stay home</td>
+                        </tr>
+                        <tr>
+                            <td>If you don't study</td>
+                            <td>you won't pass</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="example-box">
+                    <strong>Key Points:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>IF clause uses present simple</strong> (not future): "If I go" NOT "If I will go"</li>
+                        <li><strong>Main clause uses will/won't</strong>: "I will do" or "I won't do"</li>
+                        <li>You can start with either: "If it rains, I'll stay home" OR "I'll stay home if it rains"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 3 -->
+        <div id="tab3" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">👨‍🏫 I DO (Model)</div>
+                <div class="example-box">
+                    <strong>I'll make a sentence about what happens if I drink coffee:</strong><br><br>
+                    "If I drink coffee, I will be more awake."<br><br>
+                    <strong>Why:</strong> The IF clause is present simple ("I drink"). The main clause is will + verb ("I will be").
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">👥 WE DO (Together)</div>
+                <div class="practice-box">
+                    <p><strong>Complete this first conditional:</strong></p>
+                    <p>"If we study together, we _____________ (understand) the lesson better."</p>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal Answer</button>
+                    <div class="hidden-content">
+                        <strong>Answer:</strong> "If we study together, we <strong>will understand</strong> the lesson better."<br><br>
+                        <strong>Why:</strong> We need "will understand" (future) to show the result of studying.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">🎓 YOU DO (Independent)</div>
+                <div class="practice-box">
+                    <p><strong>Create your own first conditional. Start with "If I..."</strong></p>
+                    <textarea placeholder="Write your sentence: If I... then I will..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 4 -->
+        <div id="tab4" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🎯 Interleaved Practice: Mix old + new</div>
+                <p>These exercises mix the first conditional with past tense and present simple. YOU choose which structure:</p>
+                
+                <div class="practice-box">
+                    <p><strong>1.</strong> If you _____________ (arrive) late, your boss _____________ (be) angry.</p>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                    <div class="hidden-content">
+                        <strong>Answer:</strong> "If you <strong>arrive</strong> late, your boss <strong>will be</strong> angry."<br>
+                        First conditional: present + will
+                    </div>
+                </div>
+                
+                <div class="practice-box">
+                    <p><strong>2.</strong> They _____________ (go) to the beach yesterday because it _____________ (be) sunny.</p>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                    <div class="hidden-content">
+                        <strong>Answer:</strong> "They <strong>went</strong> to the beach yesterday because it <strong>was</strong> sunny."<br>
+                        Past simple (not first conditional).
+                    </div>
+                </div>
+                
+                <div class="practice-box">
+                    <p><strong>3.</strong> If the weather _____________ (not improve), the match _____________ (be cancelled).</p>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                    <div class="hidden-content">
+                        <strong>Answer:</strong> "If the weather <strong>doesn't improve</strong>, the match <strong>will be cancelled</strong>."<br>
+                        First conditional with negation.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 5 -->
+        <div id="tab5" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">💭 Explain the rule in your own words</div>
+                <div class="retrieval-task">
+                    <p>Write a 2-3 sentence explanation: When do we use the first conditional? What's the pattern?</p>
+                    <textarea placeholder="Explain the first conditional..."></textarea>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">🗣️ Speak: Real-life scenarios</div>
+                <div class="practice-box">
+                    <p><strong>Create 3 first conditional sentences about your own life:</strong></p>
+                    <p>• If I _____________, I will _____________</p>
+                    <p>• If _____________, _____________ will happen</p>
+                    <p>• If not _____________, _____________</p>
+                    <textarea placeholder="Write your three sentences..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 6 -->
+        <div id="tab6" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🔄 Recall Zone: Spaced Retrieval</div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 14: Making Plans (Going To)</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What's the difference between "I'm going to..." and "I will..."?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            <strong>Answer:</strong> "Going to" = plans already made. "Will" = decisions in the moment or predictions.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 26: Must & Should</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> Write a sentence using "should" to give advice.</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            <strong>Answer:</strong> Example: "You should study if you want to pass." / "If you're tired, you should sleep."
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 28: Have You Ever...?</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What tense is "Have you ever...?" and what does it mean?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            <strong>Answer:</strong> Present perfect. It asks about life experiences from the past to now.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 30: Unit 3 Review</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> How do you form comparatives? Example: "This is ... than that."</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            <strong>Answer:</strong> Add "-er" (shorter, bigger) or "more" (more interesting, more difficult)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 7 -->
+        <div id="tab7" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">📝 Final Retrieval: From Memory</div>
+                
+                <div class="retrieval-task">
+                    <p><strong>1. Write the first conditional structure from memory:</strong> If ... , ... will ...</p>
+                    <textarea placeholder="Write the pattern..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>2. Write 3 complete first conditional sentences from memory (NOT the same ones from earlier):</strong></p>
+                    <textarea placeholder="Write three new sentences..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>3. What helped you remember the first conditional? The structure? The examples? Practice?</strong></p>
+                    <textarea placeholder="Your reflection..."></textarea>
+                </div>
+            </div>
+            
+            <div class="i-can-statement">
+                ✅ <strong>I can:</strong> Use the first conditional to talk about real possibilities and their natural outcomes
+            </div>
+            
+            <div class="metacognition-box">
+                <h4>🧠 Metacognition: Learning Process</h4>
+                <p>Which activity helped you understand the first conditional best? Why?</p>
+                <textarea placeholder="Your reflection..."></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(evt, tabName) {
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
+            var tabbuttons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabbuttons.length; i++) tabbuttons[i].classList.remove("active");
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function toggleReveal(evt) {
+            evt.preventDefault();
+            var button = evt.currentTarget;
+            var hiddenContent = button.nextElementSibling;
+            hiddenContent.classList.toggle("revealed");
+            button.textContent = hiddenContent.classList.contains("revealed") ? "Hide" : "Reveal";
+        }
+    </script>
+</body>
+</html>

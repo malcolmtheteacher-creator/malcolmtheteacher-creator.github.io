@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 37: Health & Body</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f8f9fa 0%, #e8eef2 100%); color: #1a1a2e; line-height: 1.6; min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; padding: 30px 20px; text-align: center; }
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        .learning-intention { background: #fadbd8; border-left: 4px solid #e74c3c; padding: 15px 20px; margin: 20px; border-radius: 4px; font-weight: 500; color: #a93226; }
+        .tabs { display: flex; border-bottom: 2px solid #e0e0e0; overflow-x: auto; background: #f8f9fa; }
+        .tab-button { padding: 15px 20px; border: none; background: transparent; cursor: pointer; font-size: 0.95em; font-weight: 500; color: #666; transition: all 0.3s ease; white-space: nowrap; border-bottom: 3px solid transparent; }
+        .tab-button:hover { color: #e74c3c; }
+        .tab-button.active { color: #e74c3c; border-bottom-color: #e74c3c; }
+        .tab-content { display: none; padding: 30px; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .content-section { margin-bottom: 25px; }
+        .section-title { font-size: 1.3em; font-weight: 600; color: #e74c3c; margin-bottom: 15px; }
+        .retrieval-task { background: #fadbd8; border-left: 4px solid #e74c3c; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
+        .retrieval-task textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; min-height: 80px; }
+        .vocab-item { background: #f8f9fa; border-left: 4px solid #e74c3c; padding: 12px; margin-bottom: 10px; border-radius: 4px; }
+        .discussion-card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .discussion-card h4 { color: #e74c3c; margin-bottom: 10px; }
+        .discussion-card textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; min-height: 60px; }
+        .recall-zone { background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f6 100%); border: 2px solid #28a745; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .recall-zone h3 { color: #28a745; margin-bottom: 15px; }
+        .recall-item { background: white; padding: 12px; border-left: 4px solid #28a745; margin-bottom: 10px; border-radius: 4px; }
+        .reveal-button { background: #e74c3c; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: 500; margin-top: 10px; }
+        .reveal-button:hover { background: #c0392b; }
+        .hidden-content { display: none; background: #e8f5e9; border-left: 4px solid #28a745; padding: 12px; margin-top: 10px; border-radius: 4px; }
+        .hidden-content.revealed { display: block; }
+        .i-can-statement { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; font-size: 1.1em; font-weight: 500; margin-top: 20px; }
+        .metacognition-box { background: #f8f9fa; border: 2px solid #667eea; padding: 15px; border-radius: 8px; }
+        .metacognition-box h4 { color: #667eea; margin-bottom: 10px; }
+        @media (max-width: 768px) { .header h1 { font-size: 1.6em; } .tab-button { padding: 12px 15px; font-size: 0.85em; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💪 Lesson 37: Health & Body</h1>
+            <p>Talk about how you feel and communicate with doctors</p>
+        </div>
+        
+        <div class="learning-intention">
+            <strong>Learning Intention:</strong> Today we're learning health vocabulary and body language so you can describe how you feel and communicate medical needs in English.
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(event, 'tab1')">Retrieval + Hook</button>
+            <button class="tab-button" onclick="showTab(event, 'tab2')">Body Parts & Feelings</button>
+            <button class="tab-button" onclick="showTab(event, 'tab3')">Health Expressions</button>
+            <button class="tab-button" onclick="showTab(event, 'tab4')">Your Turn</button>
+            <button class="tab-button" onclick="showTab(event, 'tab5')">Deep Dive</button>
+            <button class="tab-button" onclick="showTab(event, 'tab6')">Recall Zone</button>
+            <button class="tab-button" onclick="showTab(event, 'tab7')">Wrap-Up</button>
+        </div>
+        
+        <!-- TAB 1 -->
+        <div id="tab1" class="tab-content active">
+            <div class="content-section">
+                <div class="section-title">🧠 What do you already know?</div>
+                <div class="retrieval-task">
+                    <p>Write down body parts and health words you already know in English (head, arm, headache, etc.)</p>
+                    <textarea placeholder="List them..."></textarea>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">💬 Why Health Language Matters</div>
+                <div class="vocab-item" style="background: #fff9e6;">
+                    <p><strong>You MUST know this:</strong> If you're sick, in pain, or need a doctor, you need to describe it. You can't just point — you need words. This lesson gives you the confidence to handle health situations naturally.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 2 -->
+        <div id="tab2" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🫀 Body Parts</div>
+                
+                <div class="vocab-item">
+                    <strong>Head & Face:</strong> head, face, eye, ear, nose, mouth, tooth/teeth, chin
+                </div>
+                <div class="vocab-item">
+                    <strong>Upper Body:</strong> shoulder, arm, elbow, wrist, hand, finger, chest, back
+                </div>
+                <div class="vocab-item">
+                    <strong>Lower Body:</strong> hip, leg, knee, ankle, foot, toe
+                </div>
+                <div class="vocab-item">
+                    <strong>Internal:</strong> heart, lungs, stomach, liver
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">😣 Describing How You Feel</div>
+                
+                <div class="vocab-item">
+                    <strong>"I have a...":</strong> headache, backache, stomachache, toothache, fever, cough, sore throat
+                </div>
+                <div class="vocab-item">
+                    <strong>"I feel...":</strong> sick, ill, dizzy, tired, weak, nauseous, pain (in my...)
+                </div>
+                <div class="vocab-item">
+                    <strong>"My [body part] hurts" / "My [body part] is sore":</strong> "My head hurts." "My back is sore."
+                </div>
+                <div class="vocab-item">
+                    <strong>"I'm [adjective]":</strong> fine, well, better, worse, okay
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">✍️ YOUR TURN: Match symptoms</div>
+                <div class="discussion-card">
+                    <p><strong>1. Your head is painful:</strong> "I have a _____ (fever / headache)"</p>
+                    <textarea placeholder="Fill in..."></textarea>
+                </div>
+                <div class="discussion-card">
+                    <p><strong>2. Your stomach is uncomfortable:</strong> "I have a _____ (stomachache / cough)"</p>
+                    <textarea placeholder="Fill in..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 3 -->
+        <div id="tab3" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🏥 Health Conversations</div>
+                
+                <div class="vocab-item">
+                    <strong>At the doctor:</strong> "I'm not feeling well" / "I've been sick for 3 days" / "It started yesterday"
+                </div>
+                <div class="vocab-item">
+                    <strong>Doctor asks:</strong> "Where does it hurt?" / "How long have you had this?" / "Are you allergic to anything?"
+                </div>
+                <div class="vocab-item">
+                    <strong>You respond:</strong> "Since Tuesday" / "All day" / "No, I'm not allergic" / "Yes, I take..."
+                </div>
+                <div class="vocab-item">
+                    <strong>Doctor might say:</strong> "Take this medicine" / "Rest for 3 days" / "See me again if..." / "You'll be fine"
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">✍️ YOUR TURN: Doctor conversation starter</div>
+                <div class="discussion-card">
+                    <p><strong>Write what you would say to a doctor:</strong> "Doctor, I _____ and _____ . This started _____ ."</p>
+                    <textarea placeholder="Complete the sentences..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 4 -->
+        <div id="tab4" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🗣️ Your Turn: Health Conversations</div>
+                <p>Choose 2-3. Speak or write naturally — no scaffolding.</p>
+                
+                <div class="discussion-card">
+                    <h4>Scenario 1: You're at the doctor</h4>
+                    <p>Doctor asks: "What's the problem?" Describe what hurts and how long it's been happening.</p>
+                    <textarea placeholder="What would you say?..."></textarea>
+                </div>
+                
+                <div class="discussion-card">
+                    <h4>Scenario 2: A friend asks how you're feeling</h4>
+                    <p>You've had a cold for 2 days. Describe your symptoms.</p>
+                    <textarea placeholder="What would you say?..."></textarea>
+                </div>
+                
+                <div class="discussion-card">
+                    <h4>Scenario 3: At a pharmacy</h4>
+                    <p>You ask the pharmacist for medicine for a headache. Explain your symptoms.</p>
+                    <textarea placeholder="What would you say?..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 5 -->
+        <div id="tab5" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🎯 Deep Dive: Full Health Scenario</div>
+                <div class="vocab-item" style="background: #f8f9fa;">
+                    <strong>Complete conversation:</strong><br><br>
+                    Doctor: "Hello, how are you?"<br>
+                    You: "Not very well. I have a terrible headache and I feel dizzy."<br>
+                    Doctor: "How long have you had this?"<br>
+                    You: "Since yesterday morning. It's getting worse."<br>
+                    Doctor: "Let me examine you. Open your mouth. Say 'ah'."
+                </div>
+                
+                <div class="discussion-card">
+                    <h4>Challenge: Write a full doctor conversation</h4>
+                    <p>You're sick with 2 symptoms. You visit a doctor. Write the complete conversation.</p>
+                    <textarea placeholder="Write the full conversation..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 6 -->
+        <div id="tab6" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🔄 Recall Zone: Spaced Retrieval</div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 16: Can You Help?</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What modal verb means "to be able to"?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "Can" — Example: "Can you help?" / "I can run"
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 31: At the Restaurant</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> How do you ask politely about ingredients or concerns?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "Does this have...?" / "Can you tell me...?" / "I'm allergic to..."
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 34: Questions</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> Form a WH-question about when something started: "When ... your pain start?"</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "When did your pain start?" (past simple question)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 35: Review</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What's the first conditional? Give an example about health: "If I'm sick, ..."</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            Answer: "If I'm sick, I will go to the doctor" (If + present, will + verb)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 7 -->
+        <div id="tab7" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">📝 Final Retrieval: From Memory</div>
+                
+                <div class="retrieval-task">
+                    <p><strong>1. List 10 body parts from memory:</strong></p>
+                    <textarea placeholder="Write them..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>2. Write 3 ways to describe being sick:</strong></p>
+                    <textarea placeholder="Write them..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>3. What was the most useful part of this lesson for you?</strong></p>
+                    <textarea placeholder="Your reflection..."></textarea>
+                </div>
+            </div>
+            
+            <div class="i-can-statement">
+                ✅ <strong>I can:</strong> Describe body parts, discuss health problems, and communicate with healthcare providers about symptoms
+            </div>
+            
+            <div class="metacognition-box">
+                <h4>🧠 Metacognition: Learning Support</h4>
+                <p>Which activity helped most? Body part learning? The scenarios? Something else?</p>
+                <textarea placeholder="Your reflection..."></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(evt, tabName) {
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) tabcontent[i].classList.remove("active");
+            var tabbuttons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabbuttons.length; i++) tabbuttons[i].classList.remove("active");
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function toggleReveal(evt) {
+            evt.preventDefault();
+            var button = evt.currentTarget;
+            var hiddenContent = button.nextElementSibling;
+            hiddenContent.classList.toggle("revealed");
+            button.textContent = hiddenContent.classList.contains("revealed") ? "Hide" : "Reveal";
+        }
+    </script>
+</body>
+</html>

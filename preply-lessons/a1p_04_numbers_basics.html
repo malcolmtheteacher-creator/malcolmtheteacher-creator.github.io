@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Lesson 04: Numbers & Basics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f0f5 100%);
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .learning-intention {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab-button {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .tab-button:hover {
+            background: #f0f0f0;
+            border-color: #ff6b6b;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border-color: #ff6b6b;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card {
+            background: #f8f9fa;
+            border-left: 4px solid #ff6b6b;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .content-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        .retrieval-task {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe8a8 100%);
+            border: 2px dashed #ffc107;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .retrieval-task h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .reveal {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .emoji-large {
+            font-size: 3em;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .number-card {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        .number-card strong {
+            display: block;
+            font-size: 1.8em;
+            color: #ff6b6b;
+            margin-bottom: 5px;
+        }
+
+        .practice-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .i-can {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .recall-zone {
+            background: linear-gradient(135deg, #e1f5ff 0%, #b3e5fc 100%);
+            border: 2px solid #0277bd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .recall-zone h3 {
+            color: #01579b;
+            margin-bottom: 15px;
+        }
+
+        .number-clickable {
+            cursor: pointer;
+            font-weight: bold;
+            color: #667eea;
+            border-bottom: 2px dashed #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .practice-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                border-radius: 5px;
+                width: 100%;
+            }
+
+            .tab-content {
+                border-radius: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔢 Numbers & Basics 🔢</h1>
+            <p>Lesson 4: Foundation Unit</p>
+        </div>
+
+        <div class="learning-intention">
+            💡 <strong>Today we're working on</strong> numbers 1-100, phone numbers, and ages so <strong>you can share basic information confidently</strong>.
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('tab1')">1. Recall Zone</button>
+            <button class="tab-button" onclick="showTab('tab2')">2. Learning: Numbers 1-20</button>
+            <button class="tab-button" onclick="showTab('tab3')">3. Learning: Tens & Bigger</button>
+            <button class="tab-button" onclick="showTab('tab4')">4. Your Numbers</button>
+            <button class="tab-button" onclick="showTab('tab5')">5. Phone & Age</button>
+            <button class="tab-button" onclick="showTab('tab6')">6. Practice</button>
+            <button class="tab-button" onclick="showTab('tab7')">7. Wrap-Up & I Can...</button>
+        </div>
+
+        <!-- Tab 1: Recall Zone -->
+        <div id="tab1" class="tab-content active">
+            <h2>🧠 Recall Zone: Building on Lessons 2 & 3</h2>
+            <p>Let's retrieve what you learned in <strong>Lessons 2 & 3</strong>. Build a sentence combining location and job:</p>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 2 & 3</h3>
+                <p><strong>Question:</strong> Write one sentence saying where you're from AND one sentence saying what you do. From memory, no looking back!</p>
+                <textarea id="recall1" placeholder="Write from memory..."></textarea>
+                <button onclick="checkRecall()">Check</button>
+                <div id="recallResult"></div>
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>✨ Building blocks:</strong> Numbers connect everything! Age, phone number, address, salary — numbers are everywhere in conversation!
+            </div>
+
+            <div class="emoji-large">🌍 + 💼 + 🔢</div>
+        </div>
+
+        <!-- Tab 2: Numbers 1-20 -->
+        <div id="tab2" class="tab-content">
+            <h2>🔢 Let's Learn: Numbers 1-20</h2>
+            <p>These are the foundation numbers. Learn to recognize AND pronounce them:</p>
+
+            <div class="number-grid">
+                <div class="number-card"><strong>1</strong> one</div>
+                <div class="number-card"><strong>2</strong> two</div>
+                <div class="number-card"><strong>3</strong> three</div>
+                <div class="number-card"><strong>4</strong> four</div>
+                <div class="number-card"><strong>5</strong> five</div>
+                <div class="number-card"><strong>6</strong> six</div>
+                <div class="number-card"><strong>7</strong> seven</div>
+                <div class="number-card"><strong>8</strong> eight</div>
+                <div class="number-card"><strong>9</strong> nine</div>
+                <div class="number-card"><strong>10</strong> ten</div>
+                <div class="number-card"><strong>11</strong> eleven</div>
+                <div class="number-card"><strong>12</strong> twelve</div>
+                <div class="number-card"><strong>13</strong> thirteen</div>
+                <div class="number-card"><strong>14</strong> fourteen</div>
+                <div class="number-card"><strong>15</strong> fifteen</div>
+                <div class="number-card"><strong>16</strong> sixteen</div>
+                <div class="number-card"><strong>17</strong> seventeen</div>
+                <div class="number-card"><strong>18</strong> eighteen</div>
+                <div class="number-card"><strong>19</strong> nineteen</div>
+                <div class="number-card"><strong>20</strong> twenty</div>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💪 Pronunciation tip:</strong> Numbers 13-19 are tricky! "THIR-teen" "FOUR-teen" "FIF-teen" — The -teen ending is important!
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>Quick Check:</strong> What's the number that sounds like "too"? <span onclick="alert('TWO! Two = 2')" style="cursor: pointer; color: #ff6b6b; font-weight: bold;">→ Click to confirm</span>
+            </div>
+        </div>
+
+        <!-- Tab 3: Tens & Bigger Numbers -->
+        <div id="tab3" class="tab-content">
+            <h2>🔢 Let's Learn: Tens & Beyond (20-100)</h2>
+            <p>After 20, numbers follow a clear pattern. Once you know this pattern, you can count to 100:</p>
+
+            <div class="content-card">
+                <h3>Pattern: TENS (20, 30, 40...)</h3>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>20 = twenty</li>
+                    <li>30 = thirty</li>
+                    <li>40 = forty</li>
+                    <li>50 = fifty</li>
+                    <li>60 = sixty</li>
+                    <li>70 = seventy</li>
+                    <li>80 = eighty</li>
+                    <li>90 = ninety</li>
+                    <li>100 = one hundred</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3>Pattern: Combining Tens + Ones</h3>
+                <p><strong>Rule:</strong> Tens + ones = combine them!</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>21 = twenty-one</li>
+                    <li>35 = thirty-five</li>
+                    <li>48 = forty-eight</li>
+                    <li>67 = sixty-seven</li>
+                    <li>92 = ninety-two</li>
+                </ul>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>⚠️ Careful:</strong> "Forty" is 40, not "fourty" — Common spelling mistake!
+            </div>
+        </div>
+
+        <!-- Tab 4: Your Numbers -->
+        <div id="tab4" class="tab-content">
+            <h2>🎯 Your Turn: Create Your Number Sentences</h2>
+            <p>Now create sentences using numbers. This time, no models — just produce from what you learned:</p>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 1: Count Three Numbers 🔢</h3>
+                <p><strong>Task:</strong> Write or say 3 numbers in English (any numbers, from 1-100):</p>
+                <textarea id="num1" placeholder="Example: fifteen, forty-two, eighty-nine"></textarea>
+                <button onclick="saveResponse('num1')">Save</button>
+            </div>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 2: Your Age 🎂</h3>
+                <p><strong>Task:</strong> "I am [age] years old." Create your sentence:</p>
+                <textarea id="num2" placeholder="Example: I am thirty-two years old."></textarea>
+                <button onclick="saveResponse('num2')">Save</button>
+            </div>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 3: Combine Everything! ⭐</h3>
+                <p><strong>Task:</strong> "I'm [name]. I'm from [country]. I'm [age]. I'm a [job]."</p>
+                <textarea id="num3" placeholder="Example: I'm Sophie. I'm from Italy. I'm twenty-five. I'm a teacher."></textarea>
+                <button onclick="saveResponse('num3')">Save</button>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎉 AMAZING!</strong> Challenge 3 is a COMPLETE introduction with 4 pieces of info. That's fluent foundation English!
+            </div>
+        </div>
+
+        <!-- Tab 5: Phone Numbers & Age -->
+        <div id="tab5" class="tab-content">
+            <h2>📱 Let's Learn: Phone Numbers & "I'm [age]"</h2>
+            <p>Two practical uses of numbers: sharing a phone number and saying your age:</p>
+
+            <div class="content-card">
+                <h3>Saying Your Phone Number 📱</h3>
+                <p><strong>How to do it:</strong> Say each digit individually, slowly.</p>
+                <p><strong>Example phone:</strong> 555-1234</p>
+                <p><strong>How to say it:</strong> "Five-five-five, one-two-three-four"</p>
+                <p><strong>Sentence:</strong> "My phone number is five-five-five, one-two-three-four."</p>
+                <p style="margin-top: 15px;"><strong>Note:</strong> Say 0 as "zero" or "oh"</p>
+                <p style="margin-top: 15px;"><strong>Another example:</strong> 202-555-0192</p>
+                <p>"Two-zero-two, five-five-five, zero-one-nine-two"</p>
+            </div>
+
+            <div class="content-card">
+                <h3>Saying Your Age 🎂</h3>
+                <p><strong>Pattern:</strong> "I'm [number] years old" or simply "I'm [number]"</p>
+                <p><strong>Examples:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>"I'm twenty-three years old."</li>
+                    <li>"I'm thirty-seven."</li>
+                    <li>"I'm forty." (simple and natural)</li>
+                </ul>
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💡 Tip:</strong> People usually DON'T say the full "years old" part — just say "I'm thirty" and people understand it's your age!
+            </div>
+        </div>
+
+        <!-- Tab 6: Mixed Practice -->
+        <div id="tab6" class="tab-content">
+            <h2>⚡ Practice: Numbers in Context</h2>
+            <p>Practice using numbers in realistic situations:</p>
+
+            <div class="practice-grid">
+                <div class="card">
+                    <strong>Question: What is 23 + 15?</strong>
+                    <p>Answer using English:</p>
+                    <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
+                </div>
+
+                <div class="card">
+                    <strong>Your phone number: 333-7654</strong>
+                    <p>Say it in English:</p>
+                    <textarea placeholder="My phone is..." style="width: 100%; min-height: 60px;"></textarea>
+                </div>
+
+                <div class="card">
+                    <strong>Your age: 28</strong>
+                    <p>Create a complete sentence:</p>
+                    <textarea placeholder="I'm..." style="width: 100%; min-height: 60px;"></textarea>
+                </div>
+
+                <div class="card">
+                    <strong>Count: 5 to 15</strong>
+                    <p>Write it out in English:</p>
+                    <textarea placeholder="Five, six, seven..." style="width: 100%; min-height: 60px;"></textarea>
+                </div>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💪 Pro tip:</strong> Practice saying numbers OUT LOUD. Numbers need good pronunciation!
+            </div>
+        </div>
+
+        <!-- Tab 7: Wrap-Up & I Can -->
+        <div id="tab7" class="tab-content">
+            <h2>🎓 Wrap-Up & Self-Assessment</h2>
+            <p>Let's see how much you remember — <strong>without looking back!</strong></p>
+
+            <div class="retrieval-task">
+                <h3>📋 Final Recall</h3>
+                <p>From memory, write:</p>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li>The English words for numbers: 7, 15, 23, 50, 89</li>
+                    <li>How to say a phone number (with an example)</li>
+                    <li>A complete sentence saying your age</li>
+                </ol>
+                <textarea id="finalRecall" placeholder="Write from memory..."></textarea>
+                <button onclick="revealAnswer()">I'm Ready to Check</button>
+            </div>
+
+            <div id="revealedAnswer" style="display: none; margin-top: 20px;">
+                <div class="reveal">
+                    <h3>✅ Model Answer</h3>
+                    <p><strong>1. Numbers:</strong> seven, fifteen, twenty-three, fifty, eighty-nine</p>
+                    <p><strong>2. Phone:</strong> "My number is four-four-four, two-one-zero-five" (read each digit)</p>
+                    <p><strong>3. Age:</strong> "I'm twenty-nine" or "I'm thirty-four years old"</p>
+                </div>
+
+                <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                    <strong>💭 Metacognitive Reflection:</strong> Which was hardest — 1-20 or the tens (20-100)? Why did you find it that way?
+                </div>
+            </div>
+
+            <div class="i-can">
+                ✅ <strong>I can say numbers 1-100, share my age, and give my phone number in English.</strong>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎉 Lesson 4 Complete!</strong><br>
+                You've learned 4 essential foundations: introductions, location, jobs, and numbers. Lesson 5 is a REVIEW lesson — we'll consolidate everything and get ready for the next unit!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            contents.forEach(el => el.classList.remove('active'));
+            buttons.forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function saveResponse(id) {
+            const text = document.getElementById(id).value;
+            if (text.trim()) {
+                alert('✅ Saved! Excellent production!');
+            } else {
+                alert('⚠️ Please type something first!');
+            }
+        }
+
+        function checkRecall() {
+            const answer = document.getElementById('recall1').value.trim();
+            const result = document.getElementById('recallResult');
+            if (answer.length > 15) {
+                result.innerHTML = '<div class="reveal"><strong>✅ Excellent!</strong> You retrieved Lessons 2 & 3 without looking. This spaced repetition is strengthening your memory!</div>';
+            } else {
+                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Try to write both a location sentence and a job sentence.</div>';
+            }
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealedAnswer').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

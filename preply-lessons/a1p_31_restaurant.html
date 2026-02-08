@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 31: At the Restaurant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8eef2 100%);
+            color: #1a1a2e;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .learning-intention {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 20px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+            background: #f8f9fa;
+        }
+        
+        .tab-button {
+            padding: 15px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab-button:hover {
+            color: #ff6b6b;
+        }
+        
+        .tab-button.active {
+            color: #ff6b6b;
+            border-bottom-color: #ff6b6b;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .content-section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .retrieval-task {
+            background: #f0f7ff;
+            border-left: 4px solid #4a90e2;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        
+        .retrieval-task h3 {
+            color: #4a90e2;
+            margin-bottom: 10px;
+        }
+        
+        .retrieval-task textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            min-height: 80px;
+            font-size: 0.95em;
+        }
+        
+        .framework-box {
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe8ed 100%);
+            border: 2px solid #ff6b6b;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .framework-box h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        
+        .framework-step {
+            background: white;
+            border-left: 4px solid #ff6b6b;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        
+        .framework-step strong {
+            color: #ff6b6b;
+        }
+        
+        .example-box {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .good-example {
+            border-left: 4px solid #28a745;
+        }
+        
+        .poor-example {
+            border-left: 4px solid #dc3545;
+        }
+        
+        .good-example::before {
+            content: "✓ GOOD: ";
+            color: #28a745;
+            font-weight: 600;
+            font-style: normal;
+        }
+        
+        .poor-example::before {
+            content: "✗ POOR: ";
+            color: #dc3545;
+            font-weight: 600;
+            font-style: normal;
+        }
+        
+        .practice-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .practice-card:hover {
+            box-shadow: 0 2px 8px rgba(255,107,107,0.2);
+            border-color: #ff6b6b;
+        }
+        
+        .practice-card h4 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        
+        .scenario {
+            background: #f0f7ff;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .response-area {
+            background: #fff3cd;
+            padding: 12px;
+            border-radius: 4px;
+            min-height: 60px;
+            border: 1px dashed #ffc107;
+        }
+        
+        .reveal-button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .reveal-button:hover {
+            background: #357abd;
+        }
+        
+        .hidden-content {
+            display: none;
+            background: #e8f5e9;
+            border-left: 4px solid #28a745;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        
+        .hidden-content.revealed {
+            display: block;
+        }
+        
+        .recall-zone {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f6 100%);
+            border: 2px solid #28a745;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .recall-zone h3 {
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+        
+        .recall-item {
+            background: white;
+            padding: 12px;
+            border-left: 4px solid #28a745;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        
+        .timer {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #4a90e2;
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .timer.warning {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .timer.critical {
+            background: #dc3545;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .i-can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+        
+        .metacognition-box {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .metacognition-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .duo-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .duo-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.6em;
+            }
+            
+            .tabs {
+                overflow-x: auto;
+            }
+            
+            .tab-button {
+                padding: 12px 15px;
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍽️ Lesson 31: At the Restaurant</h1>
+            <p>Master ordering, complaints, and requests</p>
+        </div>
+        
+        <div class="learning-intention">
+            <strong>Learning Intention:</strong> Today we're learning practical restaurant language so you can order confidently, handle problems politely, and ask for the bill like a native speaker.
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(event, 'tab1')">Retrieval + Framework</button>
+            <button class="tab-button" onclick="showTab(event, 'tab2')">Ordering Framework</button>
+            <button class="tab-button" onclick="showTab(event, 'tab3')">Polite Complaints</button>
+            <button class="tab-button" onclick="showTab(event, 'tab4')">Guided Practice</button>
+            <button class="tab-button" onclick="showTab(event, 'tab5')">Real Scenarios</button>
+            <button class="tab-button" onclick="showTab(event, 'tab6')">Recall Zone</button>
+            <button class="tab-button" onclick="showTab(event, 'tab7')">Wrap-Up & Assessment</button>
+        </div>
+        
+        <!-- TAB 1: RETRIEVAL + FRAMEWORK -->
+        <div id="tab1" class="tab-content active">
+            <div class="content-section">
+                <div class="section-title">🧠 What do you already know?</div>
+                <div class="retrieval-task">
+                    <h3>Your Experience</h3>
+                    <p>Think of a time you ate at a restaurant in English. What did you say? What went well? What was difficult?</p>
+                    <textarea placeholder="Write 2-3 sentences about your experience..."></textarea>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">🎯 The Restaurant Framework (R.A.B.)</div>
+                <div class="framework-box">
+                    <h3>Three Steps to Restaurant Success</h3>
+                    <div class="framework-step">
+                        <strong>R = REQUEST</strong> - What do you want? How do you ask politely?
+                    </div>
+                    <div class="framework-step">
+                        <strong>A = ADDRESS PROBLEMS</strong> - If something's wrong, how do you complain without being rude?
+                    </div>
+                    <div class="framework-step">
+                        <strong>B = BILL & GOODBYE</strong> - How do you ask for the bill and thank them?
+                    </div>
+                </div>
+                <p style="margin-top: 15px; font-style: italic; color: #666;">Why R.A.B. works: It gives you three clear moments in a restaurant conversation. You know WHAT to do and WHEN to do it.</p>
+            </div>
+        </div>
+        
+        <!-- TAB 2: ORDERING FRAMEWORK -->
+        <div id="tab2" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">📋 Step 1: REQUEST (Ordering Politely)</div>
+                <p>There are THREE ways to ask for food. Each one is polite, but they're used at different times:</p>
+                
+                <div style="margin-top: 15px;">
+                    <h4 style="color: #ff6b6b; margin-bottom: 10px;">🟢 For menu items:</h4>
+                    <div class="example-box">
+                        "Can I have the pasta, please?" / "I'll have the grilled chicken, please."
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px;">
+                    <h4 style="color: #ff6b6b; margin-bottom: 10px;">🟢 For drinks:</h4>
+                    <div class="example-box">
+                        "Could I get a coffee, please?" / "May I have a glass of water?"
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px;">
+                    <h4 style="color: #ff6b6b; margin-bottom: 10px;">🟢 For questions about food:</h4>
+                    <div class="example-box">
+                        "Does this dish have nuts?" / "Is the fish fresh today?" / "What comes with the salad?"
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">✍️ YOUR TURN: Write your ordering sentences</div>
+                <p>Complete these sentences for a restaurant:</p>
+                <div class="retrieval-task">
+                    <p><strong>1. Ask for a dish:</strong> "Can I have the ________________, please?"</p>
+                    <textarea placeholder="Write a dish name you like..."></textarea>
+                </div>
+                <div class="retrieval-task">
+                    <p><strong>2. Ask for a drink:</strong> "Could I get a ________________?"</p>
+                    <textarea placeholder="Write a drink..."></textarea>
+                </div>
+                <div class="retrieval-task">
+                    <p><strong>3. Ask a question about food:</strong> "Does this dish ________________?"</p>
+                    <textarea placeholder="Write a question..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 3: POLITE COMPLAINTS -->
+        <div id="tab3" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">😟 Step 2: ADDRESS PROBLEMS (Complaining Politely)</div>
+                <p>Sometimes food isn't perfect. Here's how to complain WITHOUT being rude:</p>
+                
+                <div style="margin-top: 15px;">
+                    <h4 style="color: #ff6b6b; margin-bottom: 10px;">🔴 POOR way (too direct):</h4>
+                    <div class="example-box poor-example">This soup is cold and tastes bad.
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px;">
+                    <h4 style="color: #28a745; margin-bottom: 10px;">🟢 GOOD way (polite):</h4>
+                    <div class="example-box good-example">I'm sorry, but this soup seems to be cold. Could you possibly bring me a hot one instead?
+                    </div>
+                </div>
+                
+                <div style="background: #fff3cd; padding: 15px; border-radius: 4px; margin-top: 15px;">
+                    <strong>The Pattern:</strong>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li>"I'm sorry, but..." (shows politeness)</li>
+                        <li>"This [problem] seems to be [what's wrong]" (explain, don't attack)</li>
+                        <li>"Could you possibly...?" (polite request for help)</li>
+                    </ol>
+                </div>
+                
+                <div style="background: #f0f7ff; padding: 15px; border-radius: 4px; margin-top: 15px;">
+                    <strong>More examples:</strong><br>
+                    • "I'm sorry, but I think there's a mistake. I ordered fish, not chicken."<br>
+                    • "Excuse me, the coffee seems to be cold. Could I get a fresh cup?"<br>
+                    • "I'm sorry, but this isn't what I ordered. Could we sort this out?"
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 4: GUIDED PRACTICE -->
+        <div id="tab4" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">👨‍🏫 I DO (Model)</div>
+                <p>Watch how I handle a restaurant situation:</p>
+                <div class="example-box">
+                    <strong>Situation:</strong> You want grilled salmon and a side salad.<br><br>
+                    <strong>My response:</strong> "Can I have the grilled salmon with a side salad, please? Does that come with vegetables?"<br><br>
+                    <strong>Why:</strong> I ask clearly (can I have...), add what I want (side salad), and ask a follow-up question.
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">👥 WE DO (Together)</div>
+                <div class="practice-card">
+                    <h4>Scenario: The waiter asks what you want</h4>
+                    <div class="scenario">
+                        <strong>Waiter:</strong> "Good evening! What can I get you?"
+                    </div>
+                    <div class="response-area">
+                        <strong>Your turn to speak:</strong> Order a pasta dish and ask what it comes with.
+                    </div>
+                    <button class="reveal-button" onclick="toggleReveal(event)">Show Model Response</button>
+                    <div class="hidden-content">
+                        <strong>Suggested response:</strong> "I'll have the penne carbonara, please. What vegetables does it come with?"<br><br>
+                        <strong>What worked:</strong> Clear order (I'll have...), specific dish name, polite question about ingredients.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="section-title">🎓 YOU DO (Independent)</div>
+                <p>Your turn — no scaffolding. Speak or write your response:</p>
+                <div class="practice-card">
+                    <h4>Scenario: Ordering Drinks</h4>
+                    <div class="scenario">
+                        <strong>Waiter:</strong> "Can I get you anything to drink?"
+                    </div>
+                    <div class="response-area">
+                        <strong>Your turn:</strong> Order your drink and ask a question about it.
+                    </div>
+                    <textarea placeholder="Write or describe what you would say..."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 5: REAL SCENARIOS -->
+        <div id="tab5" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🎬 Real Restaurant Scenarios</div>
+                <p>Choose 2 scenarios below. For each, write or speak what YOU would say. No scaffolding — just you and the situation.</p>
+                
+                <div class="practice-card">
+                    <h4>Scenario 1: Something's Wrong 😟</h4>
+                    <div class="scenario">
+                        You ordered steak, medium-rare. It arrives well-done. The waiter asks: "Is everything okay?"
+                    </div>
+                    <div class="response-area">
+                        <strong>What do you say?</strong> Use the complaint pattern: "I'm sorry, but..."
+                    </div>
+                    <textarea placeholder="Write your response using the polite complaint pattern..."></textarea>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #666;"><strong>Reminder:</strong> Say it's wrong, don't attack. Ask for help nicely.</p>
+                </div>
+                
+                <div class="practice-card">
+                    <h4>Scenario 2: Asking for the Bill 💳</h4>
+                    <div class="scenario">
+                        Meal is finished. You want to leave. You catch the waiter's attention.
+                    </div>
+                    <div class="response-area">
+                        <strong>What do you say?</strong> Ask for the bill politely.
+                    </div>
+                    <textarea placeholder="Write how you ask for the bill..."></textarea>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #666;"><strong>Options:</strong> "Can I have the bill, please?" / "Could I get the check?" / "Excuse me, could we have the bill?"</p>
+                </div>
+                
+                <div class="practice-card">
+                    <h4>Scenario 3: Asking Questions ❓</h4>
+                    <div class="scenario">
+                        You see a dish on the menu called "Chef's Surprise." You're not sure what it is.
+                    </div>
+                    <div class="response-area">
+                        <strong>What do you ask?</strong> Ask what's in the dish before ordering.
+                    </div>
+                    <textarea placeholder="Write your question..."></textarea>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #666;"><strong>Tip:</strong> "What is the Chef's Surprise?" / "Does it have seafood?" / "What comes with it?"</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 6: RECALL ZONE -->
+        <div id="tab6" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">🔄 Recall Zone: Spaced Retrieval</div>
+                <p>Let's bring back skills from earlier lessons. These are items you've seen before — try to remember WITHOUT looking back at old lessons.</p>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 8: Food & Drinks Basics</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> How do you say you like or don't like something?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            <strong>Answer:</strong> "I like...", "I don't like...", "I love...", "I hate..."
+                        </div>
+                    </div>
+                    
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> Name 3 foods you learned before.</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            <strong>Answer:</strong> Any foods work (pizza, chicken, vegetables, chocolate, bread, etc.)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 13: Going Shopping</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What's the polite way to ask a shopkeeper for something? What expression did we use?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            <strong>Answer:</strong> "Can I have...?" / "Could I get...?" / "May I have...?"
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recall-zone">
+                    <h3>From Lesson 29: Making Suggestions</h3>
+                    <div class="recall-item">
+                        <p><strong>Question:</strong> What are 2 ways to make a suggestion? What expressions start with "Let's" or "Why don't..."?</p>
+                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <div class="hidden-content">
+                            <strong>Answer:</strong> "Let's go to...", "Why don't we try...?", "Shall we...?" — these are ways to suggest activities together
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 7: WRAP-UP & ASSESSMENT -->
+        <div id="tab7" class="tab-content">
+            <div class="content-section">
+                <div class="section-title">📝 Final Retrieval: Can you remember?</div>
+                <p>WITHOUT looking back, write down or say:</p>
+                <div class="retrieval-task">
+                    <p><strong>1. Write the R.A.B. framework from memory:</strong></p>
+                    <p>R = ________________</p>
+                    <p>A = ________________</p>
+                    <p>B = ________________</p>
+                    <textarea placeholder="Write the three steps..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>2. Write one complete sentence for EACH:</strong></p>
+                    <p>• Ordering a dish: ________________</p>
+                    <p>• Asking a question about food: ________________</p>
+                    <p>• Complaining politely: ________________</p>
+                    <textarea placeholder="Write three sentences..."></textarea>
+                </div>
+                
+                <div class="retrieval-task">
+                    <p><strong>3. What helped you remember the polite complaint pattern?</strong></p>
+                    <textarea placeholder="Reflect on what made it stick (the pattern? the examples? practice?)..."></textarea>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="i-can-statement">
+                    ✅ <strong>I can:</strong> Order food politely, ask questions about dishes, and handle complaints naturally in a restaurant situation
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <div class="metacognition-box">
+                    <h4>🧠 Metacognition: How did you learn best today?</h4>
+                    <p>What was most useful? The framework? The examples? Writing responses? Thinking about real situations?</p>
+                    <textarea placeholder="Your reflection..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(evt, tabName) {
+            var tabcontent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            var tabbuttons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        
+        function toggleReveal(evt) {
+            evt.preventDefault();
+            var button = evt.currentTarget;
+            var hiddenContent = button.nextElementSibling;
+            hiddenContent.classList.toggle("revealed");
+            button.textContent = hiddenContent.classList.contains("revealed") ? "Hide" : "Show Model Response";
+        }
+    </script>
+</body>
+</html>

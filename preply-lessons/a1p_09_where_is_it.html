@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 Lesson 09: Where Is It?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f0f5 100%);
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .learning-intention {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab-button {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .tab-button:hover {
+            background: #f0f0f0;
+            border-color: #ff6b6b;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border-color: #ff6b6b;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-card {
+            background: #f8f9fa;
+            border-left: 4px solid #ff6b6b;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .content-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        .retrieval-task {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe8a8 100%);
+            border: 2px dashed #ffc107;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .retrieval-task h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        textarea, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            font-weight: 600;
+            margin: 10px 5px 10px 0;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .reveal {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .emoji-large {
+            font-size: 3em;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .preposition-card {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .preposition-card strong {
+            color: #667eea;
+        }
+
+        .i-can {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .recall-zone {
+            background: linear-gradient(135deg, #e1f5ff 0%, #b3e5fc 100%);
+            border: 2px solid #0277bd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .recall-zone h3 {
+            color: #01579b;
+            margin-bottom: 15px;
+        }
+
+        .diagram {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .diagram-item {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                border-radius: 5px;
+                width: 100%;
+            }
+
+            .tab-content {
+                border-radius: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📍 Where Is It? 📍</h1>
+            <p>Lesson 9: Foundation Unit (Second Half)</p>
+        </div>
+
+        <div class="learning-intention">
+            💡 <strong>Today we're working on</strong> prepositions of location (in, on, under, next to, between) so <strong>you can describe where things are</strong>.
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('tab1')">1. Recall Zone</button>
+            <button class="tab-button" onclick="showTab('tab2')">2. Prepositions</button>
+            <button class="tab-button" onclick="showTab('tab3')">3. Visual Learning</button>
+            <button class="tab-button" onclick="showTab('tab4')">4. Your Locations</button>
+            <button class="tab-button" onclick="showTab('tab5')">5. Describing Rooms</button>
+            <button class="tab-button" onclick="showTab('tab6')">6. Practice</button>
+            <button class="tab-button" onclick="showTab('tab7')">7. Wrap-Up & I Can...</button>
+        </div>
+
+        <!-- Tab 1: Recall Zone -->
+        <div id="tab1" class="tab-content active">
+            <h2>🧠 Recall Zone: From Lessons 5, 6, 7</h2>
+            <p>Spaced retrieval from previous lessons. These are spaced at optimal intervals:</p>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 5 (Review - 4 lessons back)</h3>
+                <p><strong>Question:</strong> Write one "I can..." statement from the foundation:</p>
+                <textarea id="recall1" placeholder="Write from memory..."></textarea>
+            </div>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 6 (3 lessons back)</h3>
+                <p><strong>Question:</strong> Write 3 family members and use one in a possessive sentence:</p>
+                <textarea id="recall2" placeholder="Write from memory..."></textarea>
+            </div>
+
+            <div class="recall-zone">
+                <h3>💙 From Lesson 7 (2 lessons back)</h3>
+                <p><strong>Question:</strong> Write 3 daily routine verbs and a time expression:</p>
+                <textarea id="recall3" placeholder="Write from memory..."></textarea>
+            </div>
+
+            <button onclick="alert('✅ Excellent spaced recall! You\'re building strong long-term memory!')" style="width: 100%; margin-top: 15px; padding: 12px;">Check Recalls</button>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>📌 Optimal Spacing:</strong> L5 (4 back), L6 (3 back), L7 (2 back) — This pattern maximizes retention!
+            </div>
+        </div>
+
+        <!-- Tab 2: Prepositions of Location -->
+        <div id="tab2" class="tab-content">
+            <h2>📍 Let's Learn: Prepositions of Location</h2>
+            <p>Prepositions tell you WHERE something is. These 5 are essential:</p>
+
+            <div class="preposition-card">
+                <strong>1. IN</strong> - inside a container/space
+                <p style="margin-top: 10px;">Examples:</p>
+                <ul style="margin-left: 20px;">
+                    <li>"The book is <strong>in</strong> the bag."</li>
+                    <li>"I live <strong>in</strong> Brazil."</li>
+                    <li>"The dog is <strong>in</strong> the house."</li>
+                </ul>
+            </div>
+
+            <div class="preposition-card">
+                <strong>2. ON</strong> - touching the surface of something
+                <p style="margin-top: 10px;">Examples:</p>
+                <ul style="margin-left: 20px;">
+                    <li>"The cup is <strong>on</strong> the table."</li>
+                    <li>"The picture is <strong>on</strong> the wall."</li>
+                    <li>"My keys are <strong>on</strong> the desk."</li>
+                </ul>
+            </div>
+
+            <div class="preposition-card">
+                <strong>3. UNDER</strong> - below something
+                <p style="margin-top: 10px;">Examples:</p>
+                <ul style="margin-left: 20px;">
+                    <li>"The cat is <strong>under</strong> the bed."</li>
+                    <li>"My shoes are <strong>under</strong> the table."</li>
+                    <li>"The bridge goes <strong>under</strong> the river."</li>
+                </ul>
+            </div>
+
+            <div class="preposition-card">
+                <strong>4. NEXT TO</strong> - beside something, very close
+                <p style="margin-top: 10px;">Examples:</p>
+                <ul style="margin-left: 20px;">
+                    <li>"I sit <strong>next to</strong> the window."</li>
+                    <li>"The bank is <strong>next to</strong> the supermarket."</li>
+                    <li>"My brother sleeps <strong>next to</strong> me."</li>
+                </ul>
+            </div>
+
+            <div class="preposition-card">
+                <strong>5. BETWEEN</strong> - in the middle of two things
+                <p style="margin-top: 10px;">Examples:</p>
+                <ul style="margin-left: 20px;">
+                    <li>"The school is <strong>between</strong> the park and the hospital."</li>
+                    <li>"I sit <strong>between</strong> my two friends."</li>
+                    <li>"The pen is <strong>between</strong> the books."</li>
+                </ul>
+            </div>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💡 Pattern:</strong> [Object] + is + [preposition] + [location]. Example: "The phone is ON the table."
+            </div>
+        </div>
+
+        <!-- Tab 3: Visual Learning -->
+        <div id="tab3" class="tab-content">
+            <h2>🎨 Visual Practice: Where Is It?</h2>
+            <p>Imagine this scene. Can you describe where each thing is?</p>
+
+            <div class="diagram">
+                <h3>A Typical Room</h3>
+                <p style="margin: 20px 0; font-size: 1.1em; line-height: 2;">
+                    Picture: A bedroom with a bed, desk, window, chair, and door.
+                </p>
+                <p style="color: #667eea;">
+                    <strong>The lamp:</strong> ON the desk ✓<br>
+                    <strong>The bed:</strong> NEXT TO the window ✓<br>
+                    <strong>The shoes:</strong> UNDER the bed ✓<br>
+                    <strong>The chair:</strong> BETWEEN the desk and door ✓<br>
+                    <strong>The socks:</strong> IN the drawer ✓
+                </p>
+            </div>
+
+            <p style="margin-top: 20px;"><strong>Your Task:</strong> Describe where things are in YOUR room using at least 3 prepositions:</p>
+
+            <textarea id="roomdesc" placeholder="Example: The chair is next to the desk. The lamp is on the table. My books are in the bookcase."></textarea>
+            <button onclick="saveResponse('roomdesc')">Save My Description</button>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💡 Tip:</strong> Prepositions are easier with visual help. If possible, look around your room and describe what you see!
+            </div>
+        </div>
+
+        <!-- Tab 4: Your Locations -->
+        <div id="tab4" class="tab-content">
+            <h2>🎯 Your Turn: Describe Real Locations</h2>
+            <p>Use what you know to describe WHERE things are in your real life. No models — produce from memory:</p>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 1: Simple Statement 📍</h3>
+                <p><strong>Task:</strong> "[Object] is [preposition] [location]."</p>
+                <textarea id="loc1" placeholder="Example: My phone is on the table."></textarea>
+                <button onclick="saveResponse('loc1')">Save</button>
+            </div>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 2: Multiple Locations 🏠</h3>
+                <p><strong>Task:</strong> Describe 3 things in your home using different prepositions</p>
+                <textarea id="loc2" placeholder="Example: The sofa is next to the window. My books are in the shelf. The cat is under the table."></textarea>
+                <button onclick="saveResponse('loc2')">Save</button>
+            </div>
+
+            <div class="content-card" style="border-left: 4px solid #667eea;">
+                <h3>Challenge 3: Describe Your Neighborhood 🌳</h3>
+                <p><strong>Task:</strong> "My house is... [location]. Next to it is... Between my house and..."</p>
+                <textarea id="loc3" placeholder="Example: My house is in a quiet street. The supermarket is next to my house. My school is between my house and the park."></textarea>
+                <button onclick="saveResponse('loc3')">Save</button>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎉 PERFECT!</strong> You're describing real locations in your world. That's authentic, meaningful English!
+            </div>
+        </div>
+
+        <!-- Tab 5: Describing Complex Spaces -->
+        <div id="tab5" class="tab-content">
+            <h2>🏢 Advanced: Describing Complex Spaces</h2>
+            <p>Connect multiple locations and objects together for richer descriptions:</p>
+
+            <div class="content-card">
+                <h3>Example: Describing a Restaurant</h3>
+                <p>"The restaurant is next to the park. <strong>Inside</strong>, the tables are on the left side. The kitchen is <strong>behind</strong> the counter. The windows are <strong>on</strong> the right side."</p>
+            </div>
+
+            <div class="content-card">
+                <h3>Example: Describing a Workplace</h3>
+                <p>"My office is in the third floor. My desk is next to the window. The printer is between my desk and my colleague's desk. The break room is in the corner."</p>
+            </div>
+
+            <p style="margin-top: 20px;"><strong>Your Task:</strong> Describe a place you know well (home, work, school, favorite café) using at least 4 location statements:</p>
+
+            <textarea id="complex" placeholder="Write your description..."></textarea>
+            <button onclick="saveResponse('complex')">Save My Description</button>
+
+            <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💡 Building Complexity:</strong> You're creating longer, more sophisticated descriptions. This is real language production!
+            </div>
+        </div>
+
+        <!-- Tab 6: Practice Questions -->
+        <div id="tab6" class="tab-content">
+            <h2>⚡ Practice: Question & Answer</h2>
+            <p>Answer location questions naturally:</p>
+
+            <div style="margin: 20px 0;">
+                <h3>Question 1: Where do you live?</h3>
+                <p>Use "in" for city/country:</p>
+                <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <h3>Question 2: Where is your phone right now?</h3>
+                <p>Use a preposition:</p>
+                <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <h3>Question 3: Describe 2 locations in your bedroom</h3>
+                <p>Use different prepositions:</p>
+                <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <h3>Question 4: Where is your favorite place in your city?</h3>
+                <p>Use prepositions and locations:</p>
+                <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>💪 Pro Tip:</strong> Every preposition question can have multiple correct answers. There's no single "right" answer!
+            </div>
+        </div>
+
+        <!-- Tab 7: Wrap-Up & I Can -->
+        <div id="tab7" class="tab-content">
+            <h2>🎓 Wrap-Up & Self-Assessment</h2>
+            <p>Let's check what you learned — <strong>without looking back!</strong></p>
+
+            <div class="retrieval-task">
+                <h3>📋 Final Recall</h3>
+                <p>From memory, write:</p>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li>The 5 prepositions we learned: IN, ON, UNDER, NEXT TO, BETWEEN</li>
+                    <li>One example for each preposition</li>
+                    <li>A description of your room using at least 2 prepositions</li>
+                </ol>
+                <textarea id="finalRecall" placeholder="Write from memory..."></textarea>
+                <button onclick="revealAnswer()">I'm Ready to Check</button>
+            </div>
+
+            <div id="revealedAnswer" style="display: none; margin-top: 20px;">
+                <div class="reveal">
+                    <h3>✅ Model Answer</h3>
+                    <p><strong>1. Prepositions:</strong> IN, ON, UNDER, NEXT TO, BETWEEN</p>
+                    <p><strong>2. Examples:</strong><br>
+                    - IN: The book is in the bag.<br>
+                    - ON: The cup is on the table.<br>
+                    - UNDER: The cat is under the bed.<br>
+                    - NEXT TO: I sit next to the window.<br>
+                    - BETWEEN: The desk is between the chair and the door.</p>
+                    <p><strong>3. Room description:</strong> "My bed is next to the window. My desk is on the right side. My shoes are under the bed."</p>
+                </div>
+
+                <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                    <strong>💭 Metacognitive Reflection:</strong> Which preposition was easiest to remember? Which was hardest? Why?
+                </div>
+            </div>
+
+            <div class="i-can">
+                ✅ <strong>I can describe where things are using prepositions of location.</strong>
+            </div>
+
+            <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <strong>🎉 Lesson 9 Complete!</strong><br>
+                You can now describe locations, rooms, and neighborhoods. Next lesson (Lesson 10) is a REVIEW of the entire Foundation Unit!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            contents.forEach(el => el.classList.remove('active'));
+            buttons.forEach(el => el.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function saveResponse(id) {
+            const text = document.getElementById(id).value;
+            if (text.trim()) {
+                alert('✅ Saved! Excellent location description!');
+            } else {
+                alert('⚠️ Please type something first!');
+            }
+        }
+
+        function revealAnswer() {
+            document.getElementById('revealedAnswer').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
