@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bestiary — A Mnemonic System for Encoding Names</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #f8f5f0; color: #1a1a2e; line-height: 1.7; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 50%, #1a1a2e 100%);
+  color: #f8f5f0; padding: 50px 30px; text-align: center;
+}
+.hero h1 { font-family: 'Crimson Text', serif; font-size: 2.6em; font-weight: 700; margin-bottom: 8px; }
+.hero .subtitle { font-family: 'Crimson Text', serif; font-size: 1.2em; font-style: italic; opacity: 0.8; margin-bottom: 15px; }
+.hero .credit { font-size: 0.85em; opacity: 0.5; }
+.hero .credit a { color: #d4a843; text-decoration: none; }
+
+/* Container */
+.container { max-width: 1000px; margin: 0 auto; padding: 30px 25px; }
+
+/* Name Decoder */
+.decoder {
+  background: #1a1a2e; color: #f8f5f0; border-radius: 8px;
+  padding: 35px; margin-bottom: 40px; text-align: center;
+}
+.decoder h2 {
+  font-family: 'Crimson Text', serif; font-size: 1.8em; font-weight: 400;
+  margin-bottom: 6px; color: #d4a843;
+}
+.decoder p { opacity: 0.7; margin-bottom: 20px; font-size: 0.95em; }
+.decoder input {
+  width: 100%; max-width: 400px; padding: 14px 20px; font-size: 1.3em;
+  border: 2px solid rgba(255,255,255,0.2); border-radius: 6px;
+  background: rgba(255,255,255,0.08); color: #f8f5f0; text-align: center;
+  font-family: 'Crimson Text', serif; letter-spacing: 0.05em;
+  outline: none; transition: border-color 0.3s;
+}
+.decoder input::placeholder { color: rgba(255,255,255,0.3); }
+.decoder input:focus { border-color: #d4a843; }
+.decode-result {
+  margin-top: 25px; min-height: 60px;
+  display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+}
+.decode-pair {
+  background: rgba(212,168,67,0.15); border: 1px solid rgba(212,168,67,0.3);
+  border-radius: 8px; padding: 12px 18px; text-align: center; min-width: 120px;
+}
+.decode-letters {
+  font-family: 'Crimson Text', serif; font-size: 1.6em; font-weight: 700;
+  color: #d4a843; text-transform: capitalize;
+}
+.decode-creature { font-size: 0.9em; opacity: 0.85; margin-top: 2px; }
+.decode-empty { opacity: 0.4; font-style: italic; margin-top: 15px; }
+
+/* Section headers */
+.section-title {
+  font-family: 'Crimson Text', serif; font-size: 1.6em; font-weight: 600;
+  margin-bottom: 8px; color: #2d1b4e;
+}
+.section-desc { color: #666; margin-bottom: 20px; font-size: 0.95em; }
+
+/* Visual Alphabet */
+.alphabet-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px; margin-bottom: 45px;
+}
+.alpha-card {
+  background: #fff; border: 1px solid #e0dcd5; border-radius: 6px;
+  padding: 12px 10px; text-align: center; transition: all 0.2s;
+}
+.alpha-card:hover { border-color: #2d1b4e; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.alpha-letter {
+  font-family: 'Crimson Text', serif; font-size: 1.8em; font-weight: 700;
+  color: #2d1b4e; line-height: 1;
+}
+.alpha-creature { font-size: 0.8em; color: #666; margin-top: 4px; }
+
+/* Bestiary Filter */
+.filter-bar {
+  display: flex; gap: 10px; margin-bottom: 20px; align-items: center; flex-wrap: wrap;
+}
+.filter-bar input {
+  flex: 1; min-width: 200px; padding: 10px 16px; font-size: 1em;
+  border: 1px solid #d0ccc5; border-radius: 6px; background: #fff;
+  font-family: 'Inter', sans-serif; outline: none;
+}
+.filter-bar input:focus { border-color: #2d1b4e; }
+.letter-tabs {
+  display: flex; gap: 4px; flex-wrap: wrap;
+}
+.letter-tab {
+  padding: 5px 9px; font-size: 0.8em; font-weight: 600;
+  border: 1px solid #d0ccc5; border-radius: 4px; background: #fff;
+  cursor: pointer; transition: all 0.2s; color: #1a1a2e;
+}
+.letter-tab:hover, .letter-tab.active { background: #2d1b4e; color: #fff; border-color: #2d1b4e; }
+
+/* Bestiary Grid */
+.bestiary-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px; margin-bottom: 45px;
+}
+.beast-card {
+  background: #fff; border: 1px solid #e0dcd5; border-radius: 5px;
+  padding: 10px 12px; transition: all 0.2s; cursor: default;
+}
+.beast-card:hover { border-color: #d4a843; transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,0.06); }
+.beast-card.highlight { background: #fdf6e3; border-color: #d4a843; }
+.beast-code {
+  font-family: 'Crimson Text', serif; font-size: 1.3em; font-weight: 700;
+  color: #2d1b4e; text-transform: capitalize;
+}
+.beast-name { font-size: 0.82em; color: #666; }
+
+/* How to use */
+.how-to {
+  background: #fff; border: 1px solid #e0dcd5; border-radius: 8px;
+  padding: 30px; margin-bottom: 40px;
+}
+.how-to h3 { font-family: 'Crimson Text', serif; font-size: 1.3em; color: #2d1b4e; margin-bottom: 12px; }
+.how-to p { margin-bottom: 12px; color: #444; }
+.example-box {
+  background: #f8f5f0; border-left: 3px solid #d4a843; padding: 15px 20px;
+  margin: 15px 0; border-radius: 0 6px 6px 0;
+}
+.example-box .name { font-family: 'Crimson Text', serif; font-size: 1.2em; font-weight: 700; color: #2d1b4e; }
+.example-box .breakdown { color: #666; margin-top: 4px; }
+.example-box .image { color: #1a1a2e; margin-top: 6px; font-style: italic; }
+
+/* Footer */
+.footer {
+  text-align: center; padding: 25px; color: #999; font-size: 0.85em;
+  border-top: 1px solid #e0dcd5;
+}
+.footer a { color: #2d1b4e; text-decoration: none; }
+
+/* Living Example — Mark's Gospel Memory Palace */
+.gospel-palace {
+  background: #fff; border: 1px solid #e0dcd5; border-radius: 8px;
+  padding: 30px; margin-bottom: 40px;
+}
+.gospel-palace h3 {
+  font-family: 'Crimson Text', serif; font-size: 1.5em; color: #2d1b4e;
+  margin-bottom: 6px;
+}
+.gospel-palace .gp-intro {
+  color: #444; margin-bottom: 20px; font-size: 0.95em; line-height: 1.7;
+}
+.gospel-palace .gp-intro strong { color: #2d1b4e; }
+
+/* The Room */
+.gp-room {
+  position: relative; margin: 25px auto;
+  max-width: 700px;
+}
+
+/* Wall labels */
+.gp-wall-label {
+  font-family: 'Crimson Text', serif; font-size: 0.9em; font-weight: 600;
+  color: #999; text-align: center; margin-bottom: 6px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Diorama grid for each wall */
+.gp-wall {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 8px; margin-bottom: 20px;
+}
+
+/* Individual diorama box */
+.gp-box {
+  background: #f8f5f0; border: 2px solid #d0ccc5; border-radius: 6px;
+  padding: 10px; cursor: pointer; transition: all 0.3s; position: relative;
+  min-height: 80px; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center;
+}
+.gp-box:hover { border-color: #2d1b4e; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
+.gp-box.open { background: #fdf6e3; border-color: #d4a843; }
+.gp-box.open:hover { border-color: #b8922e; }
+
+.gp-box-num {
+  font-family: 'Crimson Text', serif; font-size: 0.75em; font-weight: 600;
+  color: #999; position: absolute; top: 4px; left: 8px;
+}
+.gp-box-creature {
+  font-size: 1.4em; line-height: 1; margin-bottom: 2px;
+  opacity: 0; transition: opacity 0.3s;
+}
+.gp-box.open .gp-box-creature { opacity: 1; }
+.gp-box-keyword {
+  font-family: 'Crimson Text', serif; font-size: 0.95em; font-weight: 700;
+  color: #2d1b4e;
+}
+.gp-box-code {
+  font-size: 0.7em; color: #d4a843; font-weight: 600; margin-top: 1px;
+}
+.gp-box-hint {
+  font-size: 0.7em; color: #bbb; font-style: italic;
+}
+.gp-box.open .gp-box-hint { display: none; }
+
+/* Expanded scene panel */
+.gp-scene {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 100%);
+  color: #f8f5f0; border-radius: 8px; padding: 22px 25px;
+  margin-top: 20px; display: none;
+  animation: fadeIn 0.3s ease;
+}
+.gp-scene.visible { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+.gp-scene-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+}
+.gp-scene-emoji { font-size: 2em; }
+.gp-scene-title {
+  font-family: 'Crimson Text', serif; font-size: 1.3em; font-weight: 600; color: #d4a843;
+}
+.gp-scene-ch { font-size: 0.85em; opacity: 0.5; }
+.gp-scene-body { font-size: 0.95em; line-height: 1.8; opacity: 0.9; }
+.gp-scene-body .creature-name { color: #d4a843; font-weight: 600; }
+.gp-scene-body .code-badge {
+  display: inline-block; background: rgba(212,168,67,0.2); border: 1px solid rgba(212,168,67,0.3);
+  border-radius: 4px; padding: 1px 6px; font-size: 0.85em; color: #d4a843;
+  font-weight: 600; margin-left: 2px;
+}
+.gp-scene-close {
+  display: inline-block; margin-top: 12px; font-size: 0.85em;
+  color: rgba(255,255,255,0.4); cursor: pointer; transition: color 0.2s;
+}
+.gp-scene-close:hover { color: #d4a843; }
+
+/* Progress bar */
+.gp-progress {
+  margin-top: 15px; text-align: center;
+}
+.gp-progress-bar {
+  width: 100%; height: 6px; background: #e0dcd5; border-radius: 3px; overflow: hidden;
+}
+.gp-progress-fill {
+  height: 100%; background: linear-gradient(90deg, #d4a843, #2d1b4e);
+  border-radius: 3px; transition: width 0.4s ease;
+}
+.gp-progress-text { font-size: 0.8em; color: #999; margin-top: 6px; }
+
+/* Toggle all button */
+.gp-toggle {
+  display: inline-block; margin-top: 10px; padding: 8px 18px;
+  font-size: 0.85em; font-weight: 600; color: #2d1b4e;
+  background: #f8f5f0; border: 1px solid #d0ccc5; border-radius: 5px;
+  cursor: pointer; transition: all 0.2s;
+}
+.gp-toggle:hover { background: #2d1b4e; color: #f8f5f0; border-color: #2d1b4e; }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.8em; }
+  .alphabet-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+  .bestiary-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+  .decoder { padding: 25px 15px; }
+  .gp-wall { grid-template-columns: repeat(2, 1fr); }
+  .gospel-palace { padding: 20px 15px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>The Bestiary</h1>
+  <div class="subtitle">A Mnemonic System for Encoding Names</div>
+  <div class="credit">Based on the system by <a href="https://www.lynnekelly.com.au/">Lynne Kelly</a> from <em>Memory Craft</em></div>
+</div>
+
+<div class="container">
+
+  <!-- Name Decoder -->
+  <div class="decoder">
+    <h2>Name Decoder</h2>
+    <p>Type any name and see which creature encodes it</p>
+    <input type="text" id="nameInput" placeholder="Try a name... e.g. Fibonacci" autocomplete="off" spellcheck="false">
+    <div class="decode-result" id="decodeResult">
+      <div class="decode-empty">Type a name above to decode it</div>
+    </div>
+  </div>
+
+  <!-- How To Use -->
+  <div class="how-to">
+    <h3>How does this work?</h3>
+    <p>Every name starts with one or two letters. This bestiary assigns a vivid creature or image to each combination. When you need to remember a name, you picture that creature interacting with the person or concept — and the creature leads you back to the name.</p>
+    <p>The <strong>Visual Alphabet</strong> covers single letters (useful for a quick first-letter anchor). The <strong>Bestiary</strong> covers two-letter combinations — far more precise, and usually all you need to recall the full name.</p>
+
+    <div class="example-box">
+      <div class="name">Fibonacci → Fi = Fish</div>
+      <div class="breakdown">The first two letters are <strong>Fi</strong> → <strong>Fish</strong></div>
+      <div class="image">Picture a fish swimming through a spiral of golden numbers...</div>
+    </div>
+    <div class="example-box">
+      <div class="name">Otlet → Ot = Otter</div>
+      <div class="breakdown">The first two letters are <strong>Ot</strong> → <strong>Otter</strong></div>
+      <div class="image">An otter organising index cards with its paws at a telegraph machine...</div>
+    </div>
+    <div class="example-box">
+      <div class="name">Dunbar → Du = Duck</div>
+      <div class="breakdown">The first two letters are <strong>Du</strong> → <strong>Duck</strong></div>
+      <div class="image">A duck trying to keep track of 150 friends around a fire pit...</div>
+    </div>
+  </div>
+
+  <!-- Living Example: Mark's Gospel Memory Palace -->
+  <div class="gospel-palace" id="gospelPalace">
+    <h3>Living Example — Mark's Gospel in a Room</h3>
+    <div class="gp-intro">
+      Imagine a quiet stone room — perhaps a first-century house in Galilee. Four walls, four diorama boxes on each wall, sixteen boxes in all — one for each chapter of Mark's Gospel. You walk in through the door and turn left. Each box is sealed with a small glass window. <strong>Click a box to open it</strong> and see the bestiary creature inside, acting out the chapter's key event. The creature's first two letters lead you back to the keyword — and the keyword unlocks the whole chapter.
+    </div>
+
+    <!-- North Wall -->
+    <div class="gp-wall-label">North Wall — Chapters 1–4</div>
+    <div class="gp-wall" id="gpWallNorth"></div>
+
+    <!-- East Wall -->
+    <div class="gp-wall-label">East Wall — Chapters 5–8</div>
+    <div class="gp-wall" id="gpWallEast"></div>
+
+    <!-- South Wall -->
+    <div class="gp-wall-label">South Wall — Chapters 9–12</div>
+    <div class="gp-wall" id="gpWallSouth"></div>
+
+    <!-- West Wall -->
+    <div class="gp-wall-label">West Wall — Chapters 13–16</div>
+    <div class="gp-wall" id="gpWallWest"></div>
+
+    <!-- Scene panel -->
+    <div class="gp-scene" id="gpScene"></div>
+
+    <!-- Progress -->
+    <div class="gp-progress">
+      <div class="gp-progress-bar"><div class="gp-progress-fill" id="gpProgressFill" style="width: 0%"></div></div>
+      <div class="gp-progress-text" id="gpProgressText">0 of 16 boxes opened — click any box to begin</div>
+    </div>
+    <div style="text-align: center;">
+      <span class="gp-toggle" id="gpToggle">Reveal All Boxes</span>
+    </div>
+  </div>
+
+  <!-- Visual Alphabet -->
+  <div class="section-title">Visual Alphabet</div>
+  <div class="section-desc">26 single-letter anchors — one creature per letter of the alphabet</div>
+  <div class="alphabet-grid" id="alphabetGrid"></div>
+
+  <!-- Bestiary -->
+  <div class="section-title">The Bestiary</div>
+  <div class="section-desc">Two-letter combinations — the precise system for encoding names</div>
+  <div class="filter-bar">
+    <input type="text" id="filterInput" placeholder="Filter by letters or creature name...">
+  </div>
+  <div class="letter-tabs" id="letterTabs"></div>
+  <div style="height: 15px;"></div>
+  <div class="bestiary-grid" id="bestiaryGrid"></div>
+
+  <div class="footer">
+    <p>System by <a href="https://www.lynnekelly.com.au/?page_id=6133">Lynne Kelly</a> · From <em>Memory Craft</em> and <em>The Bestiary and Visual Alphabet</em></p>
+  </div>
+</div>
+
+<script>
+// Visual Alphabet data
+const alphabet = [
+  {l:"A", c:"Arachne"}, {l:"B", c:"Bird of Paradise"}, {l:"C", c:"Cat"},
+  {l:"D", c:"Dragon"}, {l:"E", c:"Eagle"}, {l:"F", c:"Frog"},
+  {l:"G", c:"Goat"}, {l:"H", c:"Hydra"}, {l:"I", c:"Imp"},
+  {l:"J", c:"Jester"}, {l:"K", c:"Kitten"}, {l:"L", c:"Lion"},
+  {l:"M", c:"Marmoset"}, {l:"N", c:"Neanderthal"}, {l:"O", c:"Owl"},
+  {l:"P", c:"Panther"}, {l:"Q", c:"Quetzalcoatl"}, {l:"R", c:"Rat"},
+  {l:"S", c:"Skull"}, {l:"T", c:"Toucan"}, {l:"U", c:"Unicorn"},
+  {l:"V", c:"Vulture"}, {l:"W", c:"Wombat"}, {l:"X", c:"Xena"},
+  {l:"Y", c:"Yak"}, {l:"Z", c:"Zeus"}
+];
+
+// Full Bestiary data
+const bestiary = [
+  {code:"Aa", creature:"Aardvark"}, {code:"Ab", creature:"Abyssinian Cat"}, {code:"Ac", creature:"Acorn"},
+  {code:"Ad", creature:"Adder"}, {code:"Ae", creature:"Aerialist"}, {code:"Af", creature:"Afghan Hound"},
+  {code:"Ag", creature:"Agaric Fungi"}, {code:"Ah", creature:"Ah! — a Sigh"}, {code:"Ai", creature:"Airedale Terrier"},
+  {code:"Aj", creature:"Ajax"}, {code:"Ak", creature:"Akita"}, {code:"Al", creature:"Alligator"},
+  {code:"Am", creature:"Amulet"}, {code:"An", creature:"Angel"}, {code:"Ap", creature:"Ape"},
+  {code:"Aq", creature:"Aquatic Leech"}, {code:"Ar", creature:"Armadillo"}, {code:"As", creature:"Asp"},
+  {code:"At", creature:"Atlas"}, {code:"Au", creature:"Auroch"}, {code:"Av", creature:"Avocet"},
+  {code:"Ax", creature:"Axolotl"}, {code:"Ay", creature:"Aye-Aye"}, {code:"Az", creature:"Aztec"},
+  {code:"Ba", creature:"Bat"}, {code:"Be", creature:"Bee"}, {code:"Bi", creature:"Bison"},
+  {code:"Bl", creature:"Bloodhound"}, {code:"Bo", creature:"Bower-bird"}, {code:"Br", creature:"Brontosaurus"},
+  {code:"Bu", creature:"Butterfly"}, {code:"By", creature:"Byron"},
+  {code:"Ca", creature:"Camel"}, {code:"Ce", creature:"Centaur"}, {code:"Ch", creature:"Chipmunk"},
+  {code:"Ci", creature:"Cicada"}, {code:"Cl", creature:"Clown"}, {code:"Co", creature:"Cow"},
+  {code:"Cr", creature:"Hermit Crab"}, {code:"Cu", creature:"Cupid"}, {code:"Cy", creature:"Cyborg"},
+  {code:"Da", creature:"Dalmatian"}, {code:"De", creature:"Devil"}, {code:"Di", creature:"Diamond Python"},
+  {code:"Do", creature:"Dolphin"}, {code:"Dr", creature:"Dragonfly"}, {code:"Du", creature:"Duck"},
+  {code:"Dw", creature:"Dwarf"}, {code:"Dy", creature:"Dystopia"},
+  {code:"Ea", creature:"Earwig"}, {code:"Eb", creature:"Ebb and Flow"}, {code:"Ec", creature:"Echidna"},
+  {code:"Ed", creature:"Edelweiss"}, {code:"Ee", creature:"Eel"}, {code:"Ef", creature:"Effigy"},
+  {code:"Eg", creature:"Egret"}, {code:"Ei", creature:"Eider"}, {code:"El", creature:"Elephant"},
+  {code:"Em", creature:"Emu"}, {code:"En", creature:"Engraving"}, {code:"Er", creature:"Ermine"},
+  {code:"Es", creature:"Eskimo"}, {code:"Et", creature:"Ethereal"}, {code:"Eu", creature:"Eucalypt"},
+  {code:"Ev", creature:"Eve"}, {code:"Ew", creature:"Ewe"}, {code:"Ex", creature:"Excalibur"},
+  {code:"Ey", creature:"Eye"}, {code:"Ez", creature:"Ezekiel"},
+  {code:"Fa", creature:"Falcon"}, {code:"Fe", creature:"Ferret"}, {code:"Fi", creature:"Fish"},
+  {code:"Fl", creature:"Flamingo"}, {code:"Fo", creature:"Fox"}, {code:"Fr", creature:"Frogmouth"},
+  {code:"Fu", creature:"Fuchsia"},
+  {code:"Ga", creature:"Gaggle"}, {code:"Ge", creature:"Genie"}, {code:"Gh", creature:"Gharial"},
+  {code:"Gi", creature:"Giraffe"}, {code:"Gl", creature:"Glider"}, {code:"Gn", creature:"Gnome"},
+  {code:"Go", creature:"Gorilla"}, {code:"Gr", creature:"Griffin"}, {code:"Gu", creature:"Gull"},
+  {code:"Gw", creature:"Gwardar"}, {code:"Gy", creature:"Gypsy"},
+  {code:"Ha", creature:"Hare"}, {code:"He", creature:"Heron"}, {code:"Hi", creature:"Hippopotamus"},
+  {code:"Ho", creature:"Horse"}, {code:"Hu", creature:"Hummingbird"}, {code:"Hy", creature:"Hyena"},
+  {code:"Ia", creature:"Iambic"}, {code:"Ib", creature:"Ibex"}, {code:"Ic", creature:"Icarus"},
+  {code:"Id", creature:"Identical Twin"}, {code:"Ig", creature:"Iguana"}, {code:"Il", creature:"Illusionist"},
+  {code:"Im", creature:"Impala"}, {code:"In", creature:"Insect"}, {code:"Ir", creature:"Iris"},
+  {code:"Is", creature:"Island"}, {code:"Iv", creature:"Ivy"},
+  {code:"Ja", creature:"Jackass"}, {code:"Je", creature:"Jellyfish"}, {code:"Ji", creature:"Jigsaw"},
+  {code:"Jo", creature:"Jonquil"}, {code:"Ju", creature:"Juggler"},
+  {code:"Ka", creature:"Kangaroo"}, {code:"Ke", creature:"Kestrel"}, {code:"Kh", creature:"Khaki"},
+  {code:"Ki", creature:"Kiwi"}, {code:"Kn", creature:"Knight"}, {code:"Ko", creature:"Kookaburra"},
+  {code:"Kr", creature:"Kraken"}, {code:"Ku", creature:"Kumquat"}, {code:"Ky", creature:"Kylin"},
+  {code:"La", creature:"Lapwing"}, {code:"Le", creature:"Leprechaun"}, {code:"Li", creature:"Limpets"},
+  {code:"Ll", creature:"Llama"}, {code:"Lo", creature:"Lobster"}, {code:"Lu", creature:"Lute"},
+  {code:"Ly", creature:"Lynx"},
+  {code:"Ma", creature:"Macaw"}, {code:"Mc", creature:"McScottish"}, {code:"Me", creature:"Medusa"},
+  {code:"Mi", creature:"Millipede"}, {code:"Mo", creature:"Monkey"}, {code:"Mu", creature:"Muskrat"},
+  {code:"My", creature:"Mynah"},
+  {code:"Na", creature:"Nautilus"}, {code:"Ne", creature:"Neptune"}, {code:"Ni", creature:"Nit"},
+  {code:"No", creature:"Noddy"}, {code:"Nu", creature:"Numbat"}, {code:"Ny", creature:"Nymph"},
+  {code:"Oa", creature:"Oak"}, {code:"Oc", creature:"Octopus"}, {code:"Od", creature:"Odin"},
+  {code:"Og", creature:"Ogre"}, {code:"Ok", creature:"Okapi"}, {code:"Ol", creature:"Olive"},
+  {code:"On", creature:"Onion"}, {code:"Op", creature:"Opossum"}, {code:"Or", creature:"Orangutan"},
+  {code:"Os", creature:"Ostrich"}, {code:"Ot", creature:"Otter"}, {code:"Ow", creature:"Owlet"},
+  {code:"Ox", creature:"Oxen"}, {code:"Oy", creature:"Oyster"},
+  {code:"Pa", creature:"Panda"}, {code:"Pe", creature:"Penguin"}, {code:"Ph", creature:"Phoenix"},
+  {code:"Pi", creature:"Pig"}, {code:"Pl", creature:"Platypus"}, {code:"Po", creature:"Polar Bear"},
+  {code:"Pr", creature:"Praying Mantis"}, {code:"Pu", creature:"Puffin"}, {code:"Py", creature:"Python"},
+  {code:"Qu", creature:"Quail"},
+  {code:"Ra", creature:"Raven"}, {code:"Re", creature:"Reindeer"}, {code:"Rh", creature:"Rhinoceros"},
+  {code:"Ri", creature:"Ringtail"}, {code:"Ro", creature:"Rooster"}, {code:"Ru", creature:"Runner Bean"},
+  {code:"Ry", creature:"Rye"},
+  {code:"Sa", creature:"Satyr"}, {code:"Sc", creature:"Scorpion"}, {code:"Se", creature:"Seahorse"},
+  {code:"Sh", creature:"Shrew"}, {code:"Si", creature:"Siamese Cat"}, {code:"Sk", creature:"Skunk"},
+  {code:"Sl", creature:"Sloth"}, {code:"Sm", creature:"Smuggler"}, {code:"Sn", creature:"Snail"},
+  {code:"So", creature:"Sourpuss"}, {code:"Sp", creature:"Spaniel"}, {code:"Sq", creature:"Squirrel"},
+  {code:"St", creature:"Stingray"}, {code:"Su", creature:"Sugar Glider"}, {code:"Sw", creature:"Swallow"},
+  {code:"Sy", creature:"Symphony"},
+  {code:"Ta", creature:"Tapir"}, {code:"Te", creature:"Termite"}, {code:"Th", creature:"Thornbill"},
+  {code:"Ti", creature:"Tiger"}, {code:"To", creature:"Toad"}, {code:"Tr", creature:"Troll"},
+  {code:"Tu", creature:"Turkey"}, {code:"Tw", creature:"Twitcher"}, {code:"Ty", creature:"Tyrannosaurus"},
+  {code:"Ul", creature:"Ulysses"}, {code:"Um", creature:"Umbrella Bird"}, {code:"Un", creature:"Univalve"},
+  {code:"Ur", creature:"Urchin"}, {code:"Us", creature:"Usher"}, {code:"Ut", creature:"Utopia"},
+  {code:"Va", creature:"Vampire Bat"}, {code:"Ve", creature:"Venetian"}, {code:"Vi", creature:"Viper"},
+  {code:"Vo", creature:"Volcano"}, {code:"Vu", creature:"Vulcan"},
+  {code:"Wa", creature:"Walrus"}, {code:"We", creature:"Weevil"}, {code:"Wh", creature:"Whippet"},
+  {code:"Wi", creature:"Witch"}, {code:"Wo", creature:"Wolf"}, {code:"Wr", creature:"Wren"},
+  {code:"Wy", creature:"Wyvern"},
+  {code:"Xa", creature:"Xanthorrhoea"}, {code:"Ya", creature:"Yachtsman"}, {code:"Ye", creature:"Yeti"},
+  {code:"Yo", creature:"Yorkshire Terrier"}, {code:"Yu", creature:"Yucca Plant"}, {code:"Yv", creature:"Scroll"},
+  {code:"Za", creature:"Zapotec"}, {code:"Ze", creature:"Zebra"}, {code:"Zi", creature:"Zither"},
+  {code:"Zo", creature:"Zombie"}, {code:"Zu", creature:"Zucchini"}, {code:"Zy", creature:"Zygote"}
+];
+
+// Build lookup map
+const bestiaryMap = {};
+bestiary.forEach(b => { bestiaryMap[b.code.toLowerCase()] = b.creature; });
+alphabet.forEach(a => { bestiaryMap[a.l.toLowerCase()] = a.c; });
+
+// Render Visual Alphabet
+const alphaGrid = document.getElementById('alphabetGrid');
+alphabet.forEach(a => {
+  const card = document.createElement('div');
+  card.className = 'alpha-card';
+  card.innerHTML = `<div class="alpha-letter">${a.l}</div><div class="alpha-creature">${a.c}</div>`;
+  alphaGrid.appendChild(card);
+});
+
+// Render Bestiary Grid
+function renderBestiary(filter, letterFilter) {
+  const grid = document.getElementById('bestiaryGrid');
+  grid.innerHTML = '';
+  const f = (filter || '').toLowerCase();
+  bestiary.forEach(b => {
+    const matchesLetter = !letterFilter || b.code[0].toUpperCase() === letterFilter;
+    const matchesFilter = !f || b.code.toLowerCase().includes(f) || b.creature.toLowerCase().includes(f);
+    if (matchesLetter && matchesFilter) {
+      const card = document.createElement('div');
+      card.className = 'beast-card';
+      card.innerHTML = `<div class="beast-code">${b.code}</div><div class="beast-name">${b.creature}</div>`;
+      grid.appendChild(card);
+    }
+  });
+}
+
+// Letter tabs
+const tabsContainer = document.getElementById('letterTabs');
+let activeTab = null;
+const letters = [...new Set(bestiary.map(b => b.code[0].toUpperCase()))].sort();
+
+const allTab = document.createElement('span');
+allTab.className = 'letter-tab active';
+allTab.textContent = 'All';
+allTab.onclick = () => { activeTab = null; updateTabs(); renderBestiary(document.getElementById('filterInput').value, null); };
+tabsContainer.appendChild(allTab);
+
+letters.forEach(l => {
+  const tab = document.createElement('span');
+  tab.className = 'letter-tab';
+  tab.textContent = l;
+  tab.dataset.letter = l;
+  tab.onclick = () => { activeTab = l; updateTabs(); renderBestiary(document.getElementById('filterInput').value, l); };
+  tabsContainer.appendChild(tab);
+});
+
+function updateTabs() {
+  document.querySelectorAll('.letter-tab').forEach(t => {
+    t.classList.toggle('active', activeTab ? t.dataset.letter === activeTab : t.textContent === 'All');
+  });
+}
+
+// Filter input
+document.getElementById('filterInput').addEventListener('input', function() {
+  renderBestiary(this.value, activeTab);
+});
+
+// Name Decoder
+document.getElementById('nameInput').addEventListener('input', function() {
+  const name = this.value.trim();
+  const result = document.getElementById('decodeResult');
+
+  if (!name) {
+    result.innerHTML = '<div class="decode-empty">Type a name above to decode it</div>';
+    return;
+  }
+
+  // Get the two-letter code
+  const twoLetter = name.substring(0, 2).toLowerCase();
+  const oneLetter = name.substring(0, 1).toLowerCase();
+
+  // Try two-letter match first
+  let creature = bestiaryMap[twoLetter];
+  let code = name.substring(0, 2);
+
+  let html = '';
+
+  if (creature) {
+    html += `<div class="decode-pair">
+      <div class="decode-letters">${code}</div>
+      <div class="decode-creature">${creature}</div>
+    </div>`;
+  } else {
+    // Fall back to single letter
+    creature = bestiaryMap[oneLetter];
+    if (creature) {
+      code = name.substring(0, 1);
+      html += `<div class="decode-pair">
+        <div class="decode-letters">${code}</div>
+        <div class="decode-creature">${creature}</div>
+      </div>`;
+    }
+  }
+
+  // Also show single-letter as secondary
+  if (bestiaryMap[twoLetter] && bestiaryMap[oneLetter]) {
+    html += `<div class="decode-pair" style="opacity: 0.5;">
+      <div class="decode-letters" style="font-size: 1.2em;">${name.substring(0, 1)}</div>
+      <div class="decode-creature">${bestiaryMap[oneLetter]}</div>
+    </div>`;
+  }
+
+  // Show the remaining letters
+  if (name.length > 2) {
+    html += `<div class="decode-pair" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+      <div class="decode-letters" style="color: rgba(255,255,255,0.6); font-size: 1.2em;">...${name.substring(2)}</div>
+      <div class="decode-creature">The creature leads you to the rest</div>
+    </div>`;
+  }
+
+  if (!html) {
+    html = '<div class="decode-empty">No match found for those letters</div>';
+  }
+
+  result.innerHTML = html;
+
+  // Highlight matching card in bestiary
+  document.querySelectorAll('.beast-card').forEach(card => {
+    const cardCode = card.querySelector('.beast-code').textContent.toLowerCase();
+    card.classList.toggle('highlight', cardCode === twoLetter);
+  });
+});
+
+// ─── Mark's Gospel Memory Palace ───
+const gospelData = [
+  {
+    ch: 1, keyword: "Baptism", code: "Ba", creature: "Bat", emoji: "🦇",
+    scene: "A <span class='creature-name'>Bat</span> <span class='code-badge'>Ba</span> swoops down over the River Jordan, its wings scattering droplets of water as John plunges Jesus beneath the surface. The heavens tear open above the bat and a voice thunders. The bat hangs upside-down from a reed, watching the dove descend."
+  },
+  {
+    ch: 2, keyword: "Roof", code: "Ro", creature: "Rooster", emoji: "🐓",
+    scene: "A <span class='creature-name'>Rooster</span> <span class='code-badge'>Ro</span> struts across the rooftop as four men dig through the thatch. The rooster crows indignantly as the stretcher bearing the paralytic is lowered through the hole. Below, Jesus looks up through the dust and says the man's sins are forgiven."
+  },
+  {
+    ch: 3, keyword: "Twelve", code: "Tw", creature: "Twitcher", emoji: "🐦",
+    scene: "A <span class='creature-name'>Twitcher</span> <span class='code-badge'>Tw</span> — a keen birdwatcher with binoculars — stands on the mountainside ticking off names in a notebook as Jesus calls twelve men, one by one. The twitcher carefully records each one: Simon, James, John... twelve ticks in the book."
+  },
+  {
+    ch: 4, keyword: "Sowing", code: "So", creature: "Sourpuss", emoji: "😾",
+    scene: "A <span class='creature-name'>Sourpuss</span> <span class='code-badge'>So</span> — a grumpy-faced cat — sits on the path eating seeds that fell on the hard ground. It bats seeds off the rocky soil with its paw, watches thorns choke a seedling, then sulkily refuses to move from the one patch of good earth where a tall stalk is growing."
+  },
+  {
+    ch: 5, keyword: "Legion", code: "Le", creature: "Leprechaun", emoji: "🍀",
+    scene: "A <span class='creature-name'>Leprechaun</span> <span class='code-badge'>Le</span> dances among a stampeding herd of pigs as they charge off a cliff into the sea. The wild man of the Gerasenes is suddenly calm, sitting clothed and sane, while the leprechaun counts the drowned swine — 'My name is Legion, for we are many!'"
+  },
+  {
+    ch: 6, keyword: "Feeding", code: "Fe", creature: "Ferret", emoji: "🦦",
+    scene: "A <span class='creature-name'>Ferret</span> <span class='code-badge'>Fe</span> scurries between five thousand seated people, carrying fish and bread in its mouth, darting back and forth. Each time it returns to the basket, there is somehow more. Twelve baskets overflow. The ferret is still running, tireless."
+  },
+  {
+    ch: 7, keyword: "Purity", code: "Pu", creature: "Puffin", emoji: "🐧",
+    scene: "A <span class='creature-name'>Puffin</span> <span class='code-badge'>Pu</span> dips its beak into a ceremonial washing bowl, then shakes its head — it does not need this! Jesus overturns the Pharisees' hand-washing ritual. The puffin, already immaculately clean from the sea, waddles away from the unwashed cups and pots."
+  },
+  {
+    ch: 8, keyword: "Confession", code: "Co", creature: "Cow", emoji: "🐄",
+    scene: "A <span class='creature-name'>Cow</span> <span class='code-badge'>Co</span> stands on the road to Caesarea Philippi, chewing cud, staring at Peter. 'Who do you say I am?' The cow lows deeply as Peter blurts out: 'You are the Christ.' The cow nods, slowly, solemnly — then Jesus tells them all to keep quiet about it."
+  },
+  {
+    ch: 9, keyword: "Transfiguration", code: "Tr", creature: "Troll", emoji: "🧌",
+    scene: "A <span class='creature-name'>Troll</span> <span class='code-badge'>Tr</span> shields its eyes on the mountaintop as Jesus blazes with white light — whiter than any bleach could manage. Moses and Elijah stand talking with him. The troll, used to living under dark bridges, is utterly dazzled. Peter stammers about building shelters."
+  },
+  {
+    ch: 10, keyword: "Blind", code: "Bl", creature: "Bloodhound", emoji: "🐕",
+    scene: "A <span class='creature-name'>Bloodhound</span> <span class='code-badge'>Bl</span> leads blind Bartimaeus by the cloak toward Jesus on the Jericho road. Bartimaeus throws off his cloak and leaps up. 'What do you want?' 'To see!' The bloodhound sniffs the air — its job is done. Bartimaeus blinks in the sunlight."
+  },
+  {
+    ch: 11, keyword: "Temple", code: "Te", creature: "Termite", emoji: "🪲",
+    scene: "A <span class='creature-name'>Termite</span> <span class='code-badge'>Te</span> gnaws at the money-changers' tables as Jesus overturns them. Coins scatter, doves escape, merchants flee. The termite chews through the corrupt wooden scaffolding of the temple market, and the whole rotten structure collapses from within."
+  },
+  {
+    ch: 12, keyword: "Widow", code: "Wi", creature: "Witch", emoji: "🧙‍♀️",
+    scene: "A <span class='creature-name'>Witch</span> <span class='code-badge'>Wi</span> in a tattered shawl drops two tiny copper coins into the treasury — clink, clink. The rich men with their heavy bags of gold don't notice her. But Jesus does. 'She gave more than all of them,' he says, and the witch's coins glow with a faint golden light."
+  },
+  {
+    ch: 13, keyword: "Olivet", code: "Ol", creature: "Olive", emoji: "🫒",
+    scene: "An <span class='creature-name'>Olive</span> <span class='code-badge'>Ol</span> tree on the Mount of Olives shudders as Jesus describes the end of all things — wars, earthquakes, the sun darkening. The olive's branches shake, its fruit scatters. Four disciples sit beneath it, listening wide-eyed. 'Stay awake,' Jesus warns. The olive tree does not sleep."
+  },
+  {
+    ch: 14, keyword: "Gethsemane", code: "Ge", creature: "Genie", emoji: "🧞",
+    scene: "A <span class='creature-name'>Genie</span> <span class='code-badge'>Ge</span> hovers over the garden of Gethsemane, its lamp flickering among the olive trees. Jesus kneels, sweating, praying — 'Take this cup from me.' The genie cannot grant this wish. Judas arrives with a kiss, torches appear, and the genie's lamp goes out."
+  },
+  {
+    ch: 15, keyword: "Crucifixion", code: "Cr", creature: "Hermit Crab", emoji: "🦀",
+    scene: "A <span class='creature-name'>Hermit Crab</span> <span class='code-badge'>Cr</span> crawls up the base of the cross at Golgotha, carrying its borrowed shell. Above, Jesus hangs between two thieves. At noon, darkness covers the land. The hermit crab retreats into its shell as the earth shakes — then the temple curtain tears in two from top to bottom."
+  },
+  {
+    ch: 16, keyword: "Resurrection", code: "Re", creature: "Reindeer", emoji: "🦌",
+    scene: "A <span class='creature-name'>Reindeer</span> <span class='code-badge'>Re</span> stands inside the empty tomb at dawn, its antlers catching the first light. The stone has been rolled away. Three women arrive with spices and find the reindeer where the body should be. A young man in white says: 'He has risen. He is not here.' The reindeer steps out into the morning."
+  }
+];
+
+// Render the diorama room
+const walls = [
+  { id: 'gpWallNorth', chapters: gospelData.slice(0, 4) },
+  { id: 'gpWallEast', chapters: gospelData.slice(4, 8) },
+  { id: 'gpWallSouth', chapters: gospelData.slice(8, 12) },
+  { id: 'gpWallWest', chapters: gospelData.slice(12, 16) }
+];
+
+const openBoxes = new Set();
+let activeScene = null;
+
+function renderGospelRoom() {
+  walls.forEach(wall => {
+    const container = document.getElementById(wall.id);
+    container.innerHTML = '';
+    wall.chapters.forEach(ch => {
+      const box = document.createElement('div');
+      box.className = 'gp-box' + (openBoxes.has(ch.ch) ? ' open' : '');
+      box.innerHTML = `
+        <div class="gp-box-num">Ch. ${ch.ch}</div>
+        <div class="gp-box-creature">${ch.emoji}</div>
+        <div class="gp-box-keyword">${ch.keyword}</div>
+        <div class="gp-box-code">${ch.code} = ${ch.creature}</div>
+        <div class="gp-box-hint">click to open</div>
+      `;
+      box.onclick = () => toggleBox(ch);
+      container.appendChild(box);
+    });
+  });
+  updateProgress();
+}
+
+function toggleBox(ch) {
+  if (openBoxes.has(ch.ch)) {
+    // If clicking the same one that's showing the scene, close it
+    if (activeScene === ch.ch) {
+      activeScene = null;
+      document.getElementById('gpScene').classList.remove('visible');
+      document.getElementById('gpScene').innerHTML = '';
+    } else {
+      // Show scene for this already-open box
+      showScene(ch);
+    }
+  } else {
+    openBoxes.add(ch.ch);
+    renderGospelRoom();
+    showScene(ch);
+  }
+}
+
+function showScene(ch) {
+  activeScene = ch.ch;
+  const scene = document.getElementById('gpScene');
+  scene.innerHTML = `
+    <div class="gp-scene-header">
+      <div class="gp-scene-emoji">${ch.emoji}</div>
+      <div>
+        <div class="gp-scene-title">${ch.keyword}</div>
+        <div class="gp-scene-ch">Mark Chapter ${ch.ch}</div>
+      </div>
+    </div>
+    <div class="gp-scene-body">${ch.scene}</div>
+    <div class="gp-scene-close" onclick="closeScene()">Close scene</div>
+  `;
+  scene.classList.add('visible');
+  scene.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function closeScene() {
+  activeScene = null;
+  const scene = document.getElementById('gpScene');
+  scene.classList.remove('visible');
+  scene.innerHTML = '';
+}
+
+function updateProgress() {
+  const count = openBoxes.size;
+  const pct = Math.round((count / 16) * 100);
+  document.getElementById('gpProgressFill').style.width = pct + '%';
+  const text = count === 0 ? '0 of 16 boxes opened — click any box to begin' :
+               count === 16 ? 'All 16 boxes opened! You have walked the whole room.' :
+               `${count} of 16 boxes opened`;
+  document.getElementById('gpProgressText').textContent = text;
+}
+
+// Toggle all
+document.getElementById('gpToggle').addEventListener('click', function() {
+  if (openBoxes.size === 16) {
+    openBoxes.clear();
+    activeScene = null;
+    document.getElementById('gpScene').classList.remove('visible');
+    document.getElementById('gpScene').innerHTML = '';
+    this.textContent = 'Reveal All Boxes';
+  } else {
+    gospelData.forEach(ch => openBoxes.add(ch.ch));
+    this.textContent = 'Hide All Boxes';
+  }
+  renderGospelRoom();
+});
+
+renderGospelRoom();
+
+// Initial render
+renderBestiary();
+</script>
+</body>
+</html>
