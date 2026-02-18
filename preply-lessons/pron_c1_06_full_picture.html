@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Full Picture — Pronunciation Pathway 6</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa; padding: 20px; line-height: 1.6;
+        }
+        .container {
+            max-width: 900px; margin: 0 auto; background: white;
+            border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 30px; text-align: center;
+        }
+        .header h1 { font-size: 28px; margin-bottom: 8px; }
+        .header p { font-size: 14px; opacity: 0.9; }
+        .series-badge {
+            display: inline-block; background: rgba(255,255,255,0.2);
+            padding: 4px 12px; border-radius: 20px; font-size: 12px;
+            margin-bottom: 10px; letter-spacing: 0.5px;
+        }
+        .tabs {
+            display: flex; border-bottom: 2px solid #e0e0e0;
+            background: white; flex-wrap: wrap;
+        }
+        .tab-button {
+            flex: 1; min-width: 80px; padding: 14px 8px; border: none;
+            background: white; cursor: pointer; font-size: 13px; font-weight: 600;
+            color: #666; transition: all 0.3s ease;
+            border-bottom: 3px solid transparent; margin-bottom: -2px;
+        }
+        .tab-button.active { color: #667eea; border-bottom-color: #667eea; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-content { padding: 35px; display: none; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .section-title {
+            font-size: 18px; font-weight: 700; color: #333;
+            margin: 24px 0 15px 0; display: flex; align-items: center; gap: 10px;
+        }
+        .section-title:first-child { margin-top: 0; }
+
+        .visual-box { background: #f5f5f5; border-left: 4px solid #667eea; padding: 20px; margin: 20px 0; border-radius: 4px; }
+        .rule-box { background: #fffde7; border-left: 4px solid #fbc02d; padding: 15px; margin: 15px 0; border-radius: 4px; font-size: 14px; }
+        .trick-box { background: #f0f7ff; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .trick-box strong { color: #1976D2; }
+        .exercise { background: #fafafa; padding: 20px; margin: 15px 0; border-radius: 4px; border-left: 4px solid #667eea; }
+        .exercise-prompt { font-weight: 600; color: #333; margin-bottom: 10px; }
+        .green-box { background: #f1f8e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .recall-box { background: #fff3e0; border-left: 4px solid #ff9800; padding: 15px; margin: 15px 0; border-radius: 4px; }
+
+        .reveal-box { background: #e8eaf6; padding: 15px; border-radius: 4px; margin-top: 10px; border-left: 4px solid #667eea; display: none; }
+        .reveal-box.show { display: block; }
+
+        button { padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; transition: background 0.3s ease; font-size: 14px; }
+        button:hover { background: #764ba2; }
+        .reveal-button { padding: 8px 16px; font-size: 13px; margin-top: 10px; }
+        .btn-outline { background: white; color: #667eea; border: 2px solid #667eea; }
+        .btn-outline:hover { background: #667eea; color: white; }
+
+        .feedback { padding: 12px; border-radius: 4px; margin-top: 10px; font-size: 14px; display: none; }
+        .feedback.correct { background: #c8e6c9; color: #2e7d32; border-left: 4px solid #2e7d32; display: block; }
+        .feedback.incorrect { background: #ffcdd2; color: #c62828; border-left: 4px solid #c62828; display: block; }
+
+        input[type="text"], textarea { padding: 10px; border: 2px solid #e0e0e0; border-radius: 4px; font-size: 14px; font-family: inherit; width: 100%; }
+        input[type="text"]:focus, textarea:focus { outline: none; border-color: #667eea; }
+        textarea { resize: vertical; min-height: 80px; }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
+        .card { background: white; border: 2px solid #e0e0e0; border-radius: 8px; padding: 18px; }
+        .card h4 { color: #333; margin-bottom: 8px; font-size: 15px; }
+        .card p { font-size: 13px; color: #666; margin: 0; }
+
+        /* Feature checklist */
+        .feature-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0;
+        }
+        .feature-item {
+            background: white; border: 2px solid #e0e0e0; border-radius: 8px;
+            padding: 14px; cursor: pointer; transition: all 0.2s; user-select: none;
+        }
+        .feature-item:hover { border-color: #667eea; }
+        .feature-item.checked { border-color: #4caf50; background: #f1f8e9; }
+        .feature-item h4 { font-size: 14px; color: #333; margin-bottom: 4px; }
+        .feature-item p { font-size: 12px; color: #666; margin: 0; }
+        .feature-item .check-icon { float: right; font-size: 18px; opacity: 0.3; }
+        .feature-item.checked .check-icon { opacity: 1; color: #4caf50; }
+
+        /* Shadowing steps */
+        .step-card {
+            background: white; border-left: 4px solid #667eea; border-radius: 0 8px 8px 0;
+            padding: 18px; margin: 12px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .step-card .step-num {
+            display: inline-block; background: #667eea; color: white;
+            width: 28px; height: 28px; border-radius: 50%; text-align: center;
+            line-height: 28px; font-weight: 700; font-size: 14px; margin-right: 10px;
+        }
+        .step-card h4 { display: inline; font-size: 15px; color: #333; }
+        .step-card p { margin-top: 8px; font-size: 13px; color: #666; }
+
+        /* Self-assessment radar placeholder */
+        .radar-grid {
+            display: grid; grid-template-columns: 1fr; gap: 8px; margin: 15px 0;
+        }
+        .radar-row {
+            display: flex; align-items: center; gap: 12px; padding: 10px;
+            background: #fafafa; border-radius: 6px;
+        }
+        .radar-label { min-width: 180px; font-size: 14px; font-weight: 600; color: #333; }
+        .radar-dots { display: flex; gap: 6px; }
+        .radar-dot {
+            width: 32px; height: 32px; border-radius: 50%; border: 2px solid #e0e0e0;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 600; color: #999; transition: all 0.2s;
+            background: white;
+        }
+        .radar-dot:hover { border-color: #667eea; }
+        .radar-dot.selected { background: #667eea; color: white; border-color: #667eea; }
+
+        /* Quiz */
+        .quiz-options { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+        .quiz-option {
+            padding: 10px 18px; background: #f5f5f5; border: 2px solid #e0e0e0;
+            border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500;
+            transition: all 0.2s; font-family: inherit; color: #333;
+        }
+        .quiz-option:hover { border-color: #667eea; background: #f0f0ff; }
+        .quiz-option.correct-answer { border-color: #4caf50; background: #c8e6c9; color: #2e7d32; }
+        .quiz-option.wrong-answer { border-color: #e53935; background: #ffcdd2; color: #c62828; }
+
+        /* Timer */
+        .timer-container { display: flex; align-items: center; gap: 15px; margin: 15px 0; }
+        .timer-display { font-size: 28px; font-weight: 700; font-family: 'Courier New', monospace; color: #00897b; min-width: 70px; }
+        .timer-display.warning { color: #f9a825; }
+        .timer-display.danger { color: #e53935; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .timer-btn { padding: 6px 14px; font-size: 12px; border-radius: 4px; }
+
+        /* Discussion cards */
+        .discussion-card {
+            background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(118,75,162,0.08));
+            border: 2px solid #667eea; border-radius: 8px; padding: 20px;
+            margin: 10px 0; cursor: pointer; transition: all 0.3s;
+        }
+        .discussion-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102,126,234,0.2); }
+        .discussion-card h4 { color: #667eea; margin-bottom: 8px; }
+
+        .can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 20px; border-radius: 4px;
+            text-align: center; font-weight: 700; font-size: 16px; margin-top: 30px;
+        }
+
+        /* Series summary */
+        .series-summary {
+            background: linear-gradient(135deg, rgba(102,126,234,0.05), rgba(118,75,162,0.05));
+            border: 2px solid #667eea; border-radius: 8px; padding: 25px; margin: 20px 0;
+        }
+        .series-summary h3 { color: #667eea; margin-bottom: 15px; font-size: 16px; }
+        .series-item {
+            display: flex; align-items: center; gap: 12px; padding: 8px 0;
+            border-bottom: 1px solid rgba(102,126,234,0.1);
+        }
+        .series-item:last-child { border-bottom: none; }
+        .series-num {
+            background: #667eea; color: white; width: 26px; height: 26px;
+            border-radius: 50%; text-align: center; line-height: 26px;
+            font-weight: 700; font-size: 13px; flex-shrink: 0;
+        }
+        .series-item span { font-size: 14px; color: #333; }
+
+        @media (max-width: 768px) {
+            .header { padding: 20px; }
+            .header h1 { font-size: 22px; }
+            .tab-content { padding: 20px; }
+            .tabs { flex-direction: column; }
+            .tab-button { border-bottom: 1px solid #e0e0e0; margin-bottom: 0; text-align: left; padding: 12px 16px; }
+            .tab-button.active { border-left: 4px solid #667eea; border-bottom: 1px solid #e0e0e0; }
+            .two-col, .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="series-badge">PRONUNCIATION PATHWAY &bull; LESSON 6 OF 6</div>
+            <h1>🎯 The Full Picture</h1>
+            <p>B2–C1 &bull; British English &bull; Putting it all together — shadowing, self-monitoring, and building your personal pronunciation toolkit</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)">1. What You Know</button>
+            <button class="tab-button" onclick="showTab(1)">2. The Five Features</button>
+            <button class="tab-button" onclick="showTab(2)">3. Shadowing</button>
+            <button class="tab-button" onclick="showTab(3)">4. Self-Monitoring</button>
+            <button class="tab-button" onclick="showTab(4)">5. Speaking</button>
+            <button class="tab-button" onclick="showTab(5)">6. Grand Recall</button>
+            <button class="tab-button" onclick="showTab(6)">7. Wrap-Up</button>
+        </div>
+
+        <!-- ==================== TAB 1: What You Know ==================== -->
+        <div class="tab-content active">
+            <h2 class="section-title">🔍 How far have you come?</h2>
+            <p style="margin-bottom: 20px;">This is Lesson 6 — the final lesson in the series. Before we go further, let's see what you remember.</p>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Without looking back, name the five areas of British pronunciation we've covered across the series. Just say them — no need to explain yet.</div>
+                <button class="reveal-button" onclick="toggleReveal('hook-reveal')">Check your list</button>
+                <div id="hook-reveal" class="reveal-box">
+                    <p><strong>1. Rhythm &amp; Stress-timing</strong> — English has a beat; content words get stressed, function words reduce.</p>
+                    <p><strong>2. The Vowel System</strong> — RP vowel pairs like BATH/TRAP, NURSE/STRUT, THOUGHT/LOT.</p>
+                    <p><strong>3. Consonant Signatures</strong> — Non-rhoticity, crisp T, clear/dark L, linking R.</p>
+                    <p><strong>4. Connected Speech</strong> — Elision, assimilation, catenation, weak forms.</p>
+                    <p><strong>5. Intonation</strong> — Fall, rise, fall-rise patterns; tonic stress; attitude through pitch.</p>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Now — which of those five do you feel most confident about? And which one still feels difficult or unnatural?</div>
+                <p style="font-size: 13px; color: #666; margin-top: 8px;">Be honest — this shapes what we focus on today.</p>
+            </div>
+
+            <div class="rule-box" style="margin-top: 20px;">
+                <strong>Today we're working on</strong> integration — combining all five features in natural speech. You'll learn how to shadow native speakers effectively, how to monitor your own pronunciation in real time, and how to keep improving after this series ends.
+            </div>
+        </div>
+
+        <!-- ==================== TAB 2: The Five Features ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🧩 The five features working together</h2>
+            <p>In real speech, these five features don't happen separately — they're all active at once. Let's see how they layer together in a single sentence.</p>
+
+            <div class="visual-box">
+                <h4 style="color: #667eea; margin-bottom: 12px;">Sentence: "I would have told you, but I wasn't sure you'd understand."</h4>
+                <div style="margin-top: 15px;">
+                    <div style="padding: 10px; background: white; border-radius: 6px; margin: 8px 0; font-size: 14px;">
+                        <strong>🥁 Rhythm:</strong> Three main stress beats — <strong>TOLD</strong>, <strong>WASN'T</strong>, <strong>STAND</strong>. Everything else compresses between them.
+                    </div>
+                    <div style="padding: 10px; background: white; border-radius: 6px; margin: 8px 0; font-size: 14px;">
+                        <strong>🔤 Vowels:</strong> "Sure" uses /ʃɔː/ or /ʃʊə/ (RP). "Understand" has /ʌ/ (STRUT vowel), not the BATH vowel.
+                    </div>
+                    <div style="padding: 10px; background: white; border-radius: 6px; margin: 8px 0; font-size: 14px;">
+                        <strong>🔊 Consonants:</strong> "Sure" — no R at the end (non-rhotic). "You'd understand" — catenation, /juːd ʌndəstænd/.
+                    </div>
+                    <div style="padding: 10px; background: white; border-radius: 6px; margin: 8px 0; font-size: 14px;">
+                        <strong>🔗 Connected speech:</strong> "Would have" → /wʊdəv/. "Told you" → /təʊldʒuː/ (assimilation). "Wasn't sure" → /wɒzn ʃɔː/ (elision of /t/).
+                    </div>
+                    <div style="padding: 10px; background: white; border-radius: 6px; margin: 8px 0; font-size: 14px;">
+                        <strong>🎵 Intonation:</strong> Fall-rise on "told you" (I would have, but...), then fall on "understand" (the conclusion).
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Your turn — analyse this sentence the same way. Identify what happens in each feature area.</div>
+                <p style="font-size: 16px; font-weight: 600; margin: 12px 0; color: #667eea;">"She must have left it at the office, but I could be wrong."</p>
+                <textarea placeholder="Break it down: rhythm, vowels, consonants, connected speech, intonation..."></textarea>
+                <button class="reveal-button" onclick="toggleReveal('analysis-reveal')">See the full breakdown</button>
+                <div id="analysis-reveal" class="reveal-box">
+                    <p><strong>🥁 Rhythm:</strong> Four beats — <strong>LEFT</strong>, <strong>OF</strong>fice, <strong>COULD</strong>, <strong>WRONG</strong>.</p>
+                    <p><strong>🔤 Vowels:</strong> "Office" /ɒfɪs/ (LOT vowel, not GOAT). "Wrong" /rɒŋ/ (LOT vowel).</p>
+                    <p><strong>🔊 Consonants:</strong> "Office" — crisp /f/, not voiced. "Wrong" — non-rhotic in RP, but the initial /r/ is pronounced. "Left it at" — catenation chain.</p>
+                    <p><strong>🔗 Connected speech:</strong> "Must have" → /məstəv/ (weak forms). "Left it at the" → /leftɪt ət ðə/ (catenation chain). "Could be" → /kʊd bi/ (elision of final /d/ before /b/ is optional).</p>
+                    <p><strong>🎵 Intonation:</strong> Fall-rise on "office" (there's a "but" coming), then fall on "wrong" (conclusion). The whole sentence is a classic contrast pattern.</p>
+                </div>
+            </div>
+
+            <h2 class="section-title">✅ Self-assessment: where are you now?</h2>
+            <p>Click each feature to rate yourself from 1 (struggle) to 5 (confident). Be honest — this isn't a test.</p>
+
+            <div class="radar-grid">
+                <div class="radar-row">
+                    <span class="radar-label">🥁 Rhythm &amp; stress-timing</span>
+                    <div class="radar-dots" data-feature="rhythm">
+                        <div class="radar-dot" onclick="selectRating(this)">1</div>
+                        <div class="radar-dot" onclick="selectRating(this)">2</div>
+                        <div class="radar-dot" onclick="selectRating(this)">3</div>
+                        <div class="radar-dot" onclick="selectRating(this)">4</div>
+                        <div class="radar-dot" onclick="selectRating(this)">5</div>
+                    </div>
+                </div>
+                <div class="radar-row">
+                    <span class="radar-label">🔤 RP vowel system</span>
+                    <div class="radar-dots" data-feature="vowels">
+                        <div class="radar-dot" onclick="selectRating(this)">1</div>
+                        <div class="radar-dot" onclick="selectRating(this)">2</div>
+                        <div class="radar-dot" onclick="selectRating(this)">3</div>
+                        <div class="radar-dot" onclick="selectRating(this)">4</div>
+                        <div class="radar-dot" onclick="selectRating(this)">5</div>
+                    </div>
+                </div>
+                <div class="radar-row">
+                    <span class="radar-label">🔊 Consonant signatures</span>
+                    <div class="radar-dots" data-feature="consonants">
+                        <div class="radar-dot" onclick="selectRating(this)">1</div>
+                        <div class="radar-dot" onclick="selectRating(this)">2</div>
+                        <div class="radar-dot" onclick="selectRating(this)">3</div>
+                        <div class="radar-dot" onclick="selectRating(this)">4</div>
+                        <div class="radar-dot" onclick="selectRating(this)">5</div>
+                    </div>
+                </div>
+                <div class="radar-row">
+                    <span class="radar-label">🔗 Connected speech</span>
+                    <div class="radar-dots" data-feature="connected">
+                        <div class="radar-dot" onclick="selectRating(this)">1</div>
+                        <div class="radar-dot" onclick="selectRating(this)">2</div>
+                        <div class="radar-dot" onclick="selectRating(this)">3</div>
+                        <div class="radar-dot" onclick="selectRating(this)">4</div>
+                        <div class="radar-dot" onclick="selectRating(this)">5</div>
+                    </div>
+                </div>
+                <div class="radar-row">
+                    <span class="radar-label">🎵 Intonation &amp; attitude</span>
+                    <div class="radar-dots" data-feature="intonation">
+                        <div class="radar-dot" onclick="selectRating(this)">1</div>
+                        <div class="radar-dot" onclick="selectRating(this)">2</div>
+                        <div class="radar-dot" onclick="selectRating(this)">3</div>
+                        <div class="radar-dot" onclick="selectRating(this)">4</div>
+                        <div class="radar-dot" onclick="selectRating(this)">5</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trick-box" style="margin-top: 15px;">
+                <strong>💡 What this tells you:</strong> Any area rated 3 or below is where your practice time should go. Areas at 4–5 just need maintenance. Knowing your weak spots is the first step to targeted improvement.
+            </div>
+        </div>
+
+        <!-- ==================== TAB 3: Shadowing ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🎙️ Shadowing — the most powerful pronunciation tool</h2>
+            <p>Shadowing means speaking along with a recording in real time, matching the speaker as closely as possible — rhythm, sounds, pitch, everything. It's the fastest way to build natural pronunciation habits.</p>
+
+            <div class="step-card">
+                <span class="step-num">1</span>
+                <h4>Listen first (no speaking)</h4>
+                <p>Play a short clip (30–60 seconds). Just listen. Notice the rhythm, the pitch patterns, where the stress falls, and how words connect. Don't try to understand every word — feel the shape of the speech.</p>
+            </div>
+
+            <div class="step-card">
+                <span class="step-num">2</span>
+                <h4>Mumble along</h4>
+                <p>Play it again. This time, mumble along — you don't need to say real words. Just match the rhythm, the ups and downs of pitch, the speed. Think of it as humming the melody of the speech.</p>
+            </div>
+
+            <div class="step-card">
+                <span class="step-num">3</span>
+                <h4>Shadow with the recording</h4>
+                <p>Now speak along with the recording in real time. Don't pause it. Stay as close to the speaker as possible — about half a second behind. Match their rhythm, their connected speech, their intonation. It's okay to stumble.</p>
+            </div>
+
+            <div class="step-card">
+                <span class="step-num">4</span>
+                <h4>Shadow without the recording</h4>
+                <p>Try to reproduce the same passage from memory — or from the transcript. Keep the same rhythm, connected speech, and intonation. This is where the real learning happens.</p>
+            </div>
+
+            <div class="step-card">
+                <span class="step-num">5</span>
+                <h4>Record and compare</h4>
+                <p>Record yourself. Play it back. Compare with the original. What's close? What's different? Focus on one specific feature to improve, then try again.</p>
+            </div>
+
+            <div class="rule-box">
+                <strong>🎯 The golden rule of shadowing:</strong> Don't try to fix everything at once. Each time you shadow, pick ONE feature to focus on — rhythm, vowels, consonants, connected speech, or intonation. Do five rounds, each with a different focus.
+            </div>
+
+            <h2 class="section-title">🏋️ Shadowing practice</h2>
+            <p>Let's do a shortened version right now. Your teacher will read a short passage aloud. Follow the five steps above.</p>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Practice passage:</div>
+                <div style="padding: 20px; background: #1a1a2e; color: #e0e0e0; border-radius: 8px; font-family: Georgia, serif; font-size: 16px; line-height: 1.9; margin: 10px 0;">
+                    "The thing about living abroad is that you never quite feel at home anywhere. You get used to the food, you pick up the language, you make friends — but there's always this little voice in the back of your head saying, 'You don't really belong here.' And the funny thing is, when you go back, you don't quite belong there either."
+                </div>
+                <p style="font-size: 13px; color: #666; margin-top: 10px;">This passage is rich in: stress-timing (content vs function words), connected speech ("pick up the" → catenation, "back of your" → weak forms), fall-rise intonation (hedging, mixed feelings), and natural British vowels.</p>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">After shadowing: which of the five features did you find hardest to match? Why?</div>
+                <textarea placeholder="e.g. I could match the rhythm but struggled with the fall-rise on 'You don't really belong here'..."></textarea>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 4: Self-Monitoring ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🔍 Self-monitoring — hearing yourself in real time</h2>
+            <p>The difference between knowing the rules and actually using them is <strong>self-monitoring</strong> — the ability to hear your own pronunciation while you're speaking and make adjustments on the fly.</p>
+
+            <div class="visual-box">
+                <h4 style="color: #667eea; margin-bottom: 12px;">The self-monitoring checklist</h4>
+                <p style="margin-bottom: 12px;">When you're speaking, you can't check everything at once. Use this priority system — pick ONE focus per conversation:</p>
+
+                <div class="feature-grid">
+                    <div class="feature-item" onclick="this.classList.toggle('checked')">
+                        <span class="check-icon">✓</span>
+                        <h4>🥁 Rhythm check</h4>
+                        <p>"Am I stressing the right words? Are my function words weak?"</p>
+                    </div>
+                    <div class="feature-item" onclick="this.classList.toggle('checked')">
+                        <span class="check-icon">✓</span>
+                        <h4>🔤 Vowel check</h4>
+                        <p>"Am I using /ɑː/ for BATH words? Am I avoiding rhotic vowels?"</p>
+                    </div>
+                    <div class="feature-item" onclick="this.classList.toggle('checked')">
+                        <span class="check-icon">✓</span>
+                        <h4>🔊 Consonant check</h4>
+                        <p>"Am I dropping final R before consonants? Is my T crisp?"</p>
+                    </div>
+                    <div class="feature-item" onclick="this.classList.toggle('checked')">
+                        <span class="check-icon">✓</span>
+                        <h4>🔗 Connected speech check</h4>
+                        <p>"Am I linking words? Are my weak forms reducing naturally?"</p>
+                    </div>
+                    <div class="feature-item" onclick="this.classList.toggle('checked')">
+                        <span class="check-icon">✓</span>
+                        <h4>🎵 Intonation check</h4>
+                        <p>"Am I using fall-rise for hedging? Does my pitch vary enough?"</p>
+                    </div>
+                    <div class="feature-item" onclick="this.classList.toggle('checked')">
+                        <span class="check-icon">✓</span>
+                        <h4>🎯 Overall fluency</h4>
+                        <p>"Does it sound natural? Am I over-pronouncing or being too careful?"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trick-box">
+                <strong>💡 The "radio presenter" trick:</strong> Imagine you're reading the news on BBC Radio 4. Not dramatically — just clearly, confidently, and with natural flow. This mental image naturally pulls together good rhythm, RP vowels, crisp consonants, connected speech, and varied intonation. When you catch yourself over-pronouncing or going flat, reset with this image.
+            </div>
+
+            <h2 class="section-title">🎯 Diagnosis drill</h2>
+            <div class="exercise">
+                <div class="exercise-prompt">Say these three sentences. After each one, identify which pronunciation feature you want to improve.</div>
+                <div style="margin: 12px 0; font-size: 15px; line-height: 2.4;">
+                    <p>1. "I've been thinking about it for a while, and I'm not sure it's the right decision."</p>
+                    <p>2. "She asked him to pick up some milk on the way home, but he forgot."</p>
+                    <p>3. "The problem isn't that people don't care — it's that they don't know what to do about it."</p>
+                </div>
+                <textarea placeholder="After saying each one, write which feature you'd work on, e.g. 'Sentence 2: I need to work on catenation in pick-up-some...'"></textarea>
+            </div>
+
+            <div class="green-box">
+                <strong>✅ The key insight:</strong> You don't need perfect pronunciation. You need <strong>awareness</strong>. If you can hear when something doesn't sound right, you can fix it — even mid-sentence. Self-monitoring is the skill that keeps improving your pronunciation long after this course ends.
+            </div>
+        </div>
+
+        <!-- ==================== TAB 5: Speaking ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🎤 Extended speaking — all features in play</h2>
+            <p>Choose 2 cards. Speak for 2 minutes on each. This time, try to consciously integrate as many features as possible — rhythm, vowels, consonants, connected speech, and intonation. Pick one feature as your primary focus for each card.</p>
+
+            <div class="discussion-card" onclick="this.querySelector('.dc-detail').classList.toggle('show')">
+                <h4>🌍 Card A: Living in another country</h4>
+                <p>What are the best and worst things about living abroad (or imagining it)? What would you miss most about home?</p>
+                <div class="dc-detail reveal-box" style="margin-top: 12px; border-left: none; background: rgba(102,126,234,0.08);">
+                    <p style="font-size: 13px; color: #555;"><strong>All features in play:</strong> This topic naturally produces: lists (rise on items, fall on last), hedging and mixed feelings (fall-rise), connected speech chains ("sort of" /sɔːtəv/, "kind of" /kaɪndəv/, "going to" /ɡənə/), and contrast patterns ("On one hand... on the other...").</p>
+                </div>
+            </div>
+
+            <div class="discussion-card" onclick="this.querySelector('.dc-detail').classList.toggle('show')">
+                <h4>🗞️ Card B: Explain a news story</h4>
+                <p>Think of something you read or heard about recently in the news. Explain it clearly — what happened, why it matters, and what you think about it.</p>
+                <div class="dc-detail reveal-box" style="margin-top: 12px; border-left: none; background: rgba(102,126,234,0.08);">
+                    <p style="font-size: 13px; color: #555;"><strong>All features in play:</strong> Explaining news requires: clear rhythm (stressing key information), falling intonation for facts, fall-rise for uncertainty or opinion, and connected speech in narrative sequences ("must have been" /məstəvbɪn/, "didn't know" /dɪdn nəʊ/).</p>
+                </div>
+            </div>
+
+            <div class="discussion-card" onclick="this.querySelector('.dc-detail').classList.toggle('show')">
+                <h4>🎓 Card C: Teach something you know well</h4>
+                <p>Explain something you're knowledgeable about to someone who knows nothing. It could be your job, a hobby, a process, or a skill.</p>
+                <div class="dc-detail reveal-box" style="margin-top: 12px; border-left: none; background: rgba(102,126,234,0.08);">
+                    <p style="font-size: 13px; color: #555;"><strong>All features in play:</strong> Teaching naturally produces: emphatic stress on key terms, list intonation for steps, connected speech in filler phrases ("what I mean is" /wɒt aɪ miːn ɪz/), and rising intonation when checking understanding ("Does that make sense↗?").</p>
+                </div>
+            </div>
+
+            <div class="timer-container" style="margin-top: 20px;">
+                <span class="timer-display" id="timer-speak">2:00</span>
+                <button class="timer-btn" onclick="startTimer('timer-speak', 120)">Start 2:00</button>
+                <button class="timer-btn btn-outline" onclick="resetTimer('timer-speak', 120)">Reset</button>
+                <button class="timer-btn btn-outline" onclick="startTimer('timer-speak', 150)">2:30</button>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 30px;">✍️ Post-speaking reflection</h2>
+            <div class="exercise">
+                <div class="exercise-prompt">After speaking, answer these three questions:</div>
+                <p style="margin: 8px 0; font-size: 14px;">1. Which feature came most naturally to you during that conversation?</p>
+                <p style="margin: 8px 0; font-size: 14px;">2. Which feature did you forget about or struggle with?</p>
+                <p style="margin: 8px 0; font-size: 14px;">3. What's ONE specific thing you'll focus on next time you speak English?</p>
+                <textarea placeholder="Be specific — 'I'll focus on using fall-rise when I hedge' is better than 'I'll work on intonation'..."></textarea>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 6: Grand Recall ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🔄 Grand Recall — the full series</h2>
+            <p style="margin-bottom: 20px;">This is the big one. From memory — no peeking. One question per lesson.</p>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 Lesson 1 — The Rhythm Engine</div>
+                <p style="margin-top: 10px;">1. English is stress-timed. What does this mean in practice — and how does it affect how fast function words are said?</p>
+                <button class="reveal-button" onclick="toggleReveal('recall-1')">Check</button>
+                <div id="recall-1" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p><strong>Stress-timed</strong> means stressed syllables occur at roughly equal intervals, regardless of how many unstressed syllables sit between them. Function words (the, to, have, was, of) get compressed and reduced to fit between beats — that's why they sound like /ðə/, /tə/, /əv/, /wəz/ in natural speech. The rhythm drives the weak forms.</p>
+                </div>
+            </div>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 Lesson 2 — The British Vowel Map</div>
+                <p style="margin-top: 10px;">2. Name the three key RP vowel pairs. For each pair, say one word from each side.</p>
+                <button class="reveal-button" onclick="toggleReveal('recall-2')">Check</button>
+                <div id="recall-2" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p><strong>BATH /ɑː/ vs TRAP /æ/:</strong> "bath" /bɑːθ/ vs "bat" /bæt/. BATH words (grass, laugh, dance) use /ɑː/ in RP.</p>
+                    <p><strong>NURSE /ɜː/ vs STRUT /ʌ/:</strong> "bird" /bɜːd/ vs "but" /bʌt/. NURSE is long and central; STRUT is short and open.</p>
+                    <p><strong>THOUGHT /ɔː/ vs LOT /ɒ/:</strong> "caught" /kɔːt/ vs "cot" /kɒt/. THOUGHT is long and rounded; LOT is short.</p>
+                </div>
+            </div>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 Lesson 3 — Consonant Signatures</div>
+                <p style="margin-top: 10px;">3. Say "car park" and "car engine" — what happens to the R? What's this feature called?</p>
+                <button class="reveal-button" onclick="toggleReveal('recall-3')">Check</button>
+                <div id="recall-3" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p><strong>"Car park"</strong> → /kɑː pɑːk/ — R is silent (before a consonant). <strong>"Car engine"</strong> → /kɑːr endʒɪn/ — R is pronounced (before a vowel). This is <strong>non-rhoticity with linking R</strong>. RP only pronounces R when a vowel follows.</p>
+                </div>
+            </div>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 Lesson 4 — Connected Speech</div>
+                <p style="margin-top: 10px;">4. Say "Would you like to come with us?" at natural speed. Which connected speech processes happen?</p>
+                <button class="reveal-button" onclick="toggleReveal('recall-4')">Check</button>
+                <div id="recall-4" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p>/wʊdʒə laɪk tə kʌm wɪð əs/</p>
+                    <p style="margin-top: 6px;"><strong>Assimilation:</strong> "would you" → /wʊdʒə/ (/d/ + /j/ → /dʒ/). <strong>Weak forms:</strong> "to" → /tə/, "with" stays light, "us" → /əs/. <strong>Catenation:</strong> "come with" → /kʌm wɪð/ flows together.</p>
+                </div>
+            </div>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 Lesson 5 — Intonation &amp; Attitude</div>
+                <p style="margin-top: 10px;">5. Say "That's interesting" three ways: genuine enthusiasm, polite but bored, and sarcastic. What pitch pattern does each use?</p>
+                <button class="reveal-button" onclick="toggleReveal('recall-5')">Check</button>
+                <div id="recall-5" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p><strong>Genuine:</strong> Big fall ⬇️ on "interesting" — pitch drops decisively. You mean it.</p>
+                    <p><strong>Polite but bored:</strong> Fall-rise ↘↗ on "interesting" — sounds like you're being nice but there's an unspoken "but..."</p>
+                    <p><strong>Sarcastic:</strong> Exaggerated or flat fall — pitch drops in an obviously performative way, signalling you mean the opposite.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 7: Wrap-Up ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🧠 What you've built</h2>
+
+            <div class="series-summary">
+                <h3>📚 The Pronunciation Pathway — Complete</h3>
+                <div class="series-item">
+                    <span class="series-num">1</span>
+                    <span><strong>The Rhythm Engine</strong> — Stress-timing, content vs function words, the beat of English.</span>
+                </div>
+                <div class="series-item">
+                    <span class="series-num">2</span>
+                    <span><strong>The British Vowel Map</strong> — BATH/TRAP, NURSE/STRUT, THOUGHT/LOT — the sounds that define RP.</span>
+                </div>
+                <div class="series-item">
+                    <span class="series-num">3</span>
+                    <span><strong>Consonant Signatures</strong> — Non-rhoticity, crisp T, clear/dark L, linking &amp; intrusive R.</span>
+                </div>
+                <div class="series-item">
+                    <span class="series-num">4</span>
+                    <span><strong>Connected Speech</strong> — Elision, assimilation, catenation, weak forms in chains.</span>
+                </div>
+                <div class="series-item">
+                    <span class="series-num">5</span>
+                    <span><strong>Intonation &amp; Attitude</strong> — Fall, rise, fall-rise; tonic stress; pitch as meaning.</span>
+                </div>
+                <div class="series-item">
+                    <span class="series-num">6</span>
+                    <span><strong>The Full Picture</strong> — Integration, shadowing, self-monitoring, independence.</span>
+                </div>
+            </div>
+
+            <h2 class="section-title">🚀 How to keep improving</h2>
+            <div class="visual-box">
+                <p style="margin-bottom: 12px; font-weight: 600;">Three things to do every week:</p>
+                <div style="padding: 10px; background: white; border-radius: 6px; margin: 8px 0; font-size: 14px;">
+                    <strong>1. Shadow for 10 minutes.</strong> Use podcasts, interviews, audiobooks — anything with natural British speech. Follow the 5-step method. Pick one feature per session.
+                </div>
+                <div style="padding: 10px; background: white; border-radius: 6px; margin: 8px 0; font-size: 14px;">
+                    <strong>2. Record yourself once a week.</strong> Just 60 seconds of natural speech. Listen back. Compare with a week ago. You'll hear progress.
+                </div>
+                <div style="padding: 10px; background: white; border-radius: 6px; margin: 8px 0; font-size: 14px;">
+                    <strong>3. Pick a feature of the week.</strong> Monday: decide you're focusing on connected speech. All week, whenever you speak English, that's your lens. Next week, switch to intonation. Rotate through all five.
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Your pronunciation goal: what's the ONE thing you most want to work on going forward? Be specific.</div>
+                <textarea placeholder="e.g. 'I want to master the fall-rise pattern so I sound less blunt when I disagree politely'..."></textarea>
+            </div>
+
+            <h2 class="section-title">💭 Final reflection</h2>
+            <div class="exercise">
+                <div class="exercise-prompt">Think back to Lesson 1. What can you do now that you couldn't do then?</div>
+                <textarea placeholder="Think about awareness, not perfection. What do you notice now that you didn't before?"></textarea>
+            </div>
+
+            <div class="can-statement">
+                ✅ I can integrate all five features of British pronunciation — rhythm, vowels, consonants, connected speech, and intonation — and I have the tools to keep improving through shadowing and self-monitoring.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            tabs.forEach((tab, i) => { tab.classList.remove('active'); buttons[i].classList.remove('active'); });
+            tabs[tabIndex].classList.add('active');
+            buttons[tabIndex].classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleReveal(id) { document.getElementById(id).classList.toggle('show'); }
+
+        function selectRating(dot) {
+            const siblings = dot.parentElement.querySelectorAll('.radar-dot');
+            siblings.forEach(d => d.classList.remove('selected'));
+            dot.classList.add('selected');
+        }
+
+        function checkQuiz(btn, isCorrect, fbId) {
+            const fb = document.getElementById(fbId);
+            const parent = btn.closest('.exercise');
+            const options = parent.querySelectorAll('.quiz-option');
+            if (parent.dataset.answered) return;
+            parent.dataset.answered = 'true';
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            if (isCorrect) {
+                btn.classList.add('correct-answer');
+                fb.className = 'feedback correct';
+                fb.innerHTML = '✓ Correct!';
+            } else {
+                btn.classList.add('wrong-answer');
+                options.forEach(opt => { if (opt.onclick.toString().includes('true')) opt.classList.add('correct-answer'); });
+                fb.className = 'feedback incorrect';
+                fb.innerHTML = '✗ Not quite — correct answer highlighted.';
+            }
+        }
+
+        let timerIntervals = {};
+        function startTimer(id, seconds) {
+            const display = document.getElementById(id);
+            if (timerIntervals[id]) clearInterval(timerIntervals[id]);
+            let remaining = parseInt(display.dataset.remaining || seconds);
+            display.dataset.remaining = remaining;
+            timerIntervals[id] = setInterval(() => {
+                remaining--;
+                display.dataset.remaining = remaining;
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                display.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+                display.className = 'timer-display';
+                if (remaining <= 10) display.classList.add('danger');
+                else if (remaining <= 30) display.classList.add('warning');
+                if (remaining <= 0) { clearInterval(timerIntervals[id]); display.textContent = '0:00'; display.classList.add('danger'); }
+            }, 1000);
+        }
+
+        function resetTimer(id, seconds) {
+            if (timerIntervals[id]) clearInterval(timerIntervals[id]);
+            const display = document.getElementById(id);
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            display.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+            display.dataset.remaining = seconds;
+            display.className = 'timer-display';
+        }
+    </script>
+</body>
+</html>
