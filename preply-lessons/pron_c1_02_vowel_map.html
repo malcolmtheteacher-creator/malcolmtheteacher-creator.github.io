@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The British Vowel Map — Pronunciation Pathway 2</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 { font-size: 28px; margin-bottom: 8px; }
+        .header p { font-size: 14px; opacity: 0.9; }
+        .series-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            background: white;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            flex: 1;
+            min-width: 80px;
+            padding: 14px 8px;
+            border: none;
+            background: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab-button.active { color: #667eea; border-bottom-color: #667eea; }
+        .tab-button:hover { background: #f8f9fa; }
+
+        .tab-content {
+            padding: 35px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Typography */
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin: 24px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title:first-child { margin-top: 0; }
+
+        /* Boxes */
+        .visual-box {
+            background: #f5f5f5;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .rule-box {
+            background: #fffde7;
+            border-left: 4px solid #fbc02d;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .trick-box {
+            background: #f0f7ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .trick-box strong { color: #1976D2; }
+
+        .exercise {
+            background: #fafafa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+        }
+
+        .exercise-prompt {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .green-box {
+            background: #f1f8e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .recall-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        /* Reveal */
+        .reveal-box {
+            background: #e8eaf6;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            border-left: 4px solid #667eea;
+            display: none;
+        }
+        .reveal-box.show { display: block; }
+
+        /* Buttons */
+        button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            font-size: 14px;
+        }
+        button:hover { background: #764ba2; }
+
+        .reveal-button { padding: 8px 16px; font-size: 13px; margin-top: 10px; }
+
+        .btn-outline {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        .btn-outline:hover { background: #667eea; color: white; }
+
+        /* Feedback */
+        .feedback {
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #c8e6c9; color: #2e7d32;
+            border-left: 4px solid #2e7d32; display: block;
+        }
+
+        .feedback.incorrect {
+            background: #ffcdd2; color: #c62828;
+            border-left: 4px solid #c62828; display: block;
+        }
+
+        /* Inputs */
+        input[type="text"], textarea {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+            width: 100%;
+        }
+        input[type="text"]:focus, textarea:focus { outline: none; border-color: #667eea; }
+        textarea { resize: vertical; min-height: 80px; }
+
+        /* Grids */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 18px;
+            transition: border-color 0.3s;
+        }
+        .card h4 { color: #333; margin-bottom: 8px; font-size: 15px; }
+        .card p { font-size: 13px; color: #666; margin: 0; }
+
+        /* Vowel display */
+        .vowel-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .vowel-card .ipa {
+            font-family: 'Lucida Sans Unicode', 'Lucida Grande', Georgia, serif;
+            font-size: 32px;
+            color: #667eea;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .vowel-card .keyword {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .vowel-card .keyword .highlight {
+            color: #667eea;
+            text-decoration: underline;
+        }
+
+        .vowel-card .description {
+            font-size: 12px;
+            color: #888;
+            font-style: italic;
+        }
+
+        .vowel-card .examples {
+            font-size: 13px;
+            color: #555;
+            margin-top: 8px;
+        }
+
+        .vowel-card.long-vowel { border-color: #4caf50; background: #fafff5; }
+        .vowel-card.short-vowel { border-color: #ff9800; background: #fffdf5; }
+
+        /* Minimal pair display */
+        .minimal-pair {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 14px 20px;
+            margin: 8px 0;
+            background: #fafafa;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .minimal-pair .vs {
+            color: #999;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .minimal-pair .word {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .minimal-pair .ipa-small {
+            font-family: 'Lucida Sans Unicode', Georgia, serif;
+            font-size: 13px;
+            color: #667eea;
+        }
+
+        /* Quiz options */
+        .quiz-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .quiz-option {
+            padding: 10px 18px;
+            background: #f5f5f5;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-family: inherit;
+            color: #333;
+        }
+
+        .quiz-option:hover { border-color: #667eea; background: #f0f0ff; }
+        .quiz-option.selected { border-color: #667eea; background: #e8eaf6; color: #667eea; font-weight: 700; }
+        .quiz-option.correct-answer { border-color: #4caf50; background: #c8e6c9; color: #2e7d32; }
+        .quiz-option.wrong-answer { border-color: #e53935; background: #ffcdd2; color: #c62828; }
+
+        /* Mouth position diagram */
+        .mouth-diagram {
+            background: #1a1a2e;
+            border-radius: 8px;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .mouth-diagram .mouth-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto auto auto;
+            gap: 8px;
+            max-width: 400px;
+            margin: 15px auto;
+        }
+
+        .mouth-diagram .pos-label {
+            font-size: 11px;
+            color: #aaa;
+            text-align: center;
+        }
+
+        .mouth-diagram .vowel-dot {
+            background: rgba(102, 126, 234, 0.3);
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 8px 4px;
+            font-size: 14px;
+            text-align: center;
+            cursor: default;
+        }
+
+        .mouth-diagram .vowel-dot.active {
+            background: rgba(102, 126, 234, 0.6);
+            border-color: #fbc02d;
+            color: #fbc02d;
+            font-weight: 700;
+        }
+
+        /* Timer */
+        .timer-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .timer-display {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            color: #00897b;
+            min-width: 70px;
+        }
+        .timer-display.warning { color: #f9a825; }
+        .timer-display.danger { color: #e53935; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        .timer-btn { padding: 6px 14px; font-size: 12px; border-radius: 4px; }
+
+        /* Discussion cards */
+        .discussion-card {
+            background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(118,75,162,0.08));
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .discussion-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102,126,234,0.2);
+        }
+        .discussion-card h4 { color: #667eea; margin-bottom: 8px; }
+
+        /* Can statement */
+        .can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 30px;
+        }
+
+        .error-text { color: #d32f2f; text-decoration: line-through; font-weight: 500; }
+        .correct-text { color: #2e7d32; font-weight: 700; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header { padding: 20px; }
+            .header h1 { font-size: 22px; }
+            .tab-content { padding: 20px; }
+            .tabs { flex-direction: column; }
+            .tab-button {
+                border-bottom: 1px solid #e0e0e0;
+                margin-bottom: 0;
+                text-align: left;
+                padding: 12px 16px;
+            }
+            .tab-button.active { border-left: 4px solid #667eea; border-bottom: 1px solid #e0e0e0; }
+            .two-col, .three-col { grid-template-columns: 1fr; }
+            .minimal-pair { flex-direction: column; gap: 8px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="series-badge">PRONUNCIATION PATHWAY &bull; LESSON 2 OF 6</div>
+            <h1>🗺️ The British Vowel Map</h1>
+            <p>B2–C1 &bull; British English &bull; The vowel sounds that define RP — and the ones your L1 might be merging</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)">1. What You Know</button>
+            <button class="tab-button" onclick="showTab(1)">2. The Map</button>
+            <button class="tab-button" onclick="showTab(2)">3. Key Pairs</button>
+            <button class="tab-button" onclick="showTab(3)">4. Hear &amp; Sort</button>
+            <button class="tab-button" onclick="showTab(4)">5. Speaking</button>
+            <button class="tab-button" onclick="showTab(5)">6. Recall Zone</button>
+            <button class="tab-button" onclick="showTab(6)">7. Wrap-Up</button>
+        </div>
+
+        <!-- ==================== TAB 1: CONNECT ==================== -->
+        <div class="tab-content active">
+            <h2 class="section-title">🔍 What do you already know?</h2>
+            <p style="margin-bottom: 20px;">Let's see what comes to mind — just have a go, no pressure.</p>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Say these words aloud. Do any of them sound the same to you?</div>
+                <div class="two-col" style="margin-top: 12px;">
+                    <div style="padding: 10px; background: #f5f5f5; border-radius: 4px; text-align: center;">
+                        <strong style="font-size: 18px;">cat</strong> &nbsp;vs&nbsp; <strong style="font-size: 18px;">cut</strong>
+                    </div>
+                    <div style="padding: 10px; background: #f5f5f5; border-radius: 4px; text-align: center;">
+                        <strong style="font-size: 18px;">bath</strong> &nbsp;vs&nbsp; <strong style="font-size: 18px;">bat</strong>
+                    </div>
+                    <div style="padding: 10px; background: #f5f5f5; border-radius: 4px; text-align: center;">
+                        <strong style="font-size: 18px;">bird</strong> &nbsp;vs&nbsp; <strong style="font-size: 18px;">bud</strong>
+                    </div>
+                    <div style="padding: 10px; background: #f5f5f5; border-radius: 4px; text-align: center;">
+                        <strong style="font-size: 18px;">caught</strong> &nbsp;vs&nbsp; <strong style="font-size: 18px;">cot</strong>
+                    </div>
+                </div>
+                <p style="margin-top: 15px;">Which pairs do you find hardest to distinguish? Why do you think that is?</p>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Quick question: how many vowel sounds do you think English has?</div>
+                <p style="font-size: 13px; color: #666;">Think about it, say a number, then check below.</p>
+                <button class="reveal-button" onclick="toggleReveal('vowel-count')">How many?</button>
+                <div id="vowel-count" class="reveal-box">
+                    <p>English has <strong>around 20 vowel sounds</strong> (depending on the accent). That's far more than most languages — Spanish has 5, Japanese has 5, Arabic has 6, Turkish has 8.</p>
+                    <p style="margin-top: 8px;">This is why vowels are the hardest part of English pronunciation for most learners — your first language probably doesn't have all the distinctions English makes.</p>
+                </div>
+            </div>
+
+            <div class="rule-box" style="margin-top: 20px;">
+                <strong>Today we're working on</strong> the key British English vowel sounds — particularly the ones that trip up advanced learners — so you can make the distinctions that native speakers hear.
+            </div>
+        </div>
+
+        <!-- ==================== TAB 2: ACTIVATE — The Vowel Map ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🗺️ The RP vowel landscape</h2>
+            <p>You don't need to master all 20 vowels today. We're focusing on the <strong>6 key vowel areas</strong> that make the biggest difference to sounding British and being clearly understood.</p>
+
+            <div class="mouth-diagram">
+                <p style="font-size: 14px; margin-bottom: 10px;">Where vowels are made in your mouth</p>
+                <div class="mouth-grid">
+                    <div class="pos-label">Front</div>
+                    <div class="pos-label">Centre</div>
+                    <div class="pos-label">Back</div>
+                    <div class="vowel-dot">iː<br><span style="font-size: 11px;">fl<u>ee</u>ce</span></div>
+                    <div class="vowel-dot active">ɜː<br><span style="font-size: 11px;">n<u>ur</u>se</span></div>
+                    <div class="vowel-dot">uː<br><span style="font-size: 11px;">g<u>oo</u>se</span></div>
+                    <div class="vowel-dot">æ<br><span style="font-size: 11px;">tr<u>a</u>p</span></div>
+                    <div class="vowel-dot active">ə<br><span style="font-size: 11px;">comm<u>a</u></span></div>
+                    <div class="vowel-dot">ɒ<br><span style="font-size: 11px;">l<u>o</u>t</span></div>
+                    <div class="vowel-dot active">ɑː<br><span style="font-size: 11px;">b<u>a</u>th</span></div>
+                    <div class="vowel-dot active">ʌ<br><span style="font-size: 11px;">str<u>u</u>t</span></div>
+                    <div class="vowel-dot active">ɔː<br><span style="font-size: 11px;">th<u>ough</u>t</span></div>
+                </div>
+                <p style="font-size: 11px; color: #aaa; margin-top: 10px;">Highlighted = today's focus areas. Mouth opens wider as you go down.</p>
+            </div>
+
+            <h2 class="section-title">📦 The 6 key areas</h2>
+
+            <div class="two-col">
+                <div class="vowel-card long-vowel">
+                    <span class="ipa">ɑː</span>
+                    <div class="keyword">The B<span class="highlight">A</span>TH vowel</div>
+                    <div class="description">Long, open, back of mouth — "ahhh"</div>
+                    <div class="examples">bath, grass, laugh, past, dance, ask</div>
+                </div>
+                <div class="vowel-card short-vowel">
+                    <span class="ipa">æ</span>
+                    <div class="keyword">The TR<span class="highlight">A</span>P vowel</div>
+                    <div class="description">Short, front, mouth wide — "a" as in cat</div>
+                    <div class="examples">cat, bat, man, hand, black, travel</div>
+                </div>
+            </div>
+
+            <div class="trick-box">
+                <strong>💡 The BATH/TRAP split:</strong> This is the most famous marker of British vs American English. In RP, words like <em>bath, grass, laugh, dance, ask</em> use the long /ɑː/ (like "ahhh" at the dentist). In American English, they use /æ/ (like "cat"). Getting this right instantly sounds more British.
+            </div>
+
+            <div class="two-col">
+                <div class="vowel-card long-vowel">
+                    <span class="ipa">ɜː</span>
+                    <div class="keyword">The N<span class="highlight">UR</span>SE vowel</div>
+                    <div class="description">Long, central, lips slightly rounded</div>
+                    <div class="examples">bird, word, nurse, first, learn, earth</div>
+                </div>
+                <div class="vowel-card short-vowel">
+                    <span class="ipa">ʌ</span>
+                    <div class="keyword">The STR<span class="highlight">U</span>T vowel</div>
+                    <div class="description">Short, open, central — quick "uh"</div>
+                    <div class="examples">cut, bus, love, money, blood, enough</div>
+                </div>
+            </div>
+
+            <div class="trick-box">
+                <strong>💡 NURSE vs STRUT:</strong> Many learners merge these. The NURSE vowel /ɜː/ is <strong>long</strong> and held — your lips round slightly and your tongue sits in the centre. The STRUT vowel /ʌ/ is <strong>short</strong> and sharp — a quick "uh" with an open, relaxed mouth.
+            </div>
+
+            <div class="two-col">
+                <div class="vowel-card long-vowel">
+                    <span class="ipa">ɔː</span>
+                    <div class="keyword">The TH<span class="highlight">OUGH</span>T vowel</div>
+                    <div class="description">Long, open-mid, back, rounded lips</div>
+                    <div class="examples">caught, thought, law, water, talk, four</div>
+                </div>
+                <div class="vowel-card short-vowel">
+                    <span class="ipa">ɒ</span>
+                    <div class="keyword">The L<span class="highlight">O</span>T vowel</div>
+                    <div class="description">Short, open, back, rounded — quick "o"</div>
+                    <div class="examples">lot, hot, dog, what, wash, orange</div>
+                </div>
+            </div>
+
+            <div class="trick-box">
+                <strong>💡 THOUGHT vs LOT:</strong> In American English these are often merged (the "cot-caught merger"). In RP they're distinct. THOUGHT /ɔː/ is <strong>long</strong> with very rounded lips. LOT /ɒ/ is <strong>short</strong> and more open.
+            </div>
+
+            <div class="rule-box">
+                <strong>🎯 Pattern:</strong> Notice all three pairs follow the same logic — <span style="color: #4caf50; font-weight: 600;">long vowel</span> vs <span style="color: #ff9800; font-weight: 600;">short vowel</span>. Length is a key feature of the British vowel system. When in doubt: is it long or short?
+            </div>
+        </div>
+
+        <!-- ==================== TAB 3: ACTIVATE — Key Pairs (We Do → You Do) ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🤝 Minimal pairs — hearing the difference</h2>
+            <p>Minimal pairs are words that differ by just one sound. Practising them trains your ear AND your mouth. Let's work through each pair together.</p>
+
+            <h3 style="color: #4caf50; margin: 20px 0 10px;">Pair 1: BATH /ɑː/ vs TRAP /æ/</h3>
+            <div class="minimal-pair">
+                <div><span class="word">bath</span> <span class="ipa-small">/bɑːθ/</span></div>
+                <span class="vs">vs</span>
+                <div><span class="word">bat</span> <span class="ipa-small">/bæt/</span></div>
+            </div>
+            <div class="minimal-pair">
+                <div><span class="word">can't</span> <span class="ipa-small">/kɑːnt/</span></div>
+                <span class="vs">vs</span>
+                <div><span class="word">cat</span> <span class="ipa-small">/kæt/</span></div>
+            </div>
+            <div class="minimal-pair">
+                <div><span class="word">laugh</span> <span class="ipa-small">/lɑːf/</span></div>
+                <span class="vs">vs</span>
+                <div><span class="word">lad</span> <span class="ipa-small">/læd/</span></div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Which mouth position goes with which?</div>
+                <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Say "bath" and "bat" alternately. What changes in your mouth?</p>
+                <button class="reveal-button" onclick="toggleReveal('mouth-1')">Check</button>
+                <div id="mouth-1" class="reveal-box">
+                    <p><strong>/ɑː/ (bath):</strong> Mouth drops OPEN, tongue LOW and BACK. Think of saying "ahhh" at the dentist. It's long — hold it.</p>
+                    <p style="margin-top: 8px;"><strong>/æ/ (bat):</strong> Mouth WIDE (spread), tongue FRONT and LOW. Your jaw drops but your lips spread sideways. It's short and snappy.</p>
+                </div>
+            </div>
+
+            <h3 style="color: #4caf50; margin: 20px 0 10px;">Pair 2: NURSE /ɜː/ vs STRUT /ʌ/</h3>
+            <div class="minimal-pair">
+                <div><span class="word">bird</span> <span class="ipa-small">/bɜːd/</span></div>
+                <span class="vs">vs</span>
+                <div><span class="word">bud</span> <span class="ipa-small">/bʌd/</span></div>
+            </div>
+            <div class="minimal-pair">
+                <div><span class="word">heard</span> <span class="ipa-small">/hɜːd/</span></div>
+                <span class="vs">vs</span>
+                <div><span class="word">hut</span> <span class="ipa-small">/hʌt/</span></div>
+            </div>
+            <div class="minimal-pair">
+                <div><span class="word">work</span> <span class="ipa-small">/wɜːk/</span></div>
+                <span class="vs">vs</span>
+                <div><span class="word">won</span> <span class="ipa-small">/wʌn/</span></div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">What's the physical difference?</div>
+                <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Say "bird" and "bud" back to back. What do your lips do?</p>
+                <button class="reveal-button" onclick="toggleReveal('mouth-2')">Check</button>
+                <div id="mouth-2" class="reveal-box">
+                    <p><strong>/ɜː/ (bird):</strong> Lips ROUND slightly, tongue CENTRAL and MID. Crucially, it's LONG. Hold the sound. In RP, there's NO /r/ sound — just a pure, held vowel.</p>
+                    <p style="margin-top: 8px;"><strong>/ʌ/ (bud):</strong> Mouth OPEN, relaxed, tongue LOW and CENTRAL. Quick and short — like being punched in the stomach. "Uh!"</p>
+                </div>
+            </div>
+
+            <h3 style="color: #4caf50; margin: 20px 0 10px;">Pair 3: THOUGHT /ɔː/ vs LOT /ɒ/</h3>
+            <div class="minimal-pair">
+                <div><span class="word">caught</span> <span class="ipa-small">/kɔːt/</span></div>
+                <span class="vs">vs</span>
+                <div><span class="word">cot</span> <span class="ipa-small">/kɒt/</span></div>
+            </div>
+            <div class="minimal-pair">
+                <div><span class="word">sport</span> <span class="ipa-small">/spɔːt/</span></div>
+                <span class="vs">vs</span>
+                <div><span class="word">spot</span> <span class="ipa-small">/spɒt/</span></div>
+            </div>
+            <div class="minimal-pair">
+                <div><span class="word">board</span> <span class="ipa-small">/bɔːd/</span></div>
+                <span class="vs">vs</span>
+                <div><span class="word">body</span> <span class="ipa-small">/bɒdi/</span></div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Your turn: describe the difference.</div>
+                <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Say "caught" and "cot" — what changes?</p>
+                <button class="reveal-button" onclick="toggleReveal('mouth-3')">Check</button>
+                <div id="mouth-3" class="reveal-box">
+                    <p><strong>/ɔː/ (caught):</strong> Lips VERY ROUNDED (like a small circle), tongue BACK and MID. It's LONG — hold the rounded shape.</p>
+                    <p style="margin-top: 8px;"><strong>/ɒ/ (cot):</strong> Lips rounded but MORE OPEN, tongue BACK and LOW. Short and quick. The mouth is more relaxed than for /ɔː/.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 4: DEMONSTRATE — Hear & Sort ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🎯 Vowel identification quiz</h2>
+            <p>For each word, decide which vowel sound it uses. Click your answer.</p>
+
+            <div class="exercise" id="quiz-1">
+                <div class="exercise-prompt">1. "grass" — which vowel?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-1')">ɑː (BATH)</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-1')">æ (TRAP)</button>
+                </div>
+                <div id="qfb-1" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-2">
+                <div class="exercise-prompt">2. "world" — which vowel?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-2')">ʌ (STRUT)</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-2')">ɜː (NURSE)</button>
+                </div>
+                <div id="qfb-2" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-3">
+                <div class="exercise-prompt">3. "money" — which vowel in the first syllable?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-3')">ʌ (STRUT)</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-3')">ɜː (NURSE)</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-3')">ɒ (LOT)</button>
+                </div>
+                <div id="qfb-3" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-4">
+                <div class="exercise-prompt">4. "daughter" — which vowel in the first syllable?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-4')">ɔː (THOUGHT)</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-4')">ɒ (LOT)</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-4')">ɑː (BATH)</button>
+                </div>
+                <div id="qfb-4" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-5">
+                <div class="exercise-prompt">5. "dance" — which vowel in RP?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-5')">ɑː (BATH)</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-5')">æ (TRAP)</button>
+                </div>
+                <div id="qfb-5" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-6">
+                <div class="exercise-prompt">6. "learn" — which vowel?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-6')">ɜː (NURSE)</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-6')">ɜː — wait, no, ʌ (STRUT)</button>
+                </div>
+                <div id="qfb-6" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-7">
+                <div class="exercise-prompt">7. "what" — which vowel?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-7')">ɔː (THOUGHT)</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-7')">ɒ (LOT)</button>
+                </div>
+                <div id="qfb-7" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-8">
+                <div class="exercise-prompt">8. "enough" — which vowel in the second syllable?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-8')">ʌ (STRUT)</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-8')">ɒ (LOT)</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-8')">ɜː (NURSE)</button>
+                </div>
+                <div id="qfb-8" class="feedback"></div>
+            </div>
+
+            <div id="quiz-score" style="display: none; margin-top: 20px;"></div>
+
+            <h2 class="section-title">🧩 Explain it</h2>
+            <div class="exercise">
+                <div class="exercise-prompt">In your own words: what's the key physical difference between a long vowel and a short vowel in British English? Give one example pair.</div>
+                <textarea placeholder="Say it aloud first, then type here..."></textarea>
+                <button class="reveal-button" onclick="toggleReveal('explain-vowel')">See a model answer</button>
+                <div id="explain-vowel" class="reveal-box">
+                    <p><strong>Example:</strong> Long vowels are held for more time and the mouth position is more tense — you hold the shape. Short vowels are quick and relaxed. For example, "caught" /ɔː/ (long, lips very rounded) vs "cot" /ɒ/ (short, lips more open). The length difference is what British listeners use to tell words apart.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 5: DEMONSTRATE — Speaking ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🎤 Speaking practice — vowel focus</h2>
+            <p>Choose 2 of these cards. As you speak, pay special attention to the target vowel sounds. Try to produce the British English versions clearly.</p>
+
+            <div class="discussion-card" onclick="this.querySelector('.dc-detail').classList.toggle('show')">
+                <h4>🛁 Card A: A typical Saturday (BATH words)</h4>
+                <p>Describe your typical Saturday. Try to naturally include words like: <em>bath, after, last, half, ask, glass, past, laugh, chance, dance</em>.</p>
+                <div class="dc-detail reveal-box" style="margin-top: 12px; border-left: none; background: rgba(102,126,234,0.08);">
+                    <p style="font-size: 13px; color: #555;"><strong>Vowel focus:</strong> All the italic words use /ɑː/ in RP — the long, open "ahhh" sound. Don't use the short /æ/ (American style). "After" = /ˈɑːftə/, "last" = /lɑːst/, "laugh" = /lɑːf/.</p>
+                </div>
+            </div>
+
+            <div class="discussion-card" onclick="this.querySelector('.dc-detail').classList.toggle('show')">
+                <h4>💼 Card B: Your working life (NURSE words)</h4>
+                <p>Talk about your work or studies. Try to naturally include: <em>work, first, learn, world, search, early, heard, turn, worth, earn</em>.</p>
+                <div class="dc-detail reveal-box" style="margin-top: 12px; border-left: none; background: rgba(102,126,234,0.08);">
+                    <p style="font-size: 13px; color: #555;"><strong>Vowel focus:</strong> All these use /ɜː/ — the long, central vowel with slightly rounded lips and NO R sound at the end. "Work" = /wɜːk/, "learn" = /lɜːn/, "early" = /ˈɜːli/.</p>
+                </div>
+            </div>
+
+            <div class="discussion-card" onclick="this.querySelector('.dc-detail').classList.toggle('show')">
+                <h4>🎯 Card C: Mixed challenge</h4>
+                <p>Tell a story about a time something went wrong. You'll naturally use words from multiple vowel categories — try to nail each one.</p>
+                <div class="dc-detail reveal-box" style="margin-top: 12px; border-left: none; background: rgba(102,126,234,0.08);">
+                    <p style="font-size: 13px; color: #555;"><strong>Vowel focus:</strong> Stories naturally produce a mix: "thought" /ɔː/, "what" /ɒ/, "enough" /ʌ/, "after" /ɑː/, "first" /ɜː/. Notice which vowels feel natural and which you have to consciously adjust.</p>
+                </div>
+            </div>
+
+            <div class="timer-container" style="margin-top: 20px;">
+                <span class="timer-display" id="timer-speak">1:00</span>
+                <button class="timer-btn" onclick="startTimer('timer-speak', 60)">Start 1 min</button>
+                <button class="timer-btn btn-outline" onclick="resetTimer('timer-speak', 60)">Reset</button>
+                <button class="timer-btn btn-outline" onclick="startTimer('timer-speak', 120)">2 min</button>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 30px;">✍️ Self-diagnosis</h2>
+            <div class="exercise">
+                <div class="exercise-prompt">After speaking, which vowel pair is hardest for you? Why do you think your L1 makes it difficult?</div>
+                <textarea placeholder="e.g. 'BATH vs TRAP is hard because in my language there's only one /a/ sound...'"></textarea>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 6: RECALL ZONE ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🔄 Recall Zone — from Lesson 1</h2>
+            <p style="margin-bottom: 20px;">Before we finish, let's check what you remember from last time. <strong>Don't look back</strong> — try from memory first.</p>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 From Lesson 1 — The Rhythm Engine (+3 interval)</div>
+                <p style="margin-top: 10px;">1. English is described as "stress-timed." What does that actually mean? How is it different from your language?</p>
+                <button class="reveal-button" onclick="toggleReveal('recall-1')">Check your answer</button>
+                <div id="recall-1" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p>Stress-timed means the stressed syllables happen at regular intervals (like a beat), and unstressed syllables get compressed between them. Most other languages are syllable-timed — every syllable takes the same time.</p>
+                </div>
+            </div>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 From Lesson 1 — Content vs Function (+3 interval)</div>
+                <p style="margin-top: 10px;">2. Name 3 types of content words and 3 types of function words. What happens to function words in natural speech?</p>
+                <button class="reveal-button" onclick="toggleReveal('recall-2')">Check your answer</button>
+                <div id="recall-2" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p><strong>Content:</strong> nouns, main verbs, adjectives (also adverbs, negatives, question words)</p>
+                    <p><strong>Function:</strong> articles, prepositions, auxiliaries (also pronouns, conjunctions)</p>
+                    <p style="margin-top: 6px;">Function words get reduced — quieter, shorter, and their vowels become schwa /ə/.</p>
+                </div>
+            </div>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 From Lesson 1 — Application (+3 interval)</div>
+                <p style="margin-top: 10px;">3. Say this sentence with natural rhythm — stress the content words, reduce the function words: <strong>"I've been working at the hospital for about three years."</strong></p>
+                <button class="reveal-button" onclick="toggleReveal('recall-3')">Check the rhythm</button>
+                <div id="recall-3" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p>Beats on: <strong>WORK</strong>ing — <strong>HOS</strong>pital — <strong>THREE</strong> — <strong>YEARS</strong></p>
+                    <p style="margin-top: 6px;">Reduced: "I've been" → /aɪvbɪn/, "at the" → /ətðə/, "for about" → /frəbaʊt/</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 7: CONSOLIDATE ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🧠 Final check — from memory</h2>
+            <p>Look away from the screen. Answer aloud — no peeking.</p>
+
+            <div class="exercise">
+                <div class="exercise-prompt">1. Name the 3 vowel pairs we covered today. For each, give the keyword and one example word.</div>
+                <button class="reveal-button" onclick="toggleReveal('final-1')">Check</button>
+                <div id="final-1" class="reveal-box">
+                    <p><strong>BATH /ɑː/</strong> (grass, laugh, dance) vs <strong>TRAP /æ/</strong> (cat, man, hand)</p>
+                    <p><strong>NURSE /ɜː/</strong> (bird, work, learn) vs <strong>STRUT /ʌ/</strong> (cut, money, blood)</p>
+                    <p><strong>THOUGHT /ɔː/</strong> (caught, law, water) vs <strong>LOT /ɒ/</strong> (hot, what, dog)</p>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">2. What's the main physical difference between each pair?</div>
+                <button class="reveal-button" onclick="toggleReveal('final-2')">Check</button>
+                <div id="final-2" class="reveal-box">
+                    <p>In all three cases: one is <strong>long</strong> (held, more tense) and one is <strong>short</strong> (quick, relaxed). The long vowel (/ɑː/, /ɜː/, /ɔː/) requires holding the mouth position. The short vowel (/æ/, /ʌ/, /ɒ/) is quick and relaxed.</p>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">3. Why is the BATH/TRAP split particularly important for sounding British?</div>
+                <button class="reveal-button" onclick="toggleReveal('final-3')">Check</button>
+                <div id="final-3" class="reveal-box">
+                    <p>Because it's the most distinctive marker of British vs American pronunciation. Words like "bath, grass, laugh, dance, ask" use /ɑː/ in British English but /æ/ in American English. Getting this right instantly signals a British accent.</p>
+                </div>
+            </div>
+
+            <h2 class="section-title">💭 Thinking about learning</h2>
+            <div class="exercise">
+                <div class="exercise-prompt">Which vowel pair is your biggest challenge? What strategy will you use to practise it before next time?</div>
+                <textarea placeholder="Think about this — what's your plan?"></textarea>
+            </div>
+
+            <div class="can-statement">
+                ✅ I can identify and produce the 6 key RP vowel sounds — BATH/TRAP, NURSE/STRUT, THOUGHT/LOT — and explain the physical difference between each pair.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== TAB NAVIGATION ====================
+        function showTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            tabs.forEach((tab, i) => {
+                tab.classList.remove('active');
+                buttons[i].classList.remove('active');
+            });
+            tabs[tabIndex].classList.add('active');
+            buttons[tabIndex].classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ==================== REVEAL TOGGLE ====================
+        function toggleReveal(id) {
+            document.getElementById(id).classList.toggle('show');
+        }
+
+        // ==================== QUIZ ====================
+        let quizScore = 0;
+        let quizAnswered = 0;
+        const quizTotal = 8;
+
+        function checkQuiz(btn, isCorrect, fbId) {
+            const fb = document.getElementById(fbId);
+            const parent = btn.closest('.exercise');
+            const options = parent.querySelectorAll('.quiz-option');
+
+            // Prevent double-answering
+            if (parent.dataset.answered) return;
+            parent.dataset.answered = 'true';
+
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+
+            if (isCorrect) {
+                btn.classList.add('correct-answer');
+                fb.className = 'feedback correct';
+                fb.innerHTML = '✓ Correct!';
+                quizScore++;
+            } else {
+                btn.classList.add('wrong-answer');
+                // Highlight the correct one
+                options.forEach(opt => {
+                    if (opt.onclick.toString().includes('true')) {
+                        opt.classList.add('correct-answer');
+                    }
+                });
+                fb.className = 'feedback incorrect';
+                fb.innerHTML = '✗ Not quite — the correct answer is highlighted in green.';
+            }
+
+            quizAnswered++;
+            if (quizAnswered === quizTotal) {
+                const scoreDiv = document.getElementById('quiz-score');
+                scoreDiv.style.display = 'block';
+                let msg = '';
+                if (quizScore >= 7) {
+                    msg = '<div class="green-box"><strong>🎉 ' + quizScore + '/' + quizTotal + '</strong> — Excellent! You can hear the distinctions clearly. The challenge now is producing them consistently in free speech.</div>';
+                } else if (quizScore >= 5) {
+                    msg = '<div class="trick-box"><strong>👍 ' + quizScore + '/' + quizTotal + '</strong> — Good foundation. Review the pairs you got wrong — which vowel categories are you merging?</div>';
+                } else {
+                    msg = '<div class="recall-box"><strong>🔄 ' + quizScore + '/' + quizTotal + '</strong> — This tells us which vowels need the most work. Go back to Tab 2 and read the descriptions again, then try the quiz once more.</div>';
+                }
+                scoreDiv.innerHTML = msg;
+            }
+        }
+
+        // ==================== TIMER ====================
+        let timerIntervals = {};
+
+        function startTimer(id, seconds) {
+            const display = document.getElementById(id);
+            if (timerIntervals[id]) clearInterval(timerIntervals[id]);
+
+            let remaining = parseInt(display.dataset.remaining || seconds);
+            display.dataset.remaining = remaining;
+
+            timerIntervals[id] = setInterval(() => {
+                remaining--;
+                display.dataset.remaining = remaining;
+
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                display.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+
+                display.className = 'timer-display';
+                if (remaining <= 10) display.classList.add('danger');
+                else if (remaining <= 30) display.classList.add('warning');
+
+                if (remaining <= 0) {
+                    clearInterval(timerIntervals[id]);
+                    display.textContent = '0:00';
+                    display.classList.add('danger');
+                }
+            }, 1000);
+        }
+
+        function resetTimer(id, seconds) {
+            if (timerIntervals[id]) clearInterval(timerIntervals[id]);
+            const display = document.getElementById(id);
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            display.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+            display.dataset.remaining = seconds;
+            display.className = 'timer-display';
+        }
+    </script>
+</body>
+</html>

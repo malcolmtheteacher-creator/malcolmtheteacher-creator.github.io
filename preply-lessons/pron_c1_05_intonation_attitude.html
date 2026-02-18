@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intonation &amp; Attitude — Pronunciation Pathway 5</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa; padding: 20px; line-height: 1.6;
+        }
+        .container {
+            max-width: 900px; margin: 0 auto; background: white;
+            border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 30px; text-align: center;
+        }
+        .header h1 { font-size: 28px; margin-bottom: 8px; }
+        .header p { font-size: 14px; opacity: 0.9; }
+        .series-badge {
+            display: inline-block; background: rgba(255,255,255,0.2);
+            padding: 4px 12px; border-radius: 20px; font-size: 12px;
+            margin-bottom: 10px; letter-spacing: 0.5px;
+        }
+        .tabs {
+            display: flex; border-bottom: 2px solid #e0e0e0;
+            background: white; flex-wrap: wrap;
+        }
+        .tab-button {
+            flex: 1; min-width: 80px; padding: 14px 8px; border: none;
+            background: white; cursor: pointer; font-size: 13px; font-weight: 600;
+            color: #666; transition: all 0.3s ease;
+            border-bottom: 3px solid transparent; margin-bottom: -2px;
+        }
+        .tab-button.active { color: #667eea; border-bottom-color: #667eea; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-content { padding: 35px; display: none; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .section-title {
+            font-size: 18px; font-weight: 700; color: #333;
+            margin: 24px 0 15px 0; display: flex; align-items: center; gap: 10px;
+        }
+        .section-title:first-child { margin-top: 0; }
+
+        .visual-box { background: #f5f5f5; border-left: 4px solid #667eea; padding: 20px; margin: 20px 0; border-radius: 4px; }
+        .rule-box { background: #fffde7; border-left: 4px solid #fbc02d; padding: 15px; margin: 15px 0; border-radius: 4px; font-size: 14px; }
+        .trick-box { background: #f0f7ff; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .trick-box strong { color: #1976D2; }
+        .exercise { background: #fafafa; padding: 20px; margin: 15px 0; border-radius: 4px; border-left: 4px solid #667eea; }
+        .exercise-prompt { font-weight: 600; color: #333; margin-bottom: 10px; }
+        .green-box { background: #f1f8e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .recall-box { background: #fff3e0; border-left: 4px solid #ff9800; padding: 15px; margin: 15px 0; border-radius: 4px; }
+
+        .reveal-box { background: #e8eaf6; padding: 15px; border-radius: 4px; margin-top: 10px; border-left: 4px solid #667eea; display: none; }
+        .reveal-box.show { display: block; }
+
+        button { padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; transition: background 0.3s ease; font-size: 14px; }
+        button:hover { background: #764ba2; }
+        .reveal-button { padding: 8px 16px; font-size: 13px; margin-top: 10px; }
+        .btn-outline { background: white; color: #667eea; border: 2px solid #667eea; }
+        .btn-outline:hover { background: #667eea; color: white; }
+
+        .feedback { padding: 12px; border-radius: 4px; margin-top: 10px; font-size: 14px; display: none; }
+        .feedback.correct { background: #c8e6c9; color: #2e7d32; border-left: 4px solid #2e7d32; display: block; }
+        .feedback.incorrect { background: #ffcdd2; color: #c62828; border-left: 4px solid #c62828; display: block; }
+
+        input[type="text"], textarea { padding: 10px; border: 2px solid #e0e0e0; border-radius: 4px; font-size: 14px; font-family: inherit; width: 100%; }
+        input[type="text"]:focus, textarea:focus { outline: none; border-color: #667eea; }
+        textarea { resize: vertical; min-height: 80px; }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
+        .card { background: white; border: 2px solid #e0e0e0; border-radius: 8px; padding: 18px; }
+        .card h4 { color: #333; margin-bottom: 8px; font-size: 15px; }
+        .card p { font-size: 13px; color: #666; margin: 0; }
+
+        /* Pitch contour display */
+        .pitch-display {
+            background: #1a1a2e; border-radius: 8px; padding: 22px;
+            margin: 15px 0; color: white; position: relative;
+        }
+        .pitch-display .phrase {
+            font-size: 18px; font-family: Georgia, serif; letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .pitch-display .contour {
+            font-size: 24px; letter-spacing: 2px; margin-bottom: 8px;
+        }
+        .pitch-display .meaning {
+            font-size: 13px; color: #aaa; font-style: italic;
+        }
+        .pitch-display .pattern-label {
+            display: inline-block; background: rgba(102,126,234,0.3);
+            padding: 3px 10px; border-radius: 10px; font-size: 12px;
+            color: #99aaff; margin-top: 6px;
+        }
+
+        /* Contour arrows */
+        .fall { color: #ef5350; }
+        .rise { color: #66bb6a; }
+        .fall-rise { color: #ffa726; }
+        .level { color: #78909c; }
+
+        /* Attitude cards */
+        .attitude-card {
+            background: white; border: 2px solid #e0e0e0; border-radius: 8px;
+            padding: 18px; margin: 10px 0; cursor: pointer; transition: all 0.3s;
+        }
+        .attitude-card:hover { border-color: #667eea; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102,126,234,0.15); }
+        .attitude-card h4 { color: #667eea; margin-bottom: 6px; font-size: 15px; }
+        .attitude-card p { font-size: 13px; color: #666; }
+        .attitude-card .hidden-detail { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #e0e0e0; }
+        .attitude-card .hidden-detail.show { display: block; }
+
+        /* Quiz */
+        .quiz-options { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+        .quiz-option {
+            padding: 10px 18px; background: #f5f5f5; border: 2px solid #e0e0e0;
+            border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500;
+            transition: all 0.2s; font-family: inherit; color: #333;
+        }
+        .quiz-option:hover { border-color: #667eea; background: #f0f0ff; }
+        .quiz-option.correct-answer { border-color: #4caf50; background: #c8e6c9; color: #2e7d32; }
+        .quiz-option.wrong-answer { border-color: #e53935; background: #ffcdd2; color: #c62828; }
+
+        /* Timer */
+        .timer-container { display: flex; align-items: center; gap: 15px; margin: 15px 0; }
+        .timer-display { font-size: 28px; font-weight: 700; font-family: 'Courier New', monospace; color: #00897b; min-width: 70px; }
+        .timer-display.warning { color: #f9a825; }
+        .timer-display.danger { color: #e53935; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .timer-btn { padding: 6px 14px; font-size: 12px; border-radius: 4px; }
+
+        /* Discussion cards */
+        .discussion-card {
+            background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(118,75,162,0.08));
+            border: 2px solid #667eea; border-radius: 8px; padding: 20px;
+            margin: 10px 0; cursor: pointer; transition: all 0.3s;
+        }
+        .discussion-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102,126,234,0.2); }
+        .discussion-card h4 { color: #667eea; margin-bottom: 8px; }
+
+        .can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 20px; border-radius: 4px;
+            text-align: center; font-weight: 700; font-size: 16px; margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 20px; }
+            .header h1 { font-size: 22px; }
+            .tab-content { padding: 20px; }
+            .tabs { flex-direction: column; }
+            .tab-button { border-bottom: 1px solid #e0e0e0; margin-bottom: 0; text-align: left; padding: 12px 16px; }
+            .tab-button.active { border-left: 4px solid #667eea; border-bottom: 1px solid #e0e0e0; }
+            .two-col { grid-template-columns: 1fr; }
+            .pitch-display .phrase { font-size: 16px; }
+            .pitch-display .contour { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="series-badge">PRONUNCIATION PATHWAY &bull; LESSON 5 OF 6</div>
+            <h1>🎵 Intonation &amp; Attitude</h1>
+            <p>B2–C1 &bull; British English &bull; How pitch creates meaning — and why saying the same words differently changes everything</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)">1. What You Know</button>
+            <button class="tab-button" onclick="showTab(1)">2. The Pitch Toolkit</button>
+            <button class="tab-button" onclick="showTab(2)">3. Focus &amp; Attitude</button>
+            <button class="tab-button" onclick="showTab(3)">4. Hear &amp; Produce</button>
+            <button class="tab-button" onclick="showTab(4)">5. Speaking</button>
+            <button class="tab-button" onclick="showTab(5)">6. Recall Zone</button>
+            <button class="tab-button" onclick="showTab(6)">7. Wrap-Up</button>
+        </div>
+
+        <!-- ==================== TAB 1: What You Know ==================== -->
+        <div class="tab-content active">
+            <h2 class="section-title">🔍 What do you already know?</h2>
+            <p style="margin-bottom: 20px;">Try these — listen to the difference in your own voice.</p>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Say "That's interesting" three different ways:</div>
+                <div style="margin: 15px 0; font-size: 15px; line-height: 2.4;">
+                    <p>1. You genuinely find something fascinating.</p>
+                    <p>2. You're being polite but you're actually bored.</p>
+                    <p>3. You're being sarcastic — you don't find it interesting at all.</p>
+                </div>
+                <p style="margin-top: 10px;">The words are identical. What changed?</p>
+                <button class="reveal-button" onclick="toggleReveal('hook-reveal')">What changed?</button>
+                <div id="hook-reveal" class="reveal-box">
+                    <p>The <strong>pitch</strong> changed — the melody of your voice. This is <strong>intonation</strong>. It's how English speakers signal their attitude, their certainty, their politeness, and whether they're finished talking or have more to say.</p>
+                    <p style="margin-top: 8px;">Getting the sounds and rhythm right is important. But if your intonation is wrong, you can sound rude, uncertain, or robotic — even with perfect pronunciation.</p>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Quick experiment: say "Really" as a response to news. How many different meanings can you create just by changing the pitch?</div>
+                <p style="font-size: 13px; color: #666; margin-top: 8px;">Try: genuine surprise, doubt, sarcasm, interest, sympathy, shock. Each one has a different pitch shape.</p>
+            </div>
+
+            <div class="rule-box" style="margin-top: 20px;">
+                <strong>Today we're working on</strong> the three core pitch patterns of British English — falling, rising, and fall-rise — and how they signal attitude, certainty, and politeness in conversation.
+            </div>
+        </div>
+
+        <!-- ==================== TAB 2: The Pitch Toolkit ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🎹 The three pitch patterns</h2>
+            <p>English intonation boils down to three core shapes. The pitch movement happens on the <strong>last stressed syllable</strong> of the phrase — this is called the <strong>nucleus</strong> or <strong>tonic syllable</strong>.</p>
+
+            <div class="visual-box" style="margin-top: 20px;">
+                <h4 style="color: #667eea; margin-bottom: 12px;">⬇️ 1. The Fall — certainty, finality, authority</h4>
+                <p style="margin-bottom: 15px;">Pitch drops on the last stressed word. This is the "default" for statements and wh-questions.</p>
+
+                <div class="pitch-display">
+                    <div class="contour">— — — <span class="fall">↘</span></div>
+                    <div class="phrase">"I <strong>live</strong> in Lon<span class="fall"><strong>don</strong></span>."</div>
+                    <div class="meaning">Statement of fact — I'm sure, I'm done talking.</div>
+                    <div class="pattern-label">falling tone</div>
+                </div>
+                <div class="pitch-display">
+                    <div class="contour">— <span class="fall">↘</span></div>
+                    <div class="phrase">"<strong>Where</strong> do you <span class="fall"><strong>live</strong></span>?"</div>
+                    <div class="meaning">Wh-question — straightforward, confident.</div>
+                    <div class="pattern-label">falling tone</div>
+                </div>
+                <div class="pitch-display">
+                    <div class="contour">— — <span class="fall">↘</span></div>
+                    <div class="phrase">"<span class="fall"><strong>No</strong></span>."</div>
+                    <div class="meaning">Definite, final. No room for negotiation.</div>
+                    <div class="pattern-label">falling tone</div>
+                </div>
+            </div>
+
+            <div class="visual-box">
+                <h4 style="color: #667eea; margin-bottom: 12px;">⬆️ 2. The Rise — openness, checking, incompleteness</h4>
+                <p style="margin-bottom: 15px;">Pitch goes up at the end. Signals a question, uncertainty, or "I'm not finished yet."</p>
+
+                <div class="pitch-display">
+                    <div class="contour">— — <span class="rise">↗</span></div>
+                    <div class="phrase">"Do you <strong>live</strong> in <span class="rise"><strong>Lon</strong></span>don?"</div>
+                    <div class="meaning">Yes/no question — I'm asking, you answer.</div>
+                    <div class="pattern-label">rising tone</div>
+                </div>
+                <div class="pitch-display">
+                    <div class="contour">— <span class="rise">↗</span> — — <span class="fall">↘</span></div>
+                    <div class="phrase">"I bought <span class="rise"><strong>ap</strong></span>ples, <span class="rise"><strong>ba</strong></span>nanas, and <span class="fall"><strong>or</strong></span>anges."</div>
+                    <div class="meaning">List intonation — rise on each item, fall on the last one.</div>
+                    <div class="pattern-label">rising (list) + final fall</div>
+                </div>
+                <div class="pitch-display">
+                    <div class="contour">— <span class="rise">↗</span></div>
+                    <div class="phrase">"<span class="rise"><strong>Rea</strong></span>lly?"</div>
+                    <div class="meaning">Genuine surprise or interest — tell me more.</div>
+                    <div class="pattern-label">rising tone</div>
+                </div>
+            </div>
+
+            <div class="visual-box">
+                <h4 style="color: #667eea; margin-bottom: 12px;">↘↗ 3. The Fall-Rise — the "British speciality"</h4>
+                <p style="margin-bottom: 15px;">Pitch falls then rises again. This is the most <strong>characteristically British</strong> pattern. It signals: "there's more to this," politeness, doubt, contrast, or an unspoken "but..."</p>
+
+                <div class="pitch-display">
+                    <div class="contour">— <span class="fall-rise">↘↗</span></div>
+                    <div class="phrase">"It was <span class="fall-rise"><strong>nice</strong></span>..."</div>
+                    <div class="meaning">Polite but there's more — "it was nice, but not amazing."</div>
+                    <div class="pattern-label">fall-rise</div>
+                </div>
+                <div class="pitch-display">
+                    <div class="contour">— — <span class="fall-rise">↘↗</span></div>
+                    <div class="phrase">"I <span class="fall-rise"><strong>could</strong></span>..."</div>
+                    <div class="meaning">Uncertain, hedging — "I could, but I'm not sure I want to."</div>
+                    <div class="pattern-label">fall-rise</div>
+                </div>
+                <div class="pitch-display">
+                    <div class="contour">— <span class="fall-rise">↘↗</span> — — <span class="fall">↘</span></div>
+                    <div class="phrase">"I don't <span class="fall-rise"><strong>hate</strong></span> it... I just don't <span class="fall"><strong>love</strong></span> it."</div>
+                    <div class="meaning">Contrast — "not X, but Y." The fall-rise marks the contrast.</div>
+                    <div class="pattern-label">fall-rise (contrast) + fall</div>
+                </div>
+            </div>
+
+            <div class="trick-box">
+                <strong>💡 Why the fall-rise matters:</strong> Many languages don't use this pattern. If you default to flat or falling intonation when you mean "maybe" or "but...", you can accidentally sound blunt, rude, or overly direct. British speakers use the fall-rise constantly — in polite refusals, hedging, giving opinions, and softening disagreement.
+            </div>
+
+            <div class="rule-box">
+                <strong>🎯 Quick summary:</strong> Fall = I'm sure, I'm done. Rise = I'm asking, or I'm not done. Fall-rise = there's more to say, I'm being careful, or "but..."
+            </div>
+        </div>
+
+        <!-- ==================== TAB 3: Focus & Attitude ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🎯 Tonic stress — where you put the pitch</h2>
+            <p>The pitch pattern lands on the <strong>most important word</strong> — the word that carries the new or contrasting information. Moving the tonic stress changes the meaning completely.</p>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Say this sentence with the stress on each capitalised word. How does the meaning change?</div>
+                <div style="margin: 15px 0;">
+                    <div style="padding: 12px; background: #f5f5f5; border-radius: 6px; margin: 8px 0; font-size: 15px;">
+                        <strong>1.</strong> "<strong>I</strong> didn't say she stole the money." <span style="font-size: 12px; color: #888;">→ Someone else said it.</span>
+                    </div>
+                    <div style="padding: 12px; background: #f5f5f5; border-radius: 6px; margin: 8px 0; font-size: 15px;">
+                        <strong>2.</strong> "I <strong>didn't</strong> say she stole the money." <span style="font-size: 12px; color: #888;">→ Denial — it's not true that I said it.</span>
+                    </div>
+                    <div style="padding: 12px; background: #f5f5f5; border-radius: 6px; margin: 8px 0; font-size: 15px;">
+                        <strong>3.</strong> "I didn't <strong>say</strong> she stole the money." <span style="font-size: 12px; color: #888;">→ I implied it, or wrote it, but didn't say it.</span>
+                    </div>
+                    <div style="padding: 12px; background: #f5f5f5; border-radius: 6px; margin: 8px 0; font-size: 15px;">
+                        <strong>4.</strong> "I didn't say <strong>she</strong> stole the money." <span style="font-size: 12px; color: #888;">→ Someone else did — not her.</span>
+                    </div>
+                    <div style="padding: 12px; background: #f5f5f5; border-radius: 6px; margin: 8px 0; font-size: 15px;">
+                        <strong>5.</strong> "I didn't say she <strong>stole</strong> the money." <span style="font-size: 12px; color: #888;">→ She borrowed it, or found it.</span>
+                    </div>
+                    <div style="padding: 12px; background: #f5f5f5; border-radius: 6px; margin: 8px 0; font-size: 15px;">
+                        <strong>6.</strong> "I didn't say she stole <strong>the</strong> money." <span style="font-size: 12px; color: #888;">→ She stole some other money.</span>
+                    </div>
+                    <div style="padding: 12px; background: #f5f5f5; border-radius: 6px; margin: 8px 0; font-size: 15px;">
+                        <strong>7.</strong> "I didn't say she stole the <strong>money</strong>." <span style="font-size: 12px; color: #888;">→ She stole something else.</span>
+                    </div>
+                </div>
+                <p style="font-size: 13px; color: #666;">Seven completely different meanings from one sentence. The tonic stress does the work.</p>
+            </div>
+
+            <h2 class="section-title">🎭 Attitude through intonation</h2>
+            <p>Click each card to see how the same phrase changes meaning with different pitch patterns.</p>
+
+            <div class="attitude-card" onclick="this.querySelector('.hidden-detail').classList.toggle('show')">
+                <h4>💬 "That's a good idea."</h4>
+                <p>Click to see three different versions.</p>
+                <div class="hidden-detail">
+                    <div class="pitch-display" style="margin-top: 10px;">
+                        <div class="phrase">"That's a good i<span class="fall"><strong>dea</strong></span>."</div>
+                        <div class="meaning">⬇️ Fall — genuine enthusiasm. You mean it.</div>
+                    </div>
+                    <div class="pitch-display">
+                        <div class="phrase">"That's a good i<span class="fall-rise"><strong>dea</strong></span>..."</div>
+                        <div class="meaning">↘↗ Fall-rise — polite but hesitant. "It's good, but I have reservations."</div>
+                    </div>
+                    <div class="pitch-display">
+                        <div class="phrase">"That's a <span class="rise"><strong>good</strong></span> i<span class="fall"><strong>dea</strong></span>."</div>
+                        <div class="meaning">⬆️ Rise on "good" — surprised. "Oh! I didn't expect that from you."</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="attitude-card" onclick="this.querySelector('.hidden-detail').classList.toggle('show')">
+                <h4>💬 "I'm fine."</h4>
+                <p>Click to see three different versions.</p>
+                <div class="hidden-detail">
+                    <div class="pitch-display" style="margin-top: 10px;">
+                        <div class="phrase">"I'm <span class="fall"><strong>fine</strong></span>."</div>
+                        <div class="meaning">⬇️ Fall — matter of fact. Genuinely fine, moving on.</div>
+                    </div>
+                    <div class="pitch-display">
+                        <div class="phrase">"I'm <span class="fall-rise"><strong>fine</strong></span>..."</div>
+                        <div class="meaning">↘↗ Fall-rise — clearly NOT fine. Something is wrong.</div>
+                    </div>
+                    <div class="pitch-display">
+                        <div class="phrase">"I'm <span class="rise"><strong>fine</strong></span>?"</div>
+                        <div class="meaning">⬆️ Rise — uncertain, checking. "Am I fine? I think so?"</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="attitude-card" onclick="this.querySelector('.hidden-detail').classList.toggle('show')">
+                <h4>💬 "Thank you."</h4>
+                <p>Click to see three different versions.</p>
+                <div class="hidden-detail">
+                    <div class="pitch-display" style="margin-top: 10px;">
+                        <div class="phrase">"<span class="fall"><strong>Thank</strong></span> you."</div>
+                        <div class="meaning">⬇️ Fall — warm, genuine gratitude. Standard polite.</div>
+                    </div>
+                    <div class="pitch-display">
+                        <div class="phrase">"Thank <span class="rise"><strong>you</strong></span>."</div>
+                        <div class="meaning">⬆️ Rise on "you" — "thank YOU specifically" or slightly surprised gratitude.</div>
+                    </div>
+                    <div class="pitch-display">
+                        <div class="phrase">"<span class="fall-rise"><strong>Thank</strong></span> you."</div>
+                        <div class="meaning">↘↗ Fall-rise — professional/formal. Polite but distant, or routine.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trick-box">
+                <strong>💡 The fall-rise trap:</strong> In many situations, a flat or simple fall sounds abrupt or rude in British English. "I'm fine" with a flat fall can sound like "stop asking me." A gentle fall-rise softens it to "I appreciate you asking." If you notice British people sounding "sing-songy," it's usually heavy use of the fall-rise.
+            </div>
+        </div>
+
+        <!-- ==================== TAB 4: Hear & Produce ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🎯 Identify the pattern</h2>
+            <p>For each phrase, decide which pitch pattern fits the context described.</p>
+
+            <div class="exercise" id="quiz-1">
+                <div class="exercise-prompt">Someone asks "How was the film?" and you reply: "It was alright..." (meaning: okay, but not great)</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-1')">Fall — definite, final</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-1')">Rise — questioning</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-1')">Fall-rise — "but..."</button>
+                </div>
+                <div id="qfb-1" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-2">
+                <div class="exercise-prompt">"Where did you put my keys?" (you're genuinely asking, nothing special)</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-2')">Fall — standard wh-question</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-2')">Rise — yes/no question</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-2')">Fall-rise — uncertainty</button>
+                </div>
+                <div id="qfb-2" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-3">
+                <div class="exercise-prompt">"Have you finished yet?" (checking — you're not sure)</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-3')">Fall — statement</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-3')">Rise — yes/no question</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-3')">Fall-rise — hedging</button>
+                </div>
+                <div id="qfb-3" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-4">
+                <div class="exercise-prompt">"I don't disagree..." (meaning: I partly agree but I have reservations)</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-4')">Fall — certain</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-4')">Rise — questioning</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-4')">Fall-rise — hedging, "but..."</button>
+                </div>
+                <div id="qfb-4" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-5">
+                <div class="exercise-prompt">"I bought coffee, milk, bread, and cheese." — what pattern do the list items take?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-5')">All fall</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-5')">Rise on each item, fall on the last</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-5')">Fall-rise on each item</button>
+                </div>
+                <div id="qfb-5" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-6">
+                <div class="exercise-prompt">"That's not what I meant." (correcting someone firmly)</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-6')">Fall on "meant" — emphatic correction</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-6')">Rise on "meant" — checking</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-6')">Fall-rise — hedging</button>
+                </div>
+                <div id="qfb-6" class="feedback"></div>
+            </div>
+
+            <h2 class="section-title">🗣️ Produce the patterns</h2>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Say each phrase with the pitch pattern indicated. Exaggerate at first — you can soften it later.</div>
+                <div style="margin: 12px 0;">
+                    <div style="padding: 14px; background: #f5f5f5; border-radius: 6px; margin: 8px 0; font-size: 15px;">
+                        <strong>⬇️ FALL:</strong> "I'm absolutely certain." — Make the pitch drop decisively on "certain."
+                    </div>
+                    <div style="padding: 14px; background: #f5f5f5; border-radius: 6px; margin: 8px 0; font-size: 15px;">
+                        <strong>⬆️ RISE:</strong> "You've been to Japan?" — Let the pitch climb up through "Japan."
+                    </div>
+                    <div style="padding: 14px; background: #f5f5f5; border-radius: 6px; margin: 8px 0; font-size: 15px;">
+                        <strong>↘↗ FALL-RISE:</strong> "It's possible..." — Drop on "poss-" then lift back up on "-ible." This should sound like you're leaving the door open.
+                    </div>
+                    <div style="padding: 14px; background: #f5f5f5; border-radius: 6px; margin: 8px 0; font-size: 15px;">
+                        <strong>⬆️ LIST RISE:</strong> "We need eggs, flour, butter, and sugar." — Rise on each item, fall on "sugar."
+                    </div>
+                    <div style="padding: 14px; background: #f5f5f5; border-radius: 6px; margin: 8px 0; font-size: 15px;">
+                        <strong>↘↗ POLITE FALL-RISE:</strong> "I'm not sure that's right..." — Soften the disagreement. The fall-rise says "I respect you but I think differently."
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Attitude drill: say "Okay" five different ways.</div>
+                <div style="margin: 12px 0; font-size: 14px; line-height: 2.2;">
+                    <p>1. <strong>Agreeing enthusiastically</strong> — big fall: "O↘KAY!"</p>
+                    <p>2. <strong>Reluctantly agreeing</strong> — fall-rise: "O↘↗kay..."</p>
+                    <p>3. <strong>Checking you heard right</strong> — rise: "Okay↗?"</p>
+                    <p>4. <strong>Impatient, hurrying someone</strong> — sharp fall: "O↘kay."</p>
+                    <p>5. <strong>Buying time, thinking</strong> — level then slight rise: "Okay→..."</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 5: Speaking ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🎤 Speaking practice — pitch in conversation</h2>
+            <p>Choose 2 cards. Speak for 1–2 minutes on each. Focus on using all three pitch patterns naturally — especially the fall-rise for hedging and politeness.</p>
+
+            <div class="discussion-card" onclick="this.querySelector('.dc-detail').classList.toggle('show')">
+                <h4>🎬 Card A: Review something</h4>
+                <p>Give a review of a film, restaurant, book, or holiday you had recently. Include both positives and negatives.</p>
+                <div class="dc-detail reveal-box" style="margin-top: 12px; border-left: none; background: rgba(102,126,234,0.08);">
+                    <p style="font-size: 13px; color: #555;"><strong>Intonation focus:</strong> Reviews are perfect for practising the fall-rise: "The food was ↘↗nice..." (but...), "I wouldn't ↘↗say it was bad..." Use falls for your definite opinions and fall-rises for the "mixed feelings" parts.</p>
+                </div>
+            </div>
+
+            <div class="discussion-card" onclick="this.querySelector('.dc-detail').classList.toggle('show')">
+                <h4>🤔 Card B: A tricky decision</h4>
+                <p>Talk about a decision you're trying to make, or one you made recently that was difficult. Explain the pros and cons.</p>
+                <div class="dc-detail reveal-box" style="margin-top: 12px; border-left: none; background: rgba(102,126,234,0.08);">
+                    <p style="font-size: 13px; color: #555;"><strong>Intonation focus:</strong> Weighing pros and cons uses natural contrast patterns: "On one ↘↗hand... on the ↘other hand." Use fall-rises for the uncertain parts and falls for your conclusions. Lists of advantages use rising intonation on each item.</p>
+                </div>
+            </div>
+
+            <div class="discussion-card" onclick="this.querySelector('.dc-detail').classList.toggle('show')">
+                <h4>🙅 Card C: Politely disagree</h4>
+                <p>Your teacher will give you a strong opinion. Your job is to politely disagree while sounding respectful and reasonable.</p>
+                <div class="dc-detail reveal-box" style="margin-top: 12px; border-left: none; background: rgba(102,126,234,0.08);">
+                    <p style="font-size: 13px; color: #555;"><strong>Intonation focus:</strong> Polite disagreement in British English relies heavily on the fall-rise: "I ↘↗see what you mean, but..." "That's a fair ↘↗point, however..." "I'm not ↘↗sure I agree..." Avoid flat falls, which sound blunt or confrontational.</p>
+                </div>
+            </div>
+
+            <div class="timer-container" style="margin-top: 20px;">
+                <span class="timer-display" id="timer-speak">1:30</span>
+                <button class="timer-btn" onclick="startTimer('timer-speak', 90)">Start 1:30</button>
+                <button class="timer-btn btn-outline" onclick="resetTimer('timer-speak', 90)">Reset</button>
+                <button class="timer-btn btn-outline" onclick="startTimer('timer-speak', 120)">2 min</button>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 30px;">✍️ Reflection</h2>
+            <div class="exercise">
+                <div class="exercise-prompt">After speaking, think about: which pitch pattern do you use most naturally? Which one feels most difficult or unnatural? Why might that be?</div>
+                <textarea placeholder="e.g. I tend to use a flat fall for everything. The fall-rise feels strange because my language doesn't have that pattern..."></textarea>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 6: Recall Zone ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🔄 Recall Zone</h2>
+            <p style="margin-bottom: 20px;">From memory — no peeking back.</p>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 From Lesson 1 — The Rhythm Engine</div>
+                <p style="margin-top: 10px;">1. What's the difference between a content word and a function word? Give two examples of each.</p>
+                <button class="reveal-button" onclick="toggleReveal('recall-1')">Check</button>
+                <div id="recall-1" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p><strong>Content words</strong> carry meaning and get stressed: nouns (house), verbs (run), adjectives (big), adverbs (quickly). <strong>Function words</strong> are grammatical glue and get reduced: articles (the → /ðə/), prepositions (to → /tə/), pronouns (him → /ɪm/), auxiliaries (have → /əv/).</p>
+                </div>
+            </div>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 From Lesson 2 — The British Vowel Map</div>
+                <p style="margin-top: 10px;">2. What's the NURSE/STRUT distinction? Say "bird" and "but" — what's different?</p>
+                <button class="reveal-button" onclick="toggleReveal('recall-2')">Check</button>
+                <div id="recall-2" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p><strong>NURSE /ɜː/</strong> = long, central vowel with rounded lips. "Bird" /bɜːd/, "nurse" /nɜːs/, "word" /wɜːd/. <strong>STRUT /ʌ/</strong> = short, open, unrounded. "But" /bʌt/, "cup" /kʌp/, "love" /lʌv/. These are different phonemes in RP even though they sound similar to some learners.</p>
+                </div>
+            </div>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 From Lesson 3 — Consonant Signatures</div>
+                <p style="margin-top: 10px;">3. What's the difference between linking R and intrusive R? Give an example of each.</p>
+                <button class="reveal-button" onclick="toggleReveal('recall-3')">Check</button>
+                <div id="recall-3" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p><strong>Linking R:</strong> The word has an R in the spelling that "wakes up" before a vowel. "Car engine" → /kɑːr endʒɪn/. The R is there in the spelling but silent before consonants or pauses.</p>
+                    <p style="margin-top: 6px;"><strong>Intrusive R:</strong> An /r/ appears where there's NO R in the spelling, to smooth the gap between two vowels. "Law and order" → /lɔːr ənd ɔːdə/. No R in "law," but speakers insert one naturally.</p>
+                </div>
+            </div>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 From Lesson 4 — Connected Speech</div>
+                <p style="margin-top: 10px;">4. Name the four processes of connected speech. For each one, give a one-word definition and a quick example.</p>
+                <button class="reveal-button" onclick="toggleReveal('recall-4')">Check</button>
+                <div id="recall-4" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p><strong>Elision</strong> = deletion. "Last night" → /lɑːs naɪt/ — the /t/ drops.</p>
+                    <p><strong>Assimilation</strong> = change. "Would you" → /wʊdʒuː/ — /d/+/j/ become /dʒ/.</p>
+                    <p><strong>Catenation</strong> = linking. "Pick it up" → /pɪ-kɪ-tʌp/ — consonant jumps to next vowel.</p>
+                    <p><strong>Weak forms</strong> = reduction. "Must have" → /məstəv/ — function words shrink.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 7: Wrap-Up ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🧠 Final check — from memory</h2>
+            <p>Look away. Answer aloud.</p>
+
+            <div class="exercise">
+                <div class="exercise-prompt">1. Name the three core pitch patterns and what each one signals.</div>
+                <button class="reveal-button" onclick="toggleReveal('final-1')">Check</button>
+                <div id="final-1" class="reveal-box">
+                    <p><strong>Fall ⬇️:</strong> Certainty, finality, authority. Used for statements and wh-questions.</p>
+                    <p><strong>Rise ⬆️:</strong> Openness, checking, incompleteness. Used for yes/no questions and list items.</p>
+                    <p><strong>Fall-rise ↘↗:</strong> Hedging, politeness, contrast, "but..." The most characteristically British pattern.</p>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">2. What is the "tonic syllable"? Why does moving it change the meaning of a sentence?</div>
+                <button class="reveal-button" onclick="toggleReveal('final-2')">Check</button>
+                <div id="final-2" class="reveal-box">
+                    <p>The <strong>tonic syllable</strong> (or nucleus) is the last stressed syllable where the main pitch movement happens. It highlights the most important or contrastive information. Moving it changes which word gets focus: "<strong>I</strong> didn't take it" (someone else did) vs "I didn't <strong>take</strong> it" (I did something else with it).</p>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">3. Why is the fall-rise so important for sounding natural in British English? Give two situations where you'd use it.</div>
+                <button class="reveal-button" onclick="toggleReveal('final-3')">Check</button>
+                <div id="final-3" class="reveal-box">
+                    <p>The fall-rise is how British speakers signal <strong>"there's more to this"</strong> — hedging, politeness, doubt, contrast, and softened disagreement. Without it, you can sound blunt or rude.</p>
+                    <p style="margin-top: 6px;">Two situations: <strong>Polite disagreement</strong> — "I'm not ↘↗sure about that..." (softened). <strong>Mixed feelings</strong> — "It was ↘↗nice..." (nice, but not amazing).</p>
+                </div>
+            </div>
+
+            <h2 class="section-title">💭 Thinking about learning</h2>
+            <div class="exercise">
+                <div class="exercise-prompt">Think about your first language. Does it have anything like the fall-rise pattern? How does your language signal politeness, doubt, or "but..." through voice pitch?</div>
+                <textarea placeholder="Compare your L1 intonation system with English..."></textarea>
+            </div>
+
+            <div class="can-statement">
+                ✅ I can use the three core pitch patterns — fall, rise, and fall-rise — to signal certainty, questions, and hedging, and I can shift tonic stress to change the meaning and focus of a sentence.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            tabs.forEach((tab, i) => { tab.classList.remove('active'); buttons[i].classList.remove('active'); });
+            tabs[tabIndex].classList.add('active');
+            buttons[tabIndex].classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleReveal(id) { document.getElementById(id).classList.toggle('show'); }
+
+        function checkQuiz(btn, isCorrect, fbId) {
+            const fb = document.getElementById(fbId);
+            const parent = btn.closest('.exercise');
+            const options = parent.querySelectorAll('.quiz-option');
+            if (parent.dataset.answered) return;
+            parent.dataset.answered = 'true';
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            if (isCorrect) {
+                btn.classList.add('correct-answer');
+                fb.className = 'feedback correct';
+                fb.innerHTML = '✓ Correct!';
+            } else {
+                btn.classList.add('wrong-answer');
+                options.forEach(opt => { if (opt.onclick.toString().includes('true')) opt.classList.add('correct-answer'); });
+                fb.className = 'feedback incorrect';
+                fb.innerHTML = '✗ Not quite — correct answer highlighted.';
+            }
+        }
+
+        let timerIntervals = {};
+        function startTimer(id, seconds) {
+            const display = document.getElementById(id);
+            if (timerIntervals[id]) clearInterval(timerIntervals[id]);
+            let remaining = parseInt(display.dataset.remaining || seconds);
+            display.dataset.remaining = remaining;
+            timerIntervals[id] = setInterval(() => {
+                remaining--;
+                display.dataset.remaining = remaining;
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                display.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+                display.className = 'timer-display';
+                if (remaining <= 10) display.classList.add('danger');
+                else if (remaining <= 30) display.classList.add('warning');
+                if (remaining <= 0) { clearInterval(timerIntervals[id]); display.textContent = '0:00'; display.classList.add('danger'); }
+            }, 1000);
+        }
+
+        function resetTimer(id, seconds) {
+            if (timerIntervals[id]) clearInterval(timerIntervals[id]);
+            const display = document.getElementById(id);
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            display.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+            display.dataset.remaining = seconds;
+            display.className = 'timer-display';
+        }
+    </script>
+</body>
+</html>

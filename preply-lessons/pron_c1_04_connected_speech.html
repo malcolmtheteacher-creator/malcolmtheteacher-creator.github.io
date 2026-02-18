@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connected Speech — Pronunciation Pathway 4</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa; padding: 20px; line-height: 1.6;
+        }
+        .container {
+            max-width: 900px; margin: 0 auto; background: white;
+            border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 30px; text-align: center;
+        }
+        .header h1 { font-size: 28px; margin-bottom: 8px; }
+        .header p { font-size: 14px; opacity: 0.9; }
+        .series-badge {
+            display: inline-block; background: rgba(255,255,255,0.2);
+            padding: 4px 12px; border-radius: 20px; font-size: 12px;
+            margin-bottom: 10px; letter-spacing: 0.5px;
+        }
+        .tabs {
+            display: flex; border-bottom: 2px solid #e0e0e0;
+            background: white; flex-wrap: wrap;
+        }
+        .tab-button {
+            flex: 1; min-width: 80px; padding: 14px 8px; border: none;
+            background: white; cursor: pointer; font-size: 13px; font-weight: 600;
+            color: #666; transition: all 0.3s ease;
+            border-bottom: 3px solid transparent; margin-bottom: -2px;
+        }
+        .tab-button.active { color: #667eea; border-bottom-color: #667eea; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-content { padding: 35px; display: none; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .section-title {
+            font-size: 18px; font-weight: 700; color: #333;
+            margin: 24px 0 15px 0; display: flex; align-items: center; gap: 10px;
+        }
+        .section-title:first-child { margin-top: 0; }
+
+        .visual-box { background: #f5f5f5; border-left: 4px solid #667eea; padding: 20px; margin: 20px 0; border-radius: 4px; }
+        .rule-box { background: #fffde7; border-left: 4px solid #fbc02d; padding: 15px; margin: 15px 0; border-radius: 4px; font-size: 14px; }
+        .trick-box { background: #f0f7ff; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .trick-box strong { color: #1976D2; }
+        .exercise { background: #fafafa; padding: 20px; margin: 15px 0; border-radius: 4px; border-left: 4px solid #667eea; }
+        .exercise-prompt { font-weight: 600; color: #333; margin-bottom: 10px; }
+        .green-box { background: #f1f8e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .recall-box { background: #fff3e0; border-left: 4px solid #ff9800; padding: 15px; margin: 15px 0; border-radius: 4px; }
+
+        .reveal-box { background: #e8eaf6; padding: 15px; border-radius: 4px; margin-top: 10px; border-left: 4px solid #667eea; display: none; }
+        .reveal-box.show { display: block; }
+
+        button { padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; transition: background 0.3s ease; font-size: 14px; }
+        button:hover { background: #764ba2; }
+        .reveal-button { padding: 8px 16px; font-size: 13px; margin-top: 10px; }
+        .btn-outline { background: white; color: #667eea; border: 2px solid #667eea; }
+        .btn-outline:hover { background: #667eea; color: white; }
+
+        .feedback { padding: 12px; border-radius: 4px; margin-top: 10px; font-size: 14px; display: none; }
+        .feedback.correct { background: #c8e6c9; color: #2e7d32; border-left: 4px solid #2e7d32; display: block; }
+        .feedback.incorrect { background: #ffcdd2; color: #c62828; border-left: 4px solid #c62828; display: block; }
+
+        input[type="text"], textarea { padding: 10px; border: 2px solid #e0e0e0; border-radius: 4px; font-size: 14px; font-family: inherit; width: 100%; }
+        input[type="text"]:focus, textarea:focus { outline: none; border-color: #667eea; }
+        textarea { resize: vertical; min-height: 80px; }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
+        .card { background: white; border: 2px solid #e0e0e0; border-radius: 8px; padding: 18px; }
+        .card h4 { color: #333; margin-bottom: 8px; font-size: 15px; }
+        .card p { font-size: 13px; color: #666; margin: 0; }
+
+        /* Process feature */
+        .process-card {
+            background: white; border: 2px solid #e0e0e0; border-radius: 8px;
+            padding: 20px; margin: 12px 0;
+        }
+        .process-card h4 {
+            font-size: 16px; color: #667eea; margin-bottom: 10px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .process-card .ipa {
+            font-family: 'Lucida Sans Unicode', Georgia, serif;
+            color: #667eea; font-weight: 700;
+        }
+
+        /* Decode display */
+        .decode-block {
+            background: #1a1a2e; border-radius: 8px; padding: 22px;
+            margin: 15px 0; color: white; font-family: Georgia, serif;
+        }
+        .decode-block .written {
+            font-size: 17px; color: #ccc; margin-bottom: 8px; letter-spacing: 0.5px;
+        }
+        .decode-block .spoken {
+            font-size: 17px; color: #67b26f; font-weight: 600; margin-bottom: 4px;
+        }
+        .decode-block .process-tags {
+            font-size: 12px; color: #aaa; margin-top: 6px;
+        }
+        .decode-block .process-tags span {
+            background: rgba(255,255,255,0.1); padding: 2px 8px;
+            border-radius: 10px; margin-right: 6px;
+        }
+
+        /* Match exercise */
+        .match-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px; margin: 8px 0; background: #fafafa;
+            border-radius: 6px; border: 1px solid #e0e0e0;
+        }
+        .match-item .phrase { font-weight: 600; min-width: 200px; font-size: 15px; }
+        .match-item input {
+            flex: 1; padding: 8px; border: 2px solid #e0e0e0;
+            border-radius: 4px; font-family: 'Lucida Sans Unicode', Georgia, serif;
+            font-size: 14px;
+        }
+        .match-item input:focus { border-color: #667eea; outline: none; }
+
+        /* Quiz */
+        .quiz-options { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+        .quiz-option {
+            padding: 10px 18px; background: #f5f5f5; border: 2px solid #e0e0e0;
+            border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500;
+            transition: all 0.2s; font-family: inherit; color: #333;
+        }
+        .quiz-option:hover { border-color: #667eea; background: #f0f0ff; }
+        .quiz-option.correct-answer { border-color: #4caf50; background: #c8e6c9; color: #2e7d32; }
+        .quiz-option.wrong-answer { border-color: #e53935; background: #ffcdd2; color: #c62828; }
+
+        /* Timer */
+        .timer-container { display: flex; align-items: center; gap: 15px; margin: 15px 0; }
+        .timer-display { font-size: 28px; font-weight: 700; font-family: 'Courier New', monospace; color: #00897b; min-width: 70px; }
+        .timer-display.warning { color: #f9a825; }
+        .timer-display.danger { color: #e53935; animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .timer-btn { padding: 6px 14px; font-size: 12px; border-radius: 4px; }
+
+        /* Discussion cards */
+        .discussion-card {
+            background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(118,75,162,0.08));
+            border: 2px solid #667eea; border-radius: 8px; padding: 20px;
+            margin: 10px 0; cursor: pointer; transition: all 0.3s;
+        }
+        .discussion-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102,126,234,0.2); }
+        .discussion-card h4 { color: #667eea; margin-bottom: 8px; }
+
+        .can-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 20px; border-radius: 4px;
+            text-align: center; font-weight: 700; font-size: 16px; margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 20px; }
+            .header h1 { font-size: 22px; }
+            .tab-content { padding: 20px; }
+            .tabs { flex-direction: column; }
+            .tab-button { border-bottom: 1px solid #e0e0e0; margin-bottom: 0; text-align: left; padding: 12px 16px; }
+            .tab-button.active { border-left: 4px solid #667eea; border-bottom: 1px solid #e0e0e0; }
+            .two-col { grid-template-columns: 1fr; }
+            .match-item { flex-direction: column; align-items: flex-start; }
+            .match-item .phrase { min-width: unset; }
+            .decode-block { padding: 15px; }
+            .decode-block .written, .decode-block .spoken { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="series-badge">PRONUNCIATION PATHWAY &bull; LESSON 4 OF 6</div>
+            <h1>🔗 Connected Speech in Action</h1>
+            <p>B2–C1 &bull; British English &bull; What happens when words meet — and why fast English sounds like a different language</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)">1. What You Know</button>
+            <button class="tab-button" onclick="showTab(1)">2. The Four Processes</button>
+            <button class="tab-button" onclick="showTab(2)">3. Decoding Practice</button>
+            <button class="tab-button" onclick="showTab(3)">4. Produce It</button>
+            <button class="tab-button" onclick="showTab(4)">5. Speaking</button>
+            <button class="tab-button" onclick="showTab(5)">6. Recall Zone</button>
+            <button class="tab-button" onclick="showTab(6)">7. Wrap-Up</button>
+        </div>
+
+        <!-- ==================== TAB 1: CONNECT ==================== -->
+        <div class="tab-content active">
+            <h2 class="section-title">🔍 What do you already know?</h2>
+            <p style="margin-bottom: 20px;">Have a go at these — don't overthink them.</p>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Say these phrases at natural speed. What happens to the sounds?</div>
+                <div style="margin: 15px 0; font-size: 16px; line-height: 2.4;">
+                    <p>1. "Would you like a cup of tea?"</p>
+                    <p>2. "I don't know what happened."</p>
+                    <p>3. "He must have been there."</p>
+                    <p>4. "Last night we went out."</p>
+                </div>
+                <p style="margin-top: 10px;">Now say them again, very slowly and carefully. Do they sound different? What changes when you speed up?</p>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">A thought experiment: why is fast, natural English so hard to understand — even for advanced learners?</div>
+                <button class="reveal-button" onclick="toggleReveal('hook-reveal')">Why is this?</button>
+                <div id="hook-reveal" class="reveal-box">
+                    <p>It's not that people speak "too fast." It's that <strong>sounds change when words connect</strong>. Sounds disappear (elision), sounds merge into new ones (assimilation), sounds link across word boundaries (catenation), and whole syllables get swallowed (weak forms).</p>
+                    <p style="margin-top: 8px;">These aren't sloppy speech — they're the <strong>rules of natural English</strong>. If you learn them, fast English suddenly becomes understandable. And if you use them, you instantly sound more fluent.</p>
+                </div>
+            </div>
+
+            <div class="rule-box" style="margin-top: 20px;">
+                <strong>Today we're working on</strong> the four processes of connected speech — elision, assimilation, catenation, and weak forms in combination — so you can both understand and produce natural-speed English.
+            </div>
+        </div>
+
+        <!-- ==================== TAB 2: The Four Processes ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🧬 The four processes of connected speech</h2>
+            <p>When words meet in natural speech, four things happen. You've already touched on weak forms (Lesson 1) and linking (Lesson 3). Now let's see the full picture.</p>
+
+            <div class="process-card">
+                <h4>✂️ 1. Elision — sounds disappear</h4>
+                <p>Certain sounds get dropped completely, especially /t/ and /d/ between consonants.</p>
+                <div class="decode-block" style="margin-top: 12px;">
+                    <div class="written">Written: "last night"</div>
+                    <div class="spoken">Spoken: /lɑːs naɪt/ — the /t/ in "last" drops</div>
+                    <div class="process-tags"><span>elision of /t/</span></div>
+                </div>
+                <div class="decode-block">
+                    <div class="written">Written: "handbag"</div>
+                    <div class="spoken">Spoken: /hæmbæɡ/ — the /d/ drops</div>
+                    <div class="process-tags"><span>elision of /d/</span></div>
+                </div>
+                <div class="decode-block">
+                    <div class="written">Written: "next please"</div>
+                    <div class="spoken">Spoken: /neks pliːz/ — the /t/ drops</div>
+                    <div class="process-tags"><span>elision of /t/</span></div>
+                </div>
+                <div class="trick-box" style="margin-top: 12px;">
+                    <strong>💡 The pattern:</strong> When /t/ or /d/ sits between two other consonants, it often drops. This is NOT lazy — it's the natural rule. "Postman" → /pəʊsmən/, "sandwich" → /sæmwɪdʒ/, "friendship" → /frenʃɪp/.
+                </div>
+            </div>
+
+            <div class="process-card">
+                <h4>🔄 2. Assimilation — sounds change to match their neighbours</h4>
+                <p>A sound changes to become more similar to the sound next to it — your mouth is preparing for what comes next.</p>
+                <div class="decode-block" style="margin-top: 12px;">
+                    <div class="written">Written: "would you"</div>
+                    <div class="spoken">Spoken: /wʊdʒuː/ — /d/ + /j/ merge into /dʒ/</div>
+                    <div class="process-tags"><span>assimilation /dj/ → /dʒ/</span></div>
+                </div>
+                <div class="decode-block">
+                    <div class="written">Written: "don't you"</div>
+                    <div class="spoken">Spoken: /dəʊntʃuː/ — /t/ + /j/ merge into /tʃ/</div>
+                    <div class="process-tags"><span>assimilation /tj/ → /tʃ/</span></div>
+                </div>
+                <div class="decode-block">
+                    <div class="written">Written: "ten boys"</div>
+                    <div class="spoken">Spoken: /tem bɔɪz/ — /n/ becomes /m/ before /b/</div>
+                    <div class="process-tags"><span>assimilation /n/ → /m/</span></div>
+                </div>
+                <div class="trick-box" style="margin-top: 12px;">
+                    <strong>💡 The big ones:</strong> /d/ + /j/ → /dʒ/ ("would you" → /wʊdʒuː/) and /t/ + /j/ → /tʃ/ ("don't you" → /dəʊntʃuː/). These happen constantly. Also: /s/ + /j/ → /ʃ/ ("miss you" → /mɪʃuː/) and /z/ + /j/ → /ʒ/ ("has your" → /hæʒɔː/).
+                </div>
+            </div>
+
+            <div class="process-card">
+                <h4>⛓️ 3. Catenation (linking) — consonants attach to the next vowel</h4>
+                <p>When a word ends in a consonant and the next word starts with a vowel, the consonant "jumps" to the next word.</p>
+                <div class="decode-block" style="margin-top: 12px;">
+                    <div class="written">Written: "turn it off"</div>
+                    <div class="spoken">Spoken: /tɜː nɪ tɒf/ — resyllabified as "tur-ni-toff"</div>
+                    <div class="process-tags"><span>catenation</span></div>
+                </div>
+                <div class="decode-block">
+                    <div class="written">Written: "pick it up"</div>
+                    <div class="spoken">Spoken: /pɪ kɪ tʌp/ — "pi-ki-tup"</div>
+                    <div class="process-tags"><span>catenation</span></div>
+                </div>
+                <p style="margin-top: 12px; font-size: 13px; color: #666;">You practised this in Lesson 3 with consonant linking. Catenation is the same principle: the consonant at the end of one word becomes the start of the next syllable.</p>
+            </div>
+
+            <div class="process-card">
+                <h4>🫠 4. Weak forms in chains — the full squeeze</h4>
+                <p>You learned individual weak forms in Lesson 1. In connected speech, multiple function words chain together into a rapid, reduced stream.</p>
+                <div class="decode-block" style="margin-top: 12px;">
+                    <div class="written">Written: "He must have been waiting for about an hour."</div>
+                    <div class="spoken">Spoken: /hi məstəv bɪn weɪtɪŋ frəbaʊt ən aʊə/</div>
+                    <div class="process-tags"><span>weak: must have → /məstəv/</span><span>weak: for about → /frəbaʊt/</span><span>weak: an → /ən/</span></div>
+                </div>
+                <div class="decode-block">
+                    <div class="written">Written: "I would have told you if I had known."</div>
+                    <div class="spoken">Spoken: /aɪ wʊdəv təʊldʒuː ɪf aɪd nəʊn/</div>
+                    <div class="process-tags"><span>weak: would have → /wʊdəv/</span><span>assimilation: told you → /təʊldʒuː/</span><span>weak: I had → /aɪd/</span></div>
+                </div>
+            </div>
+
+            <div class="rule-box">
+                <strong>🎯 Key insight:</strong> These four processes don't happen one at a time — they happen <strong>simultaneously</strong>. A single phrase might involve elision, assimilation, catenation, AND weak forms all at once. That's what makes natural speech sound so different from careful, word-by-word pronunciation.
+            </div>
+        </div>
+
+        <!-- ==================== TAB 3: Decoding Practice ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🤝 Decoding together</h2>
+            <p>Let's work through some phrases. Say each one naturally, then identify which processes are happening.</p>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Phrase 1: "I'm going to ask him about it."</div>
+                <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Say it at natural speed. What changes?</p>
+                <button class="reveal-button" onclick="toggleReveal('decode-1')">See the breakdown</button>
+                <div id="decode-1" class="reveal-box">
+                    <div class="decode-block" style="margin-top: 0;">
+                        <div class="spoken">/aɪm ɡənə ɑːsk ɪm əbaʊt ɪt/</div>
+                        <div class="process-tags">
+                            <span>weak: going to → /ɡənə/</span>
+                            <span>elision: him → /ɪm/</span>
+                            <span>catenation: ask-him → /ɑːskɪm/</span>
+                            <span>catenation: about-it → /əbaʊtɪt/</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Phrase 2: "What do you want to do?"</div>
+                <button class="reveal-button" onclick="toggleReveal('decode-2')">See the breakdown</button>
+                <div id="decode-2" class="reveal-box">
+                    <div class="decode-block" style="margin-top: 0;">
+                        <div class="spoken">/wɒdʒə wɒnə duː/</div>
+                        <div class="process-tags">
+                            <span>assimilation: what do you → /wɒdʒə/</span>
+                            <span>weak: want to → /wɒnə/</span>
+                        </div>
+                    </div>
+                    <p style="margin-top: 8px; font-size: 13px;">Three words ("what do you") become one syllable cluster /wɒdʒə/. "Want to" → /wɒnə/ (the /t/ drops by elision, and "to" weakens to /ə/).</p>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Phrase 3: "He could have left it at the office."</div>
+                <button class="reveal-button" onclick="toggleReveal('decode-3')">See the breakdown</button>
+                <div id="decode-3" class="reveal-box">
+                    <div class="decode-block" style="margin-top: 0;">
+                        <div class="spoken">/hi kʊdəv leftɪt ət ði ɒfɪs/</div>
+                        <div class="process-tags">
+                            <span>weak: could have → /kʊdəv/</span>
+                            <span>catenation: left-it → /leftɪt/</span>
+                            <span>catenation: at-the → /ətðɪ/</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">🎯 Your turn — identify the processes</h2>
+
+            <div class="exercise" id="quiz-1">
+                <div class="exercise-prompt">"Last Christmas" — what happens to the /t/ in "last"?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-1')">Elision — the /t/ drops</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-1')">Assimilation — /t/ becomes /k/</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-1')">Catenation — /t/ links to next vowel</button>
+                </div>
+                <div id="qfb-1" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-2">
+                <div class="exercise-prompt">"Miss you" — what happens to the /s/ + /j/?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-2')">Elision — the /s/ drops</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-2')">Assimilation — /sj/ becomes /ʃ/ ("mishu")</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-2')">Catenation — /s/ links to /j/</button>
+                </div>
+                <div id="qfb-2" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-3">
+                <div class="exercise-prompt">"Pick it up" — what's the main process?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-3')">Elision — sounds drop</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-3')">Assimilation — sounds merge</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-3')">Catenation — "pi-ki-tup"</button>
+                </div>
+                <div id="qfb-3" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-4">
+                <div class="exercise-prompt">"I would have gone" — what happens to "would have"?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-4')">Catenation</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-4')">Weak forms — /wʊdəv/</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-4')">Elision — sounds drop</button>
+                </div>
+                <div id="qfb-4" class="feedback"></div>
+            </div>
+
+            <div class="exercise" id="quiz-5">
+                <div class="exercise-prompt">"Don't you think so?" — what happens to "don't you"?</div>
+                <div class="quiz-options">
+                    <button class="quiz-option" onclick="checkQuiz(this, true, 'qfb-5')">Assimilation — /tj/ → /tʃ/ ("dontchu")</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-5')">Elision — the /t/ drops</button>
+                    <button class="quiz-option" onclick="checkQuiz(this, false, 'qfb-5')">Weak forms — "don't" reduces</button>
+                </div>
+                <div id="qfb-5" class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 4: Produce It ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🗣️ Producing connected speech</h2>
+            <p>Now let's go in the other direction — starting from careful speech and building up to natural speed.</p>
+
+            <div class="exercise">
+                <div class="exercise-prompt">Speed drill: say each phrase three times — slow, medium, then natural speed.</div>
+                <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Focus on letting the connected speech features happen naturally as you speed up. Don't force them — they should emerge from speed.</p>
+
+                <div style="margin: 8px 0; padding: 14px; background: #f5f5f5; border-radius: 6px; font-size: 15px;">
+                    <strong>1.</strong> "Would you like to come with us?"<br>
+                    <span style="font-size: 12px; color: #888;">Target: /wʊdʒə laɪk tə kʌm wɪð əs/</span>
+                </div>
+                <div style="margin: 8px 0; padding: 14px; background: #f5f5f5; border-radius: 6px; font-size: 15px;">
+                    <strong>2.</strong> "I must have left my phone at home."<br>
+                    <span style="font-size: 12px; color: #888;">Target: /aɪ məstəv left maɪ fəʊn ət həʊm/</span>
+                </div>
+                <div style="margin: 8px 0; padding: 14px; background: #f5f5f5; border-radius: 6px; font-size: 15px;">
+                    <strong>3.</strong> "What are you going to do about it?"<br>
+                    <span style="font-size: 12px; color: #888;">Target: /wɒtə jə ɡənə duː əbaʊt ɪt/</span>
+                </div>
+                <div style="margin: 8px 0; padding: 14px; background: #f5f5f5; border-radius: 6px; font-size: 15px;">
+                    <strong>4.</strong> "She told him that she couldn't have done it."<br>
+                    <span style="font-size: 12px; color: #888;">Target: /ʃi təʊld ɪm ðət ʃi kʊdntəv dʌn ɪt/</span>
+                </div>
+                <div style="margin: 8px 0; padding: 14px; background: #f5f5f5; border-radius: 6px; font-size: 15px;">
+                    <strong>5.</strong> "I don't know what you're talking about."<br>
+                    <span style="font-size: 12px; color: #888;">Target: /aɪ dəʊn nəʊ wɒtʃɔː tɔːkɪŋ əbaʊt/</span>
+                </div>
+            </div>
+
+            <h2 class="section-title">🧩 Explain it</h2>
+            <div class="exercise">
+                <div class="exercise-prompt">Pick any one of the five phrases above. Explain in your own words what connected speech processes happen in it and why.</div>
+                <textarea placeholder="Say it aloud first, then write your analysis..."></textarea>
+                <button class="reveal-button" onclick="toggleReveal('explain-cs')">See a model for phrase 1</button>
+                <div id="explain-cs" class="reveal-box">
+                    <p><strong>"Would you like to come with us?"</strong></p>
+                    <p style="margin-top: 6px;">Two main processes: First, <strong>assimilation</strong> — "would you" becomes /wʊdʒə/ because the /d/ and /j/ merge into /dʒ/ (like "j"). Second, <strong>weak forms</strong> — "to" reduces to /tə/, "with" reduces to /wɪð/, "us" reduces to /əs/. The whole phrase flows as one connected chain rather than seven separate words.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 5: Speaking ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🎤 Speaking practice — letting it flow</h2>
+            <p>Choose 2 cards. Speak for 1–2 minutes on each. Focus on letting connected speech happen naturally — don't over-pronounce every word.</p>
+
+            <div class="discussion-card" onclick="this.querySelector('.dc-detail').classList.toggle('show')">
+                <h4>📱 Card A: Your morning routine</h4>
+                <p>Walk through a typical morning from waking up to leaving the house. Include all the small, boring details — that's where natural speech lives.</p>
+                <div class="dc-detail reveal-box" style="margin-top: 12px; border-left: none; background: rgba(102,126,234,0.08);">
+                    <p style="font-size: 13px; color: #555;"><strong>Connected speech focus:</strong> Routines are full of: "have to" /hæftə/, "going to" /ɡənə/, "want to" /wɒnə/, "and then" /ən ðen/, "get up" /ɡetʌp/ (catenation). Let these reductions happen naturally.</p>
+                </div>
+            </div>
+
+            <div class="discussion-card" onclick="this.querySelector('.dc-detail').classList.toggle('show')">
+                <h4>🤝 Card B: A misunderstanding</h4>
+                <p>Tell a story about a time there was a misunderstanding or miscommunication. What happened? How was it resolved?</p>
+                <div class="dc-detail reveal-box" style="margin-top: 12px; border-left: none; background: rgba(102,126,234,0.08);">
+                    <p style="font-size: 13px; color: #555;"><strong>Connected speech focus:</strong> Storytelling naturally produces: "told him" /təʊld ɪm/, "didn't know" /dɪdn nəʊ/, "should have" /ʃʊdəv/, "could have been" /kʊdəvbɪn/. Past narratives are excellent for practising weak form chains.</p>
+                </div>
+            </div>
+
+            <div class="discussion-card" onclick="this.querySelector('.dc-detail').classList.toggle('show')">
+                <h4>🗣️ Card C: Something you need to explain often</h4>
+                <p>Think of something you regularly have to explain to people — your job, a hobby, where you're from, a complex situation. Explain it naturally.</p>
+                <div class="dc-detail reveal-box" style="margin-top: 12px; border-left: none; background: rgba(102,126,234,0.08);">
+                    <p style="font-size: 13px; color: #555;"><strong>Connected speech focus:</strong> Explanations use lots of: "sort of" /sɔːtəv/, "kind of" /kaɪndəv/, "what it is, is..." /wɒtɪtɪz ɪz/, "the thing about it is" — all chains of weak forms and catenation.</p>
+                </div>
+            </div>
+
+            <div class="timer-container" style="margin-top: 20px;">
+                <span class="timer-display" id="timer-speak">1:30</span>
+                <button class="timer-btn" onclick="startTimer('timer-speak', 90)">Start 1:30</button>
+                <button class="timer-btn btn-outline" onclick="resetTimer('timer-speak', 90)">Reset</button>
+                <button class="timer-btn btn-outline" onclick="startTimer('timer-speak', 120)">2 min</button>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 30px;">✍️ Reflection</h2>
+            <div class="exercise">
+                <div class="exercise-prompt">After speaking, write 2–3 phrases where you noticed connected speech happening in your own speech. What processes were involved?</div>
+                <textarea placeholder="e.g. I said 'sort of' as /sɔːtəv/ (weak form + catenation)..."></textarea>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 6: RECALL ZONE ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🔄 Recall Zone</h2>
+            <p style="margin-bottom: 20px;">From memory — no peeking back.</p>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 From Lesson 1 — The Rhythm Engine</div>
+                <p style="margin-top: 10px;">1. What does "stress-timed" mean? Demonstrate it by saying: <strong>"The dogs will have been chasing the cats."</strong> — How many beats?</p>
+                <button class="reveal-button" onclick="toggleReveal('recall-1')">Check</button>
+                <div id="recall-1" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p>Stress-timed = stressed syllables at regular intervals. Three beats: <strong>DOGS</strong> — <strong>CHAS</strong>ing — <strong>CATS</strong>. "Will have been" gets compressed between beats.</p>
+                </div>
+            </div>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 From Lesson 2 — The British Vowel Map</div>
+                <p style="margin-top: 10px;">2. What's the BATH/TRAP split? Say "bath" and "bat" — what's different in your mouth?</p>
+                <button class="reveal-button" onclick="toggleReveal('recall-2')">Check</button>
+                <div id="recall-2" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p><strong>BATH /ɑː/</strong> = long, open, back of mouth ("ahhh"). <strong>TRAP /æ/</strong> = short, front, spread. In RP, words like bath, grass, laugh, dance use /ɑː/. This is the biggest British vs American marker.</p>
+                </div>
+            </div>
+
+            <div class="recall-box">
+                <div class="exercise-prompt" style="color: #e65100;">🧠 From Lesson 3 — Consonant Signatures</div>
+                <p style="margin-top: 10px;">3. Name the three consonant features of British English. For each one, give a one-sentence explanation and an example.</p>
+                <button class="reveal-button" onclick="toggleReveal('recall-3')">Check</button>
+                <div id="recall-3" class="reveal-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                    <p><strong>Non-rhoticity:</strong> R only before a vowel. "Car" = /kɑː/, "car engine" = /kɑːr endʒɪn/.</p>
+                    <p><strong>Crisp T:</strong> Clean T between vowels, not the American flap. "Better" = /betə/ not /beɾər/.</p>
+                    <p><strong>Clear/Dark L:</strong> Clear before vowels (light), dark before consonants/end (full). Back of tongue lifts for dark L.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 7: Wrap-Up ==================== -->
+        <div class="tab-content">
+            <h2 class="section-title">🧠 Final check — from memory</h2>
+            <p>Look away. Answer aloud.</p>
+
+            <div class="exercise">
+                <div class="exercise-prompt">1. Name the four processes of connected speech and give one example of each.</div>
+                <button class="reveal-button" onclick="toggleReveal('final-1')">Check</button>
+                <div id="final-1" class="reveal-box">
+                    <p><strong>Elision:</strong> Sounds disappear. "Last night" → /lɑːs naɪt/ (the /t/ drops).</p>
+                    <p><strong>Assimilation:</strong> Sounds change to match neighbours. "Would you" → /wʊdʒuː/ (/dj/ → /dʒ/).</p>
+                    <p><strong>Catenation:</strong> Final consonant links to next vowel. "Pick it up" → /pɪ-kɪ-tʌp/.</p>
+                    <p><strong>Weak forms:</strong> Function words reduce. "Must have" → /məstəv/.</p>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">2. What's the assimilation rule for /d/ + /j/? And for /t/ + /j/? Give an example phrase for each.</div>
+                <button class="reveal-button" onclick="toggleReveal('final-2')">Check</button>
+                <div id="final-2" class="reveal-box">
+                    <p><strong>/d/ + /j/ → /dʒ/:</strong> "Would you" → /wʊdʒuː/, "told you" → /təʊldʒuː/.</p>
+                    <p><strong>/t/ + /j/ → /tʃ/:</strong> "Don't you" → /dəʊntʃuː/, "what you" → /wɒtʃuː/.</p>
+                </div>
+            </div>
+
+            <div class="exercise">
+                <div class="exercise-prompt">3. Say "What are you going to do about it?" at natural speed. Then break down what happened to each word.</div>
+                <button class="reveal-button" onclick="toggleReveal('final-3')">Check</button>
+                <div id="final-3" class="reveal-box">
+                    <p>/wɒtə jə ɡənə duː əbaʊt ɪt/</p>
+                    <p style="margin-top: 6px;">"What are" → /wɒtə/ (catenation + weak form). "You" → /jə/ (weak). "Going to" → /ɡənə/ (elision + weak). "About it" → /əbaʊtɪt/ (catenation).</p>
+                </div>
+            </div>
+
+            <h2 class="section-title">💭 Thinking about learning</h2>
+            <div class="exercise">
+                <div class="exercise-prompt">Which process do you think will improve your fluency the most — elision, assimilation, catenation, or weak forms? Why?</div>
+                <textarea placeholder="Think about which one you use least naturally right now..."></textarea>
+            </div>
+
+            <div class="can-statement">
+                ✅ I can identify and produce the four processes of connected speech — elision, assimilation, catenation, and weak forms — and explain how they work together to create natural-speed English.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            tabs.forEach((tab, i) => { tab.classList.remove('active'); buttons[i].classList.remove('active'); });
+            tabs[tabIndex].classList.add('active');
+            buttons[tabIndex].classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleReveal(id) { document.getElementById(id).classList.toggle('show'); }
+
+        function checkQuiz(btn, isCorrect, fbId) {
+            const fb = document.getElementById(fbId);
+            const parent = btn.closest('.exercise');
+            const options = parent.querySelectorAll('.quiz-option');
+            if (parent.dataset.answered) return;
+            parent.dataset.answered = 'true';
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+            if (isCorrect) {
+                btn.classList.add('correct-answer');
+                fb.className = 'feedback correct';
+                fb.innerHTML = '✓ Correct!';
+            } else {
+                btn.classList.add('wrong-answer');
+                options.forEach(opt => { if (opt.onclick.toString().includes('true')) opt.classList.add('correct-answer'); });
+                fb.className = 'feedback incorrect';
+                fb.innerHTML = '✗ Not quite — correct answer highlighted.';
+            }
+        }
+
+        let timerIntervals = {};
+        function startTimer(id, seconds) {
+            const display = document.getElementById(id);
+            if (timerIntervals[id]) clearInterval(timerIntervals[id]);
+            let remaining = parseInt(display.dataset.remaining || seconds);
+            display.dataset.remaining = remaining;
+            timerIntervals[id] = setInterval(() => {
+                remaining--;
+                display.dataset.remaining = remaining;
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                display.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+                display.className = 'timer-display';
+                if (remaining <= 10) display.classList.add('danger');
+                else if (remaining <= 30) display.classList.add('warning');
+                if (remaining <= 0) { clearInterval(timerIntervals[id]); display.textContent = '0:00'; display.classList.add('danger'); }
+            }, 1000);
+        }
+
+        function resetTimer(id, seconds) {
+            if (timerIntervals[id]) clearInterval(timerIntervals[id]);
+            const display = document.getElementById(id);
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            display.textContent = mins + ':' + (secs < 10 ? '0' : '') + secs;
+            display.dataset.remaining = seconds;
+            display.className = 'timer-display';
+        }
+    </script>
+</body>
+</html>
