@@ -125,6 +125,28 @@
             text-transform: uppercase;
         }
 
+        /* Category colours */
+        .cat-pathway { border-left: 4px solid #2563eb; }
+        .cat-pathway .resource-level { background: #2563eb; }
+        .cat-conversation { border-left: 4px solid #d97706; }
+        .cat-conversation .resource-level { background: #d97706; }
+        .cat-professional { border-left: 4px solid #16a34a; }
+        .cat-professional .resource-level { background: #16a34a; }
+        .cat-discourse { border-left: 4px solid #7c3aed; }
+        .cat-discourse .resource-level { background: #7c3aed; }
+        .cat-skills { border-left: 4px solid #64748b; }
+        .cat-skills .resource-level { background: #64748b; }
+
+        .section-label {
+            grid-column: 1 / -1;
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.1rem;
+            color: var(--mid-gray);
+            padding-top: 15px;
+            margin-bottom: -8px;
+        }
+        .section-label:first-child { padding-top: 0; }
+
         /* Big Browse Button */
         .browse-all {
             display: block;
@@ -426,92 +448,101 @@
         <!-- Free Lessons -->
         <h2>Free Lessons</h2>
         <div class="resources-grid">
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/general_english_dashboard.html" class="resource-card">
-                <span class="resource-level">A2 → C1</span>
-                <div class="resource-title">General English</div>
-                <div class="resource-desc">50 interactive lessons from elementary to advanced.</div>
-            </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_pathway_dashboard.html" class="resource-card">
-                <span class="resource-level">A2 → C1</span>
-                <div class="resource-title">Speaking Pathway</div>
-                <div class="resource-desc">75 lessons + prep packs to develop speaking fluency. Vocabulary, readings, and discussion prep included.</div>
-            </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/a1_pathway_dashboard.html" class="resource-card">
+            <div class="section-label">Core Pathways</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/a1_pathway_dashboard.html" class="resource-card cat-pathway">
                 <span class="resource-level">A1 → A2</span>
                 <div class="resource-title">A1 English Pathway</div>
                 <div class="resource-desc">Complete 50-lesson pathway from absolute beginner to A2 threshold with spaced repetition.</div>
             </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_dashboard.html" class="resource-card">
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/general_english_dashboard.html" class="resource-card cat-pathway">
+                <span class="resource-level">A2 → C1</span>
+                <div class="resource-title">General English</div>
+                <div class="resource-desc">50 interactive lessons from elementary to advanced.</div>
+            </a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_pathway_dashboard.html" class="resource-card cat-pathway">
+                <span class="resource-level">A2 → C1</span>
+                <div class="resource-title">Speaking Pathway</div>
+                <div class="resource-desc">75 lessons + prep packs to develop speaking fluency. Vocabulary, readings, and discussion prep included.</div>
+            </a>
+
+            <div class="section-label">Conversation &amp; Discussion</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_dashboard.html" class="resource-card cat-conversation">
                 <span class="resource-level">B1+</span>
                 <div class="resource-title">Curious Conversations</div>
                 <div class="resource-desc">Discussion-based lessons on philosophy and ideas.</div>
             </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_series2_dashboard.html" class="resource-card">
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_series2_dashboard.html" class="resource-card cat-conversation">
                 <span class="resource-level">B1+</span>
                 <div class="resource-title">Curious Conversations: Series 2</div>
                 <div class="resource-desc">More discussion-based lessons exploring ideas and ethics.</div>
             </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_dashboard.html" class="resource-card">
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_dashboard.html" class="resource-card cat-conversation">
                 <span class="resource-level">B1+</span>
                 <div class="resource-title">Speaking Naturally</div>
                 <div class="resource-desc">Fluency and natural expression.</div>
             </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_teens_dashboard.html" class="resource-card">
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_teens_dashboard.html" class="resource-card cat-conversation">
                 <span class="resource-level">B1+ Teens</span>
                 <div class="resource-title">Speaking Naturally: Teens</div>
                 <div class="resource-desc">7 discussion lessons on social media, AI, cancel culture, climate change, and philosophy for young learners.</div>
             </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/cambridge_exam_prep_dashboard.html" class="resource-card">
-                <span class="resource-level">B2 → C2</span>
-                <div class="resource-title">Cambridge Exams</div>
-                <div class="resource-desc">FCE, CAE, CPE preparation.</div>
-            </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/professional_skills_dashboard.html" class="resource-card">
+
+            <div class="section-label">Professional &amp; Business</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/professional_skills_dashboard.html" class="resource-card cat-professional">
                 <span class="resource-level">B1+</span>
                 <div class="resource-title">Professional Skills</div>
                 <div class="resource-desc">Business English and workplace communication.</div>
             </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_meetings_dashboard.html" class="resource-card">
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_meetings_dashboard.html" class="resource-card cat-professional">
                 <span class="resource-level">B1</span>
                 <div class="resource-title">Business Meeting Essentials</div>
                 <div class="resource-desc">Core skills for leading and participating in professional meetings.</div>
             </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_bootcamp_dashboard.html" class="resource-card">
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_bootcamp_dashboard.html" class="resource-card cat-professional">
                 <span class="resource-level">B2 → C1</span>
                 <div class="resource-title">The Boardroom: Business Bootcamp</div>
                 <div class="resource-desc">8 Apprentice-inspired lessons on pitching, negotiation, leadership, and business acumen.</div>
             </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/commanding_discourse_dashboard.html" class="resource-card">
-                <span class="resource-level">C1 → C2</span>
-                <div class="resource-title">Commanding Discourse</div>
-                <div class="resource-desc">6 lessons on advanced fluency: hedging, argument structure, speculation, and high-stakes speaking.</div>
-            </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/discourse_bestiary_pathway.html" class="resource-card">
-                <span class="resource-level">C1 → C2</span>
-                <div class="resource-title">Discourse Bestiary</div>
-                <div class="resource-desc">30 expressions locked into memory with the Bestiary system. 6 lessons, 5 creatures each.</div>
-            </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/beyond_perfect_dashboard.html" class="resource-card">
-                <span class="resource-level">C2</span>
-                <div class="resource-title">Beyond Perfect</div>
-                <div class="resource-desc">When excellent English isn't enough. 6 lessons on register, uncertainty, pragmatics, and strategic communication for consulting professionals.</div>
-            </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/pronunciation_pathway_dashboard.html" class="resource-card">
-                <span class="resource-level">B2 → C1</span>
-                <div class="resource-title">Pronunciation Pathway: British English</div>
-                <div class="resource-desc">6-lesson progressive series on RP pronunciation: rhythm, vowels, consonants, connected speech, intonation, and shadowing.</div>
-            </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/strategic_storytelling_dashboard.html" class="resource-card">
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/strategic_storytelling_dashboard.html" class="resource-card cat-professional">
                 <span class="resource-level">C1+ Professional</span>
                 <div class="resource-title">Strategic Storytelling</div>
                 <div class="resource-desc">12-lesson masterclass: frame stories, reframe narratives, and move rooms. For senior professionals.</div>
             </a>
-            <a href="listening-lessons.html" class="resource-card">
+
+            <div class="section-label">Advanced Discourse</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/commanding_discourse_dashboard.html" class="resource-card cat-discourse">
+                <span class="resource-level">C1 → C2</span>
+                <div class="resource-title">Commanding Discourse</div>
+                <div class="resource-desc">6 lessons on advanced fluency: hedging, argument structure, speculation, and high-stakes speaking.</div>
+            </a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/discourse_bestiary_pathway.html" class="resource-card cat-discourse">
+                <span class="resource-level">C1 → C2</span>
+                <div class="resource-title">Discourse Bestiary</div>
+                <div class="resource-desc">30 expressions locked into memory with the Bestiary system. 6 lessons, 5 creatures each.</div>
+            </a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/beyond_perfect_dashboard.html" class="resource-card cat-discourse">
+                <span class="resource-level">C2</span>
+                <div class="resource-title">Beyond Perfect</div>
+                <div class="resource-desc">When excellent English isn't enough. 6 lessons on register, uncertainty, pragmatics, and strategic communication for consulting professionals.</div>
+            </a>
+
+            <div class="section-label">Skills &amp; Exam Prep</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/cambridge_exam_prep_dashboard.html" class="resource-card cat-skills">
+                <span class="resource-level">B2 → C2</span>
+                <div class="resource-title">Cambridge Exams</div>
+                <div class="resource-desc">FCE, CAE, CPE preparation.</div>
+            </a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/pronunciation_pathway_dashboard.html" class="resource-card cat-skills">
+                <span class="resource-level">B2 → C1</span>
+                <div class="resource-title">Pronunciation Pathway: British English</div>
+                <div class="resource-desc">6-lesson progressive series on RP pronunciation: rhythm, vowels, consonants, connected speech, intonation, and shadowing.</div>
+            </a>
+            <a href="listening-lessons.html" class="resource-card cat-skills">
                 <span class="resource-level">B1 → C1</span>
                 <div class="resource-title">Listening Practice</div>
                 <div class="resource-desc">9 interactive lessons with pre-listening, vocabulary, and comprehension activities.</div>
             </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/quick_fix_index.html" class="resource-card">
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/quick_fix_index.html" class="resource-card cat-skills">
                 <span class="resource-level">A2 → C1</span>
                 <div class="resource-title">Quick Fix Matrix</div>
                 <div class="resource-desc">132 searchable micro-lessons for common errors. Filter by grammar, vocabulary, collocations, false friends, pronunciation, spelling, and L1 background.</div>
