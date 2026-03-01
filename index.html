@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malcolm Hyndman | Storytelling Coach</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Instrument+Serif&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
     <style>
         :root {
-            --parchment: #f5f1eb;
-            --cream: #ebe6dd;
-            --ink: #3a3632;
-            --faded: #8a8580;
-            --hairline: #d5d0c8;
-            --rose: #b5604a;
-            --deep: #2c2926;
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --off-white: #f8f7f4;
+            --warm-gray: #e8e6e1;
+            --mid-gray: #6b6b6b;
+            --accent: #1e3a2f;
+            --gold: #b8960b;
         }
 
         * {
@@ -23,391 +23,381 @@
         }
 
         body {
-            font-family: 'Instrument Serif', Georgia, serif;
-            background: var(--parchment);
-            color: var(--ink);
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 720px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 60px 30px 40px;
+            padding: 60px 30px;
         }
 
         /* Header */
         header {
             display: flex;
-            align-items: flex-start;
-            gap: 28px;
-            margin-bottom: 48px;
-            padding-bottom: 32px;
-            border-bottom: 1px solid var(--hairline);
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 50px;
         }
 
         .headshot {
-            width: 90px;
-            height: 112px;
+            width: 120px;
+            height: 150px;
             object-fit: cover;
             object-position: top;
             flex-shrink: 0;
-            filter: grayscale(30%);
-            opacity: 0.9;
+            border: 1px solid var(--warm-gray);
         }
 
-        .header-text h1 {
+        .header-text {
+            text-align: left;
+        }
+
+        h1 {
             font-family: 'Instrument Serif', serif;
-            font-size: 2rem;
+            font-size: 2.4rem;
             font-weight: 400;
-            letter-spacing: -0.01em;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
         }
 
         .intro {
-            font-family: 'Inter', sans-serif;
-            color: var(--faded);
-            font-size: 0.88rem;
-            font-weight: 300;
+            color: var(--mid-gray);
+            font-size: 1.05rem;
             line-height: 1.6;
         }
 
-        /* Action links */
-        .actions {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 48px;
-            flex-wrap: wrap;
+        /* Section Headers */
+        h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
         }
 
-        .action-link {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 400;
-            letter-spacing: 0.03em;
+        /* Resources Grid */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .resource-card {
+            background: var(--off-white);
+            padding: 24px;
+            border: 1px solid var(--warm-gray);
             text-decoration: none;
-            color: var(--ink);
-            padding: 10px 20px;
-            border: 1px solid var(--hairline);
+            color: var(--black);
+            transition: all 0.2s;
+            display: block;
+        }
+
+        .resource-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .resource-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .resource-desc {
+            color: var(--mid-gray);
+            font-size: 0.9rem;
+        }
+
+        .resource-level {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--white);
+            padding: 3px 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Category colours */
+        .cat-pathway { border-left: 4px solid #2563eb; }
+        .cat-pathway .resource-level { background: #2563eb; }
+        .cat-conversation { border-left: 4px solid #d97706; }
+        .cat-conversation .resource-level { background: #d97706; }
+        .cat-professional { border-left: 4px solid #16a34a; }
+        .cat-professional .resource-level { background: #16a34a; }
+        .cat-discourse { border-left: 4px solid #7c3aed; }
+        .cat-discourse .resource-level { background: #7c3aed; }
+        .cat-skills { border-left: 4px solid #64748b; }
+        .cat-skills .resource-level { background: #64748b; }
+
+        .section-label {
+            grid-column: 1 / -1;
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.1rem;
+            color: var(--mid-gray);
+            padding-top: 15px;
+            margin-bottom: -8px;
+        }
+        .section-label:first-child { padding-top: 0; }
+
+        /* Big Browse Button */
+        .browse-all {
+            display: block;
+            background: var(--black);
+            color: var(--white);
+            padding: 22px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 40px;
+        }
+
+        .browse-all:hover {
+            background: var(--accent);
+        }
+
+        /* Book Session Button */
+        .book-session {
+            display: block;
+            background: var(--accent);
+            color: var(--white);
+            padding: 18px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 15px;
+            border: 2px solid var(--accent);
             transition: all 0.2s;
         }
 
-        .action-link:hover {
-            border-color: var(--ink);
+        .book-session:hover {
+            background: var(--white);
+            color: var(--accent);
         }
 
-        .action-link.primary {
-            background: var(--ink);
-            color: var(--parchment);
-            border-color: var(--ink);
-        }
-
-        .action-link.primary:hover {
-            background: var(--deep);
-        }
-
-        /* Section Headers */
-        .section-heading {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.35rem;
-            font-weight: 400;
-            margin-bottom: 8px;
-            color: var(--ink);
-        }
-
-        .section-rule {
-            width: 100%;
-            height: 1px;
-            background: var(--hairline);
-            margin-bottom: 28px;
-        }
-
-        /* Category label */
-        .cat-label {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--faded);
-            margin-top: 28px;
-            margin-bottom: 4px;
-        }
-
-        .cat-label:first-child {
-            margin-top: 0;
-        }
-
-        /* Lesson entries — diary style */
-        .entry {
-            display: block;
-            text-decoration: none;
-            color: var(--ink);
-            padding: 14px 0;
-            border-bottom: 1px solid var(--hairline);
-            transition: opacity 0.2s;
-        }
-
-        .entry:hover {
-            opacity: 0.7;
-        }
-
-        .entry-top {
-            display: flex;
-            align-items: baseline;
-            gap: 10px;
-            margin-bottom: 3px;
-        }
-
-        .entry-title {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.1rem;
-            font-weight: 400;
-        }
-
-        .entry-level {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.68rem;
-            font-weight: 400;
-            color: var(--faded);
-            letter-spacing: 0.02em;
-            white-space: nowrap;
-        }
-
-        .entry-desc {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 300;
-            color: var(--faded);
-            line-height: 1.5;
-        }
-
-        .lessons-list {
-            margin-bottom: 48px;
-        }
-
-        /* Featured banner — light diary style */
-        .featured-note {
-            border: 1px solid var(--hairline);
-            padding: 28px;
-            margin-bottom: 48px;
+        /* Professional Scenarios Banner */
+        .scenarios-banner {
+            background: var(--accent);
+            padding: 40px;
             text-align: center;
+            margin-bottom: 50px;
+            border-radius: 4px;
         }
 
-        .featured-note h3 {
+        .scenarios-banner h3 {
             font-family: 'Instrument Serif', serif;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 12px;
             font-weight: 400;
-            margin-bottom: 8px;
         }
 
-        .featured-note p {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 300;
-            color: var(--faded);
-            margin-bottom: 16px;
+        .scenarios-banner p {
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 20px;
         }
 
-        .featured-note a {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: var(--rose);
+        .scenarios-banner a {
+            display: inline-block;
+            background: var(--white);
+            color: var(--accent);
+            padding: 12px 28px;
+            font-weight: 600;
             text-decoration: none;
-            letter-spacing: 0.02em;
+            transition: all 0.2s;
         }
 
-        .featured-note a:hover {
-            text-decoration: underline;
+        .scenarios-banner a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        /* IELTS guides */
+        /* IELTS Section */
+        .ielts-section {
+            margin-bottom: 50px;
+        }
+
         .ielts-guides {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 20px;
         }
 
         .ielts-guides a {
-            max-width: 80px;
+            max-width: 100px;
         }
 
         .ielts-guides img {
             width: 100%;
-            opacity: 0.85;
-            transition: opacity 0.2s;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
         }
 
         .ielts-guides img:hover {
-            opacity: 1;
+            transform: scale(1.05);
         }
 
-        .ielts-entries {
-            margin-bottom: 48px;
+        /* Teaching Methods Image */
+        .methods-section {
+            margin-bottom: 50px;
         }
 
-        /* Memory Palace — warm light treatment */
-        .palace-section {
-            border: 1px solid var(--hairline);
-            padding: 32px 28px;
-            margin-bottom: 48px;
+        .methods-image {
+            width: 100%;
+            border: 1px solid var(--warm-gray);
+            border-radius: 4px;
         }
 
-        .palace-heading {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.3rem;
-            font-weight: 400;
-            margin-bottom: 6px;
+        .methods-caption {
             text-align: center;
-        }
-
-        .palace-epigraph {
-            font-family: 'Instrument Serif', serif;
-            font-size: 0.92rem;
-            font-style: italic;
-            color: var(--faded);
-            text-align: center;
-            margin-bottom: 24px;
-            line-height: 1.6;
-        }
-
-        .palace-entry {
-            display: block;
-            text-decoration: none;
-            color: var(--ink);
-            padding: 12px 0;
-            border-bottom: 1px solid var(--hairline);
-            transition: opacity 0.2s;
-        }
-
-        .palace-entry:last-of-type {
-            border-bottom: none;
-        }
-
-        .palace-entry:hover {
-            opacity: 0.7;
-        }
-
-        .palace-entry-title {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.05rem;
-            font-weight: 400;
-            margin-bottom: 2px;
-        }
-
-        .palace-entry-icon {
-            margin-right: 6px;
-        }
-
-        .palace-entry-desc {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 300;
-            color: var(--faded);
-        }
-
-        .palace-entry-count {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 400;
-            color: var(--rose);
-            margin-left: 4px;
-        }
-
-        .palace-coming {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 300;
-            color: var(--faded);
-            text-align: center;
-            margin-top: 16px;
+            color: var(--mid-gray);
+            font-size: 0.9rem;
+            margin-top: 12px;
             font-style: italic;
         }
 
-        .palace-tags {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 16px;
-        }
-
-        .palace-tag {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 300;
-            color: var(--faded);
-        }
-
-        /* Tools */
-        .tools-section {
-            margin-bottom: 48px;
-        }
-
-        /* Wisdom quote — minimal */
+        /* Wisdom Quotes Section */
         .wisdom-section {
+            background: linear-gradient(145deg, #141414 0%, #1f1f1f 100%);
+            padding: 40px;
+            margin-bottom: 50px;
+            border-radius: 4px;
             text-align: center;
-            padding: 36px 20px;
-            margin-bottom: 48px;
-            border-top: 1px solid var(--hairline);
-            border-bottom: 1px solid var(--hairline);
         }
 
         #wisdom-quote {
             font-family: 'Instrument Serif', serif;
-            font-size: 1.15rem;
+            font-size: 1.3rem;
+            color: var(--white);
             font-style: italic;
-            color: var(--ink);
             line-height: 1.6;
             transition: opacity 0.5s;
         }
 
         #wisdom-source {
-            font-family: 'Inter', sans-serif;
-            margin-top: 10px;
-            font-size: 0.75rem;
-            color: var(--faded);
-            font-weight: 400;
-            letter-spacing: 0.02em;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: var(--gold);
+            font-weight: 500;
             transition: opacity 0.5s;
         }
 
-        /* Teaching methods */
-        .methods-section {
-            margin-bottom: 48px;
-        }
-
-        .methods-image {
-            width: 100%;
-            opacity: 0.9;
-        }
-
-        .methods-caption {
-            font-family: 'Inter', sans-serif;
+        /* Memory Palace Section */
+        .palace-section {
+            background: linear-gradient(145deg, #141414 0%, #1f1f1f 100%);
+            padding: 40px;
+            margin-bottom: 50px;
+            border-radius: 4px;
             text-align: center;
-            color: var(--faded);
-            font-size: 0.78rem;
-            font-weight: 300;
-            margin-top: 10px;
-            font-style: italic;
+        }
+
+        .palace-section h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .palace-features {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+        .palace-feature {
+            padding: 7px 14px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 4px;
+            color: rgba(255,255,255,0.55);
+            font-size: 0.82rem;
+            transition: all 0.2s;
+        }
+
+        a.palace-feature:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .palace-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .featured-course-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.25s;
+        }
+
+        .featured-course-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, rgba(184, 150, 11, 0.12) 0%, rgba(255,255,255,0.04) 100%);
+        }
+
+        .featured-course-icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .featured-course-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 6px;
+            color: var(--gold);
+        }
+
+        .featured-course-desc {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.88rem;
+            margin-bottom: 10px;
+            flex-grow: 1;
+        }
+
+        .featured-course-lessons {
+            font-weight: 600;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding-top: 24px;
-            border-top: 1px solid var(--hairline);
-            font-family: 'Inter', sans-serif;
-            color: var(--faded);
-            font-size: 0.8rem;
-            font-weight: 300;
+            padding-top: 30px;
+            border-top: 1px solid var(--warm-gray);
+            color: var(--mid-gray);
+            font-size: 0.9rem;
         }
 
         footer a {
-            color: var(--ink);
+            color: var(--accent);
             text-decoration: none;
         }
 
@@ -415,29 +405,29 @@
             text-decoration: underline;
         }
 
-        /* Mobile */
         @media (max-width: 600px) {
             .container {
-                padding: 40px 20px 30px;
+                padding: 40px 20px;
             }
             header {
-                gap: 20px;
-            }
-            .headshot {
-                width: 70px;
-                height: 88px;
-            }
-            .header-text h1 {
-                font-size: 1.6rem;
-            }
-            .actions {
                 flex-direction: column;
-            }
-            .action-link {
                 text-align: center;
             }
-            .palace-section {
-                padding: 24px 20px;
+            .header-text {
+                text-align: center;
+            }
+            .headshot {
+                width: 100px;
+                height: 125px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .scenarios-banner, .wisdom-section, .palace-section {
+                padding: 30px 20px;
+            }
+            #wisdom-quote {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -452,332 +442,256 @@
             </div>
         </header>
 
-        <div class="actions">
-            <a href="https://preply.com/en/tutor/4383857" target="_blank" class="action-link primary">Book a Trial Lesson</a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/malcolm_lesson_index.html" class="action-link">Browse 1171 Free Lessons</a>
-        </div>
+        <a href="https://preply.com/en/tutor/4383857" target="_blank" class="book-session">Book a Trial Lesson on Preply →</a>
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/malcolm_lesson_index.html" class="browse-all">Browse 1171 Free Lessons →</a>
 
         <!-- Free Lessons -->
-        <div class="section-heading">Free Lessons</div>
-        <div class="section-rule"></div>
-
-        <div class="lessons-list">
-            <div class="cat-label">Core Pathways</div>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/a1_pathway_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">A1 English Pathway</span>
-                    <span class="entry-level">A1 — A2</span>
-                </div>
-                <div class="entry-desc">Complete 50-lesson pathway from absolute beginner to A2 threshold with spaced repetition.</div>
+        <h2>Free Lessons</h2>
+        <div class="resources-grid">
+            <div class="section-label">Core Pathways</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/a1_pathway_dashboard.html" class="resource-card cat-pathway">
+                <span class="resource-level">A1 → A2</span>
+                <div class="resource-title">A1 English Pathway</div>
+                <div class="resource-desc">Complete 50-lesson pathway from absolute beginner to A2 threshold with spaced repetition.</div>
+            </a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/general_english_dashboard.html" class="resource-card cat-pathway">
+                <span class="resource-level">A2 → C1</span>
+                <div class="resource-title">General English</div>
+                <div class="resource-desc">50 interactive lessons from elementary to advanced.</div>
+            </a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_pathway_dashboard.html" class="resource-card cat-pathway">
+                <span class="resource-level">A2 → C1</span>
+                <div class="resource-title">Speaking Pathway</div>
+                <div class="resource-desc">75 lessons + prep packs to develop speaking fluency. Vocabulary, readings, and discussion prep included.</div>
             </a>
 
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/general_english_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">General English</span>
-                    <span class="entry-level">A2 — C1</span>
-                </div>
-                <div class="entry-desc">50 interactive lessons from elementary to advanced.</div>
+            <div class="section-label">Conversation &amp; Discussion</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_dashboard.html" class="resource-card cat-conversation">
+                <span class="resource-level">B1+</span>
+                <div class="resource-title">Curious Conversations</div>
+                <div class="resource-desc">Discussion-based lessons on philosophy and ideas.</div>
+            </a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_series2_dashboard.html" class="resource-card cat-conversation">
+                <span class="resource-level">B1+</span>
+                <div class="resource-title">Curious Conversations: Series 2</div>
+                <div class="resource-desc">More discussion-based lessons exploring ideas and ethics.</div>
+            </a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_dashboard.html" class="resource-card cat-conversation">
+                <span class="resource-level">B1+</span>
+                <div class="resource-title">Speaking Naturally</div>
+                <div class="resource-desc">Fluency and natural expression.</div>
             </a>
 
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_pathway_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Speaking Pathway</span>
-                    <span class="entry-level">A2 — C1</span>
-                </div>
-                <div class="entry-desc">75 lessons + prep packs to develop speaking fluency. Vocabulary, readings, and discussion prep included.</div>
+            <div class="section-label">Professional &amp; Business</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/professional_skills_dashboard.html" class="resource-card cat-professional">
+                <span class="resource-level">B1+</span>
+                <div class="resource-title">Professional Skills</div>
+                <div class="resource-desc">Business English and workplace communication.</div>
+            </a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_meetings_dashboard.html" class="resource-card cat-professional">
+                <span class="resource-level">B1</span>
+                <div class="resource-title">Business Meeting Essentials</div>
+                <div class="resource-desc">Core skills for leading and participating in professional meetings.</div>
+            </a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_bootcamp_dashboard.html" class="resource-card cat-professional">
+                <span class="resource-level">B2 → C1</span>
+                <div class="resource-title">The Boardroom: Business Bootcamp</div>
+                <div class="resource-desc">8 Apprentice-inspired lessons on pitching, negotiation, leadership, and business acumen.</div>
+            </a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/strategic_storytelling_dashboard.html" class="resource-card cat-professional">
+                <span class="resource-level">C1+ Professional</span>
+                <div class="resource-title">Strategic Storytelling</div>
+                <div class="resource-desc">12-lesson masterclass: frame stories, reframe narratives, and move rooms. For senior professionals.</div>
             </a>
 
-            <div class="cat-label">Conversation &amp; Discussion</div>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Curious Conversations</span>
-                    <span class="entry-level">B1+</span>
-                </div>
-                <div class="entry-desc">Discussion-based lessons on philosophy and ideas.</div>
+            <div class="section-label">Advanced Discourse</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_teens_dashboard.html" class="resource-card cat-discourse">
+                <span class="resource-level">C2 Teens</span>
+                <div class="resource-title">Speaking Naturally: Teens</div>
+                <div class="resource-desc">6 lessons on social media, AI, cancel culture, climate change, and philosophy. C2-level vocabulary and university-level discourse for ages 15–18.</div>
+            </a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/commanding_discourse_dashboard.html" class="resource-card cat-discourse">
+                <span class="resource-level">C1 → C2</span>
+                <div class="resource-title">Commanding Discourse</div>
+                <div class="resource-desc">6 lessons on advanced fluency: hedging, argument structure, speculation, and high-stakes speaking.</div>
+            </a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/discourse_bestiary_pathway.html" class="resource-card cat-discourse">
+                <span class="resource-level">C1 → C2</span>
+                <div class="resource-title">Discourse Bestiary</div>
+                <div class="resource-desc">30 expressions locked into memory with the Bestiary system. 6 lessons, 5 creatures each.</div>
+            </a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/beyond_perfect_dashboard.html" class="resource-card cat-discourse">
+                <span class="resource-level">C2</span>
+                <div class="resource-title">Beyond Perfect</div>
+                <div class="resource-desc">When excellent English isn't enough. 6 lessons on register, uncertainty, pragmatics, and strategic communication for consulting professionals.</div>
             </a>
 
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_series2_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Curious Conversations: Series 2</span>
-                    <span class="entry-level">B1+</span>
-                </div>
-                <div class="entry-desc">More discussion-based lessons exploring ideas and ethics.</div>
+            <div class="section-label">Skills &amp; Exam Prep</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/cambridge_exam_prep_dashboard.html" class="resource-card cat-skills">
+                <span class="resource-level">B2 → C2</span>
+                <div class="resource-title">Cambridge Exams</div>
+                <div class="resource-desc">FCE, CAE, CPE preparation.</div>
             </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Speaking Naturally</span>
-                    <span class="entry-level">B1+</span>
-                </div>
-                <div class="entry-desc">Fluency and natural expression.</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/pronunciation_pathway_dashboard.html" class="resource-card cat-skills">
+                <span class="resource-level">B2 → C1</span>
+                <div class="resource-title">Pronunciation Pathway: British English</div>
+                <div class="resource-desc">6-lesson progressive series on RP pronunciation: rhythm, vowels, consonants, connected speech, intonation, and shadowing.</div>
             </a>
-
-            <div class="cat-label">Professional &amp; Business</div>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/professional_skills_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Professional Skills</span>
-                    <span class="entry-level">B1+</span>
-                </div>
-                <div class="entry-desc">Business English and workplace communication.</div>
+            <a href="listening-lessons.html" class="resource-card cat-skills">
+                <span class="resource-level">B1 → C1</span>
+                <div class="resource-title">Listening Practice</div>
+                <div class="resource-desc">9 interactive lessons with pre-listening, vocabulary, and comprehension activities.</div>
             </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_meetings_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Business Meeting Essentials</span>
-                    <span class="entry-level">B1</span>
-                </div>
-                <div class="entry-desc">Core skills for leading and participating in professional meetings.</div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_bootcamp_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">The Boardroom: Business Bootcamp</span>
-                    <span class="entry-level">B2 — C1</span>
-                </div>
-                <div class="entry-desc">8 Apprentice-inspired lessons on pitching, negotiation, leadership, and business acumen.</div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/strategic_storytelling_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Strategic Storytelling</span>
-                    <span class="entry-level">C1+ Professional</span>
-                </div>
-                <div class="entry-desc">12-lesson masterclass: frame stories, reframe narratives, and move rooms. For senior professionals.</div>
-            </a>
-
-            <div class="cat-label">Advanced Discourse</div>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_teens_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Speaking Naturally: Teens</span>
-                    <span class="entry-level">C2 Teens</span>
-                </div>
-                <div class="entry-desc">6 lessons on social media, AI, cancel culture, climate change, and philosophy. C2-level vocabulary and university-level discourse for ages 15–18.</div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/commanding_discourse_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Commanding Discourse</span>
-                    <span class="entry-level">C1 — C2</span>
-                </div>
-                <div class="entry-desc">6 lessons on advanced fluency: hedging, argument structure, speculation, and high-stakes speaking.</div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/discourse_bestiary_pathway.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Discourse Bestiary</span>
-                    <span class="entry-level">C1 — C2</span>
-                </div>
-                <div class="entry-desc">30 expressions locked into memory with the Bestiary system. 6 lessons, 5 creatures each.</div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/beyond_perfect_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Beyond Perfect</span>
-                    <span class="entry-level">C2</span>
-                </div>
-                <div class="entry-desc">When excellent English isn't enough. 6 lessons on register, uncertainty, pragmatics, and strategic communication for consulting professionals.</div>
-            </a>
-
-            <div class="cat-label">Skills &amp; Exam Prep</div>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/cambridge_exam_prep_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Cambridge Exams</span>
-                    <span class="entry-level">B2 — C2</span>
-                </div>
-                <div class="entry-desc">FCE, CAE, CPE preparation.</div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/pronunciation_pathway_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Pronunciation Pathway: British English</span>
-                    <span class="entry-level">B2 — C1</span>
-                </div>
-                <div class="entry-desc">6-lesson progressive series on RP pronunciation: rhythm, vowels, consonants, connected speech, intonation, and shadowing.</div>
-            </a>
-
-            <a href="listening-lessons.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Listening Practice</span>
-                    <span class="entry-level">B1 — C1</span>
-                </div>
-                <div class="entry-desc">9 interactive lessons with pre-listening, vocabulary, and comprehension activities.</div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/quick_fix_index.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Quick Fix Matrix</span>
-                    <span class="entry-level">A2 — C1</span>
-                </div>
-                <div class="entry-desc">132 searchable micro-lessons for common errors. Filter by grammar, vocabulary, collocations, false friends, pronunciation, spelling, and L1 background.</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/quick_fix_index.html" class="resource-card cat-skills">
+                <span class="resource-level">A2 → C1</span>
+                <div class="resource-title">Quick Fix Matrix</div>
+                <div class="resource-desc">132 searchable micro-lessons for common errors. Filter by grammar, vocabulary, collocations, false friends, pronunciation, spelling, and L1 background.</div>
             </a>
         </div>
 
         <!-- Professional Scenarios -->
-        <div class="featured-note">
+        <div class="scenarios-banner">
             <h3>English for Your Exact Role</h3>
             <p>273 specific professional scenarios mapped by industry and function.</p>
-            <a href="https://malcolmhyndman.com/professional-skills.html">Find Your Scenario</a>
+            <a href="https://malcolmhyndman.com/professional-skills.html">Find Your Scenario →</a>
         </div>
 
         <!-- IELTS Section -->
-        <div class="section-heading">IELTS Preparation</div>
-        <div class="section-rule"></div>
-
-        <div class="ielts-guides">
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-master-formula.png" target="_blank">
-                <img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-master-formula.png" alt="IELTS Master Formula">
-            </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-writing.png" target="_blank">
-                <img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-writing.png" alt="IELTS Writing">
-            </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-speaking.png" target="_blank">
-                <img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-speaking.png" alt="IELTS Speaking">
-            </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-reading.png" target="_blank">
-                <img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-reading.png" alt="IELTS Reading">
-            </a>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-listening.png" target="_blank">
-                <img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-listening.png" alt="IELTS Listening">
-            </a>
-        </div>
-
-        <div class="ielts-entries">
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_task_1_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Task 1: Reports</span>
-                    <span class="entry-level">Writing</span>
-                </div>
-                <div class="entry-desc">Charts, graphs, maps, and process diagrams.</div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_course_index.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Task 2: Essays</span>
-                    <span class="entry-level">Writing</span>
-                </div>
-                <div class="entry-desc">Complete course for opinion, discussion, and problem-solution essays.</div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_writing_pathway.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Writing Pathway</span>
-                    <span class="entry-level">Writing</span>
-                </div>
-                <div class="entry-desc">8 lessons from sentences to essays — with a Bestiary memory system to lock it all in.</div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_essay_dashboard.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Essay Practice</span>
-                    <span class="entry-level">Writing</span>
-                </div>
-                <div class="entry-desc">Timed essay practice for all Task 2 types — opinion, discussion, advantages/disadvantages, and two-part questions.</div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts-reading-tests.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Practice Tests</span>
-                    <span class="entry-level">Reading</span>
-                </div>
-                <div class="entry-desc">10 full reading tests with all question types, timed practice, and instant scoring.</div>
-            </a>
-        </div>
+        <section class="ielts-section">
+            <h2>IELTS Preparation</h2>
+            <p style="color: var(--mid-gray); margin-bottom: 15px;">Click to view strategy guides:</p>
+            <div class="ielts-guides">
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-master-formula.png" target="_blank">
+                    <img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-master-formula.png" alt="IELTS Master Formula">
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-writing.png" target="_blank">
+                    <img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-writing.png" alt="IELTS Writing">
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-speaking.png" target="_blank">
+                    <img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-speaking.png" alt="IELTS Speaking">
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-reading.png" target="_blank">
+                    <img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-reading.png" alt="IELTS Reading">
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-listening.png" target="_blank">
+                    <img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-listening.png" alt="IELTS Listening">
+                </a>
+            </div>
+            <div class="resources-grid" style="margin-top: 25px;">
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_task_1_dashboard.html" class="resource-card">
+                    <span class="resource-level">IELTS Writing</span>
+                    <div class="resource-title">Task 1: Reports</div>
+                    <div class="resource-desc">Charts, graphs, maps, and process diagrams.</div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_course_index.html" class="resource-card">
+                    <span class="resource-level">IELTS Writing</span>
+                    <div class="resource-title">Task 2: Essays</div>
+                    <div class="resource-desc">Complete course for opinion, discussion, and problem-solution essays.</div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_writing_pathway.html" class="resource-card">
+                    <span class="resource-level">IELTS Writing</span>
+                    <div class="resource-title">Writing Pathway</div>
+                    <div class="resource-desc">8 lessons from sentences to essays — with a Bestiary memory system to lock it all in.</div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_essay_dashboard.html" class="resource-card">
+                    <span class="resource-level">IELTS Writing</span>
+                    <div class="resource-title">Essay Practice</div>
+                    <div class="resource-desc">Timed essay practice for all Task 2 types — opinion, discussion, advantages/disadvantages, and two-part questions.</div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts-reading-tests.html" class="resource-card">
+                    <span class="resource-level">IELTS Reading</span>
+                    <div class="resource-title">Practice Tests</div>
+                    <div class="resource-desc">10 full reading tests with all question types, timed practice, and instant scoring.</div>
+                </a>
+            </div>
+        </section>
 
         <!-- Religious Studies -->
-        <div class="featured-note">
+        <div class="scenarios-banner" style="background: linear-gradient(135deg, #1a3a5c 0%, #1a5c3a 100%);">
             <h3>Religious Studies — A Complete Secondary Curriculum</h3>
             <p>252 interactive lessons — Years 7 to 13. KS3 foundations, AQA GCSE (8062), and A-Level Religious Studies.</p>
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_master_dashboard.html">Explore the Curriculum</a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_master_dashboard.html">Explore the Curriculum →</a>
         </div>
 
         <!-- Memory Palace -->
         <section class="palace-section">
-            <div class="palace-heading">The Memory Palace</div>
-            <div class="palace-epigraph">"The knowledge itself is not alone the goal. Rather the knowledge AND the location provide training for the mind."</div>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/art-of-memory.html" class="palace-entry">
-                <div class="palace-entry-title"><span class="palace-entry-icon">&#x1f9e0;</span>The Art of Memory</div>
-                <div class="palace-entry-desc">Master the ancient techniques of memory champions <span class="palace-entry-count">30 lessons</span></div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ois_dashboard.html" class="palace-entry">
-                <div class="palace-entry-title"><span class="palace-entry-icon">&#x1f3f0;</span>Our Island Story</div>
-                <div class="palace-entry-desc">A history of Britain in Marshall's beautiful prose, with a memory palace to hold it all <span class="palace-entry-count">20 lessons</span></div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/wp_dashboard.html" class="palace-entry">
-                <div class="palace-entry-title"><span class="palace-entry-icon">&#x1f3db;&#xfe0f;</span>A History of Western Philosophy</div>
-                <div class="palace-entry-desc">From Thales to the present — 2,600 years of thought with a memory palace to hold it all <span class="palace-entry-count">50 lessons</span></div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/epicurean_dashboard.html" class="palace-entry">
-                <div class="palace-entry-title"><span class="palace-entry-icon">&#x1f33f;</span>The Epicurean Path</div>
-                <div class="palace-entry-desc">From the Garden to Gassendi — a complete journey through Epicurean philosophy <span class="palace-entry-count">30 lessons</span></div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/dewey_palace_architecture.html" class="palace-entry">
-                <div class="palace-entry-title"><span class="palace-entry-icon">&#x1f5c2;&#xfe0f;</span>How to Talk to Anybody About Anything</div>
-                <div class="palace-entry-desc">970 fascinating facts mapped to the Dewey Decimal System — stored in a memory palace <span class="palace-entry-count">99 divisions</span></div>
-            </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/bestiary.html" class="palace-entry">
-                <div class="palace-entry-title"><span class="palace-entry-icon">&#x1f981;</span>The Bestiary</div>
-                <div class="palace-entry-desc">A mnemonic system for encoding names with a Mark's Gospel worked example <span class="palace-entry-count">200+ creatures</span></div>
-            </a>
-
-            <a href="memory-books.html" class="palace-entry">
-                <div class="palace-entry-title"><span class="palace-entry-icon">&#x1f4da;</span>Essential Reading</div>
-                <div class="palace-entry-desc">22 key texts on the art of memory — from ancient rhetoric to modern science <span class="palace-entry-count">22 books</span></div>
-            </a>
-
-            <div class="palace-tags">
-                <span class="palace-tag">The Paracosm</span>
-                <span class="palace-tag">Stoic Philosophy</span>
-                <span class="palace-tag">Cynic Philosophy</span>
+            <h3>The Memory Palace</h3>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-style: italic;">"The knowledge itself is not alone the goal. Rather the knowledge AND the location provide training for the mind."</p>
+            <div class="palace-grid">
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/art-of-memory.html" class="featured-course-card">
+                    <div class="featured-course-icon">🧠</div>
+                    <div class="featured-course-title">The Art of Memory</div>
+                    <div class="featured-course-desc">Master the ancient techniques of memory champions</div>
+                    <div class="featured-course-lessons">30 Interactive Lessons</div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ois_dashboard.html" class="featured-course-card">
+                    <div class="featured-course-icon">🏰</div>
+                    <div class="featured-course-title" style="color: #c9a84c;">Our Island Story</div>
+                    <div class="featured-course-desc">A history of Britain in Marshall's beautiful prose, with a memory palace to hold it all</div>
+                    <div class="featured-course-lessons">20 Interactive Lessons</div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/wp_dashboard.html" class="featured-course-card">
+                    <div class="featured-course-icon">🏛️</div>
+                    <div class="featured-course-title" style="color: #8ab4d6;">A History of Western Philosophy</div>
+                    <div class="featured-course-desc">From Thales to the present — 2,600 years of thought with a memory palace to hold it all</div>
+                    <div class="featured-course-lessons">50 Interactive Lessons</div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/epicurean_dashboard.html" class="featured-course-card">
+                    <div class="featured-course-icon">🌿</div>
+                    <div class="featured-course-title" style="color: #4a7c59;">The Epicurean Path</div>
+                    <div class="featured-course-desc">From the Garden to Gassendi — a complete journey through Epicurean philosophy</div>
+                    <div class="featured-course-lessons">30 Interactive Lessons</div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/dewey_palace_architecture.html" class="featured-course-card">
+                    <div class="featured-course-icon">🗂️</div>
+                    <div class="featured-course-title" style="color: #7b5ea7;">How to Talk to Anybody About Anything</div>
+                    <div class="featured-course-desc">970 fascinating facts mapped to the Dewey Decimal System — stored in a memory palace</div>
+                    <div class="featured-course-lessons">99 Divisions · 970 Items</div>
+                </a>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/bestiary.html" class="featured-course-card">
+                    <div class="featured-course-icon">🦁</div>
+                    <div class="featured-course-title" style="color: #d4a843;">The Bestiary</div>
+                    <div class="featured-course-desc">A mnemonic system for encoding names with a Mark's Gospel worked example</div>
+                    <div class="featured-course-lessons">200+ Creatures · 16-Chapter Demo</div>
+                </a>
+                <a href="memory-books.html" class="featured-course-card">
+                    <div class="featured-course-icon">📚</div>
+                    <div class="featured-course-title" style="color: #e8c96a;">Essential Reading</div>
+                    <div class="featured-course-desc">22 key texts on the art of memory — from ancient rhetoric to modern science</div>
+                    <div class="featured-course-lessons">22 Annotated Books</div>
+                </a>
             </div>
-            <div class="palace-coming">Coming soon — A Memory Palace of Meaning</div>
+            <div class="palace-features">
+                <span class="palace-feature">🏛️ The Paracosm</span>
+                <span class="palace-feature">🌳 Stoic Philosophy</span>
+                <span class="palace-feature">🐕 Cynic Philosophy</span>
+            </div>
+            <p style="color: rgba(255,255,255,0.4); margin-top: 20px; font-size: 0.82rem; font-style: italic;">Coming soon — A Memory Palace of Meaning</p>
         </section>
 
+
         <!-- Tools -->
-        <div class="section-heading">Tools</div>
-        <div class="section-rule"></div>
-
-        <div class="tools-section">
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/powerup.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">PowerUp</span>
-                    <span class="entry-level">Productivity</span>
-                </div>
-                <div class="entry-desc">Visual project manager with gamified progress tracking.</div>
+        <h2>Tools</h2>
+        <div class="resources-grid">
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/powerup.html" class="resource-card">
+                <span class="resource-level">Productivity</span>
+                <div class="resource-title">PowerUp</div>
+                <div class="resource-desc">Visual project manager with gamified progress tracking.</div>
             </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/mandalart.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">MandalArt</span>
-                    <span class="entry-level">Goal-Setting</span>
-                </div>
-                <div class="entry-desc">Japanese goal-setting framework using a 3x3 grid system.</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/mandalart.html" class="resource-card">
+                <span class="resource-level">Goal-Setting</span>
+                <div class="resource-title">MandalArt</div>
+                <div class="resource-desc">Japanese goal-setting framework using a 3x3 grid system.</div>
             </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/countdownart.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">CountdownArt</span>
-                    <span class="entry-level">Time Management</span>
-                </div>
-                <div class="entry-desc">Visual countdown timers for deadlines and events.</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/countdownart.html" class="resource-card">
+                <span class="resource-level">Time Management</span>
+                <div class="resource-title">CountdownArt</div>
+                <div class="resource-desc">Visual countdown timers for deadlines and events.</div>
             </a>
-
-            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/speaking-practice.html" class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Speaking Practice</span>
-                    <span class="entry-level">Speaking</span>
-                </div>
-                <div class="entry-desc">Teleprompter + IELTS Speaking exam simulation.</div>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/speaking-practice.html" class="resource-card">
+                <span class="resource-level">Speaking</span>
+                <div class="resource-title">Speaking Practice</div>
+                <div class="resource-desc">Teleprompter + IELTS Speaking exam simulation.</div>
             </a>
         </div>
 
