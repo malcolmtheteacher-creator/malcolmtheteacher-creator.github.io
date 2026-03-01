@@ -93,19 +93,20 @@
         }
 
         .resource-card {
-            background: var(--card-bg);
+            background: #ffffff;
             padding: 22px;
             border: 1px solid var(--hairline);
             text-decoration: none;
             color: var(--ink);
             transition: all 0.2s;
             display: block;
+            box-shadow: 0 2px 8px rgba(58,54,50,0.05);
         }
 
         .resource-card:hover {
             border-color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(58,54,50,0.06);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(58,54,50,0.1);
         }
 
         .resource-title {
@@ -133,17 +134,17 @@
             letter-spacing: 0.03em;
         }
 
-        /* Category colours — muted, warm tones */
-        .cat-pathway { border-left: 3px solid #6b8cae; }
-        .cat-pathway .resource-level { background: #6b8cae; }
-        .cat-conversation { border-left: 3px solid #b8913a; }
-        .cat-conversation .resource-level { background: #b8913a; }
-        .cat-professional { border-left: 3px solid #5a8a6a; }
-        .cat-professional .resource-level { background: #5a8a6a; }
-        .cat-discourse { border-left: 3px solid #8b6eaa; }
-        .cat-discourse .resource-level { background: #8b6eaa; }
-        .cat-skills { border-left: 3px solid #7a7570; }
-        .cat-skills .resource-level { background: #7a7570; }
+        /* Category colours — warm but vivid enough to pop */
+        .cat-pathway { border-left: 4px solid #4a7fad; }
+        .cat-pathway .resource-level { background: #4a7fad; }
+        .cat-conversation { border-left: 4px solid #c48a24; }
+        .cat-conversation .resource-level { background: #c48a24; }
+        .cat-professional { border-left: 4px solid #3d8a5a; }
+        .cat-professional .resource-level { background: #3d8a5a; }
+        .cat-discourse { border-left: 4px solid #7e5bab; }
+        .cat-discourse .resource-level { background: #7e5bab; }
+        .cat-skills { border-left: 4px solid #6b6560; }
+        .cat-skills .resource-level { background: #6b6560; }
 
         .section-label {
             grid-column: 1 / -1;
