@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features vs Benefits | B1/B2 Trade Fair English</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #eef2f7 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background: white;
+            color: #2c3e50;
+            font-size: 0.95em;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .tab-btn:hover {
+            background: #f0f4f9;
+            border-color: #4a90e2;
+        }
+
+        .tab-btn.active {
+            background: #4a90e2;
+            color: white;
+            border-color: #4a90e2;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #4a90e2;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #2c3e50;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1em;
+            line-height: 1.7;
+        }
+
+        .speak-box {
+            background: #fff8e6;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            line-height: 1.8;
+        }
+
+        .speak-box::before {
+            content: "🎙 SPEAK: ";
+            font-weight: 700;
+            color: #ff8800;
+        }
+
+        .example-box {
+            background: #e8f4f8;
+            border-left: 5px solid #4a90e2;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-size: 0.95em;
+        }
+
+        .example-box strong {
+            color: #357abd;
+        }
+
+        .reveal-box {
+            background: #f5f5f5;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+            border: 2px solid #e9ecef;
+        }
+
+        .reveal-box:hover {
+            background: #f0f0f0;
+            border-color: #4a90e2;
+        }
+
+        .reveal-box.open {
+            background: #e8f4f8;
+            border-color: #4a90e2;
+        }
+
+        .reveal-box::before {
+            content: "▶ ";
+            font-weight: bold;
+            color: #4a90e2;
+            margin-right: 8px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .reveal-box.open::before {
+            transform: rotate(90deg);
+        }
+
+        .reveal-content {
+            display: none;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #d0d0d0;
+        }
+
+        .reveal-box.open .reveal-content {
+            display: block;
+        }
+
+        .fab-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .fab-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 5px solid #4a90e2;
+            text-align: center;
+        }
+
+        .fab-card h4 {
+            color: #357abd;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .fab-card p {
+            margin: 0;
+            font-size: 0.95em;
+            color: #555;
+        }
+
+        .sort-exercise {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .sort-item {
+            background: white;
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 6px;
+            border-left: 5px solid #e9ecef;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sort-item:hover {
+            border-left-color: #4a90e2;
+            box-shadow: 0 2px 8px rgba(74, 144, 226, 0.1);
+        }
+
+        .sort-item.feature {
+            border-left-color: #e74c3c;
+        }
+
+        .sort-item.advantage {
+            border-left-color: #f39c12;
+        }
+
+        .sort-item.benefit {
+            border-left-color: #27ae60;
+        }
+
+        .sort-item strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .timer-container {
+            background: linear-gradient(135deg, #f8f9fa 0%, #eef2f7 100%);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .timer {
+            font-size: 3em;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background: white;
+            border: 3px solid #27ae60;
+            color: #27ae60;
+            transition: all 0.2s ease;
+        }
+
+        .timer.yellow {
+            border-color: #f39c12;
+            color: #f39c12;
+            animation: pulse 0.6s ease-in-out infinite;
+        }
+
+        .timer.red {
+            border-color: #e74c3c;
+            color: #e74c3c;
+            animation: pulse 0.4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .timer-btn {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .timer-btn:hover {
+            background: #357abd;
+            transform: translateY(-2px);
+        }
+
+        .timer-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .comparison-item.good {
+            border-left-color: #27ae60;
+        }
+
+        .comparison-item h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            font-size: 0.95em;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        .flex-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .flex-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .flex-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #4a90e2;
+            font-weight: bold;
+        }
+
+        .recall-zone {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8f4f8 100%);
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px solid #4a90e2;
+            margin: 20px 0;
+        }
+
+        .recall-zone h3 {
+            color: #357abd;
+            margin-top: 0;
+        }
+
+        .i-can {
+            background: #27ae60;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+
+        .i-can strong {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .dialogue-box {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 5px solid #4a90e2;
+        }
+
+        .dialogue-box .customer {
+            color: #357abd;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .dialogue-box .customer:first-of-type {
+            margin-top: 0;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        @media (max-width: 768px) {
+            .fab-grid, .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+
+            .tabs {
+                padding: 15px;
+                gap: 6px;
+            }
+
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Features vs Benefits</h1>
+            <p>Sell solutions, not specifications</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0)">The Problem</button>
+            <button class="tab-btn" onclick="switchTab(1)">The FAB Framework</button>
+            <button class="tab-btn" onclick="switchTab(2)">Sort & Transform</button>
+            <button class="tab-btn" onclick="switchTab(3)">Role Play</button>
+            <button class="tab-btn" onclick="switchTab(4)">Product Sheet</button>
+            <button class="tab-btn" onclick="switchTab(5)">Recall Zone</button>
+        </div>
+
+        <!-- TAB 1: The Problem -->
+        <div class="tab-content active">
+            <h2>Visitors don't buy features</h2>
+
+            <p>You're at a trade fair. A visitor stops at your stand. You want to tell them everything. All the specifications. All the details. All the reasons your product is amazing.</p>
+
+            <p>But they're not listening to features. They're listening for solutions.</p>
+
+            <h3>The mistake</h3>
+
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>❌ Feature talk</h4>
+                    <p>"This software has cloud-based storage, API integration, and real-time dashboard with 50 customizable fields."</p>
+                    <p><em>Visitor thinks: "Nice, but... does this help me?"</em></p>
+                </div>
+                <div class="comparison-item good">
+                    <h4>✓ Benefit talk</h4>
+                    <p>"You can see all your data in one place, in real time. No more juggling three different systems. Your team spends two hours less per week managing data."</p>
+                    <p><em>Visitor thinks: "Wait, I DO spend two hours on this every week."</em></p>
+                </div>
+            </div>
+
+            <h3>Why the second one works</h3>
+
+            <p>The visitor has a problem. They might not have said it out loud. But it exists. If you describe THEIR problem and then show how your product solves it, they listen. If you describe how your product works, they don't.</p>
+
+            <div class="example-box">
+                <strong>Think about your own buying:</strong><br>
+                When you buy headphones, do you care about "neodymium drivers" and "frequency response 20Hz-20kHz"? Or do you care about "these sound clear" and "the battery lasts 30 hours"?<br><br>
+                <em>Features: technical specifications of what it has. Benefits: what changes for you when you use it.</em>
+            </div>
+
+            <div class="reveal-box" onclick="toggleReveal(this)">
+                Test yourself: What's the visitor really asking?
+                <div class="reveal-content">
+                    <p>When someone visits your stand, they're not asking: "Tell me all the features."</p>
+                    <p>They're asking:</p>
+                    <ul class="flex-list">
+                        <li>Does this solve a problem I have?</li>
+                        <li>Will this make my work easier / faster / cheaper?</li>
+                        <li>Is this worth my time to investigate further?</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>If you answer their hidden questions, they stay. If you list features, they leave.</strong></p>
+                </div>
+            </div>
+
+            <h3>Today's goal</h3>
+
+            <p>You'll learn to transform features into benefits. You'll talk about what visitors get, not what your product has.</p>
+
+            <div class="speak-box">
+                Think about your product or service. What FEATURE does it have? (Something technical. Something it CAN do.) Say it out loud. Example: "We have wireless connectivity" or "Our packaging is biodegradable."
+            </div>
+        </div>
+
+        <!-- TAB 2: The FAB Framework -->
+        <div class="tab-content">
+            <h2>Feature → Advantage → Benefit</h2>
+
+            <p>Every feature can be transformed into a benefit. Use the FAB framework.</p>
+
+            <h3>The three-step transformation</h3>
+
+            <div class="fab-grid">
+                <div class="fab-card">
+                    <h4>F = Feature</h4>
+                    <p>What your product HAS. The technical detail. What it IS.</p>
+                </div>
+                <div class="fab-card">
+                    <h4>A = Advantage</h4>
+                    <p>What it DOES. The action. What your feature enables.</p>
+                </div>
+                <div class="fab-card">
+                    <h4>B = Benefit</h4>
+                    <p>What it means for THEM. The result. Why they care.</p>
+                </div>
+            </div>
+
+            <h3>Real examples: From technical to human</h3>
+
+            <h4 style="margin-top: 30px; color: #2c3e50;">Example 1: Medical device manufacturer</h4>
+
+            <div class="example-box">
+                <strong>Feature:</strong> "Our tracking software logs location data every 5 seconds."<br><br>
+                <strong>Advantage:</strong> "This means you can see exactly where your equipment is at any moment."<br><br>
+                <strong>Benefit:</strong> "So your team doesn't waste time searching for equipment, and you reduce theft or loss."<br><br>
+                <em>What changed: We moved from talking about technology (5-second intervals) to talking about results (no wasted time, less loss).</em>
+            </div>
+
+            <h4 style="margin-top: 30px; color: #2c3e50;">Example 2: Logistics company</h4>
+
+            <div class="example-box">
+                <strong>Feature:</strong> "Our platform integrates with 30 different supplier systems via API."<br><br>
+                <strong>Advantage:</strong> "This means you can pull all your supplier data into one system automatically — no manual data entry."<br><br>
+                <strong>Benefit:</strong> "So your team has fewer errors, less admin time, and faster decision-making."<br><br>
+                <em>What changed: We moved from integration specs to human outcomes (time saved, fewer mistakes).</em>
+            </div>
+
+            <h4 style="margin-top: 30px; color: #2c3e50;">Example 3: Renewable energy installer</h4>
+
+            <div class="example-box">
+                <strong>Feature:</strong> "Our solar panels have 22% efficiency rating."<br><br>
+                <strong>Advantage:</strong> "This means you generate more electricity from a smaller space — so you need fewer panels."<br><br>
+                <strong>Benefit:</strong> "So your installation costs are lower, and you see return on investment faster."<br><br>
+                <em>What changed: We moved from efficiency numbers to money saved.</em>
+            </div>
+
+            <h3>The bridge phrases</h3>
+
+            <p>Use these to turn features into benefits:</p>
+
+            <div class="pitch-card" style="background: #e8f4f8; border-left-color: #4a90e2;">
+                <p style="margin: 0; color: #357abd;"><strong>Feature → Advantage:</strong><br>
+                "This means that..." / "What this allows is..." / "This enables..."</p>
+                <p style="margin: 12px 0 0 0; color: #357abd;"><strong>Advantage → Benefit:</strong><br>
+                "So for you, this means..." / "The benefit is..." / "What this gives you is..." / "So you can..."</p>
+            </div>
+
+            <h3>Practice the bridge</h3>
+
+            <div class="speak-box">
+                Take your feature from Tab 1. Now say the full FAB chain out loud:
+                "Our product [FEATURE]. This means that [ADVANTAGE]. So for you, this means [BENEFIT]."
+                Don't write it — speak it. Say it naturally.
+            </div>
+
+            <h3>Longer benefit chains</h3>
+
+            <p>Sometimes one feature creates multiple benefits. Stack them:</p>
+
+            <div class="example-box">
+                <strong>Feature:</strong> "Our software updates automatically in the cloud."<br><br>
+                <strong>First advantage:</strong> "This means you never have to manually install updates."<br>
+                <strong>First benefit:</strong> "So your team has less downtime."<br><br>
+                <strong>Second advantage:</strong> "This also means all your offices have the same version at the same time."<br>
+                <strong>Second benefit:</strong> "So there are no compatibility problems between teams."<br><br>
+                <strong>Third advantage:</strong> "Plus, it means you always have the latest security patches."<br>
+                <strong>Third benefit:</strong> "So you're protected against new threats automatically."
+            </div>
+
+            <div class="reveal-box" onclick="toggleReveal(this)">
+                Why stack benefits?
+                <div class="reveal-content">
+                    <p>One feature. Multiple benefits. When you describe all of them, you give the visitor different reasons to care. Maybe they don't care about security. But they care about reducing downtime. Now they're listening.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Sort & Transform -->
+        <div class="tab-content">
+            <h2>Identify and transform</h2>
+
+            <h3>Sort exercise: Is it F, A, or B?</h3>
+
+            <p>Below are ten statements about products at a trade fair. For each one, decide: Is this a Feature, Advantage, or Benefit?</p>
+
+            <p style="font-size: 0.9em; color: #666; margin-bottom: 25px;"><em>Click each to see the answer. Don't peek — try first.</em></p>
+
+            <div class="sort-exercise">
+
+                <div class="sort-item" onclick="toggleReveal(this)">
+                    <strong>Click to reveal</strong>
+                    "Our packaging uses 40% less material than competitors."
+                    <div class="reveal-content">
+                        <strong style="color: #e74c3c;">Answer: Feature</strong>
+                        <p style="margin-top: 8px;">This is what the product IS (less material). To make it an advantage, you'd say: "This means you use less in every shipment." To make it a benefit, you'd say: "So your material costs go down."</p>
+                    </div>
+                </div>
+
+                <div class="sort-item" onclick="toggleReveal(this)">
+                    <strong>Click to reveal</strong>
+                    "This means your distribution costs drop by about 12% per year."
+                    <div class="reveal-content">
+                        <strong style="color: #27ae60;">Answer: Benefit</strong>
+                        <p style="margin-top: 8px;">This is the RESULT for the customer (costs drop). It's about them, not about the product feature.</p>
+                    </div>
+                </div>
+
+                <div class="sort-item" onclick="toggleReveal(this)">
+                    <strong>Click to reveal</strong>
+                    "Our software connects to all major payment systems through a single API."
+                    <div class="reveal-content">
+                        <strong style="color: #e74c3c;">Answer: Feature</strong>
+                        <p style="margin-top: 8px;">This is a technical specification (what it can do). The advantage is: "so you don't need separate systems." The benefit is: "so your team has one dashboard instead of five."</p>
+                    </div>
+                </div>
+
+                <div class="sort-item" onclick="toggleReveal(this)">
+                    <strong>Click to reveal</strong>
+                    "So you can respond to customer orders faster and keep customers happy."
+                    <div class="reveal-content">
+                        <strong style="color: #27ae60;">Answer: Benefit</strong>
+                        <p style="margin-top: 8px;">This is about the customer's outcome (faster response, happy customers). This is what they GAIN.</p>
+                    </div>
+                </div>
+
+                <div class="sort-item" onclick="toggleReveal(this)">
+                    <strong>Click to reveal</strong>
+                    "The battery lasts 48 hours on a single charge."
+                    <div class="reveal-content">
+                        <strong style="color: #e74c3c;">Answer: Feature</strong>
+                        <p style="margin-top: 8px;">This is what the product HAS (the battery capacity). Advantage: "This means you can work two full days without charging." Benefit: "So you're not stressed about power during important meetings."</p>
+                    </div>
+                </div>
+
+                <div class="sort-item" onclick="toggleReveal(this)">
+                    <strong>Click to reveal</strong>
+                    "This means that the assembly line doesn't have to stop for recalibration."
+                    <div class="reveal-content">
+                        <strong style="color: #f39c12;">Answer: Advantage</strong>
+                        <p style="margin-top: 8px;">This is what the feature DOES (the action/capability). The benefit would be: "So you save 8 hours per week in downtime."</p>
+                    </div>
+                </div>
+
+                <div class="sort-item" onclick="toggleReveal(this)">
+                    <strong>Click to reveal</strong>
+                    "Your factory can run 24/7 without interruption — and your maintenance team can focus on other priorities."
+                    <div class="reveal-content">
+                        <strong style="color: #27ae60;">Answer: Benefit</strong>
+                        <p style="margin-top: 8px;">Both parts are about the customer's outcome. 24/7 operation and freed-up maintenance staff. This is what THEY WIN.</p>
+                    </div>
+                </div>
+
+                <div class="sort-item" onclick="toggleReveal(this)">
+                    <strong>Click to reveal</strong>
+                    "We offer 16 color options and three sizes."
+                    <div class="reveal-content">
+                        <strong style="color: #e74c3c;">Answer: Feature</strong>
+                        <p style="margin-top: 8px;">This is what the product HAS (variety). Advantage: "This means customers can find exactly what they're looking for." Benefit: "So you have higher conversion rates and fewer returns."</p>
+                    </div>
+                </div>
+
+                <div class="sort-item" onclick="toggleReveal(this)">
+                    <strong>Click to reveal</strong>
+                    "So your team can spend less time on compliance paperwork and more time on growth."
+                    <div class="reveal-content">
+                        <strong style="color: #27ae60;">Answer: Benefit</strong>
+                        <p style="margin-top: 8px;">This is the customer's payoff (less admin, more growth focus). Clear benefit language.</p>
+                    </div>
+                </div>
+
+                <div class="sort-item" onclick="toggleReveal(this)">
+                    <strong>Click to reveal</strong>
+                    "Our equipment weighs 30% less than standard models in the market."
+                    <div class="reveal-content">
+                        <strong style="color: #e74c3c;">Answer: Feature</strong>
+                        <p style="margin-top: 8px;">This is what it IS. Advantage: "This means it's easier to transport." Benefit: "So you save on shipping costs and setup time."</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <h3 style="margin-top: 40px;">Now transform features from your product</h3>
+
+            <p>Pick three features of your product. For each one, write out the full FAB chain.</p>
+
+            <div style="margin: 30px 0;">
+                <h4 style="color: #2c3e50; margin-bottom: 15px;">Feature 1</h4>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 8px;">What's a technical feature of your product?</p>
+                <textarea placeholder="Feature: ..." id="feature1"></textarea>
+
+                <p style="font-size: 0.9em; color: #666; margin: 15px 0 8px 0;">What does that feature allow or enable?</p>
+                <textarea placeholder="Advantage: This means that..." id="advantage1"></textarea>
+
+                <p style="font-size: 0.9em; color: #666; margin: 15px 0 8px 0;">What's the result for the customer?</p>
+                <textarea placeholder="Benefit: So for you, this means..." id="benefit1"></textarea>
+            </div>
+
+            <div style="margin: 30px 0;">
+                <h4 style="color: #2c3e50; margin-bottom: 15px;">Feature 2</h4>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 8px;">What's another feature?</p>
+                <textarea placeholder="Feature: ..." id="feature2"></textarea>
+
+                <p style="font-size: 0.9em; color: #666; margin: 15px 0 8px 0;">Advantage?</p>
+                <textarea placeholder="Advantage: This means that..." id="advantage2"></textarea>
+
+                <p style="font-size: 0.9em; color: #666; margin: 15px 0 8px 0;">Benefit?</p>
+                <textarea placeholder="Benefit: So for you, this means..." id="benefit2"></textarea>
+            </div>
+
+            <div style="margin: 30px 0;">
+                <h4 style="color: #2c3e50; margin-bottom: 15px;">Feature 3</h4>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 8px;">One more?</p>
+                <textarea placeholder="Feature: ..." id="feature3"></textarea>
+
+                <p style="font-size: 0.9em; color: #666; margin: 15px 0 8px 0;">Advantage?</p>
+                <textarea placeholder="Advantage: This means that..." id="advantage3"></textarea>
+
+                <p style="font-size: 0.9em; color: #666; margin: 15px 0 8px 0;">Benefit?</p>
+                <textarea placeholder="Benefit: So for you, this means..." id="benefit3"></textarea>
+            </div>
+
+            <div class="speak-box">
+                Read your three FAB chains out loud. Do they sound natural? Would they make someone listen?
+            </div>
+        </div>
+
+        <!-- TAB 4: Role Play -->
+        <div class="tab-content">
+            <h2>Two tough questions</h2>
+
+            <p>A visitor comes to your stand. They ask two questions that all buyers ask. You need to answer with benefits, not features.</p>
+
+            <h3>Question 1: "Why should I choose you over [competitor]?"</h3>
+
+            <p>The visitor is asking you to justify yourself. Don't list features. Tell them what they WIN with you that they don't get elsewhere.</p>
+
+            <h4 style="margin-top: 25px; color: #2c3e50;">Weak answer (feature-based):</h4>
+            <div class="example-box">
+                "Our software has more customization options than competitors. We integrate with more systems. We have 24/7 support. We've been in business for 18 years."<br><br>
+                <em>Problem: All about you and your product, not about them.</em>
+            </div>
+
+            <h4 style="margin-top: 25px; color: #2c3e50;">Strong answer (benefit-based):</h4>
+            <div class="example-box">
+                "Most companies need to hire someone just to manage their software setup. With us, we configure it for you in the first two weeks — no hiring needed. Plus, you can change anything yourself if your business changes. Competitors lock you in with rigid systems. We don't. So you stay flexible, and you save the salary of a dedicated person."<br><br>
+                <em>What works: Compared the RESULT (flexibility, no extra hire) not the FEATURES (customization options, integrations).</em>
+            </div>
+
+            <div class="timer-container">
+                <p><strong>Your turn: Why should they choose you?</strong></p>
+                <p style="font-size: 0.9em; color: #666;">Answer in two minutes. Start with what your customer WINS.</p>
+                <div class="timer" id="timer1">2:00</div>
+                <div>
+                    <button class="timer-btn" onclick="startTimer(120, 'timer1')">Start</button>
+                    <button class="timer-btn" onclick="resetTimer('timer1')">Reset</button>
+                </div>
+            </div>
+
+            <div class="speak-box">
+                Record this answer. Then listen to it. Does it focus on features or benefits? Rewrite it if you hear yourself listing specs instead of results.
+            </div>
+
+            <h3 style="margin-top: 40px;">Question 2: "What makes this worth the price?"</h3>
+
+            <p>This is the hardest question. They're asking you to justify cost. Never defend the price by explaining features. Defend it by explaining value.</p>
+
+            <h4 style="margin-top: 25px; color: #2c3e50;">Weak answer (defending the product):</h4>
+            <div class="example-box">
+                "Well, we use premium materials. Our manufacturing process is expensive. We have strict quality control. We hand-test every unit."<br><br>
+                <em>Problem: You're explaining why YOUR costs are high, not why THEIR life is better.</em>
+            </div>
+
+            <h4 style="margin-top: 25px; color: #2c3e50;">Strong answer (showing return on investment):</h4>
+            <div class="example-box">
+                "I understand price matters. Here's the math: A cheaper system breaks down once every six months on average. That's 8 hours of downtime per break. That costs you about $8,000 per break in lost production. Our system breaks down once every five years. So you save roughly $80,000 over ten years. Yes, we cost more upfront. But you make that back in the first year through avoided downtime."<br><br>
+                <em>What works: You showed the visitor the MONEY they save, not the money you spent.</em>
+            </div>
+
+            <div class="timer-container">
+                <p><strong>Your turn: Why is your price worth it?</strong></p>
+                <p style="font-size: 0.9em; color: #666;">Answer in two minutes. Give them the numbers that make sense for them.</p>
+                <div class="timer" id="timer2">2:00</div>
+                <div>
+                    <button class="timer-btn" onclick="startTimer(120, 'timer2')">Start</button>
+                    <button class="timer-btn" onclick="resetTimer('timer2')">Reset</button>
+                </div>
+            </div>
+
+            <div class="speak-box">
+                Can you show them the money? Time saved, cost reduced, revenue gained, waste eliminated? What number would make them understand the value?
+            </div>
+        </div>
+
+        <!-- TAB 5: Product Sheet -->
+        <div class="tab-content">
+            <h2>Create your product sheet</h2>
+
+            <p>Before the fair, create a one-page sheet that shows your product in FAB format. This isn't fancy. It's clear.</p>
+
+            <h3>What to include</h3>
+
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h4 style="color: #2c3e50; margin-bottom: 15px;">Product name & one-line purpose</h4>
+                <textarea placeholder="Example: SmartTracker Pro — Real-time equipment tracking for medical facilities"></textarea>
+
+                <h4 style="color: #2c3e50; margin-top: 25px; margin-bottom: 15px;">Three to five FAB sections</h4>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;">For each feature, write the benefit. Format: Feature | So you... [benefit]</p>
+
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 8px;"><strong>Feature 1:</strong></p>
+                <textarea placeholder="Feature | So you..." style="min-height: 80px;"></textarea>
+
+                <p style="font-size: 0.9em; color: #666; margin: 15px 0 8px 0;"><strong>Feature 2:</strong></p>
+                <textarea placeholder="Feature | So you..." style="min-height: 80px;"></textarea>
+
+                <p style="font-size: 0.9em; color: #666; margin: 15px 0 8px 0;"><strong>Feature 3:</strong></p>
+                <textarea placeholder="Feature | So you..." style="min-height: 80px;"></textarea>
+
+                <h4 style="color: #2c3e50; margin-top: 25px; margin-bottom: 15px;">One key number</h4>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 8px;">The biggest result you deliver. Make it clear and specific.</p>
+                <textarea placeholder='Example: "Average client sees 40% reduction in equipment loss within 6 months"' style="min-height: 60px;"></textarea>
+
+                <h4 style="color: #2c3e50; margin-top: 25px; margin-bottom: 15px;">Who this is for</h4>
+                <textarea placeholder="Example: Hospitals and clinics managing 50+ pieces of equipment" style="min-height: 60px;"></textarea>
+            </div>
+
+            <div class="reveal-box" onclick="toggleReveal(this)">
+                Why a product sheet helps
+                <div class="reveal-content">
+                    <ul class="flex-list">
+                        <li>It keeps YOU focused on benefits, not features</li>
+                        <li>It gives visitors something to remember you by</li>
+                        <li>It helps distributors or resellers understand what to say about you</li>
+                        <li>It's proof you know what problem you solve — not just what you sell</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: Recall Zone -->
+        <div class="tab-content">
+            <h2>What you've learned</h2>
+
+            <div class="recall-zone">
+                <h3>The core idea</h3>
+
+                <p><strong>Features tell. Benefits sell.</strong></p>
+
+                <p>A feature is what your product HAS or DOES. A benefit is what it means for the person listening.</p>
+
+                <p style="margin-top: 15px;"><strong>The FAB transformation:</strong></p>
+                <ul class="flex-list">
+                    <li>Feature (F) = What you have</li>
+                    <li>Advantage (A) = What it does (bridge: "This means that...")</li>
+                    <li>Benefit (B) = What it means for them (bridge: "So for you...")</li>
+                </ul>
+
+                <p style="margin-top: 15px;"><strong>In real conversation:</strong></p>
+                <ul class="flex-list">
+                    <li>Listen to what the visitor needs (their hidden problem)</li>
+                    <li>Match your feature to that need</li>
+                    <li>Describe the benefit for THEM</li>
+                    <li>Give a number if you can (saves time, costs money, increases output)</li>
+                </ul>
+
+                <p style="margin-top: 15px;"><strong>The two hardest questions:</strong></p>
+                <ul class="flex-list">
+                    <li>"Why you over competitors?" → Answer with benefits they WON'T get elsewhere</li>
+                    <li>"Why the price?" → Show the money they SAVE or MAKE</li>
+                </ul>
+            </div>
+
+            <div class="i-can">
+                <strong>After this lesson, you can:</strong>
+                ✓ Identify features in your product<br>
+                ✓ Transform any feature into a benefit using FAB<br>
+                ✓ Talk about your product in customer-focused language<br>
+                ✓ Answer "Why you?" and "Why this price?" with confidence<br>
+                ✓ Create a product sheet that shows benefits, not specs<br>
+                ✓ Listen for the customer's hidden problem and match your solution to it
+            </div>
+
+            <h3 style="margin-top: 30px;">One final thought</h3>
+
+            <div class="speak-box">
+                Before the fair, record yourself describing your three main features using FAB. Then listen. Does it sound like you're selling a solution, or listing specs? Rerecord until it sounds natural. That's when you're ready.
+            </div>
+
+            <p style="margin-top: 30px; text-align: center; color: #666; font-style: italic;">People buy benefits. Make sure they know yours.</p>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(n) {
+            const contents = document.querySelectorAll('.tab-content');
+            const btns = document.querySelectorAll('.tab-btn');
+
+            contents.forEach(c => c.classList.remove('active'));
+            btns.forEach(b => b.classList.remove('active'));
+
+            contents[n].classList.add('active');
+            btns[n].classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function toggleReveal(element) {
+            element.classList.toggle('open');
+        }
+
+        let timers = {};
+
+        function startTimer(seconds, timerId) {
+            if (timers[timerId]) clearInterval(timers[timerId]);
+
+            let remaining = seconds;
+            const timerDisplay = document.getElementById(timerId);
+            const btn = event.target;
+
+            btn.disabled = true;
+
+            function updateDisplay() {
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                timerDisplay.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+                if (remaining <= 10) {
+                    timerDisplay.classList.remove('yellow');
+                    timerDisplay.classList.add('red');
+                } else if (remaining <= 30) {
+                    timerDisplay.classList.remove('red');
+                    timerDisplay.classList.add('yellow');
+                } else {
+                    timerDisplay.classList.remove('yellow', 'red');
+                }
+            }
+
+            updateDisplay();
+
+            timers[timerId] = setInterval(() => {
+                remaining--;
+                updateDisplay();
+
+                if (remaining < 0) {
+                    clearInterval(timers[timerId]);
+                    btn.disabled = false;
+                }
+            }, 1000);
+        }
+
+        function resetTimer(timerId) {
+            if (timers[timerId]) clearInterval(timers[timerId]);
+
+            const timerDisplay = document.getElementById(timerId);
+
+            if (timerId === 'timer1' || timerId === 'timer2') {
+                timerDisplay.textContent = '2:00';
+            } else {
+                timerDisplay.textContent = '0:30';
+            }
+
+            timerDisplay.classList.remove('yellow', 'red');
+
+            const startBtn = document.querySelector(`[onclick="startTimer(${timerId.includes('timer1') || timerId.includes('timer2') ? 120 : 30}, '${timerId}')"]`);
+            if (startBtn) startBtn.disabled = false;
+        }
+    </script>
+</body>
+</html>

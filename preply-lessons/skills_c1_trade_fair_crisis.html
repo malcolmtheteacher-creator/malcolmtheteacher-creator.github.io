@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crisis Management & Difficult Conversations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            border: 2px solid #667eea;
+            background-color: white;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .tab-button.active {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            line-height: 1.8;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .speak-prompt {
+            background-color: #fffacd;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .speak-prompt::before {
+            content: "🎙 SPEAK: ";
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .timer {
+            background-color: #e8f0f8;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .timer-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .timer-display.yellow {
+            color: #ff9800;
+        }
+
+        .timer-display.red {
+            color: #e74c3c;
+            animation: pulse 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .timer-button {
+            padding: 10px 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .timer-button:hover {
+            background-color: #5568d3;
+        }
+
+        .card {
+            background-color: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .scenario-box {
+            background-color: #fff3e0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .crisis-case {
+            background-color: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #d32f2f;
+        }
+
+        .feedback-box {
+            background-color: #f0fff4;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #48bb78;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .feedback-box:hover {
+            background-color: #e6fffa;
+        }
+
+        .feedback-content {
+            display: none;
+            margin-top: 10px;
+            color: #2d3748;
+        }
+
+        .feedback-box.open .feedback-content {
+            display: block;
+        }
+
+        .feedback-box::before {
+            content: "▶ ";
+            color: #48bb78;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .feedback-box.open::before {
+            content: "▼ ";
+        }
+
+        .learning-intention {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 1.15em;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .lead-framework {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .lead-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .conflict-style {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 3px solid #667eea;
+        }
+
+        .language-example {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 3px solid #48bb78;
+        }
+
+        .language-example strong {
+            color: #48bb78;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crisis Management & Difficult Conversations</h1>
+        <p class="subtitle">Turning conflict into an opportunity to show leadership</p>
+
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab(0)">The Crisis Moment</button>
+            <button class="tab-button" onclick="switchTab(1)">The LEAD Framework</button>
+            <button class="tab-button" onclick="switchTab(2)">Case Study Analysis</button>
+            <button class="tab-button" onclick="switchTab(3)">High-Pressure Roleplay</button>
+            <button class="tab-button" onclick="switchTab(4)">Your Brief & Reflection</button>
+            <button class="tab-button" onclick="switchTab(5)">Reflection</button>
+        </div>
+
+        <!-- TAB 1: The Crisis Moment -->
+        <div id="tab-0" class="tab-content active">
+            <h2>You're in the Hot Seat</h2>
+
+            <p>Scenario: It's 2pm on day two of the trade fair. Your company's biggest client — worth €500k in annual business — walks up to your booth. Their face is tight. You can feel something's wrong.</p>
+
+            <p>They say: "I need to talk to you. Privately. We're seriously considering switching to your competitor. Your team has been unresponsive. We gave you a contract extension last month and nothing's changed."</p>
+
+            <div class="scenario-box">
+                <p><strong>The pressure:</strong></p>
+                <ul>
+                    <li>Your booth is busy. Everyone's watching.</li>
+                    <li>You didn't know about this issue (someone dropped the ball).</li>
+                    <li>If you lose this client, it affects your fair. It affects your job.</li>
+                    <li>Your instinct is to defend, to explain, to fix it right now.</li>
+                    <li>But they're angry. If you talk too much, it gets worse.</li>
+                </ul>
+            </div>
+
+            <h3>What Makes This Different from a Normal Negotiation</h3>
+
+            <p>In a regular conversation, there's space to explore. In a crisis, emotions are high. Trust is broken (or cracking). Time is compressed.</p>
+
+            <p>Most people fail here because they:</p>
+            <ul>
+                <li>Jump to explaining (sounds like excusing)</li>
+                <li>Ask questions (when the person needs to be heard first)</li>
+                <li>Make promises (before they understand what went wrong)</li>
+                <li>Get defensive (which hardens their position)</li>
+            </ul>
+
+            <div class="speak-prompt">
+                Think of a time you felt unheard or let down in business. What would have changed your mind about leaving? What did you actually need from the other person?
+            </div>
+
+            <p style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee; font-size: 0.95em; color: #666;">
+                In this lesson, you'll learn LEAD — a framework for crisis moments that turns anger into an opening to rebuild trust.
+            </p>
+        </div>
+
+        <!-- TAB 2: LEAD Framework -->
+        <div id="tab-1" class="tab-content">
+            <h2>The LEAD Framework</h2>
+
+            <p>LEAD is for high-stakes, emotionally charged conversations. It prioritises understanding over defending. Trust over winning.</p>
+
+            <div class="lead-framework">
+                <div class="lead-box">Listen</div>
+                <div class="lead-box">Empathise</div>
+                <div class="lead-box">Assess</div>
+                <div class="lead-box">Decide</div>
+            </div>
+
+            <h3>1. LISTEN FULLY (First 2 minutes)</h3>
+            <p><strong>Goal:</strong> Hear them completely. Don't interrupt. Don't defend.</p>
+            <p>This is hard because listening activates your anxiety. Your brain is already planning your response. Quiet that. Just listen.</p>
+            <ul>
+                <li>Your face matters: Stay calm, stay open.</li>
+                <li>Your body matters: Don't cross your arms, don't look at your phone.</li>
+                <li>Use <span class="highlight">"I want to make sure I fully understand your concern..."</span> — buys time, signals respect.</li>
+                <li>Ask ONE clarifying question: "Help me understand — what specific moments made you feel unheard?"</li>
+                <li>Repeat back what you heard: "So you're saying..."</li>
+            </ul>
+
+            <h3>2. EMPATHISE AUTHENTICALLY (45 seconds)</h3>
+            <p><strong>Goal:</strong> Show you get it. Not to agree, but to acknowledge.</p>
+            <p>This is NOT "I understand how you feel" (generic, dismissive). This is specific recognition of their legitimate concern.</p>
+            <ul>
+                <li><span class="highlight">"I can see this is important to you..."</span> — names the emotion</li>
+                <li><span class="highlight">"You have every right to be frustrated. We let you down."</span> — takes responsibility</li>
+                <li><span class="highlight">"If I were in your position, I'd be looking at other options too."</span> — normalises their choice</li>
+                <li>Avoid: "I know how you feel" or "Don't be upset" (minimises their emotion)</li>
+            </ul>
+
+            <h3>3. ASSESS OPTIONS (2–3 minutes)</h3>
+            <p><strong>Goal:</strong> Make the problem concrete. What actually needs to happen?</p>
+            <ul>
+                <li><span class="highlight">"Let me be transparent about what happened..."</span> — honesty is disarming</li>
+                <li>Name the specific breakdown: "Our account team didn't do X, and that's on us."</li>
+                <li>Distinguish between systemic (we broke process) and personal (a person didn't care): "This isn't about commitment — it's about systems. We're fixing it."</li>
+                <li>Ask: "What would it take for you to feel like we're serious about this?"</li>
+            </ul>
+
+            <h3>4. DECIDE & COMMUNICATE CLEARLY (2 minutes)</h3>
+            <p><strong>Goal:</strong> Propose a path forward. Make it specific, make it real.</p>
+            <ul>
+                <li><span class="highlight">"Here's what I propose we do..."</span> — ownership language, not committee-speak</li>
+                <li><span class="highlight">"I take full responsibility for..."</span> — personal accountability is rare and powerful</li>
+                <li>Propose next steps, not promises: "I'm going to call your manager within 48 hours with a recovery plan. Here's what I'll need from you..."</li>
+                <li>Set expectations: "I can't undo what happened, but I can control what happens next."</li>
+            </ul>
+
+            <div class="card">
+                <h3>Language That Works in Crisis</h3>
+                <p><strong>Instead of:</strong> "You're overreacting." / <strong>Say:</strong> "I hear that this feels urgent to you."</p>
+                <p><strong>Instead of:</strong> "We have lots of clients." / <strong>Say:</strong> "You matter to us, and I want to prove that."</p>
+                <p><strong>Instead of:</strong> "It wasn't my fault." / <strong>Say:</strong> "I take responsibility for making sure this gets fixed."</p>
+                <p><strong>Instead of:</strong> "Let me explain..." / <strong>Say:</strong> "Let me listen first. Go ahead."</p>
+            </div>
+
+            <div class="speak-prompt">
+                I'm going to role-play an angry client. I'll start the scene, and you respond using LEAD. Your task: Listen, empathise, stay calm. Don't try to fix it yet — just hold the space.
+            </div>
+        </div>
+
+        <!-- TAB 3: Case Study Analysis -->
+        <div id="tab-2" class="tab-content">
+            <h2>Three Real Crisis Scenarios</h2>
+
+            <p>Here are three crises that actually happen at trade fairs. For each, I'll show you what happens when people DON'T use LEAD, and what changes when they do.</p>
+
+            <h3>Crisis 1: Product Recall Announced During the Fair</h3>
+
+            <div class="crisis-case">
+                <p><strong>What happens:</strong> Mid-afternoon, you get an email from your head office. "Possible defect in batch XR-400. Recall being issued within 2 hours. Be prepared for questions."</p>
+                <p><strong>Your booth is packed.</strong> People are asking for that exact product.</p>
+            </div>
+
+            <h3>Weak Response:</h3>
+            <div class="feedback-box" onclick="toggleFeedback(this)">
+                <span class="feedback-title">What goes wrong</span>
+                <div class="feedback-content">
+                    <p>"We're aware there's a potential issue. We're handling it with our main office. It's probably nothing. These things happen. You can still place an order if you want."</p>
+                    <ul>
+                        <li>Minimises the issue ("probably nothing")</li>
+                        <li>Hides behind "main office" (no ownership)</li>
+                        <li>Tries to keep selling (tone-deaf)</li>
+                        <li>Leaves people uncertain about what to do</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Strong Response (Using LEAD):</h3>
+            <div class="language-example">
+                <p>"I appreciate you asking. I'm going to be direct: We've identified a potential issue with batch XR-400. We're issuing a recall as a precaution — that's the responsible thing to do. If you've ordered that batch, I'm personally overseeing a replacement with our next production run, free of charge, within 30 days. I can email you the full details right now. What I want you to know: We stand behind our product, and we're not hiding this."</p>
+                <ul>
+                    <li>Owns the issue immediately</li>
+                    <li>Explains action (not excuse)</li>
+                    <li>Gives specific remedy</li>
+                    <li>Rebuilds trust by being transparent</li>
+                </ul>
+            </div>
+
+            <h3>Crisis 2: Key Team Member Doesn't Show Up</h3>
+
+            <div class="crisis-case">
+                <p><strong>What happens:</strong> It's 9am on day one. Your technical specialist doesn't show up. No message. Their phone goes to voicemail. You have 10 product demos booked for the day.</p>
+            </div>
+
+            <h3>Weak Response:</h3>
+            <div class="feedback-box" onclick="toggleFeedback(this)">
+                <span class="feedback-title">What goes wrong</span>
+                <div class="feedback-content">
+                    <p>"I'm so sorry, our tech person isn't here. I'm not sure what happened. Let me try to help, but I'm not as technical as he is. Maybe we can reschedule?"</p>
+                    <ul>
+                        <li>Sounds panicked and unprepared</li>
+                        <li>Blames absence ("what happened?")</li>
+                        <li>Tells people you CAN'T help them (wrong message)</li>
+                        <li>Turns it into their problem (rescheduling)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Strong Response (Using LEAD):</h3>
+            <div class="language-example">
+                <p>"I want to be upfront: our specialist isn't here today due to an emergency. Rather than apologise for that, what I want to do is give YOU the best experience anyway. I know the product inside-out. I've done 50 implementations. Let me show you something — not everything the specialist could, but enough to decide if this is worth exploring. Then, if you want, I'll personally set up a follow-up with the full technical team next week. Sound fair?"</p>
+                <ul>
+                    <li>Honest about the problem</li>
+                    <li>Reframes from absence to capability</li>
+                    <li>Takes ownership of the experience</li>
+                    <li>Offers a path forward (next week meeting)</li>
+                </ul>
+            </div>
+
+            <h3>Crisis 3: Competitor Makes False Claims About Your Product</h3>
+
+            <div class="crisis-case">
+                <p><strong>What happens:</strong> You overhear the booth next to you telling a visitor: "Their product has major security issues. We fixed ours, but they're still using the old vulnerable system."</p>
+                <p><strong>It's not true.</strong> But the visitor now has doubt.</p>
+            </div>
+
+            <h3>Weak Response:</h3>
+            <div class="feedback-box" onclick="toggleFeedback(this)">
+                <span class="feedback-title">What goes wrong</span>
+                <div class="feedback-content">
+                    <p>You walk over angrily: "That's completely false. Your product isn't better than ours. You're lying to get sales."</p>
+                    <ul>
+                        <li>Makes YOU look defensive and angry</li>
+                        <li>Creates a public confrontation</li>
+                        <li>Visitor thinks both companies are unprofessional</li>
+                        <li>The false claim now SOUNDS true (because you're so reactive)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Strong Response (Using LEAD):</h3>
+            <div class="language-example">
+                <p>You calmly catch up to the visitor: "I overheard something that I want to address directly. Our product uses X security protocol. We published our security audit last month — I can show it to you. The claim you just heard isn't accurate, and here's why. I'd never criticise a competitor publicly. I'd rather you decide based on facts. Want to see our audit?"</p>
+                <ul>
+                    <li>Calm, not defensive</li>
+                    <li>Facts, not emotion</li>
+                    <li>Gives evidence (the audit)</li>
+                    <li>Takes the high road (no competitor attack)</li>
+                </ul>
+            </div>
+
+            <div class="speak-prompt">
+                Now pick one crisis that feels real to you. What's your worst-case scenario at a fair? Describe it, and then walk me through how you'd respond using LEAD: Listen, Empathise, Assess, Decide.
+            </div>
+        </div>
+
+        <!-- TAB 4: High-Pressure Roleplay -->
+        <div id="tab-3" class="tab-content">
+            <h2>Three High-Pressure Situations</h2>
+
+            <p>You're going to practice three different crisis conversations. Each gets progressively harder. You have 3 minutes per scenario to respond authentically using LEAD.</p>
+
+            <h3>Situation 1: Angry Client at Your Booth</h3>
+
+            <div class="scenario-box">
+                <p><strong>Setup:</strong> A long-time client arrives furious. They say: "I spent €80,000 with you last year. My implementation failed. Your team never called to check in. I found out by accident that another customer with the same setup had the same issue — you KNEW about it. Why didn't anyone warn me?"</p>
+                <p><strong>Your goal:</strong> Listen fully. Don't interrupt to explain. Show you understand why they're angry.</p>
+            </div>
+
+            <div class="timer">
+                <div>Situation 1: 3 minutes</div>
+                <div class="timer-display" id="timer1">3:00</div>
+                <button class="timer-button" onclick="startTimer(180, 'timer1')">Start</button>
+                <button class="timer-button" onclick="resetTimer('timer1', 180)">Reset</button>
+            </div>
+
+            <div class="speak-prompt">
+                Respond as if I'm the client. I'm angry, and I want to be heard. Go.
+            </div>
+
+            <h3>Situation 2: Journalist Asking Hostile Questions</h3>
+
+            <div class="scenario-box">
+                <p><strong>Setup:</strong> A journalist from a trade publication approaches your booth. She says: "I'm writing a piece on quality issues in your industry. I've heard from three companies that your product has reliability problems. Can you respond to that?"</p>
+                <p><strong>Your goal:</strong> Stay calm. Don't attack the journalist. Address the concern with facts and transparency.</p>
+            </div>
+
+            <div class="timer">
+                <div>Situation 2: 3 minutes</div>
+                <div class="timer-display" id="timer2">3:00</div>
+                <button class="timer-button" onclick="startTimer(180, 'timer2')">Start</button>
+                <button class="timer-button" onclick="resetTimer('timer2', 180)">Reset</button>
+            </div>
+
+            <div class="speak-prompt">
+                Respond to the journalist. Remember: She's looking for a story. If you're defensive, that's the story. If you're transparent and calm, that changes everything.
+            </div>
+
+            <h3>Situation 3: Partnership Going Wrong Publicly</h3>
+
+            <div class="scenario-box">
+                <p><strong>Setup:</strong> A partner company you co-exhibited with is publicly criticising you on social media. They posted: "Disappointed by [Your Company]. They promised support and delivered nothing. We're ending the partnership." It's getting attention. Several fair visitors have seen it.</p>
+                <p><strong>Your goal:</strong> Move from public criticism to private resolution. Stay professional. Don't escalate on social media.</p>
+            </div>
+
+            <div class="timer">
+                <div>Situation 3: 3 minutes</div>
+                <div class="timer-display" id="timer3">3:00</div>
+                <button class="timer-button" onclick="startTimer(180, 'timer3')">Start</button>
+                <button class="timer-button" onclick="resetTimer('timer3', 180)">Reset</button>
+            </div>
+
+            <div class="speak-prompt">
+                You spot the partner walking the fair. You approach them. How do you de-escalate? Remember: LEAD starts with listening. Don't defend the partnership yet — find out what actually went wrong.
+            </div>
+
+            <h3>Self-Assessment After Each Roleplay</h3>
+            <ul>
+                <li>Did you interrupt, or did you listen?</li>
+                <li>Did your face and body show openness, or did you tense up?</li>
+                <li>Did you empathise, or did you jump to defending?</li>
+                <li>Was your close an invitation to solve it together, or a dismissal?</li>
+            </ul>
+        </div>
+
+        <!-- TAB 5: Your Brief & Reflection -->
+        <div id="tab-4" class="tab-content">
+            <h2>Internal Briefing: Preparing Your Team</h2>
+
+            <p>Imagine your team is going to the fair with you. You need to brief them on how to handle difficult conversations when they happen (and they will).</p>
+
+            <div class="card">
+                <h3>Your Written Task:</h3>
+                <p>Write a briefing note (200–300 words) for your team covering:</p>
+                <ol>
+                    <li><strong>What counts as a crisis:</strong> A complaint? A competitor attack? A partnership breakdown? All of these.</li>
+                    <li><strong>Your LEAD protocol:</strong> What's our process? Listen first, empathise second, then solve.</li>
+                    <li><strong>Red flags:</strong> What should someone escalate immediately? (E.g., product safety, legal threat, major client leaving)</li>
+                    <li><strong>Language that works:</strong> Give 3–4 phrases your team should use when things get tense.</li>
+                    <li><strong>Your own conflict style:</strong> How do YOU naturally respond when under pressure? What's your instinct? (Defend? Placate? Withdraw?) How will you manage that?</li>
+                </ol>
+            </div>
+
+            <h3>Understanding Your Conflict Style</h3>
+
+            <p>Everyone has a default when things get stressful. Knowing yours is crucial.</p>
+
+            <div class="conflict-style">
+                <p><strong>Avoider:</strong> You go quiet, step back, hope it blows over.</p>
+                <p><em>Under pressure at the fair:</em> You might disappear when a client is angry, leaving your team exposed.</p>
+                <p><em>LEAD adjustment:</em> Force yourself to LISTEN first. That's harder for you, but it's the antidote.</p>
+            </div>
+
+            <div class="conflict-style">
+                <p><strong>Defender:</strong> You jump straight to explaining, justifying, defending your position.</p>
+                <p><em>Under pressure at the fair:</em> You interrupt the angry client with "But actually..." — which makes it worse.</p>
+                <p><em>LEAD adjustment:</em> Silence is your enemy. Bite your tongue. Ask one clarifying question. Listen.</p>
+            </div>
+
+            <div class="conflict-style">
+                <p><strong>Placater:</strong> You try to smooth it over, make everyone happy, say yes to everything.</p>
+                <p><em>Under pressure at the fair:</em> You promise things you can't deliver: "I'll fix it today," "You're definitely our priority."</p>
+                <p><em>LEAD adjustment:</em> Be honest about what you CAN'T do. "I can't undo what happened, but here's what I can control..."</p>
+            </div>
+
+            <div class="speak-prompt">
+                Which conflict style is closest to you? What happens to you under pressure? And how will you catch yourself at the fair and use LEAD instead?
+            </div>
+        </div>
+
+        <!-- TAB 6: Reflection -->
+        <div id="tab-5" class="tab-content">
+            <h2>What You've Done Today</h2>
+
+            <div class="learning-intention">
+                You can now manage high-stakes conversations with composure — by listening fully, empathising authentically, assessing options, and deciding clearly. Crises become opportunities to show leadership, not moments to panic.
+            </div>
+
+            <h3>Quick Recall:</h3>
+            <ul>
+                <li>What does each letter in LEAD stand for?</li>
+                <li>Why is listening BEFORE empathising so crucial?</li>
+                <li>What's the difference between "I understand" and authentic empathy?</li>
+                <li>In the product recall scenario, what made the strong response work better?</li>
+                <li>What's your natural conflict style, and how does LEAD help you move past it?</li>
+            </ul>
+
+            <h3>Connecting to Earlier Lessons:</h3>
+            <ul>
+                <li><strong>From AIDA (Lesson 1):</strong> Even in crisis, you're persuading — but now you're building trust, not selling a feature.</li>
+                <li><strong>From BRIDGE (Lesson 2):</strong> You're reconnecting across difference. The client feels unheard; you're rebuilding that bridge with listening.</li>
+                <li><strong>From BATNA (Lesson 3):</strong> In crisis, understanding their alternatives (going to a competitor) helps you know what matters most to them.</li>
+                <li><strong>From SPARK (Lesson 4):</strong> Crisis moments need your best storytelling — but about accountability and action, not sales.</li>
+            </ul>
+
+            <h3>You can now:</h3>
+            <ul>
+                <li>Listen fully without defending or interrupting</li>
+                <li>Empathise authentically — showing you understand without agreeing</li>
+                <li>Assess the actual problem vs. the surface emotion</li>
+                <li>Decide and communicate with clarity and ownership</li>
+                <li>Distinguish between crisis responses (immediate) and solutions (follow-up)</li>
+                <li>Recognise your own conflict triggers and manage them</li>
+                <li>Turn a crisis into proof that you're trustworthy and professional</li>
+            </ul>
+
+            <div class="speak-prompt">
+                What's the biggest shift you felt during this lesson? And what's one crisis you're worried might happen at the fair? How would you handle it now?
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`tab-${tabIndex}`).classList.add('active');
+            buttons[tabIndex].classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleFeedback(element) {
+            element.classList.toggle('open');
+        }
+
+        let timerIntervals = {};
+
+        function startTimer(seconds, timerId) {
+            if (timerIntervals[timerId]) clearInterval(timerIntervals[timerId]);
+
+            let remaining = seconds;
+
+            function updateDisplay() {
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                const display = `${mins}:${secs.toString().padStart(2, '0')}`;
+                document.getElementById(timerId).textContent = display;
+
+                const timerDisplay = document.getElementById(timerId);
+
+                if (remaining > 30) {
+                    timerDisplay.classList.remove('yellow', 'red');
+                    timerDisplay.style.color = '#667eea';
+                } else if (remaining > 10) {
+                    timerDisplay.classList.remove('red');
+                    timerDisplay.classList.add('yellow');
+                } else if (remaining > 0) {
+                    timerDisplay.classList.add('red');
+                } else {
+                    clearInterval(timerIntervals[timerId]);
+                    return;
+                }
+
+                remaining--;
+            }
+
+            updateDisplay();
+            timerIntervals[timerId] = setInterval(updateDisplay, 1000);
+        }
+
+        function resetTimer(timerId, seconds) {
+            if (timerIntervals[timerId]) clearInterval(timerIntervals[timerId]);
+            const mins = Math.floor(seconds / 60);
+            document.getElementById(timerId).textContent = `${mins}:00`;
+            document.getElementById(timerId).classList.remove('yellow', 'red');
+            document.getElementById(timerId).style.color = '#667eea';
+        }
+    </script>
+</body>
+</html>

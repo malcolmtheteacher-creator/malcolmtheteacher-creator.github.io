@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trade Fair: Describing What You Offer</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.7; }
+
+  .tab-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; padding: 16px 12px; background: #fff; border-bottom: 2px solid #f0f0f0; position: sticky; top: 0; z-index: 100; }
+  .tab-btn { padding: 10px 18px; border: 2px solid #e8a0a0; background: #fff; color: #c0392b; border-radius: 25px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.3s; }
+  .tab-btn:hover { background: #fdf2f2; }
+  .tab-btn.active { background: #e74c6f; color: #fff; border-color: #e74c6f; }
+
+  .tab-content { display: none; max-width: 800px; margin: 0 auto; padding: 30px 20px; }
+  .tab-content.active { display: block; }
+
+  .card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #e74c6f; }
+  .card h3 { color: #e74c6f; margin-bottom: 12px; font-size: 1.15rem; }
+
+  .phase-label { display: inline-block; background: #e74c6f; color: #fff; padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 16px; text-transform: uppercase; }
+  .phase-label.activate { background: #e67e22; }
+  .phase-label.demonstrate { background: #27ae60; }
+  .phase-label.consolidate { background: #8e44ad; }
+
+  .learning-intention { background: #fdf2f8; border: 2px solid #e74c6f; border-radius: 10px; padding: 14px 20px; margin: 16px 0; font-weight: 600; font-size: 1rem; text-align: center; }
+
+  textarea { width: 100%; min-height: 80px; padding: 14px; border: 2px solid #ddd; border-radius: 10px; font-family: inherit; font-size: 1rem; resize: vertical; transition: border-color 0.3s; }
+  textarea:focus { border-color: #e74c6f; outline: none; }
+
+  .speak-prompt { background: #fef9e7; border: 2px solid #f1c40f; border-radius: 10px; padding: 16px; margin: 14px 0; }
+  .speak-prompt::before { content: "🎙 SPEAK:"; font-weight: 700; color: #d4a017; display: block; margin-bottom: 6px; }
+
+  .reveal-box { background: #f0f4ff; border: 2px dashed #a0b4e0; border-radius: 10px; padding: 16px; margin: 12px 0; cursor: pointer; text-align: center; transition: all 0.3s; }
+  .reveal-box:hover { background: #e8eeff; }
+  .reveal-box .hidden-content { display: none; text-align: left; margin-top: 12px; }
+  .reveal-box.revealed { border-style: solid; border-color: #27ae60; background: #f0fff4; cursor: default; }
+  .reveal-box.revealed .hidden-content { display: block; }
+  .reveal-box.revealed .reveal-prompt { display: none; }
+  .reveal-prompt { color: #667eea; font-weight: 600; }
+
+  .phrase-box { display: flex; align-items: center; gap: 14px; background: #fff; border: 2px solid #f0d0d0; border-radius: 12px; padding: 14px 18px; margin: 10px 0; }
+  .phrase-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .phrase-text { flex: 1; }
+  .phrase-text .phrase { font-weight: 700; color: #c0392b; font-size: 1.05rem; }
+  .phrase-text .meaning { font-size: 0.9rem; color: #555; margin-top: 2px; }
+
+  .timer-container { text-align: center; margin: 20px 0; }
+  .timer-display { font-size: 2.5rem; font-weight: 700; color: #2ecc71; font-family: 'Courier New', monospace; margin: 10px 0; }
+  .timer-display.warning { color: #f39c12; }
+  .timer-display.danger { color: #e74c3c; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .timer-btn { padding: 8px 20px; border: none; border-radius: 20px; cursor: pointer; font-weight: 600; margin: 0 4px; font-size: 0.9rem; }
+  .timer-btn.start { background: #2ecc71; color: #fff; }
+  .timer-btn.reset { background: #95a5a6; color: #fff; }
+  .timer-btn.five { background: #3498db; color: #fff; }
+
+  .discussion-card { background: #fff; border: 2px solid #e8a0a0; border-radius: 14px; padding: 20px; margin: 12px 0; cursor: pointer; transition: all 0.3s; }
+  .discussion-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .discussion-card.selected { border-color: #e74c6f; background: #fdf2f8; }
+  .card-number { display: inline-block; background: #e74c6f; color: #fff; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: 700; font-size: 0.85rem; margin-right: 10px; }
+
+  .scenario-visual { background: linear-gradient(135deg, #fdf2f8, #f0f4ff); border-radius: 14px; padding: 24px; text-align: center; margin: 16px 0; }
+  .scenario-visual .icon { font-size: 3rem; margin-bottom: 10px; }
+  .scenario-visual .scene { font-size: 1.1rem; font-weight: 600; color: #333; }
+
+  .steps-visual { display: flex; flex-direction: column; gap: 0; margin: 16px 0; }
+  .step-item { display: flex; align-items: center; gap: 14px; padding: 14px; background: #fff; border-left: 3px solid #e74c6f; position: relative; }
+  .step-item::after { content: "↓"; position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); color: #e74c6f; font-size: 1.2rem; font-weight: 700; }
+  .step-item:last-child::after { display: none; }
+  .step-number { background: #e74c6f; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+
+  .compare-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .compare-col { background: #fff; border-radius: 12px; padding: 18px; }
+  .compare-col.weak { border: 2px solid #e74c3c; }
+  .compare-col.strong { border: 2px solid #27ae60; }
+  .compare-col h4 { margin-bottom: 10px; }
+  .compare-col.weak h4 { color: #e74c3c; }
+  .compare-col.strong h4 { color: #27ae60; }
+
+  .checklist-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-box { width: 22px; height: 22px; border: 2px solid #e74c6f; border-radius: 6px; flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; margin-top: 2px; }
+  .check-box.checked { background: #e74c6f; }
+  .check-box.checked::after { content: "✓"; color: #fff; font-weight: 700; font-size: 0.8rem; }
+
+  .question-card { background: #fff; border: 2px solid #d5a6d5; border-radius: 12px; padding: 18px; margin: 10px 0; }
+  .question-card .q { font-weight: 700; color: #8e44ad; font-size: 1.05rem; margin-bottom: 6px; }
+  .question-card .q::before { content: "❓ "; }
+
+  .rescue-box { background: #fff5f5; border: 2px solid #e74c6f; border-radius: 12px; padding: 18px; margin: 10px 0; }
+  .rescue-box .label { font-weight: 700; color: #e74c6f; margin-bottom: 6px; }
+  .rescue-box .label::before { content: "🆘 "; }
+
+  @media (max-width: 768px) {
+    .tab-btn { padding: 8px 12px; font-size: 0.8rem; }
+    .phrase-box { flex-direction: column; text-align: center; }
+    .tab-content { padding: 20px 14px; }
+    .compare-columns { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab(0)">1. Connect</button>
+  <button class="tab-btn" onclick="showTab(1)">2. The W-W-W</button>
+  <button class="tab-btn" onclick="showTab(2)">3. Practice</button>
+  <button class="tab-btn" onclick="showTab(3)">4. Visitor Questions</button>
+  <button class="tab-btn" onclick="showTab(4)">5. Role Play</button>
+  <button class="tab-btn" onclick="showTab(5)">6. Explain</button>
+  <button class="tab-btn" onclick="showTab(6)">7. Recall</button>
+</nav>
+
+<!-- ===================== TAB 1: CONNECT ===================== -->
+<div class="tab-content active" id="tab0">
+  <span class="phase-label">Connect</span>
+
+  <div class="card">
+    <h3>What do you remember?</h3>
+    <p>Last time, we worked on introducing yourself at a trade fair. Let's see what stayed.</p>
+
+    <div class="speak-prompt">
+      Without looking at anything — what are the 4 steps of the introduction framework? Say them from memory.
+    </div>
+
+    <textarea placeholder="Write the 4 steps here from memory..."></textarea>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 12px;">
+      <div class="reveal-prompt">👆 Click to check</div>
+      <div class="hidden-content">
+        <p><strong>1. GREET</strong> — Welcome + name + position</p>
+        <p><strong>2. COMPANY</strong> — What your company does</p>
+        <p><strong>3. PRODUCT</strong> — Your main product + one adjective</p>
+        <p><strong>4. CONNECT</strong> — Ask about the other person</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Now the next challenge...</h3>
+    <p>OK — you introduced yourself. The visitor is interested. They say:</p>
+    <div class="scenario-visual">
+      <div class="icon">🤔</div>
+      <div class="scene">"Can you tell me more about what you offer?"</div>
+    </div>
+    <p style="margin-top: 14px;">This is the moment. Your introduction was 30 seconds. Now you need 1–2 minutes to clearly describe what your company offers — so the visitor understands, remembers, and wants to continue talking.</p>
+
+    <div class="speak-prompt">
+      If someone asked you right now — "Tell me more about what your company offers" — what would you say in English? Try it. Don't worry about mistakes.
+    </div>
+  </div>
+
+  <div class="learning-intention">
+    Today: describing your products and services clearly — so visitors understand what you offer and ask the right questions.
+  </div>
+</div>
+
+<!-- ===================== TAB 2: ACTIVATE — The W-W-W Framework ===================== -->
+<div class="tab-content" id="tab1">
+  <span class="phase-label activate">Activate — New Content</span>
+
+  <div class="card">
+    <h3>Two ways to describe a product. Which is better?</h3>
+
+    <div class="compare-columns">
+      <div class="compare-col weak">
+        <h4>❌ Version A</h4>
+        <p>"We have a product. It is good. Many people buy it. It is the best."</p>
+      </div>
+      <div class="compare-col strong">
+        <h4>✅ Version B</h4>
+        <p>"Our CleanAir filter removes 99% of dust from offices. It's popular with facility managers because it's quiet and saves energy."</p>
+      </div>
+    </div>
+
+    <div class="speak-prompt">
+      What makes Version B better? What information does it give that Version A doesn't?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>The W-W-W Framework: Describe Any Product or Service</h3>
+    <p>When a visitor asks about what you offer, give them three things:</p>
+    <div class="steps-visual">
+      <div class="step-item">
+        <div class="step-number">W</div>
+        <div><strong>WHAT</strong> — What is it? (name + one sentence)</div>
+      </div>
+      <div class="step-item" style="margin-top: 20px;">
+        <div class="step-number">W</div>
+        <div><strong>WHY</strong> — Why is it good? (the benefit — what problem does it solve?)</div>
+      </div>
+      <div class="step-item" style="margin-top: 20px;">
+        <div class="step-number">W</div>
+        <div><strong>WHO</strong> — Who is it for? (your typical client or market)</div>
+      </div>
+    </div>
+    <p style="margin-top: 14px; font-size: 0.95rem; color: #555;">Simple. Clear. The visitor gets all the key information in 30 seconds.</p>
+  </div>
+
+  <div class="card">
+    <h3>Useful Phrases — WHAT (What is it?)</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">📦</div>
+      <div class="phrase-text">
+        <div class="phrase">"Our main product / service is..."</div>
+        <div class="meaning">Simple opening — name the product or service</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">🔧</div>
+      <div class="phrase-text">
+        <div class="phrase">"It's a [type] that [what it does]."</div>
+        <div class="meaning">Example: "It's a system that tracks deliveries in real time."</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">📋</div>
+      <div class="phrase-text">
+        <div class="phrase">"We also offer..."</div>
+        <div class="meaning">To mention a second product or service</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Useful Phrases — WHY (Why is it good?)</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">💡</div>
+      <div class="phrase-text">
+        <div class="phrase">"The main benefit is..."</div>
+        <div class="meaning">Example: "The main benefit is that it saves time."</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">✅</div>
+      <div class="phrase-text">
+        <div class="phrase">"It helps [people] to [do something]."</div>
+        <div class="meaning">Example: "It helps managers to organise their teams."</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">⭐</div>
+      <div class="phrase-text">
+        <div class="phrase">"What makes it special is..."</div>
+        <div class="meaning">Use for your unique selling point — what competitors don't have</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Useful Phrases — WHO (Who is it for?)</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">🎯</div>
+      <div class="phrase-text">
+        <div class="phrase">"It's designed for [type of client]."</div>
+        <div class="meaning">Example: "It's designed for small and medium businesses."</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">🌍</div>
+      <div class="phrase-text">
+        <div class="phrase">"Our clients are mainly [description]."</div>
+        <div class="meaning">Example: "Our clients are mainly retailers in Central Europe."</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">📈</div>
+      <div class="phrase-text">
+        <div class="phrase">"We work with companies in [sector / region]."</div>
+        <div class="meaning">Shows your market and experience</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 16px;">
+      <div class="speak-prompt">
+        Close your eyes. Can you remember the 3 W's? Say them: the first W is... the second W is... the third W is...
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 3: ACTIVATE — Practice (I Do / We Do / You Do) ===================== -->
+<div class="tab-content" id="tab2">
+  <span class="phase-label activate">Activate — Practice</span>
+
+  <div class="card">
+    <h3>🔍 I DO — A model product description</h3>
+    <p>Listen to how Eva describes her company's service at a trade fair stand:</p>
+    <div style="background: #fdf2f8; border-radius: 10px; padding: 18px; margin: 12px 0; font-style: italic; font-size: 1.05rem; line-height: 1.8;">
+      "Our main service is FleetTrack — it's a platform that shows companies where all their vehicles are in real time. The main benefit is that it reduces fuel costs by about 20%. It's designed for logistics companies and delivery services — we work with about 80 clients across Europe."
+    </div>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')">
+      <div class="reveal-prompt">👆 Click to find the 3 W's in Eva's description</div>
+      <div class="hidden-content">
+        <p><strong>WHAT:</strong> FleetTrack — a platform that shows where vehicles are in real time.</p>
+        <p><strong>WHY:</strong> Reduces fuel costs by about 20%.</p>
+        <p><strong>WHO:</strong> Logistics companies and delivery services — 80 clients across Europe.</p>
+        <p style="margin-top: 8px; font-size: 0.9rem; color: #555;">Notice: Eva gave one specific number (20%, 80 clients). Numbers make descriptions memorable and trustworthy.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🤝 WE DO — Let's build a description together</h3>
+    <p>Imagine a company that makes office furniture. Together, let's describe their main product using W-W-W.</p>
+
+    <div class="speak-prompt">
+      Start with WHAT — how would you describe an office chair in one sentence? Say your idea first.
+    </div>
+
+    <p style="margin-top: 12px; font-weight: 600;">WHAT — What is it?</p>
+    <textarea rows="2" placeholder="Our main product is... It's a... that..."></textarea>
+
+    <p style="margin-top: 10px; font-weight: 600;">WHY — Why is it good?</p>
+    <textarea rows="2" placeholder="The main benefit is... / It helps... to..."></textarea>
+
+    <p style="margin-top: 10px; font-weight: 600;">WHO — Who is it for?</p>
+    <textarea rows="2" placeholder="It's designed for... / Our clients are mainly..."></textarea>
+
+    <div class="speak-prompt" style="margin-top: 14px;">
+      Now put all three parts together and say it as one smooth description. No pauses between the W's — it should sound like a conversation, not a list.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🚀 YOU DO — Describe YOUR product or service</h3>
+    <p>Now describe what YOUR company offers. Use the W-W-W framework. Think about your most important product or service.</p>
+
+    <p style="margin-top: 10px; font-weight: 600;">WHAT:</p>
+    <textarea rows="2" placeholder="Our main product/service is..."></textarea>
+
+    <p style="margin-top: 10px; font-weight: 600;">WHY:</p>
+    <textarea rows="2" placeholder="The main benefit is... / What makes it special is..."></textarea>
+
+    <p style="margin-top: 10px; font-weight: 600;">WHO:</p>
+    <textarea rows="2" placeholder="It's designed for... / Our clients are mainly..."></textarea>
+
+    <div class="speak-prompt" style="margin-top: 16px;">
+      Say the full description aloud — without reading. Try it once with notes, then once without. Can you include at least one number?
+    </div>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 14px;">
+      <div class="reveal-prompt">👆 Click to self-check</div>
+      <div class="hidden-content">
+        <div class="checklist-item">
+          <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+          <div>WHAT — Did you name your product/service and say what it does?</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+          <div>WHY — Did you explain the benefit or the problem it solves?</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+          <div>WHO — Did you say who your clients are?</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+          <div>NUMBERS — Did you include at least one number or fact?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 4: ACTIVATE — Visitor Questions ===================== -->
+<div class="tab-content" id="tab3">
+  <span class="phase-label activate">Activate — Handling Questions</span>
+
+  <div class="card">
+    <h3>The questions visitors always ask</h3>
+    <p>After you describe your product, visitors will ask questions. Here are the 5 most common — and how to answer them at A2 level.</p>
+
+    <div class="question-card">
+      <div class="q">"How much does it cost?"</div>
+      <div class="phrase-box" style="margin-top: 8px;">
+        <div class="phrase-icon">💰</div>
+        <div class="phrase-text">
+          <div class="phrase">"The price depends on [quantity / size / package]. I can send you a price list."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <div class="q">"Do you deliver to [country]?"</div>
+      <div class="phrase-box" style="margin-top: 8px;">
+        <div class="phrase-icon">🚚</div>
+        <div class="phrase-text">
+          <div class="phrase">"Yes, we deliver to [countries/regions]." / "At the moment, we deliver mainly to..."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <div class="q">"Do you have a catalogue / brochure?"</div>
+      <div class="phrase-box" style="margin-top: 8px;">
+        <div class="phrase-icon">📄</div>
+        <div class="phrase-text">
+          <div class="phrase">"Yes, here you are." / "I can email it to you — can I have your card?"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <div class="q">"What's the minimum order?"</div>
+      <div class="phrase-box" style="margin-top: 8px;">
+        <div class="phrase-icon">📊</div>
+        <div class="phrase-text">
+          <div class="phrase">"The minimum order is [number/amount]." / "For a first order, we're flexible."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <div class="q">"Can I see a sample?"</div>
+      <div class="phrase-box" style="margin-top: 8px;">
+        <div class="phrase-icon">🔍</div>
+        <div class="phrase-text">
+          <div class="phrase">"Of course — here's a sample." / "I can send you a sample after the fair."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🆘 When you don't understand</h3>
+    <p>At a trade fair, people speak fast. Different accents. Technical words. You WILL need these:</p>
+
+    <div class="rescue-box">
+      <div class="label">Rescue Phrases</div>
+      <div class="phrase-box" style="border-color: #e74c6f;">
+        <div class="phrase-icon">🔄</div>
+        <div class="phrase-text">
+          <div class="phrase">"Sorry, could you say that again?"</div>
+        </div>
+      </div>
+      <div class="phrase-box" style="border-color: #e74c6f;">
+        <div class="phrase-icon">🐌</div>
+        <div class="phrase-text">
+          <div class="phrase">"Could you speak a little slower, please?"</div>
+        </div>
+      </div>
+      <div class="phrase-box" style="border-color: #e74c6f;">
+        <div class="phrase-icon">🤷</div>
+        <div class="phrase-text">
+          <div class="phrase">"What do you mean by [word]?"</div>
+        </div>
+      </div>
+      <div class="phrase-box" style="border-color: #e74c6f;">
+        <div class="phrase-icon">✋</div>
+        <div class="phrase-text">
+          <div class="phrase">"Let me check and get back to you."</div>
+          <div class="meaning">When you don't know the answer — honest and professional</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="speak-prompt">
+      Practise the rescue phrases. Say each one aloud — naturally, not reading. Imagine someone just asked you something you didn't understand.
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 5: DEMONSTRATE — Role Play ===================== -->
+<div class="tab-content" id="tab4">
+  <span class="phase-label demonstrate">Demonstrate — Application</span>
+
+  <div class="card">
+    <h3>🎭 Trade Fair Conversations</h3>
+    <p>Choose 2 of these scenarios. For each one: introduce yourself (4-step framework from last lesson), then describe your product (W-W-W), then handle the visitor's question.</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">A</span><strong>A buyer from a large chain store visits your stand.</strong> After your introduction, they ask: "That sounds interesting. How much does it cost?" Describe your product and answer.</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">B</span><strong>A distributor from South America is at the fair looking for new suppliers.</strong> They ask: "Do you deliver internationally?" Describe your product and answer.</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">C</span><strong>A visitor picks up your brochure and says:</strong> "I've never heard of your company. What do you do?" Give your full introduction + product description.</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">D</span><strong>Another exhibitor visits during a quiet moment.</strong> They say something fast and you don't understand one word. Use a rescue phrase, then continue the conversation.</p>
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <h3>⏱ Timed Practice</h3>
+    <p>For each scenario: you have 2 minutes. Introduction + product description + answer the question. Go!</p>
+
+    <div class="timer-container">
+      <div class="timer-display" id="timer1">2:00</div>
+      <button class="timer-btn start" onclick="startTimer('timer1', 120)">▶ Start (2 min)</button>
+      <button class="timer-btn reset" onclick="resetTimer('timer1', 120)">↺ Reset</button>
+    </div>
+
+    <div class="speak-prompt">
+      Scenario 1: Full conversation — introduce, describe, answer. Go!
+    </div>
+
+    <p style="margin-top: 14px; font-size: 0.9rem; color: #555;">What was difficult?</p>
+    <textarea rows="2" placeholder="Difficult words or moments..."></textarea>
+
+    <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 16px;">
+      <div class="timer-container">
+        <div class="timer-display" id="timer2">2:00</div>
+        <button class="timer-btn start" onclick="startTimer('timer2', 120)">▶ Start (2 min)</button>
+        <button class="timer-btn reset" onclick="resetTimer('timer2', 120)">↺ Reset</button>
+      </div>
+
+      <div class="speak-prompt">
+        Scenario 2: Different visitor, same frameworks. Go!
+      </div>
+
+      <textarea rows="2" placeholder="Difficult words or moments..." style="margin-top: 12px;"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 6: DEMONSTRATE — Elaboration ===================== -->
+<div class="tab-content" id="tab5">
+  <span class="phase-label demonstrate">Demonstrate — Elaboration</span>
+
+  <div class="card">
+    <h3>🎙 Explain the Rule</h3>
+    <p>Imagine a colleague is going to a trade fair next month. They ask you: "How should I describe our products to visitors?"</p>
+
+    <div class="speak-prompt">
+      Explain the W-W-W framework in your own words. Don't look at the lesson. What are the 3 W's? Why is each one important? Give an example.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>✍ Written Task: Product Card</h3>
+    <p>Write a short product card — the kind you might have on a table at your stand. Maximum 4 sentences. Use the W-W-W framework.</p>
+
+    <div class="timer-container">
+      <div class="timer-display" id="timer3">3:00</div>
+      <button class="timer-btn start" onclick="startTimer('timer3', 180)">▶ 3 min</button>
+      <button class="timer-btn five" onclick="startTimer('timer3', 300)">▶ 5 min</button>
+      <button class="timer-btn reset" onclick="resetTimer('timer3', 180)">↺ Reset</button>
+    </div>
+
+    <textarea rows="5" placeholder="Product name:&#10;What it does:&#10;Key benefit:&#10;Ideal for:"></textarea>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 14px;">
+      <div class="reveal-prompt">👆 Click to see an example product card</div>
+      <div class="hidden-content">
+        <p style="font-style: italic;"><strong>QuickShip Pro</strong><br>A logistics platform that organises same-day deliveries.<br>Reduces delivery times by 40% and cuts admin work in half.<br>Designed for e-commerce businesses with 50–500 orders per day.</p>
+        <p style="margin-top: 8px; font-size: 0.9rem; color: #555;">Notice: WHAT (logistics platform, same-day deliveries), WHY (40% faster, less admin), WHO (e-commerce, 50-500 orders). Numbers make it real.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🔀 Mixed Practice — Fix the descriptions</h3>
+    <p>Each description below has a problem. What's wrong? How would you fix it?</p>
+
+    <div style="background: #f8f9fa; padding: 14px; border-radius: 10px; margin: 12px 0;">
+      <p><strong>Description 1:</strong> "Our product is the best. It's amazing. Everyone loves it. You should buy it."</p>
+    </div>
+    <div class="speak-prompt">What's the problem? How would you improve it?</div>
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')">
+      <div class="reveal-prompt">👆 Click to check</div>
+      <div class="hidden-content">
+        <p><strong>Problem: No WHAT, no WHY, no WHO.</strong> Only opinions ("best", "amazing") — no facts. The visitor learns nothing. Fix: name the product, explain what it does, give one real benefit, say who it's for.</p>
+      </div>
+    </div>
+
+    <div style="background: #f8f9fa; padding: 14px; border-radius: 10px; margin: 20px 0 12px 0;">
+      <p><strong>Description 2:</strong> "Our VistaBoard is a digital display system with 4K resolution and LED backlighting. It uses the RS-485 protocol and has a 178-degree viewing angle with 5000:1 contrast ratio."</p>
+    </div>
+    <div class="speak-prompt">What's the problem? How would you improve it?</div>
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')">
+      <div class="reveal-prompt">👆 Click to check</div>
+      <div class="hidden-content">
+        <p><strong>Problem: Too technical. Good WHAT, but no WHY and no WHO.</strong> The visitor doesn't understand the benefit. Fix: keep the name, but replace the tech specs with a benefit: "It's a digital display that's easy to read even in bright sunlight — perfect for shops and restaurants."</p>
+      </div>
+    </div>
+
+    <div style="background: #f8f9fa; padding: 14px; border-radius: 10px; margin: 20px 0 12px 0;">
+      <p><strong>Description 3:</strong> "We help businesses to save money. Our clients are very happy. We work in many countries."</p>
+    </div>
+    <div class="speak-prompt">What's the problem? How would you improve it?</div>
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')">
+      <div class="reveal-prompt">👆 Click to check</div>
+      <div class="hidden-content">
+        <p><strong>Problem: No WHAT.</strong> What's the product? What's the service? "Help businesses save money" is too vague — every company says this. Fix: name a specific product or service first, then explain how it saves money.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 7: CONSOLIDATE ===================== -->
+<div class="tab-content" id="tab6">
+  <span class="phase-label consolidate">Consolidate</span>
+
+  <div class="card">
+    <h3>🔄 Recall Zone — From Last Lesson</h3>
+    <p>Let's check what you remember from our first lesson. Try from memory!</p>
+
+    <div class="speak-prompt">
+      What are 2 good questions to ask a visitor after you introduce yourself at a trade fair? Say them now.
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 10px;">
+      A visitor introduces their company to you. What can you say to respond? Give 2 different responses.
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 10px;">
+      Without looking — say your full introduction using the 4-step framework. Name, position, company, product, then ask about them.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🧠 Final Retrieval — Today's Lesson</h3>
+    <p>Look away from the screen. Now:</p>
+
+    <div class="speak-prompt">
+      What are the 3 W's? Say them from memory. Then explain — why is each one important for a trade fair conversation?
+    </div>
+
+    <p style="margin-top: 14px;">Write the framework from memory:</p>
+    <textarea rows="4" placeholder="W = ...&#10;W = ...&#10;W = ..."></textarea>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 14px;">
+      <div class="reveal-prompt">👆 Click to check</div>
+      <div class="hidden-content">
+        <p><strong>W = WHAT</strong> — What is your product/service? What does it do?</p>
+        <p><strong>W = WHY</strong> — Why is it good? What benefit does it give?</p>
+        <p><strong>W = WHO</strong> — Who is it for? Who are your clients?</p>
+      </div>
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 14px;">
+      Now say 2 rescue phrases you can use when you don't understand something at a trade fair.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>💭 Thinking About Thinking</h3>
+    <div class="speak-prompt">
+      What helped you most today — the comparison examples, building descriptions together, or the role play? Why?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>✅ I can...</h3>
+    <p>We said you'd be able to describe what you offer so visitors understand and ask the right questions. Can you?</p>
+
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can describe my main product or service using WHAT, WHY, WHO.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can explain the main benefit clearly in one sentence.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can answer common visitor questions (price, delivery, samples).</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can use rescue phrases when I don't understand.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can combine my introduction (Lesson 1) with a product description (Lesson 2) in one conversation.</div>
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 14px;">
+      Which "I can" statement are you most confident about? Which one do you want to practise more before the fair?
+    </div>
+  </div>
+</div>
+
+<script>
+function showTab(index) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab' + index).classList.add('active');
+  document.querySelectorAll('.tab-btn')[index].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+const timers = {};
+
+function startTimer(id, seconds) {
+  if (timers[id]) clearInterval(timers[id].interval);
+  let remaining = seconds;
+  const el = document.getElementById(id);
+
+  function update() {
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    el.className = 'timer-display';
+    if (remaining <= 10) el.classList.add('danger');
+    else if (remaining <= 30) el.classList.add('warning');
+    if (remaining <= 0) {
+      clearInterval(timers[id].interval);
+      el.textContent = "0:00";
+      el.classList.add('danger');
+    }
+    remaining--;
+  }
+
+  update();
+  timers[id] = { interval: setInterval(update, 1000), total: seconds };
+}
+
+function resetTimer(id, seconds) {
+  if (timers[id]) clearInterval(timers[id].interval);
+  const el = document.getElementById(id);
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  el.className = 'timer-display';
+}
+</script>
+
+</body>
+</html>

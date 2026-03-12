@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leading Negotiations & Closing Deals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            border: 2px solid #667eea;
+            background-color: white;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .tab-button.active {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            line-height: 1.8;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .speak-prompt {
+            background-color: #fffacd;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .speak-prompt::before {
+            content: "🎙 SPEAK: ";
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .card {
+            background-color: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .timer {
+            background-color: #e8f0f8;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .timer-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .timer-display.yellow {
+            color: #ff9800;
+        }
+
+        .timer-display.red {
+            color: #e74c3c;
+            animation: pulse 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .timer-button {
+            padding: 10px 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .timer-button:hover {
+            background-color: #5568d3;
+        }
+
+        .scenario-box {
+            background-color: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #999;
+        }
+
+        .concept-box {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8ecff 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .concept-title {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.15em;
+            margin-bottom: 8px;
+        }
+
+        .phrase-box {
+            background-color: #fff3cd;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 4px solid #ff9800;
+            font-style: italic;
+        }
+
+        .feedback-box {
+            background-color: #f0fff4;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #48bb78;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .feedback-box:hover {
+            background-color: #e6fffa;
+        }
+
+        .feedback-content {
+            display: none;
+            margin-top: 10px;
+            color: #2d3748;
+        }
+
+        .feedback-box.open .feedback-content {
+            display: block;
+        }
+
+        .feedback-box::before {
+            content: "▶ ";
+            color: #48bb78;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .feedback-box.open::before {
+            content: "▼ ";
+        }
+
+        .learning-intention {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 1.15em;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .dialogue {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-style: italic;
+            border-left: 4px solid #ccc;
+            line-height: 1.6;
+        }
+
+        .dialogue strong {
+            font-style: normal;
+            color: #667eea;
+        }
+
+        .case-study {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #999;
+        }
+
+        .batna-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .batna-box {
+            background-color: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Leading Negotiations & Closing Deals</h1>
+        <p class="subtitle">Why "almost done" is where most deals die</p>
+
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab(0)">Why Deals Stall</button>
+            <button class="tab-button" onclick="switchTab(1)">BATNA & Strategic Concessions</button>
+            <button class="tab-button" onclick="switchTab(2)">Case Study Analysis</button>
+            <button class="tab-button" onclick="switchTab(3)">Full Negotiation</button>
+            <button class="tab-button" onclick="switchTab(4)">Your Memo</button>
+            <button class="tab-button" onclick="switchTab(5)">Reflection</button>
+        </div>
+
+        <!-- TAB 1: Why Deals Stall -->
+        <div id="tab-0" class="tab-content active">
+            <h2>Why Deals Die at the Finish Line</h2>
+
+            <p>You've had a great conversation. They're interested. You've showed them the product. They said yes to the next meeting. Everything looks good.</p>
+
+            <p>Then...</p>
+
+            <ul>
+                <li>They don't return your email</li>
+                <li>They meet with your competitor</li>
+                <li>They say "let's revisit this in Q3"</li>
+                <li>They ask for a discount you can't give</li>
+                <li>Their boss changes their mind</li>
+            </ul>
+
+            <p style="font-size: 1.2em; color: #667eea; font-weight: bold; margin: 20px 0;">The deal was never as real as you thought.</p>
+
+            <div class="card">
+                <h3>Here's what happened:</h3>
+                <p>You moved into the negotiation phase without doing the hard work:</p>
+                <ul>
+                    <li>You didn't understand their <span class="highlight">real priorities</span> (price? functionality? timeline? risk?)</li>
+                    <li>You didn't know your <span class="highlight">bottom line</span> (what can you actually offer?)</li>
+                    <li>You didn't prepare <span class="highlight">what you'd do if they said no</span></li>
+                    <li>You didn't identify <span class="highlight">where there's room to move</span> (on both sides)</li>
+                </ul>
+            </div>
+
+            <h3>At a trade fair, deals move FAST</h3>
+            <p>You might only have one conversation. You need to move from "interesting conversation" to "let's do this together" in one or two meetings. That requires strategy.</p>
+
+            <div class="speak-prompt">
+                Think about a deal you've seen or been part of that fell apart. At what point did it die? Was it a real misunderstanding, or did someone not do the negotiation work?
+            </div>
+
+            <p style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee; font-size: 0.95em; color: #666;">
+                Today, you'll learn to lead negotiations so promising conversations actually become signed agreements.
+            </p>
+        </div>
+
+        <!-- TAB 2: BATNA & Strategic Concessions -->
+        <div id="tab-1" class="tab-content">
+            <h2>BATNA, ZOPA & Strategic Concession Language</h2>
+
+            <p>Three concepts that separate good negotiators from great ones.</p>
+
+            <div class="concept-box">
+                <div class="concept-title">1. BATNA (Best Alternative to Negotiated Agreement)</div>
+                <p><strong>What is it:</strong> If this deal falls through, what's your next move?</p>
+                <p style="font-size: 0.95em; color: #666; margin-top: 10px;">You need to know your BATNA before you walk into a negotiation. Not as something you announce — but as something that grounds your confidence.</p>
+                <p style="margin-top: 10px;"><strong>Examples:</strong></p>
+                <ul style="font-size: 1em; margin-top: 5px;">
+                    <li>"If they won't move on price, we work with their competitor instead."</li>
+                    <li>"If they can't commit to a timeline, we focus on other markets."</li>
+                    <li>"If they want custom features we can't afford, we walk away."</li>
+                </ul>
+            </div>
+
+            <div class="concept-box">
+                <div class="concept-title">2. ZOPA (Zone of Possible Agreement)</div>
+                <p><strong>What is it:</strong> The space where both sides can say yes.</p>
+                <p style="font-size: 0.95em; color: #666; margin-top: 10px;">You might want £100k for your software. They might budget £60k. But maybe there's a three-year agreement that gets them £70k/year (£210k total) where both sides are happy.</p>
+                <p style="margin-top: 10px;"><strong>The zone exists when:</strong></p>
+                <ul style="font-size: 1em; margin-top: 5px;">
+                    <li>Your walk-away price is lower than their maximum budget</li>
+                    <li>You can create value in different ways (price vs. terms vs. features vs. timeline)</li>
+                    <li>Both sides want the relationship to work</li>
+                </ul>
+            </div>
+
+            <div class="concept-box">
+                <div class="concept-title">3. Strategic Concession Language</div>
+                <p><strong>What it is:</strong> How you move without appearing weak.</p>
+                <p style="font-size: 0.95em; color: #666; margin-top: 10px;">You don't just drop your price. You <span class="highlight">trade</span> concessions. You connect movement to commitment.</p>
+            </div>
+
+            <h3>The Language of Strategic Negotiation</h3>
+
+            <div class="phrase-box">
+                "Before we go further, let me understand your priorities. Is it price, timeline, features, or risk that matters most?"
+            </div>
+            <p style="color: #666; font-size: 0.95em; margin: 10px 0;">This is NOT asking for their demands. You're learning what THEY value. That's where you find the ZOPA.</p>
+
+            <div class="phrase-box">
+                "I'm willing to [concession] if you can [commitment]."
+            </div>
+            <p style="color: #666; font-size: 0.95em; margin: 10px 0;">This says: I'm moving, but you're moving too. It's a trade, not a surrender.</p>
+
+            <div class="phrase-box">
+                "Let's look at the bigger picture here. What would a successful outcome look like for you — not just on price, but on the whole partnership?"
+            </div>
+            <p style="color: #666; font-size: 0.95em; margin: 10px 0;">This expands the conversation beyond the one thing you disagree on. Opens up the ZOPA.</p>
+
+            <div class="phrase-box">
+                "What would need to change for this to work for both of us?"
+            </div>
+            <p style="color: #666; font-size: 0.95em; margin: 10px 0;">Puts the problem-solving in their court. Invites collaboration.</p>
+
+            <div class="phrase-box">
+                "I think we have the basis for an agreement here. Let me confirm what I'm hearing: [summary]. Is that right?"
+            </div>
+            <p style="color: #666; font-size: 0.95em; margin: 10px 0;">This moves toward commitment. You're testing if you're actually aligned before you shake hands.</p>
+
+            <div class="speak-prompt">
+                You're selling a year-long consulting contract. You quoted £80k. They're saying their budget is £50k. Walk me through: (1) What's your BATNA? (2) Is there a ZOPA? (3) How do you respond to their budget without just dropping your price?
+            </div>
+        </div>
+
+        <!-- TAB 3: Case Study Analysis -->
+        <div id="tab-2" class="tab-content">
+            <h2>What Worked & What Didn't</h2>
+
+            <p>Two negotiations. Same industry. Different outcomes. What's the difference?</p>
+
+            <h3>Case Study A: The Failed Negotiation</h3>
+            <div class="case-study">
+                <p><strong>Setup:</strong> You're selling marketing automation software. Annual license: £40k. They've shown genuine interest. You're now at the negotiation table.</p>
+
+                <p><strong>Their opening:</strong> "We love the product. But our budget is £25k. Can you do it for that?"</p>
+
+                <p><strong>You (mistake #1):</strong> "£25k is too low. We need at least £35k to make this work."</p>
+
+                <p><strong>Them:</strong> "We can't go that high. Our CFO has already set the budget at £25k."</p>
+
+                <p><strong>You (mistake #2):</strong> "Then I don't think we can work together. I'm sorry it didn't work out."</p>
+
+                <p style="color: #999; font-style: italic;">[Deal dies. You never found out if they could have stretched to £30k for a two-year deal, or if they had budget flexibility in Q2.]</p>
+            </div>
+
+            <div class="feedback-box" onclick="toggleFeedback(this)">
+                <span class="feedback-title">What went wrong</span>
+                <div class="feedback-content">
+                    <ul>
+                        <li><strong>You didn't ask questions.</strong> You just said no. You didn't understand their constraints or priorities.</li>
+                        <li><strong>You didn't explore the ZOPA.</strong> You assumed £35k was your floor. But was it? Could you do £30k on a two-year deal? Could they get budget approval for £28k?</li>
+                        <li><strong>You didn't make strategic concessions.</strong> You just said no. No trading, no "I'm willing to move if..."</li>
+                        <li><strong>You made it a fight.</strong> By giving them an ultimatum, you made them defensive. They're now in "prove your value" mode instead of "how do we make this work" mode.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Case Study B: The Successful Negotiation</h3>
+            <div class="case-study">
+                <p><strong>Same setup:</strong> Marketing automation software. You quoted £40k. They open with: "We love the product. But our budget is £25k."</p>
+
+                <p><strong>You (good move #1):</strong> "Thanks for being clear on budget. Before I respond, help me understand: is £25k a hard ceiling, or is there flexibility if the value is there? And what's more important — getting started this quarter, or waiting until you have more budget?"</p>
+
+                <p><strong>Them:</strong> "Our CFO set the ceiling at £25k. But if we can start now and save time, there might be room. We're losing about £5k per month to manual processes right now."</p>
+
+                <p><strong>You (good move #2):</strong> "Ah — so you're losing £5k/month. That's £60k a year in waste. Our software typically saves clients that amount. So let's look at the bigger picture. What if we structured this as: you pay £30k now, commit to year two at £25k, and we build in a success bonus — if you hit 40% time savings in year one, we waive 20% of year two? You save money, we're motivated to deliver results."</p>
+
+                <p><strong>Them:</strong> "That's interesting. Let me take it to the CFO. But I like the logic."</p>
+
+                <p style="color: #999; font-style: italic;">[Deal not closed yet, but now it's real. You've found the ZOPA. You've connected to their actual problem (waste). And you've traded — they pay a bit more now, you take risk on outcomes. Both sides moved.]</p>
+            </div>
+
+            <div class="feedback-box" onclick="toggleFeedback(this)">
+                <span class="feedback-title">What worked here</span>
+                <div class="feedback-content">
+                    <ul>
+                        <li><strong>You asked before you said no.</strong> You learned that their budget wasn't as rigid as it seemed.</li>
+                        <li><strong>You found their pain.</strong> "£5k per month in waste" — now it's not about your software cost, it's about their opportunity cost.</li>
+                        <li><strong>You created a ZOPA.</strong> By offering a multi-year structure and a success-based bonus, you created value in ways beyond price.</li>
+                        <li><strong>You made strategic concessions.</strong> You moved from £40k to £30k now (£55k over two years). But they gave something too: commitment and risk-sharing.</li>
+                        <li><strong>You made it collaborative.</strong> "Let's look at the bigger picture" — you're problem-solving together, not fighting.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                Now it's your turn. Same scenario: you quoted a product at £50k. They opened with £30k. What's your first question to them (before you respond to their number)?
+            </div>
+        </div>
+
+        <!-- TAB 4: Full Negotiation Simulation -->
+        <div id="tab-3" class="tab-content">
+            <h2>Negotiate in Real Time</h2>
+
+            <p>You're at a trade fair. You've had two great conversations with a buyer. They're interested. Now it's time to negotiate the deal. I'll play the buyer. Multiple rounds. You need to move from "interested" to "let's do this."</p>
+
+            <div class="card">
+                <h3>The Scenario:</h3>
+                <p><strong>You:</strong> You're selling a three-month consulting engagement to help a manufacturing company improve supply chain efficiency. Your fee: £45k.</p>
+                <p><strong>Them:</strong> They want it. But they've never paid more than £30k for consulting. And they're nervous — what if your approach doesn't work?</p>
+                <p><strong>Goal:</strong> Close the deal (or move toward a clear next step) in 5 minutes.</p>
+            </div>
+
+            <h3>What you need to do:</h3>
+            <ul>
+                <li>Understand their real constraint (budget? risk? timeline?)</li>
+                <li>Identify what they value most</li>
+                <li>Propose a structure where both sides move</li>
+                <li>Get to a clear commitment</li>
+            </ul>
+
+            <div class="timer">
+                <div>5-minute negotiation round</div>
+                <div class="timer-display" id="timer-display">5:00</div>
+                <button class="timer-button" onclick="startTimer(300)">Start</button>
+                <button class="timer-button" onclick="resetTimer()">Reset</button>
+            </div>
+
+            <div class="speak-prompt">
+                I'm the buyer. I'm genuinely interested, but £45k is more than we've budgeted. I need you to either come down on price or give me a reason to believe this will work so my boss approves the extra spend. Go.
+            </div>
+
+            <h3>After the negotiation:</h3>
+            <div class="card" style="background-color: #fff3cd; border-left-color: #ff9800;">
+                <p><strong>Reflect with me:</strong></p>
+                <ul>
+                    <li>Where did you first move? Was it a strategic move or a panic move?</li>
+                    <li>Did you understand their real constraint, or did you just react to the price?</li>
+                    <li>What could you have asked that would have changed the negotiation?</li>
+                    <li>If you gave a concession, what did you get in return?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB 5: Your Memo -->
+        <div id="tab-4" class="tab-content">
+            <h2>Write Your Negotiation Summary</h2>
+
+            <p>After a negotiation at a trade fair, you need to document what happened — and commit it to action. Here's the task.</p>
+
+            <div class="card">
+                <h3>Write a one-page memo that includes:</h3>
+                <ol>
+                    <li><strong>Outcome:</strong> Did you close the deal, or move to a next step? Be clear.</li>
+                    <li><strong>Their Priorities:</strong> What mattered most to them — price, timeline, features, risk mitigation, something else?</li>
+                    <li><strong>What Moved:</strong> What concessions did each side make? (If you just dropped price with nothing in return, that's a concession to them, not a trade.)</li>
+                    <li><strong>Your BATNA:</strong> If this deal had fallen through, what was your next move?</li>
+                    <li><strong>Next Steps:</strong> Exactly who does what by when? ("They'll send a contract by Friday" not "we'll follow up sometime.")</li>
+                </ol>
+            </div>
+
+            <div class="speak-prompt">
+                Draft this memo now. Speak it aloud — would your boss understand exactly what happened and what comes next? Then tell me: Where did you feel most confident in that negotiation? Where did you feel most unsure?
+            </div>
+
+            <div class="card" style="background-color: #fff3cd; border-left-color: #ff9800;">
+                <h3>Pro Tip:</h3>
+                <p>The memo forces you to be clear about what actually happened. If you wrote "we negotiated the price down" — that's not a memo, that's a failure to do the real work. The memo should show: we understood their priorities, we found a creative solution, and we both moved.</p>
+            </div>
+        </div>
+
+        <!-- TAB 6: Reflection -->
+        <div id="tab-5" class="tab-content">
+            <h2>What You've Done Today</h2>
+
+            <div class="learning-intention">
+                You can now lead negotiations so promising conversations become signed agreements — because you understand priorities, find the zone where both sides win, and trade strategically.
+            </div>
+
+            <h3>Quick Recall (from all three lessons):</h3>
+            <ul>
+                <li>What's your AIDA framework? (From Lesson 1) Can you apply it to opening a negotiation?</li>
+                <li>You're negotiating with someone from a culture very different from yours. What's your first move? (From Lesson 2)</li>
+                <li>What's the difference between a concession and a strategic trade in negotiation?</li>
+                <li>Why is BATNA important? What happens if you don't know it?</li>
+                <li>What's the ZOPA, and how do you find it?</li>
+            </ul>
+
+            <h3>You can now:</h3>
+            <ul>
+                <li>Identify your BATNA before you enter a negotiation</li>
+                <li>Ask questions that reveal what the other side actually values</li>
+                <li>Find and expand the Zone of Possible Agreement</li>
+                <li>Make strategic concessions that feel like trades, not surrenders</li>
+                <li>Use language that moves negotiations toward commitment ("I'm willing to... if you...")  </li>
+                <li>Close a deal or move to a clear next step — in one conversation</li>
+            </ul>
+
+            <div class="speak-prompt">
+                What's the biggest insight from this entire series? If you walked into a trade fair tomorrow, what's the ONE thing you'd do differently in your pitches, conversations, or negotiations?
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`tab-${tabIndex}`).classList.add('active');
+            buttons[tabIndex].classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleFeedback(element) {
+            element.classList.toggle('open');
+        }
+
+        let timerInterval = null;
+
+        function startTimer(seconds) {
+            if (timerInterval) clearInterval(timerInterval);
+
+            let remaining = seconds;
+
+            function updateDisplay() {
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                const display = `${mins}:${secs.toString().padStart(2, '0')}`;
+                document.getElementById('timer-display').textContent = display;
+
+                const timerDisplay = document.getElementById('timer-display');
+
+                if (remaining > 30) {
+                    timerDisplay.classList.remove('yellow', 'red');
+                    timerDisplay.style.color = '#667eea';
+                } else if (remaining > 10) {
+                    timerDisplay.classList.remove('red');
+                    timerDisplay.classList.add('yellow');
+                } else if (remaining > 0) {
+                    timerDisplay.classList.add('red');
+                } else {
+                    clearInterval(timerInterval);
+                    return;
+                }
+
+                remaining--;
+            }
+
+            updateDisplay();
+            timerInterval = setInterval(updateDisplay, 1000);
+        }
+
+        function resetTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            document.getElementById('timer-display').textContent = '5:00';
+            document.getElementById('timer-display').classList.remove('yellow', 'red');
+            document.getElementById('timer-display').style.color = '#667eea';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trade Fair: Small Talk & Socialising</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.7; }
+
+  .tab-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; padding: 16px 12px; background: #fff; border-bottom: 2px solid #f0f0f0; position: sticky; top: 0; z-index: 100; }
+  .tab-btn { padding: 10px 18px; border: 2px solid #e8a0a0; background: #fff; color: #c0392b; border-radius: 25px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.3s; }
+  .tab-btn:hover { background: #fdf2f2; }
+  .tab-btn.active { background: #e74c6f; color: #fff; border-color: #e74c6f; }
+
+  .tab-content { display: none; max-width: 800px; margin: 0 auto; padding: 30px 20px; }
+  .tab-content.active { display: block; }
+
+  .card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #e74c6f; }
+  .card h3 { color: #e74c6f; margin-bottom: 12px; font-size: 1.15rem; }
+
+  .phase-label { display: inline-block; background: #e74c6f; color: #fff; padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 16px; text-transform: uppercase; }
+  .phase-label.activate { background: #e67e22; }
+  .phase-label.demonstrate { background: #27ae60; }
+  .phase-label.consolidate { background: #8e44ad; }
+
+  .learning-intention { background: #fdf2f8; border: 2px solid #e74c6f; border-radius: 10px; padding: 14px 20px; margin: 16px 0; font-weight: 600; font-size: 1rem; text-align: center; }
+
+  textarea { width: 100%; min-height: 80px; padding: 14px; border: 2px solid #ddd; border-radius: 10px; font-family: inherit; font-size: 1rem; resize: vertical; transition: border-color 0.3s; }
+  textarea:focus { border-color: #e74c6f; outline: none; }
+
+  .speak-prompt { background: #fef9e7; border: 2px solid #f1c40f; border-radius: 10px; padding: 16px; margin: 14px 0; }
+  .speak-prompt::before { content: "🎙 SPEAK:"; font-weight: 700; color: #d4a017; display: block; margin-bottom: 6px; }
+
+  .reveal-box { background: #f0f4ff; border: 2px dashed #a0b4e0; border-radius: 10px; padding: 16px; margin: 12px 0; cursor: pointer; text-align: center; transition: all 0.3s; }
+  .reveal-box:hover { background: #e8eeff; }
+  .reveal-box .hidden-content { display: none; text-align: left; margin-top: 12px; }
+  .reveal-box.revealed { border-style: solid; border-color: #27ae60; background: #f0fff4; cursor: default; }
+  .reveal-box.revealed .hidden-content { display: block; }
+  .reveal-box.revealed .reveal-prompt { display: none; }
+  .reveal-prompt { color: #667eea; font-weight: 600; }
+
+  .phrase-box { display: flex; align-items: center; gap: 14px; background: #fff; border: 2px solid #f0d0d0; border-radius: 12px; padding: 14px 18px; margin: 10px 0; }
+  .phrase-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .phrase-text { flex: 1; }
+  .phrase-text .phrase { font-weight: 700; color: #c0392b; font-size: 1.05rem; }
+  .phrase-text .meaning { font-size: 0.9rem; color: #555; margin-top: 2px; }
+
+  .timer-container { text-align: center; margin: 20px 0; }
+  .timer-display { font-size: 2.5rem; font-weight: 700; color: #2ecc71; font-family: 'Courier New', monospace; margin: 10px 0; }
+  .timer-display.warning { color: #f39c12; }
+  .timer-display.danger { color: #e74c3c; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .timer-btn { padding: 8px 20px; border: none; border-radius: 20px; cursor: pointer; font-weight: 600; margin: 0 4px; font-size: 0.9rem; }
+  .timer-btn.start { background: #2ecc71; color: #fff; }
+  .timer-btn.reset { background: #95a5a6; color: #fff; }
+
+  .discussion-card { background: #fff; border: 2px solid #e8a0a0; border-radius: 14px; padding: 20px; margin: 12px 0; cursor: pointer; transition: all 0.3s; }
+  .discussion-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .discussion-card.selected { border-color: #e74c6f; background: #fdf2f8; }
+  .card-number { display: inline-block; background: #e74c6f; color: #fff; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: 700; font-size: 0.85rem; margin-right: 10px; }
+
+  .scenario-visual { background: linear-gradient(135deg, #fdf2f8, #f0f4ff); border-radius: 14px; padding: 24px; text-align: center; margin: 16px 0; }
+  .scenario-visual .icon { font-size: 3rem; margin-bottom: 10px; }
+  .scenario-visual .scene { font-size: 1.1rem; font-weight: 600; color: #333; }
+
+  .steps-visual { display: flex; flex-direction: column; gap: 0; margin: 16px 0; }
+  .step-item { display: flex; align-items: center; gap: 14px; padding: 14px; background: #fff; border-left: 3px solid #e74c6f; position: relative; }
+  .step-item::after { content: "↓"; position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); color: #e74c6f; font-size: 1.2rem; font-weight: 700; }
+  .step-item:last-child::after { display: none; }
+  .step-number { background: #e74c6f; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 0.9rem; }
+
+  .compare-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .compare-col { background: #fff; border-radius: 12px; padding: 18px; }
+  .compare-col.weak { border: 2px solid #e74c3c; }
+  .compare-col.strong { border: 2px solid #27ae60; }
+  .compare-col h4 { margin-bottom: 10px; }
+  .compare-col.weak h4 { color: #e74c3c; }
+  .compare-col.strong h4 { color: #27ae60; }
+
+  .checklist-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-box { width: 22px; height: 22px; border: 2px solid #e74c6f; border-radius: 6px; flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; margin-top: 2px; }
+  .check-box.checked { background: #e74c6f; }
+  .check-box.checked::after { content: "✓"; color: #fff; font-weight: 700; font-size: 0.8rem; }
+
+  @media (max-width: 768px) {
+    .tab-btn { padding: 8px 12px; font-size: 0.8rem; }
+    .phrase-box { flex-direction: column; text-align: center; }
+    .tab-content { padding: 20px 14px; }
+    .compare-columns { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab(0)">1. Recall</button>
+  <button class="tab-btn" onclick="showTab(1)">2. The SAFE</button>
+  <button class="tab-btn" onclick="showTab(2)">3. Comparison</button>
+  <button class="tab-btn" onclick="showTab(3)">4. Scenarios</button>
+  <button class="tab-btn" onclick="showTab(4)">5. Keep Going</button>
+  <button class="tab-btn" onclick="showTab(5)">6. Recall Zone</button>
+</nav>
+
+<!-- ===================== TAB 1: RECALL ===================== -->
+<div class="tab-content active" id="tab0">
+  <span class="phase-label">Connect</span>
+
+  <div class="card">
+    <h3>The after-hours moment</h3>
+    <p>The formal presentations have finished. Now comes the networking dinner. You're sitting at a table. Next to you is someone you've never met. They smile. You smile. Now what do you talk about?</p>
+
+    <div class="scenario-visual">
+      <div class="icon">🍽</div>
+      <div class="scene">A networking dinner. A stranger sits next to you. Silence. What do you say?</div>
+    </div>
+
+    <div class="speak-prompt">
+      Think about a time you had to make small talk with a stranger. What did you talk about? What made the conversation easy or awkward?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Why does small talk matter at trade fairs?</h3>
+    <p>Small talk is NOT wasting time. It's the bridge between meeting someone and having real business conversations. It helps people relax. It builds trust. It makes you memorable.</p>
+
+    <p style="margin-top: 10px;">Without small talk, business conversations feel cold and formal. With small talk, they feel human and real.</p>
+
+    <div class="learning-intention">
+      Today: making comfortable small talk at trade fair social events — so networking dinners and coffee breaks don't feel awkward.
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 2: ACTIVATE — The SAFE Framework ===================== -->
+<div class="tab-content" id="tab1">
+  <span class="phase-label activate">Activate — New Content</span>
+
+  <div class="card">
+    <h3>Topics that work at trade fair social events</h3>
+    <p>Small talk at business events is NOT about personal secrets or deep feelings. It's about safe, shared topics that help you connect. Here's the SAFE framework:</p>
+
+    <div class="steps-visual">
+      <div class="step-item">
+        <div class="step-number">S</div>
+        <div><strong>SURROUNDINGS</strong> — The place you're in. The weather. The location.</div>
+      </div>
+      <div class="step-item" style="margin-top: 20px;">
+        <div class="step-number">A</div>
+        <div><strong>ACTIVITIES</strong> — What you're doing at the fair. Sessions you attended. Booths you visited.</div>
+      </div>
+      <div class="step-item" style="margin-top: 20px;">
+        <div class="step-number">F</div>
+        <div><strong>FOOD</strong> — The meal, drinks, local specialities. Always safe!</div>
+      </div>
+      <div class="step-item" style="margin-top: 20px;">
+        <div class="step-number">E</div>
+        <div><strong>EVENTS</strong> — The fair itself, presentations, your first time here, how long you're staying.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Useful Phrases — S: SURROUNDINGS</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">🏨</div>
+      <div class="phrase-text">
+        <div class="phrase">"This is a beautiful venue, isn't it?"</div>
+        <div class="meaning">Start with something obvious and positive — everyone agrees</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">☀️</div>
+      <div class="phrase-text">
+        <div class="phrase">"Have you been to this city before?"</div>
+        <div class="meaning">Opens conversation about the location — always safe</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">🌤</div>
+      <div class="phrase-text">
+        <div class="phrase">"The weather today is nice. Are you from somewhere with a similar climate?"</div>
+        <div class="meaning">Weather is universal small talk — everyone has an opinion</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Useful Phrases — A: ACTIVITIES</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">👀</div>
+      <div class="phrase-text">
+        <div class="phrase">"How are you finding the fair so far?"</div>
+        <div class="meaning">Direct but open — they can share what they found interesting</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">📍</div>
+      <div class="phrase-text">
+        <div class="phrase">"Have you visited any interesting booths?"</div>
+        <div class="meaning">Gives them space to talk about their experience</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">🎤</div>
+      <div class="phrase-text">
+        <div class="phrase">"Did you go to the presentation this morning?"</div>
+        <div class="meaning">Specific but safe — something you both might have experienced</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Useful Phrases — F: FOOD</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">🍽</div>
+      <div class="phrase-text">
+        <div class="phrase">"The food here is excellent!"</div>
+        <div class="meaning">Compliment the event — people appreciate when you notice</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">🥘</div>
+      <div class="phrase-text">
+        <div class="phrase">"Have you tried the local dishes? They're special here."</div>
+        <div class="meaning">Suggests trying something together — friendly and inclusive</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">☕</div>
+      <div class="phrase-text">
+        <div class="phrase">"The coffee is always good at these events!"</div>
+        <div class="meaning">Light observation — shared experience, common complaint, easy laugh</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Useful Phrases — E: EVENTS</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">🎯</div>
+      <div class="phrase-text">
+        <div class="phrase">"Is this your first time at this fair?"</div>
+        <div class="meaning">Opens a door — either they're new (like you) or experienced (they can guide)</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">📅</div>
+      <div class="phrase-text">
+        <div class="phrase">"How long have you been exhibiting at these kinds of events?"</div>
+        <div class="meaning">Professional but friendly — asks about their experience</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">✈️</div>
+      <div class="phrase-text">
+        <div class="phrase">"How long are you here for?"</div>
+        <div class="meaning">Practical question — shows you're interested in their stay</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 16px;">
+      <div class="speak-prompt">
+        Close your eyes. Can you remember the 4 SAFE topics? Say them: S is... A is... F is... E is...
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 3: ACTIVATE — Weak vs Strong Small Talk ===================== -->
+<div class="tab-content" id="tab2">
+  <span class="phase-label activate">Activate — Practice</span>
+
+  <div class="card">
+    <h3>Awkward small talk vs natural small talk</h3>
+    <p>Look at two versions of the same conversation. What's the difference?</p>
+
+    <div class="compare-columns">
+      <div class="compare-col weak">
+        <h4>❌ Stiff</h4>
+        <p>"What is your job? How much money do you make? Are you married?"</p>
+      </div>
+      <div class="compare-col strong">
+        <h4>✅ Natural</h4>
+        <p>"Have you been to this city before? The venue is really nice, isn't it? Did you catch any of the presentations?"</p>
+      </div>
+    </div>
+
+    <div class="speak-prompt">
+      What's wrong with the stiff version? Why is the natural version better?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🤝 WE DO — Let's build small talk together</h3>
+    <p>You're at a coffee break. Someone stands next to you. Build a short small talk conversation using SAFE topics.</p>
+
+    <div class="speak-prompt">
+      Start with S — SURROUNDINGS. What's a good first question about where you are? Say it.
+    </div>
+
+    <p style="margin-top: 12px; font-weight: 600;">Your opening (S):</p>
+    <textarea rows="1" placeholder="Comment on the surroundings or location..."></textarea>
+
+    <p style="margin-top: 10px; font-weight: 600;">Follow-up (A) — What activity question would you ask?</p>
+    <textarea rows="1" placeholder="Ask about what they've done at the fair..."></textarea>
+
+    <p style="margin-top: 10px; font-weight: 600;">Then (F) — Turn to food:</p>
+    <textarea rows="1" placeholder="Comment on the coffee, food, or drinks..."></textarea>
+
+    <p style="margin-top: 10px; font-weight: 600;">Finally (E) — Ask about the event:</p>
+    <textarea rows="1" placeholder="Ask if it's their first time, how long they're here, etc..."></textarea>
+
+    <div class="speak-prompt" style="margin-top: 14px;">
+      Now say all four parts together as one natural conversation. No pauses — it should flow.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🚀 YOU DO — Your own small talk opener</h3>
+    <p>Write 3 different opening lines you could use in small talk situations at a trade fair. Use SAFE topics.</p>
+
+    <p style="margin-top: 10px; font-weight: 600;">Opening 1:</p>
+    <textarea rows="1" placeholder="First small talk opener..."></textarea>
+
+    <p style="margin-top: 8px; font-weight: 600;">Opening 2:</p>
+    <textarea rows="1" placeholder="Second small talk opener..."></textarea>
+
+    <p style="margin-top: 8px; font-weight: 600;">Opening 3:</p>
+    <textarea rows="1" placeholder="Third small talk opener..."></textarea>
+
+    <div class="speak-prompt" style="margin-top: 16px;">
+      Say all three aloud — naturally, like you're really at a networking event. Which one sounds most natural to you?
+    </div>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 14px;">
+      <div class="reveal-prompt">👆 Click to see example openers</div>
+      <div class="hidden-content">
+        <p><strong>S example:</strong> "This venue is beautiful. Have you been to this city before?"</p>
+        <p><strong>A example:</strong> "Have you been to any interesting booths today? How are you finding the fair?"</p>
+        <p><strong>F example:</strong> "The food here is great! Have you tried the local specialities?"</p>
+        <p style="margin-top: 8px; font-size: 0.9rem; color: #555;">Notice: They all start with something safe and shared, not personal questions.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 4: DEMONSTRATE — Scenario Cards ===================== -->
+<div class="tab-content" id="tab3">
+  <span class="phase-label demonstrate">Demonstrate — Application</span>
+
+  <div class="card">
+    <h3>🎭 Real Small Talk Scenarios</h3>
+    <p>Choose 3 of these situations. For each one: start a small talk conversation using SAFE topics. Aim for 2-3 exchanges naturally.</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">A</span><strong>Coffee break, 11:00 AM.</strong> You're waiting for coffee. Someone joins the queue next to you. Say something.</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">B</span><strong>Networking dinner, sitting at a round table.</strong> You're seated next to someone you don't know. They're looking at the menu. Start a conversation.</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">C</span><strong>Taxi queue at the hotel.</strong> You're waiting with someone from another country. It's a bit cold. Start small talk.</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">D</span><strong>Hotel lobby, 7:00 PM.</strong> You're waiting for the night shuttle to the fair. A person from another booth is also waiting. Say hello.</p>
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <h3>⏱ Timed Small Talk Practice</h3>
+    <p>For each scenario: start with SAFE topics. Try to have a 2-3 minute natural conversation. Don't jump to business — stay relaxed.</p>
+
+    <div class="timer-container">
+      <div class="timer-display" id="timer1">3:00</div>
+      <button class="timer-btn start" onclick="startTimer('timer1', 180)">▶ Start (3 min)</button>
+      <button class="timer-btn reset" onclick="resetTimer('timer1', 180)">↺ Reset</button>
+    </div>
+
+    <div class="speak-prompt">
+      Scenario 1: Start a small talk conversation. Use SAFE topics. Keep it natural. Go!
+    </div>
+
+    <p style="margin-top: 14px; font-size: 0.9rem; color: #555;">What topics did you use? What made it easy or hard?</p>
+    <textarea rows="2" placeholder="Topics used, or difficult moments..."></textarea>
+
+    <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 16px;">
+      <div class="timer-container">
+        <div class="timer-display" id="timer2">3:00</div>
+        <button class="timer-btn start" onclick="startTimer('timer2', 180)">▶ Start (3 min)</button>
+        <button class="timer-btn reset" onclick="resetTimer('timer2', 180)">↺ Reset</button>
+      </div>
+
+      <div class="speak-prompt">
+        Scenario 2: Different situation, new small talk. Go!
+      </div>
+
+      <textarea rows="2" placeholder="Notes on this conversation..." style="margin-top: 12px;"></textarea>
+    </div>
+
+    <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 16px;">
+      <div class="timer-container">
+        <div class="timer-display" id="timer3">3:00</div>
+        <button class="timer-btn start" onclick="startTimer('timer3', 180)">▶ Start (3 min)</button>
+        <button class="timer-btn reset" onclick="resetTimer('timer3', 180)">↺ Reset</button>
+      </div>
+
+      <div class="speak-prompt">
+        Scenario 3: One more situation. Stay relaxed and natural. Go!
+      </div>
+
+      <textarea rows="2" placeholder="How did this one go?" style="margin-top: 12px;"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 5: DEMONSTRATE — Keep It Going ===================== -->
+<div class="tab-content" id="tab4">
+  <span class="phase-label demonstrate">Demonstrate — Follow-Up Questions</span>
+
+  <div class="card">
+    <h3>Moving from small talk to real conversation</h3>
+    <p>Small talk doesn't have to stay small. After a SAFE opening, you can ask follow-up questions to keep the conversation flowing and show genuine interest.</p>
+
+    <div class="speak-prompt">
+      Someone just said: "Yes, this is my first time at this fair." What could you ask next to keep the conversation going?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Follow-up questions that show interest</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">❓</div>
+      <div class="phrase-text">
+        <div class="phrase">"Really? What made you decide to come this year?"</div>
+        <div class="meaning">Shows genuine interest — not just polite listening</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">🎯</div>
+      <div class="phrase-text">
+        <div class="phrase">"That sounds interesting. How long have you been in this business?"</div>
+        <div class="meaning">Moves gently toward their work — still friendly, not interrogating</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">👂</div>
+      <div class="phrase-text">
+        <div class="phrase">"Interesting! Tell me more about that."</div>
+        <div class="meaning">Simple, open-ended — invites them to share more</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">🤔</div>
+      <div class="phrase-text">
+        <div class="phrase">"How long are you staying in the city? Are you visiting anything else?"</div>
+        <div class="meaning">Keeps conversation light but personal — shows you care</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 16px;">
+      <div class="speak-prompt">
+        Practice asking a follow-up question. Someone just said: "I come from a logistics company." What would you ask next?
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>✍ Written Task: Plan Your Fair Small Talk</h3>
+    <p>Before the fair, plan 5 safe small talk questions you could use in different situations. Think about SAFE topics.</p>
+
+    <div class="timer-container">
+      <div class="timer-display" id="timer4">4:00</div>
+      <button class="timer-btn start" onclick="startTimer('timer4', 240)">▶ 4 min</button>
+      <button class="timer-btn reset" onclick="resetTimer('timer4', 240)">↺ Reset</button>
+    </div>
+
+    <textarea rows="10" placeholder="Question 1: &#10;Question 2: &#10;Question 3: &#10;Question 4: &#10;Question 5: "></textarea>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 14px;">
+      <div class="reveal-prompt">👆 Click to see example questions</div>
+      <div class="hidden-content">
+        <p><strong>S:</strong> "Have you been to this city before? What's it like?"</p>
+        <p><strong>A:</strong> "How are you finding the fair so far? Any interesting booths?"</p>
+        <p><strong>F:</strong> "The coffee here is good! Have you tried the local food?"</p>
+        <p><strong>E:</strong> "Is this your first time at this event?"</p>
+        <p><strong>Follow-up:</strong> "That sounds interesting. Tell me more."</p>
+        <p style="margin-top: 8px; font-size: 0.9rem; color: #555;">Write these down. Practice them before the fair. Small talk that feels natural takes preparation.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🎙 Teach It Back</h3>
+    <p>Imagine a nervous colleague says: "I hate networking dinners. I don't know what to talk about." What advice would you give them?</p>
+
+    <div class="speak-prompt">
+      Explain the SAFE framework and why it works. What topics are safe? Why should you avoid personal or money questions?
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 6: CONSOLIDATE ===================== -->
+<div class="tab-content" id="tab5">
+  <span class="phase-label consolidate">Consolidate</span>
+
+  <div class="card">
+    <h3>🔄 Recall Zone — Lessons 1–3</h3>
+    <p>You've now learned 4 complete frameworks. Let's see how much you remember.</p>
+
+    <div class="speak-prompt">
+      From Lesson 1 — What's the 4-step introduction framework? Say it from memory.
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 10px;">
+      From Lesson 2 — What's the W-W-W framework for products? Say the 3 W's.
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 10px;">
+      From Lesson 3 — What does EXIT stand for? Say all 4 steps.
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 10px;">
+      Today — What are the SAFE topics for small talk? Say all 4.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🧠 Final Retrieval</h3>
+    <p>Look away from the screen. Now:</p>
+
+    <div class="speak-prompt">
+      You're at a networking dinner. A stranger sits next to you. What's your opening SAFE question? Then what follow-up questions would you ask? Go for 2–3 minutes of conversation from memory.
+    </div>
+
+    <p style="margin-top: 14px;">Write a transcript of what you would say:</p>
+    <textarea rows="8" placeholder="Your: [opening]&#10;Them: [imagine their response]&#10;Your: [follow-up]&#10;...and so on"></textarea>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 14px;">
+      <div class="reveal-prompt">👆 Click to see the pattern you should have used</div>
+      <div class="hidden-content">
+        <p><strong>Opening:</strong> SAFE topic (surroundings, activity, food, or event)</p>
+        <p><strong>Their response:</strong> (imagine what they say)</p>
+        <p><strong>Your follow-up:</strong> Interest question ("That sounds interesting..." / "Tell me more..." / "How long have you...")</p>
+        <p><strong>Keep going:</strong> More questions, listen, respond to what they say</p>
+        <p style="margin-top: 8px; font-size: 0.9rem; color: #555;">Good small talk is about listening, not talking. Ask questions and let them speak about 60% of the time.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>💭 Thinking About Thinking</h3>
+    <div class="speak-prompt">
+      Why is small talk harder than business conversation for many people? What made it easier for you today? Was it the framework, the practice, or something else?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>✅ I can...</h3>
+    <p>We said you'd be able to make comfortable small talk at trade fair social events. Can you?</p>
+
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can start a small talk conversation with a stranger using safe topics.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can ask follow-up questions that show genuine interest.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can use SAFE topics (Surroundings, Activities, Food, Events).</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can keep small talk flowing for 2–3 minutes naturally.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can avoid awkward or personal questions at business events.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I feel confident joining a networking dinner or coffee break conversation.</div>
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 14px;">
+      Which of these "I can" statements are you most confident about? Which one do you want to practise more before the fair?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🚀 Your Trade Fair Is Ready</h3>
+    <p>You have now learned 4 complete frameworks:</p>
+    <ul style="margin-top: 10px; margin-left: 20px;">
+      <li><strong>The 4-step Introduction</strong> (GREET-COMPANY-PRODUCT-CONNECT)</li>
+      <li><strong>The W-W-W Product Description</strong> (WHAT-WHY-WHO)</li>
+      <li><strong>The EXIT Goodbye</strong> (END-eXchange-Invite-Thank)</li>
+      <li><strong>The SAFE Small Talk</strong> (Surroundings-Activities-Food-Events)</li>
+    </ul>
+
+    <p style="margin-top: 12px;">Together, these frameworks let you:</p>
+    <ul style="margin-left: 20px;">
+      <li>Make confident first impressions</li>
+      <li>Clearly explain what you offer</li>
+      <li>Build real business connections</li>
+      <li>Make networking social events feel natural, not awkward</li>
+    </ul>
+
+    <div class="speak-prompt" style="margin-top: 14px;">
+      Before the fair, practise these frameworks aloud every day. Record yourself. Listen back. Small corrections now = confident conversations at the fair.
+    </div>
+  </div>
+</div>
+
+<script>
+function showTab(index) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab' + index).classList.add('active');
+  document.querySelectorAll('.tab-btn')[index].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+const timers = {};
+
+function startTimer(id, seconds) {
+  if (timers[id]) clearInterval(timers[id].interval);
+  let remaining = seconds;
+  const el = document.getElementById(id);
+
+  function update() {
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    el.className = 'timer-display';
+    if (remaining <= 10) el.classList.add('danger');
+    else if (remaining <= 30) el.classList.add('warning');
+    if (remaining <= 0) {
+      clearInterval(timers[id].interval);
+      el.textContent = "0:00";
+      el.classList.add('danger');
+    }
+    remaining--;
+  }
+
+  update();
+  timers[id] = { interval: setInterval(update, 1000), total: seconds };
+}
+
+function resetTimer(id, seconds) {
+  if (timers[id]) clearInterval(timers[id].interval);
+  const el = document.getElementById(id);
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  el.className = 'timer-display';
+}
+</script>
+
+</body>
+</html>

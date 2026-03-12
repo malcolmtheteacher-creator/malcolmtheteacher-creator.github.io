@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross-Cultural Communication at Trade Fairs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            border: 2px solid #667eea;
+            background-color: white;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .tab-button.active {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            line-height: 1.8;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .speak-prompt {
+            background-color: #fffacd;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .speak-prompt::before {
+            content: "🎙 SPEAK: ";
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .card {
+            background-color: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .timer {
+            background-color: #e8f0f8;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .timer-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .timer-display.yellow {
+            color: #ff9800;
+        }
+
+        .timer-display.red {
+            color: #e74c3c;
+            animation: pulse 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .timer-button {
+            padding: 10px 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .timer-button:hover {
+            background-color: #5568d3;
+        }
+
+        .scenario-box {
+            background-color: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #999;
+        }
+
+        .dimension {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8ecff 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .dimension-title {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.15em;
+            margin-bottom: 8px;
+        }
+
+        .feedback-box {
+            background-color: #f0fff4;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #48bb78;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .feedback-box:hover {
+            background-color: #e6fffa;
+        }
+
+        .feedback-content {
+            display: none;
+            margin-top: 10px;
+            color: #2d3748;
+        }
+
+        .feedback-box.open .feedback-content {
+            display: block;
+        }
+
+        .feedback-box::before {
+            content: "▶ ";
+            color: #48bb78;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .feedback-box.open::before {
+            content: "▼ ";
+        }
+
+        .learning-intention {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 1.15em;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .dialogue {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-style: italic;
+            border-left: 4px solid #ccc;
+        }
+
+        .dialogue strong {
+            font-style: normal;
+            color: #667eea;
+        }
+
+        .strategy-list {
+            background-color: #f0fff4;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cross-Cultural Communication</h1>
+        <p class="subtitle">When your handshake, eye contact, and sense of humour might be "wrong"</p>
+
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab(0)">The Invisible Barriers</button>
+            <button class="tab-button" onclick="switchTab(1)">Cultural Dimensions</button>
+            <button class="tab-button" onclick="switchTab(2)">Misunderstanding & Recovery</button>
+            <button class="tab-button" onclick="switchTab(3)">Role Plays</button>
+            <button class="tab-button" onclick="switchTab(4)">Your Awareness Checklist</button>
+            <button class="tab-button" onclick="switchTab(5)">Reflection</button>
+        </div>
+
+        <!-- TAB 1: The Invisible Barriers -->
+        <div id="tab-0" class="tab-content active">
+            <h2>The Invisible Barriers</h2>
+
+            <p>You're at an international trade fair. You walk up, extend your right hand for a handshake, make strong eye contact, smile warmly, and say: "Great to meet you!"</p>
+
+            <p>The person across from you steps back slightly, looks down, and takes your hand briefly.</p>
+
+            <p style="font-size: 1.2em; color: #667eea; font-weight: bold; margin: 20px 0;">You just made three mistakes. And you didn't know.</p>
+
+            <div class="card">
+                <h3>Here's what happened:</h3>
+                <ul>
+                    <li>In their culture, eye contact with a stranger shows disrespect</li>
+                    <li>The warmth you showed came across as presumptuous — you haven't earned relationship yet</li>
+                    <li>Your directness feels aggressive to them</li>
+                </ul>
+            </div>
+
+            <p>The problem: these aren't rules written down anywhere. They're <span class="highlight">cultural defaults</span> — so embedded in how people think that they don't even notice them. Until someone violates them.</p>
+
+            <h3>At an international fair, you'll meet people with radically different defaults:</h3>
+            <ul>
+                <li>Some believe business is built on relationships first, deals second</li>
+                <li>Some believe deals are deals — relationships follow (or don't matter)</li>
+                <li>Some will expect you to be very direct about pricing and terms</li>
+                <li>Some will see that directness as rude and will negotiate indirectly instead</li>
+                <li>Some will make decisions based on hierarchy (what the boss wants)</li>
+                <li>Some will expect consensus from their team</li>
+                <li>Some will see your humour as professional and clever</li>
+                <li>Some will see it as unprofessional</li>
+            </ul>
+
+            <div class="speak-prompt">
+                Think about your own culture. What communication style feels "normal" to you? Direct or indirect? Relationship-first or deal-first? Now: what would feel strange or rude if someone did it?
+            </div>
+
+            <p style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee; font-size: 0.95em; color: #666;">
+                The goal today isn't to learn 200 different cultures. It's to develop <strong>cultural awareness</strong> — so you can adapt in real time when you sense a mismatch.
+            </p>
+        </div>
+
+        <!-- TAB 2: Cultural Dimensions -->
+        <div id="tab-1" class="tab-content">
+            <h2>Key Cultural Dimensions</h2>
+
+            <p>These dimensions don't define cultures — they're awareness tools. Use them to read the room.</p>
+
+            <div class="dimension">
+                <div class="dimension-title">1. Direct vs. Indirect Communication</div>
+                <p><strong>Direct:</strong> "This won't work. Here's why." Clear, explicit, saves time.</p>
+                <p><strong>Indirect:</strong> "That's an interesting idea. In my experience, we've seen some challenges with similar approaches..." Relationship-preserving, but slower.</p>
+                <p style="color: #666; font-size: 0.95em;">Watch for: Does the person tell you "no" directly, or do they say "yes" but mean maybe? Are they comfortable with blunt feedback?</p>
+            </div>
+
+            <div class="dimension">
+                <div class="dimension-title">2. Relationship-First vs. Deal-First</div>
+                <p><strong>Relationship-First:</strong> "Let's get to know each other. Trust matters. Only then do we talk business."</p>
+                <p><strong>Deal-First:</strong> "Let's talk about what you need, what I can offer, and whether there's a fit. Relationship follows."</p>
+                <p style="color: #666; font-size: 0.95em;">Watch for: Do they want to exchange business cards immediately, or do they ask about your family first? Is small talk expected or time-wasting?</p>
+            </div>
+
+            <div class="dimension">
+                <div class="dimension-title">3. Hierarchy Sensitivity</div>
+                <p><strong>High Hierarchy:</strong> "We need to involve the decision-maker. Titles matter. You address the most senior person."</p>
+                <p><strong>Low Hierarchy:</strong> "Anyone on the team can decide. We make decisions together. Titles are just for organising."</p>
+                <p style="color: #666; font-size: 0.95em;">Watch for: Do they defer to someone else before answering? Do they insist you speak to "the right person"? Do they seem uncomfortable making decisions without approval?</p>
+            </div>
+
+            <div class="dimension">
+                <div class="dimension-title">4. Attitude Toward Time</div>
+                <p><strong>Clock Time:</strong> "2pm means 2pm. Be on time. Respect people's schedules. Efficiency matters."</p>
+                <p><strong>Event Time:</strong> "2pm is approximate. The conversation ends when it's done. Rushing feels disrespectful."</p>
+                <p style="color: #666; font-size: 0.95em;">Watch for: Are they checking their watch? Did they arrive exactly on time or 15 minutes late? Are they rushing the conversation?</p>
+            </div>
+
+            <div class="dimension">
+                <div class="dimension-title">5. Physical Space & Touch</div>
+                <p><strong>Close Space:</strong> "Handshakes, shoulder touches, standing near. Touch shows warmth."</p>
+                <p><strong>Far Space:</strong> "Distance shows respect. Touch is only for close friends."</p>
+                <p style="color: #666; font-size: 0.95em;">Watch for: Do they step closer or back away? Do they reciprocate a handshake or just touch your fingers? Do they make physical contact?</p>
+            </div>
+
+            <div class="dimension">
+                <div class="dimension-title">6. Eye Contact</div>
+                <p><strong>Direct Eye Contact:</strong> "I'm being honest. I'm confident. I'm engaged."</p>
+                <p><strong>Avoiding Eye Contact:</strong> "I'm showing respect. I'm not challenging your authority."</p>
+                <p style="color: #666; font-size: 0.95em;">Watch for: Are they looking at you directly or at the ground? Is their gaze steady or do they break contact frequently?</p>
+            </div>
+
+            <div class="speak-prompt">
+                Pick three of these dimensions. For each one, what's YOUR natural style? (Example: "I'm relationship-first, direct communication, low hierarchy, clock-time." Now: how would someone with opposite preferences experience meeting you?
+            </div>
+        </div>
+
+        <!-- TAB 3: Misunderstanding & Recovery -->
+        <div id="tab-2" class="tab-content">
+            <h2>When Things Go Wrong (And How to Fix It)</h2>
+
+            <p>Here are three real-world misunderstandings at trade fairs. Each one happened because of clashing cultural defaults. Watch how the person recovers.</p>
+
+            <h3>Scenario 1: The Direct Feedback Disaster</h3>
+            <div class="scenario-box">
+                <p><strong>You:</strong> "Your product spec has a problem. The API architecture won't scale to your customer base."</p>
+                <p><strong>Them:</strong> [Long silence. They look uncomfortable.]</p>
+                <p><strong>You:</strong> [Trying to help] "Don't worry, it's fixable. Here's what you need to do..."</p>
+                <p><strong>Them:</strong> "I'll have to speak with my team about this."</p>
+                <p style="color: #999; font-style: italic;">[You've just told them they were wrong, in front of others, and given them a solution without consulting their team. In their culture, this is deeply disrespectful.]</p>
+            </div>
+
+            <div class="feedback-box" onclick="toggleFeedback(this)">
+                <span class="feedback-title">How to recover</span>
+                <div class="feedback-content">
+                    <p><strong>Step back. Reframe:</strong> "I apologise — I came across too direct there. What I meant to say is: I see a potential scalability consideration. Your team probably has thought about this already. How are you approaching growth beyond, say, 10,000 concurrent users?"</p>
+                    <p>This does three things: (1) You acknowledge the mistake, (2) You give them credit for expertise, (3) You invite them to solve it together.</p>
+                </div>
+            </div>
+
+            <h3>Scenario 2: The Relationship Impatience</h3>
+            <div class="scenario-box">
+                <p><strong>Them:</strong> [After 5 minutes] "Tell me about your family. Where are you from? Do you have children?"</p>
+                <p><strong>You:</strong> [Eager to move forward] "I'm happy to chat, but I know your time is valuable. Should we focus on your needs first?"</p>
+                <p><strong>Them:</strong> [Polite but noticeably cooler] "Of course. Yes, let's talk business."</p>
+                <p style="color: #999; font-style: italic;">[You just told them that you don't care about them as a person, only about getting a deal. That signals you're not trustworthy.]</p>
+            </div>
+
+            <div class="feedback-box" onclick="toggleFeedback(this)">
+                <span class="feedback-title">How to recover</span>
+                <div class="feedback-content">
+                    <p><strong>Lean in. Invest time in the relationship:</strong> "I apologise. Actually, I'd love to know more. Where are you based? Have you been to this fair before?"</p>
+                    <p>Then — even if you're impatient — give them time. Answer their questions about yourself. Ask about their team. Show genuine interest. The business conversation will come. And when it does, they'll be much more open because you've shown them you see them as a person, not just a customer.</p>
+                </div>
+            </div>
+
+            <h3>Scenario 3: The Hierarchy Miss</h3>
+            <div class="scenario-box">
+                <p><strong>You:</strong> [To the younger team member] "So what does your company need in a logistics partner?"</p>
+                <p><strong>Younger person:</strong> [Looking uncomfortable] "That's a question for our operations director."</p>
+                <p><strong>You:</strong> "Sure, but you work on this day-to-day. What's your perspective?"</p>
+                <p><strong>Younger person:</strong> [Even more uncomfortable] "I'd prefer to wait for the director."</p>
+                <p style="color: #999; font-style: italic;">[You've tried to elevate them by giving them voice, but in their culture, that's putting them in an impossible position. Decisions come from the top.]</p>
+            </div>
+
+            <div class="feedback-box" onclick="toggleFeedback(this)">
+                <span class="feedback-title">How to recover</span>
+                <div class="feedback-content">
+                    <p><strong>Read the signal. Adapt:</strong> "Got it. Let's make sure we have the right conversation. When can we all three talk? Is there a time that works for your team?"</p>
+                    <p>You're respecting hierarchy by asking to include the decision-maker. You're making it easy for the younger person. And you're showing respect for how their organisation works.</p>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                Have you ever had a conversation where you realised halfway through that the other person was uncomfortable? What happened? How did you realise there was a mismatch?
+            </div>
+        </div>
+
+        <!-- TAB 4: Role Plays -->
+        <div id="tab-3" class="tab-content">
+            <h2>Communicating with Different Styles</h2>
+
+            <p>You're at a booth. I'll play four different visitors with very different communication styles. Each one is a potential buyer. Your job: adapt in real time.</p>
+
+            <h3>Scenario 1: Very Direct, Deal-First Communicator</h3>
+            <div class="scenario-box">
+                <p><strong>Them:</strong> "Hi. What do you do and how much does it cost?"</p>
+                <p>This person wants efficiency. No small talk. They respect directness. Give them clarity and numbers. The conversation should be <strong>2–3 minutes</strong> unless they ask follow-up questions.</p>
+            </div>
+            <div class="speak-prompt">
+                You have a 3-minute timer. How would you pitch to this person? Go.
+            </div>
+
+            <div class="timer">
+                <div>3-minute timer</div>
+                <div class="timer-display" id="timer-display-1">3:00</div>
+                <button class="timer-button" onclick="startTimer(180, 'timer-display-1')">Start</button>
+                <button class="timer-button" onclick="resetTimer('timer-display-1')">Reset</button>
+            </div>
+
+            <h3>Scenario 2: Relationship-First, Indirect Communicator</h3>
+            <div class="scenario-box">
+                <p><strong>Them:</strong> [Approaching slowly] "Hello. This is a nice fair, isn't it? Have you been before?"</p>
+                <p>This person wants to build trust. They're testing whether you're genuine. Answer their questions warmly. Let the conversation unfold naturally. <strong>5–8 minutes minimum</strong>. They'll get to business when they're ready.</p>
+            </div>
+            <div class="speak-prompt">
+                I'm playing this visitor. I'll chat with you for a few minutes before asking about your product. Your job: stay patient, ask about them, don't rush. Go.
+            </div>
+
+            <div class="timer">
+                <div>5-minute timer</div>
+                <div class="timer-display" id="timer-display-2">5:00</div>
+                <button class="timer-button" onclick="startTimer(300, 'timer-display-2')">Start</button>
+                <button class="timer-button" onclick="resetTimer('timer-display-2')">Reset</button>
+            </div>
+
+            <h3>Scenario 3: Hierarchy-Conscious, Formal Communicator</h3>
+            <div class="scenario-box">
+                <p><strong>Them:</strong> [In formal tone] "Good afternoon. I am the procurement manager for our region. Do you have materials for senior leadership to review?"</p>
+                <p>This person expects protocol. Use titles. Be professional. Ask if their director or CEO needs to be involved. Don't try to be their buddy. <strong>Professional distance is respectful here.</strong></p>
+            </div>
+            <div class="speak-prompt">
+                I'm a procurement manager. I expect formality and clarity. Show me you understand our structure and decision process. Go.
+            </div>
+
+            <h3>Scenario 4: High-Context, Indirect, Relationship-Focused Communicator</h3>
+            <div class="scenario-box">
+                <p><strong>Them:</strong> [Smiling] "I've heard interesting things about your company. Tell me — what made you choose this industry?"</p>
+                <p>This person is reading you as much as your product. They want to understand your values and motivations. Be genuine. Tell them a real story. Don't over-pitch. Let them ask questions. <strong>10–15 minutes of genuine conversation.</strong></p>
+            </div>
+            <div class="speak-prompt">
+                I'm asking about your motivations. I want to understand your story. Answer genuinely, then ask me about mine. Build a real conversation. Go.
+            </div>
+
+            <div class="timer">
+                <div>10-minute timer</div>
+                <div class="timer-display" id="timer-display-3">10:00</div>
+                <button class="timer-button" onclick="startTimer(600, 'timer-display-3')">Start</button>
+                <button class="timer-button" onclick="resetTimer('timer-display-3')">Reset</button>
+            </div>
+        </div>
+
+        <!-- TAB 5: Your Awareness Checklist -->
+        <div id="tab-4" class="tab-content">
+            <h2>Prepare Your Team: A Cultural Awareness Checklist</h2>
+
+            <p>Before you go to an international fair, your team needs a simple guide. Not a 50-page handbook — just awareness reminders. Here's a template.</p>
+
+            <div class="card">
+                <h3>Your Task:</h3>
+                <p>Create a one-page checklist for your team. Use these prompts:</p>
+                <ol>
+                    <li><strong>Our defaults:</strong> How do WE communicate naturally? (Direct/indirect? Relationship/deal-first? Hierarchy-aware?)</li>
+                    <li><strong>Likely differences:</strong> Which dimensions might clash with visitors at this fair?</li>
+                    <li><strong>Watch for:</strong> What signals tell us someone has a different style? (E.g., "If they don't make eye contact, don't assume they're uninterested...")</li>
+                    <li><strong>If we sense a mismatch:</strong> What's our first move? (Pause. Ask. Adapt.)</li>
+                    <li><strong>Questions we'll ask:</strong> What are three open questions we can ask to understand their communication style before we pitch?</li>
+                </ol>
+            </div>
+
+            <div class="speak-prompt">
+                Draft this checklist now. Speak it aloud. (Yes, actually speak it to me — does it sound like something a real team would use?) Then tell me: What's the ONE cultural dimension where YOUR team is most likely to make a mistake?
+            </div>
+
+            <div class="card" style="background-color: #fff3cd; border-left-color: #ff9800;">
+                <h3>Pro Tip:</h3>
+                <p>The best checklist is SHORT. One page. Your team won't read a handbook. But they'll remember: "If something feels off, pause and ask."</p>
+            </div>
+        </div>
+
+        <!-- TAB 6: Reflection -->
+        <div id="tab-5" class="tab-content">
+            <h2>What You've Done Today</h2>
+
+            <div class="learning-intention">
+                You can now recognise and adapt to different communication styles — turning cultural differences into an advantage instead of a barrier.
+            </div>
+
+            <h3>Quick Recall:</h3>
+            <ul>
+                <li>Name three "invisible defaults" that differ across cultures.</li>
+                <li>What's the difference between direct and indirect communication? Which one are you?</li>
+                <li>If someone steps back when you extend your hand for a handshake, what might that mean?</li>
+                <li>You're in a conversation and something feels off. What's your first move?</li>
+            </ul>
+
+            <h3>You can now:</h3>
+            <ul>
+                <li>Identify six key cultural dimensions that affect communication</li>
+                <li>Read the room: spot when someone's communication style differs from yours</li>
+                <li>Adapt your approach in real time (direct→indirect, fast→slow, formal→warm)</li>
+                <li>Recover from a cultural misstep</li>
+                <li>Prepare your team for cross-cultural encounters</li>
+            </ul>
+
+            <div class="speak-prompt">
+                What's the biggest insight? What's one communication habit you have that might not work for everyone?
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`tab-${tabIndex}`).classList.add('active');
+            buttons[tabIndex].classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleFeedback(element) {
+            element.classList.toggle('open');
+        }
+
+        let timerIntervals = {};
+
+        function startTimer(seconds, displayId) {
+            if (timerIntervals[displayId]) clearInterval(timerIntervals[displayId]);
+
+            let remaining = seconds;
+
+            function updateDisplay() {
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                const display = `${mins}:${secs.toString().padStart(2, '0')}`;
+                document.getElementById(displayId).textContent = display;
+
+                const timerDisplay = document.getElementById(displayId);
+
+                if (remaining > 30) {
+                    timerDisplay.classList.remove('yellow', 'red');
+                    timerDisplay.style.color = '#667eea';
+                } else if (remaining > 10) {
+                    timerDisplay.classList.remove('red');
+                    timerDisplay.classList.add('yellow');
+                } else if (remaining > 0) {
+                    timerDisplay.classList.add('red');
+                } else {
+                    clearInterval(timerIntervals[displayId]);
+                    return;
+                }
+
+                remaining--;
+            }
+
+            updateDisplay();
+            timerIntervals[displayId] = setInterval(updateDisplay, 1000);
+        }
+
+        function resetTimer(displayId) {
+            if (timerIntervals[displayId]) clearInterval(timerIntervals[displayId]);
+            const originalTime = document.getElementById(displayId).textContent;
+            const [mins, secs] = originalTime.split(':');
+            document.getElementById(displayId).textContent = `${mins}:${secs}`;
+            document.getElementById(displayId).classList.remove('yellow', 'red');
+            document.getElementById(displayId).style.color = '#667eea';
+        }
+    </script>
+</body>
+</html>

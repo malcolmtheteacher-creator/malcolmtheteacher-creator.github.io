@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trade Fair: Handling Problems & Misunderstandings</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.7; }
+
+  /* Tab Navigation */
+  .tab-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; padding: 16px 12px; background: #fff; border-bottom: 2px solid #f0f0f0; position: sticky; top: 0; z-index: 100; }
+  .tab-btn { padding: 10px 18px; border: 2px solid #e8a0a0; background: #fff; color: #c0392b; border-radius: 25px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.3s; }
+  .tab-btn:hover { background: #fdf2f2; }
+  .tab-btn.active { background: #e74c6f; color: #fff; border-color: #e74c6f; }
+
+  /* Content */
+  .tab-content { display: none; max-width: 800px; margin: 0 auto; padding: 30px 20px; }
+  .tab-content.active { display: block; }
+
+  /* Cards */
+  .card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #e74c6f; }
+  .card h3 { color: #e74c6f; margin-bottom: 12px; font-size: 1.15rem; }
+
+  /* Learning Intention */
+  .learning-intention { background: #fdf2f8; border: 2px solid #e74c6f; border-radius: 10px; padding: 14px 20px; margin: 16px 0; font-weight: 600; font-size: 1rem; text-align: center; }
+
+  /* Text areas */
+  textarea { width: 100%; min-height: 80px; padding: 14px; border: 2px solid #ddd; border-radius: 10px; font-family: inherit; font-size: 1rem; resize: vertical; transition: border-color 0.3s; }
+  textarea:focus { border-color: #e74c6f; outline: none; }
+
+  /* Speak prompts */
+  .speak-prompt { background: #fef9e7; border: 2px solid #f1c40f; border-radius: 10px; padding: 16px; margin: 14px 0; }
+  .speak-prompt::before { content: "🎙 SPEAK:"; font-weight: 700; color: #d4a017; display: block; margin-bottom: 6px; }
+
+  /* Click to reveal */
+  .reveal-box { background: #f0f4ff; border: 2px dashed #a0b4e0; border-radius: 10px; padding: 16px; margin: 12px 0; cursor: pointer; text-align: center; transition: all 0.3s; }
+  .reveal-box:hover { background: #e8eeff; }
+  .reveal-box .hidden-content { display: none; text-align: left; margin-top: 12px; }
+  .reveal-box.revealed { border-style: solid; border-color: #27ae60; background: #f0fff4; cursor: default; }
+  .reveal-box.revealed .hidden-content { display: block; }
+  .reveal-box.revealed .reveal-prompt { display: none; }
+  .reveal-prompt { color: #667eea; font-weight: 600; }
+
+  /* Phrase boxes */
+  .phrase-box { display: flex; align-items: center; gap: 14px; background: #fff; border: 2px solid #f0d0d0; border-radius: 12px; padding: 14px 18px; margin: 10px 0; }
+  .phrase-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .phrase-text { flex: 1; }
+  .phrase-text .phrase { font-weight: 700; color: #c0392b; font-size: 1.05rem; }
+  .phrase-text .meaning { font-size: 0.9rem; color: #555; margin-top: 2px; }
+
+  /* Timer */
+  .timer-container { text-align: center; margin: 20px 0; }
+  .timer-display { font-size: 2.5rem; font-weight: 700; color: #2ecc71; font-family: 'Courier New', monospace; margin: 10px 0; }
+  .timer-display.warning { color: #f39c12; }
+  .timer-display.danger { color: #e74c3c; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .timer-btn { padding: 8px 20px; border: none; border-radius: 20px; cursor: pointer; font-weight: 600; margin: 0 4px; font-size: 0.9rem; }
+  .timer-btn.start { background: #2ecc71; color: #fff; }
+  .timer-btn.reset { background: #95a5a6; color: #fff; }
+  .timer-btn.five { background: #3498db; color: #fff; }
+
+  /* Discussion cards */
+  .discussion-card { background: #fff; border: 2px solid #e8a0a0; border-radius: 14px; padding: 20px; margin: 12px 0; cursor: pointer; transition: all 0.3s; }
+  .discussion-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .discussion-card.selected { border-color: #e74c6f; background: #fdf2f8; }
+  .card-number { display: inline-block; background: #e74c6f; color: #fff; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: 700; font-size: 0.85rem; margin-right: 10px; }
+
+  /* Feedback */
+  .feedback { padding: 14px; border-radius: 10px; margin-top: 12px; display: none; }
+  .feedback.correct { background: #e8f8f0; border: 2px solid #2ecc71; color: #1a1a2e; display: block; }
+  .feedback.incorrect { background: #fde8e8; border: 2px solid #e74c3c; color: #1a1a2e; display: block; }
+  .feedback.neutral { background: #fef9e7; border: 2px solid #f1c40f; color: #1a1a2e; display: block; }
+
+  /* Scenario visual */
+  .scenario-visual { background: linear-gradient(135deg, #fdf2f8, #f0f4ff); border-radius: 14px; padding: 24px; text-align: center; margin: 16px 0; }
+  .scenario-visual .icon { font-size: 3rem; margin-bottom: 10px; }
+  .scenario-visual .scene { font-size: 1.1rem; font-weight: 600; color: #333; }
+
+  /* Comparison columns */
+  .compare-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .compare-col { background: #fff; border-radius: 12px; padding: 18px; }
+  .compare-col.weak { border: 2px solid #e74c3c; }
+  .compare-col.strong { border: 2px solid #27ae60; }
+  .compare-col h4 { margin-bottom: 10px; }
+  .compare-col.weak h4 { color: #e74c3c; }
+  .compare-col.strong h4 { color: #27ae60; }
+  @media (max-width: 768px) { .compare-columns { grid-template-columns: 1fr; } }
+
+  /* Checklist */
+  .checklist-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-box { width: 22px; height: 22px; border: 2px solid #e74c6f; border-radius: 6px; flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; margin-top: 2px; }
+  .check-box.checked { background: #e74c6f; }
+  .check-box.checked::after { content: "✓"; color: #fff; font-weight: 700; font-size: 0.8rem; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .tab-btn { padding: 8px 12px; font-size: 0.8rem; }
+    .phrase-box { flex-direction: column; text-align: center; }
+    .tab-content { padding: 20px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TAB NAVIGATION -->
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab(0)">1. Recall</button>
+  <button class="tab-btn" onclick="showTab(1)">2. Framework</button>
+  <button class="tab-btn" onclick="showTab(2)">3. Compare</button>
+  <button class="tab-btn" onclick="showTab(3)">4. Role Play</button>
+  <button class="tab-btn" onclick="showTab(4)">5. Write</button>
+  <button class="tab-btn" onclick="showTab(5)">6. Review</button>
+</nav>
+
+<!-- ===================== TAB 1: RECALL ===================== -->
+<div class="tab-content active" id="tab0">
+  <div class="card">
+    <h3>What could go wrong at a trade fair?</h3>
+    <p>You've learned how to introduce yourself, describe products, exchange contacts, and make small talk. But trade fairs are unpredictable. Let's think about problems.</p>
+
+    <div class="speak-prompt">
+      What are 3 things that could go wrong at a trade fair? Think about communication problems, product problems, or visitor issues.
+    </div>
+
+    <p style="margin-top: 12px; font-size: 0.9rem; color: #777;">Write your ideas:</p>
+    <textarea placeholder="Example: A visitor might ask a question I don't understand..."></textarea>
+  </div>
+
+  <div class="learning-intention">
+    Today: handling problems and misunderstandings professionally — so small issues don't damage your business relationships.
+  </div>
+
+  <div class="card">
+    <h3>Real situations from trade fairs</h3>
+    <div class="scenario-visual">
+      <div class="icon">⚠️</div>
+      <div class="scene">A visitor received wrong information from your colleague and is now angry.</div>
+    </div>
+
+    <div class="scenario-visual">
+      <div class="icon">❌</div>
+      <div class="scene">Your company promised a sample, but it's not ready yet.</div>
+    </div>
+
+    <div class="scenario-visual">
+      <div class="icon">🤔</div>
+      <div class="scene">A visitor misunderstood the price. They think it's 50% cheaper than it actually is.</div>
+    </div>
+
+    <div class="scenario-visual">
+      <div class="icon">📦</div>
+      <div class="scene">A customer ordered a product, but delivery is delayed by two weeks.</div>
+    </div>
+
+    <p style="margin-top: 16px; font-size: 0.9rem; color: #555;">Which of these situations have you experienced in real work? How did you handle it?</p>
+  </div>
+</div>
+
+<!-- ===================== TAB 2: FRAMEWORK ===================== -->
+<div class="tab-content" id="tab1">
+  <div class="card">
+    <h3>The CALM Framework</h3>
+    <p>When something goes wrong, stay professional. Use this 4-step framework:</p>
+
+    <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin: 16px 0; border-left: 4px solid #e74c6f;">
+      <p style="margin-bottom: 12px;"><strong style="color: #e74c6f; font-size: 1.1rem;">C</strong> — <strong>Clarify</strong> the problem. What exactly is wrong?</p>
+      <p style="margin-bottom: 12px;"><strong style="color: #e74c6f; font-size: 1.1rem;">A</strong> — <strong>Apologise</strong> briefly. Show you understand.</p>
+      <p style="margin-bottom: 12px;"><strong style="color: #e74c6f; font-size: 1.1rem;">L</strong> — <strong>Look</strong> for a solution. What CAN you do?</p>
+      <p><strong style="color: #e74c6f; font-size: 1.1rem;">M</strong> — <strong>Move</strong> forward. End on a positive note.</p>
+    </div>
+
+    <div class="speak-prompt">
+      Say these 4 steps from memory. Close your eyes first!
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Useful Phrases — Step 1: CLARIFY</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">❓</div>
+      <div class="phrase-text">
+        <div class="phrase">"I understand there's a problem. Can you tell me what happened?"</div>
+        <div class="meaning">Open, professional — shows you're listening</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">🔍</div>
+      <div class="phrase-text">
+        <div class="phrase">"I'm sorry, there seems to be a misunderstanding. Let me check that for you."</div>
+        <div class="meaning">Acknowledges the issue and shows you'll investigate</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">💬</div>
+      <div class="phrase-text">
+        <div class="phrase">"I understand the problem. What I heard is... Is that correct?"</div>
+        <div class="meaning">Confirms you understand — repeats back what they said</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Useful Phrases — Step 2: APOLOGISE</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">🤝</div>
+      <div class="phrase-text">
+        <div class="phrase">"I apologise for the confusion."</div>
+        <div class="meaning">Professional, brief — doesn't make excuses</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">😟</div>
+      <div class="phrase-text">
+        <div class="phrase">"I'm sorry this happened. It's not the standard we aim for."</div>
+        <div class="meaning">Takes responsibility without over-apologising</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">✋</div>
+      <div class="phrase-text">
+        <div class="phrase">"You're right to be concerned. I understand why you're frustrated."</div>
+        <div class="meaning">Validates their feelings — very powerful for calming people</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Useful Phrases — Steps 3 & 4: LOOK + MOVE</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">🔧</div>
+      <div class="phrase-text">
+        <div class="phrase">"What I can do is..."</div>
+        <div class="meaning">Focus on solutions, not problems</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">⏱</div>
+      <div class="phrase-text">
+        <div class="phrase">"I'll sort this out for you by Friday."</div>
+        <div class="meaning">Give a specific deadline — shows you're taking action</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">✅</div>
+      <div class="phrase-text">
+        <div class="phrase">"I'll email you the corrected information. Is that OK?"</div>
+        <div class="meaning">Proposes action and confirms it works for them</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">🙏</div>
+      <div class="phrase-text">
+        <div class="phrase">"Thank you for bringing this to our attention. We really value your business."</div>
+        <div class="meaning">Ends on respect and gratitude — moves forward</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="speak-prompt">
+      You know the CALM framework now. Tell your teacher what CALM stands for, and give one useful phrase for each step.
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 3: COMPARE ===================== -->
+<div class="tab-content" id="tab2">
+  <div class="card">
+    <h3>Bad Response vs Professional Response</h3>
+    <p>Look at these pairs. One is unprofessional. One is calm and professional. Which would you rather receive as a customer?</p>
+  </div>
+
+  <div class="card">
+    <h3>Situation 1: Wrong Price Information</h3>
+    <p style="margin-bottom: 10px;"><strong>The problem:</strong> A visitor was told the price was €50. The real price is €85.</p>
+
+    <div class="compare-columns">
+      <div class="compare-col weak">
+        <h4>❌ Not Professional</h4>
+        <p>"That's not our problem. The price is €85. My colleague made a mistake, not me."</p>
+        <p style="margin-top: 8px; font-size: 0.9rem;"><strong>Why it fails:</strong> Blames someone, rejects responsibility, sounds dismissive.</p>
+      </div>
+      <div class="compare-col strong">
+        <h4>✅ CALM & Professional</h4>
+        <p>"I apologise for the confusion. Let me check our system... Yes, the correct price is €85. What I can do is give you our volume discount — so it comes to €75. Does that work for you?"</p>
+        <p style="margin-top: 8px; font-size: 0.9rem;"><strong>Why it works:</strong> Clarifies, apologises, offers a solution, moves forward positively.</p>
+      </div>
+    </div>
+
+    <div class="speak-prompt">
+      Which response would make you trust the company more? Why?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Situation 2: Sample Not Ready</h3>
+    <p style="margin-bottom: 10px;"><strong>The problem:</strong> A visitor wants to see a product sample. You promised it, but it's not ready.</p>
+
+    <div class="compare-columns">
+      <div class="compare-col weak">
+        <h4>❌ Not Professional</h4>
+        <p>"Sorry, it's not here. The warehouse is slow. You'll have to wait."</p>
+        <p style="margin-top: 8px; font-size: 0.9rem;"><strong>Why it fails:</strong> Makes an excuse, gives no timeline, no solution.</p>
+      </div>
+      <div class="compare-col strong">
+        <h4>✅ CALM & Professional</h4>
+        <p>"I understand you wanted to see the sample today. I apologise — the warehouse is still processing it. What I can do is send it to you by tomorrow morning, or I can show you detailed photos on my tablet right now. Which would you prefer?"</p>
+        <p style="margin-top: 8px; font-size: 0.9rem;"><strong>Why it works:</strong> Acknowledges the issue, apologises, offers two solutions.</p>
+      </div>
+    </div>
+
+    <div class="speak-prompt">
+      Tell your teacher: what makes the second response better? What solutions did they offer?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Situation 3: Delivery Delay</h3>
+    <p style="margin-bottom: 10px;"><strong>The problem:</strong> A customer ordered a product for next week. Now you must tell them it's delayed by 2 weeks.</p>
+
+    <div class="compare-columns">
+      <div class="compare-col weak">
+        <h4>❌ Not Professional</h4>
+        <p>"The delivery is late. It'll arrive on the 15th instead of the 8th. Sorry."</p>
+        <p style="margin-top: 8px; font-size: 0.9rem;"><strong>Why it fails:</strong> Vague, apologetic but no action plan.</p>
+      </div>
+      <div class="compare-col strong">
+        <h4>✅ CALM & Professional</h4>
+        <p>"I need to let you know about a delay. Your order will now arrive on 15th March instead of 8th March. I apologise — this isn't what we promised. What I can do is give you a 10% discount on this order, and I'll track the shipment and email you updates. Does that help?"</p>
+        <p style="margin-top: 8px; font-size: 0.9rem;"><strong>Why it works:</strong> Clear dates, apology, compensation, and ongoing support.</p>
+      </div>
+    </div>
+
+    <div class="speak-prompt">
+      Compare the two responses. What does the professional response do that the weak one doesn't?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Now It's Your Turn</h3>
+    <p>Your teacher will give you a problem situation. You respond using the CALM framework. Focus on:</p>
+    <div class="checklist-item" style="border: none; padding: 8px 0;">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>Clarify — ask what went wrong</div>
+    </div>
+    <div class="checklist-item" style="border: none; padding: 8px 0;">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>Apologise — but don't overdo it</div>
+    </div>
+    <div class="checklist-item" style="border: none; padding: 8px 0;">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>Look — propose AT LEAST one solution</div>
+    </div>
+    <div class="checklist-item" style="border: none; padding: 8px 0;">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>Move — end with gratitude or next steps</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 4: ROLE PLAY ===================== -->
+<div class="tab-content" id="tab3">
+  <div class="card">
+    <h3>Role Play Scenarios</h3>
+    <p>Choose 2 of these 4 scenarios. For each one, respond using the CALM framework. Speak your full response aloud.</p>
+    <p style="font-size: 0.9rem; color: #777; margin-top: 6px;">Click a scenario to select it.</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">A</span><strong>Visitor received wrong information:</strong> "Your colleague told me you make organic products. But I just looked at your website — you use chemicals. I'm disappointed. This is not serious business."</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">B</span><strong>Sample not ready:</strong> "You promised to show me the new design today. I've been at your booth for 10 minutes. Where is it? I need to see it — I have another stand to visit."</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">C</span><strong>Price confusion:</strong> "The price you quoted me was €200. But your sales team just told me it's €300. Why are you lying? What is the REAL price?"</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">D</span><strong>Delivery delay:</strong> "This is unacceptable. I ordered this 3 weeks ago for my opening next month. Now you tell me it won't arrive for 6 weeks? I need it NOW. I'm looking for a new supplier."</p>
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <h3>⏱ Timed Practice</h3>
+    <p>For each scenario: Read the complaint. You have 1 minute to respond using CALM. Speak aloud.</p>
+
+    <div style="background: #fdf2f8; padding: 16px; border-radius: 12px; margin: 16px 0;">
+      <p><strong>Scenario 1</strong></p>
+
+      <div class="timer-container">
+        <div class="timer-display" id="timer1">1:00</div>
+        <button class="timer-btn start" onclick="startTimer('timer1', 60)">▶ Start (1 min)</button>
+        <button class="timer-btn reset" onclick="resetTimer('timer1', 60)">↺ Reset</button>
+      </div>
+
+      <div class="speak-prompt">
+        Now respond to Scenario 1 using CALM. Go!
+      </div>
+
+      <p style="margin-top: 14px; font-size: 0.9rem; color: #555;">What phrases did you use? Write them here:</p>
+      <textarea rows="2" placeholder="Example: I understand there's a misunderstanding..."></textarea>
+    </div>
+
+    <div style="background: #fdf2f8; padding: 16px; border-radius: 12px; margin: 16px 0;">
+      <p><strong>Scenario 2</strong></p>
+
+      <div class="timer-container">
+        <div class="timer-display" id="timer2">1:00</div>
+        <button class="timer-btn start" onclick="startTimer('timer2', 60)">▶ Start (1 min)</button>
+        <button class="timer-btn reset" onclick="resetTimer('timer2', 60)">↺ Reset</button>
+      </div>
+
+      <div class="speak-prompt">
+        Now respond to Scenario 2 using CALM. Go!
+      </div>
+
+      <textarea rows="2" placeholder="Example: Let me check that for you..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Self-Check: Did You Use CALM?</h3>
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')">
+      <div class="reveal-prompt">👆 Click to see the checklist</div>
+      <div class="hidden-content">
+        <div class="checklist-item">
+          <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+          <div><strong>C — Clarify:</strong> Did you ask questions to understand the problem fully?</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+          <div><strong>A — Apologise:</strong> Did you say sorry in a professional way (not over-apologising)?</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+          <div><strong>L — Look:</strong> Did you offer a solution? (Not just "sorry," but "what I can do is...")</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+          <div><strong>M — Move:</strong> Did you end on a positive note or with next steps?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 5: WRITE ===================== -->
+<div class="tab-content" id="tab4">
+  <div class="card">
+    <h3>✍ Written Task: Apology & Clarification Email</h3>
+    <p>Imagine one of these situations happened to a customer. Write a short email (5-7 sentences) that clarifies the situation and moves the relationship forward.</p>
+
+    <p style="margin-top: 14px; font-weight: 600; color: #333;">Choose one scenario:</p>
+    <div style="background: #f8f9fa; padding: 12px; border-radius: 10px; margin: 10px 0;">
+      <p>✓ <strong>Scenario 1:</strong> A customer was promised delivery on March 8th. It's now March 10th and it hasn't arrived yet.</p>
+    </div>
+    <div style="background: #f8f9fa; padding: 12px; border-radius: 10px; margin: 10px 0;">
+      <p>✓ <strong>Scenario 2:</strong> A customer received a damaged product. Your company will send a replacement, and they will receive it within 5 days, plus a 15% discount on their next order.</p>
+    </div>
+
+    <div class="timer-container">
+      <div class="timer-display" id="timer3">3:00</div>
+      <button class="timer-btn start" onclick="startTimer('timer3', 180)">▶ 3 min</button>
+      <button class="timer-btn five" onclick="startTimer('timer3', 300)">▶ 5 min</button>
+      <button class="timer-btn reset" onclick="resetTimer('timer3', 180)">↺ Reset</button>
+    </div>
+
+    <textarea rows="8" placeholder="Dear [Customer],&#10;&#10;I want to address..."></textarea>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 14px;">
+      <div class="reveal-prompt">👆 Click to see an example email</div>
+      <div class="hidden-content">
+        <p style="font-style: italic; font-size: 0.95rem; line-height: 1.8;">Dear Maria,</p>
+        <p style="font-style: italic; font-size: 0.95rem; line-height: 1.8;">I need to let you know about a delay with your order. The package should have arrived yesterday, but it's still in transit. I apologise — this is not the service we aim for.</p>
+        <p style="font-style: italic; font-size: 0.95rem; line-height: 1.8;">What I can do is track the shipment today and send you updates. You should receive it by Friday. In addition, I'm crediting 10% back to your account for the inconvenience.</p>
+        <p style="font-style: italic; font-size: 0.95rem; line-height: 1.8;">Thank you for your patience, and please contact me if you have any questions.</p>
+        <p style="font-style: italic; font-size: 0.95rem; line-height: 1.8;">Best regards,<br>Thomas</p>
+        <p style="margin-top: 12px; font-size: 0.9rem; color: #555;"><strong>Notice:</strong> This email has all 4 CALM steps: Clarify (the delay and status), Apologise (briefly), Look (track & credit), Move (thank you + contact).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🎙 Elaboration: Teach It Back</h3>
+    <p>Imagine you're training a new team member. They say: "When there's a problem, I should just say sorry and hope it goes away."</p>
+
+    <div class="speak-prompt">
+      Explain the CALM framework to this person. Why is it better than just saying sorry? Give one example from the lesson.
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 6: REVIEW ===================== -->
+<div class="tab-content" id="tab5">
+  <div class="card">
+    <h3>🔄 Recall Zone</h3>
+    <p>Try from memory — no looking back!</p>
+
+    <div class="speak-prompt">
+      What does CALM stand for? Say all 4 words and explain each one in one sentence.
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 10px;">
+      Give one useful phrase for CLARIFY, one for APOLOGISE, and one for LOOK.
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 10px;">
+      Think of a time someone handled a problem really well with you. What did they do that made you feel better?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🧠 Final Retrieval</h3>
+    <p>Write the CALM framework from memory:</p>
+    <textarea rows="6" placeholder="C — ...&#10;A — ...&#10;L — ...&#10;M — ..."></textarea>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 14px;">
+      <div class="reveal-prompt">👆 Click to check your answer</div>
+      <div class="hidden-content">
+        <p><strong>C — Clarify</strong> the problem. What exactly is wrong?</p>
+        <p><strong>A — Apologise</strong> briefly. Show you understand.</p>
+        <p><strong>L — Look</strong> for a solution. What CAN you do?</p>
+        <p><strong>M — Move</strong> forward. End on a positive note.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>From all 5 lessons so far...</h3>
+    <p>You've learned: First Contact (GREET-COMPANY-PRODUCT-CONNECT), Product Description (W-W-W), Exchanging Contacts (EXIT), Small Talk (SAFE), and now Handling Problems (CALM).</p>
+
+    <div class="speak-prompt">
+      Which framework do you feel most confident using at a real trade fair? Which one do you need more practice with?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>💭 Thinking About Thinking</h3>
+    <div class="speak-prompt">
+      What's the most important thing you learned today? How will you remember the CALM framework at a real trade fair when something goes wrong?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>✅ I can...</h3>
+    <p>We said you'd be able to handle problems professionally. Can you?</p>
+
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can listen carefully and clarify what the problem is.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can apologise professionally without making excuses.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can offer solutions using "What I can do is..."</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can end a difficult conversation positively.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can write a professional apology or clarification email.</div>
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 14px;">
+      Which of these can you do confidently? Which one would you like to practise more?
+    </div>
+  </div>
+</div>
+
+<script>
+// Tab switching
+function showTab(index) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab' + index).classList.add('active');
+  document.querySelectorAll('.tab-btn')[index].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Timer functionality
+const timers = {};
+
+function startTimer(id, seconds) {
+  if (timers[id]) clearInterval(timers[id].interval);
+
+  let remaining = seconds;
+  const el = document.getElementById(id);
+
+  function update() {
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+
+    el.className = 'timer-display';
+    if (remaining <= 10) el.classList.add('danger');
+    else if (remaining <= 30) el.classList.add('warning');
+
+    if (remaining <= 0) {
+      clearInterval(timers[id].interval);
+      el.textContent = "0:00";
+      el.classList.add('danger');
+    }
+    remaining--;
+  }
+
+  update();
+  timers[id] = { interval: setInterval(update, 1000), total: seconds };
+}
+
+function resetTimer(id, seconds) {
+  if (timers[id]) clearInterval(timers[id].interval);
+  const el = document.getElementById(id);
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  el.className = 'timer-display';
+}
+</script>
+
+</body>
+</html>

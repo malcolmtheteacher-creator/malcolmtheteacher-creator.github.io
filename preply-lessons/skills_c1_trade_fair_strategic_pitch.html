@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Pitching & Persuasion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            border: 2px solid #667eea;
+            background-color: white;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .tab-button.active {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            line-height: 1.8;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .speak-prompt {
+            background-color: #fffacd;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .speak-prompt::before {
+            content: "🎙 SPEAK: ";
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .timer {
+            background-color: #e8f0f8;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .timer-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .timer-display.yellow {
+            color: #ff9800;
+        }
+
+        .timer-display.red {
+            color: #e74c3c;
+            animation: pulse 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .timer-button {
+            padding: 10px 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .timer-button:hover {
+            background-color: #5568d3;
+        }
+
+        .card {
+            background-color: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .pitch-example {
+            background-color: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #999;
+            font-style: italic;
+        }
+
+        .feedback-box {
+            background-color: #f0fff4;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #48bb78;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .feedback-box:hover {
+            background-color: #e6fffa;
+        }
+
+        .feedback-content {
+            display: none;
+            margin-top: 10px;
+            color: #2d3748;
+        }
+
+        .feedback-box.open .feedback-content {
+            display: block;
+        }
+
+        .feedback-box::before {
+            content: "▶ ";
+            color: #48bb78;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .feedback-box.open::before {
+            content: "▼ ";
+        }
+
+        .learning-intention {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 1.15em;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .aida-framework {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .aida-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .pitch-analysis {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .pitch-analysis strong {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Strategic Pitching & Persuasion</h1>
+        <p class="subtitle">Why you matter in a room full of 200 competitors</p>
+
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab(0)">What Makes You Unforgettable</button>
+            <button class="tab-button" onclick="switchTab(1)">The AIDA Framework</button>
+            <button class="tab-button" onclick="switchTab(2)">Pitch Analysis</button>
+            <button class="tab-button" onclick="switchTab(3)">Adaptive Pitching</button>
+            <button class="tab-button" onclick="switchTab(4)">Your Pitch</button>
+            <button class="tab-button" onclick="switchTab(5)">Reflection</button>
+        </div>
+
+        <!-- TAB 1: What Makes You Unforgettable -->
+        <div id="tab-0" class="tab-content active">
+            <h2>What Makes You Unforgettable?</h2>
+
+            <p>Imagine you're at a trade fair with 200 companies in your space. Every booth looks professional. Everyone has a product. Everyone can explain what they do.</p>
+
+            <p style="font-size: 1.2em; color: #667eea; font-weight: bold; margin: 20px 0;">So why should anyone remember YOU instead of the other 199?</p>
+
+            <div class="card">
+                <h3>Think about this:</h3>
+                <ul>
+                    <li>Most visitors will see 15–20 booths, not 200</li>
+                    <li>They'll remember perhaps 3 companies</li>
+                    <li>Memory isn't about who explained the most — it's about who made them <span class="highlight">feel</span> something</li>
+                </ul>
+            </div>
+
+            <h3>What are the unforgettable pitches?</h3>
+
+            <p>Not the ones that say: "We provide X services in Y industry."</p>
+
+            <p>The unforgettable ones:</p>
+            <ul>
+                <li>Start with a question that matters to THEM</li>
+                <li>Show you understand their world — their pain, their pressure</li>
+                <li>Tell a story (a real one, with conflict and resolution)</li>
+                <li>Give them one concrete, surprising fact that changes how they think</li>
+                <li>Invite them to imagine a different future — together with you</li>
+            </ul>
+
+            <div class="speak-prompt">
+                When you go to a trade fair, what makes YOU remember a company? What did they do differently? Why did they stick with you?
+            </div>
+
+            <p style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee; font-size: 0.95em; color: #666;">
+                In this lesson, you'll learn to craft pitches that win because they're not just heard — they're <strong>felt</strong>.
+            </p>
+        </div>
+
+        <!-- TAB 2: AIDA Framework -->
+        <div id="tab-1" class="tab-content">
+            <h2>The AIDA Framework</h2>
+
+            <p>AIDA is a classic persuasion model. At a trade fair, you need all four to move someone from "interesting" to "let's talk further."</p>
+
+            <div class="aida-framework">
+                <div class="aida-box">Attention</div>
+                <div class="aida-box">Interest</div>
+                <div class="aida-box">Desire</div>
+                <div class="aida-box">Action</div>
+            </div>
+
+            <h3>1. ATTENTION</h3>
+            <p><strong>Goal:</strong> Stop them. Make them pause.</p>
+            <p>Without attention, everything else fails. In 3 seconds, they decide: "Is this for me?"</p>
+            <ul>
+                <li><span class="highlight">"What if I told you..."</span> — creates curiosity</li>
+                <li><span class="highlight">"Most companies in your space make the same mistake..."</span> — signals understanding</li>
+                <li><span class="highlight">A striking visual or stat</span> — memory anchor</li>
+            </ul>
+
+            <h3>2. INTEREST</h3>
+            <p><strong>Goal:</strong> Show them this is about THEM, not you.</p>
+            <ul>
+                <li>Name their challenge specifically: "Your supply chain is vulnerable to..."</li>
+                <li>Show you've done research: "Companies in your sector lose on average..."</li>
+                <li>Ask a question: "How much does it cost you every time...?"</li>
+            </ul>
+
+            <h3>3. DESIRE</h3>
+            <p><strong>Goal:</strong> Show them what's possible. Paint the picture.</p>
+            <ul>
+                <li><span class="highlight">"Here's what that means in practice..."</span> — make it concrete</li>
+                <li><span class="highlight">"I'd love to show you exactly how this works..."</span> — invitation language</li>
+                <li>Give evidence: case study, data, testimonial (from a company like theirs)</li>
+            </ul>
+
+            <h3>4. ACTION</h3>
+            <p><strong>Goal:</strong> Next step is clear and easy.</p>
+            <ul>
+                <li>"Let's grab 15 minutes tomorrow — when suits you better, morning or afternoon?"</li>
+                <li>"Can I send you a one-pager on how this works for companies like yours?"</li>
+                <li>"What would you need to see to move forward?"</li>
+            </ul>
+
+            <div class="speak-prompt">
+                Choose a product or service you know. How would you apply AIDA to pitch it? Walk me through: What would grab attention first?
+            </div>
+        </div>
+
+        <!-- TAB 3: Pitch Analysis -->
+        <div id="tab-2" class="tab-content">
+            <h2>Analysing Real Pitches</h2>
+
+            <p>Let's look at three pitches for the same product. Same company. Same fair. Different results.</p>
+
+            <h3>Pitch A: The Weak One</h3>
+            <div class="pitch-example">
+                "Hi, we're TechFlow Solutions. We provide cloud-based software for logistics companies. We've been in business for 8 years and we work with over 150 clients across Europe. Our system is very flexible and we have 24/7 customer support. Would you like to know more?"
+            </div>
+
+            <div class="feedback-box" onclick="toggleFeedback(this)">
+                <span class="feedback-title">Why this doesn't work</span>
+                <div class="feedback-content">
+                    <ul>
+                        <li><strong>Generic:</strong> "Cloud-based software" could be anyone. No specific problem named.</li>
+                        <li><strong>About them, not you:</strong> "We've been in business 8 years" — I don't care about your timeline, I care about MY problem.</li>
+                        <li><strong>No story:</strong> Just facts. Facts fade. Stories stick.</li>
+                        <li><strong>Weak call-to-action:</strong> "Would you like to know more?" is a yes/no question. Visitors say "No thanks" and move on.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Pitch B: The Stronger One</h3>
+            <div class="pitch-example">
+                "Most logistics companies lose 12–18% of their margin to inefficiencies they never see — late shipments, double-bookings, manual handoffs. One of our clients lost €400k last year before they fixed it. We help companies like yours find those invisible costs and eliminate them. In fact, most of our clients recover their software costs within 6 months. Can I show you how we spotted this in your sector?"
+            </div>
+
+            <div class="feedback-box" onclick="toggleFeedback(this)">
+                <span class="feedback-title">Why this works better</span>
+                <div class="feedback-content">
+                    <ul>
+                        <li><strong>Named problem:</strong> "Inefficiencies," "double-bookings" — specific language about their world.</li>
+                        <li><strong>Proof:</strong> "One of our clients lost €400k" — makes it real and urgent.</li>
+                        <li><strong>What's in it for them:</strong> "Recover costs in 6 months" — clear benefit.</li>
+                        <li><strong>Invitation:</strong> "Can I show you..." is an invitation, not a gate. Feels collaborative.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Pitch C: The Excellent One</h3>
+            <div class="pitch-example">
+                "The real question isn't whether your logistics system is efficient — it's whether you'd recognise inefficiency if it walked right past you. Most companies can't. They lose money they don't even know about. One logistics director we work with discovered his team was manually re-keying shipment data that their previous software was supposed to handle automatically. It was costing £8,000 a month in labour, and he'd never seen it until we helped him look. That's what we do: we make the invisible visible. Can I spend 10 minutes helping you spot what might be hidden in your operation?"
+            </div>
+
+            <div class="feedback-box" onclick="toggleFeedback(this)">
+                <span class="feedback-title">Why this works best</span>
+                <div class="feedback-content">
+                    <ul>
+                        <li><strong>Rhetorical question:</strong> "The real question isn't X, it's Y" — shifts their thinking.</li>
+                        <li><strong>Story with emotion:</strong> The director who didn't see his own waste — he's relatable.</li>
+                        <li><strong>Specific detail:</strong> "£8,000 a month in labour" — money. That's memorable.</li>
+                        <li><strong>Clear value proposition:</strong> "We make the invisible visible" — one sentence that says everything.</li>
+                        <li><strong>Collaborative close:</strong> "Help you spot" (not "sell you") + bounded ask (10 minutes, not vague).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                Which of these three pitches would stick with you? Why? What did the excellent pitch do that the weak one didn't?
+            </div>
+        </div>
+
+        <!-- TAB 4: Adaptive Pitching -->
+        <div id="tab-3" class="tab-content">
+            <h2>Same Product, Different Audiences</h2>
+
+            <p>Here's the secret: the SAME solution needs DIFFERENT pitches depending on who's listening. You're pitching the same software to four different roles. Each one cares about something different.</p>
+
+            <h3>Scenario: You work for a fintech company</h3>
+            <p>Your product: a regulatory compliance platform that helps banks spot risky transactions in real time.</p>
+
+            <h3>Pitch 1: The CFO (Cares about cost, risk, ROI)</h3>
+            <div class="pitch-example">
+                "Non-compliance costs banks an average of €2m per incident. We've helped our clients reduce compliance failures by 87% and cut investigation time from 8 hours to 12 minutes. The ROI is typically 300% in year one. What's your current compliance cost per transaction?"
+            </div>
+
+            <h3>Pitch 2: The Technical Director (Cares about architecture, integration, scalability)</h3>
+            <div class="pitch-example">
+                "Our platform integrates with existing core banking systems via REST API, handles up to 10 million transactions per day, and returns risk scores in under 200 milliseconds. We use machine learning models that adapt to your institution's risk profile. How many daily transactions are we talking about?"
+            </div>
+
+            <h3>Pitch 3: The End User (Front-line analyst — cares about ease of use, time, frustration)</h3>
+            <div class="pitch-example">
+                "Right now, checking a transaction takes you how long? Our clients go from suspicious transaction to clear or escalate decision in under 90 seconds. The alerts learn your patterns, so you spend less time on false positives. Want to see how it works?"
+            </div>
+
+            <h3>Pitch 4: The Journalist (Cares about story, impact, differentiation)</h3>
+            <div class="pitch-example">
+                "Banks are fighting a losing battle against financial crime. Traditional methods are reactive — they see the crime after it happens. We've built a system that's predictive. We can show you how one bank caught a €5m fraud 72 hours before it would have gone undetected. That's the story."
+            </div>
+
+            <div class="speak-prompt">
+                Now: I'll give you a product. You adapt the pitch for two different audiences. Ready? Here's your product: An AI tool that predicts equipment failures before they happen. (Your first audience: factory managers. Your second: government sustainability officers.)
+            </div>
+
+            <div class="timer">
+                <div>2-minute timer per audience</div>
+                <div class="timer-display" id="timer-display">2:00</div>
+                <button class="timer-button" onclick="startTimer(120)">Start</button>
+                <button class="timer-button" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+
+        <!-- TAB 5: Your Pitch -->
+        <div id="tab-4" class="tab-content">
+            <h2>Craft Your One-Page Pitch</h2>
+
+            <p>Now you'll create a pitch document. Think of a product or service you know (real or imagined). Structure it using the AIDA framework, and use at least one rhetorical device (question, metaphor, story).</p>
+
+            <div class="card">
+                <h3>Your Task:</h3>
+                <p>Write a one-page pitch (300–400 words) that:</p>
+                <ol>
+                    <li>Opens with a rhetorical question or surprising statement (ATTENTION)</li>
+                    <li>Names a specific problem your audience faces (INTEREST)</li>
+                    <li>Gives a concrete example or case study showing the solution in action (DESIRE)</li>
+                    <li>Closes with a clear, bounded next step (ACTION)</li>
+                </ol>
+            </div>
+
+            <div class="speak-prompt">
+                Draft your pitch now. Speak it aloud as you write it — does it sound natural? Does it feel like YOU? Once you've written it, read it back to me, and I'll ask you three questions: (1) What's the ONE thing they should remember? (2) Why did you choose that rhetorical device? (3) What's your goal with that close?
+            </div>
+
+            <div class="card" style="background-color: #fff3cd; border-left-color: #ff9800;">
+                <h3>Pro Tip:</h3>
+                <p>Forget the product for a moment. What does your buyer's world look like RIGHT NOW? What keeps them awake? Start there. Everything else follows.</p>
+            </div>
+        </div>
+
+        <!-- TAB 6: Reflection -->
+        <div id="tab-5" class="tab-content">
+            <h2>What You've Done Today</h2>
+
+            <div class="learning-intention">
+                You can now craft persuasive pitches that stick with your audience — not because of facts, but because of how you make them feel and think.
+            </div>
+
+            <h3>Quick Recall:</h3>
+            <ul>
+                <li>What are the four stages of AIDA, and what does each one do?</li>
+                <li>Why does Pitch C work better than Pitch A? Name three things.</li>
+                <li>You're pitching to a CFO vs. a technician. What changes in your pitch?</li>
+                <li>Why does a rhetorical question work better than a statement?</li>
+            </ul>
+
+            <h3>You can now:</h3>
+            <ul>
+                <li>Use the AIDA framework to structure a persuasive pitch</li>
+                <li>Adapt your pitch for different audiences (CFO, technician, end user, journalist)</li>
+                <li>Use rhetorical devices to grab attention and shift thinking</li>
+                <li>Close with a clear call-to-action that feels like an invitation, not a gate</li>
+                <li>Tell a story that proves your point rather than just stating facts</li>
+            </ul>
+
+            <div class="speak-prompt">
+                What's the biggest insight from today? What will you do differently when you pitch next time?
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`tab-${tabIndex}`).classList.add('active');
+            buttons[tabIndex].classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleFeedback(element) {
+            element.classList.toggle('open');
+        }
+
+        let timerInterval = null;
+
+        function startTimer(seconds) {
+            if (timerInterval) clearInterval(timerInterval);
+
+            let remaining = seconds;
+
+            function updateDisplay() {
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                const display = `${mins}:${secs.toString().padStart(2, '0')}`;
+                document.getElementById('timer-display').textContent = display;
+
+                const timerDisplay = document.getElementById('timer-display');
+
+                if (remaining > 30) {
+                    timerDisplay.classList.remove('yellow', 'red');
+                    timerDisplay.style.color = '#667eea';
+                } else if (remaining > 10) {
+                    timerDisplay.classList.remove('red');
+                    timerDisplay.classList.add('yellow');
+                } else if (remaining > 0) {
+                    timerDisplay.classList.add('red');
+                } else {
+                    clearInterval(timerInterval);
+                    return;
+                }
+
+                remaining--;
+            }
+
+            updateDisplay();
+            timerInterval = setInterval(updateDisplay, 1000);
+        }
+
+        function resetTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            document.getElementById('timer-display').textContent = '2:00';
+            document.getElementById('timer-display').classList.remove('yellow', 'red');
+            document.getElementById('timer-display').style.color = '#667eea';
+        }
+    </script>
+</body>
+</html>

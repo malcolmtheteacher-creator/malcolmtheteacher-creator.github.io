@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Networking | B1/B2 Trade Fair English</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #eef2f7 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background: white;
+            color: #2c3e50;
+            font-size: 0.95em;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .tab-btn:hover {
+            background: #f0f4f9;
+            border-color: #4a90e2;
+        }
+
+        .tab-btn.active {
+            background: #4a90e2;
+            color: white;
+            border-color: #4a90e2;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #4a90e2;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #4a90e2;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #2c3e50;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1em;
+            line-height: 1.7;
+        }
+
+        .speak-box {
+            background: #fff8e6;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            line-height: 1.8;
+        }
+
+        .speak-box::before {
+            content: "🎙 SPEAK: ";
+            font-weight: 700;
+            color: #ff8800;
+        }
+
+        .example-box {
+            background: #e8f4f8;
+            border-left: 5px solid #4a90e2;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-size: 0.95em;
+        }
+
+        .example-box strong {
+            color: #357abd;
+        }
+
+        .reveal-box {
+            background: #f5f5f5;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+            border: 2px solid #e9ecef;
+        }
+
+        .reveal-box:hover {
+            background: #f0f0f0;
+            border-color: #4a90e2;
+        }
+
+        .reveal-box.open {
+            background: #e8f4f8;
+            border-color: #4a90e2;
+        }
+
+        .reveal-box::before {
+            content: "▶ ";
+            font-weight: bold;
+            color: #4a90e2;
+            margin-right: 8px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .reveal-box.open::before {
+            transform: rotate(90deg);
+        }
+
+        .reveal-content {
+            display: none;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #d0d0d0;
+        }
+
+        .reveal-box.open .reveal-content {
+            display: block;
+        }
+
+        .timer-container {
+            background: linear-gradient(135deg, #f8f9fa 0%, #eef2f7 100%);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .timer {
+            font-size: 3em;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background: white;
+            border: 3px solid #27ae60;
+            color: #27ae60;
+            transition: all 0.2s ease;
+        }
+
+        .timer.yellow {
+            border-color: #f39c12;
+            color: #f39c12;
+            animation: pulse 0.6s ease-in-out infinite;
+        }
+
+        .timer.red {
+            border-color: #e74c3c;
+            color: #e74c3c;
+            animation: pulse 0.4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .timer-btn {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .timer-btn:hover {
+            background: #357abd;
+            transform: translateY(-2px);
+        }
+
+        .timer-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .comparison-item.good {
+            border-left-color: #27ae60;
+        }
+
+        .comparison-item h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .scenario-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 5px solid #4a90e2;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scenario-card:hover {
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.15);
+        }
+
+        .scenario-card h4 {
+            color: #357abd;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            font-size: 0.95em;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        .flex-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .flex-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .flex-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #4a90e2;
+            font-weight: bold;
+        }
+
+        .recall-zone {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8f4f8 100%);
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px solid #4a90e2;
+            margin: 20px 0;
+        }
+
+        .recall-zone h3 {
+            color: #357abd;
+            margin-top: 0;
+        }
+
+        .i-can {
+            background: #27ae60;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+
+        .i-can strong {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+
+            .tabs {
+                padding: 15px;
+                gap: 6px;
+            }
+
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Strategic Networking</h1>
+            <p>Building real connections that become lasting business relationships</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0)">The Problem</button>
+            <button class="tab-btn" onclick="switchTab(1)">The Framework</button>
+            <button class="tab-btn" onclick="switchTab(2)">Compare & Plan</button>
+            <button class="tab-btn" onclick="switchTab(3)">Scenario Practice</button>
+            <button class="tab-btn" onclick="switchTab(4)">Write & Connect</button>
+            <button class="tab-btn" onclick="switchTab(5)">Reflection</button>
+        </div>
+
+        <!-- TAB 1: THE PROBLEM -->
+        <div class="tab-content active">
+            <h2>The Problem</h2>
+
+            <p>Most business cards from trade fairs end up in the bin.</p>
+
+            <p>You spend three days at a fair, you have great conversations, you exchange contact details with 50 people... and then nothing happens. Why?</p>
+
+            <h3>The disconnect</h3>
+            <div class="example-box">
+                <strong>What most people do:</strong> Collect cards. Move to the next person. Repeat. The goal becomes the card, not the relationship.
+            </div>
+
+            <h3>What actually works</h3>
+            <div class="example-box">
+                <strong>Strategic networking:</strong> Listen more than you speak. Find genuine points of connection. Make clear commitments. Follow up with intention. The goal is trust, not collection.
+            </div>
+
+            <div class="speak-box">
+                Why do you think collecting many cards isn't the same as building real relationships? What's the difference between transactional contact and a genuine connection?
+            </div>
+        </div>
+
+        <!-- TAB 2: THE FRAMEWORK -->
+        <div class="tab-content">
+            <h2>The GIVE Framework</h2>
+
+            <p>Strategic networking isn't about selling. It's about exchange. Use GIVE to build real connections:</p>
+
+            <h3>G – Genuine Interest</h3>
+            <p>Start by being interested, not interesting. Ask real questions about their challenges, goals, and context.</p>
+            <div class="example-box">
+                <strong>Examples:</strong>
+                <ul class="flex-list">
+                    <li>"What challenges are you facing in supply chain right now?"</li>
+                    <li>"How is your team handling the shift to remote work?"</li>
+                    <li>"What's your biggest priority this quarter?"</li>
+                </ul>
+            </div>
+
+            <h3>I – Identify Shared Goals</h3>
+            <p>Listen for common ground. Where do your interests overlap? What problem do you both solve?</p>
+            <div class="example-box">
+                <strong>Examples:</strong>
+                <ul class="flex-list">
+                    <li>"We had a similar situation with cost management last year."</li>
+                    <li>"That's interesting—we're both focused on sustainability."</li>
+                    <li>"I think we might be serving similar clients."</li>
+                </ul>
+            </div>
+
+            <h3>V – Value Exchange</h3>
+            <p>Offer something specific and useful. Not a sales pitch—something they actually need: information, an introduction, a resource, a perspective.</p>
+            <div class="example-box">
+                <strong>Examples:</strong>
+                <ul class="flex-list">
+                    <li>"I think there could be some synergy between your operations team and our consultants."</li>
+                    <li>"Can I send you the report we did on this? It might help your planning."</li>
+                    <li>"I know someone in logistics you should talk to—shall I introduce you?"</li>
+                </ul>
+            </div>
+
+            <h3>E – Exit with Action</h3>
+            <p>Don't let the conversation end in vagueness. Make a specific, concrete commitment.</p>
+            <div class="example-box">
+                <strong>Examples:</strong>
+                <ul class="flex-list">
+                    <li>"Can I send you that case study next week? Let's aim for Tuesday."</li>
+                    <li>"I'll set up a call with my lead engineer—shall we do Thursday or Friday?"</li>
+                    <li>"I'm going to research your company and follow up with three specific ideas. Expect an email from me by Wednesday."</li>
+                </ul>
+            </div>
+
+            <div class="speak-box">
+                Practise each part. Choose a person you might meet at a fair and create: 1) A genuine question for G, 2) A point of connection for I, 3) Something you could offer for V, 4) A specific next step for E.
+            </div>
+        </div>
+
+        <!-- TAB 3: COMPARE & PLAN -->
+        <div class="tab-content">
+            <h2>Transactional vs Relationship Networking</h2>
+
+            <p>The difference between collecting contacts and building relationships:</p>
+
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>Transactional</h4>
+                    <p><strong>Goal:</strong> Collect as many cards as possible.</p>
+                    <p><strong>Question:</strong> "So what do you do?"</p>
+                    <p><strong>Time:</strong> 3 minutes, then move on.</p>
+                    <p><strong>Follow-up:</strong> Generic email to 50 people.</p>
+                    <p><strong>Result:</strong> Ignored or deleted.</p>
+                </div>
+
+                <div class="comparison-item good">
+                    <h4>Relationship</h4>
+                    <p><strong>Goal:</strong> Find mutual benefit and stay in touch.</p>
+                    <p><strong>Question:</strong> "What challenges are you solving right now?"</p>
+                    <p><strong>Time:</strong> 10 minutes of real conversation.</p>
+                    <p><strong>Follow-up:</strong> Specific email with something relevant.</p>
+                    <p><strong>Result:</strong> They reply. Coffee call. Partnership.</p>
+                </div>
+            </div>
+
+            <h3>Your Strategic Networking Plan</h3>
+
+            <p>Before your next fair, think strategically:</p>
+
+            <div class="reveal-box" onclick="toggleReveal(this)">
+                Who are the 5-10 key people you want to meet?
+                <div class="reveal-content">
+                    <textarea placeholder="Write their company, role, or what they do..."></textarea>
+                </div>
+            </div>
+
+            <div class="reveal-box" onclick="toggleReveal(this)">
+                What's ONE thing you could offer them? (Not your product—what they actually need)
+                <div class="reveal-content">
+                    <textarea placeholder="Knowledge, introduction, perspective, resource..."></textarea>
+                </div>
+            </div>
+
+            <div class="reveal-box" onclick="toggleReveal(this)">
+                How will you qualify conversations? What signals tell you this is a real fit?
+                <div class="reveal-content">
+                    <textarea placeholder="Budget authority, timeline, specific challenge, mutual benefit..."></textarea>
+                </div>
+            </div>
+
+            <div class="speak-box">
+                Explain your plan. What makes it strategic rather than random networking?
+            </div>
+        </div>
+
+        <!-- TAB 4: SCENARIO PRACTICE -->
+        <div class="tab-content">
+            <h2>Real Networking Scenarios</h2>
+
+            <p>Practice responding naturally in 3 minutes. Let's do one together first, then you try alone.</p>
+
+            <h3>Scenario 1: The Industry Panel Afterparty</h3>
+            <div class="scenario-card">
+                <h4>The Situation</h4>
+                <p>You're at drinks after a keynote panel on sustainability. The person next to you is from a competitor, but they seem interesting. You've never met before.</p>
+                <p><strong>Their opening:</strong> "Interesting panel. I wasn't convinced by their point on carbon tracking."</p>
+                <div class="timer-container">
+                    <p>You respond with genuine interest. 3 minutes.</p>
+                    <div class="timer" id="timer1">03:00</div>
+                    <button class="timer-btn" onclick="startTimer('timer1', 180)">Start</button>
+                    <button class="timer-btn" onclick="resetTimer('timer1', '03:00')">Reset</button>
+                </div>
+                <p style="margin-top: 20px; font-size: 0.95em; color: #666;"><strong>Your aim:</strong> Find what they're really concerned about. Don't pitch. Ask what they think works better. Can you find any common ground on sustainability challenges?</p>
+            </div>
+
+            <h3>Scenario 2: Stuck on the Shuttle</h3>
+            <div class="scenario-card">
+                <h4>The Situation</h4>
+                <p>You're on the airport shuttle with someone from a logistics company. They're checking their email, but you have 20 minutes together.</p>
+                <p><strong>Your opening:</strong> "Long fair?"</p>
+                <div class="timer-container">
+                    <p>Genuine conversation about their fair experience. 3 minutes.</p>
+                    <div class="timer" id="timer2">03:00</div>
+                    <button class="timer-btn" onclick="startTimer('timer2', 180)">Start</button>
+                    <button class="timer-btn" onclick="resetTimer('timer2', '03:00')">Reset</button>
+                </div>
+                <p style="margin-top: 20px; font-size: 0.95em; color: #666;"><strong>Your aim:</strong> Listen more than you speak. Find out what brings them to this fair. What's their biggest challenge right now? How might you stay connected without being pushy?</p>
+            </div>
+
+            <h3>Scenario 3: Standing Next to a Speaker</h3>
+            <div class="scenario-card">
+                <h4>The Situation</h4>
+                <p>A keynote speaker is standing alone at the coffee station. You found their talk valuable. You want to say hello without being creepy or over-eager.</p>
+                <p><strong>Your opening:</strong> Start naturally.</p>
+                <div class="timer-container">
+                    <p>Build a genuine connection. 3 minutes.</p>
+                    <div class="timer" id="timer3">03:00</div>
+                    <button class="timer-btn" onclick="startTimer('timer3', 180)">Start</button>
+                    <button class="timer-btn" onclick="resetTimer('timer3', '03:00')">Reset</button>
+                </div>
+                <p style="margin-top: 20px; font-size: 0.95em; color: #666;"><strong>Your aim:</strong> Be specific about what resonated from their talk. Ask a real question. Don't ask them to work with you—ask what they're working on.</p>
+            </div>
+
+            <div class="speak-box">
+                Which scenario was most challenging for you? Why? What would you do differently next time?
+            </div>
+        </div>
+
+        <!-- TAB 5: WRITE & CONNECT -->
+        <div class="tab-content">
+            <h2>LinkedIn Connection Message</h2>
+
+            <p>After the fair, you connect with someone on LinkedIn. This is your chance to stand out from the 100 generic "Nice to meet you" messages.</p>
+
+            <h3>The Formula</h3>
+            <ul class="flex-list">
+                <li><strong>Specific reference:</strong> Mention something you discussed or observed about them</li>
+                <li><strong>Personal note:</strong> Why this connection matters to you</li>
+                <li><strong>Value hint:</strong> Something you might be able to help with (or just genuine interest)</li>
+                <li><strong>Light next step:</strong> Keep it optional—don't demand anything</li>
+            </ul>
+
+            <h3>Examples</h3>
+            <div class="example-box">
+                <strong>Example 1:</strong> "Hi Alex, great chat about your logistics expansion into eastern Europe. I was impressed by your timeline—that takes real planning. I've worked with three companies on similar expansions and would be happy to share what we learned about local compliance. No pressure, but worth a coffee if you're open to it. All the best, Sam"
+            </div>
+
+            <div class="example-box">
+                <strong>Example 2:</strong> "Hi Jordan, lovely to meet you at the sustainability panel. Your point about carbon tracking resonated—we're wrestling with the same problem. Would be great to stay connected and see if there are ideas worth sharing. Here's to the work ahead, Chris"
+            </div>
+
+            <h3>Now You Write</h3>
+            <p>Think of someone you actually met (or imagine a realistic contact). Write a LinkedIn message:</p>
+            <textarea placeholder="Hi [Name], ..."></textarea>
+
+            <div class="speak-box">
+                Read your message aloud. Does it sound genuine or like a template? Would you reply to it?
+            </div>
+        </div>
+
+        <!-- TAB 6: REFLECTION -->
+        <div class="tab-content">
+            <h2>Reflection</h2>
+
+            <div class="recall-zone">
+                <h3>Remember the Five Frameworks</h3>
+                <p>You've now learned the core frameworks for trade fairs. Let's check your memory:</p>
+
+                <div class="reveal-box" onclick="toggleReveal(this)">
+                    Lesson 1: How do you sell in 30 seconds?
+                    <div class="reveal-content">
+                        <p><strong>HOOK-SOLVE-PROVE</strong> — Grab attention with a hook, show the problem you solve, prove it works with evidence or credibility.</p>
+                    </div>
+                </div>
+
+                <div class="reveal-box" onclick="toggleReveal(this)">
+                    Lesson 2: How do you explain the real value?
+                    <div class="reveal-content">
+                        <p><strong>FAB (Feature → Advantage → Benefit)</strong> — Move from what you have (feature) to what it does (advantage) to why they care (benefit).</p>
+                    </div>
+                </div>
+
+                <div class="reveal-box" onclick="toggleReveal(this)">
+                    Lesson 3: How do you negotiate?
+                    <div class="reveal-content">
+                        <p><strong>PREP (Position → Reason → Evidence → Proposal)</strong> — State your position, explain why, back it up with evidence, then propose a way forward.</p>
+                    </div>
+                </div>
+
+                <div class="reveal-box" onclick="toggleReveal(this)">
+                    Lesson 4 (today): How do you build real relationships?
+                    <div class="reveal-content">
+                        <p><strong>GIVE (Genuine interest → Identify shared goals → Value exchange → Exit with action)</strong> — Listen, find common ground, offer something real, commit to next steps.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Now you can...</h3>
+            <div class="i-can">
+                <strong>I can ask genuine questions that show interest rather than just pitching.</strong>
+                I can listen for shared challenges and find points of connection. I can offer something valuable without making it transactional. I understand that relationships, not card collections, lead to real business.
+            </div>
+
+            <p style="margin-top: 30px; font-size: 0.95em;">Next lesson: How to handle tough questions and objections at a fair.</p>
+        </div>
+
+    </div>
+
+    <script>
+        function switchTab(n) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const btns = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            btns.forEach(btn => btn.classList.remove('active'));
+            tabs[n].classList.add('active');
+            btns[n].classList.add('active');
+        }
+
+        function toggleReveal(element) {
+            element.classList.toggle('open');
+        }
+
+        function startTimer(timerId, seconds) {
+            const timerElement = document.getElementById(timerId);
+            const btn = event.target;
+            btn.disabled = true;
+
+            let remaining = seconds;
+            const interval = setInterval(() => {
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                timerElement.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+                if (remaining < 30) {
+                    timerElement.classList.remove('yellow');
+                    timerElement.classList.add('yellow');
+                }
+                if (remaining < 10) {
+                    timerElement.classList.remove('yellow');
+                    timerElement.classList.add('red');
+                }
+
+                remaining--;
+                if (remaining < 0) {
+                    clearInterval(interval);
+                    btn.disabled = false;
+                    timerElement.classList.remove('yellow', 'red');
+                    timerElement.textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+
+        function resetTimer(timerId, original) {
+            const timerElement = document.getElementById(timerId);
+            timerElement.textContent = original;
+            timerElement.classList.remove('yellow', 'red');
+        }
+    </script>
+</body>
+</html>

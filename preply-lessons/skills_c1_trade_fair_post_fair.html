@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post-Fair Strategy & Course Simulation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            border: 2px solid #667eea;
+            background-color: white;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .tab-button.active {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            line-height: 1.8;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .speak-prompt {
+            background-color: #fffacd;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .speak-prompt::before {
+            content: "🎙 SPEAK: ";
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .timer {
+            background-color: #e8f0f8;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .timer-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .timer-display.yellow {
+            color: #ff9800;
+        }
+
+        .timer-display.red {
+            color: #e74c3c;
+            animation: pulse 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .timer-button {
+            padding: 10px 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .timer-button:hover {
+            background-color: #5568d3;
+        }
+
+        .card {
+            background-color: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .framework-box {
+            background-color: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #999;
+        }
+
+        .feedback-box {
+            background-color: #f0fff4;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #48bb78;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .feedback-box:hover {
+            background-color: #e6fffa;
+        }
+
+        .feedback-content {
+            display: none;
+            margin-top: 10px;
+            color: #2d3748;
+        }
+
+        .feedback-box.open .feedback-content {
+            display: block;
+        }
+
+        .feedback-box::before {
+            content: "▶ ";
+            color: #48bb78;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .feedback-box.open::before {
+            content: "▼ ";
+        }
+
+        .learning-intention {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 1.15em;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .impact-framework {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .impact-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.95em;
+        }
+
+        .recall-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .recall-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .framework-comparison {
+            background-color: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .framework-comparison strong {
+            color: #667eea;
+        }
+
+        .simulation-step {
+            background-color: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .top-phrases {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .phrase-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .phrase-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Post-Fair Strategy & Course Simulation</h1>
+        <p class="subtitle">Turning conversations into business results — and reflecting on how far you've come</p>
+
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab(0)">Quick-Fire Recall</button>
+            <button class="tab-button" onclick="switchTab(1)">The IMPACT Framework</button>
+            <button class="tab-button" onclick="switchTab(2)">Full Fair Simulation</button>
+            <button class="tab-button" onclick="switchTab(3)">Debrief & Priorities</button>
+            <button class="tab-button" onclick="switchTab(4)">Action Plan & Phrases</button>
+            <button class="tab-button" onclick="switchTab(5)">Course Reflection</button>
+        </div>
+
+        <!-- TAB 1: Quick-Fire Recall -->
+        <div id="tab-0" class="tab-content active">
+            <h2>All Five Frameworks: From Memory</h2>
+
+            <p>You've learned five frameworks across six lessons. Let's see what's stuck.</p>
+
+            <div class="card">
+                <h3>Can you recall all five? Try this now:</h3>
+                <ol>
+                    <li><strong>Lesson 1 (AIDA):</strong> What are the four stages of AIDA, and what's the goal of each?</li>
+                    <li><strong>Lesson 2 (BRIDGE):</strong> What does BRIDGE stand for?</li>
+                    <li><strong>Lesson 3 (BATNA/ZOPA):</strong> What's your job when you understand the other person's BATNA?</li>
+                    <li><strong>Lesson 4 (SPARK):</strong> What are the five elements of SPARK, and how long does each take in a 10-minute presentation?</li>
+                    <li><strong>Lesson 5 (LEAD):</strong> What does LEAD stand for, and why does listening come before empathising?</li>
+                </ol>
+            </div>
+
+            <div class="speak-prompt">
+                Recite the five frameworks from memory, right now. Don't read — just say them. If you get stuck, that's where you need a refresher. Go.
+            </div>
+
+            <div class="card" style="background-color: #fff3cd; border-left-color: #ff9800;">
+                <h3>Why This Matters</h3>
+                <p>If the frameworks are automatic, you can use them under pressure. At the fair, when a client is talking or a crisis hits, you don't have time to think. You need these patterns to be muscle memory.</p>
+            </div>
+        </div>
+
+        <!-- TAB 2: IMPACT Framework -->
+        <div id="tab-1" class="tab-content">
+            <h2>The IMPACT Framework: Post-Fair Strategy</h2>
+
+            <p>The fair ends. You're exhausted. You have business cards, notes, promises, and a list of follow-ups. Now what?</p>
+
+            <p>IMPACT is your framework for turning fair activity into real business.</p>
+
+            <div class="impact-framework">
+                <div class="impact-box">Immediate Follow-Up</div>
+                <div class="impact-box">Measure Results</div>
+                <div class="impact-box">Prioritise Leads</div>
+                <div class="impact-box">Analyse Performance</div>
+                <div class="impact-box">Create Action Plan</div>
+                <div class="impact-box">Track Progress</div>
+            </div>
+
+            <h3>1. IMMEDIATE FOLLOW-UP (Within 48 hours)</h3>
+            <p><strong>Goal:</strong> Strike while memory is warm.</p>
+            <p>Contacts cool fast. A follow-up email two weeks later is forgotten. Two days later is remembered.</p>
+            <ul>
+                <li><span class="highlight">"Within 48 hours..."</span> — is your internal rule</li>
+                <li><span class="highlight">"I promised to send you..."</span> — fulfil every small promise immediately</li>
+                <li><span class="highlight">"Our conversation at the fair got me thinking..."</span> — personal reference, not template</li>
+                <li>One personal email beats ten generic ones</li>
+            </ul>
+
+            <h3>2. MEASURE RESULTS (Week one)</h3>
+            <p><strong>Goal:</strong> Know what actually happened.</p>
+            <ul>
+                <li>Leads generated: How many genuine prospects vs. business cards for business cards' sake?</li>
+                <li>Conversations: Deep dives vs. surface chats?</li>
+                <li>Partnership opportunities: Any serious collaborations?</li>
+                <li>Brand visibility: Did you solve a problem in someone's mind? (Even if no immediate sale.)</li>
+            </ul>
+
+            <h3>3. PRIORITISE LEADS (Week one)</h3>
+            <p><strong>Goal:</strong> Not all leads are equal. Sort ruthlessly.</p>
+            <ul>
+                <li><span class="highlight">Tier 1: Ready to move forward</span> — Active interest, timeline clear, budget implied, decision-maker met</li>
+                <li><span class="highlight">Tier 2: Curious, not ready</span> — Interested but no immediate timeline, still exploring</li>
+                <li><span class="highlight">Tier 3: Long-term pipeline</span> — Good fit but problem not urgent, check in every 3 months</li>
+                <li><span class="highlight">Tier 4: Archive</span> — Lovely people, wrong fit, no follow-up needed</li>
+            </ul>
+
+            <h3>4. ANALYSE PERFORMANCE (Week two)</h3>
+            <p><strong>Goal:</strong> What worked? What didn't?</p>
+            <div class="framework-box">
+                <p><strong>Questions to ask yourself:</strong></p>
+                <ul>
+                    <li>Which conversations went deepest? Why?</li>
+                    <li>What opening line actually worked to stop people?</li>
+                    <li>When did people say "no thanks" — and why?</li>
+                    <li>Which framework did you use most? (AIDA, BRIDGE, BATNA, SPARK, LEAD?)</li>
+                    <li>What surprised you? What would you do differently next time?</li>
+                </ul>
+            </div>
+
+            <h3>5. CREATE ACTION PLAN (Week two)</h3>
+            <p><strong>Goal:</strong> Turn insight into action.</p>
+            <ul>
+                <li><span class="highlight">"Within one week, I will contact all Tier 1 leads and propose a next meeting."</span></li>
+                <li><span class="highlight">"By the end of the month, I will have closed at least one small deal."</span></li>
+                <li><span class="highlight">"Every Tier 2 lead gets a check-in email once a month."</span></li>
+                <li>Assign responsibility. Set deadlines. Make it real.</li>
+            </ul>
+
+            <h3>6. TRACK PROGRESS (Ongoing)</h3>
+            <p><strong>Goal:</strong> Make the ROI of the fair visible.</p>
+            <ul>
+                <li>Revenue closed from fair leads: How much?</li>
+                <li>Pipeline created: How many qualified prospects for next quarter?</li>
+                <li>Brand: How many people now know about you who didn't before?</li>
+                <li>Relationships: Did you deepen any existing partnerships?</li>
+            </ul>
+
+            <div class="speak-prompt">
+                Imagine you're back from a 3-day fair. You have 47 business cards, 12 serious conversations, and 3 partnership leads. Walk me through IMPACT. What are your Tier 1 leads? What's your 48-hour plan?
+            </div>
+        </div>
+
+        <!-- TAB 3: Full Fair Simulation -->
+        <div id="tab-2" class="tab-content">
+            <h2>The Complete 10-Minute Fair Simulation</h2>
+
+            <p>Now you're going to run through a complete trade fair day in compressed form. This draws on everything: AIDA, BRIDGE, BATNA, SPARK, LEAD.</p>
+
+            <p>Scenario: You work for a B2B software company. Your booth is at a tech fair. You'll encounter four situations across 10 minutes. Your job is to navigate all of them.</p>
+
+            <h3>Step 1: A Visitor Approaches (2 minutes)</h3>
+
+            <div class="simulation-step">
+                <p><strong>The Scene:</strong> A person stops at your booth. They look interested but don't know much about you. You have maybe 90 seconds before they decide to move on.</p>
+                <p><strong>Your Task:</strong> Use AIDA to open. Grab Attention (surprising statement or question), show them it's relevant to their Interest, make them want to know more.</p>
+                <div class="timer">
+                    <div>Step 1: 2 minutes</div>
+                    <div class="timer-display" id="timer1">2:00</div>
+                    <button class="timer-button" onclick="startTimer(120, 'timer1')">Start</button>
+                    <button class="timer-button" onclick="resetTimer('timer1', 120)">Reset</button>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.95em; color: #666;"><em>Record or write: What's your opening line?</em></p>
+            </div>
+
+            <h3>Step 2: They Raise an Objection (2 minutes)</h3>
+
+            <div class="simulation-step">
+                <p><strong>The Scene:</strong> You've explained what you do. They say: "Your solution looks interesting, but it's expensive compared to the alternative, and I don't know if the ROI justifies it."</p>
+                <p><strong>Your Task:</strong> Use BRIDGE thinking. What's their world? (They're cost-conscious, uncertain about value.) How do you acknowledge that and move them?</p>
+                <div class="timer">
+                    <div>Step 2: 2 minutes</div>
+                    <div class="timer-display" id="timer2">2:00</div>
+                    <button class="timer-button" onclick="startTimer(120, 'timer2')">Start</button>
+                    <button class="timer-button" onclick="resetTimer('timer2', 120)">Reset</button>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.95em; color: #666;"><em>How do you use BATNA thinking here? What's their best alternative?</em></p>
+            </div>
+
+            <h3>Step 3: They Want a Presentation (2 minutes)</h3>
+
+            <div class="simulation-step">
+                <p><strong>The Scene:</strong> They're interested. They ask: "Can you do a quick demo? But I only have 5 minutes."</p>
+                <p><strong>Your Task:</strong> Use SPARK. You have 5 minutes. Story → Problem → Approach → Results → Kickstart. Make it count.</p>
+                <div class="timer">
+                    <div>Step 3: 2 minutes (prep for 5-min demo)</div>
+                    <div class="timer-display" id="timer3">2:00</div>
+                    <button class="timer-button" onclick="startTimer(120, 'timer3')">Start</button>
+                    <button class="timer-button" onclick="resetTimer('timer3', 120)">Reset</button>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.95em; color: #666;"><em>Outline your 5-minute SPARK structure. What's your opening story?</em></p>
+            </div>
+
+            <h3>Step 4: A Crisis Interrupts (2 minutes)</h3>
+
+            <div class="simulation-step">
+                <p><strong>The Scene:</strong> Mid-conversation, someone else arrives. They say: "Can I interrupt? We're a competitor and we're hearing concerns about your product from mutual clients. Your support team hasn't been responsive. What's going on?"</p>
+                <p><strong>Your Task:</strong> Use LEAD. Listen first. Don't defend. Empathise. Handle the pressure while the original prospect watches.</p>
+                <div class="timer">
+                    <div>Step 4: 2 minutes</div>
+                    <div class="timer-display" id="timer4">2:00</div>
+                    <button class="timer-button" onclick="startTimer(120, 'timer4')">Start</button>
+                    <button class="timer-button" onclick="resetTimer('timer4', 120)">Reset</button>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.95em; color: #666;"><em>What's your opening move? How do you de-escalate without looking weak?</em></p>
+            </div>
+
+            <h3>Self-Assessment: Which Frameworks Did You Use?</h3>
+            <ul>
+                <li>Step 1 — Did AIDA's Attention-Interest flow feel natural?</li>
+                <li>Step 2 — Did you use BATNA thinking to find the real concern?</li>
+                <li>Step 3 — Did your SPARK structure work in 5 minutes?</li>
+                <li>Step 4 — Did LEAD (Listen, Empathise, Assess) prevent escalation?</li>
+            </ul>
+        </div>
+
+        <!-- TAB 4: Debrief & Priorities -->
+        <div id="tab-3" class="tab-content">
+            <h2>The Real Debrief: Speaking Like a Team</h2>
+
+            <p>After the fair, your team debriefs. This is spoken, not written. It's a conversation where you extract learning and decide next steps.</p>
+
+            <div class="card">
+                <h3>Debrief Questions (15-minute conversation):</h3>
+                <ol>
+                    <li><strong>Overall:</strong> "What's one thing that surprised you about the fair?"</li>
+                    <li><strong>Pitches:</strong> "Which conversation went deepest? What made that different?"</li>
+                    <li><strong>Objections:</strong> "What did people ask that we weren't ready for?"</li>
+                    <li><strong>Frameworks:</strong> "Which framework did you actually use? When did it help?"</li>
+                    <li><strong>Crises:</strong> "Did anything go wrong? How did we handle it?"</li>
+                    <li><strong>Next steps:</strong> "Who are our three most important follow-ups, and why?"</li>
+                </ol>
+            </div>
+
+            <div class="speak-prompt">
+                You're in a post-fair team meeting. Your manager asks: "What were our three biggest wins?" Speak the answer. What actually went well?
+            </div>
+
+            <h3>Prioritising Follow-Ups</h3>
+
+            <p>Not all follow-ups are equal. Here's how to sort them:</p>
+
+            <div class="recall-grid">
+                <div class="recall-item">
+                    <strong>Tier 1: This Week</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Active interest + clear timeline. These could close in 30 days.</p>
+                </div>
+                <div class="recall-item">
+                    <strong>Tier 2: Within Two Weeks</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Interested but no immediate timeline. Monthly touchpoint.</p>
+                </div>
+                <div class="recall-item">
+                    <strong>Tier 3: Quarterly Check-In</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Good fit, dormant. Plant a seed and wait.</p>
+                </div>
+                <div class="recall-item">
+                    <strong>Tier 4: Archive (No Follow-Up)</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Lovely people, wrong fit. Save energy for hot leads.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: Action Plan & Top Phrases -->
+        <div id="tab-4" class="tab-content">
+            <h2>Your Post-Fair Email & Key Phrases</h2>
+
+            <p>The first 48 hours set the tone. Here's what to write.</p>
+
+            <div class="card">
+                <h3>Your Task: Write a Follow-Up Email (Template)</h3>
+                <p>Write ONE follow-up email to a Tier 1 lead from the fair. It should:</p>
+                <ol>
+                    <li>Reference something specific they said (not generic)</li>
+                    <li>Deliver on a promise you made</li>
+                    <li>Propose a specific next step (time, format, outcome)</li>
+                    <li>Feel like YOU, not a sales template</li>
+                </ol>
+            </div>
+
+            <div class="speak-prompt">
+                Draft your follow-up email now. Read it aloud. Does it sound natural? Does it show you actually listened?
+            </div>
+
+            <h3>Top 10 Phrases from the Entire Course</h3>
+
+            <p>These phrases have come up across all six lessons. They work because they're authentic, specific, and client-focused. Master these:</p>
+
+            <div class="top-phrases">
+                <div class="phrase-item">
+                    <strong>1. "What keeps you awake at night?"</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Opens with empathy. Moves past surface features to real concerns.</p>
+                </div>
+                <div class="phrase-item">
+                    <strong>2. "I want to make sure I fully understand your concern..."</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Buys time. Shows respect. Prevents defensiveness.</p>
+                </div>
+                <div class="phrase-item">
+                    <strong>3. "Let me take you back to..."</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Opens with story. Immediately creates connection.</p>
+                </div>
+                <div class="phrase-item">
+                    <strong>4. "The question we should all be asking is..."</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Reframes thinking. Makes them curious.</p>
+                </div>
+                <div class="phrase-item">
+                    <strong>5. "Here's what the data tells us..."</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Grounds emotion in evidence. Adds credibility.</p>
+                </div>
+                <div class="phrase-item">
+                    <strong>6. "I can see this is important to you..."</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Acknowledges emotion. Doesn't dismiss it.</p>
+                </div>
+                <div class="phrase-item">
+                    <strong>7. "If you take away one thing today, it's this..."</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Lands your core message. Makes it memorable.</p>
+                </div>
+                <div class="phrase-item">
+                    <strong>8. "I take full responsibility for..."</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Rebuilds trust in crisis. Rare. Powerful.</p>
+                </div>
+                <div class="phrase-item">
+                    <strong>9. "What would it take for you to move forward?"</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Unlocks their criteria. Moves toward closure.</p>
+                </div>
+                <div class="phrase-item">
+                    <strong>10. "Within 48 hours, I'll send you..."</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Creates momentum. Shows you respect their time.</p>
+                </div>
+            </div>
+
+            <div class="card" style="background-color: #fff3cd; border-left-color: #ff9800;">
+                <h3>Why These Work</h3>
+                <p>They all do the same thing: they focus on the OTHER person. They don't sell. They listen, understand, and help them see what's possible. Use them naturally, not as scripts.</p>
+            </div>
+        </div>
+
+        <!-- TAB 6: Course Reflection -->
+        <div id="tab-5" class="tab-content">
+            <h2>Full Course Reflection: How Far You've Come</h2>
+
+            <div class="learning-intention">
+                You can now walk into any trade fair with confidence. You know how to pitch persuasively, bridge difference, negotiate closing positions, present with impact, manage crises, and turn conversations into real business. Most importantly, you know that expertise is your brand.
+            </div>
+
+            <h3>All Six Frameworks at a Glance:</h3>
+
+            <div class="framework-comparison">
+                <p><strong>AIDA (Lesson 1 - Strategic Pitching):</strong> Attention → Interest → Desire → Action. The four stages of persuasion. Use this when you have 2-3 minutes and a clear ask.</p>
+            </div>
+
+            <div class="framework-comparison">
+                <p><strong>BRIDGE (Lesson 2 - Cross-Cultural):</strong> Background → Respect → Identity → Goals → Environment. How to connect across difference. Use this when you're meeting someone from a different culture or world.</p>
+            </div>
+
+            <div class="framework-comparison">
+                <p><strong>BATNA/ZOPA (Lesson 3 - Negotiation):</strong> Best Alternative To Negotiated Agreement + Zone of Possible Agreement. Understand what they can walk away to, and where you both win. Use this in real negotiations where money or terms are on the table.</p>
+            </div>
+
+            <div class="framework-comparison">
+                <p><strong>SPARK (Lesson 4 - Presentations):</strong> Story → Problem → Approach → Results → Kickstart. For 10-minute stage presentations. Use this when you're speaking to a group on behalf of your expertise.</p>
+            </div>
+
+            <div class="framework-comparison">
+                <p><strong>LEAD (Lesson 5 - Crisis):</strong> Listen → Empathise → Assess → Decide. For high-stakes, emotionally charged conversations. Use this when trust is broken or conflict is rising.</p>
+            </div>
+
+            <div class="framework-comparison">
+                <p><strong>IMPACT (Lesson 6 - Post-Fair):</strong> Immediate Follow-Up → Measure → Prioritise → Analyse → Create Plan → Track. Your 6-week roadmap after the fair. Use this to turn fair activity into real revenue.</p>
+            </div>
+
+            <h3>Complete "I Can..." Statements:</h3>
+
+            <div class="card">
+                <ul>
+                    <li>I can pitch persuasively using AIDA, tailoring my message to different audiences</li>
+                    <li>I can connect across cultural and professional difference using BRIDGE thinking</li>
+                    <li>I can negotiate closing positions by understanding BATNA and finding ZOPA</li>
+                    <li>I can deliver a 10-minute presentation that sticks using SPARK</li>
+                    <li>I can manage high-stakes conversations and crises using LEAD</li>
+                    <li>I can turn a trade fair into a pipeline using IMPACT strategy</li>
+                    <li>I can adapt my approach based on who I'm talking to and what they need</li>
+                    <li>I can stay composed under pressure and use frameworks as guides, not rules</li>
+                    <li>I can tell stories that prove points rather than just listing facts</li>
+                    <li>I can follow up fast and track results so the fair ROI becomes clear</li>
+                </ul>
+            </div>
+
+            <h3>Confidence Reflection: Where You Started vs. Where You Are</h3>
+
+            <div class="recall-grid">
+                <div class="recall-item">
+                    <strong>Lesson 1 Starting Point:</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">"I know what I do, but I'm not sure how to make people care."</p>
+                </div>
+                <div class="recall-item">
+                    <strong>Now (Lesson 6):</strong>
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">"I know how to grab their attention, understand their world, and make them see what's possible."</p>
+                </div>
+            </div>
+
+            <div class="speak-prompt">
+                What's the biggest shift in your confidence since Lesson 1? What conversation or situation do you feel ready for now that you weren't ready for before? And what's the one thing you're still working on?
+            </div>
+
+            <h3>Your Next Trade Fair: The Checklist</h3>
+
+            <div class="card">
+                <p>Before you walk into the next fair, remember:</p>
+                <ul>
+                    <li>Master the five frameworks so they're automatic under pressure</li>
+                    <li>Bring your opening story — the one that hooks in 10 seconds</li>
+                    <li>Know your BATNA and ZOPA before any negotiation starts</li>
+                    <li>Prepare a 3-minute and 5-minute SPARK presentation</li>
+                    <li>Practice LEAD with a colleague so you're calm when crisis hits</li>
+                    <li>Plan your 48-hour follow-up strategy BEFORE the fair</li>
+                    <li>Set Tier 1, 2, 3, 4 categories for leads BEFORE you evaluate them</li>
+                    <li>Take notes on what works. What questions get traction? Which stories? Which closes?</li>
+                    <li>Debrief with your team within 48 hours of the fair closing</li>
+                    <li>Track one metric: revenue closed from fair leads within 60 days</li>
+                </ul>
+            </div>
+
+            <div class="speak-prompt">
+                When you walk into the next trade fair, what's the ONE thing you want to be different about how you show up? What's your commitment?
+            </div>
+
+            <h3>A Final Thought</h3>
+
+            <p style="font-size: 1.1em; color: #667eea; font-weight: 600; margin: 20px 0;">You walked in as someone with expertise. You leave as someone who knows how to make that expertise matter to others.</p>
+
+            <p>Frameworks are scaffolding. They help you build. But the real thing — the thing that makes you unforgettable — is YOU. Your insight, your story, your commitment to understanding the other person. The frameworks just give you permission to bring all of that fully.</p>
+
+            <p style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #eee;">Go to the fair. Listen more than you talk. Ask better questions. Tell stories that matter. And when it gets hard, remember: you've trained for this. You're ready.</p>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`tab-${tabIndex}`).classList.add('active');
+            buttons[tabIndex].classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleFeedback(element) {
+            element.classList.toggle('open');
+        }
+
+        let timerIntervals = {};
+
+        function startTimer(seconds, timerId) {
+            if (timerIntervals[timerId]) clearInterval(timerIntervals[timerId]);
+
+            let remaining = seconds;
+
+            function updateDisplay() {
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                const display = `${mins}:${secs.toString().padStart(2, '0')}`;
+                document.getElementById(timerId).textContent = display;
+
+                const timerDisplay = document.getElementById(timerId);
+
+                if (remaining > 30) {
+                    timerDisplay.classList.remove('yellow', 'red');
+                    timerDisplay.style.color = '#667eea';
+                } else if (remaining > 10) {
+                    timerDisplay.classList.remove('red');
+                    timerDisplay.classList.add('yellow');
+                } else if (remaining > 0) {
+                    timerDisplay.classList.add('red');
+                } else {
+                    clearInterval(timerIntervals[timerId]);
+                    return;
+                }
+
+                remaining--;
+            }
+
+            updateDisplay();
+            timerIntervals[timerId] = setInterval(updateDisplay, 1000);
+        }
+
+        function resetTimer(timerId, seconds) {
+            if (timerIntervals[timerId]) clearInterval(timerIntervals[timerId]);
+            const mins = Math.floor(seconds / 60);
+            document.getElementById(timerId).textContent = `${mins}:00`;
+            document.getElementById(timerId).classList.remove('yellow', 'red');
+            document.getElementById(timerId).style.color = '#667eea';
+        }
+    </script>
+</body>
+</html>

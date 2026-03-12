@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trade Fair: Exchanging Contacts & Following Up</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.7; }
+
+  .tab-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; padding: 16px 12px; background: #fff; border-bottom: 2px solid #f0f0f0; position: sticky; top: 0; z-index: 100; }
+  .tab-btn { padding: 10px 18px; border: 2px solid #e8a0a0; background: #fff; color: #c0392b; border-radius: 25px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.3s; }
+  .tab-btn:hover { background: #fdf2f2; }
+  .tab-btn.active { background: #e74c6f; color: #fff; border-color: #e74c6f; }
+
+  .tab-content { display: none; max-width: 800px; margin: 0 auto; padding: 30px 20px; }
+  .tab-content.active { display: block; }
+
+  .card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #e74c6f; }
+  .card h3 { color: #e74c6f; margin-bottom: 12px; font-size: 1.15rem; }
+
+  .phase-label { display: inline-block; background: #e74c6f; color: #fff; padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 16px; text-transform: uppercase; }
+  .phase-label.activate { background: #e67e22; }
+  .phase-label.demonstrate { background: #27ae60; }
+  .phase-label.consolidate { background: #8e44ad; }
+
+  .learning-intention { background: #fdf2f8; border: 2px solid #e74c6f; border-radius: 10px; padding: 14px 20px; margin: 16px 0; font-weight: 600; font-size: 1rem; text-align: center; }
+
+  textarea { width: 100%; min-height: 80px; padding: 14px; border: 2px solid #ddd; border-radius: 10px; font-family: inherit; font-size: 1rem; resize: vertical; transition: border-color 0.3s; }
+  textarea:focus { border-color: #e74c6f; outline: none; }
+
+  .speak-prompt { background: #fef9e7; border: 2px solid #f1c40f; border-radius: 10px; padding: 16px; margin: 14px 0; }
+  .speak-prompt::before { content: "🎙 SPEAK:"; font-weight: 700; color: #d4a017; display: block; margin-bottom: 6px; }
+
+  .reveal-box { background: #f0f4ff; border: 2px dashed #a0b4e0; border-radius: 10px; padding: 16px; margin: 12px 0; cursor: pointer; text-align: center; transition: all 0.3s; }
+  .reveal-box:hover { background: #e8eeff; }
+  .reveal-box .hidden-content { display: none; text-align: left; margin-top: 12px; }
+  .reveal-box.revealed { border-style: solid; border-color: #27ae60; background: #f0fff4; cursor: default; }
+  .reveal-box.revealed .hidden-content { display: block; }
+  .reveal-box.revealed .reveal-prompt { display: none; }
+  .reveal-prompt { color: #667eea; font-weight: 600; }
+
+  .phrase-box { display: flex; align-items: center; gap: 14px; background: #fff; border: 2px solid #f0d0d0; border-radius: 12px; padding: 14px 18px; margin: 10px 0; }
+  .phrase-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .phrase-text { flex: 1; }
+  .phrase-text .phrase { font-weight: 700; color: #c0392b; font-size: 1.05rem; }
+  .phrase-text .meaning { font-size: 0.9rem; color: #555; margin-top: 2px; }
+
+  .timer-container { text-align: center; margin: 20px 0; }
+  .timer-display { font-size: 2.5rem; font-weight: 700; color: #2ecc71; font-family: 'Courier New', monospace; margin: 10px 0; }
+  .timer-display.warning { color: #f39c12; }
+  .timer-display.danger { color: #e74c3c; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .timer-btn { padding: 8px 20px; border: none; border-radius: 20px; cursor: pointer; font-weight: 600; margin: 0 4px; font-size: 0.9rem; }
+  .timer-btn.start { background: #2ecc71; color: #fff; }
+  .timer-btn.reset { background: #95a5a6; color: #fff; }
+
+  .discussion-card { background: #fff; border: 2px solid #e8a0a0; border-radius: 14px; padding: 20px; margin: 12px 0; cursor: pointer; transition: all 0.3s; }
+  .discussion-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .discussion-card.selected { border-color: #e74c6f; background: #fdf2f8; }
+  .card-number { display: inline-block; background: #e74c6f; color: #fff; width: 28px; height: 28px; border-radius: 50%; text-align: center; line-height: 28px; font-weight: 700; font-size: 0.85rem; margin-right: 10px; }
+
+  .scenario-visual { background: linear-gradient(135deg, #fdf2f8, #f0f4ff); border-radius: 14px; padding: 24px; text-align: center; margin: 16px 0; }
+  .scenario-visual .icon { font-size: 3rem; margin-bottom: 10px; }
+  .scenario-visual .scene { font-size: 1.1rem; font-weight: 600; color: #333; }
+
+  .steps-visual { display: flex; flex-direction: column; gap: 0; margin: 16px 0; }
+  .step-item { display: flex; align-items: center; gap: 14px; padding: 14px; background: #fff; border-left: 3px solid #e74c6f; position: relative; }
+  .step-item::after { content: "↓"; position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); color: #e74c6f; font-size: 1.2rem; font-weight: 700; }
+  .step-item:last-child::after { display: none; }
+  .step-number { background: #e74c6f; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 0.9rem; }
+
+  .checklist-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-box { width: 22px; height: 22px; border: 2px solid #e74c6f; border-radius: 6px; flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; margin-top: 2px; }
+  .check-box.checked { background: #e74c6f; }
+  .check-box.checked::after { content: "✓"; color: #fff; font-weight: 700; font-size: 0.8rem; }
+
+  @media (max-width: 768px) {
+    .tab-btn { padding: 8px 12px; font-size: 0.8rem; }
+    .phrase-box { flex-direction: column; text-align: center; }
+    .tab-content { padding: 20px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab(0)">1. Recall</button>
+  <button class="tab-btn" onclick="showTab(1)">2. The EXIT</button>
+  <button class="tab-btn" onclick="showTab(2)">3. Practice</button>
+  <button class="tab-btn" onclick="showTab(3)">4. Scenarios</button>
+  <button class="tab-btn" onclick="showTab(4)">5. Follow Up</button>
+  <button class="tab-btn" onclick="showTab(5)">6. Recall Zone</button>
+</nav>
+
+<!-- ===================== TAB 1: RECALL ===================== -->
+<div class="tab-content active" id="tab0">
+  <span class="phase-label">Connect</span>
+
+  <div class="card">
+    <h3>Remember from lessons 1 & 2</h3>
+    <p>You've had a great conversation with a visitor at your trade fair stand. They understand your company. They know about your products. Now what?</p>
+
+    <div class="speak-prompt">
+      Imagine a visitor just finished asking questions about your product. They seem interested. What do you need to do next? Think about what would help you stay in contact with this person after the fair.
+    </div>
+
+    <div class="scenario-visual">
+      <div class="icon">🤔</div>
+      <div class="scene">The conversation is good. But how do you turn it into a real business connection?</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Quick recall — the frameworks so far</h3>
+    <p>You know two frameworks already. Let's refresh them:</p>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')">
+      <div class="reveal-prompt">👆 Click to check: the 4-step introduction (from Lesson 1)</div>
+      <div class="hidden-content">
+        <p><strong>1. GREET</strong> — Welcome + name + position</p>
+        <p><strong>2. COMPANY</strong> — What your company does</p>
+        <p><strong>3. PRODUCT</strong> — Your main product + one adjective</p>
+        <p><strong>4. CONNECT</strong> — Ask about the other person</p>
+      </div>
+    </div>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 10px;">
+      <div class="reveal-prompt">👆 Click to check: the W-W-W (from Lesson 2)</div>
+      <div class="hidden-content">
+        <p><strong>W = WHAT</strong> — What is your product/service?</p>
+        <p><strong>W = WHY</strong> — Why is it good? (benefit)</p>
+        <p><strong>W = WHO</strong> — Who is it for?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="learning-intention">
+    Today: ending conversations politely and exchanging contact details — so you leave the fair with real business connections and can follow up after.
+  </div>
+</div>
+
+<!-- ===================== TAB 2: ACTIVATE — The EXIT Framework ===================== -->
+<div class="tab-content" id="tab1">
+  <span class="phase-label activate">Activate — New Content</span>
+
+  <div class="card">
+    <h3>The moment to say goodbye well</h3>
+    <p>At trade fairs, conversations end quickly. A visitor looks at their watch. Another person wants to talk to you. It happens. The question is: how do you end the conversation so they WANT to hear from you again?</p>
+
+    <div class="speak-prompt">
+      Have you ever had a conversation end and thought "I wish I could contact them again, but I don't have their details"? What happens?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>The EXIT Framework: End the conversation well</h3>
+    <p>EXIT stands for four simple steps:</p>
+
+    <div class="steps-visual">
+      <div class="step-item">
+        <div class="step-number">E</div>
+        <div><strong>END</strong> — The conversation is finishing. Signal this politely.</div>
+      </div>
+      <div class="step-item" style="margin-top: 20px;">
+        <div class="step-number">X</div>
+        <div><strong>eXchange</strong> — Ask for (and give) contact details.</div>
+      </div>
+      <div class="step-item" style="margin-top: 20px;">
+        <div class="step-number">I</div>
+        <div><strong>Invite</strong> — Say you'll send something or stay in touch.</div>
+      </div>
+      <div class="step-item" style="margin-top: 20px;">
+        <div class="step-number">T</div>
+        <div><strong>Thank</strong> — Thank them for their time.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Useful Phrases — E: END the conversation</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">⏰</div>
+      <div class="phrase-text">
+        <div class="phrase">"I don't want to keep you any longer."</div>
+        <div class="meaning">Politely signals the conversation is ending — shows you respect their time</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">👋</div>
+      <div class="phrase-text">
+        <div class="phrase">"It's been great talking to you."</div>
+        <div class="meaning">Warm, positive ending — makes them feel the conversation mattered</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">🎯</div>
+      <div class="phrase-text">
+        <div class="phrase">"I think we could work well together."</div>
+        <div class="meaning">Suggests future business — natural reason to exchange contacts</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Useful Phrases — X: eXchange contact details</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">💼</div>
+      <div class="phrase-text">
+        <div class="phrase">"Let me give you my business card."</div>
+        <div class="meaning">Direct, simple — standard at trade fairs</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">📧</div>
+      <div class="phrase-text">
+        <div class="phrase">"Can I have your email address? I'd like to stay in touch."</div>
+        <div class="meaning">Personal and professional — if you don't have cards, ask for email</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">📱</div>
+      <div class="phrase-text">
+        <div class="phrase">"What's the best way to contact you?"</div>
+        <div class="meaning">Gives them control — shows you respect their preference</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">📇</div>
+      <div class="phrase-text">
+        <div class="phrase">"Can I have your card?"</div>
+        <div class="meaning">Short and natural — the standard request at trade fairs</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Useful Phrases — I: Invite them to follow up</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">📮</div>
+      <div class="phrase-text">
+        <div class="phrase">"I'll send you our catalogue after the fair."</div>
+        <div class="meaning">A concrete next step — they know what to expect</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">💬</div>
+      <div class="phrase-text">
+        <div class="phrase">"Let's keep in touch. I'll email you next week."</div>
+        <div class="meaning">Shows you'll take action — puts the responsibility on you, not them</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">🤝</div>
+      <div class="phrase-text">
+        <div class="phrase">"I'll send you some more information about our products."</div>
+        <div class="meaning">Specific promise — they remember what you'll send</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">📞</div>
+      <div class="phrase-text">
+        <div class="phrase">"Maybe we can have a call next month to discuss this further?"</div>
+        <div class="meaning">Suggests a future meeting — turns the fair into the start of a conversation</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Useful Phrases — T: THANK them</h3>
+    <div class="phrase-box">
+      <div class="phrase-icon">🙏</div>
+      <div class="phrase-text">
+        <div class="phrase">"Thank you so much for your time."</div>
+        <div class="meaning">Classic and warm — ends the conversation on a positive note</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">😊</div>
+      <div class="phrase-text">
+        <div class="phrase">"Thank you for your interest in our company."</div>
+        <div class="meaning">Formal but genuine — acknowledges their engagement</div>
+      </div>
+    </div>
+    <div class="phrase-box">
+      <div class="phrase-icon">⭐</div>
+      <div class="phrase-text">
+        <div class="phrase">"It was great meeting you!"</div>
+        <div class="meaning">Personal and friendly — leaves them with a smile</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 16px;">
+      <div class="speak-prompt">
+        Close your eyes. Can you remember the 4 steps of EXIT? Say them aloud: E is... X is... I is... T is...
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 3: ACTIVATE — Practice (I Do / We Do / You Do) ===================== -->
+<div class="tab-content" id="tab2">
+  <span class="phase-label activate">Activate — Practice</span>
+
+  <div class="card">
+    <h3>🔍 I DO — A model goodbye</h3>
+    <p>Listen to how Marco ends a conversation at a trade fair:</p>
+    <div style="background: #fdf2f8; border-radius: 10px; padding: 18px; margin: 12px 0; font-style: italic; font-size: 1.05rem; line-height: 1.8;">
+      "Thank you so much for your time today. I think we could work well together. Let me give you my business card — and can I have yours? I'll send you our full product catalogue by email tomorrow, and maybe we can have a call next week to discuss this further?"
+    </div>
+    <p style="margin-top: 10px; font-size: 0.9rem; color: #555;">Notice: Marco ended politely, exchanged cards, promised follow-up, and thanked the visitor. The conversation didn't really end — it moved to the next step.</p>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')">
+      <div class="reveal-prompt">👆 Click to find all 4 steps of EXIT in Marco's goodbye</div>
+      <div class="hidden-content">
+        <p><strong>E — END:</strong> "Thank you so much for your time today."</p>
+        <p><strong>X — eXchange:</strong> "Let me give you my business card — and can I have yours?"</p>
+        <p><strong>I — Invite:</strong> "I'll send you our full product catalogue by email tomorrow, and maybe we can have a call next week."</p>
+        <p><strong>T — THANK:</strong> Already done at the start, which is natural in English.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🤝 WE DO — Let's build a goodbye together</h3>
+    <p>Imagine you're at a trade fair. The conversation with a visitor is finishing. Together, let's build the EXIT goodbye step by step.</p>
+
+    <div class="speak-prompt">
+      Start with E — END. How would you signal the conversation is finishing? Say your idea first.
+    </div>
+
+    <p style="margin-top: 12px; font-weight: 600;">E — END the conversation:</p>
+    <textarea rows="2" placeholder="It's been great... / I don't want to keep..."></textarea>
+
+    <p style="margin-top: 10px; font-weight: 600;">X — eXchange contact details:</p>
+    <textarea rows="2" placeholder="Let me give you... / Can I have..."></textarea>
+
+    <p style="margin-top: 10px; font-weight: 600;">I — Invite follow-up:</p>
+    <textarea rows="2" placeholder="I'll send... / Let's keep..."></textarea>
+
+    <p style="margin-top: 10px; font-weight: 600;">T — THANK them:</p>
+    <textarea rows="2" placeholder="Thank you... / It was great..."></textarea>
+
+    <div class="speak-prompt" style="margin-top: 14px;">
+      Now put all four parts together and say it as one smooth goodbye. No pauses — it should flow naturally.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🚀 YOU DO — Your real goodbye</h3>
+    <p>Now write your own EXIT goodbye for your company. Include all four steps.</p>
+
+    <textarea rows="8" placeholder="Write your full EXIT goodbye here — E, X, I, T..."></textarea>
+
+    <div class="speak-prompt" style="margin-top: 16px;">
+      Say your goodbye aloud — without reading! Try it once with notes, then once without. Can you make it flow naturally, not like a list?
+    </div>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 14px;">
+      <div class="reveal-prompt">👆 Click to self-check after you've spoken</div>
+      <div class="hidden-content">
+        <div class="checklist-item">
+          <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+          <div>E — Did you signal the conversation is ending politely?</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+          <div>X — Did you ask for (and offer) contact details?</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+          <div>I — Did you say what you'll do next or invite them to stay in touch?</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+          <div>T — Did you thank them?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 4: DEMONSTRATE — Role Play Scenarios ===================== -->
+<div class="tab-content" id="tab3">
+  <span class="phase-label demonstrate">Demonstrate — Application</span>
+
+  <div class="card">
+    <h3>🎭 Real Goodbye Scenarios</h3>
+    <p>Choose 2 of these situations. For each one: use the EXIT framework to end the conversation gracefully.</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">A</span><strong>A busy buyer from a department store has just asked 3 questions about your products.</strong> They look at their watch. Use EXIT to say goodbye professionally.</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">B</span><strong>An older visitor from a family business in another country has spent 15 minutes at your stand.</strong> They're friendly but need to visit other booths. Use EXIT to leave them feeling valued.</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">C</span><strong>A visitor is interested but says they need to check with their boss before ordering.</strong> They're ready to leave. Use EXIT to make sure you stay connected.</p>
+  </div>
+
+  <div class="discussion-card" onclick="this.classList.toggle('selected')">
+    <p><span class="card-number">D</span><strong>A young person from a startup visited your stand.</strong> They loved your product but say "I'll be in touch." Use EXIT to lock in the contact and next steps.</p>
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <h3>⏱ Timed Role Play</h3>
+    <p>For each scenario: Use the 4-step introduction from Lesson 1 (quick), describe your product (W-W-W from Lesson 2, quick), then use EXIT to say goodbye. Total time: 2 minutes per scenario.</p>
+
+    <div class="timer-container">
+      <div class="timer-display" id="timer1">2:00</div>
+      <button class="timer-btn start" onclick="startTimer('timer1', 120)">▶ Start (2 min)</button>
+      <button class="timer-btn reset" onclick="resetTimer('timer1', 120)">↺ Reset</button>
+    </div>
+
+    <div class="speak-prompt">
+      Scenario 1: Full conversation — introduce yourself quickly, describe your product, then use EXIT to say goodbye. Go!
+    </div>
+
+    <p style="margin-top: 14px; font-size: 0.9rem; color: #555;">What was difficult? Did you remember all 4 steps of EXIT?</p>
+    <textarea rows="2" placeholder="Difficult moments or steps you forgot..."></textarea>
+
+    <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 16px;">
+      <div class="timer-container">
+        <div class="timer-display" id="timer2">2:00</div>
+        <button class="timer-btn start" onclick="startTimer('timer2', 120)">▶ Start (2 min)</button>
+        <button class="timer-btn reset" onclick="resetTimer('timer2', 120)">↺ Reset</button>
+      </div>
+
+      <div class="speak-prompt">
+        Scenario 2: Different visitor, different situation. Full conversation with EXIT goodbye. Go!
+      </div>
+
+      <textarea rows="2" placeholder="What went well? What needs practice?..." style="margin-top: 12px;"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 5: DEMONSTRATE — Follow-Up Email ===================== -->
+<div class="tab-content" id="tab4">
+  <span class="phase-label demonstrate">Demonstrate — Written Task</span>
+
+  <div class="card">
+    <h3>✍ Write a Follow-Up Email</h3>
+    <p>You have the visitor's email. Now write a short follow-up email — the kind you'll send within 24 hours after the fair. Maximum 4 sentences. Keep it friendly and professional.</p>
+
+    <div class="timer-container">
+      <div class="timer-display" id="timer3">3:00</div>
+      <button class="timer-btn start" onclick="startTimer('timer3', 180)">▶ 3 min</button>
+      <button class="timer-btn reset" onclick="resetTimer('timer3', 180)">↺ Reset</button>
+    </div>
+
+    <textarea rows="6" placeholder="Subject: &#10;Dear [name],&#10;&#10;Body (your message)..."></textarea>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 14px;">
+      <div class="reveal-prompt">👆 Click to see an example follow-up email</div>
+      <div class="hidden-content">
+        <p style="font-weight: 600; margin-bottom: 8px;">Subject: Following up from the Trade Fair</p>
+        <p style="font-style: italic;">"Dear Sophia,<br><br>It was great to meet you at the fair yesterday. I'm sending you our full product catalogue as promised — I think the PremiumPack will be perfect for your business.<br><br>Let's have a call next week to discuss how we can work together. I'll email you some time options.<br><br>Looking forward to our conversation!<br>Best regards,<br>James"</p>
+        <p style="margin-top: 8px; font-size: 0.9rem; color: #555;">Notice: Personal (uses name, mentions conversation), honest (promises real next step), professional (clear sign-off). This keeps the connection alive.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🎙 Teach It Back</h3>
+    <p>Imagine a colleague is nervous about following up after a trade fair. They ask you: "What should I do after the fair ends?"</p>
+
+    <div class="speak-prompt">
+      Explain the EXIT framework in your own words. What are the 4 steps? Why is each one important? Give an example.
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 6: CONSOLIDATE ===================== -->
+<div class="tab-content" id="tab5">
+  <span class="phase-label consolidate">Consolidate</span>
+
+  <div class="card">
+    <h3>🔄 Recall Zone — All Three Lessons</h3>
+    <p>You have now learned 3 complete frameworks for trade fairs. Let's see how much you remember from all three lessons.</p>
+
+    <div class="speak-prompt">
+      Without looking — say the 4-step introduction framework (from Lesson 1). What's Step 1? Step 2? Step 3? Step 4?
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 10px;">
+      What are the 3 W's for describing your product (from Lesson 2)? Say all three, then explain why each one matters.
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 10px;">
+      What is the EXIT framework? What do E, X, I, and T stand for?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🧠 Final Retrieval</h3>
+    <p>Look away from the screen. Now:</p>
+
+    <div class="speak-prompt">
+      You have 1 minute. Do a complete trade fair conversation from START to FINISH: introduce yourself (4 steps), describe your product (W-W-W), then say goodbye (EXIT). Go!
+    </div>
+
+    <p style="margin-top: 14px;">Now write it from memory:</p>
+    <textarea rows="8" placeholder="Your complete conversation script — introduction + product description + goodbye..."></textarea>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 14px;">
+      <div class="reveal-prompt">👆 Click to see the structure you should have used</div>
+      <div class="hidden-content">
+        <p><strong>Introduction (4-step):</strong> Greet + Company + Product + Connect</p>
+        <p><strong>Product description (W-W-W):</strong> What + Why + Who</p>
+        <p><strong>Goodbye (EXIT):</strong> End + eXchange + Invite + Thank</p>
+        <p style="margin-top: 8px; font-size: 0.9rem; color: #555;">Did you include all three frameworks? That's how you create a complete, professional trade fair conversation.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>💭 Thinking About Thinking</h3>
+    <div class="speak-prompt">
+      What's the most important part of ending a conversation well? Is it the words, the way you exchange cards, promising follow-up, or something else? Why?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>✅ I can...</h3>
+    <p>We said you'd be able to end conversations well and leave the fair with real business connections. Can you?</p>
+
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can signal the end of a conversation politely and professionally.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can ask for (and offer) contact details naturally.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can promise follow-up that sounds genuine and specific.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can end a conversation by thanking the visitor warmly.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can write a simple follow-up email within 24 hours.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+      <div>I can do a COMPLETE trade fair conversation: introduce, describe, say goodbye.</div>
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 14px;">
+      Which of these "I can" statements are you most confident about? Which one needs more practice before the fair?
+    </div>
+  </div>
+</div>
+
+<script>
+function showTab(index) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab' + index).classList.add('active');
+  document.querySelectorAll('.tab-btn')[index].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+const timers = {};
+
+function startTimer(id, seconds) {
+  if (timers[id]) clearInterval(timers[id].interval);
+  let remaining = seconds;
+  const el = document.getElementById(id);
+
+  function update() {
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    el.className = 'timer-display';
+    if (remaining <= 10) el.classList.add('danger');
+    else if (remaining <= 30) el.classList.add('warning');
+    if (remaining <= 0) {
+      clearInterval(timers[id].interval);
+      el.textContent = "0:00";
+      el.classList.add('danger');
+    }
+    remaining--;
+  }
+
+  update();
+  timers[id] = { interval: setInterval(update, 1000), total: seconds };
+}
+
+function resetTimer(id, seconds) {
+  if (timers[id]) clearInterval(timers[id].interval);
+  const el = document.getElementById(id);
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  el.className = 'timer-display';
+}
+</script>
+
+</body>
+</html>

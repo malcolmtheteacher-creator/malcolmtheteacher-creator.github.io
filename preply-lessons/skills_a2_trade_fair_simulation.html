@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trade Fair: Full Simulation & Review</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; color: #1a1a2e; line-height: 1.7; }
+
+  /* Tab Navigation */
+  .tab-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; padding: 16px 12px; background: #fff; border-bottom: 2px solid #f0f0f0; position: sticky; top: 0; z-index: 100; }
+  .tab-btn { padding: 10px 18px; border: 2px solid #e8a0a0; background: #fff; color: #c0392b; border-radius: 25px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.3s; }
+  .tab-btn:hover { background: #fdf2f2; }
+  .tab-btn.active { background: #e74c6f; color: #fff; border-color: #e74c6f; }
+
+  /* Content */
+  .tab-content { display: none; max-width: 800px; margin: 0 auto; padding: 30px 20px; }
+  .tab-content.active { display: block; }
+
+  /* Cards */
+  .card { background: #fff; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid #e74c6f; }
+  .card h3 { color: #e74c6f; margin-bottom: 12px; font-size: 1.15rem; }
+
+  /* Learning Intention */
+  .learning-intention { background: #fdf2f8; border: 2px solid #e74c6f; border-radius: 10px; padding: 14px 20px; margin: 16px 0; font-weight: 600; font-size: 1rem; text-align: center; }
+
+  /* Text areas */
+  textarea { width: 100%; min-height: 80px; padding: 14px; border: 2px solid #ddd; border-radius: 10px; font-family: inherit; font-size: 1rem; resize: vertical; transition: border-color 0.3s; }
+  textarea:focus { border-color: #e74c6f; outline: none; }
+
+  /* Speak prompts */
+  .speak-prompt { background: #fef9e7; border: 2px solid #f1c40f; border-radius: 10px; padding: 16px; margin: 14px 0; }
+  .speak-prompt::before { content: "🎙 SPEAK:"; font-weight: 700; color: #d4a017; display: block; margin-bottom: 6px; }
+
+  /* Click to reveal */
+  .reveal-box { background: #f0f4ff; border: 2px dashed #a0b4e0; border-radius: 10px; padding: 16px; margin: 12px 0; cursor: pointer; text-align: center; transition: all 0.3s; }
+  .reveal-box:hover { background: #e8eeff; }
+  .reveal-box .hidden-content { display: none; text-align: left; margin-top: 12px; }
+  .reveal-box.revealed { border-style: solid; border-color: #27ae60; background: #f0fff4; cursor: default; }
+  .reveal-box.revealed .hidden-content { display: block; }
+  .reveal-box.revealed .reveal-prompt { display: none; }
+  .reveal-prompt { color: #667eea; font-weight: 600; }
+
+  /* Framework cards */
+  .framework-card { background: #fff; border-radius: 12px; padding: 18px; margin: 12px 0; border: 2px solid #f0d0d0; cursor: pointer; transition: all 0.3s; }
+  .framework-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .framework-card.open { border-color: #e74c6f; background: #fdf2f8; }
+  .framework-name { font-weight: 700; color: #e74c6f; font-size: 1.1rem; }
+  .framework-content { display: none; margin-top: 12px; }
+  .framework-card.open .framework-content { display: block; }
+
+  /* Scenario boxes */
+  .scenario-box { background: linear-gradient(135deg, #fdf2f8, #f0f4ff); border-radius: 12px; padding: 18px; margin: 14px 0; border-left: 4px solid #e74c6f; }
+  .scenario-title { font-weight: 700; color: #333; font-size: 1.05rem; margin-bottom: 8px; }
+
+  /* Timer */
+  .timer-container { text-align: center; margin: 20px 0; }
+  .timer-display { font-size: 2.5rem; font-weight: 700; color: #2ecc71; font-family: 'Courier New', monospace; margin: 10px 0; }
+  .timer-display.warning { color: #f39c12; }
+  .timer-display.danger { color: #e74c3c; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .timer-btn { padding: 8px 20px; border: none; border-radius: 20px; cursor: pointer; font-weight: 600; margin: 0 4px; font-size: 0.9rem; }
+  .timer-btn.start { background: #2ecc71; color: #fff; }
+  .timer-btn.reset { background: #95a5a6; color: #fff; }
+
+  /* Phrase boxes */
+  .phrase-box { background: #fff; border-radius: 10px; padding: 12px 14px; margin: 8px 0; border-left: 3px solid #e74c6f; font-size: 0.95rem; }
+  .phrase-icon { margin-right: 8px; }
+
+  /* Checklist */
+  .checklist-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-box { width: 22px; height: 22px; border: 2px solid #e74c6f; border-radius: 6px; flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; margin-top: 2px; }
+  .check-box.checked { background: #e74c6f; }
+  .check-box.checked::after { content: "✓"; color: #fff; font-weight: 700; font-size: 0.8rem; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .tab-btn { padding: 8px 12px; font-size: 0.8rem; }
+    .tab-content { padding: 20px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TAB NAVIGATION -->
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab(0)">1. Recall All</button>
+  <button class="tab-btn" onclick="showTab(1)">2. Framework Cards</button>
+  <button class="tab-btn" onclick="showTab(2)">3. Booth Chat</button>
+  <button class="tab-btn" onclick="showTab(3)">4. Networking</button>
+  <button class="tab-btn" onclick="showTab(4)">5. Problem Solved</button>
+  <button class="tab-btn" onclick="showTab(5)">6. Reflect</button>
+</nav>
+
+<!-- ===================== TAB 1: RECALL ALL ===================== -->
+<div class="tab-content active" id="tab0">
+  <div class="card">
+    <h3>Quick-Fire Recall: All 5 Frameworks</h3>
+    <p>You've learned 5 frameworks for trade fair English. Without looking at anything, say them all from memory.</p>
+
+    <div class="learning-intention">
+      Today: bringing all 5 frameworks together in realistic simulations — so you're ready for the real thing.
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🔄 Can You Remember All 5?</h3>
+    <div class="speak-prompt">
+      Say the 5 frameworks from memory. What is the name of each one? What does each one help you do?
+    </div>
+    <p style="margin-top: 16px; font-size: 0.9rem; color: #555;">Hint: The first one is about introducing yourself and your company.</p>
+  </div>
+
+  <div class="card">
+    <h3>Try to write them</h3>
+    <p>Write the 5 framework names and their main steps (without looking at old lessons):</p>
+
+    <textarea rows="10" placeholder="1. [Name] — [Step 1] → [Step 2] → [Step 3] → [Step 4]&#10;2. ..."></textarea>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 14px;">
+      <div class="reveal-prompt">👆 Click to check your answer</div>
+      <div class="hidden-content">
+        <p><strong>1. GREET-COMPANY-PRODUCT-CONNECT</strong> (First Contact) — Introduce yourself and ask about them</p>
+        <p><strong>2. W-W-W (WHAT-WHY-WHO)</strong> (Your Product) — What is it? Why is it good? Who needs it?</p>
+        <p><strong>3. EXIT (End-eXchange-Invite-Thank)</strong> (Exchanging Contacts) — End the conversation professionally and exchange information</p>
+        <p><strong>4. SAFE (Surroundings-Activities-Food-Events)</strong> (Small Talk) — Safe topics for casual conversation</p>
+        <p><strong>5. CALM (Clarify-Apologise-Look-Move)</strong> (Handling Problems) — Stay calm when things go wrong</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="speak-prompt">
+      Which framework do you feel MOST confident about right now? Which one would you like to practise more before the real fair?
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 2: FRAMEWORK CARDS ===================== -->
+<div class="tab-content" id="tab1">
+  <div class="card">
+    <h3>Visual Summary: Click to Reveal Each Framework</h3>
+    <p>Try to remember each framework first. Then click to reveal the key points.</p>
+  </div>
+
+  <div class="framework-card" onclick="this.classList.toggle('open')">
+    <div class="framework-name">🎯 Framework 1: GREET-COMPANY-PRODUCT-CONNECT</div>
+    <div class="framework-content">
+      <p><strong>When:</strong> When you meet someone at a trade fair booth or event</p>
+      <p style="margin-top: 8px;"><strong>How:</strong></p>
+      <p>1. <strong>GREET</strong> — Welcome + your name + your position</p>
+      <p>2. <strong>COMPANY</strong> — What your company does (one sentence)</p>
+      <p>3. <strong>PRODUCT</strong> — Your main product or service + one adjective</p>
+      <p>4. <strong>CONNECT</strong> — Ask about THEM</p>
+      <p style="margin-top: 8px; font-size: 0.9rem; color: #555;"><strong>Goal:</strong> Make a confident first impression in 60 seconds</p>
+    </div>
+  </div>
+
+  <div class="framework-card" onclick="this.classList.toggle('open')">
+    <div class="framework-name">📱 Framework 2: W-W-W (WHAT-WHY-WHO)</div>
+    <div class="framework-content">
+      <p><strong>When:</strong> When a visitor asks about your product or you're explaining what you make</p>
+      <p style="margin-top: 8px;"><strong>How:</strong></p>
+      <p>1. <strong>WHAT</strong> — What is your product? Describe it clearly.</p>
+      <p>2. <strong>WHY</strong> — Why is it good? What makes it different?</p>
+      <p>3. <strong>WHO</strong> — Who needs it? Who are your customers?</p>
+      <p style="margin-top: 8px; font-size: 0.9rem; color: #555;"><strong>Goal:</strong> Answer any product question thoroughly</p>
+    </div>
+  </div>
+
+  <div class="framework-card" onclick="this.classList.toggle('open')">
+    <div class="framework-name">👋 Framework 3: EXIT (End-eXchange-Invite-Thank)</div>
+    <div class="framework-content">
+      <p><strong>When:</strong> When you're ready to end a conversation and exchange contact information</p>
+      <p style="margin-top: 8px;"><strong>How:</strong></p>
+      <p>1. <strong>End</strong> — Know when the conversation is finishing</p>
+      <p>2. <strong>eXchange</strong> — Exchange business cards or contact details</p>
+      <p>3. <strong>Invite</strong> — Invite them to stay in touch or visit your website</p>
+      <p>4. <strong>Thank</strong> — Thank them for their time</p>
+      <p style="margin-top: 8px; font-size: 0.9rem; color: #555;"><strong>Goal:</strong> End professionally and build the relationship</p>
+    </div>
+  </div>
+
+  <div class="framework-card" onclick="this.classList.toggle('open')">
+    <div class="framework-name">☕ Framework 4: SAFE (Surroundings-Activities-Food-Events)</div>
+    <div class="framework-content">
+      <p><strong>When:</strong> During small talk with people you're just meeting (lunch, networking dinner, coffee break)</p>
+      <p style="margin-top: 8px;"><strong>How:</strong></p>
+      <p>1. <strong>Surroundings</strong> — "Have you been to this city before?"</p>
+      <p>2. <strong>Activities</strong> — "Did you catch any interesting presentations?"</p>
+      <p>3. <strong>Food</strong> — "Are you enjoying the food here?"</p>
+      <p>4. <strong>Events</strong> — "Is this your first time at this fair?"</p>
+      <p style="margin-top: 8px; font-size: 0.9rem; color: #555;"><strong>Goal:</strong> Have relaxed conversation and build connection</p>
+    </div>
+  </div>
+
+  <div class="framework-card" onclick="this.classList.toggle('open')">
+    <div class="framework-name">🆘 Framework 5: CALM (Clarify-Apologise-Look-Move)</div>
+    <div class="framework-content">
+      <p><strong>When:</strong> When there's a complaint, problem, or misunderstanding</p>
+      <p style="margin-top: 8px;"><strong>How:</strong></p>
+      <p>1. <strong>Clarify</strong> — Ask what the problem is. Listen carefully.</p>
+      <p>2. <strong>Apologise</strong> — Say sorry professionally. Show you understand.</p>
+      <p>3. <strong>Look</strong> — Offer solutions. "What I can do is..."</p>
+      <p>4. <strong>Move</strong> — End on a positive note. Thank them.</p>
+      <p style="margin-top: 8px; font-size: 0.9rem; color: #555;"><strong>Goal:</strong> Turn a problem into a stronger relationship</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <div class="speak-prompt">
+      Close the framework cards. Cover the screen. Now say all 5 frameworks from memory — without reading!
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 3: SIMULATION 1 — BOOTH CONVERSATION ===================== -->
+<div class="tab-content" id="tab2">
+  <div class="card">
+    <h3>Simulation 1: Full Booth Conversation</h3>
+    <p>You are at your trade fair booth. A visitor walks up. You have 5 minutes to do a complete conversation from start to finish.</p>
+
+    <p style="margin-top: 12px; font-size: 0.9rem; color: #555;"><strong>Your company:</strong> TechVert Solutions — we make software for small business inventory management. Your product: CloudTrack Pro. You are the Sales Manager.</p>
+  </div>
+
+  <div class="scenario-box">
+    <div class="scenario-title">🎬 The Scene</div>
+    <p>It's 2pm on Day 2 of the trade fair. A visitor stops at your booth. They look at your displays but don't say anything. You need to start the conversation and do the whole flow.</p>
+
+    <p style="margin-top: 12px; font-weight: 600; color: #333;">You should use:</p>
+    <p style="margin: 8px 0;">✓ GREET-COMPANY-PRODUCT-CONNECT (introduce yourself)</p>
+    <p style="margin: 8px 0;">✓ W-W-W (when they ask about your product)</p>
+    <p style="margin: 8px 0;">✓ SAFE (small talk about the fair)</p>
+    <p style="margin: 8px 0;">✓ EXIT (exchange contacts and end professionally)</p>
+  </div>
+
+  <div class="card">
+    <h3>⏱ Timed Challenge: 5 Minutes</h3>
+
+    <div class="timer-container">
+      <div class="timer-display" id="timer1">5:00</div>
+      <button class="timer-btn start" onclick="startTimer('timer1', 300)">▶ Start (5 min)</button>
+      <button class="timer-btn reset" onclick="resetTimer('timer1', 300)">↺ Reset</button>
+    </div>
+
+    <div class="speak-prompt">
+      The visitor has just stopped at your booth. Go! Start with a greeting.
+    </div>
+
+    <p style="margin-top: 16px; font-weight: 600; color: #333;">Write notes as you go (or after):</p>
+    <textarea rows="6" placeholder="What did you say? Did you cover all frameworks?&#10;&#10;Visitor's questions:..."></textarea>
+  </div>
+
+  <div class="card">
+    <h3>✅ Self-Check Checklist</h3>
+    <p>After the role play, check if you did all these things:</p>
+
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div><strong>GREET:</strong> Did you say hello, your name, and your position?</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div><strong>COMPANY:</strong> Did you explain what your company does?</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div><strong>PRODUCT:</strong> Did you mention your product with a strong adjective?</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div><strong>CONNECT:</strong> Did you ask about them?</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div><strong>W-W-W:</strong> Did you explain WHAT your product does, WHY it's good, and WHO needs it?</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div><strong>SAFE:</strong> Did you make small talk about the fair or surroundings?</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div><strong>EXIT:</strong> Did you exchange contact information and thank them?</div>
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 16px;">
+      Which parts went well? Which parts were difficult? What would you do differently next time?
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 4: SIMULATION 2 — NETWORKING DINNER ===================== -->
+<div class="tab-content" id="tab3">
+  <div class="card">
+    <h3>Simulation 2: Networking Dinner Scene</h3>
+    <p>It's the trade fair dinner. You sit next to someone you don't know. The situation is completely different from the booth.</p>
+
+    <p style="margin-top: 12px; font-size: 0.9rem; color: #555;"><strong>Your situation:</strong> You represent EcoPackage Ltd, a company that makes sustainable packaging. You're the Marketing Director. The person next to you is from a completely different industry. You don't know them at all.</p>
+  </div>
+
+  <div class="scenario-box">
+    <div class="scenario-title">🎬 The Scene</div>
+    <p>You're sitting at a table with 4 other people. The person next to you smiles and makes eye contact. This is a relaxed situation — NOT a formal booth presentation.</p>
+
+    <p style="margin-top: 12px; font-weight: 600; color: #333;">This time you should use:</p>
+    <p style="margin: 8px 0;">✓ SAFE (start with small talk — about the dinner, the fair, the city)</p>
+    <p style="margin: 8px 0;">✓ GREET-COMPANY-PRODUCT-CONNECT (move into introductions naturally)</p>
+    <p style="margin: 8px 0;">✓ W-W-W (if they ask about your product)</p>
+    <p style="margin: 8px 0;">✓ EXIT (exchange details and stay in touch)</p>
+  </div>
+
+  <div class="card">
+    <h3>⏱ Timed Challenge: 5 Minutes</h3>
+
+    <div class="timer-container">
+      <div class="timer-display" id="timer2">5:00</div>
+      <button class="timer-btn start" onclick="startTimer('timer2', 300)">▶ Start (5 min)</button>
+      <button class="timer-btn reset" onclick="resetTimer('timer2', 300)">↺ Reset</button>
+    </div>
+
+    <div class="speak-prompt">
+      The person next to you starts talking. "So, are you enjoying the fair?" Go! Remember: this is casual conversation, not a formal pitch.
+    </div>
+
+    <p style="margin-top: 16px; font-weight: 600; color: #333;">Write notes as you go:</p>
+    <textarea rows="6" placeholder="How did you start? What small talk did you use?&#10;&#10;Did you move into introductions naturally?"></textarea>
+  </div>
+
+  <div class="card">
+    <h3>✅ Reflection: Different Scenarios, Same Skills</h3>
+    <p>Booth conversation and dinner conversation use the SAME frameworks, but in a DIFFERENT order and style.</p>
+
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>In the booth, you started formal (GREET first). At dinner, you started casual (SAFE first). Did you notice the difference?</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>Both conversations ended with exchanging contacts (EXIT). Why is that always important?</div>
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 14px;">
+      Which scenario felt more natural to you — the formal booth or the casual dinner? Why?
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 5: SIMULATION 3 — PROBLEM SCENARIO ===================== -->
+<div class="tab-content" id="tab4">
+  <div class="card">
+    <h3>Simulation 3: Problem Scenario</h3>
+    <p>This combines EVERYTHING. A visitor comes to your booth, but something is wrong.</p>
+
+    <p style="margin-top: 12px; font-size: 0.9rem; color: #555;"><strong>Your company:</strong> SeaBridge Logistics — shipping solutions. You're the Account Manager. You work with a customer who has a problem.</p>
+  </div>
+
+  <div class="scenario-box">
+    <div class="scenario-title">🎬 The Scene</div>
+    <p>"I ordered 50 containers through your company 2 weeks ago. The contract said delivery in 3 weeks. But I just heard from my warehouse — nothing arrived yet! This is a disaster. I have 20 customers waiting for their orders. What are you going to do about this?"</p>
+
+    <p style="margin-top: 12px; font-weight: 600; color: #333;">You need to use ALL frameworks:</p>
+    <p style="margin: 8px 0;">✓ CALM (handle the problem immediately)</p>
+    <p style="margin: 8px 0;">✓ Then move to rebuilding: SAFE (calm them down), W-W-W (rebuild trust in your service)</p>
+    <p style="margin: 8px 0;">✓ EXIT (end professionally, they trust you again)</p>
+  </div>
+
+  <div class="card">
+    <h3>⏱ Timed Challenge: 3 Minutes</h3>
+
+    <div class="timer-container">
+      <div class="timer-display" id="timer3">3:00</div>
+      <button class="timer-btn start" onclick="startTimer('timer3', 180)">▶ Start (3 min)</button>
+      <button class="timer-btn reset" onclick="resetTimer('timer3', 180)">↺ Reset</button>
+    </div>
+
+    <div class="speak-prompt">
+      The angry customer is in front of you. Go! Remember CALM: Clarify, Apologise, Look, Move.
+    </div>
+
+    <p style="margin-top: 16px; font-weight: 600; color: #333;">What did you say? Write your response:</p>
+    <textarea rows="4" placeholder="My response:&#10;..."></textarea>
+  </div>
+
+  <div class="card">
+    <h3>✍ Written Task: Create Your Top 10 Phrases</h3>
+    <p>Now write your personal "cheat sheet" — the 10 most useful phrases YOU will use at a real trade fair. Look back at all 5 frameworks and choose your favourite phrases that YOU will actually say.</p>
+
+    <div class="timer-container">
+      <div class="timer-display" id="timer4">3:00</div>
+      <button class="timer-btn start" onclick="startTimer('timer4', 180)">▶ 3 min</button>
+      <button class="timer-btn reset" onclick="resetTimer('timer4', 180)">↺ Reset</button>
+    </div>
+
+    <textarea rows="10" placeholder="Your Top 10 Phrases:&#10;&#10;1. (Greeting)&#10;2. (Introducing your company)&#10;3. (Describing a product)&#10;..."></textarea>
+
+    <div class="reveal-box" onclick="this.classList.toggle('revealed')" style="margin-top: 14px;">
+      <div class="reveal-prompt">👆 Click to see an example cheat sheet</div>
+      <div class="hidden-content">
+        <p style="margin-bottom: 10px;"><strong>Example Top 10 Phrases:</strong></p>
+        <p class="phrase-box">1. "Hello! Welcome to our stand. I'm Marco, the Sales Director of TechVert."</p>
+        <p class="phrase-box">2. "We design software for small business inventory management."</p>
+        <p class="phrase-box">3. "Our main product is CloudTrack Pro — it's intuitive and affordable."</p>
+        <p class="phrase-box">4. "What brings you to the fair today?"</p>
+        <p class="phrase-box">5. "Let me explain the key features for your industry..."</p>
+        <p class="phrase-box">6. "Are you enjoying the fair? Have you been here before?"</p>
+        <p class="phrase-box">7. "I understand there's a problem. Let me check that for you."</p>
+        <p class="phrase-box">8. "I apologise — this is not the standard we aim for."</p>
+        <p class="phrase-box">9. "What I can do is send you the solution by tomorrow."</p>
+        <p class="phrase-box">10. "Thank you for your business. Let's stay in touch. Here's my card."</p>
+        <p style="margin-top: 12px; font-size: 0.9rem; color: #555;">These are natural phrases from real conversations. Choose phrases YOU will actually feel comfortable saying.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TAB 6: FINAL REFLECTION ===================== -->
+<div class="tab-content" id="tab5">
+  <div class="card">
+    <h3>🧠 Course Reflection: Which Framework is Your Strongest?</h3>
+    <p>Over 6 lessons, you've learned 5 complete frameworks for trade fair English. Now think about yourself.</p>
+
+    <div class="speak-prompt">
+      Which framework do you feel MOST confident about? GREET-COMPANY-PRODUCT-CONNECT, W-W-W, EXIT, SAFE, or CALM? Why?
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 10px;">
+      Which one do you need to practise more? What part was hardest for you?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>💭 Learning Journey</h3>
+    <p>Think back over the whole course. At the beginning, you had no frameworks. Now you have 5.</p>
+
+    <div class="speak-prompt">
+      What was the hardest lesson for you? What did you learn that surprised you?
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 10px;">
+      Imagine yourself at a real trade fair NOW, compared to when we started. How is your confidence different?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>✅ I can... (Full Course)</h3>
+    <p>Check which of these "I can" statements are TRUE for you now:</p>
+
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>I can introduce myself and my company professionally to a stranger in English.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>I can describe my product clearly, explaining WHAT it is, WHY it's good, and WHO needs it.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>I can exchange contact information and end a business conversation professionally.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>I can make small talk at business events using safe topics.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>I can handle problems and complaints professionally without losing my composure.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>I can do a full 5-minute trade fair conversation from introduction to exchanging contacts.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>I can use all 5 frameworks together in realistic, unpredictable situations.</div>
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 14px;">
+      How many did you check? Are you ready for a real trade fair?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Final Challenge: The Real Fair</h3>
+    <p>You have completed this course. But a trade fair is unpredictable — visitors will surprise you, problems will come up, situations will be different every time.</p>
+
+    <div class="speak-prompt">
+      What will you do if something happens that we DIDN'T cover in this course? How will you use what you learned to handle new situations?
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🎓 Next Steps</h3>
+    <p>Before you go to a real trade fair:</p>
+
+    <div class="checklist-item" style="border: none; padding: 8px 0;">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>Practise each framework 3 more times on your own, speaking aloud</div>
+    </div>
+    <div class="checklist-item" style="border: none; padding: 8px 0;">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>Create your own "top phrases" cheat sheet and learn it by heart</div>
+    </div>
+    <div class="checklist-item" style="border: none; padding: 8px 0;">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>Practise with a colleague or friend — do role plays together</div>
+    </div>
+    <div class="checklist-item" style="border: none; padding: 8px 0;">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>Record yourself speaking and listen back — notice what's strong and what needs work</div>
+    </div>
+    <div class="checklist-item" style="border: none; padding: 8px 0;">
+      <div class="check-box" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
+      <div>Review the course lessons the day BEFORE the fair to refresh your memory</div>
+    </div>
+
+    <div class="speak-prompt" style="margin-top: 16px;">
+      You're ready. Go to that trade fair. Use your English. Ask for help when you need it. Good luck!
+    </div>
+  </div>
+</div>
+
+<script>
+// Tab switching
+function showTab(index) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab' + index).classList.add('active');
+  document.querySelectorAll('.tab-btn')[index].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Timer functionality
+const timers = {};
+
+function startTimer(id, seconds) {
+  if (timers[id]) clearInterval(timers[id].interval);
+
+  let remaining = seconds;
+  const el = document.getElementById(id);
+
+  function update() {
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+
+    el.className = 'timer-display';
+    if (remaining <= 10) el.classList.add('danger');
+    else if (remaining <= 30) el.classList.add('warning');
+
+    if (remaining <= 0) {
+      clearInterval(timers[id].interval);
+      el.textContent = "0:00";
+      el.classList.add('danger');
+    }
+    remaining--;
+  }
+
+  update();
+  timers[id] = { interval: setInterval(update, 1000), total: seconds };
+}
+
+function resetTimer(id, seconds) {
+  if (timers[id]) clearInterval(timers[id].interval);
+  const el = document.getElementById(id);
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  el.className = 'timer-display';
+}
+</script>
+
+</body>
+</html>

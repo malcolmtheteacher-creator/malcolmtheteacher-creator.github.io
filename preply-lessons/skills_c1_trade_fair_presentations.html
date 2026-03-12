@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Speaking & Presentations at Trade Events</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            border: 2px solid #667eea;
+            background-color: white;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .tab-button.active {
+            background-color: #667eea;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            line-height: 1.8;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .speak-prompt {
+            background-color: #fffacd;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .speak-prompt::before {
+            content: "🎙 SPEAK: ";
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .timer {
+            background-color: #e8f0f8;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .timer-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .timer-display.yellow {
+            color: #ff9800;
+        }
+
+        .timer-display.red {
+            color: #e74c3c;
+            animation: pulse 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .timer-button {
+            padding: 10px 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .timer-button:hover {
+            background-color: #5568d3;
+        }
+
+        .card {
+            background-color: #f0f4ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .example-box {
+            background-color: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #999;
+            font-style: italic;
+        }
+
+        .feedback-box {
+            background-color: #f0fff4;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #48bb78;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .feedback-box:hover {
+            background-color: #e6fffa;
+        }
+
+        .feedback-content {
+            display: none;
+            margin-top: 10px;
+            color: #2d3748;
+        }
+
+        .feedback-box.open .feedback-content {
+            display: block;
+        }
+
+        .feedback-box::before {
+            content: "▶ ";
+            color: #48bb78;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .feedback-box.open::before {
+            content: "▼ ";
+        }
+
+        .learning-intention {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 1.15em;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .spark-framework {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .spark-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .technique-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .technique-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .technique-item strong {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Public Speaking & Presentations at Trade Events</h1>
+        <p class="subtitle">How to command 200 people for 10 minutes without a second chance</p>
+
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab(0)">Your Moment</button>
+            <button class="tab-button" onclick="switchTab(1)">The SPARK Framework</button>
+            <button class="tab-button" onclick="switchTab(2)">Opening Analysis</button>
+            <button class="tab-button" onclick="switchTab(3)">Practice & Time</button>
+            <button class="tab-button" onclick="switchTab(4)">Your Presentation</button>
+            <button class="tab-button" onclick="switchTab(5)">Reflection</button>
+        </div>
+
+        <!-- TAB 1: Your Moment -->
+        <div id="tab-0" class="tab-content active">
+            <h2>You're On Stage</h2>
+
+            <p>Scenario: You've just been invited to speak at the main conference stage of the trade fair. 200 people in the audience. 10 minutes on the clock. You'll never see most of them again.</p>
+
+            <div class="card">
+                <h3>What makes this different from booth conversations?</h3>
+                <ul>
+                    <li>You can't read the room in real-time or adjust on the fly</li>
+                    <li>You can't ask questions back — you own the airspace</li>
+                    <li>People are sitting down, facing forward, with nowhere to hide</li>
+                    <li>Every filler word, every pause that's too long, every "um" is visible</li>
+                    <li>You have maybe 3 seconds to grab them before someone checks their phone</li>
+                </ul>
+            </div>
+
+            <h3>But here's what's different in YOUR favour:</h3>
+            <p>On stage, you're the expert. You've earned this platform. People came to hear YOU, not just what you're selling. They're primed to listen.</p>
+
+            <div class="speak-prompt">
+                Think back to a presentation you've seen that stuck with you. What did that speaker do? How did they open? What made you remember it?
+            </div>
+
+            <p style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee; font-size: 0.95em; color: #666;">
+                In this lesson, you'll learn a framework — SPARK — that turns 10 minutes into impact. You'll practice opening strong, managing your pace, and closing in a way that makes people act.
+            </p>
+        </div>
+
+        <!-- TAB 2: SPARK Framework -->
+        <div id="tab-1" class="tab-content">
+            <h2>The SPARK Framework</h2>
+
+            <p>SPARK is designed for short, high-stakes presentations. Every element builds:</p>
+
+            <div class="spark-framework">
+                <div class="spark-box">Story</div>
+                <div class="spark-box">Problem</div>
+                <div class="spark-box">Approach</div>
+                <div class="spark-box">Results</div>
+                <div class="spark-box">Kickstart</div>
+            </div>
+
+            <h3>1. STORY (First 60 seconds)</h3>
+            <p><strong>Goal:</strong> Pull them in. Make it personal, make it real.</p>
+            <p>Start with a moment, a scene, a question that makes them curious. Not about your company — about THEIR world.</p>
+            <ul>
+                <li><span class="highlight">"Let me take you back to..."</span> — puts them in a moment</li>
+                <li><span class="highlight">"I walked into a client's warehouse and saw..."</span> — visceral, specific</li>
+                <li><span class="highlight">"What if I told you..."</span> — creates tension</li>
+                <li>Avoid: "Today I want to talk about..." (generic, puts them to sleep)</li>
+            </ul>
+
+            <h3>2. PROBLEM (45 seconds)</h3>
+            <p><strong>Goal:</strong> Define the challenge clearly. Make them feel it.</p>
+            <p>This is where they nod and think "Yes, that's us." Use data to anchor it, but tell it like a human.</p>
+            <ul>
+                <li><span class="highlight">"The question we should all be asking is..."</span> — frames the real issue</li>
+                <li><span class="highlight">"Here's what the data tells us..."</span> — gives evidence</li>
+                <li><span class="highlight">"Most teams think it's X, but it's really Y."</span> — reframes thinking</li>
+            </ul>
+
+            <h3>3. APPROACH (2 minutes)</h3>
+            <p><strong>Goal:</strong> Show them the path forward. Keep it simple — no more than three key points.</p>
+            <ul>
+                <li>Use <span class="highlight">signposting language:</span> "First... Second... Third..."</li>
+                <li>The <span class="highlight">rule of three</span> sticks in memory</li>
+                <li>Each point should feel distinct, not repetitive</li>
+                <li>Example: "We do three things: we listen, we diagnose, we implement."</li>
+            </ul>
+
+            <h3>4. RESULTS (2 minutes)</h3>
+            <p><strong>Goal:</strong> Prove it works. Show evidence that matters to them.</p>
+            <ul>
+                <li>One strong case study beats three weak statistics</li>
+                <li><span class="highlight">"Here's what happened in practice..."</span> — specific story, specific outcome</li>
+                <li>Numbers that mean something: "We cut their time by 60%" beats "We improved efficiency"</li>
+                <li>Quote them: "One of our partners said..." (real voice, real validation)</li>
+            </ul>
+
+            <h3>5. KICKSTART (1 minute, 30 seconds)</h3>
+            <p><strong>Goal:</strong> Move them. Give them something to do right now, or a thought to sit with.</p>
+            <ul>
+                <li><span class="highlight">"If you take away one thing today, it's this..."</span> — memorable close</li>
+                <li><span class="highlight">"The first step is..."</span> — removes mystery</li>
+                <li><span class="highlight">"Here's my ask..."</span> — clear invitation</li>
+                <li>The close should feel like an opening, not an ending</li>
+            </ul>
+
+            <div class="speak-prompt">
+                Take a product you know. Sketch out SPARK for it right now — one sentence for each element. You're outlining, not pitching yet. What's your opening story going to be?
+            </div>
+        </div>
+
+        <!-- TAB 3: Opening Analysis -->
+        <div id="tab-2" class="tab-content">
+            <h2>Strong Openings vs. Weak Openings</h2>
+
+            <p>The first 60 seconds determine whether people are present or absent. Here's what the difference looks like:</p>
+
+            <h3>Weak Opening (Generic, disconnected)</h3>
+            <div class="example-box">
+                "Today I want to talk about digital transformation in manufacturing. Digital transformation is important. Companies are investing in it. So let me tell you what we do."
+            </div>
+
+            <div class="feedback-box" onclick="toggleFeedback(this)">
+                <span class="feedback-title">Why this fails</span>
+                <div class="feedback-content">
+                    <ul>
+                        <li><strong>Announcement:</strong> "Today I want to talk about..." — you're telling them you're starting, not starting.</li>
+                        <li><strong>Generic language:</strong> "Digital transformation," "important," "investing" — could be any presenter, any topic.</li>
+                        <li><strong>About YOU:</strong> "What we do" — but they haven't asked yet. They don't care until you've made them curious.</li>
+                        <li><strong>No story:</strong> Just labels. Minds wander.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Strong Opening (Story-driven, specific)</h3>
+            <div class="example-box">
+                "I walked into a manufacturing plant in Belgium six months ago. The production manager showed me their planning board — it was literally a piece of paper on a wall with Post-its, moved by hand. I asked, 'How many times do you update this a day?' She said, 'Whenever we know something changed. Which is constantly. We're always out of sync.' That's the moment I realised: digital transformation isn't about technology. It's about ending confusion."
+            </div>
+
+            <div class="feedback-box" onclick="toggleFeedback(this)">
+                <span class="feedback-title">Why this works</span>
+                <div class="feedback-content">
+                    <ul>
+                        <li><strong>Concrete scene:</strong> Belgium, production board, Post-its — I can see it.</li>
+                        <li><strong>Real dialogue:</strong> The conversation feels authentic. That's your credibility.</li>
+                        <li><strong>Reframes the issue:</strong> Not "digital transformation is important" but "it's about ending confusion" — that's YOUR insight.</li>
+                        <li><strong>Universal:</strong> Anyone managing operations recognises that feeling of things being out of sync.</li>
+                        <li><strong>Sets up everything:</strong> Now they want to know how you solve confusion.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Now Build Your Opening Together</h3>
+
+            <p>I'm going to give you a scenario, and you'll build an opening for it. The scenario:</p>
+
+            <div class="card">
+                <p><strong>You're speaking at a trade fair about supply chain resilience. Your audience: logistics directors and operations managers.</strong></p>
+                <p>What's a real moment or scene that opens the problem? Not "supply chains are fragile" — but a story that SHOWS fragility?</p>
+            </div>
+
+            <div class="speak-prompt">
+                Draft an opening (3-4 sentences). Start with a scene: where are you, what do you see? Then a moment of realisation. Don't worry about perfect phrasing — just think aloud. What story would make a logistics director lean forward?
+            </div>
+        </div>
+
+        <!-- TAB 4: Practice & Timing -->
+        <div id="tab-3" class="tab-content">
+            <h2>Timed Presentations: 3 & 5 Minutes</h2>
+
+            <p>Timing is not optional. It's your structural skeleton. When you know your timing, you know where to breathe, where to pause, and where you have room for a story vs. needing to compress.</p>
+
+            <h3>Your First Presentation: 3 Minutes</h3>
+
+            <p>This is your minimum viable presentation — the absolute essence. No nice-to-haves, only must-haves.</p>
+
+            <div class="technique-grid">
+                <div class="technique-item">
+                    <strong>Story & Problem:</strong> 45 sec
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Pull them in, then name the challenge.</p>
+                </div>
+                <div class="technique-item">
+                    <strong>Approach (Rule of 3):</strong> 45 sec
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Three things. Quick. Signpost each one.</p>
+                </div>
+                <div class="technique-item">
+                    <strong>Results Snapshot:</strong> 45 sec
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">One proof. One number. One story.</p>
+                </div>
+                <div class="technique-item">
+                    <strong>Kickstart:</strong> 45 sec
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">"If you take away one thing..."</p>
+                </div>
+            </div>
+
+            <div class="timer">
+                <div>3-Minute Presentation Timer</div>
+                <div class="timer-display" id="timer3">3:00</div>
+                <button class="timer-button" onclick="startTimer(180, 'timer3')">Start</button>
+                <button class="timer-button" onclick="resetTimer('timer3', 180)">Reset</button>
+            </div>
+
+            <h3>Self-Assessment After 3 Minutes</h3>
+            <p>Once you've delivered, ask yourself:</p>
+            <ul>
+                <li>Did I rush the opening, or did it breathe?</li>
+                <li>Could I actually identify the three points, or did they blur together?</li>
+                <li>Did my one proof feel real, or did it feel like a statistic?</li>
+                <li>Would someone remember the one thing I wanted them to?</li>
+            </ul>
+
+            <h3>Your Second Presentation: 5 Minutes</h3>
+
+            <p>Now you have room. You can expand the approach to FOUR elements, add a second case study in results, breathe between sections.</p>
+
+            <div class="technique-grid">
+                <div class="technique-item">
+                    <strong>Story & Problem:</strong> 1 min
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">More detail. Paint the scene.</p>
+                </div>
+                <div class="technique-item">
+                    <strong>Approach (Rule of 3–4):</strong> 1:30 min
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">More breathing room. Add an example to one point.</p>
+                </div>
+                <div class="technique-item">
+                    <strong>Results (Double Proof):</strong> 1:30 min
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">Two case studies, or one story + data.</p>
+                </div>
+                <div class="technique-item">
+                    <strong>Kickstart:</strong> 1 min
+                    <p style="font-size: 0.9em; margin-top: 5px; color: #666;">More time to land your ask and answer Q&A setup.</p>
+                </div>
+            </div>
+
+            <div class="timer">
+                <div>5-Minute Presentation Timer</div>
+                <div class="timer-display" id="timer5">5:00</div>
+                <button class="timer-button" onclick="startTimer(300, 'timer5')">Start</button>
+                <button class="timer-button" onclick="resetTimer('timer5', 300)">Reset</button>
+            </div>
+
+            <h3>Q&A Technique After the Presentation</h3>
+
+            <div class="card">
+                <p><strong>Bridge the question to your message:</strong> "That's a great question. Let me connect it back to what we just talked about..."</p>
+                <p><strong>Three-step Q&A response:</strong></p>
+                <ol>
+                    <li>Answer the surface question in one sentence</li>
+                    <li>Give the deeper insight (your story, your data)</li>
+                    <li>Connect back to your main point: "Which is why..."</li>
+                </ol>
+            </div>
+
+            <div class="speak-prompt">
+                Record yourself delivering either the 3-minute or 5-minute version. Listen back. What surprised you about your pacing? Where did you rush? Where did you have pauses that felt right?
+            </div>
+        </div>
+
+        <!-- TAB 5: Your Presentation -->
+        <div id="tab-4" class="tab-content">
+            <h2>Build Your Presentation Outline</h2>
+
+            <p>Now you'll create a complete SPARK outline for a presentation you might give at a real trade fair. Choose a product, service, or idea you know — it can be real or imagined.</p>
+
+            <div class="card">
+                <h3>Your Task (Write or Speak):</h3>
+                <p>Create a SPARK outline using these prompts:</p>
+                <ol>
+                    <li><strong>Story:</strong> What's the scene? What moment made you understand the problem?</li>
+                    <li><strong>Problem:</strong> What does the audience face? Name it specifically. Use one number if you have it.</li>
+                    <li><strong>Approach:</strong> Three (or four) key things you do or recommend. Make each distinct.</li>
+                    <li><strong>Results:</strong> One strong proof. A client story, a data point, or both.</li>
+                    <li><strong>Kickstart:</strong> "If you take away one thing..." What is it? What's your ask?</li>
+                </ol>
+            </div>
+
+            <div class="speak-prompt">
+                Outline your presentation now. You can write it or just think it through aloud with me. Once you've got it, we'll practice the opening together. Then ask yourself: Does this feel like YOU? Would someone actually remember this?
+            </div>
+
+            <div class="card" style="background-color: #fff3cd; border-left-color: #ff9800;">
+                <h3>What Makes Presentations Memorable?</h3>
+                <ul>
+                    <li><strong>Specificity:</strong> "€40,000 loss" beats "significant loss"</li>
+                    <li><strong>Human moments:</strong> Real dialogue, real people, real choices</li>
+                    <li><strong>One clear idea:</strong> Not everything — the ONE thing you want them to remember</li>
+                    <li><strong>Permission to feel:</strong> Surprise them, move them, challenge them</li>
+                    <li><strong>Your voice:</strong> Don't sound like a presenter. Sound like yourself.</li>
+                </ul>
+            </div>
+
+            <h3>What Makes Presentations Forgettable?</h3>
+            <ul>
+                <li><strong>Lists:</strong> "We offer A, B, C, D, E, F..." (they remember nothing)</li>
+                <li><strong>Corporate language:</strong> "Synergies," "optimise," "leverage" (everyone sounds the same)</li>
+                <li><strong>No story:</strong> Just information transfer (your slides do this better than you)</li>
+                <li><strong>Too much detail:</strong> They need essence, not exhaustion</li>
+                <li><strong>Ending with a question:</strong> "Any questions?" leaves them hanging. Sit with the silence.</li>
+            </ul>
+        </div>
+
+        <!-- TAB 6: Reflection -->
+        <div id="tab-5" class="tab-content">
+            <h2>What You've Done Today</h2>
+
+            <div class="learning-intention">
+                You can now command a stage and turn a 10-minute presentation into impact — by opening with story, building a clear path through your approach, proving your point with evidence, and closing in a way that moves people to action.
+            </div>
+
+            <h3>Quick Recall:</h3>
+            <ul>
+                <li>What does each letter in SPARK stand for?</li>
+                <li>Why does opening with a story work better than opening with an announcement?</li>
+                <li>What's the rule of three, and why does it stick?</li>
+                <li>In a 3-minute presentation, what's your time allocation?</li>
+                <li>How do you handle a Q&A to strengthen your message?</li>
+            </ul>
+
+            <h3>Connecting to Earlier Lessons:</h3>
+            <p>Look back at the frameworks from lessons 1–3:</p>
+            <ul>
+                <li><strong>From AIDA (Lesson 1):</strong> Your story grabs Attention, your problem creates Interest, your results build Desire, your close asks for Action.</li>
+                <li><strong>From BRIDGE (Lesson 2):</strong> Your story acknowledges their world, your approach respects their values, you're building a bridge.</li>
+                <li><strong>From BATNA (Lesson 3):</strong> When you present, you're establishing your value — making sure they see you as the clear choice.</li>
+            </ul>
+
+            <h3>You can now:</h3>
+            <ul>
+                <li>Open a presentation with a story that hooks immediately</li>
+                <li>Use signposting language to guide the audience through your approach</li>
+                <li>Apply the rule of three to make your points stick</li>
+                <li>Deliver evidence (case studies, data) that proves your point convincingly</li>
+                <li>Close with a kickstart that makes people want to act</li>
+                <li>Manage time ruthlessly so your message lands</li>
+                <li>Handle Q&A without losing your main narrative</li>
+            </ul>
+
+            <div class="speak-prompt">
+                When you're standing on that stage at the trade fair, what's the ONE thing you want to be true about your presentation? What's the legacy you want it to have?
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`tab-${tabIndex}`).classList.add('active');
+            buttons[tabIndex].classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleFeedback(element) {
+            element.classList.toggle('open');
+        }
+
+        let timerIntervals = {};
+
+        function startTimer(seconds, timerId) {
+            if (timerIntervals[timerId]) clearInterval(timerIntervals[timerId]);
+
+            let remaining = seconds;
+
+            function updateDisplay() {
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                const display = `${mins}:${secs.toString().padStart(2, '0')}`;
+                document.getElementById(timerId).textContent = display;
+
+                const timerDisplay = document.getElementById(timerId);
+
+                if (remaining > 30) {
+                    timerDisplay.classList.remove('yellow', 'red');
+                    timerDisplay.style.color = '#667eea';
+                } else if (remaining > 10) {
+                    timerDisplay.classList.remove('red');
+                    timerDisplay.classList.add('yellow');
+                } else if (remaining > 0) {
+                    timerDisplay.classList.add('red');
+                } else {
+                    clearInterval(timerIntervals[timerId]);
+                    return;
+                }
+
+                remaining--;
+            }
+
+            updateDisplay();
+            timerIntervals[timerId] = setInterval(updateDisplay, 1000);
+        }
+
+        function resetTimer(timerId, seconds) {
+            if (timerIntervals[timerId]) clearInterval(timerIntervals[timerId]);
+            const mins = Math.floor(seconds / 60);
+            document.getElementById(timerId).textContent = `${mins}:00`;
+            document.getElementById(timerId).classList.remove('yellow', 'red');
+            document.getElementById(timerId).style.color = '#667eea';
+        }
+    </script>
+</body>
+</html>

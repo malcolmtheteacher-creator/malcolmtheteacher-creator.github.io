@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade Fair English | Malcolm's Lessons</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* Header */
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #e74c6f 0%, #4a90e2 50%, #667eea 100%);
+        }
+
+        .series-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #e74c6f 0%, #c0392b 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header h1 {
+            font-size: 3.2em;
+            background: linear-gradient(135deg, #1a1a2e 0%, #e74c6f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            color: #555;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header .level-info {
+            font-size: 1em;
+            color: #777;
+            margin-top: 15px;
+        }
+
+        /* Course Info */
+        .course-info {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .course-info h2 {
+            color: #1a1a2e;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .course-info p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .key-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border-top: 4px solid #e74c6f;
+        }
+
+        .feature-card .icon { font-size: 2.5em; margin-bottom: 15px; }
+
+        .feature-card h4 {
+            color: #1a1a2e;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Level Sections */
+        .level-section {
+            margin-bottom: 40px;
+        }
+
+        .level-header {
+            background: white;
+            border-radius: 20px 20px 0 0;
+            padding: 30px 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .level-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 1.1em;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .level-badge.a2 { background: linear-gradient(135deg, #e74c6f, #c0392b); }
+        .level-badge.b1b2 { background: linear-gradient(135deg, #4a90e2, #2c6fbb); }
+        .level-badge.c1 { background: linear-gradient(135deg, #667eea, #4a3fc7); }
+
+        .level-title h2 {
+            color: #1a1a2e;
+            font-size: 1.8em;
+            margin-bottom: 4px;
+        }
+
+        .level-title p {
+            color: #777;
+            font-size: 1em;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 0;
+            background: white;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .lesson-card {
+            padding: 28px 35px;
+            border-bottom: 1px solid #f0f0f0;
+            border-right: 1px solid #f0f0f0;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+        }
+
+        .lesson-card:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+
+        .lesson-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 0.9em;
+            color: white;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .lesson-number.a2 { background: #e74c6f; }
+        .lesson-number.b1b2 { background: #4a90e2; }
+        .lesson-number.c1 { background: #667eea; }
+
+        .lesson-card h3 {
+            color: #1a1a2e;
+            font-size: 1.15em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .lesson-card .description {
+            color: #666;
+            font-size: 0.92em;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            padding-left: 48px;
+        }
+
+        .lesson-card .framework-tag {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 0.78em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-left: 48px;
+        }
+
+        .framework-tag.a2 { background: #fdf2f8; color: #c0392b; }
+        .framework-tag.b1b2 { background: #eef4fc; color: #2c6fbb; }
+        .framework-tag.c1 { background: #f0eeff; color: #4a3fc7; }
+
+        /* Framework Overview */
+        .framework-overview {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .framework-overview h2 {
+            color: #1a1a2e;
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .fw-column h3 {
+            text-align: center;
+            padding: 12px;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 14px;
+            font-size: 1.1em;
+        }
+
+        .fw-column.a2 h3 { background: linear-gradient(135deg, #e74c6f, #c0392b); }
+        .fw-column.b1b2 h3 { background: linear-gradient(135deg, #4a90e2, #2c6fbb); }
+        .fw-column.c1 h3 { background: linear-gradient(135deg, #667eea, #4a3fc7); }
+
+        .fw-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+            border-left: 3px solid;
+        }
+
+        .fw-item.a2 { border-color: #e74c6f; }
+        .fw-item.b1b2 { border-color: #4a90e2; }
+        .fw-item.c1 { border-color: #667eea; }
+
+        .fw-item strong { display: block; font-size: 0.95em; color: #1a1a2e; margin-bottom: 2px; }
+        .fw-item span { font-size: 0.82em; color: #888; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2em; }
+            .lessons-grid { grid-template-columns: 1fr; }
+            .framework-grid { grid-template-columns: 1fr; }
+            .level-header { flex-direction: column; text-align: center; }
+            .lesson-card .description, .lesson-card .framework-tag { padding-left: 0; margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="series-badge">Trade Fair English</div>
+        <h1>Your Trade Fair. Your Language.</h1>
+        <div class="subtitle">18 lessons across 3 levels — from first handshake to signed contract</div>
+        <div class="level-info">A2 · B1/B2 · C1 &nbsp;|&nbsp; Speaking-focused &nbsp;|&nbsp; Framework-driven</div>
+    </div>
+
+    <!-- COURSE INFO -->
+    <div class="course-info">
+        <h2>What's This Course?</h2>
+        <p>Three complete pathways for trade fair communication — each with 6 lessons building from basic survival to strategic mastery. Every lesson teaches a named framework you can use immediately. Choose your level, or work through all three.</p>
+
+        <div class="key-features">
+            <div class="feature-card">
+                <div class="icon">🎙</div>
+                <h4>Speaking First</h4>
+                <p>70-80% spoken output. You talk. The lesson supports you.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🧠</div>
+                <h4>Named Frameworks</h4>
+                <p>17 frameworks across 3 levels. Memorable, reusable, practical.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">⏱</div>
+                <h4>Timed Practice</h4>
+                <p>Real countdown timers. Pressure builds fluency.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🔄</div>
+                <h4>Spaced Recall</h4>
+                <p>Every lesson retrieves from previous ones. Nothing is forgotten.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== A2 LEVEL ====== -->
+    <div class="level-section">
+        <div class="level-header">
+            <div class="level-badge a2">A2</div>
+            <div class="level-title">
+                <h2>Trade Fair Survival</h2>
+                <p>The essentials — introduce yourself, describe your product, make connections, handle the unexpected</p>
+            </div>
+        </div>
+        <div class="lessons-grid">
+            <a class="lesson-card" href="skills_a2_trade_fair_first_contact.html">
+                <h3><span class="lesson-number a2">1</span>First Contact & Introductions</h3>
+                <div class="description">Greet visitors, introduce yourself and your company, ask about them.</div>
+                <span class="framework-tag a2">GREET → COMPANY → PRODUCT → CONNECT</span>
+            </a>
+            <a class="lesson-card" href="skills_a2_trade_fair_your_product.html">
+                <h3><span class="lesson-number a2">2</span>Describing What You Offer</h3>
+                <div class="description">Explain your product clearly so visitors understand and ask the right questions.</div>
+                <span class="framework-tag a2">W-W-W: WHAT → WHY → WHO</span>
+            </a>
+            <a class="lesson-card" href="skills_a2_trade_fair_contacts.html">
+                <h3><span class="lesson-number a2">3</span>Exchanging Contacts</h3>
+                <div class="description">End conversations well, swap details, and set up follow-ups.</div>
+                <span class="framework-tag a2">EXIT: End → eXchange → Invite → Thank</span>
+            </a>
+            <a class="lesson-card" href="skills_a2_trade_fair_small_talk.html">
+                <h3><span class="lesson-number a2">4</span>Small Talk & Socialising</h3>
+                <div class="description">Make comfortable conversation at dinners, breaks, and networking events.</div>
+                <span class="framework-tag a2">SAFE: Surroundings · Activities · Food · Events</span>
+            </a>
+            <a class="lesson-card" href="skills_a2_trade_fair_problems.html">
+                <h3><span class="lesson-number a2">5</span>Handling Problems</h3>
+                <div class="description">Deal with misunderstandings and complaints calmly and professionally.</div>
+                <span class="framework-tag a2">CALM: Clarify → Apologise → Look → Move</span>
+            </a>
+            <a class="lesson-card" href="skills_a2_trade_fair_simulation.html">
+                <h3><span class="lesson-number a2">6</span>Full Fair Simulation</h3>
+                <div class="description">All 5 frameworks together in realistic trade fair simulations.</div>
+                <span class="framework-tag a2">ALL FRAMEWORKS · REVIEW</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- ====== B1/B2 LEVEL ====== -->
+    <div class="level-section">
+        <div class="level-header">
+            <div class="level-badge b1b2">B1/B2</div>
+            <div class="level-title">
+                <h2>Confident Communicator</h2>
+                <p>Pitch, persuade, negotiate, network, handle objections, and follow up like a pro</p>
+            </div>
+        </div>
+        <div class="lessons-grid">
+            <a class="lesson-card" href="skills_b1b2_trade_fair_elevator_pitch.html">
+                <h3><span class="lesson-number b1b2">1</span>The Elevator Pitch</h3>
+                <div class="description">Craft a memorable 30-second pitch that makes the right people remember you.</div>
+                <span class="framework-tag b1b2">HOOK → SOLVE → PROVE</span>
+            </a>
+            <a class="lesson-card" href="skills_b1b2_trade_fair_features_benefits.html">
+                <h3><span class="lesson-number b1b2">2</span>Features vs Benefits</h3>
+                <div class="description">Turn product specifications into compelling reasons to buy.</div>
+                <span class="framework-tag b1b2">FAB: Feature → Advantage → Benefit</span>
+            </a>
+            <a class="lesson-card" href="skills_b1b2_trade_fair_negotiating.html">
+                <h3><span class="lesson-number b1b2">3</span>Negotiating at the Fair</h3>
+                <div class="description">Protect your margins while keeping the relationship strong.</div>
+                <span class="framework-tag b1b2">PREP: Position → Reason → Evidence → Proposal</span>
+            </a>
+            <a class="lesson-card" href="skills_b1b2_trade_fair_networking.html">
+                <h3><span class="lesson-number b1b2">4</span>Strategic Networking</h3>
+                <div class="description">Build genuine business relationships — not just a pile of business cards.</div>
+                <span class="framework-tag b1b2">GIVE: Genuine · Identify · Value · Exit</span>
+            </a>
+            <a class="lesson-card" href="skills_b1b2_trade_fair_objections.html">
+                <h3><span class="lesson-number b1b2">5</span>Handling Objections</h3>
+                <div class="description">Turn tough questions into your competitive advantage.</div>
+                <span class="framework-tag b1b2">FEEL → FELT → FOUND</span>
+            </a>
+            <a class="lesson-card" href="skills_b1b2_trade_fair_followup.html">
+                <h3><span class="lesson-number b1b2">6</span>Follow-Up Communication</h3>
+                <div class="description">Turn fair conversations into contracts with effective follow-up.</div>
+                <span class="framework-tag b1b2">STAR: Specific → Thank → Action → Remind</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- ====== C1 LEVEL ====== -->
+    <div class="level-section">
+        <div class="level-header">
+            <div class="level-badge c1">C1</div>
+            <div class="level-title">
+                <h2>Strategic Leader</h2>
+                <p>Persuade, adapt, negotiate, present, manage crises, and turn fairs into long-term results</p>
+            </div>
+        </div>
+        <div class="lessons-grid">
+            <a class="lesson-card" href="skills_c1_trade_fair_strategic_pitch.html">
+                <h3><span class="lesson-number c1">1</span>Strategic Pitching & Persuasion</h3>
+                <div class="description">Make your message land with different stakeholders every time.</div>
+                <span class="framework-tag c1">AIDA: Attention → Interest → Desire → Action</span>
+            </a>
+            <a class="lesson-card" href="skills_c1_trade_fair_cross_cultural.html">
+                <h3><span class="lesson-number c1">2</span>Cross-Cultural Communication</h3>
+                <div class="description">Adapt your style for an international audience — differences become advantages.</div>
+                <span class="framework-tag c1">BRIDGE: Be aware · Read · Interpret · Discuss · Go · Expect</span>
+            </a>
+            <a class="lesson-card" href="skills_c1_trade_fair_closing_deals.html">
+                <h3><span class="lesson-number c1">3</span>Leading Negotiations</h3>
+                <div class="description">Move promising conversations to signed agreements.</div>
+                <span class="framework-tag c1">BATNA · ZOPA · Strategic Concessions</span>
+            </a>
+            <a class="lesson-card" href="skills_c1_trade_fair_presentations.html">
+                <h3><span class="lesson-number c1">4</span>Presentations at Trade Events</h3>
+                <div class="description">Deliver compelling presentations that make your expertise your brand.</div>
+                <span class="framework-tag c1">SPARK: Story → Problem → Approach → Results → Kickstart</span>
+            </a>
+            <a class="lesson-card" href="skills_c1_trade_fair_crisis.html">
+                <h3><span class="lesson-number c1">5</span>Crisis Management</h3>
+                <div class="description">Handle high-stakes conversations with composure and leadership.</div>
+                <span class="framework-tag c1">LEAD: Listen → Empathise → Assess → Decide</span>
+            </a>
+            <a class="lesson-card" href="skills_c1_trade_fair_post_fair.html">
+                <h3><span class="lesson-number c1">6</span>Post-Fair Strategy</h3>
+                <div class="description">Turn trade fair conversations into long-term business results.</div>
+                <span class="framework-tag c1">IMPACT: Immediate · Measure · Prioritise · Analyse · Create · Track</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- FRAMEWORK OVERVIEW -->
+    <div class="framework-overview">
+        <h2>All 17 Frameworks at a Glance</h2>
+        <div class="framework-grid">
+            <div class="fw-column a2">
+                <h3>A2 — Survival</h3>
+                <div class="fw-item a2"><strong>GREET-COMPANY-PRODUCT-CONNECT</strong><span>First impressions</span></div>
+                <div class="fw-item a2"><strong>W-W-W (What-Why-Who)</strong><span>Describing products</span></div>
+                <div class="fw-item a2"><strong>EXIT (End-eXchange-Invite-Thank)</strong><span>Exchanging contacts</span></div>
+                <div class="fw-item a2"><strong>SAFE (Surroundings-Activities-Food-Events)</strong><span>Small talk topics</span></div>
+                <div class="fw-item a2"><strong>CALM (Clarify-Apologise-Look-Move)</strong><span>Handling problems</span></div>
+            </div>
+            <div class="fw-column b1b2">
+                <h3>B1/B2 — Confident</h3>
+                <div class="fw-item b1b2"><strong>HOOK-SOLVE-PROVE</strong><span>Elevator pitch</span></div>
+                <div class="fw-item b1b2"><strong>FAB (Feature-Advantage-Benefit)</strong><span>Selling value</span></div>
+                <div class="fw-item b1b2"><strong>PREP (Position-Reason-Evidence-Proposal)</strong><span>Negotiating</span></div>
+                <div class="fw-item b1b2"><strong>GIVE (Genuine-Identify-Value-Exit)</strong><span>Strategic networking</span></div>
+                <div class="fw-item b1b2"><strong>FEEL-FELT-FOUND</strong><span>Handling objections</span></div>
+                <div class="fw-item b1b2"><strong>STAR (Specific-Thank-Action-Remind)</strong><span>Follow-up emails</span></div>
+            </div>
+            <div class="fw-column c1">
+                <h3>C1 — Strategic</h3>
+                <div class="fw-item c1"><strong>AIDA (Attention-Interest-Desire-Action)</strong><span>Strategic pitching</span></div>
+                <div class="fw-item c1"><strong>BRIDGE</strong><span>Cross-cultural awareness</span></div>
+                <div class="fw-item c1"><strong>BATNA / ZOPA</strong><span>Closing negotiations</span></div>
+                <div class="fw-item c1"><strong>SPARK (Story-Problem-Approach-Results-Kickstart)</strong><span>Presentations</span></div>
+                <div class="fw-item c1"><strong>LEAD (Listen-Empathise-Assess-Decide)</strong><span>Crisis management</span></div>
+                <div class="fw-item c1"><strong>IMPACT</strong><span>Post-fair strategy</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Trade Fair English &nbsp;|&nbsp; Malcolm's Lessons &nbsp;|&nbsp; 18 lessons · 17 frameworks · 3 levels
+    </div>
+
+</div>
+
+</body>
+</html>
