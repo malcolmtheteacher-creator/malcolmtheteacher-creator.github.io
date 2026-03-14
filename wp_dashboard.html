@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A History of Western Philosophy — Course Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lora', 'Georgia', serif;
+            background: #f7f5f0;
+            color: #1c1f2a;
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+        /* Header */
+        .dashboard-header {
+            text-align: center;
+            padding: 60px 30px 50px;
+            background: linear-gradient(180deg, #0d1b2a 0%, #1a3a5c 40%, #2a5a7e 100%);
+            border-radius: 4px;
+            margin-bottom: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+        .dashboard-header::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b08d3a' fill-opacity='0.06'%3E%3Cpath d='M40 0L20 10v20L40 40l20-10V10L40 0zm0 40L20 50v20l20 10 20-10V50L40 40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.4;
+        }
+        .dashboard-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem; color: #f7f5f0;
+            font-weight: 400; margin-bottom: 10px; position: relative;
+        }
+        .dashboard-header .subtitle {
+            font-size: 1.2rem; color: #c4b896; font-style: italic; position: relative;
+            max-width: 650px; margin: 0 auto;
+        }
+        .dashboard-header .ornament {
+            display: block; margin: 20px auto 0; color: #b08d3a;
+            font-size: 1.5rem; letter-spacing: 12px; position: relative;
+        }
+
+        /* Section Headers */
+        h2 {
+            font-family: 'Cormorant Garamond', serif; color: #1a3a5c; font-size: 1.7rem;
+            font-weight: 500; margin: 35px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #e4dfd4;
+        }
+
+        /* Opening Quote */
+        .philosopher-quote {
+            background: linear-gradient(135deg, #faf8f2 0%, #f5edd8 100%);
+            border-left: 4px solid #b08d3a; padding: 22px 25px 22px 35px;
+            margin: 0 0 30px; border-radius: 0 6px 6px 0;
+            position: relative; font-style: italic; color: #3a3020; font-size: 1.05rem;
+        }
+        .philosopher-quote::before {
+            content: '\201C'; font-size: 3.5rem; color: #b08d3a;
+            position: absolute; top: 5px; left: 8px; line-height: 1;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .philosopher-quote .attribution {
+            display: block; margin-top: 10px; font-style: normal;
+            font-size: 0.88rem; color: #8a7a60; text-align: right;
+        }
+
+        /* Lesson Grid */
+        .lesson-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 15px; margin: 20px 0;
+        }
+
+        .lesson-card {
+            background: #fff; border: 2px solid #e4dfd4; border-radius: 8px;
+            padding: 20px; text-decoration: none; color: #1c1f2a;
+            transition: all 0.3s ease; position: relative; overflow: hidden;
+        }
+        .lesson-card:hover {
+            border-color: #b08d3a; transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(26,58,92,0.12);
+        }
+        .lesson-card .lesson-number {
+            font-family: 'Cormorant Garamond', serif; font-size: 0.82rem;
+            letter-spacing: 2px; text-transform: uppercase; color: #b08d3a;
+            margin-bottom: 6px;
+        }
+        .lesson-card h3 {
+            font-family: 'Cormorant Garamond', serif; color: #1a3a5c;
+            font-size: 1.2rem; font-weight: 600; margin-bottom: 6px;
+        }
+        .lesson-card .era {
+            font-size: 0.9rem; color: #7a7060; font-style: italic;
+        }
+        .lesson-card .location-badge {
+            position: absolute; top: 12px; right: 12px;
+            background: linear-gradient(135deg, #f0eaff, #e8e0f8);
+            border: 1px solid #7c5cbf; border-radius: 20px;
+            padding: 3px 10px; font-family: 'Cormorant Garamond', serif;
+            font-size: 0.75rem; color: #5a3d8a; letter-spacing: 1px;
+        }
+
+        /* Era section headers within lesson grid */
+        .era-header {
+            grid-column: 1 / -1;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem; font-weight: 600; color: #1a3a5c;
+            padding: 15px 0 5px; border-bottom: 1px solid #e4dfd4;
+            margin-top: 10px; letter-spacing: 1px;
+        }
+        .era-header:first-child { margin-top: 0; }
+
+        /* Memory Palace Map */
+        .palace-map {
+            background: linear-gradient(135deg, #f0eaff 0%, #e8e0f8 100%);
+            border: 2px solid #7c5cbf; border-radius: 8px;
+            padding: 30px; margin: 25px 0;
+        }
+        .palace-map h3 {
+            font-family: 'Cormorant Garamond', serif; color: #5a3d8a;
+            font-size: 1.3rem; margin-bottom: 6px; text-align: center;
+        }
+        .palace-map .palace-note {
+            text-align: center; font-size: 0.88rem; color: #6a5a8a;
+            font-style: italic; margin-bottom: 15px;
+        }
+        .palace-locations {
+            display: grid; grid-template-columns: repeat(10, 1fr);
+            gap: 8px;
+        }
+        .palace-loc {
+            background: #fff; border: 2px solid #b8a3e0; border-radius: 6px;
+            padding: 8px 4px; text-align: center; text-decoration: none;
+            transition: all 0.3s ease; color: #4a3570;
+        }
+        .palace-loc:hover {
+            background: #7c5cbf; color: #fff; border-color: #7c5cbf;
+            transform: scale(1.08);
+        }
+        .palace-loc .loc-num {
+            font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;
+            font-weight: 700; display: block;
+        }
+        .palace-loc .loc-name {
+            font-size: 0.58rem; display: block; margin-top: 1px;
+            line-height: 1.2;
+        }
+
+        /* Timeline Bar */
+        .timeline-bar {
+            background: #fff; border: 2px solid #e4dfd4; border-radius: 8px;
+            padding: 25px; margin: 25px 0;
+        }
+        .timeline-bar h3 {
+            font-family: 'Cormorant Garamond', serif; color: #1a3a5c;
+            font-size: 1.3rem; margin-bottom: 15px; text-align: center;
+        }
+        .era-strip {
+            display: flex; height: 40px; border-radius: 4px; overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .era-block {
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Cormorant Garamond', serif; font-size: 0.68rem;
+            color: #fff; letter-spacing: 0.5px; transition: flex 0.3s ease;
+            cursor: default; position: relative;
+        }
+        .era-block:hover { filter: brightness(1.15); }
+        .era-block span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 3px; }
+
+        /* Key Dates Summary */
+        .dates-box {
+            background: linear-gradient(135deg, #eef6ee 0%, #e0f0e0 100%);
+            border: 2px solid #4a8c5c; border-radius: 8px;
+            padding: 25px; margin: 25px 0;
+        }
+        .dates-box h3 {
+            font-family: 'Cormorant Garamond', serif; color: #2d6b3f;
+            font-size: 1.3rem; margin-bottom: 15px; text-align: center;
+        }
+        .dates-grid {
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+        }
+        .date-chip {
+            background: #fff; border: 1px solid #4a8c5c; border-radius: 4px;
+            padding: 6px 8px; text-align: center; font-size: 0.85rem;
+        }
+        .date-chip .year { font-family: 'Cormorant Garamond', serif; font-weight: 700; color: #2d6b3f; display: block; }
+        .date-chip .event { font-size: 0.68rem; color: #4a4030; }
+
+        /* Info Box */
+        .info-box {
+            background: #fff; border-left: 4px solid #1a3a5c;
+            padding: 18px 22px; margin: 20px 0; border-radius: 0 6px 6px 0;
+        }
+        .info-box h4 {
+            font-family: 'Cormorant Garamond', serif; color: #1a3a5c;
+            margin-bottom: 8px; font-size: 1.1rem;
+        }
+
+        .ornament { text-align: center; margin: 30px 0; color: #b08d3a; font-size: 1.3rem; letter-spacing: 8px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .lesson-grid { grid-template-columns: 1fr; }
+            .palace-locations { grid-template-columns: repeat(5, 1fr); }
+            .dates-grid { grid-template-columns: repeat(3, 1fr); }
+            .dashboard-header h1 { font-size: 2.2rem; }
+        }
+        @media (max-width: 480px) {
+            .palace-locations { grid-template-columns: repeat(5, 1fr); }
+            .dates-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="dashboard-header">
+        <h1>A History of Western Philosophy</h1>
+        <p class="subtitle">Fifty lessons from Thales to the present day &mdash; each one a location in your memory palace, each idea a vivid image you will never forget</p>
+        <span class="ornament">&diams; &diams; &diams;</span>
+    </div>
+
+    <div class="philosopher-quote">
+        The unexamined life is not worth living.
+        <span class="attribution">&mdash; Socrates, in Plato's <em>Apology</em>, 38a</span>
+    </div>
+
+    <!-- MEMORY PALACE MAP -->
+    <div class="palace-map">
+        <h3>Your Philosophy Memory Palace &mdash; 50 Locations</h3>
+        <p class="palace-note">Choose your own fifty places. Each number links to its lesson.</p>
+        <div class="palace-locations">
+            <a href="wp_01_the_birth_of_wonder.html" class="palace-loc"><span class="loc-num">1</span><span class="loc-name">Thales</span></a>
+            <a href="wp_02_everything_flows.html" class="palace-loc"><span class="loc-num">2</span><span class="loc-name">Heraclitus</span></a>
+            <a href="wp_03_the_way_of_truth.html" class="palace-loc"><span class="loc-num">3</span><span class="loc-name">Parmenides</span></a>
+            <a href="wp_04_atoms_in_the_void.html" class="palace-loc"><span class="loc-num">4</span><span class="loc-name">Democritus</span></a>
+            <a href="wp_05_the_myth_sellers.html" class="palace-loc"><span class="loc-num">5</span><span class="loc-name">Sophists</span></a>
+            <a href="wp_06_the_gadfly.html" class="palace-loc"><span class="loc-num">6</span><span class="loc-name">Socrates I</span></a>
+            <a href="wp_07_the_last_day.html" class="palace-loc"><span class="loc-num">7</span><span class="loc-name">Socrates II</span></a>
+            <a href="wp_08_the_world_of_forms.html" class="palace-loc"><span class="loc-num">8</span><span class="loc-name">Plato I</span></a>
+            <a href="wp_09_the_just_city.html" class="palace-loc"><span class="loc-num">9</span><span class="loc-name">Plato II</span></a>
+            <a href="wp_10_shadows_on_the_wall.html" class="palace-loc"><span class="loc-num">10</span><span class="loc-name">Plato III</span></a>
+            <a href="wp_11_the_master_of_logic.html" class="palace-loc"><span class="loc-num">11</span><span class="loc-name">Aristotle I</span></a>
+            <a href="wp_12_the_golden_mean.html" class="palace-loc"><span class="loc-num">12</span><span class="loc-name">Aristotle II</span></a>
+            <a href="wp_13_the_unmoved_mover.html" class="palace-loc"><span class="loc-num">13</span><span class="loc-name">Aristotle III</span></a>
+            <a href="wp_14_the_dog_philosopher.html" class="palace-loc"><span class="loc-num">14</span><span class="loc-name">Diogenes</span></a>
+            <a href="wp_15_the_garden.html" class="palace-loc"><span class="loc-num">15</span><span class="loc-name">Epicurus I</span></a>
+            <a href="wp_16_the_fourfold_cure.html" class="palace-loc"><span class="loc-num">16</span><span class="loc-name">Epicurus II</span></a>
+            <a href="wp_17_the_painted_porch.html" class="palace-loc"><span class="loc-num">17</span><span class="loc-name">Stoics I</span></a>
+            <a href="wp_18_the_inner_citadel.html" class="palace-loc"><span class="loc-num">18</span><span class="loc-name">Stoics II</span></a>
+            <a href="wp_19_the_suspension_of_judgement.html" class="palace-loc"><span class="loc-num">19</span><span class="loc-name">Sceptics</span></a>
+            <a href="wp_20_the_one.html" class="palace-loc"><span class="loc-num">20</span><span class="loc-name">Plotinus</span></a>
+            <a href="wp_21_the_teacher.html" class="palace-loc"><span class="loc-num">21</span><span class="loc-name">Jesus</span></a>
+            <a href="wp_22_the_restless_heart.html" class="palace-loc"><span class="loc-num">22</span><span class="loc-name">Augustine I</span></a>
+            <a href="wp_23_two_cities.html" class="palace-loc"><span class="loc-num">23</span><span class="loc-name">Augustine II</span></a>
+            <a href="wp_24_the_consolation.html" class="palace-loc"><span class="loc-num">24</span><span class="loc-name">Boethius</span></a>
+            <a href="wp_25_the_house_of_wisdom.html" class="palace-loc"><span class="loc-num">25</span><span class="loc-name">Al-Kindi</span></a>
+            <a href="wp_26_the_flying_man.html" class="palace-loc"><span class="loc-num">26</span><span class="loc-name">Avicenna</span></a>
+            <a href="wp_27_the_decisive_treatise.html" class="palace-loc"><span class="loc-num">27</span><span class="loc-name">Averroes</span></a>
+            <a href="wp_28_the_proof.html" class="palace-loc"><span class="loc-num">28</span><span class="loc-name">Anselm</span></a>
+            <a href="wp_29_the_angelic_doctor.html" class="palace-loc"><span class="loc-num">29</span><span class="loc-name">Aquinas</span></a>
+            <a href="wp_30_the_razor.html" class="palace-loc"><span class="loc-num">30</span><span class="loc-name">Ockham</span></a>
+            <a href="wp_31_the_renaissance_mind.html" class="palace-loc"><span class="loc-num">31</span><span class="loc-name">Renaissance</span></a>
+            <a href="wp_32_i_think_therefore.html" class="palace-loc"><span class="loc-num">32</span><span class="loc-name">Descartes</span></a>
+            <a href="wp_33_the_leviathan.html" class="palace-loc"><span class="loc-num">33</span><span class="loc-name">Hobbes</span></a>
+            <a href="wp_34_god_or_nature.html" class="palace-loc"><span class="loc-num">34</span><span class="loc-name">Spinoza</span></a>
+            <a href="wp_35_the_blank_slate.html" class="palace-loc"><span class="loc-num">35</span><span class="loc-name">Locke</span></a>
+            <a href="wp_36_the_best_of_all_worlds.html" class="palace-loc"><span class="loc-num">36</span><span class="loc-name">Leibniz</span></a>
+            <a href="wp_37_the_gentle_sceptic.html" class="palace-loc"><span class="loc-num">37</span><span class="loc-name">Hume</span></a>
+            <a href="wp_38_the_social_contract.html" class="palace-loc"><span class="loc-num">38</span><span class="loc-name">Rousseau</span></a>
+            <a href="wp_39_the_starry_heavens.html" class="palace-loc"><span class="loc-num">39</span><span class="loc-name">Kant I</span></a>
+            <a href="wp_40_the_moral_law.html" class="palace-loc"><span class="loc-num">40</span><span class="loc-name">Kant II</span></a>
+            <a href="wp_41_the_world_spirit.html" class="palace-loc"><span class="loc-num">41</span><span class="loc-name">Hegel</span></a>
+            <a href="wp_42_the_world_as_will.html" class="palace-loc"><span class="loc-num">42</span><span class="loc-name">Schopenhauer</span></a>
+            <a href="wp_43_the_spectre.html" class="palace-loc"><span class="loc-num">43</span><span class="loc-name">Marx</span></a>
+            <a href="wp_44_the_leap.html" class="palace-loc"><span class="loc-num">44</span><span class="loc-name">Kierkegaard</span></a>
+            <a href="wp_45_the_abyss.html" class="palace-loc"><span class="loc-num">45</span><span class="loc-name">Nietzsche</span></a>
+            <a href="wp_46_the_will_to_believe.html" class="palace-loc"><span class="loc-num">46</span><span class="loc-name">James</span></a>
+            <a href="wp_47_condemned_to_be_free.html" class="palace-loc"><span class="loc-num">47</span><span class="loc-name">Existentialism</span></a>
+            <a href="wp_48_the_limits_of_language.html" class="palace-loc"><span class="loc-num">48</span><span class="loc-name">Wittgenstein</span></a>
+            <a href="wp_49_the_garden_and_the_kingdom.html" class="palace-loc"><span class="loc-num">49</span><span class="loc-name">Garden &amp; Kingdom</span></a>
+            <a href="wp_50_the_purest_way_to_see.html" class="palace-loc"><span class="loc-num">50</span><span class="loc-name">Synthesis</span></a>
+        </div>
+    </div>
+
+    <!-- TIMELINE BAR -->
+    <div class="timeline-bar">
+        <h3>2,600 Years of Western Thought</h3>
+        <div class="era-strip">
+            <div class="era-block" style="flex:3; background:#8B7355;"><span>Pre-Socratics</span></div>
+            <div class="era-block" style="flex:3; background:#2a5a7e;"><span>Classical Athens</span></div>
+            <div class="era-block" style="flex:3; background:#1a3a5c;"><span>Hellenistic</span></div>
+            <div class="era-block" style="flex:2; background:#6b2737;"><span>Late Antiquity</span></div>
+            <div class="era-block" style="flex:4; background:#4a3570;"><span>Medieval</span></div>
+            <div class="era-block" style="flex:2; background:#0E6655;"><span>Renaissance</span></div>
+            <div class="era-block" style="flex:3; background:#1A5276;"><span>Early Modern</span></div>
+            <div class="era-block" style="flex:2; background:#6C3483;"><span>Enlightenment</span></div>
+            <div class="era-block" style="flex:3; background:#2c1810;"><span>19th Century</span></div>
+            <div class="era-block" style="flex:2; background:#c4883a;"><span>Modern</span></div>
+        </div>
+        <p style="text-align:center; font-size:0.82rem; color:#7a7060; margin-top:8px;">c. 624 BC &mdash; Thales &nbsp;&bull;&nbsp; 470 BC &mdash; Socrates &nbsp;&bull;&nbsp; 341 BC &mdash; Epicurus &nbsp;&bull;&nbsp; c. 4 BC &mdash; Jesus &nbsp;&bull;&nbsp; 1225 &mdash; Aquinas &nbsp;&bull;&nbsp; 1596 &mdash; Descartes &nbsp;&bull;&nbsp; 1724 &mdash; Kant &nbsp;&bull;&nbsp; 1889 &mdash; Wittgenstein &nbsp;&bull;&nbsp; Present</p>
+    </div>
+
+    <!-- LESSON LIST -->
+    <h2>The Fifty Lessons</h2>
+
+    <div class="lesson-grid">
+
+        <!-- ERA I: THE PRE-SOCRATICS -->
+        <div class="era-header">I. The Pre-Socratics &mdash; The Birth of Philosophy</div>
+
+        <a href="wp_01_the_birth_of_wonder.html" class="lesson-card">
+            <span class="location-badge">Location 1</span>
+            <div class="lesson-number">Lesson I</div>
+            <h3>The Birth of Wonder</h3>
+            <span class="era">Thales &amp; the Milesians &mdash; c. 624&ndash;546 BC</span>
+        </a>
+        <a href="wp_02_everything_flows.html" class="lesson-card">
+            <span class="location-badge">Location 2</span>
+            <div class="lesson-number">Lesson II</div>
+            <h3>Everything Flows</h3>
+            <span class="era">Heraclitus &mdash; c. 535&ndash;475 BC</span>
+        </a>
+        <a href="wp_03_the_way_of_truth.html" class="lesson-card">
+            <span class="location-badge">Location 3</span>
+            <div class="lesson-number">Lesson III</div>
+            <h3>The Way of Truth</h3>
+            <span class="era">Parmenides &mdash; c. 515&ndash;450 BC</span>
+        </a>
+        <a href="wp_04_atoms_in_the_void.html" class="lesson-card">
+            <span class="location-badge">Location 4</span>
+            <div class="lesson-number">Lesson IV</div>
+            <h3>Atoms in the Void</h3>
+            <span class="era">Democritus &mdash; c. 460&ndash;370 BC</span>
+        </a>
+
+        <!-- ERA II: CLASSICAL ATHENS -->
+        <div class="era-header">II. Classical Athens &mdash; The Golden Age</div>
+
+        <a href="wp_05_the_myth_sellers.html" class="lesson-card">
+            <span class="location-badge">Location 5</span>
+            <div class="lesson-number">Lesson V</div>
+            <h3>The Myth Sellers</h3>
+            <span class="era">The Sophists &mdash; 5th century BC</span>
+        </a>
+        <a href="wp_06_the_gadfly.html" class="lesson-card">
+            <span class="location-badge">Location 6</span>
+            <div class="lesson-number">Lesson VI</div>
+            <h3>The Gadfly of Athens</h3>
+            <span class="era">Socrates &mdash; 470&ndash;399 BC</span>
+        </a>
+        <a href="wp_07_the_last_day.html" class="lesson-card">
+            <span class="location-badge">Location 7</span>
+            <div class="lesson-number">Lesson VII</div>
+            <h3>The Last Day</h3>
+            <span class="era">The Death of Socrates &mdash; 399 BC</span>
+        </a>
+        <a href="wp_08_the_world_of_forms.html" class="lesson-card">
+            <span class="location-badge">Location 8</span>
+            <div class="lesson-number">Lesson VIII</div>
+            <h3>The World of Forms</h3>
+            <span class="era">Plato: Metaphysics &mdash; c. 428&ndash;348 BC</span>
+        </a>
+        <a href="wp_09_the_just_city.html" class="lesson-card">
+            <span class="location-badge">Location 9</span>
+            <div class="lesson-number">Lesson IX</div>
+            <h3>The Just City</h3>
+            <span class="era">Plato: The Republic</span>
+        </a>
+        <a href="wp_10_shadows_on_the_wall.html" class="lesson-card">
+            <span class="location-badge">Location 10</span>
+            <div class="lesson-number">Lesson X</div>
+            <h3>Shadows on the Wall</h3>
+            <span class="era">Plato: The Cave &amp; Legacy</span>
+        </a>
+
+        <!-- ERA III: ARISTOTLE & HELLENISTIC -->
+        <div class="era-header">III. Aristotle &amp; the Hellenistic Schools</div>
+
+        <a href="wp_11_the_master_of_logic.html" class="lesson-card">
+            <span class="location-badge">Location 11</span>
+            <div class="lesson-number">Lesson XI</div>
+            <h3>The Master of Logic</h3>
+            <span class="era">Aristotle: Logic &mdash; 384&ndash;322 BC</span>
+        </a>
+        <a href="wp_12_the_golden_mean.html" class="lesson-card">
+            <span class="location-badge">Location 12</span>
+            <div class="lesson-number">Lesson XII</div>
+            <h3>The Golden Mean</h3>
+            <span class="era">Aristotle: Ethics</span>
+        </a>
+        <a href="wp_13_the_unmoved_mover.html" class="lesson-card">
+            <span class="location-badge">Location 13</span>
+            <div class="lesson-number">Lesson XIII</div>
+            <h3>The Unmoved Mover</h3>
+            <span class="era">Aristotle: Metaphysics</span>
+        </a>
+        <a href="wp_14_the_dog_philosopher.html" class="lesson-card">
+            <span class="location-badge">Location 14</span>
+            <div class="lesson-number">Lesson XIV</div>
+            <h3>The Dog Philosopher</h3>
+            <span class="era">Diogenes &amp; the Cynics &mdash; c. 412&ndash;323 BC</span>
+        </a>
+        <a href="wp_15_the_garden.html" class="lesson-card">
+            <span class="location-badge">Location 15</span>
+            <div class="lesson-number">Lesson XV</div>
+            <h3>The Garden</h3>
+            <span class="era">Epicurus: Life &amp; Tetrapharmakos &mdash; 341&ndash;270 BC</span>
+        </a>
+        <a href="wp_16_the_fourfold_cure.html" class="lesson-card">
+            <span class="location-badge">Location 16</span>
+            <div class="lesson-number">Lesson XVI</div>
+            <h3>The Fourfold Cure</h3>
+            <span class="era">Epicurus: Pleasure, Friendship &amp; Ataraxia</span>
+        </a>
+        <a href="wp_17_the_painted_porch.html" class="lesson-card">
+            <span class="location-badge">Location 17</span>
+            <div class="lesson-number">Lesson XVII</div>
+            <h3>The Painted Porch</h3>
+            <span class="era">Zeno &amp; the Stoics &mdash; c. 334&ndash;262 BC</span>
+        </a>
+        <a href="wp_18_the_inner_citadel.html" class="lesson-card">
+            <span class="location-badge">Location 18</span>
+            <div class="lesson-number">Lesson XVIII</div>
+            <h3>The Inner Citadel</h3>
+            <span class="era">Seneca, Epictetus &amp; Marcus Aurelius</span>
+        </a>
+        <a href="wp_19_the_suspension_of_judgement.html" class="lesson-card">
+            <span class="location-badge">Location 19</span>
+            <div class="lesson-number">Lesson XIX</div>
+            <h3>The Suspension of Judgement</h3>
+            <span class="era">Pyrrho &amp; the Sceptics &mdash; c. 365&ndash;275 BC</span>
+        </a>
+        <a href="wp_20_the_one.html" class="lesson-card">
+            <span class="location-badge">Location 20</span>
+            <div class="lesson-number">Lesson XX</div>
+            <h3>The One</h3>
+            <span class="era">Plotinus &amp; Neoplatonism &mdash; 204&ndash;270 AD</span>
+        </a>
+
+        <!-- ERA IV: FAITH & REASON -->
+        <div class="era-header">IV. Faith &amp; Reason &mdash; The Medieval World</div>
+
+        <a href="wp_21_the_teacher.html" class="lesson-card">
+            <span class="location-badge">Location 21</span>
+            <div class="lesson-number">Lesson XXI</div>
+            <h3>The Teacher from Nazareth</h3>
+            <span class="era">The Philosophy of Jesus &mdash; c. 4 BC&ndash;30 AD</span>
+        </a>
+        <a href="wp_22_the_restless_heart.html" class="lesson-card">
+            <span class="location-badge">Location 22</span>
+            <div class="lesson-number">Lesson XXII</div>
+            <h3>The Restless Heart</h3>
+            <span class="era">Augustine: Confessions &mdash; 354&ndash;430 AD</span>
+        </a>
+        <a href="wp_23_two_cities.html" class="lesson-card">
+            <span class="location-badge">Location 23</span>
+            <div class="lesson-number">Lesson XXIII</div>
+            <h3>Two Cities</h3>
+            <span class="era">Augustine: City of God</span>
+        </a>
+        <a href="wp_24_the_consolation.html" class="lesson-card">
+            <span class="location-badge">Location 24</span>
+            <div class="lesson-number">Lesson XXIV</div>
+            <h3>The Consolation</h3>
+            <span class="era">Boethius &mdash; c. 477&ndash;524 AD</span>
+        </a>
+        <a href="wp_25_the_house_of_wisdom.html" class="lesson-card">
+            <span class="location-badge">Location 25</span>
+            <div class="lesson-number">Lesson XXV</div>
+            <h3>The House of Wisdom</h3>
+            <span class="era">Al-Kindi &amp; Al-Farabi &mdash; 9th&ndash;10th century</span>
+        </a>
+        <a href="wp_26_the_flying_man.html" class="lesson-card">
+            <span class="location-badge">Location 26</span>
+            <div class="lesson-number">Lesson XXVI</div>
+            <h3>The Flying Man</h3>
+            <span class="era">Avicenna &mdash; 980&ndash;1037</span>
+        </a>
+        <a href="wp_27_the_decisive_treatise.html" class="lesson-card">
+            <span class="location-badge">Location 27</span>
+            <div class="lesson-number">Lesson XXVII</div>
+            <h3>The Decisive Treatise</h3>
+            <span class="era">Averroes &mdash; 1126&ndash;1198</span>
+        </a>
+        <a href="wp_28_the_proof.html" class="lesson-card">
+            <span class="location-badge">Location 28</span>
+            <div class="lesson-number">Lesson XXVIII</div>
+            <h3>The Proof</h3>
+            <span class="era">Anselm &amp; the Ontological Argument &mdash; 1033&ndash;1109</span>
+        </a>
+        <a href="wp_29_the_angelic_doctor.html" class="lesson-card">
+            <span class="location-badge">Location 29</span>
+            <div class="lesson-number">Lesson XXIX</div>
+            <h3>The Angelic Doctor</h3>
+            <span class="era">Thomas Aquinas &mdash; 1225&ndash;1274</span>
+        </a>
+        <a href="wp_30_the_razor.html" class="lesson-card">
+            <span class="location-badge">Location 30</span>
+            <div class="lesson-number">Lesson XXX</div>
+            <h3>The Razor</h3>
+            <span class="era">William of Ockham &mdash; c. 1287&ndash;1347</span>
+        </a>
+
+        <!-- ERA V: THE MODERN TURN -->
+        <div class="era-header">V. The Modern Turn &mdash; Renaissance to Enlightenment</div>
+
+        <a href="wp_31_the_renaissance_mind.html" class="lesson-card">
+            <span class="location-badge">Location 31</span>
+            <div class="lesson-number">Lesson XXXI</div>
+            <h3>The Renaissance Mind</h3>
+            <span class="era">Machiavelli, Erasmus &amp; Montaigne &mdash; 15th&ndash;16th century</span>
+        </a>
+        <a href="wp_32_i_think_therefore.html" class="lesson-card">
+            <span class="location-badge">Location 32</span>
+            <div class="lesson-number">Lesson XXXII</div>
+            <h3>I Think, Therefore&hellip;</h3>
+            <span class="era">Descartes &mdash; 1596&ndash;1650</span>
+        </a>
+        <a href="wp_33_the_leviathan.html" class="lesson-card">
+            <span class="location-badge">Location 33</span>
+            <div class="lesson-number">Lesson XXXIII</div>
+            <h3>The Leviathan</h3>
+            <span class="era">Hobbes &mdash; 1588&ndash;1679</span>
+        </a>
+        <a href="wp_34_god_or_nature.html" class="lesson-card">
+            <span class="location-badge">Location 34</span>
+            <div class="lesson-number">Lesson XXXIV</div>
+            <h3>God or Nature</h3>
+            <span class="era">Spinoza &mdash; 1632&ndash;1677</span>
+        </a>
+        <a href="wp_35_the_blank_slate.html" class="lesson-card">
+            <span class="location-badge">Location 35</span>
+            <div class="lesson-number">Lesson XXXV</div>
+            <h3>The Blank Slate</h3>
+            <span class="era">Locke &mdash; 1632&ndash;1704</span>
+        </a>
+        <a href="wp_36_the_best_of_all_worlds.html" class="lesson-card">
+            <span class="location-badge">Location 36</span>
+            <div class="lesson-number">Lesson XXXVI</div>
+            <h3>The Best of All Possible Worlds</h3>
+            <span class="era">Leibniz &mdash; 1646&ndash;1716</span>
+        </a>
+        <a href="wp_37_the_gentle_sceptic.html" class="lesson-card">
+            <span class="location-badge">Location 37</span>
+            <div class="lesson-number">Lesson XXXVII</div>
+            <h3>The Gentle Sceptic</h3>
+            <span class="era">Hume &mdash; 1711&ndash;1776</span>
+        </a>
+        <a href="wp_38_the_social_contract.html" class="lesson-card">
+            <span class="location-badge">Location 38</span>
+            <div class="lesson-number">Lesson XXXVIII</div>
+            <h3>The Social Contract</h3>
+            <span class="era">Rousseau &mdash; 1712&ndash;1778</span>
+        </a>
+        <a href="wp_39_the_starry_heavens.html" class="lesson-card">
+            <span class="location-badge">Location 39</span>
+            <div class="lesson-number">Lesson XXXIX</div>
+            <h3>The Starry Heavens Above</h3>
+            <span class="era">Kant: Epistemology &mdash; 1724&ndash;1804</span>
+        </a>
+        <a href="wp_40_the_moral_law.html" class="lesson-card">
+            <span class="location-badge">Location 40</span>
+            <div class="lesson-number">Lesson XL</div>
+            <h3>The Moral Law Within</h3>
+            <span class="era">Kant: Ethics</span>
+        </a>
+
+        <!-- ERA VI: THE LONG NINETEENTH CENTURY -->
+        <div class="era-header">VI. The Long Nineteenth Century</div>
+
+        <a href="wp_41_the_world_spirit.html" class="lesson-card">
+            <span class="location-badge">Location 41</span>
+            <div class="lesson-number">Lesson XLI</div>
+            <h3>The World Spirit</h3>
+            <span class="era">Hegel &mdash; 1770&ndash;1831</span>
+        </a>
+        <a href="wp_42_the_world_as_will.html" class="lesson-card">
+            <span class="location-badge">Location 42</span>
+            <div class="lesson-number">Lesson XLII</div>
+            <h3>The World as Will</h3>
+            <span class="era">Schopenhauer &mdash; 1788&ndash;1860</span>
+        </a>
+        <a href="wp_43_the_spectre.html" class="lesson-card">
+            <span class="location-badge">Location 43</span>
+            <div class="lesson-number">Lesson XLIII</div>
+            <h3>The Spectre</h3>
+            <span class="era">Marx &mdash; 1818&ndash;1883</span>
+        </a>
+        <a href="wp_44_the_leap.html" class="lesson-card">
+            <span class="location-badge">Location 44</span>
+            <div class="lesson-number">Lesson XLIV</div>
+            <h3>The Leap</h3>
+            <span class="era">Kierkegaard &mdash; 1813&ndash;1855</span>
+        </a>
+        <a href="wp_45_the_abyss.html" class="lesson-card">
+            <span class="location-badge">Location 45</span>
+            <div class="lesson-number">Lesson XLV</div>
+            <h3>The Abyss</h3>
+            <span class="era">Nietzsche &mdash; 1844&ndash;1900</span>
+        </a>
+
+        <!-- ERA VII: THE TWENTIETH CENTURY & BEYOND -->
+        <div class="era-header">VII. The Twentieth Century &amp; Beyond</div>
+
+        <a href="wp_46_the_will_to_believe.html" class="lesson-card">
+            <span class="location-badge">Location 46</span>
+            <div class="lesson-number">Lesson XLVI</div>
+            <h3>The Will to Believe</h3>
+            <span class="era">William James &amp; Pragmatism &mdash; 1842&ndash;1910</span>
+        </a>
+        <a href="wp_47_condemned_to_be_free.html" class="lesson-card">
+            <span class="location-badge">Location 47</span>
+            <div class="lesson-number">Lesson XLVII</div>
+            <h3>Condemned to Be Free</h3>
+            <span class="era">Existentialism: Heidegger, Sartre &amp; Camus</span>
+        </a>
+        <a href="wp_48_the_limits_of_language.html" class="lesson-card">
+            <span class="location-badge">Location 48</span>
+            <div class="lesson-number">Lesson XLVIII</div>
+            <h3>The Limits of Language</h3>
+            <span class="era">Wittgenstein &mdash; 1889&ndash;1951</span>
+        </a>
+        <a href="wp_49_the_garden_and_the_kingdom.html" class="lesson-card">
+            <span class="location-badge">Location 49</span>
+            <div class="lesson-number">Lesson XLIX</div>
+            <h3>The Garden and the Kingdom</h3>
+            <span class="era">Epicurus &amp; Jesus in Dialogue</span>
+        </a>
+        <a href="wp_50_the_purest_way_to_see.html" class="lesson-card">
+            <span class="location-badge">Location 50</span>
+            <div class="lesson-number">Lesson L</div>
+            <h3>The Purest Way to See</h3>
+            <span class="era">Synthesis &mdash; The Story Complete</span>
+        </a>
+    </div>
+
+    <div class="ornament">&diams; &diams; &diams;</div>
+
+    <!-- KEY DATES OVERVIEW -->
+    <div class="dates-box">
+        <h3>150 Key Dates Across 50 Locations &mdash; A Selection</h3>
+        <div class="dates-grid">
+            <div class="date-chip"><span class="year">c. 624 BC</span><span class="event">Thales born</span></div>
+            <div class="date-chip"><span class="year">c. 535 BC</span><span class="event">Heraclitus born</span></div>
+            <div class="date-chip"><span class="year">c. 515 BC</span><span class="event">Parmenides born</span></div>
+            <div class="date-chip"><span class="year">c. 460 BC</span><span class="event">Democritus born</span></div>
+            <div class="date-chip"><span class="year">470 BC</span><span class="event">Socrates born</span></div>
+            <div class="date-chip"><span class="year">399 BC</span><span class="event">Socrates dies</span></div>
+            <div class="date-chip"><span class="year">428 BC</span><span class="event">Plato born</span></div>
+            <div class="date-chip"><span class="year">387 BC</span><span class="event">Academy founded</span></div>
+            <div class="date-chip"><span class="year">384 BC</span><span class="event">Aristotle born</span></div>
+            <div class="date-chip"><span class="year">335 BC</span><span class="event">Lyceum founded</span></div>
+            <div class="date-chip"><span class="year">341 BC</span><span class="event">Epicurus born</span></div>
+            <div class="date-chip"><span class="year">306 BC</span><span class="event">The Garden opens</span></div>
+            <div class="date-chip"><span class="year">334 BC</span><span class="event">Zeno born</span></div>
+            <div class="date-chip"><span class="year">204 AD</span><span class="event">Plotinus born</span></div>
+            <div class="date-chip"><span class="year">c. 4 BC</span><span class="event">Jesus born</span></div>
+            <div class="date-chip"><span class="year">c. 30 AD</span><span class="event">Crucifixion</span></div>
+            <div class="date-chip"><span class="year">354</span><span class="event">Augustine born</span></div>
+            <div class="date-chip"><span class="year">524</span><span class="event">Boethius dies</span></div>
+            <div class="date-chip"><span class="year">980</span><span class="event">Avicenna born</span></div>
+            <div class="date-chip"><span class="year">1126</span><span class="event">Averroes born</span></div>
+            <div class="date-chip"><span class="year">1225</span><span class="event">Aquinas born</span></div>
+            <div class="date-chip"><span class="year">1469</span><span class="event">Machiavelli born</span></div>
+            <div class="date-chip"><span class="year">1596</span><span class="event">Descartes born</span></div>
+            <div class="date-chip"><span class="year">1632</span><span class="event">Spinoza born</span></div>
+            <div class="date-chip"><span class="year">1711</span><span class="event">Hume born</span></div>
+            <div class="date-chip"><span class="year">1724</span><span class="event">Kant born</span></div>
+            <div class="date-chip"><span class="year">1770</span><span class="event">Hegel born</span></div>
+            <div class="date-chip"><span class="year">1818</span><span class="event">Marx born</span></div>
+            <div class="date-chip"><span class="year">1844</span><span class="event">Nietzsche born</span></div>
+            <div class="date-chip"><span class="year">1889</span><span class="event">Wittgenstein born</span></div>
+        </div>
+    </div>
+
+    <!-- HOW TO USE -->
+    <div class="info-box">
+        <h4>How This Course Works</h4>
+        <p>Each lesson follows a seven-part structure: <strong>Retrieval</strong> (what you remember from earlier lessons) &rarr; <strong>The Story</strong> (the philosopher's life and world, told as narrative) &rarr; <strong>The Ideas</strong> (the philosophy itself, with original texts) &rarr; <strong>Key Dates</strong> (encode with the PAO system) &rarr; <strong>Memory Palace</strong> (place five vivid images at your chosen location) &rarr; <strong>Your Turn</strong> (reflect and discuss) &rarr; <strong>Final Retrieval</strong> (lock it in).</p>
+        <p style="margin-top: 10px;">Content returns at <strong>+3, +7,</strong> and <strong>+14</strong> lesson intervals through spaced repetition in the Retrieval tabs. By the end, you will have 250 palace images and 150 encoded dates &mdash; and the whole sweep of Western thought living in your memory.</p>
+    </div>
+
+    <div class="info-box">
+        <h4>Your Memory Palace, Your Choice</h4>
+        <p>This course does not prescribe a single building or route. You choose fifty locations from your own life &mdash; rooms in your home, stops on a familiar walk, places you know by heart. Each lesson gives you five vivid, bizarre, sensory-rich images to place at your chosen location. The stranger the image, the stronger the memory. By the end, your personal palace holds 2,600 years of philosophy.</p>
+    </div>
+
+    <div class="info-box">
+        <h4>Two Questions, One Story</h4>
+        <p>Every philosopher in this course is trying to answer one or both of two questions: <em>What is the world made of?</em> and <em>How should we live?</em> Watch how each thinker wrestles with these questions &mdash; and notice what each one leaves unresolved. The answers build on one another, and the story has a shape that only becomes clear at the end.</p>
+    </div>
+
+    <div class="ornament">&diams; &diams; &diams;</div>
+
+    <p style="text-align: center; color: #7a7060; font-size: 0.9rem; margin: 20px 0 40px; font-style: italic;">
+        Wonder is the beginning of wisdom. &mdash; Socrates
+    </p>
+
+</div>
+</body>
+</html>

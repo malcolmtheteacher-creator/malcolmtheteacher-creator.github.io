@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curious Conversations - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 1.4em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .header .tagline {
+            font-size: 1.1em;
+            color: #777;
+            font-style: italic;
+            margin-top: 15px;
+        }
+
+        .series-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            margin-top: 20px;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .philosophy h2 {
+            color: #667eea;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+
+        .philosophy p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .feature-box h3 {
+            color: #764ba2;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .feature-box p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .progress-section h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-container {
+            background: #f0f0f0;
+            border-radius: 15px;
+            height: 40px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: width 0.5s;
+        }
+
+        /* Lessons Grid */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .lesson-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .lesson-card.available {
+            border: 3px solid #28a745;
+        }
+
+        .lesson-card.coming-soon {
+            opacity: 0.75;
+        }
+
+        .lesson-number {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .lesson-card.coming-soon .lesson-number {
+            background: #6c757d;
+        }
+
+        .lesson-status {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .status-available {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-coming {
+            background: #6c757d;
+            color: white;
+        }
+
+        .lesson-title {
+            font-size: 1.7em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: bold;
+            padding-right: 80px;
+        }
+
+        .lesson-tagline {
+            font-style: italic;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .lesson-description {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1.05em;
+        }
+
+        .lesson-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .lesson-details strong {
+            color: #764ba2;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .lesson-details ul {
+            margin-left: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .expressions-preview {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d4e4f7 100%);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.95em;
+        }
+
+        .expressions-preview strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .lesson-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .lesson-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102,126,234,0.6);
+        }
+
+        .lesson-button.disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Curious Conversations</h1>
+            <p>Fascinating Topics • Natural Language • Real Engagement</p>
+            <p class="tagline">"Learning language through topics you actually want to discuss"</p>
+            <div class="series-badge">C1-C2 Level | 6 Lessons | 5 Expressions Each</div>
+        </div>
+
+        <!-- Philosophy -->
+        <div class="philosophy">
+            <h2>Why This Series Works</h2>
+            <p>
+                These lessons are built with one goal: <strong>make students WANT to talk</strong>. 
+                Topics are genuinely interesting, expressions are immediately useful, and every lesson 
+                leaves you feeling energized, not drained.
+            </p>
+
+            <div class="highlight-box">
+                ✨ Curiosity over Confession • Joy over Judgment • Fascination over Failure ✨
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-box">
+                    <h3>💡 Fascinating Content</h3>
+                    <p>Real research, surprising facts, and topics that spark genuine curiosity and discussion.</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>🎯 Immediate Use</h3>
+                    <p>Every expression is learned and USED right away. No pointless lists—if you can't use it today, we don't teach it.</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>😊 Positive Energy</h3>
+                    <p>Leave each lesson feeling energized, not drained. Intellectual depth without emotional labor.</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>🗣️ Natural Discovery</h3>
+                    <p>Interactive cards you click to reveal. Learn at your own pace, practice immediately.</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>🎨 Student Choice</h3>
+                    <p>Pick 2-3 discussion topics that interest YOU. No forced sharing, no uncomfortable pressure.</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>⏱️ Speaking First</h3>
+                    <p>70%+ of lesson time is YOU talking. Teacher guides, but you drive the conversation.</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; font-size: 1.15em; color: #667eea; font-weight: bold;">
+                The Rule: If it's not interesting enough to make you forget you're in English class, it doesn't belong in this course.
+            </p>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-section">
+            <h2>Your Progress</h2>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 100%;">
+                    6 of 6 Lessons Complete (100%) 🎉
+                </div>
+            </div>
+            <p style="color: #555; margin-top: 15px;">
+                All lessons available! Master 30 natural expressions for discussing fascinating topics.
+            </p>
+        </div>
+
+        <!-- Lessons -->
+        <div class="lessons-grid">
+            <!-- Lesson 1 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">01</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">Why Do We Love True Crime?</div>
+                <div class="lesson-tagline">The psychology of our fascination with dark stories</div>
+                <div class="lesson-description">
+                    True crime is a billion-dollar industry. Why are millions obsessed with murder podcasts and documentaries? 
+                    Explore the psychology, ethics, and cultural impact of our strangest fascination.
+                </div>
+                <div class="lesson-details">
+                    <strong>What you'll discuss:</strong>
+                    <ul>
+                        <li>Why women are 70% of true crime fans</li>
+                        <li>The ethics of entertainment from tragedy</li>
+                        <li>Your relationship with dark content</li>
+                        <li>Cultural differences in crime media</li>
+                        <li>Where the line is between interest and obsession</li>
+                    </ul>
+                </div>
+                <div class="expressions-preview">
+                    <strong>5 Expressions You'll Use:</strong>
+                    "I'm drawn to..." • "Morbidly fascinating" • "It taps into..." • "We're glorifying..." • "There's something compelling about..."
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_01_true_crime.html" class="lesson-button">Start Lesson 1 →</a>
+            </div>
+
+            <!-- Lesson 2 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">02</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">The Languages We Almost Learned</div>
+                <div class="lesson-tagline">Your journey with languages, polyglots, and linguistic curiosities</div>
+                <div class="lesson-description">
+                    What languages have you tried to learn? Why did some stick and others fade? Explore fascinating 
+                    stories of polyglots, language learning myths, and the linguistic features that make some 
+                    languages feel impossible (or beautiful).
+                </div>
+                <div class="lesson-details">
+                    <strong>What you'll discuss:</strong>
+                    <ul>
+                        <li>Your funniest language mistakes</li>
+                        <li>Why some languages feel "impossible"</li>
+                        <li>How learning English changed your thinking</li>
+                        <li>Languages you'd love to learn if time wasn't an issue</li>
+                        <li>Real polyglot stories and methods</li>
+                    </ul>
+                </div>
+                <div class="expressions-preview">
+                    <strong>5 Expressions You'll Learn:</strong>
+                    "I've dabbled in..." • "It didn't stick because..." • "The grammar threw me" • "I find it mind-boggling that..." • "It's a whole different mindset"
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_02_languages.html" class="lesson-button">Start Lesson 2 →</a>
+            </div>
+
+            <!-- Lesson 3 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">03</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">Weird Things Humans Do</div>
+                <div class="lesson-tagline">Cultural quirks we don't realize are strange</div>
+                <div class="lesson-description">
+                    Why do Americans smile at strangers? Why does Japanese gift-wrapping take 20 minutes? 
+                    Explore the hilarious, fascinating cultural habits we take for granted—and what surprises 
+                    people from other cultures about YOUR normal.
+                </div>
+                <div class="lesson-details">
+                    <strong>What you'll discuss:</strong>
+                    <ul>
+                        <li>What surprised you about other cultures</li>
+                        <li>Things YOUR culture does that others find bizarre</li>
+                        <li>Reverse culture shock moments</li>
+                        <li>Small talk, silence, and personal space differences</li>
+                        <li>Universal human behaviors vs. cultural inventions</li>
+                    </ul>
+                </div>
+                <div class="expressions-preview">
+                    <strong>5 Expressions You'll Learn:</strong>
+                    "It's ingrained in our culture..." • "It's completely alien to me that..." • "We take it for granted..." • "It's second nature to..." • "That's a cultural thing"
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_03_cultural_quirks.html" class="lesson-button">Start Lesson 3 →</a>
+            </div>
+
+            <!-- Lesson 4 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">04</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">The Best Advice That Actually Worked</div>
+                <div class="lesson-tagline">Wisdom you ignored at 20 but understand at 30</div>
+                <div class="lesson-description">
+                    What's the best advice you ever received? The worst advice that everyone gives? Explore life 
+                    lessons that turned out to be true, counterintuitive wisdom, and how to give advice without 
+                    being pushy. Positive focus—what went RIGHT, not what failed.
+                </div>
+                <div class="lesson-details">
+                    <strong>What you'll discuss:</strong>
+                    <ul>
+                        <li>Advice you wish you'd followed earlier</li>
+                        <li>Wisdom that only makes sense with age</li>
+                        <li>How to give advice without seeming controlling</li>
+                        <li>Cultural differences in advice-giving</li>
+                        <li>Bad advice everyone gives (but you shouldn't follow)</li>
+                    </ul>
+                </div>
+                <div class="expressions-preview">
+                    <strong>5 Expressions You'll Learn:</strong>
+                    "It took me years to appreciate..." • "In hindsight, I should have..." • "The turning point was when..." • "I've come to realize that..." • "That advice has served me well"
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_04_best_advice.html" class="lesson-button">Start Lesson 4 →</a>
+            </div>
+
+            <!-- Lesson 5 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">05</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">Food Crimes & Culinary Controversies</div>
+                <div class="lesson-tagline">The great debates: pineapple on pizza and beyond</div>
+                <div class="lesson-description">
+                    Pineapple on pizza. Ketchup on eggs. Milk before cereal. Some food combinations spark 
+                    passionate debates. Explore why we're so opinionated about food, cultural food rules, 
+                    and the weirdest things you've ever eaten. Light-hearted, fun, and EVERYONE has opinions.
+                </div>
+                <div class="lesson-details">
+                    <strong>What you'll discuss:</strong>
+                    <ul>
+                        <li>Food combinations you defend that others hate</li>
+                        <li>Foods your culture loves that foreigners can't handle</li>
+                        <li>Restaurant experiences across cultures</li>
+                        <li>The science of why we hate certain foods</li>
+                        <li>Food "rules" that don't make sense to outsiders</li>
+                    </ul>
+                </div>
+                <div class="expressions-preview">
+                    <strong>5 Expressions You'll Learn:</strong>
+                    "That's sacrilege in my culture..." • "I can't wrap my head around..." • "It's an acquired taste" • "People are strangely passionate about..." • "You haven't lived until you've tried..."
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_05_food_crimes.html" class="lesson-button">Start Lesson 5 →</a>
+            </div>
+
+            <!-- Lesson 6 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">06</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">The Things We're Irrationally Passionate About</div>
+                <div class="lesson-tagline">Harmless obsessions, deep interests, and finding your people</div>
+                <div class="lesson-description">
+                    People who collect rubber ducks. Train schedule memorizers. Pokemon experts. When does a 
+                    hobby become an obsession? Explore the joy of deep interests, niche communities, and what 
+                    you're weirdly knowledgeable about. Finally—pure joy and passion!
+                </div>
+                <div class="lesson-details">
+                    <strong>What you'll discuss:</strong>
+                    <ul>
+                        <li>What YOU'RE weirdly knowledgeable about</li>
+                        <li>Hobbies that started small and took over</li>
+                        <li>Things you love that others don't "get"</li>
+                        <li>How the internet enabled niche communities</li>
+                        <li>The psychology of deep interests and obsessions</li>
+                    </ul>
+                </div>
+                <div class="expressions-preview">
+                    <strong>5 Expressions You'll Learn:</strong>
+                    "I'm oddly obsessed with..." • "I've gone down the rabbit hole of..." • "I get that it's niche, but..." • "I'm unironically into..." • "It's become a bit of an obsession"
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_06_passionate_obsessions.html" class="lesson-button">Start Lesson 6 →</a>
+            </div>
+
+            <!-- Bonus Lesson -->
+            <div class="lesson-card available">
+                <div class="lesson-number">✦</div>
+                <div class="lesson-status status-available">Bonus Lesson</div>
+                <div class="lesson-title">The EQ Effect: Why Feelings Beat Facts</div>
+                <div class="lesson-tagline">Why the smartest person in the room isn't always the most successful</div>
+                <div class="lesson-description">
+                    90% of top performers score high in emotional intelligence — yet each generation is reportedly becoming less emotionally aware.
+                    Explore Goleman's five domains, the language of feelings, and why saying "I'm scared" is harder than saying "You're driving like a maniac."
+                </div>
+                <div class="lesson-details">
+                    <strong>What you'll discuss:</strong>
+                    <ul>
+                        <li>Why EQ predicts success better than IQ</li>
+                        <li>The difference between blaming and naming your feelings</li>
+                        <li>How to respond to difficult situations with emotional intelligence</li>
+                        <li>Whether EQ is more important in work, relationships, or online life</li>
+                        <li>The six functions of emotionally intelligent language</li>
+                    </ul>
+                </div>
+                <div class="expressions-preview">
+                    <strong>Key Language You'll Use:</strong>
+                    "I feel frustrated because..." • "I realise this is difficult" • "I'd feel better if..." • "I need to be heard" • "I understand your concern"
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/discuss_b2_emotional_intelligence.html" class="lesson-button">Start Bonus Lesson →</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="philosophy">
+            <h2>The Curious Conversations Promise</h2>
+            <p>
+                C1-C2 learners deserve intellectual stimulation AND an enjoyable experience. 
+                These lessons deliver both.
+            </p>
+            <p>
+                Every topic makes you think "Oh, that's interesting!" and naturally want to share 
+                your thoughts, stories, and opinions.
+            </p>
+            <p style="font-size: 1.15em; color: #667eea; font-weight: bold; margin-top: 20px;">
+                If it doesn't make you WANT to talk, it doesn't belong here.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

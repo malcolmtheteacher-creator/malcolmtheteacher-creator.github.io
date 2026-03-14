@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CEFR English Grammar Dashboard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --a1: #059669; --a1-bg: #ecfdf5; --a1-border: #a7f3d0;
+    --a2: #0d9488; --a2-bg: #f0fdfa; --a2-border: #99f6e4;
+    --b1: #2563eb; --b1-bg: #eff6ff; --b1-border: #bfdbfe;
+    --b2: #7c3aed; --b2-bg: #f5f3ff; --b2-border: #ddd6fe;
+    --c1: #db2777; --c1-bg: #fdf2f8; --c1-border: #fbcfe8;
+    --c2: #dc2626; --c2-bg: #fef2f2; --c2-border: #fecaca;
+    --bg: #f8fafc; --card: #ffffff; --text: #0f172a; --text-secondary: #475569;
+    --border: #e2e8f0; --shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+
+  .app { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+  /* Header */
+  .header { text-align: center; padding: 40px 20px 30px; }
+  .header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+  .header h1 span { background: linear-gradient(135deg, var(--a1), var(--b1), var(--c1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .header p { color: var(--text-secondary); font-size: 1.05rem; max-width: 700px; margin: 0 auto; }
+  .header .subtitle { font-size: 0.85rem; color: #94a3b8; margin-top: 6px; }
+
+  /* Stats Bar */
+  .stats-bar { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin: 24px 0; }
+  .stat-card { background: var(--card); border-radius: 12px; padding: 16px; text-align: center; border: 1px solid var(--border); box-shadow: var(--shadow); cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+  .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .stat-card[data-level="A1"]::before { background: var(--a1); }
+  .stat-card[data-level="A2"]::before { background: var(--a2); }
+  .stat-card[data-level="B1"]::before { background: var(--b1); }
+  .stat-card[data-level="B2"]::before { background: var(--b2); }
+  .stat-card[data-level="C1"]::before { background: var(--c1); }
+  .stat-card[data-level="C2"]::before { background: var(--c2); }
+  .stat-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .stat-card.active { border-color: var(--b1); box-shadow: 0 0 0 2px rgba(37,99,235,0.2); }
+  .stat-level { font-size: 1.3rem; font-weight: 800; }
+  .stat-card[data-level="A1"] .stat-level { color: var(--a1); }
+  .stat-card[data-level="A2"] .stat-level { color: var(--a2); }
+  .stat-card[data-level="B1"] .stat-level { color: var(--b1); }
+  .stat-card[data-level="B2"] .stat-level { color: var(--b2); }
+  .stat-card[data-level="C1"] .stat-level { color: var(--c1); }
+  .stat-card[data-level="C2"] .stat-level { color: var(--c2); }
+  .stat-name { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-top: 2px; }
+  .stat-count { font-size: 1.8rem; font-weight: 700; color: var(--text); margin-top: 4px; }
+  .stat-label { font-size: 0.72rem; color: #94a3b8; }
+
+  /* Controls */
+  .controls { display: flex; gap: 12px; margin: 20px 0; flex-wrap: wrap; align-items: center; }
+  .search-box { flex: 1; min-width: 250px; padding: 10px 16px; border: 1px solid var(--border); border-radius: 10px; font-size: 0.9rem; font-family: inherit; background: var(--card); outline: none; transition: border-color 0.2s; }
+  .search-box:focus { border-color: var(--b1); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+  .filter-btn { padding: 8px 16px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.82rem; font-family: inherit; font-weight: 500; cursor: pointer; background: var(--card); color: var(--text-secondary); transition: all 0.2s; }
+  .filter-btn:hover { background: #f1f5f9; }
+  .filter-btn.active { background: var(--text); color: white; border-color: var(--text); }
+  .view-toggle { display: flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .view-toggle button { padding: 8px 14px; border: none; font-size: 0.82rem; font-family: inherit; font-weight: 500; cursor: pointer; background: var(--card); color: var(--text-secondary); transition: all 0.15s; }
+  .view-toggle button.active { background: var(--text); color: white; }
+
+  /* Category Section */
+  .category { background: var(--card); border-radius: 14px; border: 1px solid var(--border); margin-bottom: 16px; box-shadow: var(--shadow); overflow: hidden; }
+  .category-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; cursor: pointer; user-select: none; transition: background 0.15s; }
+  .category-header:hover { background: #f8fafc; }
+  .category-title { display: flex; align-items: center; gap: 12px; }
+  .category-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+  .category-name { font-size: 1.1rem; font-weight: 700; }
+  .category-count { font-size: 0.78rem; color: var(--text-secondary); margin-top: 1px; }
+  .category-chevron { font-size: 1.2rem; color: #94a3b8; transition: transform 0.2s; }
+  .category.open .category-chevron { transform: rotate(180deg); }
+  .category-body { display: none; border-top: 1px solid var(--border); }
+  .category.open .category-body { display: block; }
+
+  /* Grammar Items */
+  .grammar-items { padding: 8px; }
+  .grammar-item { display: grid; grid-template-columns: 80px 1fr auto; gap: 16px; align-items: start; padding: 14px 18px; border-radius: 10px; margin: 4px 0; transition: background 0.15s; }
+  .grammar-item:hover { background: #f8fafc; }
+  .level-badge { display: inline-flex; align-items: center; justify-content: center; padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.03em; }
+  .level-badge.A1 { background: var(--a1-bg); color: var(--a1); border: 1px solid var(--a1-border); }
+  .level-badge.A2 { background: var(--a2-bg); color: var(--a2); border: 1px solid var(--a2-border); }
+  .level-badge.B1 { background: var(--b1-bg); color: var(--b1); border: 1px solid var(--b1-border); }
+  .level-badge.B2 { background: var(--b2-bg); color: var(--b2); border: 1px solid var(--b2-border); }
+  .level-badge.C1 { background: var(--c1-bg); color: var(--c1); border: 1px solid var(--c1-border); }
+  .level-badge.C2 { background: var(--c2-bg); color: var(--c2); border: 1px solid var(--c2-border); }
+  .item-content h4 { font-size: 0.92rem; font-weight: 600; margin-bottom: 3px; }
+  .item-content p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.45; }
+  .item-example { font-size: 0.78rem; color: #64748b; font-style: italic; margin-top: 4px; padding: 6px 10px; background: #f8fafc; border-radius: 6px; border-left: 2px solid var(--border); }
+  .item-tags { display: flex; gap: 4px; flex-wrap: wrap; align-self: center; }
+  .tag { font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; background: #f1f5f9; color: #64748b; font-weight: 500; white-space: nowrap; }
+
+  /* Grid View */
+  .grid-view .grammar-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 10px; padding: 12px; }
+  .grid-view .grammar-item { grid-template-columns: 1fr; gap: 8px; border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .grid-view .grammar-item:hover { border-color: #cbd5e1; }
+
+  /* Matrix View */
+  .matrix-table { width: 100%; border-collapse: collapse; }
+  .matrix-table th { padding: 12px 16px; text-align: left; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); background: #f8fafc; border-bottom: 2px solid var(--border); position: sticky; top: 0; z-index: 2; }
+  .matrix-table td { padding: 10px 16px; border-bottom: 1px solid #f1f5f9; font-size: 0.85rem; vertical-align: top; }
+  .matrix-table tr:hover td { background: #f8fafc; }
+  .matrix-cell-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+  /* Lesson Ready Badge */
+  .lesson-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.68rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+  .lesson-badge.ready { background: #ecfdf5; color: #059669; }
+
+  /* Lesson Link Button */
+  .lesson-link { display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px; border-radius: 7px; font-size: 0.76rem; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; font-family: inherit; }
+  .lesson-link.has-lesson { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+  .lesson-link.has-lesson:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(102,126,234,0.35); }
+  .lesson-link.no-lesson { background: #f1f5f9; color: #94a3b8; cursor: default; }
+  .lesson-status { font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 600; margin-left: 4px; }
+  .lesson-status.built { background: #ecfdf5; color: #059669; }
+  .lesson-status.pending { background: #fef3c7; color: #d97706; }
+
+  /* Summary Panel */
+  .summary-panel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin: 24px 0; box-shadow: var(--shadow); }
+  .summary-panel h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
+  .summary-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .summary-col h4 { font-size: 0.82rem; font-weight: 700; text-align: center; padding: 8px; border-radius: 8px; margin-bottom: 10px; }
+  .summary-col[data-level="A1"] h4 { background: var(--a1-bg); color: var(--a1); }
+  .summary-col[data-level="A2"] h4 { background: var(--a2-bg); color: var(--a2); }
+  .summary-col[data-level="B1"] h4 { background: var(--b1-bg); color: var(--b1); }
+  .summary-col[data-level="B2"] h4 { background: var(--b2-bg); color: var(--b2); }
+  .summary-col[data-level="C1"] h4 { background: var(--c1-bg); color: var(--c1); }
+  .summary-col[data-level="C2"] h4 { background: var(--c2-bg); color: var(--c2); }
+  .summary-col ul { list-style: none; padding: 0; }
+  .summary-col li { font-size: 0.75rem; color: var(--text-secondary); padding: 4px 0; border-bottom: 1px solid #f1f5f9; }
+
+  /* Print Styles */
+  @media print {
+    .controls, .stats-bar, .search-box, .filter-btn, .view-toggle { display: none !important; }
+    .category { break-inside: avoid; }
+    .category.open .category-body { display: block !important; }
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .stats-bar { grid-template-columns: repeat(3, 1fr); }
+    .summary-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .grammar-item { grid-template-columns: 1fr; gap: 6px; }
+    .summary-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Expand/Collapse All */
+  .expand-all { padding: 6px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.8rem; font-family: inherit; font-weight: 500; cursor: pointer; background: var(--card); color: var(--text-secondary); }
+  .expand-all:hover { background: #f1f5f9; }
+
+  /* Lesson count footer */
+  .footer { text-align: center; padding: 30px; color: #94a3b8; font-size: 0.82rem; }
+  .footer strong { color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="app" id="app"></div>
+
+<script>
+// ============================================================
+// COMPLETE CEFR GRAMMAR DATABASE
+// ============================================================
+const grammarData = [
+  // ==========================================
+  // 1. TENSES & ASPECT
+  // ==========================================
+  {
+    category: "Tenses & Aspect",
+    icon: "⏱",
+    color: "#2563eb",
+    items: [
+      { level: "A1", title: "Present Simple", desc: "Habits, routines, facts, permanent states", example: "She works in a hospital. I don't like coffee.", tags: ["form","use","frequency"] },
+      { level: "A1", title: "Present Continuous", desc: "Actions happening now, temporary situations", example: "I'm reading a book right now.", tags: ["now","temporary"] },
+      { level: "A1", title: "Past Simple (Regular)", desc: "Completed actions in the past with regular -ed verbs", example: "I walked to school yesterday.", tags: ["regular","past"] },
+      { level: "A1", title: "Past Simple (Irregular)", desc: "Completed past actions with common irregular verbs", example: "She went to Paris last year.", tags: ["irregular","past"] },
+      { level: "A1", title: "Imperative", desc: "Commands, instructions, requests", example: "Open the door. Don't touch that.", tags: ["commands"] },
+      { level: "A2", title: "Past Continuous", desc: "Actions in progress at a specific past time, background actions", example: "I was sleeping when you called.", tags: ["background","interrupted"] },
+      { level: "A2", title: "Present Perfect Simple (Introduction)", desc: "Experiences, unfinished time, recent past with just/already/yet", example: "I've visited France. She hasn't arrived yet.", tags: ["experience","result"] },
+      { level: "A2", title: "Future: will", desc: "Predictions, spontaneous decisions, promises, offers", example: "I'll help you. It will rain tomorrow.", tags: ["prediction","decision"] },
+      { level: "A2", title: "Future: going to", desc: "Plans, intentions, evidence-based predictions", example: "I'm going to study medicine. Look — it's going to rain!", tags: ["plan","intention"] },
+      { level: "A2", title: "Future: Present Continuous for arrangements", desc: "Fixed future arrangements", example: "I'm meeting John at 6 tomorrow.", tags: ["arrangement"] },
+      { level: "B1", title: "Present Perfect vs Past Simple", desc: "Distinguishing finished vs unfinished time, relevance to now", example: "I've lived here for 5 years vs I lived there in 2010.", tags: ["contrast","time"] },
+      { level: "B1", title: "Present Perfect Continuous", desc: "Duration of activity leading to now, recent activity with visible results", example: "I've been waiting for an hour. She's been crying.", tags: ["duration","recent"] },
+      { level: "B1", title: "Past Perfect Simple", desc: "Action before another past action, narrative sequencing", example: "When I arrived, she had already left.", tags: ["sequence","narrative"] },
+      { level: "B1", title: "Used to / Would (past habits)", desc: "Past habits and repeated actions that no longer happen", example: "I used to smoke. We would play football every Saturday.", tags: ["habit","nostalgia"] },
+      { level: "B1", title: "Future: will vs going to (nuanced)", desc: "Detailed distinction between will and going to in context", example: "I think it'll rain (opinion) vs It's going to rain (evidence).", tags: ["contrast","nuance"] },
+      { level: "B1", title: "Future: Present Simple for timetables", desc: "Scheduled events with present simple", example: "The train leaves at 9:15.", tags: ["timetable","schedule"] },
+      { level: "B2", title: "Past Perfect Continuous", desc: "Duration before a past event, explaining cause of past state", example: "She had been working all day, so she was exhausted.", tags: ["duration","cause"] },
+      { level: "B2", title: "Future Continuous", desc: "Actions in progress at a specific future time, polite enquiry", example: "This time tomorrow I'll be flying to Rome.", tags: ["progress","polite"] },
+      { level: "B2", title: "Future Perfect Simple", desc: "Completion before a future deadline", example: "By next year, I'll have finished my degree.", tags: ["completion","deadline"] },
+      { level: "B2", title: "Future Perfect Continuous", desc: "Duration up to a future point", example: "By June, I'll have been working here for 10 years.", tags: ["duration","future"] },
+      { level: "B2", title: "Narrative Tenses (combined)", desc: "Using past simple, continuous, and perfect together in storytelling", example: "I was walking home when I saw a man who had been following me.", tags: ["narrative","storytelling"] },
+      { level: "C1", title: "Future in the Past", desc: "was going to, would, was about to for unfulfilled plans", example: "I was going to call you but I forgot.", tags: ["unfulfilled","retrospective"] },
+      { level: "C1", title: "Advanced Aspect Distinctions", desc: "Fine-grained choice between simple/continuous/perfect aspect", example: "I've thought about it (= decided) vs I've been thinking about it (= ongoing).", tags: ["nuance","aspect"] },
+      { level: "C1", title: "Be to + infinitive", desc: "Formal future: orders, destiny, announcements", example: "The Prime Minister is to visit Paris next week.", tags: ["formal","decree"] },
+      { level: "C2", title: "Subtle Tense-Aspect Interaction", desc: "Pragmatic/discourse effects of tense choice; distancing, hedging, politeness via tense", example: "I was wondering if you could help (past continuous for politeness).", tags: ["pragmatics","register"] },
+      { level: "C2", title: "Historical Present & Dramatic Narrative", desc: "Using present tense for past events in journalism and storytelling", example: "In 1969, Armstrong steps onto the lunar surface.", tags: ["rhetoric","journalism"] },
+    ]
+  },
+
+  // ==========================================
+  // 2. MODAL VERBS
+  // ==========================================
+  {
+    category: "Modal Verbs",
+    icon: "🔑",
+    color: "#7c3aed",
+    items: [
+      { level: "A1", title: "Can / Can't (Ability)", desc: "Present ability and inability", example: "I can swim. She can't drive.", tags: ["ability"] },
+      { level: "A1", title: "Can / Could (Requests)", desc: "Making polite requests", example: "Can you help me? Could you open the window?", tags: ["request","polite"] },
+      { level: "A2", title: "Must / Mustn't", desc: "Strong obligation and prohibition", example: "You must wear a seatbelt. You mustn't smoke here.", tags: ["obligation","prohibition"] },
+      { level: "A2", title: "Have to / Don't have to", desc: "External obligation and lack of necessity", example: "I have to work on Saturdays. You don't have to come.", tags: ["obligation","necessity"] },
+      { level: "A2", title: "Should / Shouldn't", desc: "Advice and mild obligation", example: "You should see a doctor. You shouldn't eat so much sugar.", tags: ["advice"] },
+      { level: "A2", title: "Would like", desc: "Polite wants and desires", example: "I'd like a coffee, please.", tags: ["polite","desire"] },
+      { level: "B1", title: "Must vs Have to (nuanced)", desc: "Internal obligation (must) vs external obligation (have to)", example: "I must remember to call her (personal) vs I have to wear a uniform (rule).", tags: ["contrast","obligation"] },
+      { level: "B1", title: "May / Might (Possibility)", desc: "Expressing present and future possibility", example: "She might come to the party. It may rain later.", tags: ["possibility"] },
+      { level: "B1", title: "Could (Past Ability & Possibility)", desc: "Past general ability and present possibility", example: "I could swim when I was 5. It could be true.", tags: ["past ability","possibility"] },
+      { level: "B1", title: "Should have / Must have / Could have", desc: "Modal perfects: past criticism, deduction, missed opportunity", example: "You should have told me. She must have left. I could have helped.", tags: ["past modal","deduction"] },
+      { level: "B1", title: "Had better", desc: "Strong advice with implied consequences", example: "You'd better hurry or you'll miss the train.", tags: ["advice","warning"] },
+      { level: "B2", title: "Modal Verbs of Deduction (present)", desc: "must/can't/could/may/might for logical deduction", example: "She must be at home (certainty). He can't be serious (impossibility).", tags: ["deduction","certainty"] },
+      { level: "B2", title: "Modal Verbs of Deduction (past)", desc: "must have / can't have / might have for past deduction", example: "He must have forgotten. She can't have seen us.", tags: ["deduction","past"] },
+      { level: "B2", title: "Need (modal vs semi-modal)", desc: "Need as modal (needn't) vs lexical verb (don't need to)", example: "You needn't worry. You don't need to bring anything.", tags: ["necessity","formal"] },
+      { level: "B2", title: "Needn't have vs Didn't need to", desc: "Unnecessary past action (done vs not done)", example: "I needn't have cooked (but I did) vs I didn't need to cook (so I didn't).", tags: ["contrast","nuance"] },
+      { level: "C1", title: "Dare (modal usage)", desc: "Dare as modal verb in formal/literary contexts", example: "Dare I say it? How dare you!", tags: ["formal","literary"] },
+      { level: "C1", title: "Shall (formal/legal)", desc: "Shall in legal, formal, and contractual contexts", example: "The tenant shall pay rent monthly.", tags: ["legal","formal"] },
+      { level: "C1", title: "Be supposed to / Be bound to / Be due to", desc: "Semi-modal expressions of expectation, certainty, schedule", example: "He's supposed to arrive at 3. She's bound to pass.", tags: ["expectation","certainty"] },
+      { level: "C1", title: "Would (habitual past & hypothetical)", desc: "Advanced uses of would for past habit and hypothetical meaning", example: "He would sit for hours staring at the sea.", tags: ["habit","hypothetical"] },
+      { level: "C2", title: "Modal Stacking & Complex Modality", desc: "Layering modals with hedging for nuanced meaning", example: "It might not necessarily have been what he would have wanted.", tags: ["hedge","nuance"] },
+      { level: "C2", title: "Epistemic vs Deontic Modality", desc: "Understanding and deploying the knowledge vs duty distinction", example: "You must be tired (epistemic) vs You must leave (deontic).", tags: ["linguistics","pragmatics"] },
+    ]
+  },
+
+  // ==========================================
+  // 3. CONDITIONALS & HYPOTHETICAL
+  // ==========================================
+  {
+    category: "Conditionals & Hypothetical",
+    icon: "🔀",
+    color: "#059669",
+    items: [
+      { level: "A1", title: "Zero Conditional (basic)", desc: "Universal truths and general facts", example: "If you heat water to 100°C, it boils.", tags: ["fact","truth"] },
+      { level: "A2", title: "First Conditional", desc: "Real/likely future situations", example: "If it rains, I'll take an umbrella.", tags: ["future","real"] },
+      { level: "B1", title: "Second Conditional", desc: "Unreal/unlikely present or future situations", example: "If I won the lottery, I'd travel the world.", tags: ["unreal","imaginary"] },
+      { level: "B1", title: "Unless / As long as / Provided that", desc: "Conditional conjunctions beyond 'if'", example: "I'll go unless it rains. You can come as long as you behave.", tags: ["conjunction","variation"] },
+      { level: "B2", title: "Third Conditional", desc: "Unreal past situations and regrets", example: "If I had studied harder, I would have passed.", tags: ["past","regret"] },
+      { level: "B2", title: "Mixed Conditionals", desc: "Combining past condition with present result and vice versa", example: "If I had taken that job, I'd be living in London now.", tags: ["mixed","complex"] },
+      { level: "B2", title: "I wish / If only (present & past)", desc: "Expressing regret and desires about present and past", example: "I wish I knew the answer. If only I had listened.", tags: ["regret","desire"] },
+      { level: "C1", title: "Inverted Conditionals", desc: "Formal conditionals without 'if' using inversion", example: "Had I known, I would have helped. Were she here, she'd agree.", tags: ["inversion","formal"] },
+      { level: "C1", title: "But for / Were it not for", desc: "Formal conditional expressions", example: "But for your help, I'd have failed.", tags: ["formal","literary"] },
+      { level: "C1", title: "Suppose / Supposing / What if", desc: "Alternative conditional structures", example: "Suppose you lost your job — what would you do?", tags: ["alternative","hypothetical"] },
+      { level: "C1", title: "It's (high) time + past subjunctive", desc: "Expressing overdue actions", example: "It's time we left. It's high time you found a job.", tags: ["subjunctive","urgency"] },
+      { level: "C2", title: "If + will/would (politeness & willingness)", desc: "Conditional will/would for requests and willingness", example: "If you will/would wait here, I'll get the manager.", tags: ["politeness","will"] },
+      { level: "C2", title: "Implied & Embedded Conditionals", desc: "Conditionals without explicit 'if' clause, contextually inferred", example: "A more experienced person would have known better.", tags: ["implied","pragmatic"] },
+      { level: "C2", title: "Subjunctive in formal contexts", desc: "Use of subjunctive mood in demands, suggestions, and formal clauses", example: "It is essential that he be present. I demanded that she leave.", tags: ["subjunctive","formal"] },
+    ]
+  },
+
+  // ==========================================
+  // 4. PASSIVE VOICE
+  // ==========================================
+  {
+    category: "Passive Voice",
+    icon: "🔄",
+    color: "#0d9488",
+    items: [
+      { level: "A2", title: "Present Simple Passive", desc: "Passive in present simple tense", example: "English is spoken here. Cars are made in Germany.", tags: ["present","basic"] },
+      { level: "A2", title: "Past Simple Passive", desc: "Passive in past simple tense", example: "The window was broken. The Mona Lisa was painted by Da Vinci.", tags: ["past","basic"] },
+      { level: "B1", title: "Present Perfect Passive", desc: "Passive with present perfect", example: "The report has been completed.", tags: ["perfect","result"] },
+      { level: "B1", title: "Future Passive (will)", desc: "Passive with will for future", example: "The bridge will be finished next year.", tags: ["future"] },
+      { level: "B1", title: "Modal Passive", desc: "Passive with modal verbs", example: "This form must be signed. The issue can be resolved.", tags: ["modal"] },
+      { level: "B2", title: "Past Perfect Passive", desc: "Passive with past perfect", example: "The package had been delivered before noon.", tags: ["past perfect"] },
+      { level: "B2", title: "Continuous Passive (progressive)", desc: "Passive in continuous/progressive tenses", example: "The road is being repaired. A new school was being built.", tags: ["continuous","progressive"] },
+      { level: "B2", title: "Have / Get something done (Causative)", desc: "Expressing arranging for someone else to do something", example: "I had my hair cut. She got her car repaired.", tags: ["causative","service"] },
+      { level: "B2", title: "It is said / believed / thought (Impersonal)", desc: "Impersonal passive structures for reporting", example: "It is believed that the earth is 4.5 billion years old.", tags: ["impersonal","reporting"] },
+      { level: "B2", title: "Subject + is said to + infinitive", desc: "Personal passive reporting structure", example: "He is said to be very wealthy.", tags: ["reporting","personal"] },
+      { level: "C1", title: "Passive of Reporting Verbs (all forms)", desc: "Full range: alleged, claimed, considered, expected, known, reported, thought, understood", example: "She is understood to have resigned. The suspect is alleged to have fled.", tags: ["reporting","formal"] },
+      { level: "C1", title: "Advanced Causative Variations", desc: "Have/get + object + past participle/infinitive in various contexts", example: "I'll have my assistant send the files. Don't get yourself arrested!", tags: ["causative","nuance"] },
+      { level: "C2", title: "Passive in Formal & Academic Register", desc: "Strategic use of passive for objectivity, impersonality, and information flow", example: "It has been demonstrated that... The results were subsequently analysed.", tags: ["academic","register"] },
+      { level: "C2", title: "Double Passive & Complex Passive Chains", desc: "Rare but formal constructions with nested passives", example: "The building is expected to have been completed by then.", tags: ["complex","formal"] },
+    ]
+  },
+
+  // ==========================================
+  // 5. REPORTED SPEECH
+  // ==========================================
+  {
+    category: "Reported Speech",
+    icon: "💬",
+    color: "#db2777",
+    items: [
+      { level: "A2", title: "Reported Speech (basic statements)", desc: "Reporting what someone said with say/tell + tense backshift", example: "'I'm tired' → She said she was tired.", tags: ["say","tell","backshift"] },
+      { level: "B1", title: "Reported Questions", desc: "Reporting yes/no and wh-questions", example: "'Where do you live?' → He asked me where I lived.", tags: ["questions","word order"] },
+      { level: "B1", title: "Reported Commands & Requests", desc: "Reporting orders and requests with tell/ask + to + infinitive", example: "'Sit down' → She told me to sit down.", tags: ["commands","infinitive"] },
+      { level: "B1", title: "Tense Backshift Rules", desc: "Full system of tense changes in reported speech", example: "present → past, will → would, past → past perfect", tags: ["backshift","rules"] },
+      { level: "B1", title: "Reported Speech: Time & Place Changes", desc: "Adapting time/place references in reporting", example: "today → that day, here → there, tomorrow → the following day", tags: ["reference","deictic"] },
+      { level: "B2", title: "Reporting Verbs (wide range)", desc: "admit, deny, suggest, recommend, warn, promise, refuse, offer, agree, threaten, insist, claim", example: "She denied stealing it. He suggested going out.", tags: ["verbs","patterns"] },
+      { level: "B2", title: "Reporting Verb Patterns", desc: "verb + -ing, verb + to + inf, verb + that, verb + obj + to + inf", example: "She admitted making a mistake. He offered to help.", tags: ["patterns","grammar"] },
+      { level: "C1", title: "Optional Backshift & No Backshift", desc: "When backshift is optional (still-true statements) or not needed", example: "'The earth is round' → He said the earth is round (no change needed).", tags: ["optional","nuance"] },
+      { level: "C1", title: "Reporting with Should/Subjunctive", desc: "Reporting verbs + should / subjunctive (suggest, recommend, insist, demand)", example: "She suggested that he (should) take a break.", tags: ["subjunctive","formal"] },
+      { level: "C2", title: "Sophisticated Reporting Strategies", desc: "Hedging, attribution, discourse management in academic/journalistic reporting", example: "According to sources, the minister is understood to have known.", tags: ["academic","journalism"] },
+    ]
+  },
+
+  // ==========================================
+  // 6. QUESTIONS & NEGATION
+  // ==========================================
+  {
+    category: "Questions & Negation",
+    icon: "❓",
+    color: "#dc2626",
+    items: [
+      { level: "A1", title: "Yes/No Questions (be & do)", desc: "Basic question formation with be, do, does", example: "Are you a teacher? Do you like pizza?", tags: ["basic","inversion"] },
+      { level: "A1", title: "Wh- Questions", desc: "Who, what, where, when, why, how, how much/many", example: "Where do you live? How much does it cost?", tags: ["information","wh-"] },
+      { level: "A1", title: "Basic Negation (don't/doesn't/isn't/aren't)", desc: "Making negative sentences in present tenses", example: "I don't speak French. She isn't here.", tags: ["negative","present"] },
+      { level: "A2", title: "Question Tags (basic)", desc: "Common question tags for confirmation", example: "You're coming, aren't you? She left, didn't she?", tags: ["tags","confirmation"] },
+      { level: "A2", title: "Negative Questions", desc: "Questions with negation for surprise, confirmation", example: "Don't you like it? Isn't she coming?", tags: ["negative","surprise"] },
+      { level: "B1", title: "Indirect / Embedded Questions", desc: "Questions within statements; polite question forms", example: "Could you tell me where the station is? I wonder if she's coming.", tags: ["indirect","polite"] },
+      { level: "B1", title: "Subject vs Object Questions", desc: "Distinguishing who/what as subject vs object", example: "Who called you? (object) vs Who called? (subject — no aux needed).", tags: ["subject","object"] },
+      { level: "B2", title: "Negative Adverbials + Inversion", desc: "Never, rarely, seldom, hardly, scarcely, no sooner + inverted word order", example: "Never have I seen such beauty. Rarely does she complain.", tags: ["inversion","formal"] },
+      { level: "B2", title: "Question Tags (advanced)", desc: "Tags with imperatives, modals, irregular patterns", example: "Let's go, shall we? Don't do that, will you?", tags: ["tags","advanced"] },
+      { level: "C1", title: "Rhetorical Questions", desc: "Questions not requiring an answer, used for emphasis", example: "Who knows? What difference does it make?", tags: ["rhetoric","emphasis"] },
+      { level: "C1", title: "Echo Questions & Reply Questions", desc: "Repeating all or part of a statement as a question to express surprise", example: "'I quit my job.' — 'You quit your job?!' / 'You did what?!'", tags: ["echo","surprise"] },
+      { level: "C2", title: "Complex Negative Scope & Double Negation", desc: "Understanding negation scope, litotes, and rhetorical double negation", example: "Not unreasonably, she decided to leave. It's not impossible.", tags: ["litotes","scope"] },
+    ]
+  },
+
+  // ==========================================
+  // 7. RELATIVE CLAUSES
+  // ==========================================
+  {
+    category: "Relative Clauses",
+    icon: "🔗",
+    color: "#ca8a04",
+    items: [
+      { level: "A2", title: "Defining Relative Clauses (who/which/that)", desc: "Essential information about a noun", example: "The woman who lives next door is a doctor.", tags: ["defining","essential"] },
+      { level: "A2", title: "Relative Pronoun: where", desc: "Relative clauses of place", example: "That's the restaurant where we had dinner.", tags: ["place"] },
+      { level: "B1", title: "Non-defining Relative Clauses", desc: "Extra information with commas; who/which but NOT that", example: "My brother, who lives in London, is a lawyer.", tags: ["non-defining","comma"] },
+      { level: "B1", title: "Omitting the Relative Pronoun", desc: "When who/which/that can be omitted (object position)", example: "The book (that) I bought is great.", tags: ["omission","object"] },
+      { level: "B1", title: "Whose / Where / When in Relatives", desc: "Possessive and adverbial relative pronouns", example: "The man whose car was stolen. The year when I graduated.", tags: ["whose","when"] },
+      { level: "B2", title: "Preposition + Relative Pronoun", desc: "Formal relative clauses with preposition fronting", example: "The person to whom I spoke. The topic about which we argued.", tags: ["preposition","formal"] },
+      { level: "B2", title: "Quantifier + of which/whom", desc: "Relative clauses with quantifiers", example: "I have two brothers, both of whom live abroad.", tags: ["quantifier","non-defining"] },
+      { level: "C1", title: "Reduced Relative Clauses (Participle)", desc: "Replacing relative clauses with present/past participles", example: "The man (who was) standing at the door. The letter (which was) written by her.", tags: ["participle","reduction"] },
+      { level: "C1", title: "Which referring to whole clause", desc: "Non-defining 'which' referring to an entire preceding clause", example: "He passed the exam, which surprised everyone.", tags: ["clause reference"] },
+      { level: "C1", title: "What as relative pronoun", desc: "'What' meaning 'the thing that'", example: "What I need is a holiday. Tell me what you think.", tags: ["nominal","what"] },
+      { level: "C2", title: "Complex & Nested Relative Clauses", desc: "Multiple embedded relatives in academic/literary prose", example: "The theory, which was proposed by a scientist who had studied the phenomenon that was first observed in 1990, proved correct.", tags: ["academic","complex"] },
+    ]
+  },
+
+  // ==========================================
+  // 8. ARTICLES & DETERMINERS
+  // ==========================================
+  {
+    category: "Articles & Determiners",
+    icon: "📌",
+    color: "#6366f1",
+    items: [
+      { level: "A1", title: "A / An (Indefinite Article)", desc: "First mention, one of many, jobs", example: "She's a teacher. I'd like an apple.", tags: ["indefinite","first mention"] },
+      { level: "A1", title: "The (Definite Article — basic)", desc: "Known/specific reference, unique things", example: "The sun is hot. Close the door.", tags: ["definite","specific"] },
+      { level: "A1", title: "This / That / These / Those", desc: "Demonstrative determiners for near/far reference", example: "This book is mine. Those shoes are expensive.", tags: ["demonstrative"] },
+      { level: "A1", title: "My / Your / His / Her / Its / Our / Their", desc: "Possessive adjectives/determiners", example: "That's my bag. Their house is big.", tags: ["possessive"] },
+      { level: "A2", title: "Some / Any", desc: "Some in affirmative, any in negative/questions (basic rules)", example: "I have some money. Do you have any questions?", tags: ["quantity"] },
+      { level: "A2", title: "No / None", desc: "Expressing zero quantity", example: "There's no milk. None of them came.", tags: ["zero","quantity"] },
+      { level: "B1", title: "Zero Article", desc: "When NOT to use articles: generalisations, uncountable nouns, institutions", example: "Life is beautiful. She goes to school. Water is essential.", tags: ["zero article","generalisation"] },
+      { level: "B1", title: "The with geographical names", desc: "Rules for the with rivers, oceans, countries, mountains, etc.", example: "The Thames, the USA, but Mount Everest, Lake Victoria.", tags: ["geography","rules"] },
+      { level: "B1", title: "Some / Any (advanced uses)", desc: "Some in offers/requests; any = 'it doesn't matter which'", example: "Would you like some tea? Any doctor will tell you.", tags: ["nuance"] },
+      { level: "B2", title: "Articles with Abstract & Uncountable Nouns", desc: "When abstract/uncountable nouns take 'the' or zero article", example: "The happiness I felt was overwhelming vs Happiness is important.", tags: ["abstract","specific vs general"] },
+      { level: "B2", title: "Articles in Fixed Expressions", desc: "Idiomatic uses: go to bed, go to the cinema, in the morning, at night, etc.", example: "He's in hospital (BrE) vs He's in the hospital (AmE).", tags: ["idiom","fixed"] },
+      { level: "C1", title: "Advanced Article Usage", desc: "Subtle article choices: generic the, institutional the, zero article for emphasis", example: "The tiger is an endangered species (generic). Television has changed the world.", tags: ["generic","subtle"] },
+      { level: "C1", title: "Each / Every / Either / Neither", desc: "Distributive determiners: subtle distinctions in meaning", example: "Each student received a book. Neither answer is correct.", tags: ["distributive"] },
+      { level: "C2", title: "Article Choice in Academic Register", desc: "Precise article use in formal, scientific, and literary contexts", example: "A review of the literature reveals...; The use of such methods...", tags: ["academic","precision"] },
+    ]
+  },
+
+  // ==========================================
+  // 9. NOUNS, PRONOUNS & POSSESSION
+  // ==========================================
+  {
+    category: "Nouns, Pronouns & Possession",
+    icon: "👤",
+    color: "#0891b2",
+    items: [
+      { level: "A1", title: "Singular & Plural Nouns", desc: "Regular (-s/-es) and common irregular plurals", example: "cats, boxes, children, people, teeth", tags: ["plural","regular","irregular"] },
+      { level: "A1", title: "Subject Pronouns", desc: "I, you, he, she, it, we, they", example: "She is a doctor. They live in Paris.", tags: ["subject"] },
+      { level: "A1", title: "Object Pronouns", desc: "me, you, him, her, it, us, them", example: "Give it to me. I saw them yesterday.", tags: ["object"] },
+      { level: "A1", title: "Possessive 's", desc: "Apostrophe-s for possession", example: "John's car. My mother's house.", tags: ["possessive","apostrophe"] },
+      { level: "A2", title: "Countable & Uncountable Nouns", desc: "Distinguishing countable from uncountable; much/many, a lot of", example: "How much water? How many books? A lot of information.", tags: ["countable","uncountable"] },
+      { level: "A2", title: "Possessive Pronouns", desc: "mine, yours, his, hers, ours, theirs", example: "This is mine. Is that book yours?", tags: ["possessive pronoun"] },
+      { level: "B1", title: "Reflexive Pronouns", desc: "myself, yourself, himself, herself, itself, ourselves, themselves", example: "I hurt myself. She taught herself French.", tags: ["reflexive"] },
+      { level: "B1", title: "Indefinite Pronouns", desc: "someone, anyone, everyone, no one, something, anything, etc.", example: "Someone called. Is there anything I can do?", tags: ["indefinite"] },
+      { level: "B1", title: "One / Ones (substitution)", desc: "Pronoun substitution to avoid repetition", example: "Which shirt? The blue one. I like the big ones.", tags: ["substitution"] },
+      { level: "B2", title: "Reciprocal Pronouns", desc: "each other / one another", example: "They love each other. We help one another.", tags: ["reciprocal"] },
+      { level: "B2", title: "Compound Nouns", desc: "Noun + noun combinations and stress patterns", example: "bus stop, water bottle, mother-in-law, passer-by", tags: ["compound","word formation"] },
+      { level: "B2", title: "It as dummy/empty subject", desc: "It for weather, time, distance, emphasis, extraposition", example: "It's raining. It's important to study. It seems that...", tags: ["dummy","extraposition"] },
+      { level: "C1", title: "There as dummy subject (advanced)", desc: "There + be in complex constructions", example: "There appears to have been a mistake. There remain several issues.", tags: ["existential","formal"] },
+      { level: "C1", title: "Generic Pronouns & Referencing", desc: "You/one/they for general reference; managing pronoun chains", example: "One must be careful. They say it's going to rain.", tags: ["generic","reference"] },
+      { level: "C2", title: "Nominalisation", desc: "Converting verbs/adjectives into noun forms for academic register", example: "investigate → investigation; develop → development; important → importance", tags: ["academic","word formation"] },
+    ]
+  },
+
+  // ==========================================
+  // 10. ADJECTIVES & ADVERBS
+  // ==========================================
+  {
+    category: "Adjectives & Adverbs",
+    icon: "🎨",
+    color: "#ea580c",
+    items: [
+      { level: "A1", title: "Basic Adjectives (position & agreement)", desc: "Adjectives before nouns and after be; no plural adjectives", example: "A big house. The houses are big.", tags: ["position","basic"] },
+      { level: "A1", title: "Adverbs of Frequency", desc: "always, usually, often, sometimes, rarely, never + position", example: "She always arrives early. I never eat meat.", tags: ["frequency","position"] },
+      { level: "A1", title: "Comparative Adjectives", desc: "-er / more + adjective for comparison", example: "She's taller than me. This is more expensive.", tags: ["comparison"] },
+      { level: "A1", title: "Superlative Adjectives", desc: "-est / most + adjective", example: "He's the tallest in the class. The most beautiful city.", tags: ["superlative"] },
+      { level: "A2", title: "Adverbs of Manner", desc: "How actions are done: quickly, slowly, carefully, well", example: "She speaks English fluently. He drives carefully.", tags: ["manner","-ly"] },
+      { level: "A2", title: "(Not) as ... as", desc: "Equal and unequal comparisons", example: "She's as tall as her sister. It's not as cold as yesterday.", tags: ["comparison","equality"] },
+      { level: "A2", title: "Too / Enough", desc: "Excess and sufficiency with adjectives/adverbs", example: "It's too hot. She's not old enough to drive.", tags: ["degree"] },
+      { level: "B1", title: "Adjective Order", desc: "Opinion-size-age-shape-colour-origin-material-purpose", example: "A beautiful small old round blue French wooden reading table.", tags: ["order","rules"] },
+      { level: "B1", title: "Adverbs of Degree", desc: "very, really, quite, fairly, rather, extremely, a bit", example: "It's quite good. She's extremely talented.", tags: ["degree","intensity"] },
+      { level: "B1", title: "Comparative & Superlative Adverbs", desc: "Forming comparatives/superlatives with adverbs", example: "She runs faster than me. He works the hardest.", tags: ["comparison","adverb"] },
+      { level: "B1", title: "-ed vs -ing Adjectives", desc: "Participial adjectives: bored/boring, interested/interesting", example: "I'm bored. The film is boring.", tags: ["participle","feeling"] },
+      { level: "B2", title: "Modifying Comparatives", desc: "a lot / far / much / slightly / a bit + comparative", example: "It's far more complicated. She's slightly taller.", tags: ["modifier","comparison"] },
+      { level: "B2", title: "The ... the ... (double comparative)", desc: "Parallel comparative structures", example: "The more I study, the more I learn.", tags: ["parallel","correlation"] },
+      { level: "B2", title: "Adverb Position & Focus", desc: "Front, mid, and end position adverbs for emphasis and focus", example: "Suddenly, the door opened. She quietly left the room.", tags: ["position","emphasis"] },
+      { level: "B2", title: "Gradable vs Non-gradable Adjectives", desc: "Distinguishing and using appropriate modifiers", example: "very hot (gradable) vs absolutely boiling (non-gradable).", tags: ["gradability","modifier"] },
+      { level: "C1", title: "Intensifiers & Downtoners", desc: "Sophisticated modification: utterly, thoroughly, somewhat, marginally", example: "I'm utterly exhausted. The results are somewhat disappointing.", tags: ["intensity","register"] },
+      { level: "C1", title: "Compound Adjectives", desc: "Hyphenated adjective compounds for precise description", example: "a well-known actor, a time-consuming task, a thought-provoking film", tags: ["compound","hyphen"] },
+      { level: "C1", title: "Adjectives after Nouns (postmodification)", desc: "When adjectives follow the noun in English", example: "something interesting, the people involved, the president elect", tags: ["postmodification"] },
+      { level: "C1", title: "Comment & Viewpoint Adverbs", desc: "Sentence adverbs expressing speaker attitude", example: "Fortunately, nobody was hurt. Surprisingly, she agreed.", tags: ["sentence adverb","attitude"] },
+      { level: "C2", title: "Evaluative & Stance Adjectives/Adverbs", desc: "Subtle evaluative language in academic/professional discourse", example: "It is arguably the most significant finding. Arguably, conceivably, purportedly.", tags: ["academic","stance"] },
+    ]
+  },
+
+  // ==========================================
+  // 11. PREPOSITIONS
+  // ==========================================
+  {
+    category: "Prepositions",
+    icon: "📍",
+    color: "#4f46e5",
+    items: [
+      { level: "A1", title: "Prepositions of Place (basic)", desc: "in, on, at, under, next to, between, behind, in front of", example: "The book is on the table. She lives in London.", tags: ["place","location"] },
+      { level: "A1", title: "Prepositions of Time (basic)", desc: "in (months/years), on (days/dates), at (times)", example: "at 3 o'clock, on Monday, in January, in 2024", tags: ["time"] },
+      { level: "A2", title: "Prepositions of Movement", desc: "to, from, into, out of, through, across, along, towards, past", example: "She walked across the bridge. He ran towards the car.", tags: ["movement","direction"] },
+      { level: "A2", title: "Prepositions of Time (extended)", desc: "for, since, during, before, after, until, by", example: "I've lived here for 5 years, since 2019. We'll finish by Friday.", tags: ["time","duration"] },
+      { level: "B1", title: "Prepositions after Adjectives", desc: "Common adjective + preposition combinations", example: "afraid of, interested in, good at, responsible for, different from", tags: ["collocation","adjective"] },
+      { level: "B1", title: "Prepositions after Verbs", desc: "Common verb + preposition combinations", example: "depend on, believe in, listen to, look for, think about", tags: ["collocation","verb"] },
+      { level: "B1", title: "Prepositions after Nouns", desc: "Common noun + preposition combinations", example: "reason for, advantage of, solution to, effect on", tags: ["collocation","noun"] },
+      { level: "B2", title: "Complex Prepositions", desc: "Multi-word prepositions", example: "in spite of, according to, due to, in addition to, as a result of", tags: ["complex","multi-word"] },
+      { level: "B2", title: "Prepositional Phrases for Cohesion", desc: "Linking ideas with prepositional phrases", example: "In terms of, with regard to, in relation to, on behalf of", tags: ["cohesion","linking"] },
+      { level: "C1", title: "Preposition Stranding vs Fronting", desc: "Who did you talk to? vs To whom did you speak?", example: "The topic she spoke about (informal) vs The topic about which she spoke (formal).", tags: ["register","formal"] },
+      { level: "C1", title: "Abstract/Metaphorical Prepositions", desc: "Prepositions in abstract/metaphorical contexts", example: "under pressure, beyond doubt, within reach, above suspicion", tags: ["metaphor","abstract"] },
+      { level: "C2", title: "Preposition Nuance in Academic Writing", desc: "Precise preposition selection in formal contexts", example: "research into (not on), insight into, contribute to, consist of vs comprise", tags: ["academic","precision"] },
+    ]
+  },
+
+  // ==========================================
+  // 12. CONJUNCTIONS & CONNECTORS
+  // ==========================================
+  {
+    category: "Conjunctions & Connectors",
+    icon: "🔗",
+    color: "#16a34a",
+    items: [
+      { level: "A1", title: "And / But / Or / So / Because", desc: "Basic coordinating and subordinating conjunctions", example: "I like tea and coffee. She's tired but happy. I left because it was late.", tags: ["basic","coordination"] },
+      { level: "A2", title: "When / While / Before / After", desc: "Time conjunctions for sequencing", example: "When I arrived, she was cooking. After lunch, we went out.", tags: ["time","sequence"] },
+      { level: "A2", title: "Although / However / But", desc: "Basic contrast connectors", example: "Although it rained, we had fun. It rained. However, we had fun.", tags: ["contrast"] },
+      { level: "B1", title: "In addition / Moreover / Furthermore", desc: "Adding information connectors", example: "The hotel was cheap. Moreover, it was centrally located.", tags: ["addition","formal"] },
+      { level: "B1", title: "Therefore / Consequently / As a result", desc: "Result and consequence connectors", example: "He didn't study. Therefore, he failed the exam.", tags: ["result","cause"] },
+      { level: "B1", title: "Despite / In spite of", desc: "Concession with -ing or noun", example: "Despite being tired, she went to work. In spite of the rain, we played.", tags: ["concession"] },
+      { level: "B1", title: "So that / In order to / To (purpose)", desc: "Expressing purpose", example: "I studied hard so that I could pass. I came to help.", tags: ["purpose"] },
+      { level: "B2", title: "Whereas / While (contrast)", desc: "Formal contrast within a sentence", example: "She likes jazz, whereas I prefer rock. While I agree, I have concerns.", tags: ["formal","contrast"] },
+      { level: "B2", title: "Nevertheless / Nonetheless / Even so", desc: "Stronger concession connectors", example: "It was risky. Nevertheless, we decided to proceed.", tags: ["concession","formal"] },
+      { level: "B2", title: "Provided (that) / As long as / On condition that", desc: "Conditional connectors", example: "You can go provided that you finish first.", tags: ["condition"] },
+      { level: "B2", title: "Not only ... but also / Both ... and / Either ... or / Neither ... nor", desc: "Correlative conjunctions", example: "Not only is she smart, but she's also kind.", tags: ["correlative","emphasis"] },
+      { level: "C1", title: "Notwithstanding / Inasmuch as / Insofar as", desc: "Formal and legal connectors", example: "Notwithstanding the risks, the project was approved.", tags: ["formal","legal"] },
+      { level: "C1", title: "Discourse Markers", desc: "well, right, so, anyway, actually, basically, I mean, you know", example: "Well, the thing is... Anyway, as I was saying...", tags: ["spoken","discourse"] },
+      { level: "C1", title: "Hedging & Qualifying Connectors", desc: "to some extent, up to a point, in a sense, broadly speaking", example: "In a sense, you're right. To some extent, this is true.", tags: ["hedge","academic"] },
+      { level: "C2", title: "Sophisticated Cohesive Devices", desc: "Complex text-level connectors for elegant prose", example: "Be that as it may, the evidence suggests otherwise. That said, there are caveats.", tags: ["rhetoric","literary"] },
+    ]
+  },
+
+  // ==========================================
+  // 13. GERUNDS & INFINITIVES
+  // ==========================================
+  {
+    category: "Gerunds & Infinitives",
+    icon: "⚙️",
+    color: "#9333ea",
+    items: [
+      { level: "A1", title: "Verb + to + infinitive (basic)", desc: "Common verbs followed by to + infinitive", example: "I want to go. She needs to study. They decided to leave.", tags: ["infinitive","basic"] },
+      { level: "A1", title: "Verb + -ing (basic)", desc: "Common verbs followed by -ing form", example: "I enjoy swimming. She likes reading.", tags: ["gerund","basic"] },
+      { level: "A2", title: "Like / Love / Hate / Prefer + -ing or to", desc: "Verbs that accept both forms (with subtle differences)", example: "I like swimming / I like to swim.", tags: ["both forms"] },
+      { level: "B1", title: "Verb + -ing vs Verb + to (different meaning)", desc: "Verbs where the form changes meaning: stop, remember, try, forget, regret", example: "I stopped smoking (quit) vs I stopped to smoke (paused in order to).", tags: ["meaning change","contrast"] },
+      { level: "B1", title: "Verb + object + to + infinitive", desc: "Patterns like: ask/tell/want/expect someone to do", example: "She asked me to help. I want you to come.", tags: ["object","infinitive"] },
+      { level: "B1", title: "Adjective + to + infinitive", desc: "It's + adj + to + inf; subject + be + adj + to + inf", example: "It's easy to understand. She was happy to help.", tags: ["adjective","infinitive"] },
+      { level: "B1", title: "Preposition + -ing", desc: "Gerund after prepositions", example: "I'm interested in learning. She's good at cooking. Before leaving...", tags: ["preposition","gerund"] },
+      { level: "B2", title: "Complex Gerund & Infinitive Patterns", desc: "Advanced patterns: admit, avoid, deny, consider, involve, suggest + -ing", example: "He denied taking the money. The job involves travelling a lot.", tags: ["advanced","patterns"] },
+      { level: "B2", title: "Perfect Infinitive & Perfect Gerund", desc: "to have done / having done for past reference", example: "She seems to have left. Having finished the work, he went home.", tags: ["perfect","past reference"] },
+      { level: "B2", title: "Passive Infinitive & Passive Gerund", desc: "to be done / being done", example: "I want to be told the truth. She hates being watched.", tags: ["passive"] },
+      { level: "C1", title: "Verbs + bare infinitive", desc: "Make, let, help, had better, would rather + base form", example: "She made me laugh. I'd rather stay home. Let me help.", tags: ["bare infinitive"] },
+      { level: "C1", title: "Subject Position Gerunds & Infinitives", desc: "Gerund/infinitive as subject of sentence", example: "Swimming is good exercise. To err is human.", tags: ["subject","formal"] },
+      { level: "C2", title: "Nuanced Gerund/Infinitive Selection", desc: "Pragmatic and stylistic choice between gerund and infinitive in advanced contexts", example: "Distinguishing habitual (gerund) vs specific occasion (infinitive) nuances.", tags: ["pragmatics","style"] },
+    ]
+  },
+
+  // ==========================================
+  // 14. QUANTIFIERS & DETERMINERS
+  // ==========================================
+  {
+    category: "Quantifiers & Determiners",
+    icon: "📊",
+    color: "#0284c7",
+    items: [
+      { level: "A1", title: "A lot of / Lots of", desc: "Large quantity with countable and uncountable", example: "There are a lot of people. She has lots of money.", tags: ["quantity","basic"] },
+      { level: "A1", title: "Much / Many", desc: "Questions and negatives: much (uncountable), many (countable)", example: "How much time? How many books? Not much water.", tags: ["countable","uncountable"] },
+      { level: "A2", title: "A few / A little", desc: "Small positive quantities", example: "I have a few friends here. There's a little milk left.", tags: ["positive","small quantity"] },
+      { level: "A2", title: "Few / Little (without 'a')", desc: "Small quantity with negative emphasis", example: "Few people came (= not many, disappointing). Little progress was made.", tags: ["negative","emphasis"] },
+      { level: "B1", title: "All / Most / Some / Any / No", desc: "Quantifiers across the spectrum", example: "All students passed. Most people agree. No one came.", tags: ["spectrum","general"] },
+      { level: "B1", title: "Both / Either / Neither", desc: "Quantifiers for two items", example: "Both answers are correct. Neither option is ideal.", tags: ["two","choice"] },
+      { level: "B1", title: "Every / Each", desc: "Referring to all members individually", example: "Every student has a book. Each room has a bathroom.", tags: ["individual","universal"] },
+      { level: "B2", title: "Plenty of / A great deal of / A number of", desc: "Formal and varied quantity expressions", example: "Plenty of time. A great deal of research. A number of factors.", tags: ["formal","variety"] },
+      { level: "B2", title: "Whole / Entire / All of", desc: "Emphasising completeness", example: "The whole team agreed. The entire building was evacuated.", tags: ["completeness","emphasis"] },
+      { level: "C1", title: "Hardly any / Scarcely any / Barely any", desc: "Near-zero quantities with formal/emphatic tone", example: "Hardly any seats were left. There's scarcely any evidence.", tags: ["near-zero","formal"] },
+      { level: "C1", title: "Such / So + quantifier patterns", desc: "Emphasis structures with quantifiers", example: "So few people came that we cancelled. Such a lot of work!", tags: ["emphasis","pattern"] },
+      { level: "C2", title: "Partitive & Complex Quantification", desc: "A proportion of, the bulk of, a fraction of, the overwhelming majority of", example: "The bulk of the evidence suggests... A mere fraction of respondents...", tags: ["academic","precise"] },
+    ]
+  },
+
+  // ==========================================
+  // 15. SENTENCE STRUCTURE & CLAUSE TYPES
+  // ==========================================
+  {
+    category: "Sentence Structure & Clause Types",
+    icon: "🏗️",
+    color: "#b45309",
+    items: [
+      { level: "A1", title: "Simple Sentences (SVO)", desc: "Subject + Verb + Object word order", example: "I like music. She reads books.", tags: ["basic","word order"] },
+      { level: "A1", title: "There is / There are", desc: "Existential sentences for describing what exists", example: "There is a book on the table. There are many parks in this city.", tags: ["existential","description"] },
+      { level: "A2", title: "Compound Sentences", desc: "Two main clauses joined by and, but, or, so", example: "I was tired, so I went to bed.", tags: ["compound","coordination"] },
+      { level: "B1", title: "Complex Sentences", desc: "Main clause + subordinate clause (because, although, when, if)", example: "Although she was tired, she continued working.", tags: ["complex","subordination"] },
+      { level: "B1", title: "Time Clauses", desc: "when, while, as, before, after, until, as soon as, once", example: "As soon as I arrive, I'll call you.", tags: ["time","subordination"] },
+      { level: "B1", title: "Reason & Result Clauses", desc: "because, since, as, so ... that, such ... that", example: "Since it was late, we decided to leave. She was so tired that she fell asleep.", tags: ["reason","result"] },
+      { level: "B2", title: "Cleft Sentences (It is/was ... that/who)", desc: "Splitting a sentence for emphasis", example: "It was John who broke the window. It's the noise that bothers me.", tags: ["cleft","emphasis"] },
+      { level: "B2", title: "What-cleft (Pseudo-cleft)", desc: "What ... is/was for emphasis on a particular element", example: "What I need is a holiday. What happened was that the train was late.", tags: ["pseudo-cleft","emphasis"] },
+      { level: "B2", title: "Participle Clauses", desc: "Using present/past participles to shorten clauses", example: "Walking home, I saw a fox. Written in 1905, the book is still popular.", tags: ["participle","reduction"] },
+      { level: "C1", title: "Fronting / Preposing", desc: "Moving elements to the front of the sentence for emphasis/contrast", example: "This I cannot accept. Into the room walked a tall man.", tags: ["fronting","emphasis"] },
+      { level: "C1", title: "Inversion for Emphasis", desc: "Subject-auxiliary inversion after negative/restrictive adverbials", example: "Not until then did I realise. Only after the meeting did she understand.", tags: ["inversion","formal"] },
+      { level: "C1", title: "Extraposition", desc: "Moving heavy subjects/objects to the end", example: "It seems unlikely that they'll agree (vs 'That they'll agree seems unlikely').", tags: ["extraposition","weight"] },
+      { level: "C1", title: "Ellipsis & Substitution", desc: "Omitting repeated words; using so/do/one as substitutes", example: "I can swim and she can too. 'Is it raining?' 'I think so.'", tags: ["ellipsis","economy"] },
+      { level: "C2", title: "Garden Path & Complex Embedding", desc: "Managing reader expectations in complex sentence structures", example: "The horse raced past the barn fell. (garden path — reduced relative clause)", tags: ["complexity","parsing"] },
+      { level: "C2", title: "Information Structure (Theme-Rheme)", desc: "Controlling information flow through sentence position choices", example: "Moving known information to the front and new information to the end for clarity.", tags: ["information","discourse"] },
+    ]
+  },
+
+  // ==========================================
+  // 16. WORD FORMATION
+  // ==========================================
+  {
+    category: "Word Formation",
+    icon: "🔤",
+    color: "#dc2626",
+    items: [
+      { level: "A2", title: "Basic Prefixes (un-, re-)", desc: "Common prefixes that change meaning", example: "happy → unhappy, do → redo, lucky → unlucky", tags: ["prefix","basic"] },
+      { level: "A2", title: "Basic Suffixes (-er, -ly, -ful, -tion)", desc: "Common suffixes for changing word class", example: "teach → teacher, quick → quickly, use → useful, educate → education", tags: ["suffix","basic"] },
+      { level: "B1", title: "Noun Suffixes (-ment, -ness, -ity, -ance/-ence)", desc: "Converting adjectives/verbs to nouns", example: "happy → happiness, develop → development, important → importance", tags: ["nominalisation","suffix"] },
+      { level: "B1", title: "Adjective Suffixes (-able, -ous, -ive, -al)", desc: "Converting nouns/verbs to adjectives", example: "comfort → comfortable, danger → dangerous, create → creative", tags: ["adjective","suffix"] },
+      { level: "B1", title: "Negative Prefixes (dis-, im-/in-/ir-/il-, mis-)", desc: "Full range of negative prefixes", example: "agree → disagree, possible → impossible, legal → illegal, understand → misunderstand", tags: ["negative","prefix"] },
+      { level: "B2", title: "Advanced Prefixes (over-, under-, pre-, post-, multi-, anti-)", desc: "Extended prefix range for nuanced meaning", example: "overwork, underestimate, prehistoric, postwar, multicultural, antisocial", tags: ["prefix","advanced"] },
+      { level: "B2", title: "Verb Formation (-ise/-ize, -ify, -en)", desc: "Suffixes that create verbs", example: "modern → modernise, simple → simplify, wide → widen", tags: ["verb","suffix"] },
+      { level: "C1", title: "Nominalisation for Academic Writing", desc: "Systematic noun formation for formal register", example: "We analysed → Our analysis of...; They responded → Their response to...", tags: ["academic","formal"] },
+      { level: "C1", title: "Derivation Chains", desc: "Multiple derivations from a single root", example: "employ → employer → employment → employable → unemployment", tags: ["derivation","chain"] },
+      { level: "C2", title: "Productive Morphology & Neologisms", desc: "Understanding and creating new words through established patterns", example: "un-google-able, post-truth, micro-dose, de-platform", tags: ["productive","creative"] },
+    ]
+  },
+
+  // ==========================================
+  // 17. PHRASAL VERBS
+  // ==========================================
+  {
+    category: "Phrasal Verbs",
+    icon: "🚀",
+    color: "#be123c",
+    items: [
+      { level: "A2", title: "Common Inseparable Phrasal Verbs", desc: "Verb + particle (cannot be separated)", example: "look after, get up, look for, come back, go out", tags: ["inseparable","basic"] },
+      { level: "A2", title: "Common Separable Phrasal Verbs", desc: "Verb + particle (can be separated by object)", example: "turn on/off, pick up, put on, take off, give back", tags: ["separable","basic"] },
+      { level: "B1", title: "Phrasal Verbs: Expanded Set", desc: "Wider range of common phrasal verbs", example: "bring up, carry on, deal with, figure out, give up, look forward to, put off, set up, take over, work out", tags: ["intermediate","common"] },
+      { level: "B1", title: "Three-word Phrasal Verbs", desc: "Verb + adverb + preposition combinations", example: "look forward to, put up with, come up with, get on with, run out of", tags: ["three-word"] },
+      { level: "B2", title: "Phrasal Verbs: Business & Academic", desc: "Phrasal verbs common in professional contexts", example: "draw up (a plan), carry out (research), break down (analyse), lay off (dismiss), roll out (launch)", tags: ["business","academic"] },
+      { level: "B2", title: "Phrasal Verbs with Multiple Meanings", desc: "Understanding polysemous phrasal verbs", example: "take off (1: remove clothes 2: plane departs 3: become popular 4: imitate someone)", tags: ["polysemy","meaning"] },
+      { level: "C1", title: "Formal Equivalents of Phrasal Verbs", desc: "Single-word Latinate alternatives for formal register", example: "find out → discover, put off → postpone, bring about → cause, turn down → reject", tags: ["formal","register"] },
+      { level: "C1", title: "Idiomatic Phrasal Verbs", desc: "Less transparent, highly idiomatic combinations", example: "come across (seem), own up (confess), pull through (recover), see through (not be deceived by)", tags: ["idiomatic","advanced"] },
+      { level: "C2", title: "Phrasal Verb Nominalisation", desc: "Using phrasal verbs as nouns and adjectives", example: "a breakthrough, the takeoff, a setback, the outcome, a rundown, a grown-up", tags: ["nominalisation","word class"] },
+    ]
+  },
+
+  // ==========================================
+  // 18. PUNCTUATION & SPELLING CONVENTIONS
+  // ==========================================
+  {
+    category: "Punctuation & Written Conventions",
+    icon: "✏️",
+    color: "#64748b",
+    items: [
+      { level: "A1", title: "Capital Letters & Full Stops", desc: "Sentence beginnings, proper nouns, end punctuation", example: "My name is Anna. She lives in Paris.", tags: ["basic","capital"] },
+      { level: "A1", title: "Question Marks & Exclamation Marks", desc: "Punctuating questions and exclamations", example: "Where are you? That's amazing!", tags: ["punctuation","basic"] },
+      { level: "A2", title: "Apostrophes (possession & contraction)", desc: "Apostrophe for possession and contractions", example: "John's book. I'm, don't, she's, it's vs its", tags: ["apostrophe","possession"] },
+      { level: "B1", title: "Commas (lists, clauses, introductory)", desc: "Using commas for clarity in complex sentences", example: "After dinner, we went out. She bought milk, bread, and eggs.", tags: ["comma","clarity"] },
+      { level: "B2", title: "Colons & Semicolons", desc: "Using colons to introduce and semicolons to connect related clauses", example: "There was one problem: money. She was tired; however, she continued.", tags: ["semicolon","colon"] },
+      { level: "B2", title: "Reported Speech Punctuation", desc: "Punctuating direct and indirect speech correctly", example: "'I'm leaving,' she said. She said that she was leaving.", tags: ["speech","quotation"] },
+      { level: "C1", title: "Dashes, Parentheses & Advanced Punctuation", desc: "Em-dashes, en-dashes, brackets for asides and parenthetical info", example: "The result — quite surprising — was a success.", tags: ["dash","parenthetical"] },
+      { level: "C2", title: "Punctuation for Rhetorical Effect", desc: "Strategic use of punctuation for pacing, emphasis, and style", example: "Short sentence. Impact. Then — a longer one that builds the suspense.", tags: ["rhetoric","style"] },
+    ]
+  },
+
+  // ==========================================
+  // 19. STYLE, REGISTER & DISCOURSE
+  // ==========================================
+  {
+    category: "Style, Register & Discourse",
+    icon: "🎭",
+    color: "#7c3aed",
+    items: [
+      { level: "B1", title: "Formal vs Informal Register (intro)", desc: "Recognising differences between formal and casual language", example: "Could you possibly → Can you; I would like to → I want to; Furthermore → Also", tags: ["register","basic"] },
+      { level: "B2", title: "Linking & Cohesion Across Paragraphs", desc: "Using reference, substitution, and connectors for text flow", example: "This approach... Such findings... The former... The latter...", tags: ["cohesion","text"] },
+      { level: "B2", title: "Written vs Spoken Grammar", desc: "Understanding grammatical differences between writing and speech", example: "Written: 'The aforementioned' / Spoken: 'that thing I said before'", tags: ["modality","contrast"] },
+      { level: "C1", title: "Hedging & Vague Language", desc: "Softening claims and using deliberately imprecise language", example: "It seems that... It could be argued that... sort of, kind of, roughly", tags: ["hedge","academic"] },
+      { level: "C1", title: "Formal Written Style (academic)", desc: "Impersonal constructions, nominalisation, passive for objectivity", example: "It can be observed that... This analysis demonstrates...", tags: ["academic","formal"] },
+      { level: "C1", title: "Emphasis & Focus Techniques", desc: "Cleft, inversion, fronting, do-emphasis combined for effect", example: "What matters is the result. Never have I seen such courage. I DO understand.", tags: ["emphasis","rhetoric"] },
+      { level: "C2", title: "Pragmatic Competence", desc: "Implicature, indirectness, irony, understatement as grammatical choice", example: "'That's one way to put it' (understatement/irony)", tags: ["pragmatics","implicature"] },
+      { level: "C2", title: "Register Shifting", desc: "Deliberately moving between registers for effect", example: "The empirical data strongly suggests — basically, it works.", tags: ["register","style"] },
+      { level: "C2", title: "Textual Coherence & Macro-structure", desc: "Organising ideas at the text/discourse level through grammar", example: "Topic sentences, thematic progression, given-new contract, paragraph cohesion.", tags: ["discourse","structure"] },
+    ]
+  }
+];
+
+// ============================================================
+// LESSON MAP — links grammar points to actual lesson files
+// ============================================================
+const lessonMap = {
+  // === C2 LESSONS ===
+  "Pragmatic Competence": "grammar_c2_01_register_style_shifting.html",
+  "Register Shifting": "grammar_c2_01_register_style_shifting.html",
+  "Punctuation for Rhetorical Effect": "grammar_c2_01_register_style_shifting.html",
+  "Subtle Tense-Aspect Interaction": "grammar_c2_02_tense_aspect_for_effect.html",
+  "Historical Present & Dramatic Narrative": "grammar_c2_02_tense_aspect_for_effect.html",
+  "Modal Stacking & Complex Modality": "grammar_c2_03_complex_modality.html",
+  "Epistemic vs Deontic Modality": "grammar_c2_03_complex_modality.html",
+  "If + will/would (politeness & willingness)": "grammar_c2_04_subjunctive_formal_conditionals.html",
+  "Implied & Embedded Conditionals": "grammar_c2_04_subjunctive_formal_conditionals.html",
+  "Subjunctive in formal contexts": "grammar_c2_04_subjunctive_formal_conditionals.html",
+  "Passive in Formal & Academic Register": "grammar_c2_05_advanced_passive_reporting.html",
+  "Double Passive & Complex Passive Chains": "grammar_c2_05_advanced_passive_reporting.html",
+  "Sophisticated Reporting Strategies": "grammar_c2_05_advanced_passive_reporting.html",
+  "Complex & Nested Relative Clauses": "grammar_c2_06_complex_sentence_architecture.html",
+  "Garden Path & Complex Embedding": "grammar_c2_06_complex_sentence_architecture.html",
+  "Information Structure (Theme-Rheme)": "grammar_c2_06_complex_sentence_architecture.html",
+  "Article Choice in Academic Register": "grammar_c2_07_academic_precision.html",
+  "Preposition Nuance in Academic Writing": "grammar_c2_07_academic_precision.html",
+  "Partitive & Complex Quantification": "grammar_c2_07_academic_precision.html",
+  "Nominalisation": "grammar_c2_08_word_level_mastery.html",
+  "Productive Morphology & Neologisms": "grammar_c2_08_word_level_mastery.html",
+  "Phrasal Verb Nominalisation": "grammar_c2_08_word_level_mastery.html",
+  "Complex Negative Scope & Double Negation": "grammar_c2_09_negation_cohesion_discourse.html",
+  "Sophisticated Cohesive Devices": "grammar_c2_09_negation_cohesion_discourse.html",
+  "Textual Coherence & Macro-structure": "grammar_c2_09_negation_cohesion_discourse.html",
+  "Evaluative & Stance Adjectives/Adverbs": "grammar_c2_10_evaluative_language.html",
+  "Nuanced Gerund/Infinitive Selection": "grammar_c2_10_evaluative_language.html",
+
+  // === C1 LESSONS ===
+  "Future in the Past": "grammar_c1_01_future_in_past.html",
+  "Be to + infinitive": "grammar_c1_01_future_in_past.html",
+  "Advanced Aspect Distinctions": "grammar_c1_02_advanced_aspect.html",
+  "Would (habitual past & hypothetical)": "grammar_c1_02_advanced_aspect.html",
+  "Dare (modal usage)": "grammar_c1_03_advanced_modals.html",
+  "Shall (formal/legal)": "grammar_c1_03_advanced_modals.html",
+  "Be supposed to / Be bound to / Be due to": "grammar_c1_03_advanced_modals.html",
+  "Inverted Conditionals": "grammar_c1_04_inverted_formal_conditionals.html",
+  "But for / Were it not for": "grammar_c1_04_inverted_formal_conditionals.html",
+  "Suppose / Supposing / What if": "grammar_c1_04_inverted_formal_conditionals.html",
+  "It's (high) time + past subjunctive": "grammar_c1_04_inverted_formal_conditionals.html",
+  "Passive of Reporting Verbs (all forms)": "grammar_c1_05_passive_reporting_causative.html",
+  "Advanced Causative Variations": "grammar_c1_05_passive_reporting_causative.html",
+  "Optional Backshift & No Backshift": "grammar_c1_06_reported_speech_nuance.html",
+  "Reporting with Should/Subjunctive": "grammar_c1_06_reported_speech_nuance.html",
+  "Rhetorical Questions": "grammar_c1_07_questions_for_effect.html",
+  "Echo Questions & Reply Questions": "grammar_c1_07_questions_for_effect.html",
+  "Reduced Relative Clauses (Participle)": "grammar_c1_08_advanced_relative_clauses.html",
+  "Which referring to whole clause": "grammar_c1_08_advanced_relative_clauses.html",
+  "What as relative pronoun": "grammar_c1_08_advanced_relative_clauses.html",
+  "Advanced Article Usage": "grammar_c1_09_advanced_articles_determiners.html",
+  "Each / Every / Either / Neither": "grammar_c1_09_advanced_articles_determiners.html",
+  "There as dummy subject (advanced)": "grammar_c1_10_advanced_pronouns_reference.html",
+  "Generic Pronouns & Referencing": "grammar_c1_10_advanced_pronouns_reference.html",
+  "Intensifiers & Downtoners": "grammar_c1_11_sophisticated_modification.html",
+  "Compound Adjectives": "grammar_c1_11_sophisticated_modification.html",
+  "Adjectives after Nouns (postmodification)": "grammar_c1_11_sophisticated_modification.html",
+  "Comment & Viewpoint Adverbs": "grammar_c1_11_sophisticated_modification.html",
+  "Preposition Stranding vs Fronting": "grammar_c1_12_prepositions_abstract.html",
+  "Abstract/Metaphorical Prepositions": "grammar_c1_12_prepositions_abstract.html",
+  "Notwithstanding / Inasmuch as / Insofar as": "grammar_c1_13_discourse_hedging.html",
+  "Discourse Markers": "grammar_c1_13_discourse_hedging.html",
+  "Hedging & Qualifying Connectors": "grammar_c1_13_discourse_hedging.html",
+  "Fronting / Preposing": "grammar_c1_14_sentence_architecture.html",
+  "Inversion for Emphasis": "grammar_c1_14_sentence_architecture.html",
+  "Extraposition": "grammar_c1_14_sentence_architecture.html",
+  "Ellipsis & Substitution": "grammar_c1_14_sentence_architecture.html",
+  "Verbs + bare infinitive": "grammar_c1_15_gerunds_infinitives_phrasal.html",
+  "Subject Position Gerunds & Infinitives": "grammar_c1_15_gerunds_infinitives_phrasal.html",
+  "Formal Equivalents of Phrasal Verbs": "grammar_c1_15_gerunds_infinitives_phrasal.html",
+  "Idiomatic Phrasal Verbs": "grammar_c1_15_gerunds_infinitives_phrasal.html",
+  "Formal Written Style (academic)": "grammar_c1_16_formal_style_word_formation.html",
+  "Hedging & Vague Language": "grammar_c1_16_formal_style_word_formation.html",
+  "Nominalisation for Academic Writing": "grammar_c1_16_formal_style_word_formation.html",
+  "Derivation Chains": "grammar_c1_16_formal_style_word_formation.html",
+  "Emphasis & Focus Techniques": "grammar_c1_16_formal_style_word_formation.html",
+  "Dashes, Parentheses & Advanced Punctuation": "grammar_c1_16_formal_style_word_formation.html",
+
+  // === B2 LESSONS ===
+  "Past Perfect Continuous": "grammar_b2_01_past_perfect_continuous_narrative.html",
+  "Narrative Tenses (combined)": "grammar_b2_01_past_perfect_continuous_narrative.html",
+  "Future Continuous": "grammar_b2_02_future_tenses_advanced.html",
+  "Future Perfect Simple": "grammar_b2_02_future_tenses_advanced.html",
+  "Future Perfect Continuous": "grammar_b2_02_future_tenses_advanced.html",
+  "Modal Verbs of Deduction (present)": "grammar_b2_03_modal_deduction.html",
+  "Modal Verbs of Deduction (past)": "grammar_b2_03_modal_deduction.html",
+  "Need (modal vs semi-modal)": "grammar_b2_04_need_modals.html",
+  "Needn't have vs Didn't need to": "grammar_b2_04_need_modals.html",
+  "Third Conditional": "grammar_b2_05_third_mixed_conditionals.html",
+  "Mixed Conditionals": "grammar_b2_05_third_mixed_conditionals.html",
+  "I wish / If only (present & past)": "grammar_b2_05_third_mixed_conditionals.html",
+  "Past Perfect Passive": "grammar_b2_06_advanced_passive.html",
+  "Continuous Passive (progressive)": "grammar_b2_06_advanced_passive.html",
+  "Have / Get something done (Causative)": "grammar_b2_06_advanced_passive.html",
+  "It is said / believed / thought (Impersonal)": "grammar_b2_07_impersonal_reporting_passive.html",
+  "Subject + is said to + infinitive": "grammar_b2_07_impersonal_reporting_passive.html",
+  "Reporting Verbs (wide range)": "grammar_b2_08_reporting_verbs_patterns.html",
+  "Reporting Verb Patterns": "grammar_b2_08_reporting_verbs_patterns.html",
+  "Negative Adverbials + Inversion": "grammar_b2_09_negative_adverbials_inversion.html",
+  "Question Tags (advanced)": "grammar_b2_09_negative_adverbials_inversion.html",
+  "Preposition + Relative Pronoun": "grammar_b2_10_advanced_relative_clauses.html",
+  "Quantifier + of which/whom": "grammar_b2_10_advanced_relative_clauses.html",
+  "Cleft Sentences (It is/was ... that/who)": "grammar_b2_11_cleft_sentences_emphasis.html",
+  "What-cleft (Pseudo-cleft)": "grammar_b2_11_cleft_sentences_emphasis.html",
+  "Participle Clauses": "grammar_b2_11_cleft_sentences_emphasis.html",
+  "Articles with Abstract & Uncountable Nouns": "grammar_b2_12_articles_in_depth.html",
+  "Articles in Fixed Expressions": "grammar_b2_12_articles_in_depth.html",
+  "Modifying Comparatives": "grammar_b2_13_advanced_adjective_adverb.html",
+  "The ... the ... (double comparative)": "grammar_b2_13_advanced_adjective_adverb.html",
+  "Adverb Position & Focus": "grammar_b2_13_advanced_adjective_adverb.html",
+  "Gradable vs Non-gradable Adjectives": "grammar_b2_13_advanced_adjective_adverb.html",
+  "Complex Prepositions": "grammar_b2_14_complex_prepositions_cohesion.html",
+  "Prepositional Phrases for Cohesion": "grammar_b2_14_complex_prepositions_cohesion.html",
+  "Not only ... but also / Both ... and / Either ... or / Neither ... nor": "grammar_b2_15_correlative_conjunctions_concession.html",
+  "Whereas / While (contrast)": "grammar_b2_15_correlative_conjunctions_concession.html",
+  "Nevertheless / Nonetheless / Even so": "grammar_b2_15_correlative_conjunctions_concession.html",
+  "Provided (that) / As long as / On condition that": "grammar_b2_15_correlative_conjunctions_concession.html",
+  "Colons & Semicolons": "grammar_b2_18_quantifiers_linking_conventions.html",
+  "Reported Speech Punctuation": "grammar_b2_18_quantifiers_linking_conventions.html",
+  "Linking & Cohesion Across Paragraphs": "grammar_b2_18_quantifiers_linking_conventions.html",
+  "Written vs Spoken Grammar": "grammar_b2_18_quantifiers_linking_conventions.html",
+  "Phrasal Verbs: Business & Academic": "grammar_b2_18_quantifiers_linking_conventions.html",
+  "Phrasal Verbs with Multiple Meanings": "grammar_b2_18_quantifiers_linking_conventions.html",
+  "Reciprocal Pronouns": "grammar_b2_17_pronouns_compounds_dummy_it.html",
+  "Compound Nouns": "grammar_b2_17_pronouns_compounds_dummy_it.html",
+  "It as dummy/empty subject": "grammar_b2_17_pronouns_compounds_dummy_it.html",
+  "Complex Gerund & Infinitive Patterns": "grammar_b2_16_complex_gerund_infinitive.html",
+  "Perfect Infinitive & Perfect Gerund": "grammar_b2_16_complex_gerund_infinitive.html",
+  "Passive Infinitive & Passive Gerund": "grammar_b2_16_complex_gerund_infinitive.html",
+  "Plenty of / A great deal of / A number of": "grammar_b2_18_quantifiers_linking_conventions.html",
+  "Whole / Entire / All of": "grammar_b2_18_quantifiers_linking_conventions.html",
+  "Advanced Prefixes (over-, under-, pre-, post-, multi-, anti-)": "grammar_b2_18_quantifiers_linking_conventions.html",
+  "Verb Formation (-ise/-ize, -ify, -en)": "grammar_b2_18_quantifiers_linking_conventions.html",
+
+  // === B1 LESSONS ===
+  "Present Perfect vs Past Simple": "grammar_b1_01_perfect_tenses_aspect.html",
+  "Present Perfect Continuous": "grammar_b1_01_perfect_tenses_aspect.html",
+  "Past Perfect Simple": "grammar_b1_02_past_tense_mastery.html",
+  "Used to / Would (past habits)": "grammar_b1_02_past_tense_mastery.html",
+  "Future: will vs going to (nuanced)": "grammar_b1_03_future_tenses_nuanced.html",
+  "Future: Present Simple for timetables": "grammar_b1_03_future_tenses_nuanced.html",
+  "Must vs Have to (nuanced)": "grammar_b1_04_modals_obligation_deduction.html",
+  "Should have / Must have / Could have": "grammar_b1_04_modals_obligation_deduction.html",
+  "May / Might (Possibility)": "grammar_b1_05_possibility_hypothetical.html",
+  "Could (Past Ability & Possibility)": "grammar_b1_05_possibility_hypothetical.html",
+  "Had better": "grammar_b1_05_possibility_hypothetical.html",
+  "Second Conditional": "grammar_b1_06_conditionals.html",
+  "Unless / As long as / Provided that": "grammar_b1_06_conditionals.html",
+  "Present Perfect Passive": "grammar_b1_07_passive_voice_intermediate.html",
+  "Future Passive (will)": "grammar_b1_07_passive_voice_intermediate.html",
+  "Modal Passive": "grammar_b1_07_passive_voice_intermediate.html",
+  "Reported Questions": "grammar_b1_08_reported_speech_core.html",
+  "Reported Commands & Requests": "grammar_b1_08_reported_speech_core.html",
+  "Tense Backshift Rules": "grammar_b1_08_reported_speech_core.html",
+  "Reported Speech: Time & Place Changes": "grammar_b1_09_reported_speech_advanced.html",
+  "Indirect / Embedded Questions": "grammar_b1_09_reported_speech_advanced.html",
+  "Subject vs Object Questions": "grammar_b1_09_reported_speech_advanced.html",
+  "Non-defining Relative Clauses": "grammar_b1_10_relative_clauses_extended.html",
+  "Omitting the Relative Pronoun": "grammar_b1_10_relative_clauses_extended.html",
+  "Whose / Where / When in Relatives": "grammar_b1_10_relative_clauses_extended.html",
+  "Zero Article": "grammar_b1_11_articles_zero_article.html",
+  "The with geographical names": "grammar_b1_11_articles_zero_article.html",
+  "Some / Any (advanced uses)": "grammar_b1_11_articles_zero_article.html",
+  "Reflexive Pronouns": "grammar_b1_12_pronouns_substitution.html",
+  "Indefinite Pronouns": "grammar_b1_12_pronouns_substitution.html",
+  "One / Ones (substitution)": "grammar_b1_12_pronouns_substitution.html",
+  "Adjective Order": "grammar_b1_13_adjectives_adverbs_intermediate.html",
+  "Adverbs of Degree": "grammar_b1_13_adjectives_adverbs_intermediate.html",
+  "Comparative & Superlative Adverbs": "grammar_b1_13_adjectives_adverbs_intermediate.html",
+  "-ed vs -ing Adjectives": "grammar_b1_13_adjectives_adverbs_intermediate.html",
+  "Prepositions after Adjectives": "grammar_b1_14_prepositions_advanced.html",
+  "Prepositions after Verbs": "grammar_b1_14_prepositions_advanced.html",
+  "Prepositions after Nouns": "grammar_b1_14_prepositions_advanced.html",
+  "In addition / Moreover / Furthermore": "grammar_b1_15_conjunctions_discourse.html",
+  "Therefore / Consequently / As a result": "grammar_b1_15_conjunctions_discourse.html",
+  "Despite / In spite of": "grammar_b1_15_conjunctions_discourse.html",
+  "So that / In order to / To (purpose)": "grammar_b1_15_conjunctions_discourse.html",
+  "Verb + -ing vs Verb + to (different meaning)": "grammar_b1_16_gerunds_infinitives_semantic.html",
+  "Verb + object + to + infinitive": "grammar_b1_16_gerunds_infinitives_semantic.html",
+  "Adjective + to + infinitive": "grammar_b1_16_gerunds_infinitives_semantic.html",
+  "Preposition + -ing": "grammar_b1_16_gerunds_infinitives_semantic.html",
+  "All / Most / Some / Any / No": "grammar_b1_17_quantifiers_distributive.html",
+  "Both / Either / Neither": "grammar_b1_17_quantifiers_distributive.html",
+  "Every / Each": "grammar_b1_17_quantifiers_distributive.html",
+  "Complex Sentences": "grammar_b1_18_complex_structure_word_formation.html",
+  "Time Clauses": "grammar_b1_18_complex_structure_word_formation.html",
+  "Reason & Result Clauses": "grammar_b1_18_complex_structure_word_formation.html",
+  "Noun Suffixes (-ment, -ness, -ity, -ance/-ence)": "grammar_b1_18_complex_structure_word_formation.html",
+  "Adjective Suffixes (-able, -ous, -ive, -al)": "grammar_b1_18_complex_structure_word_formation.html",
+  "Negative Prefixes (dis-, im-/in-/ir-/il-, mis-)": "grammar_b1_18_complex_structure_word_formation.html",
+  "Phrasal Verbs: Expanded Set": "grammar_b1_18_complex_structure_word_formation.html",
+  "Three-word Phrasal Verbs": "grammar_b1_18_complex_structure_word_formation.html",
+  "Commas (lists, clauses, introductory)": "grammar_b1_18_complex_structure_word_formation.html",
+  "Formal vs Informal Register (intro)": "grammar_b1_18_complex_structure_word_formation.html",
+
+  // === A2 LESSONS ===
+  "Past Continuous": "grammar_a2_01_past_future_tense.html",
+  "Future: will": "grammar_a2_01_past_future_tense.html",
+  "Future: going to": "grammar_a2_01_past_future_tense.html",
+  "Future: Present Continuous for arrangements": "grammar_a2_02_future_arrangements.html",
+  "Present Perfect Simple (Introduction)": "grammar_a2_03_present_perfect_intro.html",
+  "Must / Mustn't": "grammar_a2_04_modals_obligation_request.html",
+  "Have to / Don't have to": "grammar_a2_04_modals_obligation_request.html",
+  "Should / Shouldn't": "grammar_a2_04_modals_obligation_request.html",
+  "Would like": "grammar_a2_04_modals_obligation_request.html",
+  "First Conditional": "grammar_a2_05_conditional_basic_passive.html",
+  "Present Simple Passive": "grammar_a2_05_conditional_basic_passive.html",
+  "Past Simple Passive": "grammar_a2_05_conditional_basic_passive.html",
+  "Reported Speech (basic statements)": "grammar_a2_06_reported_speech_tags.html",
+  "Question Tags (basic)": "grammar_a2_06_reported_speech_tags.html",
+  "Negative Questions": "grammar_a2_06_reported_speech_tags.html",
+  "Defining Relative Clauses (who/which/that)": "grammar_a2_07_relatives_determiners.html",
+  "Relative Pronoun: where": "grammar_a2_07_relatives_determiners.html",
+  "Some / Any": "grammar_a2_07_relatives_determiners.html",
+  "No / None": "grammar_a2_07_relatives_determiners.html",
+  "Possessive Pronouns": "grammar_a2_08_pronouns_adjectives.html",
+  "Countable & Uncountable Nouns": "grammar_a2_08_pronouns_adjectives.html",
+  "Adverbs of Manner": "grammar_a2_08_pronouns_adjectives.html",
+  "(Not) as ... as": "grammar_a2_08_pronouns_adjectives.html",
+  "Too / Enough": "grammar_a2_08_pronouns_adjectives.html",
+  "Prepositions of Movement": "grammar_a2_09_prepositions_conjunctions_gerunds.html",
+  "Prepositions of Time (extended)": "grammar_a2_09_prepositions_conjunctions_gerunds.html",
+  "When / While / Before / After": "grammar_a2_09_prepositions_conjunctions_gerunds.html",
+  "Although / However / But": "grammar_a2_09_prepositions_conjunctions_gerunds.html",
+  "Like / Love / Hate / Prefer + -ing or to": "grammar_a2_09_prepositions_conjunctions_gerunds.html",
+  "A few / A little": "grammar_a2_09_prepositions_conjunctions_gerunds.html",
+  "Few / Little (without 'a')": "grammar_a2_09_prepositions_conjunctions_gerunds.html",
+  "Compound Sentences": "grammar_a2_10_sentence_structure_word_formation.html",
+  "Basic Prefixes (un-, re-)": "grammar_a2_10_sentence_structure_word_formation.html",
+  "Basic Suffixes (-er, -ly, -ful, -tion)": "grammar_a2_10_sentence_structure_word_formation.html",
+  "Common Inseparable Phrasal Verbs": "grammar_a2_10_sentence_structure_word_formation.html",
+  "Common Separable Phrasal Verbs": "grammar_a2_10_sentence_structure_word_formation.html",
+  "Apostrophes (possession & contraction)": "grammar_a2_10_sentence_structure_word_formation.html",
+
+  // === A1 LESSONS ===
+  "Present Simple": "grammar_a1_01_basic_present_tenses.html",
+  "Present Continuous": "grammar_a1_01_basic_present_tenses.html",
+  "Past Simple (Regular)": "grammar_a1_02_past_simple_intro.html",
+  "Past Simple (Irregular)": "grammar_a1_02_past_simple_intro.html",
+  "Imperative": "grammar_a1_03_commands_ability.html",
+  "Can / Can't (Ability)": "grammar_a1_03_commands_ability.html",
+  "Can / Could (Requests)": "grammar_a1_03_commands_ability.html",
+  "Zero Conditional (basic)": "grammar_a1_04_conditionals_questions.html",
+  "Yes/No Questions (be & do)": "grammar_a1_04_conditionals_questions.html",
+  "Wh- Questions": "grammar_a1_05_wh_questions_negation.html",
+  "Basic Negation (don't/doesn't/isn't/aren't)": "grammar_a1_05_wh_questions_negation.html",
+  "A / An (Indefinite Article)": "grammar_a1_06_articles_demonstratives.html",
+  "The (Definite Article — basic)": "grammar_a1_06_articles_demonstratives.html",
+  "This / That / These / Those": "grammar_a1_06_articles_demonstratives.html",
+  "My / Your / His / Her / Its / Our / Their": "grammar_a1_06_articles_demonstratives.html",
+  "Singular & Plural Nouns": "grammar_a1_07_nouns_pronouns.html",
+  "Subject Pronouns": "grammar_a1_07_nouns_pronouns.html",
+  "Object Pronouns": "grammar_a1_07_nouns_pronouns.html",
+  "Possessive 's": "grammar_a1_07_nouns_pronouns.html",
+  "Basic Adjectives (position & agreement)": "grammar_a1_08_adjectives_adverbs_comparatives.html",
+  "Adverbs of Frequency": "grammar_a1_08_adjectives_adverbs_comparatives.html",
+  "Comparative Adjectives": "grammar_a1_08_adjectives_adverbs_comparatives.html",
+  "Superlative Adjectives": "grammar_a1_08_adjectives_adverbs_comparatives.html",
+  "Prepositions of Place (basic)": "grammar_a1_09_prepositions_conjunctions_sentence_structure.html",
+  "Prepositions of Time (basic)": "grammar_a1_09_prepositions_conjunctions_sentence_structure.html",
+  "And / But / Or / So / Because": "grammar_a1_09_prepositions_conjunctions_sentence_structure.html",
+  "Verb + to + infinitive (basic)": "grammar_a1_09_prepositions_conjunctions_sentence_structure.html",
+  "Verb + -ing (basic)": "grammar_a1_09_prepositions_conjunctions_sentence_structure.html",
+  "A lot of / Lots of": "grammar_a1_09_prepositions_conjunctions_sentence_structure.html",
+  "Much / Many": "grammar_a1_09_prepositions_conjunctions_sentence_structure.html",
+  "Simple Sentences (SVO)": "grammar_a1_09_prepositions_conjunctions_sentence_structure.html",
+  "There is / There are": "grammar_a1_09_prepositions_conjunctions_sentence_structure.html",
+  "Capital Letters & Full Stops": "grammar_a1_09_prepositions_conjunctions_sentence_structure.html",
+  "Question Marks & Exclamation Marks": "grammar_a1_09_prepositions_conjunctions_sentence_structure.html",
+};
+
+// ============================================================
+// APPLICATION
+// ============================================================
+
+// Count items per level
+function countByLevel(level) {
+  let count = 0;
+  grammarData.forEach(cat => {
+    cat.items.forEach(item => { if (item.level === level) count++; });
+  });
+  return count;
+}
+
+const levelDescriptions = {
+  A1: "Beginner",
+  A2: "Elementary",
+  B1: "Intermediate",
+  B2: "Upper-Intermediate",
+  C1: "Advanced",
+  C2: "Mastery"
+};
+
+let activeLevel = "ALL";
+let searchTerm = "";
+let viewMode = "list"; // list, grid
+let allExpanded = false;
+const openCategories = new Set();
+
+function getTotalItems() {
+  let t = 0;
+  grammarData.forEach(c => t += c.items.length);
+  return t;
+}
+
+function countLessonsForLevel(level) {
+  const files = new Set();
+  grammarData.forEach(cat => {
+    cat.items.forEach(item => {
+      if (item.level === level && lessonMap[item.title]) {
+        files.add(lessonMap[item.title]);
+      }
+    });
+  });
+  return files.size;
+}
+
+function getTotalLessons() {
+  const files = new Set();
+  Object.values(lessonMap).forEach(f => files.add(f));
+  return files.size;
+}
+
+function filterItems(items) {
+  return items.filter(item => {
+    const levelMatch = activeLevel === "ALL" || item.level === activeLevel;
+    const searchMatch = !searchTerm ||
+      item.title.toLowerCase().includes(searchTerm) ||
+      item.desc.toLowerCase().includes(searchTerm) ||
+      item.example.toLowerCase().includes(searchTerm) ||
+      item.tags.some(t => t.includes(searchTerm));
+    return levelMatch && searchMatch;
+  });
+}
+
+function render() {
+  const app = document.getElementById('app');
+  const total = getTotalItems();
+
+  const levels = ["A1","A2","B1","B2","C1","C2"];
+
+  let html = `
+    <div class="header">
+      <h1><span>CEFR English Grammar Dashboard</span></h1>
+      <p>A complete grammar syllabus for adult learners — every structure from Beginner to Mastery, mapped to the Common European Framework of Reference.</p>
+      <div class="subtitle">${total} grammar points across ${grammarData.length} categories &middot; 6 CEFR levels &middot; <strong>${getTotalLessons()} interactive lessons built</strong> (B2–C2)</div>
+    </div>
+
+    <div class="stats-bar">
+      ${levels.map(l => `
+        <div class="stat-card ${activeLevel === l ? 'active' : ''}" data-level="${l}" onclick="setLevel('${l}')">
+          <div class="stat-level">${l}</div>
+          <div class="stat-name">${levelDescriptions[l]}</div>
+          <div class="stat-count">${countByLevel(l)}</div>
+          <div class="stat-label">grammar points</div>
+          ${countLessonsForLevel(l) > 0 ? `<div class="stat-label" style="color:#059669;font-weight:600;margin-top:2px">${countLessonsForLevel(l)} lessons</div>` : ''}
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="controls">
+      <input type="text" class="search-box" placeholder="Search grammar points, examples, tags..." value="${searchTerm}" oninput="setSearch(this.value)">
+      <button class="filter-btn ${activeLevel === 'ALL' ? 'active' : ''}" onclick="setLevel('ALL')">All Levels</button>
+      ${levels.map(l => `<button class="filter-btn ${activeLevel === l ? 'active' : ''}" onclick="setLevel('${l}')">${l}</button>`).join('')}
+      <div class="view-toggle">
+        <button class="${viewMode === 'list' ? 'active' : ''}" onclick="setView('list')">☰ List</button>
+        <button class="${viewMode === 'grid' ? 'active' : ''}" onclick="setView('grid')">⊞ Grid</button>
+      </div>
+      <button class="expand-all" onclick="toggleAll()">${allExpanded ? '▲ Collapse All' : '▼ Expand All'}</button>
+    </div>
+  `;
+
+  // Categories
+  grammarData.forEach((cat, ci) => {
+    const filtered = filterItems(cat.items);
+    if (filtered.length === 0) return;
+
+    const isOpen = openCategories.has(ci) || allExpanded;
+
+    html += `
+      <div class="category ${isOpen ? 'open' : ''} ${viewMode === 'grid' ? 'grid-view' : ''}">
+        <div class="category-header" onclick="toggleCategory(${ci})">
+          <div class="category-title">
+            <div class="category-icon" style="background: ${cat.color}15; color: ${cat.color}">${cat.icon}</div>
+            <div>
+              <div class="category-name">${cat.category}</div>
+              <div class="category-count">${filtered.length} grammar point${filtered.length !== 1 ? 's' : ''}</div>
+            </div>
+          </div>
+          <div class="category-chevron">▼</div>
+        </div>
+        <div class="category-body">
+          <div class="grammar-items">
+            ${filtered.map(item => {
+              const lessonFile = lessonMap[item.title];
+              const lessonLink = lessonFile
+                ? `<a href="${lessonFile}" class="lesson-link has-lesson" target="_blank">Open Lesson →</a>`
+                : (["B2","C1","C2"].includes(item.level) ? `<span class="lesson-link no-lesson">Pending</span>` : '');
+              return `
+              <div class="grammar-item">
+                <div><span class="level-badge ${item.level}">${item.level}</span></div>
+                <div class="item-content">
+                  <h4>${item.title}</h4>
+                  <p>${item.desc}</p>
+                  <div class="item-example">${item.example}</div>
+                </div>
+                <div class="item-tags">
+                  ${lessonLink}
+                  ${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                </div>
+              </div>
+            `}).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  // Lesson Index panel — grouped by level, each lesson linked
+  html += `
+    <div class="summary-panel" id="lesson-index">
+      <h3>Lesson Index — All Lessons by Level</h3>
+      ${levels.map(l => {
+        // Get unique lessons for this level
+        const lessonFiles = {};
+        grammarData.forEach(cat => {
+          cat.items.forEach(item => {
+            if (item.level === l && lessonMap[item.title]) {
+              const file = lessonMap[item.title];
+              if (!lessonFiles[file]) {
+                lessonFiles[file] = { file, topics: [] };
+              }
+              lessonFiles[file].topics.push(item.title);
+            }
+          });
+        });
+        const lessons = Object.values(lessonFiles);
+        if (lessons.length === 0) return `
+          <div class="summary-col" data-level="${l}" style="margin-bottom:20px">
+            <h4>${l} — ${levelDescriptions[l]}</h4>
+            <p style="font-size:0.8rem;color:#94a3b8;padding:8px 0">No lessons built yet</p>
+          </div>`;
+        return `
+          <div data-level="${l}" style="margin-bottom:24px">
+            <h4 style="font-size:0.95rem;font-weight:700;padding:10px 14px;border-radius:8px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;${
+              l==='A1'?'background:var(--a1-bg);color:var(--a1)':
+              l==='A2'?'background:var(--a2-bg);color:var(--a2)':
+              l==='B1'?'background:var(--b1-bg);color:var(--b1)':
+              l==='B2'?'background:var(--b2-bg);color:var(--b2)':
+              l==='C1'?'background:var(--c1-bg);color:var(--c1)':
+              'background:var(--c2-bg);color:var(--c2)'
+            }">${l} — ${levelDescriptions[l]} <span style="font-size:0.75rem;font-weight:600">${lessons.length} lesson${lessons.length!==1?'s':''}</span></h4>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:8px">
+              ${lessons.map((les, i) => {
+                const num = String(i+1).padStart(2,'0');
+                const title = les.file.replace(/^grammar_[a-z0-9]+_\d+_/,'').replace(/.html$/,'').replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+                return `<a href="${les.file}" target="_blank" style="display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;border:1px solid var(--border);text-decoration:none;color:var(--text);transition:all 0.15s;background:white" onmouseover="this.style.borderColor='#667eea';this.style.boxShadow='0 2px 8px rgba(102,126,234,0.15)'" onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'">
+                  <span style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:0.7rem;font-weight:700;flex-shrink:0">${num}</span>
+                  <div>
+                    <div style="font-size:0.82rem;font-weight:600;line-height:1.3">${title}</div>
+                    <div style="font-size:0.7rem;color:#94a3b8;margin-top:2px">${les.topics.length} grammar point${les.topics.length!==1?'s':''}: ${les.topics.slice(0,3).join(', ')}${les.topics.length>3?'...':''}</div>
+                  </div>
+                </a>`;
+              }).join('')}
+            </div>
+          </div>`;
+      }).join('')}
+    </div>
+
+    <div class="footer">
+      <strong>${total}</strong> grammar structures &middot; <strong>${grammarData.length}</strong> categories &middot; <strong>6</strong> CEFR levels &middot; <strong>${getTotalLessons()}</strong> interactive lessons &middot; Built for adult learners
+    </div>
+  `;
+
+  app.innerHTML = html;
+}
+
+function setLevel(level) {
+  activeLevel = level;
+  render();
+}
+
+function setSearch(term) {
+  searchTerm = term.toLowerCase();
+  render();
+}
+
+function setView(mode) {
+  viewMode = mode;
+  render();
+}
+
+function toggleCategory(index) {
+  if (openCategories.has(index)) {
+    openCategories.delete(index);
+  } else {
+    openCategories.add(index);
+  }
+  allExpanded = false;
+  render();
+}
+
+function toggleAll() {
+  allExpanded = !allExpanded;
+  if (!allExpanded) {
+    openCategories.clear();
+  }
+  render();
+}
+
+// Initial render
+render();
+</script>
+</body>
+</html>

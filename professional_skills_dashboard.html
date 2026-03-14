@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Skills English | Malcolm's Lessons</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #2c3e50 0%, #e74c3c 50%, #2c3e50 100%);
+        }
+
+        .series-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header h1 {
+            font-size: 3.2em;
+            background: linear-gradient(135deg, #2c3e50 0%, #e74c3c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            color: #555;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header .level-info {
+            font-size: 1em;
+            color: #777;
+            margin-top: 15px;
+        }
+
+        .course-info {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .course-info h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .course-info p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .category-section {
+            margin-bottom: 40px;
+        }
+
+        .category-section h3 {
+            color: #e74c3c;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e74c3c;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .lesson-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #2c3e50 0%, #e74c3c 100%);
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+
+        .skill-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 12px;
+            margin-right: 8px;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-bottom: 12px;
+            background: #f0f0f0;
+            color: #555;
+        }
+
+        .badge-leadership {
+            background: #fef3e8;
+            color: #e74c3c;
+        }
+
+        .badge-interview {
+            background: #e8f6ef;
+            color: #27ae60;
+        }
+
+        .badge-meetings {
+            background: #eef2f7;
+            color: #2c3e50;
+        }
+
+        .badge-presentation {
+            background: #f5eef8;
+            color: #8e44ad;
+        }
+
+        .lesson-title {
+            font-size: 1.4em;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .lesson-description {
+            color: #666;
+            line-height: 1.7;
+            font-size: 1em;
+        }
+
+        .key-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border-top: 4px solid #e74c3c;
+        }
+
+        .feature-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="series-badge">Business & Workplace English</div>
+            <h1>💼 Professional Skills</h1>
+            <p class="subtitle">English for the Modern Workplace</p>
+            <p class="level-info">B1+ to C1 | Interviews, Leadership, Presentations | Malcolm's Preply Course</p>
+        </div>
+
+        <div class="course-info">
+            <h2>About This Course</h2>
+            <p>
+                Practical English for professional contexts. These lessons focus on the real communication challenges
+                you face at work: leading teams, handling interviews, running meetings, and presenting with confidence.
+            </p>
+            <p>
+                Each lesson is built around authentic workplace scenarios with the vocabulary, phrases, and strategies
+                you need to communicate effectively in professional English.
+            </p>
+
+            <div class="key-features">
+                <div class="feature-card">
+                    <span class="icon">🎤</span>
+                    <h4>Interviews</h4>
+                    <p>Prepare for job interviews with confidence and the right language</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">👥</span>
+                    <h4>Leadership</h4>
+                    <p>Communicate as a leader — motivate teams and handle difficult conversations</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">📊</span>
+                    <h4>Presentations</h4>
+                    <p>Present ideas clearly and handle Q&A with confidence</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🤝</span>
+                    <h4>Workplace Skills</h4>
+                    <p>Navigate meetings, conflicts, and professional relationships</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interview Skills -->
+        <div class="course-info">
+            <div class="category-section">
+                <h3>🎤 Interview Skills</h3>
+                <div class="lessons-grid">
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/interview_essentials.html" class="lesson-card">
+                        <span class="skill-badge badge-interview">Interview</span><span class="level-badge">B1+</span>
+                        <div class="lesson-title">Interview Essentials</div>
+                        <div class="lesson-description">
+                            Core interview skills: answering common questions, talking about experience, and making a strong impression.
+                        </div>
+                    </a>
+
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/professional_interview_prep_interactive.html" class="lesson-card">
+                        <span class="skill-badge badge-interview">Interview</span><span class="level-badge">B2+</span>
+                        <div class="lesson-title">Professional Interview Prep</div>
+                        <div class="lesson-description">
+                            Advanced interview preparation. Competency-based questions, STAR method, and handling tough questions.
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Leadership & Management -->
+            <div class="category-section">
+                <h3>👥 Leadership & Management</h3>
+                <div class="lessons-grid">
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/leading_international_teams.html" class="lesson-card">
+                        <span class="skill-badge badge-leadership">Leadership</span><span class="level-badge">B2+</span>
+                        <div class="lesson-title">Leading International Teams</div>
+                        <div class="lesson-description">
+                            Managing across cultures. Communication strategies for international teams and cross-cultural collaboration.
+                        </div>
+                    </a>
+
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/leading_under_pressure.html" class="lesson-card">
+                        <span class="skill-badge badge-leadership">Leadership</span><span class="level-badge">C1</span>
+                        <div class="lesson-title">Leading Under Pressure</div>
+                        <div class="lesson-description">
+                            Crisis communication and decision-making. How to communicate clearly when stakes are high.
+                        </div>
+                    </a>
+
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/keeping_teams_motivated.html" class="lesson-card">
+                        <span class="skill-badge badge-leadership">Leadership</span><span class="level-badge">B2+</span>
+                        <div class="lesson-title">Keeping Teams Motivated</div>
+                        <div class="lesson-description">
+                            The language of motivation. Giving feedback, recognition, and maintaining team morale.
+                        </div>
+                    </a>
+
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/kuba_lesson_1_professional_presence.html" class="lesson-card">
+                        <span class="skill-badge badge-leadership">Leadership</span><span class="level-badge">B2</span>
+                        <div class="lesson-title">Professional Presence</div>
+                        <div class="lesson-description">
+                            Building authority through language. How to sound confident, credible, and professional.
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Meetings & Presentations -->
+            <div class="category-section">
+                <h3>📊 Meetings & Presentations</h3>
+                <div class="lessons-grid">
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_meetings_course_guide.html" class="lesson-card">
+                        <span class="skill-badge badge-meetings">Meetings</span><span class="level-badge">B2+</span>
+                        <div class="lesson-title">Business Meetings Guide</div>
+                        <div class="lesson-description">
+                            Running and participating in meetings effectively. Agenda language, contributions, and follow-up.
+                        </div>
+                    </a>
+
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/presenting_your_business.html" class="lesson-card">
+                        <span class="skill-badge badge-presentation">Presentation</span><span class="level-badge">B2</span>
+                        <div class="lesson-title">Presenting Your Business</div>
+                        <div class="lesson-description">
+                            Pitch presentations and business introductions. Structure, persuasion, and handling questions.
+                        </div>
+                    </a>
+
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/presenting_online_project_manager.html" class="lesson-card">
+                        <span class="skill-badge badge-presentation">Presentation</span><span class="level-badge">B2</span>
+                        <div class="lesson-title">Presenting Online</div>
+                        <div class="lesson-description">
+                            Virtual presentation skills. Engaging remote audiences and managing online meetings.
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Workplace Communication -->
+            <div class="category-section">
+                <h3>🤝 Workplace Communication</h3>
+                <div class="lessons-grid">
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/workplace_conflict_resolution_interactive.html" class="lesson-card">
+                        <span class="skill-badge badge-meetings">Workplace</span><span class="level-badge">B2+</span>
+                        <div class="lesson-title">Conflict Resolution</div>
+                        <div class="lesson-description">
+                            Handling difficult conversations and workplace disagreements professionally and constructively.
+                        </div>
+                    </a>
+
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/problem_solving_under_pressure.html" class="lesson-card">
+                        <span class="skill-badge badge-meetings">Workplace</span><span class="level-badge">B2+</span>
+                        <div class="lesson-title">Problem Solving Under Pressure</div>
+                        <div class="lesson-description">
+                            Communicating solutions when things go wrong. Explaining problems and proposing fixes clearly.
+                        </div>
+                    </a>
+
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/atc_professional_english_interactive.html" class="lesson-card">
+                        <span class="skill-badge badge-meetings">Specialist</span><span class="level-badge">C1</span>
+                        <div class="lesson-title">ATC Professional English</div>
+                        <div class="lesson-description">
+                            Specialised English for aviation professionals. Clear, precise communication in high-stakes environments.
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-info" style="text-align: center; padding: 40px;">
+            <h2>Ready to Advance Your Professional English?</h2>
+            <p style="font-size: 1.1em; margin: 20px 0; color: #555;">
+                Each lesson focuses on practical skills you can use immediately in your workplace.
+                Start with the area most relevant to your current needs.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

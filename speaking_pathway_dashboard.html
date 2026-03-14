@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speaking Pathway: A2 → C1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #e94560 0%, #ff6b6b 100%);
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(233, 69, 96, 0.3);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: shimmer 15s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            color: white;
+            margin-bottom: 10px;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header .subtitle {
+            font-size: 1.5em;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .header .tagline {
+            font-size: 1.1em;
+            color: rgba(255,255,255,0.8);
+            font-style: italic;
+            position: relative;
+        }
+
+        /* Hero Infographic */
+        .hero-infographic {
+            margin: 40px 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .hero-infographic img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .level-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .level-badge {
+            background: rgba(255,255,255,0.7);
+            color: #1e293b;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Research Section */
+        .research-section {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+
+        .research-section h2 {
+            color: #e94560;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .principle-card {
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.06) 0%, rgba(255, 107, 107, 0.06) 100%);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(233, 69, 96, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .principle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.12);
+        }
+
+        .principle-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .principle-card h3 {
+            color: #e94560;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .principle-card p {
+            color: #475569;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        /* Progress Overview */
+        .progress-overview {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+
+        .progress-overview h2 {
+            color: #e94560;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+        }
+
+        .overall-progress {
+            background: #e2e8f0;
+            border-radius: 15px;
+            height: 30px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .overall-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #e94560, #ff6b6b, #ffc107);
+            border-radius: 15px;
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #e94560;
+        }
+
+        .stat-label {
+            color: #475569;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        /* Level Sections */
+        .level-section {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .level-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .level-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .level-a2 .level-icon { background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); }
+        .level-b1 .level-icon { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .level-b2 .level-icon { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .level-c1 .level-icon { background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); }
+
+        .level-info h3 {
+            font-size: 1.6em;
+            color: #1e293b;
+        }
+
+        .level-info p {
+            color: #475569;
+            font-size: 0.95em;
+        }
+
+        .level-progress {
+            text-align: right;
+        }
+
+        .level-progress-text {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #e94560;
+        }
+
+        .level-progress-bar {
+            width: 150px;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .level-progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .level-a2 .level-progress-fill { background: linear-gradient(90deg, #4ecdc4, #44a08d); }
+        .level-b1 .level-progress-fill { background: linear-gradient(90deg, #667eea, #764ba2); }
+        .level-b2 .level-progress-fill { background: linear-gradient(90deg, #f093fb, #f5576c); }
+        .level-c1 .level-progress-fill { background: linear-gradient(90deg, #ffc107, #ff9800); }
+
+        /* Lesson Grid */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .lesson-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-color: rgba(233, 69, 96, 0.5);
+            background: #ffffff;
+        }
+
+        .lesson-card.completed {
+            border-color: #4ecdc4;
+        }
+
+        .lesson-card.completed::after {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4ecdc4;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .lesson-card.review {
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.06) 0%, rgba(255, 107, 107, 0.06) 100%);
+            border-color: rgba(233, 69, 96, 0.3);
+        }
+
+        .lesson-number {
+            font-size: 0.85em;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .lesson-title {
+            font-size: 1.1em;
+            color: #1e293b;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .lesson-skill {
+            font-size: 0.85em;
+            color: #e94560;
+            margin-bottom: 5px;
+        }
+
+        .lesson-topic {
+            font-size: 0.85em;
+            color: #64748b;
+        }
+
+        .lesson-card.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .lesson-card.locked:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Prep Link Badge */
+        .prep-badge {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 3px 10px;
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+            border: 1px solid rgba(233, 69, 96, 0.3);
+            border-radius: 12px;
+            font-size: 0.75em;
+            color: #d63453;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .prep-badge:hover {
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.2) 0%, rgba(255, 107, 107, 0.2) 100%);
+            border-color: rgba(233, 69, 96, 0.5);
+            color: #c2293f;
+            transform: scale(1.05);
+        }
+        /* Grammar Link Badge */
+        .grammar-badge {
+            display: inline-block;
+            margin-left: 6px;
+            padding: 3px 10px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            font-size: 0.75em;
+            color: #5b6abf;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .grammar-badge:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            border-color: rgba(102, 126, 234, 0.5);
+            color: #4a58a8;
+            transform: scale(1.05);
+        }
+        /* CEFR Grammar Badge */
+        .cefr-badge {
+            display: inline-block;
+            margin-left: 6px;
+            padding: 3px 10px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            font-size: 0.75em;
+            color: #059669;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        .cefr-badge:hover {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%);
+            border-color: rgba(16, 185, 129, 0.5);
+            color: #047857;
+            transform: scale(1.05);
+        }
+        /* Conversation Toolkit Badge */
+        .ct-badge {
+            display: inline-block;
+            margin-left: 6px;
+            padding: 3px 10px;
+            background: linear-gradient(135deg, rgba(238, 90, 36, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+            border: 1px solid rgba(238, 90, 36, 0.3);
+            border-radius: 12px;
+            font-size: 0.75em;
+            color: #c95a1f;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        .ct-badge:hover {
+            background: linear-gradient(135deg, rgba(238, 90, 36, 0.2) 0%, rgba(255, 107, 107, 0.2) 100%);
+            border-color: rgba(238, 90, 36, 0.5);
+            color: #a8481a;
+            transform: scale(1.05);
+        }
+
+
+        .lesson-title-wrapper {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        /* Skills Key */
+        .skills-key {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+
+        .skills-key h3 {
+            color: #e94560;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            background: #f8fafc;
+            border-radius: 8px;
+            color: #334155;
+        }
+
+        .skill-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .skill-fluency { background: #4ecdc4; }
+        .skill-interaction { background: #667eea; }
+        .skill-discourse { background: #f093fb; }
+        .skill-opinion { background: #ffc107; }
+        .skill-description { background: #ff6b6b; }
+        .skill-register { background: #a855f7; }
+
+        /* Grammar Panel */
+        .grammar-panel {
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(102,126,234,0.2);
+        }
+        .grammar-panel-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            background: rgba(102,126,234,0.06);
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        .grammar-panel-toggle:hover {
+            background: rgba(102,126,234,0.1);
+        }
+        .grammar-panel-toggle h4 {
+            font-size: 0.92em;
+            color: #5b6abf;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .grammar-panel-chevron {
+            color: #5b6abf;
+            font-size: 0.9em;
+            transition: transform 0.3s;
+        }
+        .grammar-panel.open .grammar-panel-chevron {
+            transform: rotate(180deg);
+        }
+        .grammar-panel-body {
+            display: none;
+            padding: 16px 20px;
+            background: rgba(102,126,234,0.03);
+        }
+        .grammar-panel.open .grammar-panel-body {
+            display: block;
+        }
+        .grammar-panel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 6px;
+        }
+        .grammar-panel-link {
+            display: block;
+            padding: 8px 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            color: #334155;
+            text-decoration: none;
+            font-size: 0.82em;
+            transition: all 0.2s;
+        }
+        .grammar-panel-link:hover {
+            background: rgba(102,126,234,0.08);
+            border-color: rgba(102,126,234,0.3);
+            color: #1e293b;
+        }
+        .grammar-panel-cta {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.82em;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .grammar-panel-cta:hover {
+            transform: scale(1.04);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+
+        .footer a {
+            color: #e94560;
+            text-decoration: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .level-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .level-progress {
+                text-align: center;
+            }
+
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sequenced Grammar Suggestion */
+        .grammar-suggest {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.78em;
+            color: #94a3b8;
+        }
+        .grammar-suggest a {
+            color: #059669;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .grammar-suggest a:hover {
+            color: #047857;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Speaking Pathway</h1>
+            <p class="subtitle">A2 → C1 in 75 Lessons</p>
+            <p class="tagline">Evidence-based fluency development with built-in spaced repetition</p>
+            <div class="level-badges">
+                <span class="level-badge">A2 Foundation</span>
+                <span class="level-badge">B1 Independent</span>
+                <span class="level-badge">B2 Advanced</span>
+                <span class="level-badge">C1 Sophisticated</span>
+            </div>
+        </div>
+
+        <!-- Hero Infographic -->
+        <div class="hero-infographic">
+            <img src="speaking_pathway_hero.png" alt="Speaking Pathway - 6 Skill Domains: Fluency, Interaction, Discourse, Opinion, Description, Register">
+        </div>
+
+        <!-- Research Principles -->
+        <div class="research-section">
+            <h2>Built on Research-Proven Methods</h2>
+            <div class="principles-grid">
+                <div class="principle-card">
+                    <div class="principle-icon">🧠</div>
+                    <h3>Active Recall</h3>
+                    <p>Every lesson requires retrieval, not recognition. You speak, not just listen.</p>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-icon">🔄</div>
+                    <h3>Spaced Repetition</h3>
+                    <p>Built-in spiraling: skills return at optimal intervals for long-term retention.</p>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-icon">🔀</div>
+                    <h3>Interleaving</h3>
+                    <p>Mixed skill practice within lessons, not blocked repetition.</p>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-icon">🎨</div>
+                    <h3>Dual Coding</h3>
+                    <p>Visual + verbal: timers, diagrams, and color-coded feedback.</p>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-icon">📈</div>
+                    <h3>Small Steps</h3>
+                    <p>Rosenshine's principles: guided practice with high success rate.</p>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-icon">🎤</div>
+                    <h3>70% Production</h3>
+                    <p>Majority of lesson time = you speaking, not reading or listening.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conversation Toolkit Link -->
+        <div class="skills-key" style="text-align: center; margin-bottom: 20px; background: linear-gradient(135deg, rgba(238, 90, 36, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%); border: 1px solid rgba(238, 90, 36, 0.3);">
+            <h3 style="color: #ee5a24;">Conversation Toolkit</h3>
+            <p style="color: #475569; margin-bottom: 15px;">25 conversation lessons that build grammar & vocabulary through talking. Pairs with the Speaking Pathway.</p>
+            <a href="conversation_toolkit_dashboard.html" style="display: inline-block; background: linear-gradient(135deg, #ee5a24, #ff6b6b); color: white; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 8px 25px rgba(238,90,36,0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none';">Open Conversation Toolkit →</a>
+        </div>
+
+        <!-- Skills Key -->
+        <div class="skills-key">
+            <h3>The Six Speaking Skill Domains</h3>
+            <div class="skills-list">
+                <div class="skill-item">
+                    <div class="skill-dot skill-fluency"></div>
+                    <span>Fluency & Flow</span>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-dot skill-interaction"></div>
+                    <span>Interaction & Response</span>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-dot skill-discourse"></div>
+                    <span>Discourse & Structure</span>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-dot skill-opinion"></div>
+                    <span>Opinion & Argument</span>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-dot skill-description"></div>
+                    <span>Description & Explanation</span>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-dot skill-register"></div>
+                    <span>Register & Appropriacy</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Overview -->
+        <div class="progress-overview">
+            <h2>Your Progress</h2>
+            <div class="overall-progress">
+                <div class="overall-progress-bar" id="overallProgress" style="width: 100%">100%</div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="completedCount">75</div>
+                    <div class="stat-label">Lessons Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="currentLevel">C1</div>
+                    <div class="stat-label">Current Level</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="skillsLearned">6</div>
+                    <div class="stat-label">Skills Practiced</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="streakDays">75</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- A2 Foundation -->
+        <div class="level-section level-a2">
+            <div class="level-header">
+                <div class="level-title">
+                    <div class="level-icon">A2</div>
+                    <div class="level-info">
+                        <h3>Foundation Speaking</h3>
+                        <p>Build your speaking confidence with essential strategies</p>
+                    </div>
+                </div>
+                <div class="level-progress">
+                    <div class="level-progress-text">20/20</div>
+                    <div class="level-progress-bar">
+                        <div class="level-progress-fill" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="lessons-grid">
+                <div class="lesson-card" onclick="window.location.href='sp_a2_01_buying_time.html'">
+                    <div class="lesson-number">Lesson 1</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Buying Time</span>
+                        <a href="sp_prep_a2_01.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_a1_01_basic_present_tenses.html" class="cefr-badge" title="Grammar: Present Tenses" onclick="event.stopPropagation()">Present Tenses</a>
+                    </div>
+                    <div class="lesson-skill">Fluency & Flow</div>
+                    <div class="lesson-topic">First Impressions</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_02_describing_photos.html'">
+                    <div class="lesson-number">Lesson 2</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Describing What You See</span>
+                        <a href="sp_prep_a2_02.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_05_present_perfect_continuous.html" class="grammar-badge" title="Review: Present Perfect Continuous" onclick="event.stopPropagation()">📖 Tenses</a>
+                    
+                        <a href="grammar_a1_08_adjectives_adverbs_comparatives.html" class="cefr-badge" title="Grammar: Adjectives" onclick="event.stopPropagation()">Adjectives</a>
+                    </div>
+                    <div class="lesson-skill">Description</div>
+                    <div class="lesson-topic">Photo Description</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_03_simple_opinions.html'">
+                    <div class="lesson-number">Lesson 3</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Sharing Your View</span>
+                        <a href="sp_prep_a2_03.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_12_must_have_to_should.html" class="grammar-badge" title="Review: Must, Have To, Should" onclick="event.stopPropagation()">📖 Modals</a>
+                    
+                        <a href="grammar_a1_04_conditionals_questions.html" class="cefr-badge" title="Grammar: Conditionals & Questions" onclick="event.stopPropagation()">Conditionals & Questions</a>
+                    </div>
+                    <div class="lesson-skill">Opinion</div>
+                    <div class="lesson-topic">Daily Dilemmas</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_a1_03_commands_ability.html" onclick="event.stopPropagation()">Imperatives & Can/Can't</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_04_telling_stories.html'">
+                    <div class="lesson-number">Lesson 4</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Telling Stories</span>
+                        <a href="sp_prep_a2_04.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_01_past_simple_life_stories.html" class="grammar-badge" title="Review: Past Simple - Life Stories" onclick="event.stopPropagation()">📖 Past Simple</a>
+                    
+                        <a href="grammar_a1_02_past_simple_intro.html" class="cefr-badge" title="Grammar: Past Simple" onclick="event.stopPropagation()">Past Simple</a>
+                    </div>
+                    <div class="lesson-skill">Discourse</div>
+                    <div class="lesson-topic">Memorable Moments</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_a1_04_conditionals_questions.html" onclick="event.stopPropagation()">Zero Conditional & Questions</a></div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_a2_05_review.html'">
+                    <div class="lesson-number">Lesson 5</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Recall Challenge</span>
+                        <a href="sp_prep_a2_05.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_a2_01_past_future_tense.html" class="cefr-badge" title="Grammar: Past & Future Tenses" onclick="event.stopPropagation()">Past & Future Tenses</a>
+                    </div>
+                    <div class="lesson-skill">REVIEW</div>
+                    <div class="lesson-topic">Spiral: Lessons 1-4</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_06_active_listening.html'">
+                    <div class="lesson-number">Lesson 6</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Active Listening</span>
+                        <a href="sp_prep_a2_06.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_03_present_perfect.html" class="grammar-badge" title="Review: Present Perfect - Experiences" onclick="event.stopPropagation()">📖 Pres. Perfect</a>
+                    
+                        <a href="grammar_a1_05_wh_questions_negation.html" class="cefr-badge" title="Grammar: Questions & Negation" onclick="event.stopPropagation()">Questions & Negation</a>
+                    </div>
+                    <div class="lesson-skill">Interaction</div>
+                    <div class="lesson-topic">Getting to Know You</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_a1_06_articles_demonstratives.html" onclick="event.stopPropagation()">Articles & Demonstratives</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_07_comparing_things.html'">
+                    <div class="lesson-number">Lesson 7</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Comparing Things</span>
+                        <a href="sp_prep_a2_07.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="grammar_b1_comparative_language.html" class="cefr-badge" title="Review: Comparative Language" onclick="event.stopPropagation()">📖 Comparatives</a>
+                    </div>
+                    <div class="lesson-skill">Description</div>
+                    <div class="lesson-topic">Which Would You Choose?</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_a1_07_nouns_pronouns.html" onclick="event.stopPropagation()">Nouns & Pronouns</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_08_giving_reasons.html'">
+                    <div class="lesson-number">Lesson 8</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Giving Reasons</span>
+                        <a href="sp_prep_a2_08.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_14_zero_first_conditional.html" class="grammar-badge" title="Review: Zero & First Conditional" onclick="event.stopPropagation()">📖 Conditionals</a>
+                    
+                        <a href="grammar_a1_09_prepositions_conjunctions_sentence_structure.html" class="cefr-badge" title="Grammar: Conjunctions" onclick="event.stopPropagation()">Conjunctions</a>
+                    </div>
+                    <div class="lesson-skill">Opinion</div>
+                    <div class="lesson-topic">Controversial Questions</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_a1_08_adjectives_adverbs_comparatives.html" onclick="event.stopPropagation()">Adjectives & Comparatives</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_09_self_correction.html'">
+                    <div class="lesson-number">Lesson 9</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Self-Correction</span>
+                        <a href="sp_prep_a2_09.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_06_present_perfect_vs_past_simple.html" class="grammar-badge" title="Review: Perfect vs Simple" onclick="event.stopPropagation()">📖 Tenses</a>
+                    
+                        <a href="grammar_a2_01_past_future_tense.html" class="cefr-badge" title="Grammar: Past & Future Tenses" onclick="event.stopPropagation()">Past & Future Tenses</a>
+                    </div>
+                    <div class="lesson-skill">Fluency</div>
+                    <div class="lesson-topic">Embarrassing Moments</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_a1_09_prepositions_conjunctions_sentence_structure.html" onclick="event.stopPropagation()">Prepositions & Conjunctions</a></div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_a2_10_recall_challenge_2.html'">
+                    <div class="lesson-number">Lesson 10</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Recall Challenge</span>
+                        <a href="sp_prep_a2_10.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_a2_03_present_perfect_intro.html" class="cefr-badge" title="Grammar: Present Perfect" onclick="event.stopPropagation()">Present Perfect</a>
+                    </div>
+                    <div class="lesson-skill">REVIEW</div>
+                    <div class="lesson-topic">Spiral: Lessons 1-9</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_11_cause_and_effect.html'">
+                    <div class="lesson-number">Lesson 11</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Cause & Effect</span>
+                        <a href="sp_prep_a2_11.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_14_zero_first_conditional.html" class="grammar-badge" title="Review: Zero & First Conditional" onclick="event.stopPropagation()">📖 Conditionals</a>
+                    
+                        <a href="grammar_a2_05_conditional_basic_passive.html" class="cefr-badge" title="Grammar: Conditionals & Passive" onclick="event.stopPropagation()">Conditionals & Passive</a>
+                    </div>
+                    <div class="lesson-skill">Discourse</div>
+                    <div class="lesson-topic">Why Things Happen</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_12_follow_up_questions.html'">
+                    <div class="lesson-number">Lesson 12</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Follow-up Questions</span>
+                        <a href="sp_prep_a2_12.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_03_present_perfect.html" class="grammar-badge" title="Review: Present Perfect Questions" onclick="event.stopPropagation()">📖 Pres. Perfect</a>
+                    
+                        <a href="grammar_a1_05_wh_questions_negation.html" class="cefr-badge" title="Grammar: Questions" onclick="event.stopPropagation()">Questions</a>
+                    </div>
+                    <div class="lesson-skill">Interaction</div>
+                    <div class="lesson-topic">Interview Practice</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_13_describing_experiences.html'">
+                    <div class="lesson-number">Lesson 13</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Describing Experiences</span>
+                        <a href="sp_prep_a2_13.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_01_past_simple_life_stories.html" class="grammar-badge" title="Review: Past Simple - Life Stories" onclick="event.stopPropagation()">📖 Past Simple</a>
+                    
+                        <a href="grammar_a2_03_present_perfect_intro.html" class="cefr-badge" title="Grammar: Present Perfect" onclick="event.stopPropagation()">Present Perfect</a>
+                    </div>
+                    <div class="lesson-skill">Description</div>
+                    <div class="lesson-topic">Travel & Places</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_14_expressing_preferences.html'">
+                    <div class="lesson-number">Lesson 14</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Expressing Preferences</span>
+                        <a href="sp_prep_a2_14.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_15_second_conditional.html" class="grammar-badge" title="Review: Second Conditional" onclick="event.stopPropagation()">📖 2nd Cond.</a>
+                    
+                        <a href="grammar_a2_04_modals_obligation_request.html" class="cefr-badge" title="Grammar: Modals" onclick="event.stopPropagation()">Modals</a>
+                    </div>
+                    <div class="lesson-skill">Opinion</div>
+                    <div class="lesson-topic">Hypothetical Choices</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_a2_05_conditional_basic_passive.html" onclick="event.stopPropagation()">First Conditional & Passive</a></div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_a2_15_recall_challenge_3.html'">
+                    <div class="lesson-number">Lesson 15</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Recall Challenge</span>
+                        <a href="sp_prep_a2_15.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_a2_06_reported_speech_tags.html" class="cefr-badge" title="Grammar: Reported Speech" onclick="event.stopPropagation()">Reported Speech</a>
+                    </div>
+                    <div class="lesson-skill">REVIEW</div>
+                    <div class="lesson-topic">Spiral: Lessons 6-14</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_16_fillers_hesitation.html'">
+                    <div class="lesson-number">Lesson 16</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Fillers & Hesitation</span>
+                        <a href="sp_prep_a2_16.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_a2_10_sentence_structure_word_formation.html" class="cefr-badge" title="Grammar: Sentence Structure" onclick="event.stopPropagation()">Sentence Structure</a>
+                    </div>
+                    <div class="lesson-skill">Fluency</div>
+                    <div class="lesson-topic">Thinking Out Loud</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_16b_the_keyword_method.html'" style="border-left: 3px solid #4ecdc4;">
+                    <div class="lesson-number">Bonus</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">The Keyword Method</span>
+                    
+                        <a href="grammar_a2_09_prepositions_conjunctions_gerunds.html" class="cefr-badge" title="Grammar: Gerunds & Conjunctions" onclick="event.stopPropagation()">Gerunds & Conjunctions</a>
+                    </div>
+                    <div class="lesson-skill">Fluency</div>
+                    <div class="lesson-topic">Speak Without Reading</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_17_simple_narratives.html'">
+                    <div class="lesson-number">Lesson 17</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Simple Narratives</span>
+                        <a href="sp_prep_a2_17.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_04_used_to_would.html" class="grammar-badge" title="Review: Used To / Would" onclick="event.stopPropagation()">📖 Used To</a>
+                    
+                        <a href="grammar_a2_01_past_future_tense.html" class="cefr-badge" title="Grammar: Past & Future Tenses" onclick="event.stopPropagation()">Past & Future Tenses</a>
+                    </div>
+                    <div class="lesson-skill">Discourse</div>
+                    <div class="lesson-topic">Life Stories</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_a2_09_prepositions_conjunctions_gerunds.html" onclick="event.stopPropagation()">Prepositions & Gerunds</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_18_agreeing_disagreeing.html'">
+                    <div class="lesson-number">Lesson 18</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Agreeing & Disagreeing</span>
+                        <a href="sp_prep_a2_18.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_12_must_have_to_should.html" class="grammar-badge" title="Review: Must, Have To, Should" onclick="event.stopPropagation()">📖 Modals</a>
+                    
+                        <a href="grammar_a2_08_pronouns_adjectives.html" class="cefr-badge" title="Grammar: Pronouns & Adverbs" onclick="event.stopPropagation()">Pronouns & Adverbs</a>
+                    </div>
+                    <div class="lesson-skill">Interaction</div>
+                    <div class="lesson-topic">Friendly Debates</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_a2_10_sentence_structure_word_formation.html" onclick="event.stopPropagation()">Sentence Structure</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_a2_19_explaining_processes.html'">
+                    <div class="lesson-number">Lesson 19</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Explaining Processes</span>
+                        <a href="sp_prep_a2_19.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_18_passive_voice_present_past.html" class="grammar-badge" title="Review: Passive Voice - Basics" onclick="event.stopPropagation()">📖 Passive</a>
+                        <a href="ct_a2_19_explaining_processes.html" class="ct-badge" title="CT-19: How Things Work — Imperatives & Instructions" onclick="event.stopPropagation()">🗣️ CT-19</a>
+                    
+                        <a href="grammar_a2_02_future_arrangements.html" class="cefr-badge" title="Grammar: Future Arrangements" onclick="event.stopPropagation()">Future Arrangements</a>
+                    </div>
+                    <div class="lesson-skill">Description</div>
+                    <div class="lesson-topic">How-To Explanations</div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_a2_20_mastery_test.html'">
+                    <div class="lesson-number">Lesson 20</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">A2 Mastery Test</span>
+                        <a href="sp_prep_a2_20.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="ct_a2_20_mastery_prep.html" class="ct-badge" title="CT-20: All About Me — Life, Experiences & Opinions" onclick="event.stopPropagation()">🗣️ CT-20</a>
+                    
+                        <a href="grammar_a2_07_relatives_determiners.html" class="cefr-badge" title="Grammar: Relatives & Determiners" onclick="event.stopPropagation()">Relatives & Determiners</a>
+                    </div>
+                    <div class="lesson-skill">INTEGRATION</div>
+                    <div class="lesson-topic">Speaking Challenge</div>
+                </div>
+            </div>
+            <div class="grammar-panel" onclick="this.classList.toggle('open')">
+                <div class="grammar-panel-toggle">
+                    <h4>📖 Grammar to feel confident at A2</h4>
+                    <span class="grammar-panel-chevron">▼</span>
+                </div>
+                <div class="grammar-panel-body" onclick="event.stopPropagation()">
+                    <p style="color: #64748b; font-size: 0.85em; margin-bottom: 12px;">Make sure you're comfortable with these before moving to B1.</p>
+                    <div class="grammar-panel-grid">
+                        <a href="grammar_a1_01_basic_present_tenses.html" class="grammar-panel-link">Present Simple & Continuous</a>
+                        <a href="grammar_a1_02_past_simple_intro.html" class="grammar-panel-link">Past Simple</a>
+                        <a href="grammar_a1_03_commands_ability.html" class="grammar-panel-link">Imperatives & Can/Can't</a>
+                        <a href="grammar_a1_04_conditionals_questions.html" class="grammar-panel-link">Zero Conditional & Yes/No Questions</a>
+                        <a href="grammar_a1_05_wh_questions_negation.html" class="grammar-panel-link">Wh-Questions & Negation</a>
+                        <a href="grammar_a1_06_articles_demonstratives.html" class="grammar-panel-link">Articles & Demonstratives</a>
+                        <a href="grammar_a1_07_nouns_pronouns.html" class="grammar-panel-link">Nouns & Pronouns</a>
+                        <a href="grammar_a1_08_adjectives_adverbs_comparatives.html" class="grammar-panel-link">Adjectives & Comparatives</a>
+                        <a href="grammar_a1_09_prepositions_conjunctions_sentence_structure.html" class="grammar-panel-link">Prepositions & Conjunctions</a>
+                        <a href="grammar_a2_01_past_future_tense.html" class="grammar-panel-link">Past Continuous & Future Tenses</a>
+                        <a href="grammar_a2_02_future_arrangements.html" class="grammar-panel-link">Future Arrangements</a>
+                        <a href="grammar_a2_03_present_perfect_intro.html" class="grammar-panel-link">Present Perfect Introduction</a>
+                        <a href="grammar_a2_04_modals_obligation_request.html" class="grammar-panel-link">Must, Have to, Should, Would like</a>
+                        <a href="grammar_a2_05_conditional_basic_passive.html" class="grammar-panel-link">First Conditional & Simple Passive</a>
+                        <a href="grammar_a2_06_reported_speech_tags.html" class="grammar-panel-link">Reported Speech & Question Tags</a>
+                        <a href="grammar_a2_07_relatives_determiners.html" class="grammar-panel-link">Relative Clauses & Determiners</a>
+                        <a href="grammar_a2_08_pronouns_adjectives.html" class="grammar-panel-link">Pronouns, Countables & Adverbs</a>
+                        <a href="grammar_a2_09_prepositions_conjunctions_gerunds.html" class="grammar-panel-link">Prepositions, Conjunctions & -ing</a>
+                        <a href="grammar_a2_10_sentence_structure_word_formation.html" class="grammar-panel-link">Sentence Structure & Word Formation</a>
+                    </div>
+                    <a href="CEFR_Grammar_Dashboard.html" class="grammar-panel-cta">Full Grammar Dashboard →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- B1 Independent -->
+        <div class="level-section level-b1">
+            <div class="level-header">
+                <div class="level-title">
+                    <div class="level-icon">B1</div>
+                    <div class="level-info">
+                        <h3>Independent Speaking</h3>
+                        <p>Develop fluency for longer, more complex conversations</p>
+                    </div>
+                </div>
+                <div class="level-progress">
+                    <div class="level-progress-text">20/20</div>
+                    <div class="level-progress-bar">
+                        <div class="level-progress-fill" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="lessons-grid">
+                <div class="lesson-card" onclick="window.location.href='sp_b1_21_extended_thinking.html'">
+                    <div class="lesson-number">Lesson 21</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Extended Thinking Time</span>
+                        <a href="sp_prep_b1_21.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="ct_b1_21_complex_questions.html" class="ct-badge" title="CT-21: Big Questions — Abstract Topics & Thinking Language" onclick="event.stopPropagation()">🗣️ CT-21</a>
+                    
+                        <a href="grammar_b1_01_perfect_tenses_aspect.html" class="cefr-badge" title="Grammar: Perfect Tenses" onclick="event.stopPropagation()">Perfect Tenses</a>
+                    </div>
+                    <div class="lesson-skill">Fluency</div>
+                    <div class="lesson-topic">Complex Questions</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_22_hedging.html'">
+                    <div class="lesson-number">Lesson 22</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Hedging & Probability</span>
+                        <a href="sp_prep_b1_22.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_13_may_might_could.html" class="grammar-badge" title="Review: May, Might, Could" onclick="event.stopPropagation()">📖 Modals</a>
+                        <a href="ct_b1_22_hedging_language.html" class="ct-badge" title="CT-22: What's Going to Happen? — Predictions & Probability" onclick="event.stopPropagation()">🗣️ CT-22</a>
+                    
+                        <a href="grammar_b1_04_modals_obligation_deduction.html" class="cefr-badge" title="Grammar: Modals" onclick="event.stopPropagation()">Modals</a>
+                    </div>
+                    <div class="lesson-skill">Opinion</div>
+                    <div class="lesson-topic">Predictions</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_23_three_part_structure.html'">
+                    <div class="lesson-number">Lesson 23</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Three-Part Structure</span>
+                        <a href="sp_prep_b1_23.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="ct_b1_23_structuring_arguments.html" class="ct-badge" title="CT-23: Building an Argument — Linking & Structuring Ideas" onclick="event.stopPropagation()">🗣️ CT-23</a>
+                    
+                        <a href="grammar_b1_15_conjunctions_discourse.html" class="cefr-badge" title="Grammar: Discourse Markers" onclick="event.stopPropagation()">Discourse Markers</a>
+                    </div>
+                    <div class="lesson-skill">Discourse</div>
+                    <div class="lesson-topic">Mini Presentations</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b1_03_future_tenses_nuanced.html" onclick="event.stopPropagation()">Nuanced Future Tenses</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_24_clarification.html'">
+                    <div class="lesson-number">Lesson 24</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Clarification Strategies</span>
+                        <a href="sp_prep_b1_24.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_21_reported_questions_commands.html" class="grammar-badge" title="Review: Reported Questions" onclick="event.stopPropagation()">📖 Reported Q</a>
+                        <a href="ct_b1_24_clarification_building_blocks.html" class="ct-badge" title="CT-24: Checking You Understand — Polite Requests & Indirect Questions" onclick="event.stopPropagation()">🗣️ CT-24</a>
+                    
+                        <a href="grammar_b1_08_reported_speech_core.html" class="cefr-badge" title="Grammar: Reported Speech" onclick="event.stopPropagation()">Reported Speech</a>
+                    </div>
+                    <div class="lesson-skill">Interaction</div>
+                    <div class="lesson-topic">Understanding Accents</div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_b1_25_review.html'">
+                    <div class="lesson-number">Lesson 25</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Review & Integration</span>
+                        <a href="sp_prep_b1_25.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="ct_b1_25_review_integration.html" class="ct-badge" title="CT-25: Talking About Progress — Present Perfect for Achievement & Self-Assessment" onclick="event.stopPropagation()">🗣️ CT-25</a>
+                    
+                        <a href="grammar_b1_02_past_tense_mastery.html" class="cefr-badge" title="Grammar: Past Tense Mastery" onclick="event.stopPropagation()">Past Tense Mastery</a>
+                    </div>
+                    <div class="lesson-skill">REVIEW</div>
+                    <div class="lesson-topic">Spiral: A2 + B1</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_26_abstract_concepts.html'">
+                    <div class="lesson-number">Lesson 26</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Abstract Concepts</span>
+                        <a href="sp_prep_b1_26.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_22_defining_relative_clauses.html" class="grammar-badge" title="Review: Defining Relative Clauses" onclick="event.stopPropagation()">📖 Relatives</a>
+                        <a href="ct_b1_26_abstract_concepts.html" class="ct-badge" title="CT-26: Defining the Undefinable — Relative Clauses & Abstract Vocabulary" onclick="event.stopPropagation()">🗣️ CT-26</a>
+                    
+                        <a href="grammar_b1_11_articles_zero_article.html" class="cefr-badge" title="Grammar: Articles" onclick="event.stopPropagation()">Articles</a>
+                    </div>
+                    <div class="lesson-skill">Description</div>
+                    <div class="lesson-topic">Defining Ideas</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_27_acknowledging_views.html'">
+                    <div class="lesson-number">Lesson 27</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Acknowledging Other Views</span>
+                        <a href="sp_prep_b1_27.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_20_reported_speech.html" class="grammar-badge" title="Review: Reported Speech" onclick="event.stopPropagation()">📖 Reported</a>
+                        <a href="ct_b1_27_acknowledging_views.html" class="ct-badge" title="CT-27: Seeing Both Sides — Concessive Clauses & Diplomatic Language" onclick="event.stopPropagation()">🗣️ CT-27</a>
+                    
+                        <a href="grammar_b1_05_possibility_hypothetical.html" class="cefr-badge" title="Grammar: Possibility & Hypothetical" onclick="event.stopPropagation()">Possibility & Hypothetical</a>
+                    </div>
+                    <div class="lesson-skill">Opinion</div>
+                    <div class="lesson-topic">Fair Debate</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_28_advantages_disadvantages.html'">
+                    <div class="lesson-number">Lesson 28</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Advantages & Disadvantages</span>
+                        <a href="sp_prep_b1_28.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_15_second_conditional.html" class="grammar-badge" title="Review: Second Conditional" onclick="event.stopPropagation()">📖 2nd Cond.</a>
+                        <a href="ct_b1_28_advantages_disadvantages.html" class="ct-badge" title="CT-28: Weighing It Up — Comparatives & Evaluation Language" onclick="event.stopPropagation()">🗣️ CT-28</a>
+                    
+                        <a href="grammar_b1_18_complex_structure_word_formation.html" class="cefr-badge" title="Grammar: Complex Structures" onclick="event.stopPropagation()">Complex Structures</a>
+                    </div>
+                    <div class="lesson-skill">Discourse</div>
+                    <div class="lesson-topic">Balanced Analysis</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b1_08_reported_speech_core.html" onclick="event.stopPropagation()">Reported Speech Core</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_29_reformulation.html'">
+                    <div class="lesson-number">Lesson 29</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Reformulation</span>
+                        <a href="sp_prep_b1_29.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_23_non_defining_relative_clauses.html" class="grammar-badge" title="Review: Non-Defining Relative Clauses" onclick="event.stopPropagation()">📖 Relatives</a>
+                        <a href="ct_b1_29_reformulation.html" class="ct-badge" title="CT-29: Saying It Differently — Synonyms & Paraphrasing" onclick="event.stopPropagation()">🗣️ CT-29</a>
+                    
+                        <a href="grammar_b1_12_pronouns_substitution.html" class="cefr-badge" title="Grammar: Pronouns & Substitution" onclick="event.stopPropagation()">Pronouns & Substitution</a>
+                    </div>
+                    <div class="lesson-skill">Fluency</div>
+                    <div class="lesson-topic">Saying It Better</div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_b1_30_review.html'">
+                    <div class="lesson-number">Lesson 30</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Review</span>
+                        <a href="sp_prep_b1_30.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="ct_b1_30_combining_skills.html" class="ct-badge" title="CT-30: Putting It All Together — Discourse Markers & Flow" onclick="event.stopPropagation()">🗣️ CT-30</a>
+                    
+                        <a href="grammar_b1_06_conditionals.html" class="cefr-badge" title="Grammar: Conditionals" onclick="event.stopPropagation()">Conditionals</a>
+                    </div>
+                    <div class="lesson-skill">REVIEW</div>
+                    <div class="lesson-topic">Spiral: Lessons 21-29</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_31_managing_disagreement.html'">
+                    <div class="lesson-number">Lesson 31</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Managing Disagreement</span>
+                        <a href="sp_prep_b1_31.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_17_mixed_conditionals_wishes.html" class="grammar-badge" title="Review: Mixed Conditionals & Wishes" onclick="event.stopPropagation()">📖 Mixed Cond.</a>
+                        <a href="ct_b1_31_diplomatic_disagreement.html" class="ct-badge" title="CT-31: The Soft No — Modal Softeners & Diplomatic Language" onclick="event.stopPropagation()">🗣️ CT-31</a>
+                    
+                        <a href="grammar_b1_09_reported_speech_advanced.html" class="cefr-badge" title="Grammar: Advanced Reported Speech" onclick="event.stopPropagation()">Advanced Reported Speech</a>
+                    </div>
+                    <div class="lesson-skill">Interaction</div>
+                    <div class="lesson-topic">Professional Conflicts</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b1_11_articles_zero_article.html" onclick="event.stopPropagation()">Articles & Zero Article</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_32_speculating_images.html'">
+                    <div class="lesson-number">Lesson 32</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Speculating About Images</span>
+                        <a href="sp_prep_b1_32.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_13_may_might_could.html" class="grammar-badge" title="Review: May, Might, Could" onclick="event.stopPropagation()">📖 Modals</a>
+                        <a href="ct_b1_32_speculation_language.html" class="ct-badge" title="CT-32: What's the Story? — Modals for Speculation" onclick="event.stopPropagation()">🗣️ CT-32</a>
+                    
+                        <a href="grammar_b1_13_adjectives_adverbs_intermediate.html" class="cefr-badge" title="Grammar: Adjectives & Adverbs" onclick="event.stopPropagation()">Adjectives & Adverbs</a>
+                    </div>
+                    <div class="lesson-skill">Description</div>
+                    <div class="lesson-topic">Visual Analysis</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b1_12_pronouns_substitution.html" onclick="event.stopPropagation()">Pronouns & Substitution</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_33_justifying_examples.html'">
+                    <div class="lesson-number">Lesson 33</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Justifying with Examples</span>
+                        <a href="sp_prep_b1_33.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_14_zero_first_conditional.html" class="grammar-badge" title="Review: Zero & First Conditional" onclick="event.stopPropagation()">📖 Conditionals</a>
+                        <a href="ct_b1_33_justifying_opinions.html" class="ct-badge" title="CT-33: Prove It — Cause-Effect & Evidence Language" onclick="event.stopPropagation()">🗣️ CT-33</a>
+                    
+                        <a href="grammar_b1_14_prepositions_advanced.html" class="cefr-badge" title="Grammar: Advanced Prepositions" onclick="event.stopPropagation()">Advanced Prepositions</a>
+                    </div>
+                    <div class="lesson-skill">Opinion</div>
+                    <div class="lesson-topic">Supporting Arguments</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b1_13_adjectives_adverbs_intermediate.html" onclick="event.stopPropagation()">Adjectives & Adverbs</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_34_problem_solution.html'">
+                    <div class="lesson-number">Lesson 34</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Problem-Solution Structure</span>
+                        <a href="sp_prep_b1_34.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_15_second_conditional.html" class="grammar-badge" title="Review: Second Conditional" onclick="event.stopPropagation()">📖 2nd Cond.</a>
+                    
+                        <a href="grammar_b1_07_passive_voice_intermediate.html" class="cefr-badge" title="Grammar: Passive Voice" onclick="event.stopPropagation()">Passive Voice</a>
+                    </div>
+                    <div class="lesson-skill">Discourse</div>
+                    <div class="lesson-topic">Proposing Ideas</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b1_14_prepositions_advanced.html" onclick="event.stopPropagation()">Advanced Prepositions</a></div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_b1_35_review.html'">
+                    <div class="lesson-number">Lesson 35</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Review</span>
+                        <a href="sp_prep_b1_35.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_b1_10_relative_clauses_extended.html" class="cefr-badge" title="Grammar: Relative Clauses" onclick="event.stopPropagation()">Relative Clauses</a>
+                    </div>
+                    <div class="lesson-skill">REVIEW</div>
+                    <div class="lesson-topic">Spiral: Lessons 31-34</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_36_signposting.html'">
+                    <div class="lesson-number">Lesson 36</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Signposting</span>
+                        <a href="sp_prep_b1_36.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_b1_15_conjunctions_discourse.html" class="cefr-badge" title="Grammar: Discourse Markers" onclick="event.stopPropagation()">Discourse Markers</a>
+                    </div>
+                    <div class="lesson-skill">Fluency</div>
+                    <div class="lesson-topic">Clear Organization</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_37_turn_taking.html'">
+                    <div class="lesson-number">Lesson 37</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Turn-Taking</span>
+                        <a href="sp_prep_b1_37.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_43_ellipsis_substitution.html" class="grammar-badge" title="Review: Ellipsis & Substitution" onclick="event.stopPropagation()">📖 Ellipsis</a>
+                    
+                        <a href="grammar_b1_17_quantifiers_distributive.html" class="cefr-badge" title="Grammar: Quantifiers" onclick="event.stopPropagation()">Quantifiers</a>
+                    </div>
+                    <div class="lesson-skill">Interaction</div>
+                    <div class="lesson-topic">Conversation Flow</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_38_hypotheticals.html'">
+                    <div class="lesson-number">Lesson 38</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Hypothetical Scenarios</span>
+                        <a href="sp_prep_b1_38.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_16_third_conditional.html" class="grammar-badge" title="Review: Third Conditional" onclick="event.stopPropagation()">📖 3rd Cond.</a>
+                    
+                        <a href="grammar_b1_06_conditionals.html" class="cefr-badge" title="Grammar: Conditionals" onclick="event.stopPropagation()">Conditionals</a>
+                    </div>
+                    <div class="lesson-skill">Description</div>
+                    <div class="lesson-topic">What-If Situations</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b1_18_complex_structure_word_formation.html" onclick="event.stopPropagation()">Complex Structures</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b1_39_degrees_certainty.html'">
+                    <div class="lesson-number">Lesson 39</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Degrees of Certainty</span>
+                        <a href="sp_prep_b1_39.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_29_modal_perfects.html" class="grammar-badge" title="Review: Modal Perfects" onclick="event.stopPropagation()">📖 Modal Perf.</a>
+                    
+                        <a href="grammar_b1_04_modals_obligation_deduction.html" class="cefr-badge" title="Grammar: Modals & Certainty" onclick="event.stopPropagation()">Modals & Certainty</a>
+                    </div>
+                    <div class="lesson-skill">Opinion</div>
+                    <div class="lesson-topic">Modality & Confidence</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b1_comparative_language.html" onclick="event.stopPropagation()">Comparative Language</a></div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_b1_40_mastery.html'">
+                    <div class="lesson-number">Lesson 40</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">B1 Mastery Test</span>
+                        <a href="sp_prep_b1_40.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_b1_16_gerunds_infinitives_semantic.html" class="cefr-badge" title="Grammar: Gerunds & Infinitives" onclick="event.stopPropagation()">Gerunds & Infinitives</a>
+                    </div>
+                    <div class="lesson-skill">INTEGRATION</div>
+                    <div class="lesson-topic">Speaking Challenge</div>
+                </div>
+            </div>
+            <div class="grammar-panel" onclick="this.classList.toggle('open')">
+                <div class="grammar-panel-toggle">
+                    <h4>📖 Grammar to feel confident at B1</h4>
+                    <span class="grammar-panel-chevron">▼</span>
+                </div>
+                <div class="grammar-panel-body" onclick="event.stopPropagation()">
+                    <p style="color: #64748b; font-size: 0.85em; margin-bottom: 12px;">Solid on all of these? You're ready for B2.</p>
+                    <div class="grammar-panel-grid">
+                        <a href="grammar_b1_01_perfect_tenses_aspect.html" class="grammar-panel-link">Perfect Tenses & Aspect</a>
+                        <a href="grammar_b1_02_past_tense_mastery.html" class="grammar-panel-link">Past Tense Mastery</a>
+                        <a href="grammar_b1_03_future_tenses_nuanced.html" class="grammar-panel-link">Future Tenses: Nuanced Choices</a>
+                        <a href="grammar_b1_04_modals_obligation_deduction.html" class="grammar-panel-link">Modals: Obligation & Deduction</a>
+                        <a href="grammar_b1_05_possibility_hypothetical.html" class="grammar-panel-link">Possibility & Hypothetical</a>
+                        <a href="grammar_b1_06_conditionals.html" class="grammar-panel-link">Conditional Structures</a>
+                        <a href="grammar_b1_07_passive_voice_intermediate.html" class="grammar-panel-link">Passive Voice</a>
+                        <a href="grammar_b1_08_reported_speech_core.html" class="grammar-panel-link">Reported Speech: Core</a>
+                        <a href="grammar_b1_09_reported_speech_advanced.html" class="grammar-panel-link">Reported Speech: Advanced</a>
+                        <a href="grammar_b1_10_relative_clauses_extended.html" class="grammar-panel-link">Relative Clauses Extended</a>
+                        <a href="grammar_b1_11_articles_zero_article.html" class="grammar-panel-link">Articles & Zero Article</a>
+                        <a href="grammar_b1_12_pronouns_substitution.html" class="grammar-panel-link">Pronouns & Substitution</a>
+                        <a href="grammar_b1_13_adjectives_adverbs_intermediate.html" class="grammar-panel-link">Adjectives & Adverbs</a>
+                        <a href="grammar_b1_14_prepositions_advanced.html" class="grammar-panel-link">Prepositions: After Adj/Verbs/Nouns</a>
+                        <a href="grammar_b1_15_conjunctions_discourse.html" class="grammar-panel-link">Conjunctions & Discourse Markers</a>
+                        <a href="grammar_b1_16_gerunds_infinitives_semantic.html" class="grammar-panel-link">Gerunds & Infinitives: Meaning</a>
+                        <a href="grammar_b1_17_quantifiers_distributive.html" class="grammar-panel-link">Quantifiers & Distributive</a>
+                        <a href="grammar_b1_18_complex_structure_word_formation.html" class="grammar-panel-link">Complex Structures & Word Formation</a>
+                    </div>
+                    <a href="CEFR_Grammar_Dashboard.html" class="grammar-panel-cta">Full Grammar Dashboard →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- B2 Advanced -->
+        <div class="level-section level-b2">
+            <div class="level-header">
+                <div class="level-title">
+                    <div class="level-icon">B2</div>
+                    <div class="level-info">
+                        <h3>Advanced Speaking</h3>
+                        <p>Master complex arguments and sophisticated expression</p>
+                    </div>
+                </div>
+                <div class="level-progress">
+                    <div class="level-progress-text">20/20</div>
+                    <div class="level-progress-bar">
+                        <div class="level-progress-fill" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="lessons-grid">
+                <div class="lesson-card" onclick="window.location.href='sp_b2_41_academic_structure.html'">
+                    <div class="lesson-number">Lesson 41</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Academic Structure</span>
+                        <a href="sp_prep_b2_41.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_34_participle_clauses.html" class="grammar-badge" title="Review: Participle Clauses" onclick="event.stopPropagation()">📖 Participles</a>
+                    
+                        <a href="grammar_b2_09_negative_adverbials_inversion.html" class="cefr-badge" title="Grammar: Inversion" onclick="event.stopPropagation()">Inversion</a>
+                    </div>
+                    <div class="lesson-skill">Discourse</div>
+                    <div class="lesson-topic">Formal Presentations</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_42_strong_hedging.html'">
+                    <div class="lesson-number">Lesson 42</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Strong Hedging</span>
+                        <a href="sp_prep_b2_42.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_29_modal_perfects.html" class="grammar-badge" title="Review: Modal Perfects" onclick="event.stopPropagation()">📖 Modal Perf.</a>
+                    
+                        <a href="grammar_b2_03_modal_deduction.html" class="cefr-badge" title="Grammar: Modal Deduction" onclick="event.stopPropagation()">Modal Deduction</a>
+                    </div>
+                    <div class="lesson-skill">Opinion</div>
+                    <div class="lesson-topic">Nuanced Statements</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_43_sophisticated_stalling.html'">
+                    <div class="lesson-number">Lesson 43</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Sophisticated Stalling</span>
+                        <a href="sp_prep_b2_43.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_43_ellipsis_substitution.html" class="grammar-badge" title="Review: Ellipsis & Substitution" onclick="event.stopPropagation()">📖 Ellipsis</a>
+                    
+                        <a href="grammar_b2_16_complex_gerund_infinitive.html" class="cefr-badge" title="Grammar: Gerunds & Infinitives" onclick="event.stopPropagation()">Gerunds & Infinitives</a>
+                    </div>
+                    <div class="lesson-skill">Fluency</div>
+                    <div class="lesson-topic">Advanced Thinking Devices</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b2_03_modal_deduction.html" onclick="event.stopPropagation()">Modal Deduction</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_44_building_on_ideas.html'">
+                    <div class="lesson-number">Lesson 44</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Building on Ideas</span>
+                        <a href="sp_prep_b2_44.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_23_non_defining_relative_clauses.html" class="grammar-badge" title="Review: Non-Defining Relative Clauses" onclick="event.stopPropagation()">📖 Relatives</a>
+                    
+                        <a href="grammar_b2_10_advanced_relative_clauses.html" class="cefr-badge" title="Grammar: Relative Clauses" onclick="event.stopPropagation()">Relative Clauses</a>
+                    </div>
+                    <div class="lesson-skill">Interaction</div>
+                    <div class="lesson-topic">Collaborative Discussions</div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_b2_45_review.html'">
+                    <div class="lesson-number">Lesson 45</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Review</span>
+                        <a href="sp_prep_b2_45.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_b2_15_correlative_conjunctions_concession.html" class="cefr-badge" title="Grammar: Conjunctions & Concession" onclick="event.stopPropagation()">Conjunctions & Concession</a>
+                    </div>
+                    <div class="lesson-skill">REVIEW</div>
+                    <div class="lesson-topic">Spiral: B1 + B2</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_46_nuanced_description.html'">
+                    <div class="lesson-number">Lesson 46</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Nuanced Description</span>
+                        <a href="sp_prep_b2_46.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_33_cleft_sentences.html" class="grammar-badge" title="Review: Cleft Sentences" onclick="event.stopPropagation()">📖 Cleft Sent.</a>
+                    
+                        <a href="grammar_b2_13_advanced_adjective_adverb.html" class="cefr-badge" title="Grammar: Advanced Adjectives" onclick="event.stopPropagation()">Advanced Adjectives</a>
+                    </div>
+                    <div class="lesson-skill">Description</div>
+                    <div class="lesson-topic">Fine Details</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_47_counterarguments.html'">
+                    <div class="lesson-number">Lesson 47</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Counterarguments</span>
+                        <a href="sp_prep_b2_47.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_17_mixed_conditionals_wishes.html" class="grammar-badge" title="Review: Mixed Conditionals" onclick="event.stopPropagation()">📖 Mixed Cond.</a>
+                    
+                        <a href="grammar_b2_11_cleft_sentences_emphasis.html" class="cefr-badge" title="Grammar: Cleft Sentences" onclick="event.stopPropagation()">Cleft Sentences</a>
+                    </div>
+                    <div class="lesson-skill">Opinion</div>
+                    <div class="lesson-topic">Anticipating Objections</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_48_concession.html'">
+                    <div class="lesson-number">Lesson 48</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Concession Structures</span>
+                        <a href="sp_prep_b2_48.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_34_participle_clauses.html" class="grammar-badge" title="Review: Participle Clauses" onclick="event.stopPropagation()">📖 Participles</a>
+                    
+                        <a href="grammar_b2_15_correlative_conjunctions_concession.html" class="cefr-badge" title="Grammar: Concession Structures" onclick="event.stopPropagation()">Concession Structures</a>
+                    </div>
+                    <div class="lesson-skill">Discourse</div>
+                    <div class="lesson-topic">Acknowledging Valid Points</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_49_register.html'">
+                    <div class="lesson-number">Lesson 49</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Register & Audience</span>
+                        <a href="sp_prep_b2_49.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_35_subjunctive_formal.html" class="grammar-badge" title="Review: Subjunctive & Formal Structures" onclick="event.stopPropagation()">📖 Subjunctive</a>
+                    
+                        <a href="grammar_b2_08_reporting_verbs_patterns.html" class="cefr-badge" title="Grammar: Reporting Verbs" onclick="event.stopPropagation()">Reporting Verbs</a>
+                    </div>
+                    <div class="lesson-skill">Register</div>
+                    <div class="lesson-topic">Context-Appropriate Language</div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_b2_50_review.html'">
+                    <div class="lesson-number">Lesson 50</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Review</span>
+                        <a href="sp_prep_b2_50.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_b2_12_articles_in_depth.html" class="cefr-badge" title="Grammar: Advanced Articles" onclick="event.stopPropagation()">Advanced Articles</a>
+                    </div>
+                    <div class="lesson-skill">REVIEW</div>
+                    <div class="lesson-topic">Spiral: Lessons 41-49</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b2_10_advanced_relative_clauses.html" onclick="event.stopPropagation()">Advanced Relative Clauses</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_51_idiomatic.html'">
+                    <div class="lesson-number">Lesson 51</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Idiomatic Expression</span>
+                        <a href="sp_prep_b2_51.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_49_idiomatic_english.html" class="grammar-badge" title="Review: Idiomatic English" onclick="event.stopPropagation()">📖 Idioms</a>
+                    
+                        <a href="grammar_b2_18_quantifiers_linking_conventions.html" class="cefr-badge" title="Grammar: Linking & Conventions" onclick="event.stopPropagation()">Linking & Conventions</a>
+                    </div>
+                    <div class="lesson-skill">Fluency</div>
+                    <div class="lesson-topic">Natural Phrasing</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b2_11_cleft_sentences_emphasis.html" onclick="event.stopPropagation()">Cleft Sentences</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_52_difficult_questions.html'">
+                    <div class="lesson-number">Lesson 52</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Handling Difficult Questions</span>
+                        <a href="sp_prep_b2_52.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_20_reported_speech.html" class="grammar-badge" title="Review: Reported Speech" onclick="event.stopPropagation()">📖 Reported</a>
+                    
+                        <a href="grammar_b2_04_need_modals.html" class="cefr-badge" title="Grammar: Need & Modals" onclick="event.stopPropagation()">Need & Modals</a>
+                    </div>
+                    <div class="lesson-skill">Interaction</div>
+                    <div class="lesson-topic">Challenging Scenarios</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b2_12_articles_in_depth.html" onclick="event.stopPropagation()">Advanced Articles</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_53_abstract_reasoning.html'">
+                    <div class="lesson-number">Lesson 53</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Abstract Reasoning</span>
+                        <a href="sp_prep_b2_53.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_33_cleft_sentences.html" class="grammar-badge" title="Review: Cleft Sentences" onclick="event.stopPropagation()">📖 Cleft Sent.</a>
+                    
+                        <a href="grammar_b2_14_complex_prepositions_cohesion.html" class="cefr-badge" title="Grammar: Prepositions & Cohesion" onclick="event.stopPropagation()">Prepositions & Cohesion</a>
+                    </div>
+                    <div class="lesson-skill">Description</div>
+                    <div class="lesson-topic">Complex Analysis</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_54_past_speculation.html'">
+                    <div class="lesson-number">Lesson 54</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Past Speculation</span>
+                        <a href="sp_prep_b2_54.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_16_third_conditional.html" class="grammar-badge" title="Review: Third Conditional" onclick="event.stopPropagation()">📖 3rd Cond.</a>
+                    
+                        <a href="grammar_b2_05_third_mixed_conditionals.html" class="cefr-badge" title="Grammar: Mixed Conditionals" onclick="event.stopPropagation()">Mixed Conditionals</a>
+                    </div>
+                    <div class="lesson-skill">Opinion</div>
+                    <div class="lesson-topic">Counterfactuals</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b2_14_complex_prepositions_cohesion.html" onclick="event.stopPropagation()">Prepositions & Cohesion</a></div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_b2_55_review.html'">
+                    <div class="lesson-number">Lesson 55</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Review</span>
+                        <a href="sp_prep_b2_55.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_b2_06_advanced_passive.html" class="cefr-badge" title="Grammar: Advanced Passive" onclick="event.stopPropagation()">Advanced Passive</a>
+                    </div>
+                    <div class="lesson-skill">REVIEW</div>
+                    <div class="lesson-topic">Spiral: Lessons 51-54</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b2_15_correlative_conjunctions_concession.html" onclick="event.stopPropagation()">Conjunctions & Concession</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_56_exemplification.html'">
+                    <div class="lesson-number">Lesson 56</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Exemplification</span>
+                        <a href="sp_prep_b2_56.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_32_inversion.html" class="grammar-badge" title="Review: Inversion for Emphasis" onclick="event.stopPropagation()">📖 Inversion</a>
+                    
+                        <a href="grammar_b2_01_past_perfect_continuous_narrative.html" class="cefr-badge" title="Grammar: Narrative Tenses" onclick="event.stopPropagation()">Narrative Tenses</a>
+                    </div>
+                    <div class="lesson-skill">Discourse</div>
+                    <div class="lesson-topic">Illustrating Points</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_b2_16_complex_gerund_infinitive.html" onclick="event.stopPropagation()">Complex Gerunds</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_57_persuasion.html'">
+                    <div class="lesson-number">Lesson 57</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Persuasion Techniques</span>
+                        <a href="sp_prep_b2_57.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_33_cleft_sentences.html" class="grammar-badge" title="Review: Cleft Sentences" onclick="event.stopPropagation()">📖 Cleft Sent.</a>
+                    
+                        <a href="grammar_b2_07_impersonal_reporting_passive.html" class="cefr-badge" title="Grammar: Impersonal Passive" onclick="event.stopPropagation()">Impersonal Passive</a>
+                    </div>
+                    <div class="lesson-skill">Interaction</div>
+                    <div class="lesson-topic">Influencing Others</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_58_diplomatic.html'">
+                    <div class="lesson-number">Lesson 58</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Diplomatic Language</span>
+                        <a href="sp_prep_b2_58.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_35_subjunctive_formal.html" class="grammar-badge" title="Review: Subjunctive & Formal" onclick="event.stopPropagation()">📖 Subjunctive</a>
+                    
+                        <a href="grammar_b2_17_pronouns_compounds_dummy_it.html" class="cefr-badge" title="Grammar: Pronouns & Dummy It" onclick="event.stopPropagation()">Pronouns & Dummy It</a>
+                    </div>
+                    <div class="lesson-skill">Register</div>
+                    <div class="lesson-topic">Sensitivity & Tact</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_59_self_monitoring.html'">
+                    <div class="lesson-number">Lesson 59</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Self-Monitoring & Repair</span>
+                        <a href="sp_prep_b2_59.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_41_nuances_tense_aspect.html" class="grammar-badge" title="Review: Nuances of Tense & Aspect" onclick="event.stopPropagation()">📖 Tense Nuance</a>
+                    
+                        <a href="grammar_b2_02_future_tenses_advanced.html" class="cefr-badge" title="Grammar: Advanced Future" onclick="event.stopPropagation()">Advanced Future</a>
+                    </div>
+                    <div class="lesson-skill">Fluency</div>
+                    <div class="lesson-topic">Advanced Error Correction</div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_b2_60_mastery.html'">
+                    <div class="lesson-number">Lesson 60</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">B2 Mastery Test</span>
+                        <a href="sp_prep_b2_60.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_b2_09_negative_adverbials_inversion.html" class="cefr-badge" title="Grammar: Inversion & Emphasis" onclick="event.stopPropagation()">Inversion & Emphasis</a>
+                    </div>
+                    <div class="lesson-skill">INTEGRATION</div>
+                    <div class="lesson-topic">Speaking Challenge</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_60b_the_keyword_method.html'" style="border-left: 3px solid #4ecdc4;">
+                    <div class="lesson-number">Bonus</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">The Keyword Method</span>
+                    
+                        <a href="grammar_b2_13_advanced_adjective_adverb.html" class="cefr-badge" title="Grammar: Advanced Modifiers" onclick="event.stopPropagation()">Advanced Modifiers</a>
+                    </div>
+                    <div class="lesson-skill">Fluency</div>
+                    <div class="lesson-topic">Speak Without Scripts</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_b2_keyword_builder.html'" style="border-left: 3px solid #4ecdc4;">
+                    <div class="lesson-number">Bonus</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">The Keyword Builder</span>
+                    
+                        <a href="grammar_b2_18_quantifiers_linking_conventions.html" class="cefr-badge" title="Grammar: Word Building" onclick="event.stopPropagation()">Word Building</a>
+                    </div>
+                    <div class="lesson-skill">Fluency + Vocabulary</div>
+                    <div class="lesson-topic">Build Word Maps & Speak</div>
+                </div>
+            </div>
+            <div class="grammar-panel" onclick="this.classList.toggle('open')">
+                <div class="grammar-panel-toggle">
+                    <h4>📖 Grammar to feel confident at B2</h4>
+                    <span class="grammar-panel-chevron">▼</span>
+                </div>
+                <div class="grammar-panel-body" onclick="event.stopPropagation()">
+                    <p style="color: #64748b; font-size: 0.85em; margin-bottom: 12px;">These are the structures that separate B2 from B1. Get them right and C1 will feel natural.</p>
+                    <div class="grammar-panel-grid">
+                        <a href="grammar_b2_01_past_perfect_continuous_narrative.html" class="grammar-panel-link">Past Perfect Continuous & Narrative</a>
+                        <a href="grammar_b2_02_future_tenses_advanced.html" class="grammar-panel-link">Future Tenses: Advanced</a>
+                        <a href="grammar_b2_03_modal_deduction.html" class="grammar-panel-link">Modal Deduction</a>
+                        <a href="grammar_b2_04_need_modals.html" class="grammar-panel-link">Need & Semi-Modals</a>
+                        <a href="grammar_b2_05_third_mixed_conditionals.html" class="grammar-panel-link">Third & Mixed Conditionals</a>
+                        <a href="grammar_b2_06_advanced_passive.html" class="grammar-panel-link">Advanced Passive</a>
+                        <a href="grammar_b2_07_impersonal_reporting_passive.html" class="grammar-panel-link">Impersonal Reporting</a>
+                        <a href="grammar_b2_08_reporting_verbs_patterns.html" class="grammar-panel-link">Reporting Verbs & Patterns</a>
+                        <a href="grammar_b2_09_negative_adverbials_inversion.html" class="grammar-panel-link">Negative Adverbials & Inversion</a>
+                        <a href="grammar_b2_10_advanced_relative_clauses.html" class="grammar-panel-link">Advanced Relative Clauses</a>
+                        <a href="grammar_b2_11_cleft_sentences_emphasis.html" class="grammar-panel-link">Cleft Sentences & Emphasis</a>
+                        <a href="grammar_b2_12_articles_in_depth.html" class="grammar-panel-link">Articles in Depth</a>
+                        <a href="grammar_b2_13_advanced_adjective_adverb.html" class="grammar-panel-link">Advanced Adjective & Adverb</a>
+                        <a href="grammar_b2_14_complex_prepositions_cohesion.html" class="grammar-panel-link">Complex Prepositions & Cohesion</a>
+                        <a href="grammar_b2_15_correlative_conjunctions_concession.html" class="grammar-panel-link">Correlative Conjunctions & Concession</a>
+                        <a href="grammar_b2_16_complex_gerund_infinitive.html" class="grammar-panel-link">Complex Gerund & Infinitive</a>
+                        <a href="grammar_b2_17_pronouns_compounds_dummy_it.html" class="grammar-panel-link">Pronouns, Compounds & Dummy It</a>
+                        <a href="grammar_b2_18_quantifiers_linking_conventions.html" class="grammar-panel-link">Quantifiers, Linking & Conventions</a>
+                    </div>
+                    <a href="CEFR_Grammar_Dashboard.html" class="grammar-panel-cta">Full Grammar Dashboard →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- C1 Sophisticated -->
+        <div class="level-section level-c1">
+            <div class="level-header">
+                <div class="level-title">
+                    <div class="level-icon">C1</div>
+                    <div class="level-info">
+                        <h3>Sophisticated Speaking</h3>
+                        <p>Achieve native-like fluency and nuanced expression</p>
+                    </div>
+                </div>
+                <div class="level-progress">
+                    <div class="level-progress-text">15/15</div>
+                    <div class="level-progress-bar">
+                        <div class="level-progress-fill" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="lessons-grid">
+                <div class="lesson-card" onclick="window.location.href='sp_c1_61_sophisticated_cohesion.html'">
+                    <div class="lesson-number">Lesson 61</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Sophisticated Cohesion</span>
+                        <a href="sp_prep_c1_61.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_43_ellipsis_substitution.html" class="grammar-badge" title="Review: Ellipsis & Substitution" onclick="event.stopPropagation()">📖 Ellipsis</a>
+                    
+                        <a href="grammar_c1_13_discourse_hedging.html" class="cefr-badge" title="Grammar: Discourse & Hedging" onclick="event.stopPropagation()">Discourse & Hedging</a>
+                    </div>
+                    <div class="lesson-skill">Discourse</div>
+                    <div class="lesson-topic">Seamless Flow</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_c1_01_future_in_past.html" onclick="event.stopPropagation()">Future in the Past</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_c1_62_expert_hedging.html'">
+                    <div class="lesson-number">Lesson 62</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Expert Hedging</span>
+                        <a href="sp_prep_c1_62.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_29_modal_perfects.html" class="grammar-badge" title="Review: Modal Perfects" onclick="event.stopPropagation()">📖 Modal Perf.</a>
+                    
+                        <a href="grammar_c1_03_advanced_modals.html" class="cefr-badge" title="Grammar: Advanced Modals" onclick="event.stopPropagation()">Advanced Modals</a>
+                    </div>
+                    <div class="lesson-skill">Opinion</div>
+                    <div class="lesson-topic">Precision & Nuance</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_c1_02_advanced_aspect.html" onclick="event.stopPropagation()">Advanced Aspect</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_c1_63_irony_understatement.html'">
+                    <div class="lesson-number">Lesson 63</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Irony & Understatement</span>
+                        <a href="sp_prep_c1_63.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_49_idiomatic_english.html" class="grammar-badge" title="Review: Idiomatic English" onclick="event.stopPropagation()">📖 Idioms</a>
+                    
+                        <a href="grammar_c2_01_register_style_shifting.html" class="cefr-badge" title="Grammar: Register & Style" onclick="event.stopPropagation()">Register & Style</a>
+                    </div>
+                    <div class="lesson-skill">Register</div>
+                    <div class="lesson-topic">Subtle Expression</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_c1_03_advanced_modals.html" onclick="event.stopPropagation()">Advanced Modals</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_c1_64_negotiation.html'">
+                    <div class="lesson-number">Lesson 64</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">High-Level Negotiation</span>
+                        <a href="sp_prep_c1_64.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_17_mixed_conditionals_wishes.html" class="grammar-badge" title="Review: Mixed Conditionals" onclick="event.stopPropagation()">📖 Mixed Cond.</a>
+                    
+                        <a href="grammar_c1_04_inverted_formal_conditionals.html" class="cefr-badge" title="Grammar: Formal Conditionals" onclick="event.stopPropagation()">Formal Conditionals</a>
+                    </div>
+                    <div class="lesson-skill">Interaction</div>
+                    <div class="lesson-topic">Strategic Dialogue</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_c2_03_complex_modality.html" onclick="event.stopPropagation()">Complex Modality</a></div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_c1_65_review.html'">
+                    <div class="lesson-number">Lesson 65</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Review</span>
+                        <a href="sp_prep_c1_65.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_c1_05_passive_reporting_causative.html" class="cefr-badge" title="Grammar: Passive & Causative" onclick="event.stopPropagation()">Passive & Causative</a>
+                    </div>
+                    <div class="lesson-skill">REVIEW</div>
+                    <div class="lesson-topic">Spiral: B2 + C1</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_c2_04_subjunctive_formal_conditionals.html" onclick="event.stopPropagation()">Subjunctive</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_c1_66_reformulation_mastery.html'">
+                    <div class="lesson-number">Lesson 66</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Reformulation Mastery</span>
+                        <a href="sp_prep_c1_66.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_41_nuances_tense_aspect.html" class="grammar-badge" title="Review: Nuances of Tense & Aspect" onclick="event.stopPropagation()">📖 Tense Nuance</a>
+                    
+                        <a href="grammar_c1_14_sentence_architecture.html" class="cefr-badge" title="Grammar: Sentence Architecture" onclick="event.stopPropagation()">Sentence Architecture</a>
+                    </div>
+                    <div class="lesson-skill">Fluency</div>
+                    <div class="lesson-topic">Expert Refinement</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_c2_05_advanced_passive_reporting.html" onclick="event.stopPropagation()">C2 Passive & Reporting</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_c1_67_technical_explanation.html'">
+                    <div class="lesson-number">Lesson 67</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Technical Explanation</span>
+                        <a href="sp_prep_c1_67.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_42_advanced_passive_causative.html" class="grammar-badge" title="Review: Advanced Passive & Causative" onclick="event.stopPropagation()">📖 Adv. Passive</a>
+                    
+                        <a href="grammar_c1_09_advanced_articles_determiners.html" class="cefr-badge" title="Grammar: Articles & Determiners" onclick="event.stopPropagation()">Articles & Determiners</a>
+                    </div>
+                    <div class="lesson-skill">Description</div>
+                    <div class="lesson-topic">Specialized Knowledge</div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_c1_68_devils_advocate.html'">
+                    <div class="lesson-number">Lesson 68</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Devil's Advocate</span>
+                        <a href="sp_prep_c1_68.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_16_third_conditional.html" class="grammar-badge" title="Review: Third Conditional" onclick="event.stopPropagation()">📖 3rd Cond.</a>
+                    
+                        <a href="grammar_c1_06_reported_speech_nuance.html" class="cefr-badge" title="Grammar: Reported Speech" onclick="event.stopPropagation()">Reported Speech</a>
+                    </div>
+                    <div class="lesson-skill">Opinion</div>
+                    <div class="lesson-topic">Strategic Disagreement</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_c1_08_advanced_relative_clauses.html" onclick="event.stopPropagation()">Advanced Relative Clauses</a> · <a href="grammar_c2_07_academic_precision.html" onclick="event.stopPropagation()">Academic Precision</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_c1_69_analytical_frameworks.html'">
+                    <div class="lesson-number">Lesson 69</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Analytical Frameworks</span>
+                        <a href="sp_prep_c1_69.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_32_inversion.html" class="grammar-badge" title="Review: Inversion for Emphasis" onclick="event.stopPropagation()">📖 Inversion</a>
+                    
+                        <a href="grammar_c2_06_complex_sentence_architecture.html" class="cefr-badge" title="Grammar: Complex Structures" onclick="event.stopPropagation()">Complex Structures</a>
+                    </div>
+                    <div class="lesson-skill">Discourse</div>
+                    <div class="lesson-topic">Structured Analysis</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_c1_09_advanced_articles_determiners.html" onclick="event.stopPropagation()">Articles & Determiners</a></div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_c1_70_review.html'">
+                    <div class="lesson-number">Lesson 70</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Review</span>
+                        <a href="sp_prep_c1_70.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_c1_15_gerunds_infinitives_phrasal.html" class="cefr-badge" title="Grammar: Phrasal Verbs" onclick="event.stopPropagation()">Phrasal Verbs</a>
+                    </div>
+                    <div class="lesson-skill">REVIEW</div>
+                    <div class="lesson-topic">Spiral: Lessons 61-69</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_c1_10_advanced_pronouns_reference.html" onclick="event.stopPropagation()">Pronouns & Reference</a> · <a href="grammar_c2_09_negation_cohesion_discourse.html" onclick="event.stopPropagation()">Negation & Cohesion</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_c1_71_humor_wordplay.html'">
+                    <div class="lesson-number">Lesson 71</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Humor & Wordplay</span>
+                        <a href="sp_prep_c1_71.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_49_idiomatic_english.html" class="grammar-badge" title="Review: Idiomatic English" onclick="event.stopPropagation()">📖 Idioms</a>
+                    
+                        <a href="grammar_c2_10_evaluative_language.html" class="cefr-badge" title="Grammar: Evaluative Language" onclick="event.stopPropagation()">Evaluative Language</a>
+                    </div>
+                    <div class="lesson-skill">Register</div>
+                    <div class="lesson-topic">Wit & Timing</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_c1_11_sophisticated_modification.html" onclick="event.stopPropagation()">Sophisticated Modification</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_c1_72_chairing_discussions.html'">
+                    <div class="lesson-number">Lesson 72</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Chairing Discussions</span>
+                        <a href="sp_prep_c1_72.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_43_ellipsis_substitution.html" class="grammar-badge" title="Review: Ellipsis & Substitution" onclick="event.stopPropagation()">📖 Ellipsis</a>
+                    
+                        <a href="grammar_c1_07_questions_for_effect.html" class="cefr-badge" title="Grammar: Questions for Effect" onclick="event.stopPropagation()">Questions for Effect</a>
+                    </div>
+                    <div class="lesson-skill">Interaction</div>
+                    <div class="lesson-topic">Leadership & Facilitation</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_c1_12_prepositions_abstract.html" onclick="event.stopPropagation()">Abstract Prepositions</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_c1_73_native_expression.html'">
+                    <div class="lesson-number">Lesson 73</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Native-Like Expression</span>
+                        <a href="sp_prep_c1_73.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_49_idiomatic_english.html" class="grammar-badge" title="Review: Idiomatic English" onclick="event.stopPropagation()">📖 Idioms</a>
+                    
+                        <a href="grammar_c2_08_word_level_mastery.html" class="cefr-badge" title="Grammar: Word-Level Mastery" onclick="event.stopPropagation()">Word-Level Mastery</a>
+                    </div>
+                    <div class="lesson-skill">Fluency</div>
+                    <div class="lesson-topic">Natural Mastery</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_c1_13_discourse_hedging.html" onclick="event.stopPropagation()">Discourse & Hedging</a></div>
+                </div>
+                <div class="lesson-card" onclick="window.location.href='sp_c1_74_impromptu_speaking.html'">
+                    <div class="lesson-number">Lesson 74</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">Impromptu Speaking</span>
+                        <a href="sp_prep_c1_74.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                        <a href="lesson_41_nuances_tense_aspect.html" class="grammar-badge" title="Review: Nuances of Tense & Aspect" onclick="event.stopPropagation()">📖 Tense Nuance</a>
+                    
+                        <a href="grammar_c2_02_tense_aspect_for_effect.html" class="cefr-badge" title="Grammar: Tense for Effect" onclick="event.stopPropagation()">Tense for Effect</a>
+                    </div>
+                    <div class="lesson-skill">Discourse</div>
+                    <div class="lesson-topic">Spontaneous Expression</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_c1_14_sentence_architecture.html" onclick="event.stopPropagation()">Sentence Architecture</a></div>
+                </div>
+                <div class="lesson-card review" onclick="window.location.href='sp_c1_75_mastery.html'">
+                    <div class="lesson-number">Lesson 75</div>
+                    <div class="lesson-title-wrapper">
+                        <span class="lesson-title">C1 MASTERY - Course Complete</span>
+                        <a href="sp_prep_c1_75.html" class="prep-badge" title="View prep pack" onclick="event.stopPropagation()">Prep</a>
+                    
+                        <a href="grammar_c1_16_formal_style_word_formation.html" class="cefr-badge" title="Grammar: Formal Style" onclick="event.stopPropagation()">Formal Style</a>
+                    </div>
+                    <div class="lesson-skill">INTEGRATION</div>
+                    <div class="lesson-topic">Final Speaking Challenge</div>
+                    <div class="grammar-suggest">You could also try: <a href="grammar_c1_15_gerunds_infinitives_phrasal.html" onclick="event.stopPropagation()">Phrasal Verbs</a></div>
+                </div>
+            </div>
+            <div class="grammar-panel" onclick="this.classList.toggle('open')">
+                <div class="grammar-panel-toggle">
+                    <h4>📖 Grammar to feel confident at C1 & C2</h4>
+                    <span class="grammar-panel-chevron">▼</span>
+                </div>
+                <div class="grammar-panel-body" onclick="event.stopPropagation()">
+                    <p style="color: #64748b; font-size: 0.85em; margin-bottom: 12px;">The final frontier. Master these and you can handle any English, anywhere.</p>
+                    <h5 style="color: #ec4899; font-size: 0.82em; font-weight: 700; margin: 14px 0 8px; text-transform: uppercase; letter-spacing: 0.5px;">C1 Advanced</h5>
+                    <div class="grammar-panel-grid">
+                        <a href="grammar_c1_01_future_in_past.html" class="grammar-panel-link">Future in the Past</a>
+                        <a href="grammar_c1_02_advanced_aspect.html" class="grammar-panel-link">Advanced Aspect</a>
+                        <a href="grammar_c1_03_advanced_modals.html" class="grammar-panel-link">Advanced Modals</a>
+                        <a href="grammar_c1_04_inverted_formal_conditionals.html" class="grammar-panel-link">Inverted & Formal Conditionals</a>
+                        <a href="grammar_c1_05_passive_reporting_causative.html" class="grammar-panel-link">Passive, Reporting & Causative</a>
+                        <a href="grammar_c1_06_reported_speech_nuance.html" class="grammar-panel-link">Reported Speech Nuance</a>
+                        <a href="grammar_c1_07_questions_for_effect.html" class="grammar-panel-link">Questions for Effect</a>
+                        <a href="grammar_c1_08_advanced_relative_clauses.html" class="grammar-panel-link">Advanced Relative Clauses</a>
+                        <a href="grammar_c1_09_advanced_articles_determiners.html" class="grammar-panel-link">Advanced Articles & Determiners</a>
+                        <a href="grammar_c1_10_advanced_pronouns_reference.html" class="grammar-panel-link">Advanced Pronouns & Reference</a>
+                        <a href="grammar_c1_11_sophisticated_modification.html" class="grammar-panel-link">Sophisticated Modification</a>
+                        <a href="grammar_c1_12_prepositions_abstract.html" class="grammar-panel-link">Abstract Prepositions</a>
+                        <a href="grammar_c1_13_discourse_hedging.html" class="grammar-panel-link">Discourse & Hedging</a>
+                        <a href="grammar_c1_14_sentence_architecture.html" class="grammar-panel-link">Sentence Architecture</a>
+                        <a href="grammar_c1_15_gerunds_infinitives_phrasal.html" class="grammar-panel-link">Gerunds, Infinitives & Phrasal Verbs</a>
+                        <a href="grammar_c1_16_formal_style_word_formation.html" class="grammar-panel-link">Formal Style & Word Formation</a>
+                    </div>
+                    <h5 style="color: #ef4444; font-size: 0.82em; font-weight: 700; margin: 18px 0 8px; text-transform: uppercase; letter-spacing: 0.5px;">C2 Mastery</h5>
+                    <div class="grammar-panel-grid">
+                        <a href="grammar_c2_01_register_style_shifting.html" class="grammar-panel-link">Register & Style Shifting</a>
+                        <a href="grammar_c2_02_tense_aspect_for_effect.html" class="grammar-panel-link">Tense-Aspect for Effect</a>
+                        <a href="grammar_c2_03_complex_modality.html" class="grammar-panel-link">Complex Modality</a>
+                        <a href="grammar_c2_04_subjunctive_formal_conditionals.html" class="grammar-panel-link">Subjunctive & Formal Conditionals</a>
+                        <a href="grammar_c2_05_advanced_passive_reporting.html" class="grammar-panel-link">Advanced Passive & Reporting</a>
+                        <a href="grammar_c2_06_complex_sentence_architecture.html" class="grammar-panel-link">Complex Sentence Architecture</a>
+                        <a href="grammar_c2_07_academic_precision.html" class="grammar-panel-link">Academic Precision</a>
+                        <a href="grammar_c2_08_word_level_mastery.html" class="grammar-panel-link">Word-Level Mastery</a>
+                        <a href="grammar_c2_09_negation_cohesion_discourse.html" class="grammar-panel-link">Negation, Cohesion & Discourse</a>
+                        <a href="grammar_c2_10_evaluative_language.html" class="grammar-panel-link">Evaluative Language</a>
+                    </div>
+                    <a href="CEFR_Grammar_Dashboard.html" class="grammar-panel-cta">Full Grammar Dashboard →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Speaking Pathway v1.0 | Based on Dunlosky, Rosenshine, & Hattie's Research</p>
+            <p>Created by <a href="https://malcolmtheteacher-creator.github.io">Malcolm the Teacher</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Simple progress tracking (would connect to actual tracking system)
+        function updateProgress() {
+            const completed = document.querySelectorAll('.lesson-card.completed').length;
+            const total = 75;
+            const percentage = Math.round((completed / total) * 100);
+
+            const progressBar = document.getElementById('overallProgress');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '%';
+
+            document.getElementById('completedCount').textContent = completed;
+        }
+
+        // Mark lesson as completed (demo)
+        document.querySelectorAll('.lesson-card:not(.locked)').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!this.classList.contains('locked')) {
+                    // Would navigate to lesson
+                }
+            });
+        });
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

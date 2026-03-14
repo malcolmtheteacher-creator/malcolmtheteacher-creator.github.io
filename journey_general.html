@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>General English | Malcolm Hyndman</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --off-white: #f8f7f4;
+  --warm-gray: #e8e6e1;
+  --mid-gray: #6b6b6b;
+  --light-gray: #f1f0ed;
+  --accent: #1e3a2f;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--white);
+  color: var(--black);
+  line-height: 1.6;
+}
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, #1e3a2f 0%, #2a5040 50%, #1e3a2f 100%);
+  color: var(--white);
+  padding: 60px 30px 50px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 50%);
+}
+
+.hero-icon { font-size: 3.5rem; margin-bottom: 16px; position: relative; }
+
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 2.8rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.hero .subtitle {
+  font-size: 1.1rem;
+  opacity: 0.85;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  line-height: 1.7;
+}
+
+/* ── Intro ── */
+.intro {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 30px 20px;
+  text-align: center;
+}
+
+.intro p {
+  font-size: 1.05rem;
+  color: var(--mid-gray);
+  line-height: 1.8;
+}
+
+/* ── Journey Container ── */
+.journey {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 30px 60px;
+  position: relative;
+}
+
+/* The main road line */
+.journey::before {
+  content: '';
+  position: absolute;
+  left: 58px;
+  top: 20px;
+  bottom: 60px;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--warm-gray) 0%, var(--warm-gray) 100%);
+}
+
+/* ── Chapters ── */
+.chapter {
+  display: flex;
+  gap: 24px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.chapter-marker {
+  flex-shrink: 0;
+  width: 76px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.chapter-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 3px var(--warm-gray);
+}
+
+.chapter-level {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--white);
+  padding: 3px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.chapter-content {
+  flex: 1;
+  padding-bottom: 30px;
+}
+
+.chapter-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.chapter-desc {
+  color: var(--mid-gray);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+/* ── Path Cards ── */
+.paths-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.path-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--off-white);
+  border: 1px solid var(--warm-gray);
+  text-decoration: none;
+  color: var(--black);
+  transition: all 0.25s;
+}
+
+.path-card:hover {
+  border-color: var(--accent);
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.path-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  width: 40px;
+  text-align: center;
+}
+
+.path-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.path-tag {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-bottom: 4px;
+}
+
+.path-name {
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin-bottom: 2px;
+}
+
+.path-desc {
+  font-size: 0.82rem;
+  color: var(--mid-gray);
+  line-height: 1.5;
+}
+
+.path-meta {
+  font-size: 0.72rem;
+  color: var(--mid-gray);
+  margin-top: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.path-arrow {
+  font-size: 1.2rem;
+  color: var(--warm-gray);
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+.path-card:hover .path-arrow {
+  color: var(--accent);
+}
+
+/* ── Road Connectors ── */
+.road-connector {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  margin-left: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.road-line {
+  width: 3px;
+  height: 20px;
+  margin-left: 8px;
+}
+
+.road-dot {
+  display: none;
+}
+
+/* ── Back Bar ── */
+.back-bar {
+  text-align: center;
+  padding: 30px;
+  border-top: 1px solid var(--warm-gray);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.back-link {
+  color: var(--mid-gray);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+/* ── Switch Bar ── */
+.switch-bar {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 30px 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.switch-btn {
+  padding: 8px 18px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--mid-gray);
+  border: 1px solid var(--warm-gray);
+  background: var(--off-white);
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.switch-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.switch-btn.active {
+  background: var(--accent);
+  color: var(--white);
+  border-color: var(--accent);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .hero h1 { font-size: 2rem; }
+  .hero { padding: 40px 20px 35px; }
+  .journey::before { left: 28px; }
+  .chapter { gap: 14px; }
+  .chapter-marker { width: 46px; }
+  .chapter-level { font-size: 0.6rem; padding: 2px 7px; }
+  .path-card { padding: 12px 14px; }
+  .road-connector { margin-left: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-icon">🌍</div>
+  <h1>General English</h1>
+  <div class="subtitle">Build your English from the ground up. Speak with confidence in everyday life.</div>
+</div>
+
+<div class="intro">
+  <p>Your English journey starts here. Each chapter builds on the last — from your first words to fluent, natural conversation. Pick the chapter that matches where you are now, and follow the paths that interest you most.</p>
+</div>
+
+<div class="switch-bar">
+  <a class="switch-btn active" href="journey_general.html">General English</a>
+  <a class="switch-btn" href="journey_professional.html">Professional English</a>
+  <a class="switch-btn" href="journey_academic.html">Academic English</a>
+</div>
+
+<div class="journey">
+
+<div class="chapter" style="--chapter-color: #2ecc71">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #2ecc71"></div>
+    <div class="chapter-level" style="background: #2ecc71">A1</div>
+  </div>
+  <div class="chapter-content">
+    <h3 class="chapter-title">First Steps</h3>
+    <p class="chapter-desc">You're starting from scratch or know just a few words. These lessons build your foundation — greetings, daily routines, simple questions, and the grammar that holds it all together.</p>
+    <div class="paths-grid">
+<a class="path-card" href="a1_pathway_dashboard.html">
+              <div class="path-icon">🌱</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#2ecc7115;color:#2ecc71;border:1px solid #2ecc7130">Start Here</span>
+                <div class="path-name">A1 Pathway</div>
+                <div class="path-desc">A complete beginner course. 50 lessons that take you from hello to holding a basic conversation.</div>
+                <div class="path-meta">51 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="CEFR_Grammar_Dashboard.html">
+              <div class="path-icon">📐</div>
+              <div class="path-body">
+                
+                <div class="path-name">A1 Grammar</div>
+                <div class="path-desc">Present simple, articles, prepositions — the building blocks of English sentences.</div>
+                <div class="path-meta">9 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="wordwall_dashboard.html">
+              <div class="path-icon">🧱</div>
+              <div class="path-body">
+                
+                <div class="path-name">Word Wall — A1 Vocabulary</div>
+                <div class="path-desc">Fun vocabulary games: match, memory, quiz, anagram. Learn your first 400+ words through play.</div>
+                <div class="path-meta">25 games</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+
+    </div>
+  </div>
+</div>
+<div class="road-connector"><div class="road-line"></div><div class="road-dot"></div></div>
+
+<div class="chapter" style="--chapter-color: #f39c12">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #f39c12"></div>
+    <div class="chapter-level" style="background: #f39c12">A2</div>
+  </div>
+  <div class="chapter-content">
+    <h3 class="chapter-title">Finding Your Voice</h3>
+    <p class="chapter-desc">You can handle basic situations. Now it's time to start really speaking — ordering food, talking about your weekend, sharing opinions, and building the fluency that makes you feel like 'you' in English.</p>
+    <div class="paths-grid">
+<a class="path-card" href="speaking_pathway_dashboard.html">
+              <div class="path-icon">🗣️</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#f39c1215;color:#f39c12;border:1px solid #f39c1230">Core Path</span>
+                <div class="path-name">Speaking Pathway — A2</div>
+                <div class="path-desc">Structured speaking lessons. Buying time, telling stories, expressing preferences — the skills that make conversation flow.</div>
+                <div class="path-meta">21 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="general_english_dashboard.html">
+              <div class="path-icon">🗺️</div>
+              <div class="path-body">
+                
+                <div class="path-name">Situations & Survival</div>
+                <div class="path-desc">Real-world scenarios: restaurants, travel, shopping, making plans. English you'll actually use.</div>
+                <div class="path-meta">60 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="CEFR_Grammar_Dashboard.html">
+              <div class="path-icon">📐</div>
+              <div class="path-body">
+                
+                <div class="path-name">A2 Grammar</div>
+                <div class="path-desc">Past tense, comparatives, future forms — the grammar that lets you talk about more than just 'now'.</div>
+                <div class="path-meta">10 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="wordwall_dashboard.html">
+              <div class="path-icon">🧱</div>
+              <div class="path-body">
+                
+                <div class="path-name">Word Wall — A2 Vocabulary</div>
+                <div class="path-desc">Build your word power with interactive games across everyday topics.</div>
+                <div class="path-meta">25 games</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+
+    </div>
+  </div>
+</div>
+<div class="road-connector"><div class="road-line"></div><div class="road-dot"></div></div>
+
+<div class="chapter" style="--chapter-color: #667eea">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #667eea"></div>
+    <div class="chapter-level" style="background: #667eea">B1</div>
+  </div>
+  <div class="chapter-content">
+    <h3 class="chapter-title">Growing Confidence</h3>
+    <p class="chapter-desc">You can survive in English. Now you want to thrive. These lessons help you hold longer conversations, express complex ideas, and start sounding less like a textbook and more like yourself.</p>
+    <div class="paths-grid">
+<a class="path-card" href="speaking_pathway_dashboard.html">
+              <div class="path-icon">🗣️</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#667eea15;color:#667eea;border:1px solid #667eea30">Core Path</span>
+                <div class="path-name">Speaking Pathway — B1</div>
+                <div class="path-desc">Extended speaking, structuring arguments, handling disagreements. Move from 'I can speak' to 'I can discuss'.</div>
+                <div class="path-meta">20 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="conversation_toolkit_dashboard.html">
+              <div class="path-icon">🧰</div>
+              <div class="path-body">
+                
+                <div class="path-name">Conversation Toolkit</div>
+                <div class="path-desc">Big questions, predictions, building arguments — the tools that make conversation genuinely interesting.</div>
+                <div class="path-meta">13 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="speaking_naturally_dashboard.html">
+              <div class="path-icon">🎭</div>
+              <div class="path-body">
+                
+                <div class="path-name">Speaking Naturally</div>
+                <div class="path-desc">Agreement, storytelling, giving advice — how real English speakers actually talk.</div>
+                <div class="path-meta">27 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="curious_conversations_dashboard.html">
+              <div class="path-icon">💡</div>
+              <div class="path-body">
+                
+                <div class="path-name">Curious Conversations</div>
+                <div class="path-desc">True crime, food controversies, weird human behaviour — fascinating topics that make you forget you're learning.</div>
+                <div class="path-meta">20 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="CEFR_Grammar_Dashboard.html">
+              <div class="path-icon">📐</div>
+              <div class="path-body">
+                
+                <div class="path-name">B1 Grammar</div>
+                <div class="path-desc">Conditionals, reported speech, passive voice — the grammar that unlocks nuance.</div>
+                <div class="path-meta">19 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+
+    </div>
+  </div>
+</div>
+<div class="road-connector"><div class="road-line"></div><div class="road-dot"></div></div>
+
+<div class="chapter" style="--chapter-color: #48dbfb">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #48dbfb"></div>
+    <div class="chapter-level" style="background: #48dbfb">B2</div>
+  </div>
+  <div class="chapter-content">
+    <h3 class="chapter-title">Real Fluency</h3>
+    <p class="chapter-desc">You're comfortable in English but want to be impressive. These lessons polish your speaking, deepen your vocabulary, and help you express exactly what you mean — not just something close to it.</p>
+    <div class="paths-grid">
+<a class="path-card" href="speaking_pathway_dashboard.html">
+              <div class="path-icon">🗣️</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#48dbfb15;color:#48dbfb;border:1px solid #48dbfb30">Core Path</span>
+                <div class="path-name">Speaking Pathway — B2</div>
+                <div class="path-desc">Academic speaking, debate structure, extended arguments. The leap from 'good enough' to genuinely fluent.</div>
+                <div class="path-meta">23 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="CEFR_Grammar_Dashboard.html">
+              <div class="path-icon">📐</div>
+              <div class="path-body">
+                
+                <div class="path-name">B2 Grammar & Accuracy</div>
+                <div class="path-desc">Mixed conditionals, cleft sentences, advanced tenses — precision grammar for precision speakers.</div>
+                <div class="path-meta">18 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="wordwall_dashboard.html">
+              <div class="path-icon">🧱</div>
+              <div class="path-body">
+                
+                <div class="path-name">Word Wall — B2 Vocabulary</div>
+                <div class="path-desc">Technology, law, science, politics — the vocabulary of educated conversation.</div>
+                <div class="path-meta">25 games</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="game_room_dashboard.html">
+              <div class="path-icon">⚡</div>
+              <div class="path-body">
+                
+                <div class="path-name">Quick Fix Station</div>
+                <div class="path-desc">Grammar mistakes, false friends, collocations, pronunciation — fast 10-minute fixes for persistent errors.</div>
+                <div class="path-meta">130 mini-lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+
+    </div>
+  </div>
+</div>
+<div class="road-connector"><div class="road-line"></div><div class="road-dot"></div></div>
+
+<div class="chapter" style="--chapter-color: #a855f7">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #a855f7"></div>
+    <div class="chapter-level" style="background: #a855f7">C1–C2</div>
+  </div>
+  <div class="chapter-content">
+    <h3 class="chapter-title">Mastery</h3>
+    <p class="chapter-desc">You're fluent. Now become eloquent. These lessons are about sophistication — the subtle choices that make the difference between speaking English and commanding it.</p>
+    <div class="paths-grid">
+<a class="path-card" href="speaking_pathway_dashboard.html">
+              <div class="path-icon">🗣️</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#a855f715;color:#a855f7;border:1px solid #a855f730">Core Path</span>
+                <div class="path-name">Speaking Pathway — C1</div>
+                <div class="path-desc">Discourse mastery, hedging, stance-taking. The language of authority and nuance.</div>
+                <div class="path-meta">21 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="commanding_discourse_dashboard.html">
+              <div class="path-icon">👑</div>
+              <div class="path-body">
+                
+                <div class="path-name">Commanding Discourse</div>
+                <div class="path-desc">Frame, connect, navigate, command — master the architecture of sophisticated English.</div>
+                <div class="path-meta">6 modules</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="wp_dashboard.html">
+              <div class="path-icon">🏛️</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#a855f715;color:#a855f7;border:1px solid #a855f730">Deep Dive</span>
+                <div class="path-name">Western Philosophy</div>
+                <div class="path-desc">Think in English through the greatest ideas in history. From Socrates to Sartre.</div>
+                <div class="path-meta">51 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="ois_dashboard.html">
+              <div class="path-icon">🏰</div>
+              <div class="path-body">
+                
+                <div class="path-name">Our Island Story</div>
+                <div class="path-desc">British history from myth to modernity. Rich vocabulary through compelling narratives.</div>
+                <div class="path-meta">22 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="epicurean_dashboard.html">
+              <div class="path-icon">🍇</div>
+              <div class="path-body">
+                
+                <div class="path-name">The Epicurean Path</div>
+                <div class="path-desc">Ancient philosophy meets modern English. Pleasure, friendship, and the good life.</div>
+                <div class="path-meta">31 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="CEFR_Grammar_Dashboard.html">
+              <div class="path-icon">📐</div>
+              <div class="path-body">
+                
+                <div class="path-name">C1–C2 Grammar</div>
+                <div class="path-desc">Inversion, discourse markers, advanced cohesion — the grammar of elegance.</div>
+                <div class="path-meta">26 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+<div class="back-bar">
+  <a class="back-link" href="malcolm_lesson_index.html">&larr; Back to Home</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Game Room</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  min-height: 100vh;
+  padding: 20px;
+  color: #fff;
+}
+
+.container { max-width: 1200px; margin: 0 auto; }
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #ff6b6b 0%, #feca57 25%, #48dbfb 50%, #ff9ff3 75%, #54a0ff 100%);
+  border-radius: 24px;
+  padding: 50px 40px;
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(255, 107, 107, 0.2), 0 20px 60px rgba(72, 219, 251, 0.2);
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 1;
+}
+.header-content { position: relative; z-index: 2; }
+.header h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.header p {
+  font-size: 1.1rem;
+  opacity: 0.95;
+  margin-top: 8px;
+  font-weight: 500;
+}
+.header .stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 20px;
+}
+.header .stat {
+  text-align: center;
+}
+.header .stat-num {
+  font-size: 2rem;
+  font-weight: 800;
+}
+.header .stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.85;
+}
+
+/* Level Filter */
+.filter-bar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 8px 20px;
+  border-radius: 30px;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: transparent;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.filter-btn:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+.filter-btn.active { background: #fff; color: #1a1a2e; border-color: #fff; }
+
+/* Game Cards */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+@media (max-width: 768px) {
+  .games-grid { grid-template-columns: 1fr; }
+  .header h1 { font-size: 2rem; }
+  .header .stats { gap: 20px; }
+}
+
+.game-card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 28px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.game-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.14);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+.game-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+
+/* Level colours */
+.game-card.a2::before { background: linear-gradient(90deg, #ff9ff3, #f368e0); }
+.game-card.b1::before { background: linear-gradient(90deg, #feca57, #ff9f43); }
+.game-card.b2::before { background: linear-gradient(90deg, #48dbfb, #0abde3); }
+.game-card.c1::before { background: linear-gradient(90deg, #54a0ff, #2e86de); }
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.game-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+.level-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.a2 .level-badge { background: #f368e020; color: #f368e0; border: 1px solid #f368e040; }
+.b1 .level-badge { background: #ff9f4320; color: #feca57; border: 1px solid #feca5740; }
+.b2 .level-badge { background: #0abde320; color: #48dbfb; border: 1px solid #48dbfb40; }
+.c1 .level-badge { background: #2e86de20; color: #54a0ff; border: 1px solid #54a0ff40; }
+
+.game-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.game-desc {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.game-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.game-tag {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.6);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="header-content">
+      <h1>The Game Room</h1>
+      <p>Speaking games that don't feel like lessons. Pick a game. Play it. Speak.</p>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num">30</div>
+          <div class="stat-label">Games</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">A2–C1</div>
+          <div class="stat-label">Levels</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">50 min</div>
+          <div class="stat-label">Each</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterGames('all')">All Games</button>
+    <button class="filter-btn" onclick="filterGames('a2')">A2</button>
+    <button class="filter-btn" onclick="filterGames('b1')">B1</button>
+    <button class="filter-btn" onclick="filterGames('b2')">B2</button>
+    <button class="filter-btn" onclick="filterGames('c1')">C1</button>
+  </div>
+
+  <div class="games-grid" id="games-grid">
+
+    <!-- A2 GAMES -->
+    <div class="game-card a2" onclick="window.location.href='gr_a2_odd_one_out.html'">
+      <div class="card-top">
+        <div class="game-icon">🔍</div>
+        <div class="level-badge">A2</div>
+      </div>
+      <div class="game-title">Odd One Out</div>
+      <div class="game-desc">Four words appear. One doesn't belong. But which one — and why? There's often more than one right answer, which is where the real speaking starts.</div>
+      <div class="game-tags">
+        <span class="game-tag">Vocabulary</span>
+        <span class="game-tag">Justification</span>
+        <span class="game-tag">Categories</span>
+      </div>
+    </div>
+
+    <div class="game-card a2" onclick="window.location.href='gr_a2_two_truths.html'">
+      <div class="card-top">
+        <div class="game-icon">🤥</div>
+        <div class="level-badge">A2</div>
+      </div>
+      <div class="game-title">Two Truths & A Lie</div>
+      <div class="game-desc">Write 3 statements about yourself. Speak about all 3 as if they're true. Can you keep a straight face? Can the listener spot the lie?</div>
+      <div class="game-tags">
+        <span class="game-tag">Fluency</span>
+        <span class="game-tag">Past Tenses</span>
+        <span class="game-tag">Storytelling</span>
+      </div>
+    </div>
+
+    <!-- B1 GAMES -->
+    <div class="game-card b1" onclick="window.location.href='gr_b1_speed_definitions.html'">
+      <div class="card-top">
+        <div class="game-icon">⚡</div>
+        <div class="level-badge">B1</div>
+      </div>
+      <div class="game-title">Speed Definitions</div>
+      <div class="game-desc">A word appears on screen. Explain it without saying it — like Taboo. The timer is running. How many can you get through in 2 minutes?</div>
+      <div class="game-tags">
+        <span class="game-tag">Paraphrasing</span>
+        <span class="game-tag">Circumlocution</span>
+        <span class="game-tag">Vocabulary</span>
+      </div>
+    </div>
+
+    <div class="game-card b1" onclick="window.location.href='gr_b1_story_chain.html'">
+      <div class="card-top">
+        <div class="game-icon">📖</div>
+        <div class="level-badge">B1</div>
+      </div>
+      <div class="game-title">Story Chain</div>
+      <div class="game-desc">5 random words appear. You have 60 seconds to tell a story using all of them. Then 5 more words drop — and the story has to continue.</div>
+      <div class="game-tags">
+        <span class="game-tag">Improvisation</span>
+        <span class="game-tag">Narrative Tenses</span>
+        <span class="game-tag">Coherence</span>
+      </div>
+    </div>
+
+    <!-- B2 GAMES -->
+    <div class="game-card b2" onclick="window.location.href='sp_b2_keyword_builder.html'">
+      <div class="card-top">
+        <div class="game-icon">🔑</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">The Keyword Builder</div>
+      <div class="game-desc">Type your own keywords. Watch related words ignite on the page. Pick the ones you want, build a word map, then speak from it. Your vocabulary, your speech.</div>
+      <div class="game-tags">
+        <span class="game-tag">Vocabulary</span>
+        <span class="game-tag">Word Maps</span>
+        <span class="game-tag">Fluency</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='sp_b2_error_auction_flip.html'">
+      <div class="card-top">
+        <div class="game-icon">💰</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">Bid, Fix & Flip</div>
+      <div class="game-desc">You have $500. Ten sentences — some broken, some perfect. Bid on the ones you think have errors. Win money or lose it. Then flip: argue both sides of a debate.</div>
+      <div class="game-tags">
+        <span class="game-tag">Error Correction</span>
+        <span class="game-tag">Debate</span>
+        <span class="game-tag">Accuracy</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_the_ranking_game.html'">
+      <div class="card-top">
+        <div class="game-icon">📊</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">The Ranking Game</div>
+      <div class="game-desc">8 items on screen. Drag them into your ranking. Then justify your top 3 and your bottom 3. Compare with a different ranking and argue your case.</div>
+      <div class="game-tags">
+        <span class="game-tag">Opinion</span>
+        <span class="game-tag">Justification</span>
+        <span class="game-tag">Comparing</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_alibi.html'">
+      <div class="card-top">
+        <div class="game-icon">🕵️</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">Alibi</div>
+      <div class="game-desc">Where were you last night? Build a detailed alibi story — times, places, people. Then face cross-examination. One inconsistency and you're caught.</div>
+      <div class="game-tags">
+        <span class="game-tag">Narrative Tenses</span>
+        <span class="game-tag">Detail</span>
+        <span class="game-tag">Quick Thinking</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_fact_or_bluff.html'">
+      <div class="card-top">
+        <div class="game-icon">🎲</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">Fact or Bluff</div>
+      <div class="game-desc">6 surprising statements appear — 3 are real, 3 are invented. Guess which is which. Explain your reasoning. Then debate the real ones.</div>
+      <div class="game-tags">
+        <span class="game-tag">Critical Thinking</span>
+        <span class="game-tag">Speculation</span>
+        <span class="game-tag">Discussion</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_the_pressure_cooker.html'">
+      <div class="card-top">
+        <div class="game-icon">🔥</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">The Pressure Cooker</div>
+      <div class="game-desc">A random scenario appears — two opposing roles, one conflict. Both of you play. Halfway through, a twist changes everything. 16 scenarios, never the same twice.</div>
+      <div class="game-tags">
+        <span class="game-tag">Negotiation</span>
+        <span class="game-tag">Role-Play</span>
+        <span class="game-tag">Improvisation</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_time_auction.html'">
+      <div class="card-top">
+        <div class="game-icon">⏳</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">The Time Traveller's Auction</div>
+      <div class="game-desc">8 of history's greatest inventions go up for auction. You have $1,000 to spend. Buy what you think matters most — then pitch your purchases back to the teacher.</div>
+      <div class="game-tags">
+        <span class="game-tag">Persuasion</span>
+        <span class="game-tag">Strategy</span>
+        <span class="game-tag">Evaluation</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_the_black_box.html'">
+      <div class="card-top">
+        <div class="game-icon">📦</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">The Black Box</div>
+      <div class="game-desc">6 sealed boxes with something real inside — a law, a fact, a phenomenon. Reveal clues, guess what's inside, then argue about whether it's fair, smart, or terrifying.</div>
+      <div class="game-tags">
+        <span class="game-tag">Speculation</span>
+        <span class="game-tag">Opinion</span>
+        <span class="game-tag">Critical Thinking</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_stress_shift.html'">
+      <div class="card-top">
+        <div class="game-icon">🎯</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">Stress Shift</div>
+      <div class="game-desc">Same sentence, different stress, completely different meaning. Tap a word to stress it — then explain what changes. Both people take turns choosing which word to stress.</div>
+      <div class="game-tags">
+        <span class="game-tag">Pronunciation</span>
+        <span class="game-tag">Sentence Stress</span>
+        <span class="game-tag">Meaning</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_sound_alike.html'">
+      <div class="card-top">
+        <div class="game-icon">👂</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">Sound Alike</div>
+      <div class="game-desc">Phrases that sound identical at full speed — "I scream" vs "ice cream." Listen, distinguish, then decode sentences written as they actually sound in fast English.</div>
+      <div class="game-tags">
+        <span class="game-tag">Pronunciation</span>
+        <span class="game-tag">Connected Speech</span>
+        <span class="game-tag">Listening</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_the_shade.html'">
+      <div class="card-top">
+        <div class="game-icon">🎨</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">The Shade</div>
+      <div class="game-desc">Slim, skinny, scrawny — same meaning, totally different feeling. Rank synonyms from positive to negative. Pick the right shade for each situation. Speed round at the end.</div>
+      <div class="game-tags">
+        <span class="game-tag">Vocabulary</span>
+        <span class="game-tag">Connotation</span>
+        <span class="game-tag">Nuance</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_the_lie_detector.html'">
+      <div class="card-top">
+        <div class="game-icon">🔍</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">The Lie Detector</div>
+      <div class="game-desc">Answer the question — truth or lie, you choose. The detective gets 2 follow-up questions to probe your story. Then swap roles. 20 random questions, score tracked.</div>
+      <div class="game-tags">
+        <span class="game-tag">Speaking</span>
+        <span class="game-tag">Fluency</span>
+        <span class="game-tag">Quick Thinking</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_the_dilemma.html'">
+      <div class="card-top">
+        <div class="game-icon">⚖️</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">The Dilemma</div>
+      <div class="game-desc">An impossible moral choice. Take a position. Then argue the opposite. Then a twist changes everything. 10 dilemmas, randomly selected, never an easy answer.</div>
+      <div class="game-tags">
+        <span class="game-tag">Speaking</span>
+        <span class="game-tag">Argumentation</span>
+        <span class="game-tag">Critical Thinking</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_tone_shift.html'">
+      <div class="card-top">
+        <div class="game-icon">🎭</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">Tone Shift</div>
+      <div class="game-desc">Same phrase, four emotions. "That's really interesting" — said genuinely, sarcastically, suspiciously, surprised. One person picks a tone secretly. The other guesses.</div>
+      <div class="game-tags">
+        <span class="game-tag">Pronunciation</span>
+        <span class="game-tag">Intonation</span>
+        <span class="game-tag">Emotion</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_chain_reaction.html'">
+      <div class="card-top">
+        <div class="game-icon">🦋</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">Chain Reaction</div>
+      <div class="game-desc">A small event happens. Then what? Then what? Each person adds a consequence in 20 seconds. How far can you push the butterfly effect before it collapses?</div>
+      <div class="game-tags">
+        <span class="game-tag">Speaking</span>
+        <span class="game-tag">Conditionals</span>
+        <span class="game-tag">Improvisation</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_collocation_clash.html'">
+      <div class="card-top">
+        <div class="game-icon">🧩</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">Collocation Clash</div>
+      <div class="game-desc">Make a mistake or do a mistake? Strong coffee or powerful coffee? Quick-fire collocation battles, confusable pairs, and the weird logic behind English word partnerships.</div>
+      <div class="game-tags">
+        <span class="game-tag">Vocabulary</span>
+        <span class="game-tag">Collocations</span>
+        <span class="game-tag">Accuracy</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_split_second.html'">
+      <div class="card-top">
+        <div class="game-icon">⚡</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">Split Second</div>
+      <div class="game-desc">An either/or choice. 10 seconds to pick AND justify. Then the other person argues the opposite — even if they agree. Rapid gut decisions, forced argumentation.</div>
+      <div class="game-tags">
+        <span class="game-tag">Speaking</span>
+        <span class="game-tag">Fluency</span>
+        <span class="game-tag">Argumentation</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_the_register.html'">
+      <div class="card-top">
+        <div class="game-icon">🎚️</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">The Register</div>
+      <div class="game-desc">Same message — said to your best friend, your boss, a child, or a stranger. Completely different words every time. Say it four ways. Guess the audience. Register roulette.</div>
+      <div class="game-tags">
+        <span class="game-tag">Speaking</span>
+        <span class="game-tag">Register</span>
+        <span class="game-tag">Pragmatics</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_the_headline.html'">
+      <div class="card-top">
+        <div class="game-icon">📰</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">The Headline</div>
+      <div class="game-desc">Bizarre real news headlines. Speculate what happened, then reveal the true story. You won't believe what actually happened — but it's all real.</div>
+      <div class="game-tags">
+        <span class="game-tag">Speaking</span>
+        <span class="game-tag">Speculation</span>
+        <span class="game-tag">Narrative</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_the_courtroom.html'">
+      <div class="card-top">
+        <div class="game-icon">⚖️</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">The Courtroom</div>
+      <div class="game-desc">The lawyer asks yes/no questions only. The witness answers honestly but reveals as little as possible. 2 minutes per case. Can you crack the truth?</div>
+      <div class="game-tags">
+        <span class="game-tag">Speaking</span>
+        <span class="game-tag">Questions</span>
+        <span class="game-tag">Deduction</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_the_conspiracy.html'">
+      <div class="card-top">
+        <div class="game-icon">🔺</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">The Conspiracy</div>
+      <div class="game-desc">Four real, verified facts. Connect them into one wild conspiracy theory. Then tear your own argument apart. Build it up, knock it down.</div>
+      <div class="game-tags">
+        <span class="game-tag">Speaking</span>
+        <span class="game-tag">Argumentation</span>
+        <span class="game-tag">Critical Thinking</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_the_translator.html'">
+      <div class="card-top">
+        <div class="game-icon">🌍</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">The Translator</div>
+      <div class="game-desc">Foreign idioms translated literally into English. "To hang noodles on someone's ears"? Guess the real meaning, then find the English equivalent.</div>
+      <div class="game-tags">
+        <span class="game-tag">Vocabulary</span>
+        <span class="game-tag">Idioms</span>
+        <span class="game-tag">Culture</span>
+      </div>
+    </div>
+
+    <div class="game-card b2" onclick="window.location.href='gr_b2_the_upgrade.html'">
+      <div class="card-top">
+        <div class="game-icon">🚀</div>
+        <div class="level-badge">B2</div>
+      </div>
+      <div class="game-title">The Upgrade</div>
+      <div class="game-desc">Take a boring everyday object. Add a creative constraint. Pitch your ridiculous improvement to a sceptical investor. Dragon's Den meets improv.</div>
+      <div class="game-tags">
+        <span class="game-tag">Speaking</span>
+        <span class="game-tag">Persuasion</span>
+        <span class="game-tag">Creativity</span>
+      </div>
+    </div>
+
+    <!-- C1 GAMES -->
+    <div class="game-card c1" onclick="window.location.href='gr_c1_the_negotiator.html'">
+      <div class="card-top">
+        <div class="game-icon">🤝</div>
+        <div class="level-badge">C1</div>
+      </div>
+      <div class="game-title">The Negotiator</div>
+      <div class="game-desc">Two role cards with conflicting goals. You have 10 minutes to reach a deal. Persuade, compromise, push back — but the clock is ticking.</div>
+      <div class="game-tags">
+        <span class="game-tag">Persuasion</span>
+        <span class="game-tag">Register</span>
+        <span class="game-tag">Diplomacy</span>
+      </div>
+    </div>
+
+    <div class="game-card c1" onclick="window.location.href='gr_c1_devils_advocate.html'">
+      <div class="card-top">
+        <div class="game-icon">😈</div>
+        <div class="level-badge">C1</div>
+      </div>
+      <div class="game-title">Devil's Advocate</div>
+      <div class="game-desc">State your opinion. Now argue the exact opposite for 2 minutes. Then bring both sides together into a balanced conclusion. Forces nuance — no shortcuts.</div>
+      <div class="game-tags">
+        <span class="game-tag">Concession</span>
+        <span class="game-tag">Nuance</span>
+        <span class="game-tag">Discourse</span>
+      </div>
+    </div>
+
+    <div class="game-card c1" onclick="window.location.href='gr_c1_the_press_conference.html'">
+      <div class="card-top">
+        <div class="game-icon">🎤</div>
+        <div class="level-badge">C1</div>
+      </div>
+      <div class="game-title">The Press Conference</div>
+      <div class="game-desc">You're a public figure in a crisis. CEO after a scandal. Politician after a policy failure. 6 tough questions. Respond diplomatically under a timer.</div>
+      <div class="game-tags">
+        <span class="game-tag">Hedging</span>
+        <span class="game-tag">Register Control</span>
+        <span class="game-tag">Pressure</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function filterGames(level) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  document.querySelectorAll('.game-card').forEach(card => {
+    if (level === 'all' || card.classList.contains(level)) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+</body>
+</html>

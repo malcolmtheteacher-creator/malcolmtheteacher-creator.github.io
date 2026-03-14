@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Epicurean Path — Course Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            color: #1a1a2e;
+            line-height: 1.7;
+        }
+
+        .container { max-width: 950px; margin: 0 auto; padding: 20px; }
+
+        /* Header */
+        .dashboard-header {
+            text-align: center;
+            padding: 55px 30px 50px;
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .dashboard-header h1 {
+            font-size: 2.8rem;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+        .dashboard-header .subtitle {
+            font-size: 1.15rem;
+            opacity: 0.9;
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .dashboard-header .ornament {
+            display: block;
+            margin-top: 20px;
+            font-size: 1.3rem;
+            letter-spacing: 10px;
+            opacity: 0.5;
+        }
+
+        /* Quote Block */
+        .epicurus-quote {
+            background: white;
+            border-left: 4px solid #2c5530;
+            padding: 22px 25px 22px 30px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #3a3a4e;
+            font-size: 1.05rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .epicurus-quote .attribution {
+            display: block;
+            margin-top: 10px;
+            font-style: normal;
+            font-size: 0.88rem;
+            color: #2c5530;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 35px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #2c5530;
+        }
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: normal;
+            color: #1a1a2e;
+        }
+        .section-badge {
+            background: #2c5530;
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* Lesson Grid */
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 15px;
+        }
+
+        .lesson-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 18px 20px;
+            text-decoration: none;
+            color: #1a1a2e;
+            transition: all 0.25s ease;
+            display: block;
+        }
+        .lesson-card:hover {
+            border-color: #2c5530;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(44,85,48,0.12);
+        }
+        .lesson-card .num {
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #4a7c59;
+            margin-bottom: 4px;
+        }
+        .lesson-card h3 {
+            font-size: 1.1rem;
+            font-weight: normal;
+            color: #1a1a2e;
+            margin-bottom: 4px;
+        }
+        .lesson-card .desc {
+            font-size: 0.85rem;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: white;
+            border-left: 4px solid #4a7c59;
+            padding: 20px 24px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .info-box h4 {
+            color: #2c5530;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        .info-box p {
+            color: #4a4a5e;
+        }
+
+        /* Tetrapharmakos Banner */
+        .tetrapharmakos {
+            background: linear-gradient(135deg, #1a3a1e 0%, #2c5530 100%);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            color: white;
+        }
+        .tetrapharmakos h3 {
+            font-size: 1.4rem;
+            font-weight: normal;
+            margin-bottom: 18px;
+            opacity: 0.9;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+        .cure-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+        .cure-item {
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 6px;
+            padding: 14px;
+            font-style: italic;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        .footer-note {
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin: 30px 0 40px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .lesson-grid { grid-template-columns: 1fr; }
+            .dashboard-header h1 { font-size: 2rem; }
+            .cure-grid { grid-template-columns: 1fr; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="dashboard-header">
+        <h1>The Epicurean Path</h1>
+        <p class="subtitle">A 30-lesson journey through the philosophy of Epicurus — from the Garden to Gassendi and beyond</p>
+        <span class="ornament">&#x2766; &#x2766; &#x2766;</span>
+    </div>
+
+    <div class="epicurus-quote">
+        Do not spoil what you have by desiring what you have not; remember that what you now have was once among the things you only hoped for.
+        <span class="attribution">— Epicurus, Vatican Sayings</span>
+    </div>
+
+    <!-- THE FOUR-PART CURE -->
+    <div class="tetrapharmakos">
+        <h3>The Tetrapharmakos — The Four-Part Cure</h3>
+        <div class="cure-grid">
+            <div class="cure-item">God is not to be feared</div>
+            <div class="cure-item">Death is nothing to us</div>
+            <div class="cure-item">What is good is easy to get</div>
+            <div class="cure-item">What is terrible is easy to endure</div>
+        </div>
+    </div>
+
+    <!-- PART I -->
+    <div class="section-header">
+        <span class="section-badge">Part I</span>
+        <h2>The Man and His World</h2>
+    </div>
+    <div class="lesson-grid">
+        <a href="epicurean_01_who_was_epicurus.html" class="lesson-card">
+            <div class="num">Lesson 1</div>
+            <h3>Who Was Epicurus?</h3>
+            <div class="desc">The man who founded a philosophy in a garden</div>
+        </a>
+        <a href="epicurean_02_tetrapharmakos.html" class="lesson-card">
+            <div class="num">Lesson 2</div>
+            <h3>The Tetrapharmakos</h3>
+            <div class="desc">The Four-Part Cure for Human Suffering</div>
+        </a>
+        <a href="epicurean_03_primary_sources.html" class="lesson-card">
+            <div class="num">Lesson 3</div>
+            <h3>Primary Sources</h3>
+            <div class="desc">What survives, what's lost, how we know what we know</div>
+        </a>
+        <a href="epicurean_04_the_garden_community.html" class="lesson-card">
+            <div class="num">Lesson 4</div>
+            <h3>The Garden Community</h3>
+            <div class="desc">How Epicurus's school actually worked — and who lived there</div>
+        </a>
+        <a href="epicurean_05_why_controversial.html" class="lesson-card">
+            <div class="num">Lesson 5</div>
+            <h3>Why Epicureanism Was Controversial</h3>
+            <div class="desc">The "pig philosopher" slander — and what it really threatened</div>
+        </a>
+    </div>
+
+    <!-- PART II -->
+    <div class="section-header">
+        <span class="section-badge">Part II</span>
+        <h2>The Physics</h2>
+    </div>
+    <div class="lesson-grid">
+        <a href="epicurean_06_atoms_and_void.html" class="lesson-card">
+            <div class="num">Lesson 6</div>
+            <h3>Atoms and the Void</h3>
+            <div class="desc">The fundamental physics behind Epicurean freedom</div>
+        </a>
+        <a href="epicurean_07_the_swerve.html" class="lesson-card">
+            <div class="num">Lesson 7</div>
+            <h3>The Swerve (Clinamen)</h3>
+            <div class="desc">How atoms deviate and create the possibility of freedom</div>
+        </a>
+        <a href="epicurean_08_soul_and_death.html" class="lesson-card">
+            <div class="num">Lesson 8</div>
+            <h3>Soul, Mind, and Death</h3>
+            <div class="desc">Why the soul is mortal, and why death is nothing to fear</div>
+        </a>
+        <a href="epicurean_09_epicurean_gods.html" class="lesson-card">
+            <div class="num">Lesson 9</div>
+            <h3>The Gods Who Don't Intervene</h3>
+            <div class="desc">Why Epicurus was not an atheist, and why perfect beings never meddle</div>
+        </a>
+    </div>
+
+    <!-- PART III -->
+    <div class="section-header">
+        <span class="section-badge">Part III</span>
+        <h2>The Ethics</h2>
+    </div>
+    <div class="lesson-grid">
+        <a href="epicurean_10_pleasure_highest_good.html" class="lesson-card">
+            <div class="num">Lesson 10</div>
+            <h3>Pleasure as the Highest Good</h3>
+            <div class="desc">What KIND of pleasure? The fundamental ethical question</div>
+        </a>
+        <a href="epicurean_11_classifying_desires.html" class="lesson-card">
+            <div class="num">Lesson 11</div>
+            <h3>Classifying Desires</h3>
+            <div class="desc">The practical framework for the Epicurean life</div>
+        </a>
+        <a href="epicurean_12_ataraxia_aponia.html" class="lesson-card">
+            <div class="num">Lesson 12</div>
+            <h3>Ataraxia and Aponia</h3>
+            <div class="desc">Tranquility of mind and freedom from pain</div>
+        </a>
+        <a href="epicurean_13_virtues_as_means.html" class="lesson-card">
+            <div class="num">Lesson 13</div>
+            <h3>The Virtues as Means</h3>
+            <div class="desc">Why virtue matters — but not in the way you'd expect</div>
+        </a>
+        <a href="epicurean_14_death_full_treatment.html" class="lesson-card">
+            <div class="num">Lesson 14</div>
+            <h3>Death is Nothing to Us</h3>
+            <div class="desc">The most radical doctrine: a full treatment of the argument</div>
+        </a>
+    </div>
+
+    <!-- PART IV -->
+    <div class="section-header">
+        <span class="section-badge">Part IV</span>
+        <h2>The Epistemology and Legacy</h2>
+    </div>
+    <div class="lesson-grid">
+        <a href="epicurean_15_the_canonic.html" class="lesson-card">
+            <div class="num">Lesson 15</div>
+            <h3>The Canonic</h3>
+            <div class="desc">Epicurus's theory of knowledge: How we know what we know</div>
+        </a>
+        <a href="epicurean_16_truth_and_error.html" class="lesson-card">
+            <div class="num">Lesson 16</div>
+            <h3>Truth and Error</h3>
+            <div class="desc">How false beliefs form and how reason heals them</div>
+        </a>
+        <a href="epicurean_17_lucretius.html" class="lesson-card">
+            <div class="num">Lesson 17</div>
+            <h3>Lucretius and De Rerum Natura</h3>
+            <div class="desc">How an epic poem preserved Epicureanism for history</div>
+        </a>
+        <a href="epicurean_18_vs_stoicism.html" class="lesson-card">
+            <div class="num">Lesson 18</div>
+            <h3>Epicureanism vs. Stoicism</h3>
+            <div class="desc">The great Hellenistic rivalry that shaped Western thought</div>
+        </a>
+        <a href="epicurean_19_the_decline.html" class="lesson-card">
+            <div class="num">Lesson 19</div>
+            <h3>The Decline of Epicureanism</h3>
+            <div class="desc">How a revolutionary philosophy became marginalized</div>
+        </a>
+    </div>
+
+    <!-- PART V -->
+    <div class="section-header">
+        <span class="section-badge">Part V</span>
+        <h2>The Medieval Shadow</h2>
+    </div>
+    <div class="lesson-grid">
+        <a href="epicurean_20_epicurus_as_villain.html" class="lesson-card">
+            <div class="num">Lesson 20</div>
+            <h3>Epicurus as Villain</h3>
+            <div class="desc">How Christianity turned a philosopher into a demon</div>
+        </a>
+        <a href="epicurean_21_hidden_currents.html" class="lesson-card">
+            <div class="num">Lesson 21</div>
+            <h3>Hidden Currents</h3>
+            <div class="desc">Epicurean ideas that survived in disguise through the Middle Ages</div>
+        </a>
+    </div>
+
+    <!-- PART VI -->
+    <div class="section-header">
+        <span class="section-badge">Part VI</span>
+        <h2>The Renaissance Revival</h2>
+    </div>
+    <div class="lesson-grid">
+        <a href="epicurean_22_rediscovery.html" class="lesson-card">
+            <div class="num">Lesson 22</div>
+            <h3>The Rediscovery (1417)</h3>
+            <div class="desc">Poggio Bracciolini finds De Rerum Natura in a German monastery</div>
+        </a>
+        <a href="epicurean_23_lorenzo_valla.html" class="lesson-card">
+            <div class="num">Lesson 23</div>
+            <h3>Lorenzo Valla's On Pleasure</h3>
+            <div class="desc">The first bold defence of Epicurean ethics in the Renaissance</div>
+        </a>
+        <a href="epicurean_24_humanist_epicureans.html" class="lesson-card">
+            <div class="num">Lesson 24</div>
+            <h3>Humanist Epicureans</h3>
+            <div class="desc">From Erasmus to Montaigne — pleasure returns to philosophy</div>
+        </a>
+    </div>
+
+    <!-- PART VII -->
+    <div class="section-header">
+        <span class="section-badge">Part VII</span>
+        <h2>Pierre Gassendi and the Christian Synthesis</h2>
+    </div>
+    <div class="lesson-grid">
+        <a href="epicurean_25_gassendi_life.html" class="lesson-card">
+            <div class="num">Lesson 25</div>
+            <h3>Pierre Gassendi — The Great Synthesizer</h3>
+            <div class="desc">Baptizing Epicurus for Christianity</div>
+        </a>
+        <a href="epicurean_26_baptizing_atoms.html" class="lesson-card">
+            <div class="num">Lesson 26</div>
+            <h3>Baptizing the Atoms</h3>
+            <div class="desc">How Gassendi made atomism Christian without surrendering either</div>
+        </a>
+        <a href="epicurean_27_gassendi_ethics.html" class="lesson-card">
+            <div class="num">Lesson 27</div>
+            <h3>Gassendi's Ethics</h3>
+            <div class="desc">Reconciling Pleasure with Christian Virtue</div>
+        </a>
+        <a href="epicurean_28_gassendist_circle.html" class="lesson-card">
+            <div class="num">Lesson 28</div>
+            <h3>The Gassendist Circle</h3>
+            <div class="desc">Followers, Interlocutors, and the Reshaping of European Thought</div>
+        </a>
+        <a href="epicurean_29_legacy_tensions.html" class="lesson-card">
+            <div class="num">Lesson 29</div>
+            <h3>Legacy and Tensions</h3>
+            <div class="desc">What Worked, What Didn't, and Why the Synthesis Came Apart</div>
+        </a>
+        <a href="epicurean_30_epicureanism_today.html" class="lesson-card">
+            <div class="num">Lesson 30</div>
+            <h3>Epicureanism Today</h3>
+            <div class="desc">Modern Revivals, Practical Wisdom, and What Epicurus Offers the 21st Century</div>
+        </a>
+    </div>
+
+    <!-- HOW TO USE -->
+    <div class="info-box">
+        <h4>How This Course Works</h4>
+        <p>Each lesson follows a structured path: retrieval of prior knowledge, engagement with primary sources, guided exploration of the ideas, discussion and reflection, and a final retrieval check. The course moves from Epicurus the man, through his physics, ethics, and epistemology, into the medieval suppression, Renaissance revival, and Gassendi's remarkable attempt to reconcile Epicurean thought with Christianity.</p>
+    </div>
+
+    <div class="epicurus-quote">
+        Of all the means which wisdom acquires to ensure happiness throughout the whole of life, by far the most important is friendship.
+        <span class="attribution">— Epicurus, Principal Doctrines XXVII</span>
+    </div>
+
+    <p class="footer-note">"It is not so much our friends' help that helps us, as the confidence of their help." — Epicurus</p>
+
+</div>
+</body>
+</html>

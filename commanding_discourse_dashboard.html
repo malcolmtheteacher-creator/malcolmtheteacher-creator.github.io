@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commanding Discourse C1-C2 | Malcolm's Lessons</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+            padding: 20px;
+            color: #1a1a2e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+        }
+
+        .series-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header h1 {
+            font-size: 3.2em;
+            background: linear-gradient(135deg, #1a1a2e 0%, #667eea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            color: #555;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header .level-info {
+            font-size: 1em;
+            color: #777;
+            margin-top: 15px;
+        }
+
+        .course-info {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 40px;
+        }
+
+        .course-info h2 {
+            color: #1a1a2e;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .course-info p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .key-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border-top: 4px solid #667eea;
+        }
+
+        .feature-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h4 {
+            color: #1a1a2e;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .lesson-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+        }
+
+        .lesson-card:nth-child(1)::before { background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); }
+        .lesson-card:nth-child(2)::before { background: linear-gradient(90deg, #764ba2 0%, #5a3a99 100%); }
+        .lesson-card:nth-child(3)::before { background: linear-gradient(90deg, #5a3a99 0%, #483a8e 100%); }
+        .lesson-card:nth-child(4)::before { background: linear-gradient(90deg, #483a8e 0%, #3a2c7f 100%); }
+        .lesson-card:nth-child(5)::before { background: linear-gradient(90deg, #3a2c7f 0%, #2d1f70 100%); }
+        .lesson-card:nth-child(6)::before { background: linear-gradient(90deg, #2d1f70 0%, #1a1a5f 100%); }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .lesson-number {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 12px;
+            margin-left: 10px;
+            background: #f0ebf8;
+            color: #667eea;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-bottom: 12px;
+            background: #f0f0f0;
+            color: #555;
+            margin-left: 8px;
+        }
+
+        .lesson-title {
+            font-size: 1.4em;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .lesson-description {
+            color: #666;
+            line-height: 1.7;
+            font-size: 1em;
+        }
+
+        .discourse-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5em;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            padding: 12px 25px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            border-color: #667eea;
+            background: #f5f3ff;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            color: white;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="malcolm_lesson_index.html" class="back-link">← Back to All Lessons</a>
+
+        <div class="header">
+            <div class="series-badge">Advanced Speaking Series</div>
+            <h1>🎯 Commanding Discourse</h1>
+            <p class="subtitle">Master Sophisticated Professional Communication</p>
+            <p class="level-info">C1 to C2 | 6 Interactive Lessons | Professional & Advanced Learners</p>
+        </div>
+
+        <div class="course-info">
+            <h2>About This Course</h2>
+            <p>
+                Commanding Discourse teaches you 30 expressions across 6 discourse strategies, building a complete
+                architecture for sophisticated professional speaking. Each lesson adds 5 key expressions and drills
+                them under time pressure alongside expressions from previous lessons.
+            </p>
+            <p>
+                The course follows the <strong>Discourse Flow Sequence</strong>: FRAME &rarr; POSITION &rarr; NAVIGATE &rarr; QUALIFY &rarr; CONNECT &rarr; COMMAND.
+                Each step builds on the last. By the capstone, you'll deploy all 30 expressions fluidly under pressure.
+                Every lesson includes spaced retrieval, interleaved drills, and a 10-second pressure recall mechanism.
+            </p>
+
+            <div class="key-features">
+                <div class="feature-card">
+                    <span class="icon">⏳</span>
+                    <h4>FRAME</h4>
+                    <p>Open with composure — buy time, weigh up, reframe</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">📍</span>
+                    <h4>POSITION</h4>
+                    <p>Build arguments — state, support, explain, defend</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🤝</span>
+                    <h4>NAVIGATE</h4>
+                    <p>Handle pushback — redirect, challenge, agree to disagree</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🔮</span>
+                    <h4>QUALIFY</h4>
+                    <p>Calibrate certainty — hypothesise, predict, keep options open</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🔗</span>
+                    <h4>CONNECT</h4>
+                    <p>Sustain extended turns — build, circle back, synthesise</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">⚔️</span>
+                    <h4>COMMAND</h4>
+                    <p>Drive outcomes under pressure — direct, propose, summarise</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-info">
+            <h2>Course Lessons</h2>
+            <div class="lessons-grid">
+                <a href="sp_c1_01_discourse_mastery.html" class="lesson-card">
+                    <span class="discourse-badge">⏳</span>
+                    <span class="lesson-number">1</span>
+                    <span class="skill-badge">FRAME</span>
+                    <span class="level-badge">C1</span>
+                    <div class="lesson-title">Discourse Mastery</div>
+                    <div class="lesson-description">
+                        Master 5 FRAME expressions for opening with composure: buying time, weighing up, introducing possibilities, reframing, and adding caveats. The foundation of every sophisticated response.
+                    </div>
+                </a>
+
+                <a href="sp_c1_02_argument_structure.html" class="lesson-card">
+                    <span class="discourse-badge">📍</span>
+                    <span class="lesson-number">2</span>
+                    <span class="skill-badge">POSITION</span>
+                    <span class="level-badge">C1</span>
+                    <div class="lesson-title">Argument Structure</div>
+                    <div class="lesson-description">
+                        Master 5 POSITION expressions for building arguments: stating your stance, citing evidence, explaining implications, acknowledging counterpoints, and strengthening reasoning.
+                    </div>
+                </a>
+
+                <a href="sp_c1_03_diplomatic_disagreement.html" class="lesson-card">
+                    <span class="discourse-badge">🤝</span>
+                    <span class="lesson-number">3</span>
+                    <span class="skill-badge">NAVIGATE</span>
+                    <span class="level-badge">C1</span>
+                    <div class="lesson-title">Diplomatic Disagreement</div>
+                    <div class="lesson-description">
+                        Master 5 NAVIGATE expressions for handling pushback: acknowledging then redirecting, offering alternatives, pushing back diplomatically, playing devil's advocate, and agreeing to disagree.
+                    </div>
+                </a>
+
+                <a href="sp_c1_04_speculative_language.html" class="lesson-card">
+                    <span class="discourse-badge">🔮</span>
+                    <span class="lesson-number">4</span>
+                    <span class="skill-badge">QUALIFY</span>
+                    <span class="level-badge">C1</span>
+                    <div class="lesson-title">Speculative Language</div>
+                    <div class="lesson-description">
+                        Master 5 QUALIFY expressions for calibrating certainty: introducing possibilities, hypothetical consequences, expressing probability, keeping options open, and forecasting outcomes.
+                    </div>
+                </a>
+
+                <a href="sp_c1_05_cohesion_flow.html" class="lesson-card">
+                    <span class="discourse-badge">🔗</span>
+                    <span class="lesson-number">5</span>
+                    <span class="skill-badge">CONNECT</span>
+                    <span class="level-badge">C1</span>
+                    <div class="lesson-title">Cohesion & Flow</div>
+                    <div class="lesson-description">
+                        Master 5 CONNECT expressions for sustained turns: building on points, circling back, synthesising themes, naming throughlines, and elevating to broader principles.
+                    </div>
+                </a>
+
+                <a href="sp_c1_06_high_stakes_communication.html" class="lesson-card">
+                    <span class="discourse-badge">⚔️</span>
+                    <span class="lesson-number">6</span>
+                    <span class="skill-badge">COMMAND</span>
+                    <span class="level-badge">Capstone</span>
+                    <div class="lesson-title">High-Stakes Communication</div>
+                    <div class="lesson-description">
+                        The capstone. Master 5 COMMAND expressions for pressure moments: directness, bottom-line clarity, making asks, proposing solutions, and summarising takeaways. Drills all 30 expressions.
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="course-info">
+            <h2>Case Studies</h2>
+            <p>Real-world case studies that put discourse strategies into practice. These lessons use authentic political, professional, and cultural situations to show <em>why</em> these strategies exist — and what happens when leaders use them under pressure.</p>
+            <div class="lessons-grid" style="margin-top: 20px;">
+                <a href="discuss_b2_iran_us_europe_reacts.html" class="lesson-card">
+                    <span class="discourse-badge">🌍</span>
+                    <span class="lesson-number" style="background: linear-gradient(135deg, #e07a5f 0%, #c1666b 100%);">CS</span>
+                    <span class="skill-badge">NAVIGATE + QUALIFY</span>
+                    <span class="level-badge">B2+</span>
+                    <div class="lesson-title">When Allies Disagree</div>
+                    <div class="lesson-description">
+                        How do European leaders respond when their closest ally takes military action they weren't consulted about — and they're not sure they oppose? A case study in hedging, distancing, balancing, softening, and combining strategies, using real diplomatic language from the 2026 Iran crisis.
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="course-info">
+            <h2>Memory Pathway</h2>
+            <p>Want to lock all 30 expressions into long-term memory? The <strong>Discourse Bestiary</strong> maps each expression to a creature — giving your brain vivid images instead of abstract phrases.</p>
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="discourse_bestiary_pathway.html" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 14px 32px; border-radius: 25px; font-weight: bold; text-decoration: none; transition: all 0.3s;">Discourse Bestiary Pathway →</a>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Ready to Command the Room?</h2>
+            <p>Start with Lesson 1 (FRAME) and work through the sequence. Each lesson recalls previous expressions and drills them under pressure. By Lesson 6, you'll have 30 expressions at your command.</p>
+        </div>
+    </div>
+</body>
+</html>

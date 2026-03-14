@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronunciation Pathway - British English (RP) Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .header p { font-size: 1.4em; color: #555; margin-bottom: 10px; }
+        .header .subtitle { font-size: 1.1em; color: #777; }
+
+        .completion-banner {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white; padding: 25px 40px; border-radius: 15px;
+            text-align: center; margin-top: 25px; font-size: 1.4em;
+            font-weight: bold; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .course-info {
+            background: white; border-radius: 20px; padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); margin-bottom: 40px;
+        }
+
+        .course-info h2 { color: #667eea; font-size: 2.2em; margin-bottom: 20px; }
+
+        .info-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; margin-top: 30px;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px; border-radius: 12px; border-left: 5px solid #667eea;
+            transition: transform 0.3s;
+        }
+        .info-box:hover { transform: translateY(-3px); }
+        .info-box h3 { color: #764ba2; margin-bottom: 12px; font-size: 1.3em; }
+        .info-box p { color: #555; line-height: 1.6; font-size: 1.05em; }
+
+        .progress-section {
+            background: white; border-radius: 20px; padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); margin-bottom: 40px;
+        }
+        .progress-section h2 { color: #667eea; font-size: 2.2em; margin-bottom: 20px; }
+
+        .progress-bar-container {
+            background: #e9ecef; border-radius: 20px; height: 50px;
+            overflow: hidden; margin: 25px 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            height: 100%; display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: bold; font-size: 1.2em;
+            transition: width 1s ease-in-out;
+            box-shadow: 0 2px 10px rgba(40, 167, 69, 0.4);
+        }
+
+        .completion-stats {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px; margin-top: 30px;
+        }
+
+        .stat-box {
+            text-align: center; padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+        }
+        .stat-number { font-size: 3em; font-weight: bold; color: #667eea; display: block; }
+        .stat-label { color: #555; font-size: 1.1em; margin-top: 5px; }
+
+        .lessons-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px; margin-bottom: 40px;
+        }
+
+        .lesson-card {
+            background: white; border-radius: 20px; padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: all 0.4s;
+            position: relative; overflow: hidden; border: 3px solid #28a745;
+        }
+        .lesson-card::before {
+            content: '✓'; position: absolute; top: 15px; left: 15px;
+            width: 35px; height: 35px; background: #28a745; color: white;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-weight: bold; font-size: 1.2em;
+        }
+        .lesson-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .lesson-number {
+            position: absolute; top: 20px; right: 20px;
+            width: 70px; height: 70px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-size: 1.8em; font-weight: bold;
+            color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .lesson-status {
+            display: inline-block; padding: 8px 20px; border-radius: 20px;
+            font-size: 0.95em; font-weight: bold; margin-bottom: 15px;
+            background: #28a745; color: white;
+        }
+
+        .lesson-title {
+            font-size: 1.7em; color: #667eea; margin-bottom: 15px;
+            font-weight: bold; padding-right: 80px;
+        }
+
+        .lesson-description {
+            color: #555; line-height: 1.7; margin-bottom: 20px; font-size: 1.05em;
+        }
+
+        .lesson-details {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px; border-radius: 10px; margin-bottom: 20px;
+        }
+        .lesson-details strong { color: #764ba2; display: block; margin-bottom: 10px; font-size: 1.1em; }
+        .lesson-details ul { margin-left: 20px; color: #555; }
+        .lesson-details li { margin: 8px 0; line-height: 1.5; }
+
+        .lesson-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 14px 35px; border-radius: 10px;
+            text-decoration: none; font-weight: bold; font-size: 1.1em;
+            transition: all 0.3s; text-align: center;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .lesson-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .series-overview {
+            background: white; border-radius: 20px; padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); margin-bottom: 40px;
+        }
+        .series-overview h2 { color: #667eea; font-size: 2.2em; margin-bottom: 25px; }
+
+        .overview-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px; margin-top: 30px;
+        }
+
+        .overview-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px; border-radius: 15px; border-left: 5px solid #764ba2;
+            transition: transform 0.3s;
+        }
+        .overview-card:hover { transform: translateX(5px); }
+        .overview-card h3 { color: #764ba2; margin-bottom: 15px; font-size: 1.4em; }
+        .overview-card p { color: #555; line-height: 1.7; font-size: 1.05em; }
+
+        .feature-section {
+            background: white; border-radius: 20px; padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); margin-bottom: 40px;
+        }
+        .feature-section h2 { color: #667eea; font-size: 2.2em; margin-bottom: 25px; }
+
+        .feature-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px; margin-top: 30px;
+        }
+
+        .feature-box {
+            background: linear-gradient(135deg, #f0f0ff 0%, #e8eaf6 100%);
+            padding: 30px; border-radius: 12px; border-left: 5px solid #667eea;
+            text-align: center;
+        }
+        .feature-icon { font-size: 3em; margin-bottom: 15px; }
+        .feature-box h3 { color: #764ba2; margin-bottom: 12px; font-size: 1.3em; }
+        .feature-box p { color: #555; line-height: 1.6; }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.2em; }
+            .header p { font-size: 1.1em; }
+            .lessons-grid { grid-template-columns: 1fr; }
+            .info-grid, .overview-grid, .feature-grid { grid-template-columns: 1fr; }
+            .completion-stats { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎯 Pronunciation Pathway</h1>
+            <p>British English (RP) — From Rhythm to Fluency</p>
+            <div class="subtitle">Complete 6-Lesson Interactive Series | B2–C1 Level</div>
+            <div class="completion-banner">
+                🎉 All 6 Lessons Complete & Available! 🎉
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-section">
+            <h2>Course Progress</h2>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 100%;">
+                    6 of 6 Lessons Complete (100%) ✓
+                </div>
+            </div>
+
+            <div class="completion-stats">
+                <div class="stat-box">
+                    <span class="stat-number">6</span>
+                    <span class="stat-label">Lessons</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">Feature Areas</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">30+</span>
+                    <span class="stat-label">Practice Activities</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">5hrs</span>
+                    <span class="stat-label">Speaking Time</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Info -->
+        <div class="course-info">
+            <h2>About This Course</h2>
+            <p style="font-size: 1.15em; color: #555; line-height: 1.8; margin-bottom: 25px;">
+                The Pronunciation Pathway is a progressive 6-lesson series for B2–C1 learners who want to develop a clear, natural British English (RP) accent. Each lesson builds on the previous one, moving from the foundations of English rhythm through to full integration and independent practice. The series combines phonetic knowledge with extensive speaking practice, shadowing techniques, and spaced recall to ensure lasting improvement.
+            </p>
+
+            <div class="info-grid">
+                <div class="info-box">
+                    <h3>📚 Level</h3>
+                    <p>B2–C1 (Upper Intermediate to Advanced)</p>
+                </div>
+                <div class="info-box">
+                    <h3>⏱️ Duration</h3>
+                    <p>6 interactive lessons, 45–50 minutes each</p>
+                </div>
+                <div class="info-box">
+                    <h3>🎯 Target Accent</h3>
+                    <p>British English — Received Pronunciation (RP)</p>
+                </div>
+                <div class="info-box">
+                    <h3>🎓 Method</h3>
+                    <p>Interactive activities, quizzes, timed speaking, spaced recall across all lessons</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Series Overview -->
+        <div class="series-overview">
+            <h2>What You'll Master</h2>
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <h3>🥁 Rhythm & Stress</h3>
+                    <p>Understand why English sounds the way it does — stress-timing, content vs function words, and the natural beat that drives everything else.</p>
+                </div>
+                <div class="overview-card">
+                    <h3>🔤 The RP Sound System</h3>
+                    <p>Master the vowel pairs (BATH/TRAP, NURSE/STRUT, THOUGHT/LOT) and consonant features (non-rhoticity, crisp T, linking R) that define British English.</p>
+                </div>
+                <div class="overview-card">
+                    <h3>🔗 Connected Speech</h3>
+                    <p>Learn why fast English sounds like a different language — elision, assimilation, catenation, and weak forms. Decode and produce natural-speed speech.</p>
+                </div>
+                <div class="overview-card">
+                    <h3>🎵 Intonation & Attitude</h3>
+                    <p>Use pitch to convey meaning — falls for certainty, rises for questions, and the characteristically British fall-rise for politeness and hedging.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- All Lessons -->
+        <div class="lessons-grid">
+            <!-- Lesson 1 -->
+            <div class="lesson-card">
+                <div class="lesson-number">01</div>
+                <div class="lesson-status">✓ Available</div>
+                <div class="lesson-title">The Rhythm Engine</div>
+                <div class="lesson-description">
+                    English is stress-timed — stressed syllables land at regular intervals while everything else compresses. This lesson builds your sense of the English beat.
+                </div>
+                <div class="lesson-details">
+                    <strong>You'll Learn:</strong>
+                    <ul>
+                        <li>Why English sounds "fast" — stress-timing explained</li>
+                        <li>Content words vs function words — who gets the beat?</li>
+                        <li>Schwa /ə/ and weak forms in natural speech</li>
+                        <li>Interactive word-sorting and passage exercises</li>
+                    </ul>
+                </div>
+                <a href="pron_c1_01_rhythm_engine.html" class="lesson-button">Start Lesson 1 →</a>
+            </div>
+
+            <!-- Lesson 2 -->
+            <div class="lesson-card">
+                <div class="lesson-number">02</div>
+                <div class="lesson-status">✓ Available</div>
+                <div class="lesson-title">The British Vowel Map</div>
+                <div class="lesson-description">
+                    The vowels are what make British English sound British. This lesson maps the key RP vowel pairs that distinguish it from American and other varieties.
+                </div>
+                <div class="lesson-details">
+                    <strong>You'll Learn:</strong>
+                    <ul>
+                        <li>The BATH/TRAP split — /ɑː/ vs /æ/ (the biggest British marker)</li>
+                        <li>NURSE/STRUT — /ɜː/ vs /ʌ/ (long central vs short open)</li>
+                        <li>THOUGHT/LOT — /ɔː/ vs /ɒ/ (long rounded vs short)</li>
+                        <li>8-question vowel identification quiz with scoring</li>
+                    </ul>
+                </div>
+                <a href="pron_c1_02_vowel_map.html" class="lesson-button">Start Lesson 2 →</a>
+            </div>
+
+            <!-- Lesson 3 -->
+            <div class="lesson-card">
+                <div class="lesson-number">03</div>
+                <div class="lesson-status">✓ Available</div>
+                <div class="lesson-title">Consonant Signatures</div>
+                <div class="lesson-description">
+                    Three consonant features instantly mark a speaker as British: non-rhoticity, the crisp T, and clear/dark L. Master them here.
+                </div>
+                <div class="lesson-details">
+                    <strong>You'll Learn:</strong>
+                    <ul>
+                        <li>Non-rhoticity — when R sounds and when it's silent</li>
+                        <li>The /t/ spectrum — aspirated, crisp, and glottal stops</li>
+                        <li>Clear L vs dark L — where each appears</li>
+                        <li>Linking R and intrusive R between words</li>
+                    </ul>
+                </div>
+                <a href="pron_c1_03_consonant_signatures.html" class="lesson-button">Start Lesson 3 →</a>
+            </div>
+
+            <!-- Lesson 4 -->
+            <div class="lesson-card">
+                <div class="lesson-number">04</div>
+                <div class="lesson-status">✓ Available</div>
+                <div class="lesson-title">Connected Speech in Action</div>
+                <div class="lesson-description">
+                    Why does natural English sound so different from careful, word-by-word speech? Four processes transform how words sound when they meet.
+                </div>
+                <div class="lesson-details">
+                    <strong>You'll Learn:</strong>
+                    <ul>
+                        <li>Elision — sounds that disappear ("last night" → /lɑːs naɪt/)</li>
+                        <li>Assimilation — sounds that change ("would you" → /wʊdʒuː/)</li>
+                        <li>Catenation — consonants that jump ("pick it up" → /pɪ-kɪ-tʌp/)</li>
+                        <li>Weak form chains and 5-question process identification quiz</li>
+                    </ul>
+                </div>
+                <a href="pron_c1_04_connected_speech.html" class="lesson-button">Start Lesson 4 →</a>
+            </div>
+
+            <!-- Lesson 5 -->
+            <div class="lesson-card">
+                <div class="lesson-number">05</div>
+                <div class="lesson-status">✓ Available</div>
+                <div class="lesson-title">Intonation & Attitude</div>
+                <div class="lesson-description">
+                    Same words, different pitch, completely different meaning. This lesson unlocks how British speakers use melody to signal certainty, doubt, and politeness.
+                </div>
+                <div class="lesson-details">
+                    <strong>You'll Learn:</strong>
+                    <ul>
+                        <li>The fall — certainty, finality, authority</li>
+                        <li>The rise — questions, incompleteness, checking</li>
+                        <li>The fall-rise — the "British speciality" for hedging and politeness</li>
+                        <li>Tonic stress — how moving the focus word changes meaning entirely</li>
+                    </ul>
+                </div>
+                <a href="pron_c1_05_intonation_attitude.html" class="lesson-button">Start Lesson 5 →</a>
+            </div>
+
+            <!-- Lesson 6 -->
+            <div class="lesson-card">
+                <div class="lesson-number">06</div>
+                <div class="lesson-status">✓ Available</div>
+                <div class="lesson-title">The Full Picture</div>
+                <div class="lesson-description">
+                    The final lesson brings everything together. Integrate all five features, learn the shadowing technique, build self-monitoring skills, and leave with a plan for independence.
+                </div>
+                <div class="lesson-details">
+                    <strong>You'll Learn:</strong>
+                    <ul>
+                        <li>How all five features layer together in real speech</li>
+                        <li>The 5-step shadowing method for ongoing practice</li>
+                        <li>Self-monitoring — hearing and fixing your own pronunciation in real time</li>
+                        <li>Grand Recall across all 5 previous lessons</li>
+                    </ul>
+                </div>
+                <a href="pron_c1_06_full_picture.html" class="lesson-button">Start Lesson 6 →</a>
+            </div>
+        </div>
+
+        <!-- Course Features -->
+        <div class="feature-section">
+            <h2>Course Features</h2>
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Spaced Recall</h3>
+                    <p>Every lesson includes a Recall Zone that tests your memory of previous lessons. Content from Lesson 1 keeps coming back all the way through Lesson 6.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">🎤</div>
+                    <h3>Speaking-Dominant</h3>
+                    <p>70%+ of each lesson is spoken output. Discussion cards, timed speaking, production drills, and analysis tasks keep you talking throughout.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">🧩</div>
+                    <h3>Interactive Exercises</h3>
+                    <p>Word-sorting chips, identification quizzes, reveal-based retrieval practice, self-assessment ratings, and speed drills with working timers.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">📈</div>
+                    <h3>Progressive Building</h3>
+                    <p>Each lesson builds on the last. Rhythm → Vowels → Consonants → Connected Speech → Intonation → Full Integration. A genuine pathway, not isolated topics.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Message -->
+        <div style="background: white; border-radius: 20px; padding: 50px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            <h2 style="color: #667eea; font-size: 2.5em; margin-bottom: 20px;">Ready to Sound British?</h2>
+            <p style="font-size: 1.2em; color: #555; line-height: 1.8; max-width: 800px; margin: 0 auto 30px auto;">
+                Start with Lesson 1 and work through in order — each lesson builds on the previous one. By Lesson 6, you'll have the tools to keep improving your British English pronunciation independently.
+            </p>
+            <p style="font-size: 1.3em; color: #764ba2; font-weight: bold;">
+                Choose a lesson above and start your pronunciation journey! 🚀
+            </p>
+        </div>
+    </div>
+</body>
+</html>

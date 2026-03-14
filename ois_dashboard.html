@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Island Story — Course Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Crimson Text', 'Georgia', serif;
+            background: #f5f0e8;
+            color: #2c1810;
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+        /* Header */
+        .dashboard-header {
+            text-align: center;
+            padding: 60px 30px 50px;
+            background: linear-gradient(180deg, #2c1810 0%, #4a2c1a 40%, #6b2737 100%);
+            border-radius: 4px;
+            margin-bottom: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+        .dashboard-header::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.4;
+        }
+        .dashboard-header h1 {
+            font-family: 'EB Garamond', serif;
+            font-size: 3rem; color: #f5f0e8;
+            font-weight: 400; margin-bottom: 10px; position: relative;
+        }
+        .dashboard-header .subtitle {
+            font-size: 1.2rem; color: #d4c4a0; font-style: italic; position: relative;
+            max-width: 600px; margin: 0 auto;
+        }
+        .dashboard-header .ornament {
+            display: block; margin: 20px auto 0; color: #c9a84c;
+            font-size: 1.5rem; letter-spacing: 12px; position: relative;
+        }
+
+        /* Section Headers */
+        h2 {
+            font-family: 'EB Garamond', serif; color: #6b2737; font-size: 1.7rem;
+            font-weight: 500; margin: 35px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #e8dfd0;
+        }
+
+        /* Lesson Grid */
+        .lesson-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 15px; margin: 20px 0;
+        }
+
+        .lesson-card {
+            background: #fff; border: 2px solid #e8dfd0; border-radius: 8px;
+            padding: 20px; text-decoration: none; color: #2c1810;
+            transition: all 0.3s ease; position: relative; overflow: hidden;
+        }
+        .lesson-card:hover {
+            border-color: #c9a84c; transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(44,24,16,0.12);
+        }
+        .lesson-card .lesson-number {
+            font-family: 'EB Garamond', serif; font-size: 0.82rem;
+            letter-spacing: 2px; text-transform: uppercase; color: #c9a84c;
+            margin-bottom: 6px;
+        }
+        .lesson-card h3 {
+            font-family: 'EB Garamond', serif; color: #6b2737;
+            font-size: 1.2rem; font-weight: 600; margin-bottom: 6px;
+        }
+        .lesson-card .era {
+            font-size: 0.9rem; color: #8a7560; font-style: italic;
+        }
+        .lesson-card .room-badge {
+            position: absolute; top: 12px; right: 12px;
+            background: linear-gradient(135deg, #f0eaff, #e8e0f8);
+            border: 1px solid #7c5cbf; border-radius: 20px;
+            padding: 3px 10px; font-family: 'EB Garamond', serif;
+            font-size: 0.75rem; color: #5a3d8a; letter-spacing: 1px;
+        }
+
+        /* Memory Palace Map */
+        .palace-map {
+            background: linear-gradient(135deg, #f0eaff 0%, #e8e0f8 100%);
+            border: 2px solid #7c5cbf; border-radius: 8px;
+            padding: 30px; margin: 25px 0;
+        }
+        .palace-map h3 {
+            font-family: 'EB Garamond', serif; color: #5a3d8a;
+            font-size: 1.3rem; margin-bottom: 15px; text-align: center;
+        }
+        .palace-rooms {
+            display: grid; grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+        .palace-room {
+            background: #fff; border: 2px solid #b8a3e0; border-radius: 6px;
+            padding: 10px; text-align: center; text-decoration: none;
+            transition: all 0.3s ease; color: #4a3570;
+        }
+        .palace-room:hover {
+            background: #7c5cbf; color: #fff; border-color: #7c5cbf;
+            transform: scale(1.05);
+        }
+        .palace-room .room-num {
+            font-family: 'EB Garamond', serif; font-size: 1.4rem;
+            font-weight: 700; display: block;
+        }
+        .palace-room .room-era {
+            font-size: 0.72rem; display: block; margin-top: 2px;
+        }
+
+        /* Timeline Bar */
+        .timeline-bar {
+            background: #fff; border: 2px solid #e8dfd0; border-radius: 8px;
+            padding: 25px; margin: 25px 0;
+        }
+        .timeline-bar h3 {
+            font-family: 'EB Garamond', serif; color: #6b2737;
+            font-size: 1.3rem; margin-bottom: 15px; text-align: center;
+        }
+        .era-strip {
+            display: flex; height: 40px; border-radius: 4px; overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .era-block {
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'EB Garamond', serif; font-size: 0.7rem;
+            color: #fff; letter-spacing: 0.5px; transition: flex 0.3s ease;
+            cursor: default; position: relative;
+        }
+        .era-block:hover { filter: brightness(1.15); }
+        .era-block span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 4px; }
+
+        /* Key Dates Summary */
+        .dates-box {
+            background: linear-gradient(135deg, #eef6ee 0%, #e0f0e0 100%);
+            border: 2px solid #4a8c5c; border-radius: 8px;
+            padding: 25px; margin: 25px 0;
+        }
+        .dates-box h3 {
+            font-family: 'EB Garamond', serif; color: #2d6b3f;
+            font-size: 1.3rem; margin-bottom: 15px; text-align: center;
+        }
+        .dates-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+        }
+        .date-chip {
+            background: #fff; border: 1px solid #4a8c5c; border-radius: 4px;
+            padding: 6px 8px; text-align: center; font-size: 0.85rem;
+        }
+        .date-chip .year { font-family: 'EB Garamond', serif; font-weight: 700; color: #2d6b3f; display: block; }
+        .date-chip .event { font-size: 0.72rem; color: #5a4530; }
+
+        /* Marshall Quote */
+        .marshall-quote {
+            background: linear-gradient(135deg, #faf6ee 0%, #f5edd8 100%);
+            border-left: 4px solid #c9a84c; padding: 22px 25px 22px 35px;
+            margin: 25px 0; border-radius: 0 6px 6px 0;
+            position: relative; font-style: italic; color: #4a3728; font-size: 1.05rem;
+        }
+        .marshall-quote::before {
+            content: '\201C'; font-size: 3.5rem; color: #c9a84c;
+            position: absolute; top: 5px; left: 8px; line-height: 1;
+            font-family: 'EB Garamond', serif;
+        }
+        .marshall-quote .attribution {
+            display: block; margin-top: 10px; font-style: normal;
+            font-size: 0.88rem; color: #8a7560; text-align: right;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #fff; border-left: 4px solid #6b2737;
+            padding: 18px 22px; margin: 20px 0; border-radius: 0 6px 6px 0;
+        }
+        .info-box h4 {
+            font-family: 'EB Garamond', serif; color: #6b2737;
+            margin-bottom: 8px; font-size: 1.1rem;
+        }
+
+        .ornament { text-align: center; margin: 30px 0; color: #c9a84c; font-size: 1.3rem; letter-spacing: 8px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .lesson-grid { grid-template-columns: 1fr; }
+            .palace-rooms { grid-template-columns: repeat(4, 1fr); }
+            .dates-grid { grid-template-columns: repeat(3, 1fr); }
+            .dashboard-header h1 { font-size: 2.2rem; }
+        }
+        @media (max-width: 480px) {
+            .palace-rooms { grid-template-columns: repeat(2, 1fr); }
+            .dates-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="dashboard-header">
+        <h1>Our Island Story</h1>
+        <p class="subtitle">A history of Britain in twenty lessons, following H.E. Marshall's beloved book &mdash; with a memory palace to hold it all</p>
+        <span class="ornament">&diams; &diams; &diams;</span>
+    </div>
+
+    <div class="marshall-quote">
+        Some people think this is only a fairy tale. But however that may be, the little island is still sometimes called Albion, although it is nearly always called Britain. In this book you will find the story of the people of Britain.
+        <span class="attribution">&mdash; H.E. Marshall, <em>Our Island Story</em>, Chapter I</span>
+    </div>
+
+    <!-- MEMORY PALACE MAP -->
+    <div class="palace-map">
+        <h3>Your British History Memory Palace &mdash; 20 Rooms</h3>
+        <div class="palace-rooms">
+            <a href="ois_01_coming_of_the_britons.html" class="palace-room"><span class="room-num">1</span><span class="room-era">Ancient Britain</span></a>
+            <a href="ois_02_the_romans_come.html" class="palace-room"><span class="room-num">2</span><span class="room-era">Romans Arrive</span></a>
+            <a href="ois_03_roman_britain.html" class="palace-room"><span class="room-num">3</span><span class="room-era">Roman Britain</span></a>
+            <a href="ois_04_the_saxon_shore.html" class="palace-room"><span class="room-num">4</span><span class="room-era">Saxon Shore</span></a>
+            <a href="ois_05_arthur_and_the_dark_ages.html" class="palace-room"><span class="room-num">5</span><span class="room-era">Arthur</span></a>
+            <a href="ois_06_alfred_the_great.html" class="palace-room"><span class="room-num">6</span><span class="room-era">Alfred</span></a>
+            <a href="ois_07_danes_and_last_saxons.html" class="palace-room"><span class="room-num">7</span><span class="room-era">Danes</span></a>
+            <a href="ois_08_1066.html" class="palace-room"><span class="room-num">8</span><span class="room-era">1066</span></a>
+            <a href="ois_09_plantagenets_and_magna_carta.html" class="palace-room"><span class="room-num">9</span><span class="room-era">Magna Carta</span></a>
+            <a href="ois_10_edward_wales_scotland.html" class="palace-room"><span class="room-num">10</span><span class="room-era">Wales &amp; Scotland</span></a>
+            <a href="ois_11_hundred_years_war.html" class="palace-room"><span class="room-num">11</span><span class="room-era">100 Years War</span></a>
+            <a href="ois_12_wars_of_the_roses.html" class="palace-room"><span class="room-num">12</span><span class="room-era">Roses</span></a>
+            <a href="ois_13_henry_viii.html" class="palace-room"><span class="room-num">13</span><span class="room-era">Henry VIII</span></a>
+            <a href="ois_14_elizabeth_and_the_armada.html" class="palace-room"><span class="room-num">14</span><span class="room-era">Elizabeth I</span></a>
+            <a href="ois_15_stuarts_and_civil_war.html" class="palace-room"><span class="room-num">15</span><span class="room-era">Civil War</span></a>
+            <a href="ois_16_restoration_and_revolution.html" class="palace-room"><span class="room-num">16</span><span class="room-era">Restoration</span></a>
+            <a href="ois_17_georgian_age.html" class="palace-room"><span class="room-num">17</span><span class="room-era">Georgian</span></a>
+            <a href="ois_18_nelson_and_wellington.html" class="palace-room"><span class="room-num">18</span><span class="room-era">Nelson</span></a>
+            <a href="ois_19_the_victorian_age.html" class="palace-room"><span class="room-num">19</span><span class="room-era">Victorian</span></a>
+            <a href="ois_20_the_modern_age.html" class="palace-room"><span class="room-num">20</span><span class="room-era">Modern</span></a>
+        </div>
+    </div>
+
+    <!-- TIMELINE BAR -->
+    <div class="timeline-bar">
+        <h3>The Sweep of British History</h3>
+        <div class="era-strip">
+            <div class="era-block" style="flex:2; background:#8B7355;"><span>Ancient</span></div>
+            <div class="era-block" style="flex:2; background:#C0392B;"><span>Roman</span></div>
+            <div class="era-block" style="flex:2; background:#7D6608;"><span>Saxon</span></div>
+            <div class="era-block" style="flex:1; background:#2C3E50;"><span>Viking</span></div>
+            <div class="era-block" style="flex:2; background:#6b2737;"><span>Medieval</span></div>
+            <div class="era-block" style="flex:2; background:#1A5276;"><span>Tudor</span></div>
+            <div class="era-block" style="flex:2; background:#4A235A;"><span>Stuart</span></div>
+            <div class="era-block" style="flex:2; background:#0E6655;"><span>Georgian</span></div>
+            <div class="era-block" style="flex:2; background:#6C3483;"><span>Victorian</span></div>
+            <div class="era-block" style="flex:1; background:#2c1810;"><span>Modern</span></div>
+        </div>
+        <p style="text-align:center; font-size:0.85rem; color:#8a7560; margin-top:8px;">c. 8000 BC &mdash; Britain becomes an island &nbsp;&nbsp;&bull;&nbsp;&nbsp; 55 BC &mdash; Caesar &nbsp;&nbsp;&bull;&nbsp;&nbsp; 1066 &mdash; Hastings &nbsp;&nbsp;&bull;&nbsp;&nbsp; 1588 &mdash; Armada &nbsp;&nbsp;&bull;&nbsp;&nbsp; 1945 &mdash; VE Day &nbsp;&nbsp;&bull;&nbsp;&nbsp; Present</p>
+    </div>
+
+    <!-- LESSON LIST -->
+    <h2>The Twenty Lessons</h2>
+
+    <div class="lesson-grid">
+        <a href="ois_01_coming_of_the_britons.html" class="lesson-card">
+            <span class="room-badge">Room 1</span>
+            <div class="lesson-number">Lesson I</div>
+            <h3>The Stories of Albion &amp; Brutus</h3>
+            <span class="era">Ancient Britain &mdash; Myth to 55 BC</span>
+        </a>
+        <a href="ois_02_the_romans_come.html" class="lesson-card">
+            <span class="room-badge">Room 2</span>
+            <div class="lesson-number">Lesson II</div>
+            <h3>The Romans Come</h3>
+            <span class="era">55 BC &ndash; 61 AD</span>
+        </a>
+        <a href="ois_03_roman_britain.html" class="lesson-card">
+            <span class="room-badge">Room 3</span>
+            <div class="lesson-number">Lesson III</div>
+            <h3>Roman Britain</h3>
+            <span class="era">43 &ndash; 410 AD</span>
+        </a>
+        <a href="ois_04_the_saxon_shore.html" class="lesson-card">
+            <span class="room-badge">Room 4</span>
+            <div class="lesson-number">Lesson IV</div>
+            <h3>The Saxon Shore</h3>
+            <span class="era">410 &ndash; 600 AD</span>
+        </a>
+        <a href="ois_05_arthur_and_the_dark_ages.html" class="lesson-card">
+            <span class="room-badge">Room 5</span>
+            <div class="lesson-number">Lesson V</div>
+            <h3>Arthur &amp; the Dark Ages</h3>
+            <span class="era">c. 450 &ndash; 700 AD</span>
+        </a>
+        <a href="ois_06_alfred_the_great.html" class="lesson-card">
+            <span class="room-badge">Room 6</span>
+            <div class="lesson-number">Lesson VI</div>
+            <h3>Alfred the Great</h3>
+            <span class="era">849 &ndash; 899 AD</span>
+        </a>
+        <a href="ois_07_danes_and_last_saxons.html" class="lesson-card">
+            <span class="room-badge">Room 7</span>
+            <div class="lesson-number">Lesson VII</div>
+            <h3>The Danes &amp; the Last Saxon Kings</h3>
+            <span class="era">899 &ndash; 1066 AD</span>
+        </a>
+        <a href="ois_08_1066.html" class="lesson-card">
+            <span class="room-badge">Room 8</span>
+            <div class="lesson-number">Lesson VIII</div>
+            <h3>1066: The Norman Conquest</h3>
+            <span class="era">1066 &ndash; 1087 AD</span>
+        </a>
+        <a href="ois_09_plantagenets_and_magna_carta.html" class="lesson-card">
+            <span class="room-badge">Room 9</span>
+            <div class="lesson-number">Lesson IX</div>
+            <h3>The Plantagenets &amp; Magna Carta</h3>
+            <span class="era">1154 &ndash; 1215 AD</span>
+        </a>
+        <a href="ois_10_edward_wales_scotland.html" class="lesson-card">
+            <span class="room-badge">Room 10</span>
+            <div class="lesson-number">Lesson X</div>
+            <h3>Edward I, Wales &amp; Scotland</h3>
+            <span class="era">1272 &ndash; 1327 AD</span>
+        </a>
+        <a href="ois_11_hundred_years_war.html" class="lesson-card">
+            <span class="room-badge">Room 11</span>
+            <div class="lesson-number">Lesson XI</div>
+            <h3>The Hundred Years' War &amp; Black Death</h3>
+            <span class="era">1337 &ndash; 1453 AD</span>
+        </a>
+        <a href="ois_12_wars_of_the_roses.html" class="lesson-card">
+            <span class="room-badge">Room 12</span>
+            <div class="lesson-number">Lesson XII</div>
+            <h3>The Wars of the Roses</h3>
+            <span class="era">1455 &ndash; 1485 AD</span>
+        </a>
+        <a href="ois_13_henry_viii.html" class="lesson-card">
+            <span class="room-badge">Room 13</span>
+            <div class="lesson-number">Lesson XIII</div>
+            <h3>Henry VIII &amp; the Reformation</h3>
+            <span class="era">1509 &ndash; 1547 AD</span>
+        </a>
+        <a href="ois_14_elizabeth_and_the_armada.html" class="lesson-card">
+            <span class="room-badge">Room 14</span>
+            <div class="lesson-number">Lesson XIV</div>
+            <h3>Elizabeth I &amp; the Armada</h3>
+            <span class="era">1558 &ndash; 1603 AD</span>
+        </a>
+        <a href="ois_15_stuarts_and_civil_war.html" class="lesson-card">
+            <span class="room-badge">Room 15</span>
+            <div class="lesson-number">Lesson XV</div>
+            <h3>The Stuarts &amp; the Civil War</h3>
+            <span class="era">1603 &ndash; 1649 AD</span>
+        </a>
+        <a href="ois_16_restoration_and_revolution.html" class="lesson-card">
+            <span class="room-badge">Room 16</span>
+            <div class="lesson-number">Lesson XVI</div>
+            <h3>Cromwell, Restoration &amp; Glorious Revolution</h3>
+            <span class="era">1649 &ndash; 1689 AD</span>
+        </a>
+        <a href="ois_17_georgian_age.html" class="lesson-card">
+            <span class="room-badge">Room 17</span>
+            <div class="lesson-number">Lesson XVII</div>
+            <h3>The Georgian Age &amp; Empire</h3>
+            <span class="era">1714 &ndash; 1783 AD</span>
+        </a>
+        <a href="ois_18_nelson_and_wellington.html" class="lesson-card">
+            <span class="room-badge">Room 18</span>
+            <div class="lesson-number">Lesson XVIII</div>
+            <h3>Nelson, Wellington &amp; the Industrial Age</h3>
+            <span class="era">1783 &ndash; 1837 AD</span>
+        </a>
+        <a href="ois_19_the_victorian_age.html" class="lesson-card">
+            <span class="room-badge">Room 19</span>
+            <div class="lesson-number">Lesson XIX</div>
+            <h3>The Victorian Age</h3>
+            <span class="era">1837 &ndash; 1901 AD</span>
+        </a>
+        <a href="ois_20_the_modern_age.html" class="lesson-card">
+            <span class="room-badge">Room 20</span>
+            <div class="lesson-number">Lesson XX</div>
+            <h3>The Modern Age</h3>
+            <span class="era">1901 &ndash; Present</span>
+        </a>
+    </div>
+
+    <div class="ornament">&diams; &diams; &diams;</div>
+
+    <!-- KEY DATES OVERVIEW -->
+    <div class="dates-box">
+        <h3>60 Key Dates Across 20 Rooms</h3>
+        <div class="dates-grid">
+            <div class="date-chip"><span class="year">c. 8000 BC</span><span class="event">Island formed</span></div>
+            <div class="date-chip"><span class="year">c. 3000 BC</span><span class="event">Stonehenge</span></div>
+            <div class="date-chip"><span class="year">55 BC</span><span class="event">Caesar lands</span></div>
+            <div class="date-chip"><span class="year">43 AD</span><span class="event">Claudius invades</span></div>
+            <div class="date-chip"><span class="year">61 AD</span><span class="event">Boadicea</span></div>
+            <div class="date-chip"><span class="year">122 AD</span><span class="event">Hadrian's Wall</span></div>
+            <div class="date-chip"><span class="year">410 AD</span><span class="event">Romans leave</span></div>
+            <div class="date-chip"><span class="year">449 AD</span><span class="event">Saxons arrive</span></div>
+            <div class="date-chip"><span class="year">c. 500 AD</span><span class="event">Badon Hill</span></div>
+            <div class="date-chip"><span class="year">597 AD</span><span class="event">Augustine</span></div>
+            <div class="date-chip"><span class="year">563 AD</span><span class="event">Iona founded</span></div>
+            <div class="date-chip"><span class="year">635 AD</span><span class="event">Lindisfarne</span></div>
+            <div class="date-chip"><span class="year">871 AD</span><span class="event">Alfred crowned</span></div>
+            <div class="date-chip"><span class="year">878 AD</span><span class="event">Edington</span></div>
+            <div class="date-chip"><span class="year">1016</span><span class="event">Canute reigns</span></div>
+            <div class="date-chip"><span class="year">1066</span><span class="event">Hastings</span></div>
+            <div class="date-chip"><span class="year">1086</span><span class="event">Domesday</span></div>
+            <div class="date-chip"><span class="year">1170</span><span class="event">Becket killed</span></div>
+            <div class="date-chip"><span class="year">1215</span><span class="event">Magna Carta</span></div>
+            <div class="date-chip"><span class="year">1282</span><span class="event">Wales conquered</span></div>
+            <div class="date-chip"><span class="year">1314</span><span class="event">Bannockburn</span></div>
+            <div class="date-chip"><span class="year">1346</span><span class="event">Cr&eacute;cy</span></div>
+            <div class="date-chip"><span class="year">1348</span><span class="event">Black Death</span></div>
+            <div class="date-chip"><span class="year">1415</span><span class="event">Agincourt</span></div>
+            <div class="date-chip"><span class="year">1455</span><span class="event">Roses begin</span></div>
+            <div class="date-chip"><span class="year">1485</span><span class="event">Bosworth</span></div>
+            <div class="date-chip"><span class="year">1534</span><span class="event">Supremacy Act</span></div>
+            <div class="date-chip"><span class="year">1558</span><span class="event">Elizabeth I</span></div>
+            <div class="date-chip"><span class="year">1588</span><span class="event">Armada</span></div>
+            <div class="date-chip"><span class="year">1605</span><span class="event">Gunpowder Plot</span></div>
+            <div class="date-chip"><span class="year">1649</span><span class="event">Charles I dies</span></div>
+            <div class="date-chip"><span class="year">1666</span><span class="event">Great Fire</span></div>
+            <div class="date-chip"><span class="year">1688</span><span class="event">Glorious Rev.</span></div>
+            <div class="date-chip"><span class="year">1707</span><span class="event">Act of Union</span></div>
+            <div class="date-chip"><span class="year">1776</span><span class="event">US Independence</span></div>
+            <div class="date-chip"><span class="year">1805</span><span class="event">Trafalgar</span></div>
+            <div class="date-chip"><span class="year">1815</span><span class="event">Waterloo</span></div>
+            <div class="date-chip"><span class="year">1837</span><span class="event">Victoria</span></div>
+            <div class="date-chip"><span class="year">1851</span><span class="event">Great Exhibition</span></div>
+            <div class="date-chip"><span class="year">1914</span><span class="event">WWI begins</span></div>
+            <div class="date-chip"><span class="year">1940</span><span class="event">The Blitz</span></div>
+            <div class="date-chip"><span class="year">1948</span><span class="event">NHS founded</span></div>
+        </div>
+    </div>
+
+    <!-- HOW TO USE -->
+    <div class="info-box">
+        <h4>How This Course Works</h4>
+        <p>Each lesson follows a seven-part structure: <strong>Retrieval</strong> (what you remember) &rarr; <strong>Marshall's Story</strong> (the history, told through her prose) &rarr; <strong>The Deeper Truth</strong> (what we now know) &rarr; <strong>Key Dates</strong> (encode with your PAO system) &rarr; <strong>Memory Palace</strong> (place images in your room) &rarr; <strong>Your Turn</strong> (reflect and discuss) &rarr; <strong>Final Retrieval</strong> (lock it in).</p>
+        <p style="margin-top: 10px;">Content returns at <strong>+3, +7,</strong> and <strong>+14</strong> lesson intervals through spaced repetition in the Retrieval tabs.</p>
+    </div>
+
+    <div class="info-box">
+        <h4>About <em>Our Island Story</em></h4>
+        <p>H.E. Marshall published <em>Our Island Story: A History of England for Boys and Girls</em> in 1905. It tells the story of Britain from Neptune's myth to Queen Victoria in prose so beautiful it reads like a novel. Marshall wrote for children, but her gift was making history unforgettable. We use her words as our narrative voice &mdash; and where she was wrong (as all writers of any age must sometimes be), a historian's note gently sets the record straight.</p>
+    </div>
+
+    <div class="ornament">&diams; &diams; &diams;</div>
+
+    <p style="text-align: center; color: #8a7560; font-size: 0.9rem; margin: 20px 0 40px; font-style: italic;">
+        "In this book you will find the story of the people of Britain." &mdash; H.E. Marshall
+    </p>
+
+</div>
+</body>
+</html>

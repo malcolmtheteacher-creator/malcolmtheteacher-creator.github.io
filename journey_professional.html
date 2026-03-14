@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional English | Malcolm Hyndman</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --off-white: #f8f7f4;
+  --warm-gray: #e8e6e1;
+  --mid-gray: #6b6b6b;
+  --light-gray: #f1f0ed;
+  --accent: #1e3a2f;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--white);
+  color: var(--black);
+  line-height: 1.6;
+}
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, #0f1a2e 0%, #162240 50%, #1a1a2e 100%);
+  color: var(--white);
+  padding: 60px 30px 50px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 50%);
+}
+
+.hero-icon { font-size: 3.5rem; margin-bottom: 16px; position: relative; }
+
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 2.8rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.hero .subtitle {
+  font-size: 1.1rem;
+  opacity: 0.85;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  line-height: 1.7;
+}
+
+/* ── Intro ── */
+.intro {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 30px 20px;
+  text-align: center;
+}
+
+.intro p {
+  font-size: 1.05rem;
+  color: var(--mid-gray);
+  line-height: 1.8;
+}
+
+/* ── Journey Container ── */
+.journey {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 30px 60px;
+  position: relative;
+}
+
+/* The main road line */
+.journey::before {
+  content: '';
+  position: absolute;
+  left: 58px;
+  top: 20px;
+  bottom: 60px;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--warm-gray) 0%, var(--warm-gray) 100%);
+}
+
+/* ── Chapters ── */
+.chapter {
+  display: flex;
+  gap: 24px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.chapter-marker {
+  flex-shrink: 0;
+  width: 76px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.chapter-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 3px var(--warm-gray);
+}
+
+.chapter-level {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--white);
+  padding: 3px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.chapter-content {
+  flex: 1;
+  padding-bottom: 30px;
+}
+
+.chapter-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.chapter-desc {
+  color: var(--mid-gray);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+/* ── Path Cards ── */
+.paths-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.path-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--off-white);
+  border: 1px solid var(--warm-gray);
+  text-decoration: none;
+  color: var(--black);
+  transition: all 0.25s;
+}
+
+.path-card:hover {
+  border-color: var(--accent);
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.path-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  width: 40px;
+  text-align: center;
+}
+
+.path-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.path-tag {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-bottom: 4px;
+}
+
+.path-name {
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin-bottom: 2px;
+}
+
+.path-desc {
+  font-size: 0.82rem;
+  color: var(--mid-gray);
+  line-height: 1.5;
+}
+
+.path-meta {
+  font-size: 0.72rem;
+  color: var(--mid-gray);
+  margin-top: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.path-arrow {
+  font-size: 1.2rem;
+  color: var(--warm-gray);
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+.path-card:hover .path-arrow {
+  color: var(--accent);
+}
+
+/* ── Road Connectors ── */
+.road-connector {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  margin-left: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.road-line {
+  width: 3px;
+  height: 20px;
+  margin-left: 8px;
+}
+
+.road-dot {
+  display: none;
+}
+
+/* ── Back Bar ── */
+.back-bar {
+  text-align: center;
+  padding: 30px;
+  border-top: 1px solid var(--warm-gray);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.back-link {
+  color: var(--mid-gray);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+/* ── Switch Bar ── */
+.switch-bar {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 30px 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.switch-btn {
+  padding: 8px 18px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--mid-gray);
+  border: 1px solid var(--warm-gray);
+  background: var(--off-white);
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.switch-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.switch-btn.active {
+  background: var(--accent);
+  color: var(--white);
+  border-color: var(--accent);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .hero h1 { font-size: 2rem; }
+  .hero { padding: 40px 20px 35px; }
+  .journey::before { left: 28px; }
+  .chapter { gap: 14px; }
+  .chapter-marker { width: 46px; }
+  .chapter-level { font-size: 0.6rem; padding: 2px 7px; }
+  .path-card { padding: 12px 14px; }
+  .road-connector { margin-left: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-icon">💼</div>
+  <h1>Professional English</h1>
+  <div class="subtitle">English for work. Meetings, presentations, negotiations — speak with authority in every room.</div>
+</div>
+
+<div class="intro">
+  <p>Whether you need English for your first international meeting or to close deals at C-suite level, there's a path here for you. Each chapter matches a stage in your professional English development.</p>
+</div>
+
+<div class="switch-bar">
+  <a class="switch-btn" href="journey_general.html">General English</a>
+  <a class="switch-btn active" href="journey_professional.html">Professional English</a>
+  <a class="switch-btn" href="journey_academic.html">Academic English</a>
+</div>
+
+<div class="journey">
+
+<div class="chapter" style="--chapter-color: #f39c12">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #f39c12"></div>
+    <div class="chapter-level" style="background: #f39c12">A2–B1</div>
+  </div>
+  <div class="chapter-content">
+    <h3 class="chapter-title">Getting Started at Work</h3>
+    <p class="chapter-desc">You need English for work but you're still building the basics. These lessons focus on the workplace situations you'll face first — introductions, emails, phone calls, and small talk with colleagues.</p>
+    <div class="paths-grid">
+<a class="path-card" href="trade_fair_dashboard.html">
+              <div class="path-icon">🤝</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#f39c1215;color:#f39c12;border:1px solid #f39c1230">Start Here</span>
+                <div class="path-name">Trade Fair English — Foundation</div>
+                <div class="path-desc">First contacts, exchanging details, small talk, describing what you offer. Real business English from day one.</div>
+                <div class="path-meta">6 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="speaking_pathway_dashboard.html">
+              <div class="path-icon">🗣️</div>
+              <div class="path-body">
+                
+                <div class="path-name">Speaking Pathway — A2</div>
+                <div class="path-desc">Build the speaking confidence you need before every meeting. Buying time, expressing opinions, managing conversation.</div>
+                <div class="path-meta">21 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="CEFR_Grammar_Dashboard.html">
+              <div class="path-icon">📐</div>
+              <div class="path-body">
+                
+                <div class="path-name">Business Grammar Essentials</div>
+                <div class="path-desc">Past tense for reports, conditionals for proposals, modal verbs for polite requests — grammar that works at work.</div>
+                <div class="path-meta">19 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+
+    </div>
+  </div>
+</div>
+<div class="road-connector"><div class="road-line"></div><div class="road-dot"></div></div>
+
+<div class="chapter" style="--chapter-color: #667eea">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #667eea"></div>
+    <div class="chapter-level" style="background: #667eea">B1–B2</div>
+  </div>
+  <div class="chapter-content">
+    <h3 class="chapter-title">The Professional Toolkit</h3>
+    <p class="chapter-desc">You can communicate at work, but you want to be taken seriously. These lessons give you the skills to pitch ideas, handle objections, run meetings, and write emails that get results.</p>
+    <div class="paths-grid">
+<a class="path-card" href="business_bootcamp_dashboard.html">
+              <div class="path-icon">🎯</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#667eea15;color:#667eea;border:1px solid #667eea30">Core Path</span>
+                <div class="path-name">Business Bootcamp</div>
+                <div class="path-desc">The Pitch, The Negotiation, The Project Manager, The Numbers, Branding, The Boardroom, The Business Plan, The Final Interview.</div>
+                <div class="path-meta">8 intensive lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="trade_fair_dashboard.html">
+              <div class="path-icon">🏢</div>
+              <div class="path-body">
+                
+                <div class="path-name">Trade Fair English — Advanced</div>
+                <div class="path-desc">Elevator pitches, strategic networking, negotiating, handling objections, follow-up communication.</div>
+                <div class="path-meta">6 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="speaking_pathway_dashboard.html">
+              <div class="path-icon">🗣️</div>
+              <div class="path-body">
+                
+                <div class="path-name">Speaking Pathway — B2</div>
+                <div class="path-desc">Structure arguments, handle debate, present complex ideas. The speaking skills that get you promoted.</div>
+                <div class="path-meta">23 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="professional_skills_dashboard.html">
+              <div class="path-icon">📋</div>
+              <div class="path-body">
+                
+                <div class="path-name">Professional Skills</div>
+                <div class="path-desc">Interviews, presentations, negotiations — targeted skills for specific workplace challenges.</div>
+                <div class="path-meta">12 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+
+    </div>
+  </div>
+</div>
+<div class="road-connector"><div class="road-line"></div><div class="road-dot"></div></div>
+
+<div class="chapter" style="--chapter-color: #48dbfb">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #48dbfb"></div>
+    <div class="chapter-level" style="background: #48dbfb">B2–C1</div>
+  </div>
+  <div class="chapter-content">
+    <h3 class="chapter-title">Executive Communication</h3>
+    <p class="chapter-desc">You're good at English. Now you need to be persuasive, strategic, and memorable. These lessons are about influence — the language of leadership.</p>
+    <div class="paths-grid">
+<a class="path-card" href="strategic_storytelling_dashboard.html">
+              <div class="path-icon">📖</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#48dbfb15;color:#48dbfb;border:1px solid #48dbfb30">Core Path</span>
+                <div class="path-name">Strategic Storytelling</div>
+                <div class="path-desc">The architecture of story, your origin story, data storytelling. Turn every presentation into something people remember.</div>
+                <div class="path-meta">12 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="trade_fair_dashboard.html">
+              <div class="path-icon">🌐</div>
+              <div class="path-body">
+                
+                <div class="path-name">Trade Fair English — Expert</div>
+                <div class="path-desc">Leading negotiations, crisis management, cross-cultural communication, strategic pitching, public speaking.</div>
+                <div class="path-meta">6 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="speaking_pathway_dashboard.html">
+              <div class="path-icon">🗣️</div>
+              <div class="path-body">
+                
+                <div class="path-name">Speaking Pathway — C1</div>
+                <div class="path-desc">Discourse mastery, hedging, persuasion techniques. Speak like someone who leads.</div>
+                <div class="path-meta">21 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="pronunciation_pathway_dashboard.html">
+              <div class="path-icon">🎵</div>
+              <div class="path-body">
+                
+                <div class="path-name">Pronunciation Pathway</div>
+                <div class="path-desc">Rhythm, stress, intonation — sound authoritative, not just accurate.</div>
+                <div class="path-meta">6 modules</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+
+    </div>
+  </div>
+</div>
+<div class="road-connector"><div class="road-line"></div><div class="road-dot"></div></div>
+
+<div class="chapter" style="--chapter-color: #a855f7">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #a855f7"></div>
+    <div class="chapter-level" style="background: #a855f7">C1–C2</div>
+  </div>
+  <div class="chapter-content">
+    <h3 class="chapter-title">The Boardroom</h3>
+    <p class="chapter-desc">You operate in English at the highest level. These lessons are about polish, precision, and the subtle power of language that separates the impressive from the unforgettable.</p>
+    <div class="paths-grid">
+<a class="path-card" href="beyond_perfect_dashboard.html">
+              <div class="path-icon">💎</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#a855f715;color:#a855f7;border:1px solid #a855f730">Elite</span>
+                <div class="path-name">Beyond Perfect</div>
+                <div class="path-desc">C2 consulting English. The three layers of English, dealing with uncertainty, and why they don't understand you.</div>
+                <div class="path-meta">6 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="commanding_discourse_dashboard.html">
+              <div class="path-icon">👑</div>
+              <div class="path-body">
+                
+                <div class="path-name">Commanding Discourse</div>
+                <div class="path-desc">Frame, connect, navigate, qualify, command. Master the architecture of power in English.</div>
+                <div class="path-meta">6 modules</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="CEFR_Grammar_Dashboard.html">
+              <div class="path-icon">📐</div>
+              <div class="path-body">
+                
+                <div class="path-name">C1–C2 Grammar</div>
+                <div class="path-desc">Inversion for emphasis, advanced hedging, discourse cohesion — grammar as a tool of persuasion.</div>
+                <div class="path-meta">26 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+<div class="back-bar">
+  <a class="back-link" href="malcolm_lesson_index.html">&larr; Back to Home</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Boardroom: Business Skills Bootcamp | Malcolm's Lessons</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #e94560 0%, #f39c12 50%, #e94560 100%);
+        }
+
+        .series-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #e94560 0%, #c0392b 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header h1 {
+            font-size: 3.2em;
+            background: linear-gradient(135deg, #1a1a2e 0%, #e94560 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            color: #555;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header .level-info {
+            font-size: 1em;
+            color: #777;
+            margin-top: 15px;
+        }
+
+        .course-info {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .course-info h2 {
+            color: #1a1a2e;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .course-info p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .key-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border-top: 4px solid #e94560;
+        }
+
+        .feature-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h4 {
+            color: #1a1a2e;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .lesson-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+        }
+
+        .lesson-card:nth-child(1)::before { background: linear-gradient(90deg, #e94560 0%, #ff6b6b 100%); }
+        .lesson-card:nth-child(2)::before { background: linear-gradient(90deg, #f39c12 0%, #e67e22 100%); }
+        .lesson-card:nth-child(3)::before { background: linear-gradient(90deg, #9b59b6 0%, #8e44ad 100%); }
+        .lesson-card:nth-child(4)::before { background: linear-gradient(90deg, #27ae60 0%, #2ecc71 100%); }
+        .lesson-card:nth-child(5)::before { background: linear-gradient(90deg, #e91e63 0%, #f06292 100%); }
+        .lesson-card:nth-child(6)::before { background: linear-gradient(90deg, #3498db 0%, #2980b9 100%); }
+        .lesson-card:nth-child(7)::before { background: linear-gradient(90deg, #1abc9c 0%, #16a085 100%); }
+        .lesson-card:nth-child(8)::before { background: linear-gradient(90deg, #f1c40f 0%, #f39c12 100%); }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+
+        .lesson-number {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #e94560 0%, #c0392b 100%);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        .skill-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 12px;
+            margin-left: 10px;
+            background: #fef3e8;
+            color: #e94560;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-bottom: 12px;
+            background: #f0f0f0;
+            color: #555;
+            margin-left: 8px;
+        }
+
+        .lesson-title {
+            font-size: 1.4em;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .lesson-description {
+            color: #666;
+            line-height: 1.7;
+            font-size: 1em;
+        }
+
+        .apprentice-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5em;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #e94560 0%, #c0392b 100%);
+            border-radius: 20px;
+            color: white;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="malcolm_lesson_index.html" class="back-link">← Back to All Lessons</a>
+
+        <div class="header">
+            <div class="series-badge">Inspired by The Apprentice</div>
+            <h1>🏆 The Boardroom</h1>
+            <p class="subtitle">Business Skills Bootcamp</p>
+            <p class="level-info">B2 to C1 | 8 Interactive Lessons | Adult Learners</p>
+        </div>
+
+        <div class="course-info">
+            <h2>About This Course</h2>
+            <p>
+                Master the business skills that separate winners from those who get "fired." This 8-lesson bootcamp
+                takes inspiration from The Apprentice to teach practical, high-impact business communication skills
+                — pitching, negotiation, leadership, financial literacy, branding, and more.
+            </p>
+            <p>
+                Each lesson features interactive exercises, timed challenges, roleplay scenarios, and the kind of
+                pressure you'd face in a real boardroom. Perfect for professionals looking to level up their
+                English and their business acumen at the same time.
+            </p>
+
+            <div class="key-features">
+                <div class="feature-card">
+                    <span class="icon">🎯</span>
+                    <h4>Pitching & Persuasion</h4>
+                    <p>Learn frameworks for presenting ideas that get buy-in</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">🤝</span>
+                    <h4>Negotiation</h4>
+                    <p>Master deal-making language and win-win strategies</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">👔</span>
+                    <h4>Leadership</h4>
+                    <p>Communicate as a leader and make decisions under pressure</p>
+                </div>
+                <div class="feature-card">
+                    <span class="icon">📊</span>
+                    <h4>Business Acumen</h4>
+                    <p>Understand numbers, margins, and business fundamentals</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-info">
+            <h2>Course Lessons</h2>
+            <div class="lessons-grid">
+                <a href="Business-Bootcamp-Lesson1-The-Pitch.html" class="lesson-card">
+                    <span class="apprentice-badge">🎤</span>
+                    <span class="lesson-number">1</span>
+                    <span class="skill-badge">Presenting</span>
+                    <span class="level-badge">B2+</span>
+                    <div class="lesson-title">The Pitch</div>
+                    <div class="lesson-description">
+                        Master the SPARK framework for presenting ideas persuasively. Learn to sell any concept in 90 seconds or less.
+                    </div>
+                </a>
+
+                <a href="Business-Bootcamp-Lesson2-The-Negotiation.html" class="lesson-card">
+                    <span class="apprentice-badge">🤝</span>
+                    <span class="lesson-number">2</span>
+                    <span class="skill-badge">Negotiation</span>
+                    <span class="level-badge">B2+</span>
+                    <div class="lesson-title">The Negotiation</div>
+                    <div class="lesson-description">
+                        The TRADE framework for deal-making. Learn tactics, language, and strategies for win-win negotiations.
+                    </div>
+                </a>
+
+                <a href="Business-Bootcamp-Lesson3-The-Project-Manager.html" class="lesson-card">
+                    <span class="apprentice-badge">👔</span>
+                    <span class="lesson-number">3</span>
+                    <span class="skill-badge">Leadership</span>
+                    <span class="level-badge">B2+</span>
+                    <div class="lesson-title">The Project Manager</div>
+                    <div class="lesson-description">
+                        Leadership styles and decision-making under pressure. Learn to lead teams and make tough calls.
+                    </div>
+                </a>
+
+                <a href="Business-Bootcamp-Lesson4-The-Numbers.html" class="lesson-card">
+                    <span class="apprentice-badge">📊</span>
+                    <span class="lesson-number">4</span>
+                    <span class="skill-badge">Finance</span>
+                    <span class="level-badge">B2+</span>
+                    <div class="lesson-title">The Numbers</div>
+                    <div class="lesson-description">
+                        Financial literacy basics: profit, margins, pricing. Understand the numbers that matter in business.
+                    </div>
+                </a>
+
+                <a href="Business-Bootcamp-Lesson5-The-Branding-Challenge.html" class="lesson-card">
+                    <span class="apprentice-badge">🎨</span>
+                    <span class="lesson-number">5</span>
+                    <span class="skill-badge">Marketing</span>
+                    <span class="level-badge">B2+</span>
+                    <div class="lesson-title">The Branding Challenge</div>
+                    <div class="lesson-description">
+                        Create compelling brand identities. Learn positioning, naming, and how to pitch a brand concept.
+                    </div>
+                </a>
+
+                <a href="Business-Bootcamp-Lesson6-The-Boardroom.html" class="lesson-card">
+                    <span class="apprentice-badge">🔥</span>
+                    <span class="lesson-number">6</span>
+                    <span class="skill-badge">Resilience</span>
+                    <span class="level-badge">C1</span>
+                    <div class="lesson-title">The Boardroom</div>
+                    <div class="lesson-description">
+                        Handle pressure, criticism, and tough questions. Learn to defend yourself when things go wrong.
+                    </div>
+                </a>
+
+                <a href="Business-Bootcamp-Lesson7-The-Business-Plan.html" class="lesson-card">
+                    <span class="apprentice-badge">📋</span>
+                    <span class="lesson-number">7</span>
+                    <span class="skill-badge">Strategy</span>
+                    <span class="level-badge">C1</span>
+                    <div class="lesson-title">The Business Plan</div>
+                    <div class="lesson-description">
+                        Entrepreneurship fundamentals: market analysis, business models, and presenting your vision.
+                    </div>
+                </a>
+
+                <a href="Business-Bootcamp-Lesson8-The-Final-Interview.html" class="lesson-card">
+                    <span class="apprentice-badge">🏆</span>
+                    <span class="lesson-number">8</span>
+                    <span class="skill-badge">Executive</span>
+                    <span class="level-badge">C1</span>
+                    <div class="lesson-title">The Final Interview</div>
+                    <div class="lesson-description">
+                        Executive communication: win the investment. Master the language that closes deals and lands opportunities.
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Ready to Enter The Boardroom?</h2>
+            <p>Start with Lesson 1 and work through the course, or jump to any lesson that matches your current needs.</p>
+        </div>
+    </div>
+</body>
+</html>

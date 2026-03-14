@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academic English | Malcolm Hyndman</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --off-white: #f8f7f4;
+  --warm-gray: #e8e6e1;
+  --mid-gray: #6b6b6b;
+  --light-gray: #f1f0ed;
+  --accent: #1e3a2f;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--white);
+  color: var(--black);
+  line-height: 1.6;
+}
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 50%, #4c1d95 100%);
+  color: var(--white);
+  padding: 60px 30px 50px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 50%);
+}
+
+.hero-icon { font-size: 3.5rem; margin-bottom: 16px; position: relative; }
+
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 2.8rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.hero .subtitle {
+  font-size: 1.1rem;
+  opacity: 0.85;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  line-height: 1.7;
+}
+
+/* ── Intro ── */
+.intro {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 30px 20px;
+  text-align: center;
+}
+
+.intro p {
+  font-size: 1.05rem;
+  color: var(--mid-gray);
+  line-height: 1.8;
+}
+
+/* ── Journey Container ── */
+.journey {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 30px 60px;
+  position: relative;
+}
+
+/* The main road line */
+.journey::before {
+  content: '';
+  position: absolute;
+  left: 58px;
+  top: 20px;
+  bottom: 60px;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--warm-gray) 0%, var(--warm-gray) 100%);
+}
+
+/* ── Chapters ── */
+.chapter {
+  display: flex;
+  gap: 24px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.chapter-marker {
+  flex-shrink: 0;
+  width: 76px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.chapter-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 3px var(--warm-gray);
+}
+
+.chapter-level {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--white);
+  padding: 3px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.chapter-content {
+  flex: 1;
+  padding-bottom: 30px;
+}
+
+.chapter-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.chapter-desc {
+  color: var(--mid-gray);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+/* ── Path Cards ── */
+.paths-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.path-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--off-white);
+  border: 1px solid var(--warm-gray);
+  text-decoration: none;
+  color: var(--black);
+  transition: all 0.25s;
+}
+
+.path-card:hover {
+  border-color: var(--accent);
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.path-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  width: 40px;
+  text-align: center;
+}
+
+.path-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.path-tag {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-bottom: 4px;
+}
+
+.path-name {
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin-bottom: 2px;
+}
+
+.path-desc {
+  font-size: 0.82rem;
+  color: var(--mid-gray);
+  line-height: 1.5;
+}
+
+.path-meta {
+  font-size: 0.72rem;
+  color: var(--mid-gray);
+  margin-top: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.path-arrow {
+  font-size: 1.2rem;
+  color: var(--warm-gray);
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
+.path-card:hover .path-arrow {
+  color: var(--accent);
+}
+
+/* ── Road Connectors ── */
+.road-connector {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  margin-left: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.road-line {
+  width: 3px;
+  height: 20px;
+  margin-left: 8px;
+}
+
+.road-dot {
+  display: none;
+}
+
+/* ── Back Bar ── */
+.back-bar {
+  text-align: center;
+  padding: 30px;
+  border-top: 1px solid var(--warm-gray);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.back-link {
+  color: var(--mid-gray);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+/* ── Switch Bar ── */
+.switch-bar {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 30px 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.switch-btn {
+  padding: 8px 18px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--mid-gray);
+  border: 1px solid var(--warm-gray);
+  background: var(--off-white);
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.switch-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.switch-btn.active {
+  background: var(--accent);
+  color: var(--white);
+  border-color: var(--accent);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .hero h1 { font-size: 2rem; }
+  .hero { padding: 40px 20px 35px; }
+  .journey::before { left: 28px; }
+  .chapter { gap: 14px; }
+  .chapter-marker { width: 46px; }
+  .chapter-level { font-size: 0.6rem; padding: 2px 7px; }
+  .path-card { padding: 12px 14px; }
+  .road-connector { margin-left: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-icon">🎓</div>
+  <h1>Academic English</h1>
+  <div class="subtitle">Prepare for exams, university, and academic life. IELTS, Cambridge, and the language of scholarship.</div>
+</div>
+
+<div class="intro">
+  <p>Whether you're preparing for IELTS, Cambridge exams, or need English for university, these paths will get you there. Each chapter targets a different stage of your academic English development.</p>
+</div>
+
+<div class="switch-bar">
+  <a class="switch-btn" href="journey_general.html">General English</a>
+  <a class="switch-btn" href="journey_professional.html">Professional English</a>
+  <a class="switch-btn active" href="journey_academic.html">Academic English</a>
+</div>
+
+<div class="journey">
+
+<div class="chapter" style="--chapter-color: #f39c12">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #f39c12"></div>
+    <div class="chapter-level" style="background: #f39c12">A2–B1</div>
+  </div>
+  <div class="chapter-content">
+    <h3 class="chapter-title">Building the Foundation</h3>
+    <p class="chapter-desc">Before you tackle exams, you need strong fundamentals. These lessons build the grammar accuracy, vocabulary range, and speaking confidence that every exam demands.</p>
+    <div class="paths-grid">
+<a class="path-card" href="CEFR_Grammar_Dashboard.html">
+              <div class="path-icon">📐</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#f39c1215;color:#f39c12;border:1px solid #f39c1230">Start Here</span>
+                <div class="path-name">Grammar Foundation</div>
+                <div class="path-desc">Systematic grammar from A2 to B1. Every exam tests grammar — make sure yours is solid.</div>
+                <div class="path-meta">29 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="speaking_pathway_dashboard.html">
+              <div class="path-icon">🗣️</div>
+              <div class="path-body">
+                
+                <div class="path-name">Speaking Pathway — A2 to B1</div>
+                <div class="path-desc">Build the speaking skills that form the backbone of every oral exam.</div>
+                <div class="path-meta">41 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="wordwall_dashboard.html">
+              <div class="path-icon">🧱</div>
+              <div class="path-body">
+                
+                <div class="path-name">Word Wall Vocabulary</div>
+                <div class="path-desc">Build your word power through games. A strong vocabulary is the foundation of every exam section.</div>
+                <div class="path-meta">125 games</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+
+    </div>
+  </div>
+</div>
+<div class="road-connector"><div class="road-line"></div><div class="road-dot"></div></div>
+
+<div class="chapter" style="--chapter-color: #e94560">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #e94560"></div>
+    <div class="chapter-level" style="background: #e94560">B1–B2</div>
+  </div>
+  <div class="chapter-content">
+    <h3 class="chapter-title">IELTS Preparation</h3>
+    <p class="chapter-desc">The complete IELTS preparation programme. Reading, writing, listening, speaking — plus targeted vocabulary and practice tests. Everything you need for Band 6.5–7.5.</p>
+    <div class="paths-grid">
+<a class="path-card" href="ielts_course_dashboard.html">
+              <div class="path-icon">✍️</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#e9456015;color:#e94560;border:1px solid #e9456030">Core Path</span>
+                <div class="path-name">IELTS Writing Course</div>
+                <div class="path-desc">Task 1 and Task 2 mastery. Essay structure, data description, argument building, and the language that scores 7+.</div>
+                <div class="path-meta">22 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="ielts_course_index.html">
+              <div class="path-icon">📖</div>
+              <div class="path-body">
+                
+                <div class="path-name">IELTS Reading Tests</div>
+                <div class="path-desc">Full practice tests with every question type. Build speed, accuracy, and exam technique.</div>
+                <div class="path-meta">10 tests</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="ielts_wordwall_dashboard.html">
+              <div class="path-icon">🧱</div>
+              <div class="path-body">
+                
+                <div class="path-name">IELTS Word Wall</div>
+                <div class="path-desc">Master IELTS topic vocabulary through interactive games — education, health, environment, technology, and more.</div>
+                <div class="path-meta">22 games · 415 words</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="CEFR_Grammar_Dashboard.html">
+              <div class="path-icon">📐</div>
+              <div class="path-body">
+                
+                <div class="path-name">IELTS Grammar Focus</div>
+                <div class="path-desc">The grammar structures that IELTS examiners look for. Conditionals, passive, complex sentences.</div>
+                <div class="path-meta">18 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="game_room_dashboard.html">
+              <div class="path-icon">⚡</div>
+              <div class="path-body">
+                
+                <div class="path-name">Quick Fix — Common Errors</div>
+                <div class="path-desc">Fast fixes for the grammar mistakes, false friends, and collocations that cost you marks.</div>
+                <div class="path-meta">130 mini-lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+
+    </div>
+  </div>
+</div>
+<div class="road-connector"><div class="road-line"></div><div class="road-dot"></div></div>
+
+<div class="chapter" style="--chapter-color: #48dbfb">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #48dbfb"></div>
+    <div class="chapter-level" style="background: #48dbfb">B2–C1</div>
+  </div>
+  <div class="chapter-content">
+    <h3 class="chapter-title">Academic Excellence</h3>
+    <p class="chapter-desc">You're targeting Band 7.5+ or preparing for university. These lessons develop the sophisticated language skills that separate good from exceptional.</p>
+    <div class="paths-grid">
+<a class="path-card" href="writing_course_dashboard.html">
+              <div class="path-icon">📝</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#48dbfb15;color:#48dbfb;border:1px solid #48dbfb30">Core Path</span>
+                <div class="path-name">Academic Writing</div>
+                <div class="path-desc">Essay structure, cohesion, academic register — write with the precision that university demands.</div>
+                <div class="path-meta">Full course</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="speaking_pathway_dashboard.html">
+              <div class="path-icon">🗣️</div>
+              <div class="path-body">
+                
+                <div class="path-name">Speaking Pathway — B2 & C1</div>
+                <div class="path-desc">Extended arguments, academic discussion, critical analysis in speech. Essential for speaking exams and seminars.</div>
+                <div class="path-meta">44 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="CEFR_Grammar_Dashboard.html">
+              <div class="path-icon">📐</div>
+              <div class="path-body">
+                
+                <div class="path-name">Advanced Grammar</div>
+                <div class="path-desc">Inversion, cleft sentences, discourse markers — the grammar that turns a Band 7 into a Band 8.</div>
+                <div class="path-meta">34 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="pronunciation_pathway_dashboard.html">
+              <div class="path-icon">🎵</div>
+              <div class="path-body">
+                
+                <div class="path-name">Pronunciation Pathway</div>
+                <div class="path-desc">Connected speech, sentence stress, intonation — sound natural and authoritative in speaking exams.</div>
+                <div class="path-meta">6 modules</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+
+    </div>
+  </div>
+</div>
+<div class="road-connector"><div class="road-line"></div><div class="road-dot"></div></div>
+
+<div class="chapter" style="--chapter-color: #a855f7">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #a855f7"></div>
+    <div class="chapter-level" style="background: #a855f7">C1–C2</div>
+  </div>
+  <div class="chapter-content">
+    <h3 class="chapter-title">Cambridge & Beyond</h3>
+    <p class="chapter-desc">Preparing for Cambridge CAE/CPE, or aiming for academic mastery. This is English at its most precise and sophisticated.</p>
+    <div class="paths-grid">
+<a class="path-card" href="cambridge_exam_prep_dashboard.html">
+              <div class="path-icon">🏅</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#a855f715;color:#a855f7;border:1px solid #a855f730">Core Path</span>
+                <div class="path-name">Cambridge Exam Prep</div>
+                <div class="path-desc">CAE and CPE preparation. Use of English, reading, writing, and speaking — exam strategies that work.</div>
+                <div class="path-meta">12+ lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="commanding_discourse_dashboard.html">
+              <div class="path-icon">👑</div>
+              <div class="path-body">
+                
+                <div class="path-name">Commanding Discourse</div>
+                <div class="path-desc">Master the architecture of academic and professional argument at the highest level.</div>
+                <div class="path-meta">6 modules</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="wp_dashboard.html">
+              <div class="path-icon">🏛️</div>
+              <div class="path-body">
+                <span class="path-tag" style="background:#a855f715;color:#a855f7;border:1px solid #a855f730">Deep Dive</span>
+                <div class="path-name">Western Philosophy</div>
+                <div class="path-desc">Academic English through the history of ideas. Read, discuss, and write about complex concepts.</div>
+                <div class="path-meta">51 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+<a class="path-card" href="CEFR_Grammar_Dashboard.html">
+              <div class="path-icon">📐</div>
+              <div class="path-body">
+                
+                <div class="path-name">C1–C2 Grammar</div>
+                <div class="path-desc">The final grammar frontier. Advanced cohesion, negation, hedging — perfection in every sentence.</div>
+                <div class="path-meta">26 lessons</div>
+              </div>
+              <div class="path-arrow">&rarr;</div>
+            </a>
+
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+<div class="back-bar">
+  <a class="back-link" href="malcolm_lesson_index.html">&larr; Back to Home</a>
+</div>
+
+</body>
+</html>

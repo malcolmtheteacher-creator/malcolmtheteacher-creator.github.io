@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond Perfect | C2 Consulting English</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f1923;
+            min-height: 100vh;
+            padding: 20px;
+            color: #e0e6ed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #64b5f6;
+            text-decoration: none;
+            padding: 12px 25px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .back-link:hover {
+            border-color: #64b5f6;
+            background: rgba(100,181,246,0.1);
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #1a2a3a 0%, #0d1b2a 100%);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1b4332 0%, #40916c 30%, #74c69d 50%, #40916c 70%, #1b4332 100%);
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(64,145,108,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .series-badge {
+            display: inline-block;
+            background: rgba(64,145,108,0.15);
+            color: #74c69d;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid rgba(64,145,108,0.3);
+        }
+
+        .header h1 {
+            font-size: 3.4em;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: -1px;
+        }
+
+        .header h1 span {
+            font-weight: 700;
+            background: linear-gradient(135deg, #74c69d 0%, #40916c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header .level-info {
+            font-size: 0.95em;
+            color: rgba(255,255,255,0.35);
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        /* INSIGHT PANEL */
+        .insight-panel {
+            background: linear-gradient(135deg, #1a2a3a 0%, #0d1b2a 100%);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 40px;
+        }
+
+        .insight-panel h2 {
+            color: #ffffff;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .insight-panel h2 span {
+            color: #74c69d;
+        }
+
+        .insight-panel p {
+            font-size: 1.05em;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.9;
+            margin-bottom: 15px;
+        }
+
+        .insight-panel .pull-quote {
+            border-left: 3px solid #40916c;
+            padding: 15px 25px;
+            margin: 25px 0;
+            color: rgba(255,255,255,0.8);
+            font-size: 1.15em;
+            font-style: italic;
+            background: rgba(64,145,108,0.05);
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* DIMENSIONS GRID */
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .dimension-card {
+            background: rgba(255,255,255,0.03);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .dimension-card .dim-icon {
+            font-size: 1.8em;
+            margin-bottom: 12px;
+        }
+
+        .dimension-card h4 {
+            color: #74c69d;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .dimension-card p {
+            color: rgba(255,255,255,0.45);
+            font-size: 0.85em;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* LESSONS */
+        .lessons-section {
+            margin-bottom: 40px;
+        }
+
+        .lessons-section h2 {
+            color: #ffffff;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            font-weight: 400;
+            padding-left: 20px;
+            border-left: 3px solid #40916c;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .lesson-card {
+            background: linear-gradient(135deg, #1a2a3a 0%, #162435 100%);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #1b4332, #40916c);
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(64,145,108,0.3);
+        }
+
+        .lesson-card:hover::before {
+            opacity: 1;
+        }
+
+        .lesson-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .lesson-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: rgba(64,145,108,0.15);
+            color: #74c69d;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9em;
+            border: 1px solid rgba(64,145,108,0.3);
+        }
+
+        .lesson-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-register { background: rgba(100,181,246,0.1); color: #64b5f6; border: 1px solid rgba(100,181,246,0.2); }
+        .tag-uncertainty { background: rgba(206,147,216,0.1); color: #ce93d8; border: 1px solid rgba(206,147,216,0.2); }
+        .tag-pragmatics { background: rgba(255,183,77,0.1); color: #ffb74d; border: 1px solid rgba(255,183,77,0.2); }
+        .tag-strategy { background: rgba(129,199,132,0.1); color: #81c784; border: 1px solid rgba(129,199,132,0.2); }
+        .tag-discourse { background: rgba(240,98,146,0.1); color: #f06292; border: 1px solid rgba(240,98,146,0.2); }
+        .tag-capstone { background: rgba(255,213,79,0.1); color: #ffd54f; border: 1px solid rgba(255,213,79,0.2); }
+
+        .lesson-title {
+            font-size: 1.35em;
+            color: #ffffff;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .lesson-description {
+            color: rgba(255,255,255,0.5);
+            line-height: 1.7;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+
+        .lesson-language {
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            padding: 12px 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .lesson-language .lang-label {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #40916c;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .lesson-language p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85em;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .lesson-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.4em;
+            opacity: 0.4;
+        }
+
+        /* STATUS INDICATORS */
+        .status-ready {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #40916c;
+            margin-left: 8px;
+            box-shadow: 0 0 6px rgba(64,145,108,0.5);
+        }
+
+        .status-coming {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            margin-left: 8px;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 50px 40px;
+            background: linear-gradient(135deg, #1b4332 0%, #0d1b2a 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(64,145,108,0.2);
+            margin-bottom: 20px;
+        }
+
+        .cta-section h2 {
+            color: #ffffff;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.5);
+            font-size: 1.05em;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.4em;
+            }
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+            .dimensions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="malcolm_lesson_index.html" class="back-link">&#8592; Back to All Lessons</a>
+
+        <div class="header">
+            <div class="series-badge">C2 Consulting English</div>
+            <h1>Beyond <span>Perfect</span></h1>
+            <p class="subtitle">When excellent English isn't enough</p>
+            <p class="level-info">C2 | 6 Lessons | For professionals who need to be understood, not just correct</p>
+        </div>
+
+        <div class="insight-panel">
+            <h2>The <span>Problem</span></h2>
+            <p>
+                Your grammar is near-flawless. Your vocabulary is extensive. You've passed every exam.
+                And yet — sometimes people don't quite follow you. Sometimes your point doesn't land.
+                Sometimes you say exactly the right thing, and it still doesn't work.
+            </p>
+            <div class="pull-quote">
+                "The search for certainty is the biggest obstacle to finding truth."
+            </div>
+            <p>
+                This course borrows an idea from Kenneth Hammond's <em>Beyond Rationality</em>:
+                that wisdom isn't about eliminating uncertainty — it's about navigating it well.
+                The same is true of advanced English. Mastery isn't perfection. It's knowing when to be
+                precise and when to be approximate. When to hedge and when to commit. When your words
+                are the problem — and when it's everything around your words that's failing.
+            </p>
+
+            <div class="dimensions-grid">
+                <div class="dimension-card">
+                    <div class="dim-icon">&#x1F50D;</div>
+                    <h4>Register</h4>
+                    <p>Choosing the right layer of English for the right moment</p>
+                </div>
+                <div class="dimension-card">
+                    <div class="dim-icon">&#x2696;</div>
+                    <h4>Calibration</h4>
+                    <p>Matching your certainty to the situation</p>
+                </div>
+                <div class="dimension-card">
+                    <div class="dim-icon">&#x1F4AC;</div>
+                    <h4>Pragmatics</h4>
+                    <p>Closing the gap between what you say and what people hear</p>
+                </div>
+                <div class="dimension-card">
+                    <div class="dim-icon">&#x1F3AF;</div>
+                    <h4>Strategy</h4>
+                    <p>When imprecision is more powerful than precision</p>
+                </div>
+                <div class="dimension-card">
+                    <div class="dim-icon">&#x1F4A1;</div>
+                    <h4>Processing</h4>
+                    <p>Thinking in English, out loud, in real time</p>
+                </div>
+                <div class="dimension-card">
+                    <div class="dim-icon">&#x1F3C6;</div>
+                    <h4>Integration</h4>
+                    <p>Pulling it all together when the stakes are high</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lessons-section">
+            <h2>The Lessons</h2>
+            <div class="lessons-grid">
+                <a href="bp_c2_01_where_your_words_come_from.html" class="lesson-card">
+                    <span class="lesson-icon">&#x1F50D;</span>
+                    <div class="lesson-meta">
+                        <span class="lesson-number">01</span>
+                        <span class="lesson-tag tag-register">Register</span>
+                        <span class="status-ready"></span>
+                    </div>
+                    <div class="lesson-title">Where Your Words Come From</div>
+                    <div class="lesson-description">
+                        English has three layers: Saxon, French, and Latin/Greek. Most speakers use them unconsciously.
+                        At C2, you learn to switch between them deliberately — choosing the right layer for the
+                        right audience, the right moment, the right effect.
+                    </div>
+                    <div class="lesson-language">
+                        <div class="lang-label">Target Language</div>
+                        <p>Register-switching &bull; Code-shifting between formality levels &bull; Strategic word choice for consulting contexts</p>
+                    </div>
+                </a>
+
+                <a href="bp_c2_02_the_language_of_not_knowing.html" class="lesson-card">
+                    <span class="lesson-icon">&#x2696;</span>
+                    <div class="lesson-meta">
+                        <span class="lesson-number">02</span>
+                        <span class="lesson-tag tag-uncertainty">Calibration</span>
+                        <span class="status-ready"></span>
+                    </div>
+                    <div class="lesson-title">The Language of Not Knowing</div>
+                    <div class="lesson-description">
+                        Consultants live in uncertainty. You rarely have all the data. The difference between
+                        a good consultant and a great one isn't knowing more — it's being precise about what
+                        you don't know. This lesson gives you the language to calibrate certainty like an instrument.
+                    </div>
+                    <div class="lesson-language">
+                        <div class="lang-label">Target Language</div>
+                        <p>Epistemic modality &bull; Graduated certainty markers &bull; Calibrated hedging vs vague hedging</p>
+                    </div>
+                </a>
+
+                <a href="bp_c2_03_why_they_dont_understand_you.html" class="lesson-card">
+                    <span class="lesson-icon">&#x1F4AC;</span>
+                    <div class="lesson-meta">
+                        <span class="lesson-number">03</span>
+                        <span class="lesson-tag tag-pragmatics">Pragmatics</span>
+                        <span class="status-ready"></span>
+                    </div>
+                    <div class="lesson-title">Why They Don't Understand You</div>
+                    <div class="lesson-description">
+                        Your English is excellent. So why do people sometimes look blank? This lesson tackles
+                        the invisible layer of communication: what you imply vs what they infer, cultural
+                        assumptions, and the gap between grammatical accuracy and real-world clarity.
+                    </div>
+                    <div class="lesson-language">
+                        <div class="lang-label">Target Language</div>
+                        <p>Comprehension checking &bull; Reformulation strategies &bull; Signposting &bull; Managing implicature</p>
+                    </div>
+                </a>
+
+                <a href="bp_c2_04_the_power_of_imprecision.html" class="lesson-card">
+                    <span class="lesson-icon">&#x1F3AF;</span>
+                    <div class="lesson-meta">
+                        <span class="lesson-number">04</span>
+                        <span class="lesson-tag tag-strategy">Strategy</span>
+                        <span class="status-ready"></span>
+                    </div>
+                    <div class="lesson-title">The Power of Imprecision</div>
+                    <div class="lesson-description">
+                        Sometimes "around 40%" is more powerful than "precisely 38.7%".
+                        Strategic vagueness is a skill — knowing when to soften, when to leave space,
+                        when a rough answer serves your audience better than an exact one.
+                    </div>
+                    <div class="lesson-language">
+                        <div class="lang-label">Target Language</div>
+                        <p>Strategic vagueness &bull; Deliberate softening &bull; Face-saving language &bull; Constructive ambiguity</p>
+                    </div>
+                </a>
+
+                <a href="bp_c2_05_thinking_out_loud.html" class="lesson-card">
+                    <span class="lesson-icon">&#x1F4A1;</span>
+                    <div class="lesson-meta">
+                        <span class="lesson-number">05</span>
+                        <span class="lesson-tag tag-discourse">Discourse</span>
+                        <span class="status-ready"></span>
+                    </div>
+                    <div class="lesson-title">Thinking Out Loud</div>
+                    <div class="lesson-description">
+                        In consulting, you often have to process complex ideas while speaking — not before.
+                        This lesson gives you the tools to think in English out loud: self-correcting,
+                        building ideas in real time, and bringing others into your thinking process.
+                    </div>
+                    <div class="lesson-language">
+                        <div class="lang-label">Target Language</div>
+                        <p>Real-time processing markers &bull; Self-correction &bull; Collaborative idea-building &bull; Discourse management</p>
+                    </div>
+                </a>
+
+                <a href="bp_c2_06_the_consultants_edge.html" class="lesson-card">
+                    <span class="lesson-icon">&#x1F3C6;</span>
+                    <div class="lesson-meta">
+                        <span class="lesson-number">06</span>
+                        <span class="lesson-tag tag-capstone">Capstone</span>
+                        <span class="status-ready"></span>
+                    </div>
+                    <div class="lesson-title">The Consultant's Edge</div>
+                    <div class="lesson-description">
+                        The capstone. A high-pressure consulting simulation where you deploy everything:
+                        register-switching, calibrated uncertainty, pragmatic clarity, strategic vagueness,
+                        and real-time thinking. Present, persuade, pivot — under pressure.
+                    </div>
+                    <div class="lesson-language">
+                        <div class="lang-label">Target Language</div>
+                        <p>All previous language systems under pressure &bull; Integration drills &bull; Consulting roleplay</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="insight-panel">
+            <h2>Case <span>Study</span></h2>
+            <p>
+                Real-world diplomacy where every word is a strategic choice. This case study shows what happens
+                when leaders deploy calibration, pragmatics, and strategic imprecision under genuine pressure —
+                the same systems you're learning in this course.
+            </p>
+            <div class="lessons-grid" style="margin-top: 20px;">
+                <a href="discuss_b2_iran_us_europe_reacts.html" class="lesson-card">
+                    <span class="lesson-icon">&#x1F30D;</span>
+                    <div class="lesson-meta">
+                        <span class="lesson-tag tag-uncertainty">Calibration</span>
+                        <span class="lesson-tag tag-pragmatics">Pragmatics</span>
+                        <span class="lesson-tag tag-strategy">Strategy</span>
+                    </div>
+                    <div class="lesson-title">When Allies Disagree</div>
+                    <div class="lesson-description">
+                        How do European leaders respond when their closest ally takes military action they weren't
+                        consulted about — and they're not sure they oppose? A case study in hedging, distancing,
+                        balancing, and softening, using real diplomatic language from the 2026 Iran crisis.
+                    </div>
+                    <div class="lesson-language">
+                        <div class="lang-label">Systems in action</div>
+                        <p>Calibrated uncertainty &bull; Strategic imprecision &bull; Face-saving &bull; Diplomatic register</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Perfection is the enemy of communication.</h2>
+            <p>
+                This course won't make your English more correct — it's already correct.
+                It will make your English more effective. Start with Lesson 1 and work through the sequence.
+                Each lesson builds on the last. By Lesson 6, you'll have a complete toolkit for
+                high-stakes professional communication.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
