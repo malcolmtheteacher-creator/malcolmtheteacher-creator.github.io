@@ -77,92 +77,136 @@ body {
 
 /* ── Journey Container ── */
 .journey {
-  max-width: 800px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 20px 30px 60px;
+  padding: 40px 30px 60px;
   position: relative;
 }
 
-/* The main road line */
-.journey::before {
-  content: '';
+/* SVG road */
+.road-svg {
   position: absolute;
-  left: 58px;
-  top: 20px;
-  bottom: 60px;
-  width: 3px;
-  background: linear-gradient(to bottom, var(--warm-gray) 0%, var(--warm-gray) 100%);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* ── Chapters ── */
+.road-path {
+  fill: none;
+  stroke: var(--warm-gray);
+  stroke-width: 3;
+  stroke-dasharray: 12 8;
+  stroke-linecap: round;
+}
+
+/* ── Chapters (winding) ── */
 .chapter {
-  display: flex;
-  gap: 24px;
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  align-items: start;
+  margin-bottom: 20px;
   position: relative;
-  padding-bottom: 10px;
+  z-index: 1;
 }
 
-.chapter-marker {
-  flex-shrink: 0;
-  width: 76px;
+.chapter-left .chapter-card {
+  grid-column: 1;
+  grid-row: 1;
+}
+.chapter-left .chapter-stop {
+  grid-column: 2;
+  grid-row: 1;
+}
+.chapter-left .chapter-spacer {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.chapter-right .chapter-card {
+  grid-column: 3;
+  grid-row: 1;
+}
+.chapter-right .chapter-stop {
+  grid-column: 2;
+  grid-row: 1;
+}
+.chapter-right .chapter-spacer {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+/* The stop marker on the road */
+.chapter-stop {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+  justify-content: center;
+  padding-top: 28px;
   position: relative;
   z-index: 2;
 }
 
-.chapter-dot {
-  width: 18px;
-  height: 18px;
+.chapter-stop-inner {
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   border: 3px solid var(--white);
-  box-shadow: 0 0 0 3px var(--warm-gray);
+  box-shadow: 0 0 0 3px var(--warm-gray), 0 2px 8px rgba(0,0,0,0.1);
+  flex-shrink: 0;
 }
 
-.chapter-level {
-  font-size: 0.7rem;
+/* The content card */
+.chapter-card {
+  background: var(--off-white);
+  border: 1px solid var(--warm-gray);
+  padding: 24px;
+  position: relative;
+  transition: box-shadow 0.3s;
+}
+
+.chapter-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.chapter-badge {
+  display: inline-block;
+  font-size: 0.68rem;
   font-weight: 700;
   color: var(--white);
-  padding: 3px 10px;
+  padding: 3px 12px;
   border-radius: 12px;
   letter-spacing: 0.5px;
-  white-space: nowrap;
-}
-
-.chapter-content {
-  flex: 1;
-  padding-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .chapter-title {
   font-family: 'Instrument Serif', serif;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 400;
   margin-bottom: 8px;
 }
 
 .chapter-desc {
   color: var(--mid-gray);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   line-height: 1.7;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 /* ── Path Cards ── */
 .paths-grid {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .path-card {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 16px 18px;
-  background: var(--off-white);
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--white);
   border: 1px solid var(--warm-gray);
   text-decoration: none;
   color: var(--black);
@@ -171,14 +215,14 @@ body {
 
 .path-card:hover {
   border-color: var(--accent);
-  transform: translateX(4px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  transform: translateX(3px);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
 }
 
 .path-icon {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   flex-shrink: 0;
-  width: 40px;
+  width: 36px;
   text-align: center;
 }
 
@@ -189,38 +233,38 @@ body {
 
 .path-tag {
   display: inline-block;
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding: 2px 8px;
+  padding: 2px 7px;
   border-radius: 3px;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .path-name {
   font-weight: 600;
-  font-size: 0.92rem;
-  margin-bottom: 2px;
+  font-size: 0.88rem;
+  margin-bottom: 1px;
 }
 
 .path-desc {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--mid-gray);
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 .path-meta {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--mid-gray);
-  margin-top: 4px;
+  margin-top: 3px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .path-arrow {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: var(--warm-gray);
   flex-shrink: 0;
   transition: color 0.2s;
@@ -230,32 +274,12 @@ body {
   color: var(--accent);
 }
 
-/* ── Road Connectors ── */
-.road-connector {
-  display: flex;
-  align-items: center;
-  padding: 8px 0;
-  margin-left: 50px;
-  position: relative;
-  z-index: 1;
-}
-
-.road-line {
-  width: 3px;
-  height: 20px;
-  margin-left: 8px;
-}
-
-.road-dot {
-  display: none;
-}
-
 /* ── Back Bar ── */
 .back-bar {
   text-align: center;
   padding: 30px;
   border-top: 1px solid var(--warm-gray);
-  max-width: 800px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
@@ -272,7 +296,7 @@ body {
 
 /* ── Switch Bar ── */
 .switch-bar {
-  max-width: 800px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 0 30px 10px;
   display: flex;
@@ -304,16 +328,46 @@ body {
   border-color: var(--accent);
 }
 
+/* ── Finish marker ── */
+.finish-marker {
+  text-align: center;
+  padding: 20px 0 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.finish-flag {
+  font-size: 2rem;
+}
+
 /* ── Responsive ── */
-@media (max-width: 640px) {
+@media (max-width: 740px) {
   .hero h1 { font-size: 2rem; }
   .hero { padding: 40px 20px 35px; }
-  .journey::before { left: 28px; }
-  .chapter { gap: 14px; }
-  .chapter-marker { width: 46px; }
-  .chapter-level { font-size: 0.6rem; padding: 2px 7px; }
-  .path-card { padding: 12px 14px; }
-  .road-connector { margin-left: 20px; }
+
+  .chapter {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .chapter-left .chapter-card,
+  .chapter-right .chapter-card {
+    grid-column: auto;
+    order: 2;
+  }
+
+  .chapter-stop {
+    order: 1;
+    padding: 0 0 8px 0;
+    justify-content: flex-start;
+    padding-left: 20px;
+  }
+
+  .road-svg { display: none; }
+
+  .chapter-card { padding: 18px; }
+  .path-card { padding: 10px 12px; }
 }
 </style>
 </head>
@@ -335,14 +389,15 @@ body {
   <a class="switch-btn" href="journey_academic.html">Academic English</a>
 </div>
 
-<div class="journey">
+<div class="journey" id="journey">
+  <svg class="road-svg" id="roadSvg"><path class="road-path" id="roadPath"></path></svg>
 
-<div class="chapter" style="--chapter-color: #f39c12">
-  <div class="chapter-marker">
-    <div class="chapter-dot" style="background: #f39c12"></div>
-    <div class="chapter-level" style="background: #f39c12">A2–B1</div>
+<div class="chapter chapter-left">
+  <div class="chapter-stop" style="border-color: #f39c12">
+    <div class="chapter-stop-inner" style="background: #f39c12"></div>
   </div>
-  <div class="chapter-content">
+  <div class="chapter-card">
+    <div class="chapter-badge" style="background: #f39c12">A2–B1</div>
     <h3 class="chapter-title">Getting Started at Work</h3>
     <p class="chapter-desc">You need English for work but you're still building the basics. These lessons focus on the workplace situations you'll face first — introductions, emails, phone calls, and small talk with colleagues.</p>
     <div class="paths-grid">
@@ -380,14 +435,13 @@ body {
     </div>
   </div>
 </div>
-<div class="road-connector"><div class="road-line"></div><div class="road-dot"></div></div>
 
-<div class="chapter" style="--chapter-color: #667eea">
-  <div class="chapter-marker">
-    <div class="chapter-dot" style="background: #667eea"></div>
-    <div class="chapter-level" style="background: #667eea">B1–B2</div>
+<div class="chapter chapter-right">
+  <div class="chapter-stop" style="border-color: #667eea">
+    <div class="chapter-stop-inner" style="background: #667eea"></div>
   </div>
-  <div class="chapter-content">
+  <div class="chapter-card">
+    <div class="chapter-badge" style="background: #667eea">B1–B2</div>
     <h3 class="chapter-title">The Professional Toolkit</h3>
     <p class="chapter-desc">You can communicate at work, but you want to be taken seriously. These lessons give you the skills to pitch ideas, handle objections, run meetings, and write emails that get results.</p>
     <div class="paths-grid">
@@ -445,14 +499,13 @@ body {
     </div>
   </div>
 </div>
-<div class="road-connector"><div class="road-line"></div><div class="road-dot"></div></div>
 
-<div class="chapter" style="--chapter-color: #48dbfb">
-  <div class="chapter-marker">
-    <div class="chapter-dot" style="background: #48dbfb"></div>
-    <div class="chapter-level" style="background: #48dbfb">B2–C1</div>
+<div class="chapter chapter-left">
+  <div class="chapter-stop" style="border-color: #48dbfb">
+    <div class="chapter-stop-inner" style="background: #48dbfb"></div>
   </div>
-  <div class="chapter-content">
+  <div class="chapter-card">
+    <div class="chapter-badge" style="background: #48dbfb">B2–C1</div>
     <h3 class="chapter-title">Executive Communication</h3>
     <p class="chapter-desc">You're good at English. Now you need to be persuasive, strategic, and memorable. These lessons are about influence — the language of leadership.</p>
     <div class="paths-grid">
@@ -500,14 +553,13 @@ body {
     </div>
   </div>
 </div>
-<div class="road-connector"><div class="road-line"></div><div class="road-dot"></div></div>
 
-<div class="chapter" style="--chapter-color: #a855f7">
-  <div class="chapter-marker">
-    <div class="chapter-dot" style="background: #a855f7"></div>
-    <div class="chapter-level" style="background: #a855f7">C1–C2</div>
+<div class="chapter chapter-right">
+  <div class="chapter-stop" style="border-color: #a855f7">
+    <div class="chapter-stop-inner" style="background: #a855f7"></div>
   </div>
-  <div class="chapter-content">
+  <div class="chapter-card">
+    <div class="chapter-badge" style="background: #a855f7">C1–C2</div>
     <h3 class="chapter-title">The Boardroom</h3>
     <p class="chapter-desc">You operate in English at the highest level. These lessons are about polish, precision, and the subtle power of language that separates the impressive from the unforgettable.</p>
     <div class="paths-grid">
@@ -546,12 +598,66 @@ body {
   </div>
 </div>
 
-
+  <div class="finish-marker"><div class="finish-flag">🏁</div></div>
 </div>
 
 <div class="back-bar">
-  <a class="back-link" href="malcolm_lesson_index.html">&larr; Back to Home</a>
+  <a class="back-link" href="malcolm_lesson_index.html">&larr; Back to All Lessons</a>
 </div>
+
+<script>
+// Draw the winding road SVG through the chapter stop markers
+function drawRoad() {
+  const journey = document.getElementById('journey');
+  const svg = document.getElementById('roadSvg');
+  const path = document.getElementById('roadPath');
+  const stops = document.querySelectorAll('.chapter-stop-inner');
+  const finish = document.querySelector('.finish-flag');
+
+  if (stops.length < 2) return;
+
+  const jRect = journey.getBoundingClientRect();
+  svg.setAttribute('width', jRect.width);
+  svg.setAttribute('height', jRect.height);
+  svg.style.width = jRect.width + 'px';
+  svg.style.height = jRect.height + 'px';
+
+  // Collect stop center points relative to journey container
+  const points = [];
+  stops.forEach(s => {
+    const r = s.getBoundingClientRect();
+    points.push({
+      x: r.left + r.width/2 - jRect.left,
+      y: r.top + r.height/2 - jRect.top
+    });
+  });
+
+  // Add finish point
+  if (finish) {
+    const fr = finish.getBoundingClientRect();
+    points.push({
+      x: fr.left + fr.width/2 - jRect.left,
+      y: fr.top + fr.height/2 - jRect.top
+    });
+  }
+
+  // Build smooth cubic bezier path through points
+  let d = `M ${points[0].x} ${points[0].y}`;
+  for (let i = 1; i < points.length; i++) {
+    const prev = points[i-1];
+    const curr = points[i];
+    const midY = (prev.y + curr.y) / 2;
+    // Control points create the S-curve
+    d += ` C ${prev.x} ${midY}, ${curr.x} ${midY}, ${curr.x} ${curr.y}`;
+  }
+
+  path.setAttribute('d', d);
+}
+
+// Draw on load and resize
+window.addEventListener('load', () => { setTimeout(drawRoad, 100); });
+window.addEventListener('resize', drawRoad);
+</script>
 
 </body>
 </html>
