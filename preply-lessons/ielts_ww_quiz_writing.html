@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz — IELTS: Task 1 Graph Language</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.game-header {
+  text-align: center; padding: 25px; margin-bottom: 20px;
+}
+.game-header h1 {
+  font-size: 2.5em; font-weight: 900;
+  background: linear-gradient(90deg, #feca57, #ff9f43);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px;
+}
+.game-header .topic { font-size: 1.3em; color: rgba(255,255,255,0.7); margin-bottom: 10px; }
+.game-header .level-badge {
+  display: inline-block; padding: 4px 16px; border-radius: 20px;
+  font-size: 0.8em; font-weight: 800; background: #e94560; color: #1a1a2e; letter-spacing: 1px;
+}
+
+/* Progress Bar */
+.progress-container {
+  max-width: 600px; margin: 0 auto 25px; padding: 0 20px;
+}
+.progress-bar-bg {
+  height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%; background: linear-gradient(90deg, #feca57, #ff9f43);
+  border-radius: 4px; transition: width 0.4s ease; width: 0%;
+}
+.progress-text {
+  text-align: center; margin-top: 8px; font-size: 0.85em; color: rgba(255,255,255,0.5);
+}
+
+/* Question Area */
+.quiz-area {
+  max-width: 650px; margin: 0 auto;
+}
+
+.question-card {
+  background: rgba(255,255,255,0.08); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
+  padding: 35px 30px; text-align: center; margin-bottom: 20px;
+}
+
+.question-number {
+  font-size: 0.8em; color: rgba(255,255,255,0.4); text-transform: uppercase;
+  letter-spacing: 2px; margin-bottom: 15px;
+}
+
+.question-text {
+  font-size: 1.4em; font-weight: 700; line-height: 1.4; margin-bottom: 8px;
+}
+
+.question-context {
+  font-size: 0.95em; color: rgba(255,255,255,0.5); font-style: italic;
+}
+
+/* Answer Options */
+.options {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;
+}
+
+.option-btn {
+  background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 14px; padding: 18px 20px; color: #fff; font-size: 1.1em;
+  font-weight: 600; cursor: pointer; transition: all 0.25s ease; text-align: center;
+}
+
+.option-btn:hover:not(.disabled) {
+  background: rgba(255,255,255,0.14); transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.3);
+}
+
+.option-btn.correct {
+  border-color: #2ecc71; background: rgba(46,204,113,0.25);
+  box-shadow: 0 0 20px rgba(46,204,113,0.3);
+}
+
+.option-btn.wrong {
+  border-color: #ff6b6b; background: rgba(255,107,107,0.2);
+  animation: shake 0.5s ease;
+}
+
+.option-btn.disabled { cursor: default; opacity: 0.5; pointer-events: none; }
+
+.option-btn.correct::before { content: '✓ '; color: #2ecc71; }
+.option-btn.wrong::before { content: '✗ '; color: #ff6b6b; }
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-6px); } 40%,80% { transform: translateX(6px); }
+}
+
+/* Feedback */
+.feedback {
+  text-align: center; margin-top: 15px; padding: 12px; border-radius: 12px;
+  font-weight: 600; display: none; animation: fadeIn 0.3s ease;
+}
+.feedback.show { display: block; }
+.feedback.correct-feedback { background: rgba(46,204,113,0.15); color: #2ecc71; }
+.feedback.wrong-feedback { background: rgba(255,107,107,0.15); color: #ff6b6b; }
+
+.next-btn {
+  display: none; margin: 20px auto 0; background: linear-gradient(135deg, #feca57, #ff9f43);
+  color: #1a1a2e; border: none; padding: 12px 35px; border-radius: 25px;
+  font-size: 1em; font-weight: 800; cursor: pointer; transition: all 0.3s ease;
+}
+.next-btn.show { display: block; }
+.next-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(254,202,87,0.4); }
+
+/* Score Bar */
+.score-bar {
+  display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap;
+}
+.score-item { text-align: center; }
+.score-value { font-size: 1.8em; font-weight: 800; font-family: 'Courier New', monospace; }
+.score-value.correct-count { color: #2ecc71; }
+.score-value.wrong-count { color: #ff6b6b; }
+.score-value.streak-count { color: #feca57; }
+.score-label { font-size: 0.75em; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+
+/* Completion */
+.completion { display: none; text-align: center; padding: 60px 30px; max-width: 500px; margin: 0 auto; }
+.completion.show { display: block; animation: fadeIn 0.5s ease; }
+.completion h2 { font-size: 2.5em; margin-bottom: 10px; }
+.completion .result-emoji { font-size: 4em; margin-bottom: 20px; }
+.result-stats { display: flex; justify-content: center; gap: 25px; margin: 25px 0; flex-wrap: wrap; }
+.result-stat-value { font-size: 2em; font-weight: 800; color: #feca57; }
+.result-stat-label { font-size: 0.8em; color: rgba(255,255,255,0.5); }
+.stars { font-size: 2em; margin: 15px 0; letter-spacing: 5px; }
+.play-again-btn {
+  background: linear-gradient(135deg, #feca57, #ff9f43); color: #1a1a2e; border: none;
+  padding: 15px 40px; border-radius: 25px; font-size: 1.1em; font-weight: 800;
+  cursor: pointer; transition: all 0.3s ease; margin-top: 20px;
+}
+.play-again-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(254,202,87,0.4); }
+.back-link { display: inline-block; margin-top: 15px; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9em; }
+.back-link:hover { color: #fff; }
+
+/* Review */
+.review-section { max-width: 600px; margin: 30px auto 0; }
+.review-item {
+  display: flex; justify-content: space-between; align-items: center; padding: 10px 15px;
+  border-radius: 10px; margin-bottom: 6px; font-size: 0.9em;
+}
+.review-correct { background: rgba(46,204,113,0.1); }
+.review-wrong { background: rgba(255,107,107,0.1); }
+.review-word { font-weight: 700; }
+.review-answer { color: rgba(255,255,255,0.6); }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 500px) {
+  .options { grid-template-columns: 1fr; }
+  .game-header h1 { font-size: 1.8em; }
+  .question-text { font-size: 1.15em; }
+}
+</style>
+</head>
+<body>
+
+<div class="game-header">
+  <h1>❓ Quiz</h1>
+  <div class="topic">IELTS: Task 1 Graph Language</div>
+  <span class="level-badge">IELTS</span>
+</div>
+
+<div class="score-bar">
+  <div class="score-item">
+    <div class="score-value correct-count" id="correctCount">0</div>
+    <div class="score-label">Correct</div>
+  </div>
+  <div class="score-item">
+    <div class="score-value wrong-count" id="wrongCount">0</div>
+    <div class="score-label">Wrong</div>
+  </div>
+  <div class="score-item">
+    <div class="score-value streak-count" id="streakCount">0</div>
+    <div class="score-label">Streak</div>
+  </div>
+</div>
+
+<div class="progress-container">
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+  <div class="progress-text" id="progressText">Question 1 of 10</div>
+</div>
+
+<div class="quiz-area" id="quizArea">
+  <div class="question-card">
+    <div class="question-number" id="qNum">Question 1</div>
+    <div class="question-text" id="qText"></div>
+    <div class="question-context" id="qContext"></div>
+  </div>
+  <div class="options" id="options"></div>
+  <div class="feedback" id="feedback"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next →</button>
+</div>
+
+<div class="completion" id="completion">
+  <div class="result-emoji" id="resultEmoji">🎉</div>
+  <h2 id="resultTitle">Quiz Complete!</h2>
+  <div class="stars" id="stars">⭐⭐⭐</div>
+  <div class="result-stats">
+    <div class="score-item">
+      <div class="result-stat-value" id="finalScore">0/0</div>
+      <div class="result-stat-label">Score</div>
+    </div>
+    <div class="score-item">
+      <div class="result-stat-value" id="finalPercent">0%</div>
+      <div class="result-stat-label">Accuracy</div>
+    </div>
+    <div class="score-item">
+      <div class="result-stat-value" id="finalStreak">0</div>
+      <div class="result-stat-label">Best Streak</div>
+    </div>
+  </div>
+  <div class="review-section" id="reviewSection"></div>
+  <button class="play-again-btn" onclick="startGame()">Play Again</button>
+  <br>
+  <a class="back-link" href="wordwall_dashboard.html">← Back to Word Wall</a>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// QUIZ DATA — Edit this to create new Quiz games
+// Each item needs: word, correct answer, 3 wrong answers, optional context
+// ═══════════════════════════════════════════════════════════
+const QUIZ_DATA = [
+
+  { word: "surge", correct: "a sudden and large increase", wrong: ["a gradual decrease over time", "a period with no change", "a small, temporary fluctuation"], context: "There was a _____ in online shopping during the pandemic." },
+  { word: "plummet", correct: "to fall or drop suddenly and steeply", wrong: ["to rise gradually over time", "to remain stable and unchanged", "to increase slightly each month"], context: "Sales _____ed after the negative press coverage." },
+  { word: "stagnate", correct: "to stop growing or developing, to become inactive", wrong: ["to grow rapidly and unexpectedly", "to decrease gradually over time", "to fluctuate up and down"], context: "House prices _____d during the economic downturn." },
+  { word: "soar", correct: "to rise very quickly to a high level", wrong: ["to fall sharply to a low point", "to remain at the same level", "to decrease slowly over years"], context: "Temperatures _____ed to record highs last summer." },
+  { word: "account for", correct: "to make up a proportion of the total", wrong: ["to decrease in value over time", "to compare two different things", "to predict future changes"], context: "Renewable energy _____s 30% of total electricity production." },
+  { word: "correspond to", correct: "to match or be equivalent to something", wrong: ["to be completely different from", "to increase alongside something", "to be unrelated to something"], context: "The rise in temperatures _____s a similar increase in sea levels." },
+  { word: "marginal", correct: "very small or slight", wrong: ["extremely large and significant", "impossible to measure", "exactly average"], context: "There was only a _____ increase in unemployment last year." },
+  { word: "substantial", correct: "of considerable importance, size or worth", wrong: ["extremely small and insignificant", "impossible to notice", "temporary and brief"], context: "The company made a _____ investment in renewable energy." },
+  { word: "steady", correct: "developing or happening at a regular, even pace", wrong: ["happening in sudden, unpredictable bursts", "decreasing rapidly and chaotically", "stopping completely for long periods"], context: "There has been a _____ growth in tourism over the past decade." },
+  { word: "anticipated", correct: "expected to happen in the future", wrong: ["already happened in the past", "completely unexpected and surprising", "impossible to predict"], context: "The _____ increase in population will put pressure on housing." },
+  { word: "negligible", correct: "so small as to not be worth considering", wrong: ["extremely large and impossible to ignore", "exactly the expected amount", "the average of all values"], context: "The difference between the two groups was _____." },
+  { word: "preceding", correct: "coming before something in time or order", wrong: ["coming after something in time", "happening at the same time as something", "completely unrelated to something"], context: "In the _____ decade, the population grew by 15%." },
+  { word: "subsequent", correct: "coming after something in time or order", wrong: ["coming before something in time", "happening at the same time", "completely unrelated to the topic"], context: "The initial rise was followed by a _____ decline." },
+  { word: "respectively", correct: "in the order already mentioned", wrong: ["in random, unpredictable order", "in reverse, opposite order", "in alphabetical order"], context: "China and India have populations of 1.4 and 1.3 billion, _____." },
+  { word: "overall", correct: "taking everything into account, in general", wrong: ["considering only one specific factor", "ignoring the most important data", "focusing on the smallest details"], context: "_____, the trend shows a clear increase over the period." },
+  { word: "notably", correct: "in a way that is worthy of attention", wrong: ["in an unimportant, minor way", "in a completely invisible way", "in an average, unremarkable way"], context: "Spending on education increased, _____ in primary schools." },
+  { word: "conversely", correct: "in an opposite way, on the other hand", wrong: ["in exactly the same way", "without any difference at all", "in a random, unpredictable way"], context: "Urban populations grew, while _____, rural areas saw a decline." },
+  { word: "disproportionate", correct: "too large or too small in comparison with something else", wrong: ["exactly equal and balanced", "perfectly average in every way", "completely normal and expected"], context: "A _____ amount of the budget was spent on defence." },
+  { word: "projected", correct: "estimated or forecast for the future", wrong: ["recorded in the past", "happening right now", "impossible to predict ever"], context: "The _____ figure for 2030 is around 10 billion." },
+  { word: "aggregate", correct: "a total formed by combining several elements", wrong: ["a single individual element", "the smallest possible unit", "an unrelated number"], context: "The _____ score combines reading, writing, speaking and listening." }
+
+];
+
+const QUESTIONS_PER_ROUND = 10;
+
+// ═══════════════════════════════════════════════════════════
+// GAME ENGINE
+// ═══════════════════════════════════════════════════════════
+let questions = [];
+let currentQ = 0;
+let correct = 0;
+let wrong = 0;
+let streak = 0;
+let bestStreak = 0;
+let results = [];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  currentQ = 0; correct = 0; wrong = 0; streak = 0; bestStreak = 0; results = [];
+  questions = shuffle(QUIZ_DATA).slice(0, QUESTIONS_PER_ROUND);
+
+  document.getElementById('completion').classList.remove('show');
+  document.getElementById('quizArea').style.display = 'block';
+  document.getElementById('correctCount').textContent = '0';
+  document.getElementById('wrongCount').textContent = '0';
+  document.getElementById('streakCount').textContent = '0';
+
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('qNum').textContent = `Question ${currentQ + 1}`;
+  document.getElementById('qText').textContent = `What does "${q.word}" mean?`;
+  document.getElementById('qContext').textContent = q.context || '';
+  document.getElementById('progressFill').style.width = ((currentQ) / QUESTIONS_PER_ROUND * 100) + '%';
+  document.getElementById('progressText').textContent = `Question ${currentQ + 1} of ${QUESTIONS_PER_ROUND}`;
+
+  // Shuffle options
+  const opts = shuffle([q.correct, ...q.wrong]);
+  const optDiv = document.getElementById('options');
+  optDiv.innerHTML = '';
+
+  opts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt;
+    btn.onclick = () => selectAnswer(btn, opt === q.correct, q.correct);
+    optDiv.appendChild(btn);
+  });
+
+  document.getElementById('feedback').classList.remove('show');
+  document.getElementById('feedback').className = 'feedback';
+  document.getElementById('nextBtn').classList.remove('show');
+}
+
+function selectAnswer(btn, isCorrect, correctAnswer) {
+  // Disable all buttons
+  document.querySelectorAll('.option-btn').forEach(b => {
+    b.classList.add('disabled');
+    if (b.textContent === correctAnswer) b.classList.add('correct');
+  });
+
+  const fb = document.getElementById('feedback');
+
+  if (isCorrect) {
+    btn.classList.add('correct');
+    correct++;
+    streak++;
+    if (streak > bestStreak) bestStreak = streak;
+    fb.textContent = '✓ Correct!';
+    fb.className = 'feedback correct-feedback show';
+    results.push({ word: questions[currentQ].word, correct: true });
+  } else {
+    btn.classList.add('wrong');
+    wrong++;
+    streak = 0;
+    fb.textContent = `✗ The answer is: ${correctAnswer}`;
+    fb.className = 'feedback wrong-feedback show';
+    results.push({ word: questions[currentQ].word, correct: false, answer: correctAnswer });
+  }
+
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = wrong;
+  document.getElementById('streakCount').textContent = streak;
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= QUESTIONS_PER_ROUND) {
+    endGame();
+  } else {
+    showQuestion();
+  }
+}
+
+function endGame() {
+  document.getElementById('quizArea').style.display = 'none';
+  document.getElementById('progressFill').style.width = '100%';
+
+  const percent = Math.round((correct / QUESTIONS_PER_ROUND) * 100);
+  let stars, emoji, title;
+
+  if (percent >= 90) { stars = '⭐⭐⭐'; emoji = '🏆'; title = 'Outstanding!'; }
+  else if (percent >= 70) { stars = '⭐⭐'; emoji = '🎉'; title = 'Great Job!'; }
+  else if (percent >= 50) { stars = '⭐'; emoji = '👍'; title = 'Good Effort!'; }
+  else { stars = ''; emoji = '💪'; title = 'Keep Practising!'; }
+
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('stars').textContent = stars;
+  document.getElementById('finalScore').textContent = `${correct}/${QUESTIONS_PER_ROUND}`;
+  document.getElementById('finalPercent').textContent = percent + '%';
+  document.getElementById('finalStreak').textContent = bestStreak;
+
+  // Build review
+  let reviewHTML = '';
+  results.forEach(r => {
+    if (r.correct) {
+      reviewHTML += `<div class="review-item review-correct"><span class="review-word">${r.word}</span><span>✓</span></div>`;
+    } else {
+      reviewHTML += `<div class="review-item review-wrong"><span class="review-word">${r.word}</span><span class="review-answer">→ ${r.answer}</span></div>`;
+    }
+  });
+  document.getElementById('reviewSection').innerHTML = reviewHTML;
+  document.getElementById('completion').classList.add('show');
+}
+
+startGame();
+</script>
+
+</body>
+</html>

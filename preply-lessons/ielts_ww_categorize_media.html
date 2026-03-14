@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Categorize — IELTS: Media & Communication</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  color: #fff; min-height: 100vh; padding: 20px;
+}
+
+.game-header { text-align: center; padding: 25px; margin-bottom: 20px; }
+.game-header h1 {
+  font-size: 2.5em; font-weight: 900;
+  background: linear-gradient(90deg, #54a0ff, #2e86de);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px;
+}
+.game-header .topic { font-size: 1.3em; color: rgba(255,255,255,0.7); margin-bottom: 10px; }
+.game-header .level-badge {
+  display: inline-block; padding: 4px 16px; border-radius: 20px;
+  font-size: 0.8em; font-weight: 800; background: #e94560; color: #1a1a2e; letter-spacing: 1px;
+}
+
+.status-bar {
+  display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap;
+}
+.status-item { text-align: center; }
+.status-value { font-size: 1.8em; font-weight: 800; font-family: 'Courier New', monospace; }
+.status-value.sorted { color: #2ecc71; }
+.status-value.remaining { color: #feca57; }
+.status-value.mistakes { color: #ff6b6b; }
+.status-label { font-size: 0.75em; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+
+/* Word Pool */
+.word-pool {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+  max-width: 800px; margin: 0 auto 30px; min-height: 50px;
+  padding: 20px; border-radius: 16px;
+  background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.15);
+}
+
+.word-chip {
+  padding: 10px 20px; border-radius: 25px; font-size: 1em; font-weight: 700;
+  cursor: pointer; transition: all 0.25s ease;
+  background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2);
+}
+
+.word-chip:hover {
+  transform: translateY(-2px); background: rgba(255,255,255,0.18);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.word-chip.selected {
+  background: rgba(84,160,255,0.25); border-color: #54a0ff;
+  box-shadow: 0 0 15px rgba(84,160,255,0.3); transform: scale(1.05);
+}
+
+.word-chip.correct-anim {
+  background: rgba(46,204,113,0.25); border-color: #2ecc71;
+  animation: popOut 0.4s ease forwards;
+}
+
+.word-chip.wrong-anim {
+  border-color: #ff6b6b; background: rgba(255,107,107,0.2);
+  animation: shake 0.5s ease;
+}
+
+@keyframes popOut {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+  100% { transform: scale(0); opacity: 0; height: 0; padding: 0; margin: 0; border: 0; overflow: hidden; }
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-6px); } 40%,80% { transform: translateX(6px); }
+}
+
+/* Category Boxes */
+.categories {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px; max-width: 800px; margin: 0 auto;
+}
+
+.category-box {
+  background: rgba(255,255,255,0.06); backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.1); border-radius: 16px;
+  padding: 20px; min-height: 180px; cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.category-box:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.09); }
+.category-box.highlight { border-color: #54a0ff; background: rgba(84,160,255,0.1); box-shadow: 0 0 20px rgba(84,160,255,0.2); }
+
+.category-title {
+  font-size: 1.2em; font-weight: 800; text-align: center; margin-bottom: 12px;
+  padding-bottom: 10px; border-bottom: 2px solid rgba(255,255,255,0.1);
+}
+
+.category-items {
+  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+}
+
+.sorted-chip {
+  padding: 6px 14px; border-radius: 20px; font-size: 0.85em; font-weight: 600;
+  animation: fadeIn 0.3s ease;
+}
+
+.cat-0 .category-title { color: #4ecdc4; }
+.cat-0 .sorted-chip { background: rgba(78,205,196,0.2); color: #4ecdc4; }
+.cat-0.highlight { border-color: #4ecdc4; }
+
+.cat-1 .category-title { color: #f093fb; }
+.cat-1 .sorted-chip { background: rgba(240,147,251,0.2); color: #f093fb; }
+.cat-1.highlight { border-color: #f093fb; }
+
+.cat-2 .category-title { color: #feca57; }
+.cat-2 .sorted-chip { background: rgba(254,202,87,0.2); color: #feca57; }
+.cat-2.highlight { border-color: #feca57; }
+
+.cat-3 .category-title { color: #ff6b6b; }
+.cat-3 .sorted-chip { background: rgba(255,107,107,0.2); color: #ff6b6b; }
+.cat-3.highlight { border-color: #ff6b6b; }
+
+/* Completion */
+.completion { display: none; text-align: center; padding: 60px 30px; max-width: 500px; margin: 0 auto; }
+.completion.show { display: block; animation: fadeIn 0.5s ease; }
+.completion h2 { font-size: 2.5em; margin-bottom: 10px; }
+.completion .result-emoji { font-size: 4em; margin-bottom: 20px; }
+.result-stats { display: flex; justify-content: center; gap: 25px; margin: 25px 0; flex-wrap: wrap; }
+.result-stat-value { font-size: 2em; font-weight: 800; color: #feca57; }
+.result-stat-label { font-size: 0.8em; color: rgba(255,255,255,0.5); }
+.stars { font-size: 2em; margin: 15px 0; letter-spacing: 5px; }
+
+.play-again-btn {
+  background: linear-gradient(135deg, #54a0ff, #2e86de); color: #fff; border: none;
+  padding: 15px 40px; border-radius: 25px; font-size: 1.1em; font-weight: 800;
+  cursor: pointer; transition: all 0.3s ease; margin-top: 20px;
+}
+.play-again-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(84,160,255,0.4); }
+.back-link { display: inline-block; margin-top: 15px; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9em; }
+.back-link:hover { color: #fff; }
+
+.instructions {
+  text-align: center; color: rgba(255,255,255,0.4); font-size: 0.9em;
+  margin-bottom: 20px;
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 600px) {
+  .categories { grid-template-columns: 1fr; }
+  .game-header h1 { font-size: 1.8em; }
+}
+</style>
+</head>
+<body>
+
+<div class="game-header">
+  <h1>📦 Categorize</h1>
+  <div class="topic">IELTS: Media & Communication</div>
+  <span class="level-badge">IELTS</span>
+</div>
+
+<div class="status-bar">
+  <div class="status-item">
+    <div class="status-value sorted" id="sorted">0</div>
+    <div class="status-label">Sorted</div>
+  </div>
+  <div class="status-item">
+    <div class="status-value remaining" id="remaining">0</div>
+    <div class="status-label">Remaining</div>
+  </div>
+  <div class="status-item">
+    <div class="status-value mistakes" id="mistakes">0</div>
+    <div class="status-label">Mistakes</div>
+  </div>
+</div>
+
+<div class="instructions">Tap a word, then tap the category it belongs to</div>
+
+<div id="gameArea">
+  <div class="word-pool" id="wordPool"></div>
+  <div class="categories" id="categories"></div>
+</div>
+
+<div class="completion" id="completion">
+  <div class="result-emoji" id="resultEmoji">🎉</div>
+  <h2 id="resultTitle">All Sorted!</h2>
+  <div class="stars" id="stars">⭐⭐⭐</div>
+  <div class="result-stats">
+    <div class="status-item">
+      <div class="result-stat-value" id="finalTotal">0</div>
+      <div class="result-stat-label">Words Sorted</div>
+    </div>
+    <div class="status-item">
+      <div class="result-stat-value" id="finalMistakes">0</div>
+      <div class="result-stat-label">Mistakes</div>
+    </div>
+  </div>
+  <button class="play-again-btn" onclick="startGame()">Play Again</button>
+  <br>
+  <a class="back-link" href="wordwall_dashboard.html">← Back to Word Wall</a>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// CATEGORY DATA — Edit this to create new Categorize games
+// ═══════════════════════════════════════════════════════════
+const CATEGORIES = [
+
+  {
+    name: "Print Media",
+    words: ["newspaper", "magazine", "journal", "pamphlet", "newsletter"]
+  },
+  {
+    name: "Broadcast Media",
+    words: ["television", "radio", "podcast", "documentary", "news bulletin"]
+  },
+  {
+    name: "Digital Media",
+    words: ["blog", "vlog", "social media", "streaming", "website"]
+  },
+  {
+    name: "Advertising",
+    words: ["billboard", "commercial", "sponsorship", "slogan", "campaign"]
+  }
+
+];
+
+// ═══════════════════════════════════════════════════════════
+// GAME ENGINE
+// ═══════════════════════════════════════════════════════════
+let allWords = [];
+let selectedWord = null;
+let sortedCount = 0;
+let mistakeCount = 0;
+let totalWords = 0;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  sortedCount = 0; mistakeCount = 0; selectedWord = null;
+
+  // Build word list with category tags
+  allWords = [];
+  CATEGORIES.forEach((cat, ci) => {
+    cat.words.forEach(w => {
+      allWords.push({ word: w, category: ci });
+    });
+  });
+  totalWords = allWords.length;
+  allWords = shuffle(allWords);
+
+  document.getElementById('completion').classList.remove('show');
+  document.getElementById('gameArea').style.display = 'block';
+  document.getElementById('sorted').textContent = '0';
+  document.getElementById('remaining').textContent = totalWords;
+  document.getElementById('mistakes').textContent = '0';
+
+  renderPool();
+  renderCategories();
+}
+
+function renderPool() {
+  const pool = document.getElementById('wordPool');
+  pool.innerHTML = '';
+  allWords.forEach((item, i) => {
+    const chip = document.createElement('div');
+    chip.className = 'word-chip';
+    chip.textContent = item.word;
+    chip.dataset.index = i;
+    chip.onclick = () => selectWord(chip, i);
+    pool.appendChild(chip);
+  });
+}
+
+function renderCategories() {
+  const container = document.getElementById('categories');
+  container.innerHTML = '';
+  CATEGORIES.forEach((cat, i) => {
+    const box = document.createElement('div');
+    box.className = `category-box cat-${i}`;
+    box.innerHTML = `<div class="category-title">${cat.name}</div><div class="category-items" id="catItems${i}"></div>`;
+    box.onclick = () => placeWord(i);
+    container.appendChild(box);
+  });
+}
+
+function selectWord(chip, index) {
+  // Deselect previous
+  document.querySelectorAll('.word-chip.selected').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.category-box').forEach(b => b.classList.remove('highlight'));
+
+  selectedWord = { index, element: chip };
+  chip.classList.add('selected');
+
+  // Highlight all category boxes
+  document.querySelectorAll('.category-box').forEach(b => b.classList.add('highlight'));
+}
+
+function placeWord(categoryIndex) {
+  if (!selectedWord) return;
+
+  const item = allWords[selectedWord.index];
+  const chip = selectedWord.element;
+
+  if (item.category === categoryIndex) {
+    // Correct!
+    chip.classList.remove('selected');
+    chip.classList.add('correct-anim');
+    sortedCount++;
+
+    // Add to category
+    const catItems = document.getElementById(`catItems${categoryIndex}`);
+    const sorted = document.createElement('span');
+    sorted.className = 'sorted-chip';
+    sorted.textContent = item.word;
+    catItems.appendChild(sorted);
+
+    document.getElementById('sorted').textContent = sortedCount;
+    document.getElementById('remaining').textContent = totalWords - sortedCount;
+
+    // Remove from pool after animation
+    setTimeout(() => {
+      chip.style.display = 'none';
+    }, 400);
+
+    selectedWord = null;
+    document.querySelectorAll('.category-box').forEach(b => b.classList.remove('highlight'));
+
+    if (sortedCount === totalWords) {
+      setTimeout(endGame, 500);
+    }
+  } else {
+    // Wrong!
+    chip.classList.add('wrong-anim');
+    mistakeCount++;
+    document.getElementById('mistakes').textContent = mistakeCount;
+    setTimeout(() => chip.classList.remove('wrong-anim'), 600);
+  }
+}
+
+function endGame() {
+  document.getElementById('gameArea').style.display = 'none';
+
+  let stars, emoji, title;
+  if (mistakeCount === 0) { stars = '⭐⭐⭐'; emoji = '🏆'; title = 'Perfect Sorting!'; }
+  else if (mistakeCount <= 3) { stars = '⭐⭐'; emoji = '🎉'; title = 'Great Job!'; }
+  else if (mistakeCount <= 6) { stars = '⭐'; emoji = '👍'; title = 'Well Done!'; }
+  else { stars = ''; emoji = '💪'; title = 'Keep Practising!'; }
+
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('stars').textContent = stars;
+  document.getElementById('finalTotal').textContent = totalWords;
+  document.getElementById('finalMistakes').textContent = mistakeCount;
+  document.getElementById('completion').classList.add('show');
+}
+
+startGame();
+</script>
+
+</body>
+</html>

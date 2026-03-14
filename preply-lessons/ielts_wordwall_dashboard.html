@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Word Wall — Vocabulary Games</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+  min-height: 100vh; padding: 20px; color: #1e293b;
+}
+
+.container { max-width: 1200px; margin: 0 auto; }
+
+.header {
+  background: linear-gradient(135deg, #e94560 0%, #ff6b6b 50%, #c0392b 100%);
+  border-radius: 20px; padding: 50px 40px; text-align: center;
+  box-shadow: 0 20px 60px rgba(233, 69, 96, 0.3);
+  margin-bottom: 30px; position: relative; overflow: hidden;
+}
+
+.header::before {
+  content: ''; position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+  animation: shimmer 15s infinite linear;
+}
+
+@keyframes shimmer { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+.header h1 { font-size: 3em; color: white; margin-bottom: 8px; position: relative; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+.header .subtitle { font-size: 1.2em; color: rgba(255,255,255,0.9); position: relative; margin-bottom: 20px; }
+
+.header-stats {
+  display: flex; justify-content: center; gap: 25px;
+  flex-wrap: wrap; position: relative;
+}
+
+.header-stat {
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+  padding: 12px 25px; border-radius: 15px; text-align: center;
+}
+
+.header-stat-number { font-size: 2em; font-weight: 900; color: #fff; }
+.header-stat-label { font-size: 0.8em; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1px; }
+
+.ielts-badge {
+  display: inline-block; background: rgba(255,255,255,0.2);
+  padding: 6px 20px; border-radius: 20px; color: #fff;
+  font-weight: 800; font-size: 0.85em; letter-spacing: 2px;
+  position: relative; margin-bottom: 10px;
+}
+
+/* Topic Sections */
+.topic-section {
+  background: #fff; border-radius: 16px; padding: 25px;
+  margin-bottom: 20px; border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.topic-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 15px; padding-bottom: 12px; border-bottom: 1px solid #f1f5f9;
+}
+
+.topic-header h3 { font-size: 1.2em; color: #1e293b; }
+.topic-count { font-size: 0.8em; color: #94a3b8; font-weight: 600; }
+
+.games-row {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px;
+}
+
+.game-card {
+  display: flex; align-items: center; gap: 12px;
+  background: #f8fafc; border-radius: 12px; padding: 14px 16px;
+  text-decoration: none; border: 1px solid #e2e8f0;
+  transition: all 0.25s; color: #1e293b;
+}
+
+.game-card:hover {
+  transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  border-color: #e94560; background: #fff;
+}
+
+.game-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1em; flex-shrink: 0; color: #fff;
+}
+
+.game-topic { font-weight: 700; font-size: 0.95em; }
+.game-type { font-size: 0.78em; font-weight: 600; }
+
+.back-bar { text-align: center; padding: 25px; }
+.back-link { color: #64748b; text-decoration: none; font-size: 0.95em; transition: color 0.3s; }
+.back-link:hover { color: #e94560; }
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 2em; }
+  .header { padding: 35px 20px; }
+  .games-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="ielts-badge">IELTS PREPARATION</div>
+  <h1>🧱 IELTS Word Wall</h1>
+  <div class="subtitle">Master the vocabulary you need for Band 7+</div>
+  <div class="header-stats">
+    <div class="header-stat">
+      <div class="header-stat-number">22</div>
+      <div class="header-stat-label">Games</div>
+    </div>
+    <div class="header-stat">
+      <div class="header-stat-number">12</div>
+      <div class="header-stat-label">Topics</div>
+    </div>
+    <div class="header-stat">
+      <div class="header-stat-number">5</div>
+      <div class="header-stat-label">Game Types</div>
+    </div>
+  </div>
+</div>
+
+<div class="topic-section">
+  <div class="topic-header">
+    <h3>Crime</h3>
+    <span class="topic-count">2 games</span>
+  </div>
+  <div class="games-row"><a href="ielts_ww_categorize_crime.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Categorize</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ielts_ww_quiz_crime.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Quiz</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="topic-section">
+  <div class="topic-header">
+    <h3>Education</h3>
+    <span class="topic-count">2 games</span>
+  </div>
+  <div class="games-row"><a href="ielts_ww_match_education.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Match Up</div>
+    <div class="game-type" style="color:#4ecdc4">Match</div>
+  </div>
+</a>
+<a href="ielts_ww_memory_education.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Memory</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="topic-section">
+  <div class="topic-header">
+    <h3>Environment</h3>
+    <span class="topic-count">2 games</span>
+  </div>
+  <div class="games-row"><a href="ielts_ww_anagram_environment.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Anagram</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ielts_ww_match_environment.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Match Up</div>
+    <div class="game-type" style="color:#4ecdc4">Match</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="topic-section">
+  <div class="topic-header">
+    <h3>Globalisation</h3>
+    <span class="topic-count">2 games</span>
+  </div>
+  <div class="games-row"><a href="ielts_ww_anagram_globalisation.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Anagram</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ielts_ww_match_globalisation.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Match Up</div>
+    <div class="game-type" style="color:#4ecdc4">Match</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="topic-section">
+  <div class="topic-header">
+    <h3>Health</h3>
+    <span class="topic-count">2 games</span>
+  </div>
+  <div class="games-row"><a href="ielts_ww_match_health.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Match Up</div>
+    <div class="game-type" style="color:#4ecdc4">Match</div>
+  </div>
+</a>
+<a href="ielts_ww_quiz_health.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Quiz</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="topic-section">
+  <div class="topic-header">
+    <h3>Media</h3>
+    <span class="topic-count">2 games</span>
+  </div>
+  <div class="games-row"><a href="ielts_ww_categorize_media.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Categorize</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ielts_ww_memory_media.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Memory</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="topic-section">
+  <div class="topic-header">
+    <h3>Spelling</h3>
+    <span class="topic-count">1 game</span>
+  </div>
+  <div class="games-row"><a href="ielts_ww_anagram_spelling.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Anagram</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="topic-section">
+  <div class="topic-header">
+    <h3>Technology</h3>
+    <span class="topic-count">2 games</span>
+  </div>
+  <div class="games-row"><a href="ielts_ww_match_technology.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Match Up</div>
+    <div class="game-type" style="color:#4ecdc4">Match</div>
+  </div>
+</a>
+<a href="ielts_ww_memory_technology.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Memory</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="topic-section">
+  <div class="topic-header">
+    <h3>Transport</h3>
+    <span class="topic-count">1 game</span>
+  </div>
+  <div class="games-row"><a href="ielts_ww_anagram_transport.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Anagram</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="topic-section">
+  <div class="topic-header">
+    <h3>Urbanisation</h3>
+    <span class="topic-count">1 game</span>
+  </div>
+  <div class="games-row"><a href="ielts_ww_quiz_urbanisation.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Quiz</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="topic-section">
+  <div class="topic-header">
+    <h3>Work</h3>
+    <span class="topic-count">2 games</span>
+  </div>
+  <div class="games-row"><a href="ielts_ww_categorize_work.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Categorize</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ielts_ww_match_work.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Match Up</div>
+    <div class="game-type" style="color:#4ecdc4">Match</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="topic-section">
+  <div class="topic-header">
+    <h3>Writing</h3>
+    <span class="topic-count">3 games</span>
+  </div>
+  <div class="games-row"><a href="ielts_ww_categorize_writing.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Categorize</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ielts_ww_match_writing.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Match Up</div>
+    <div class="game-type" style="color:#4ecdc4">Match</div>
+  </div>
+</a>
+<a href="ielts_ww_quiz_writing.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Quiz</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+</div>
+</div>
+
+
+<div class="back-bar">
+  <a class="back-link" href="index.html">← Back to Home</a>
+</div>
+
+</div>
+</body>
+</html>
