@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Vocabulary Map — Word Wall</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+  min-height: 100vh; padding: 20px; color: #1e293b;
+}
+
+.container { max-width: 1400px; margin: 0 auto; }
+
+.header {
+  background: linear-gradient(135deg, #e94560 0%, #ff6b6b 50%, #c0392b 100%);
+  border-radius: 20px; padding: 50px 40px; text-align: center;
+  box-shadow: 0 20px 60px rgba(233, 69, 96, 0.3);
+  margin-bottom: 30px; position: relative; overflow: hidden;
+}
+
+.header::before {
+  content: ''; position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+  animation: shimmer 15s infinite linear;
+}
+
+@keyframes shimmer { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+.header h1 { font-size: 3em; color: white; margin-bottom: 8px; position: relative; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+.header .subtitle { font-size: 1.1em; color: rgba(255,255,255,0.85); position: relative; margin-bottom: 15px; }
+
+.ielts-badge {
+  display: inline-block; background: rgba(255,255,255,0.2);
+  padding: 6px 20px; border-radius: 20px; color: #fff;
+  font-weight: 800; font-size: 0.85em; letter-spacing: 2px;
+  position: relative; margin-bottom: 10px;
+}
+
+.header-stats {
+  display: flex; justify-content: center; gap: 25px;
+  flex-wrap: wrap; position: relative;
+}
+
+.header-stat {
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+  padding: 12px 25px; border-radius: 15px; text-align: center;
+}
+
+.header-stat-number { font-size: 2em; font-weight: 900; color: #fff; }
+.header-stat-label { font-size: 0.8em; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1px; }
+
+/* Search */
+.search-bar {
+  background: #fff; border-radius: 16px; padding: 15px 20px;
+  margin-bottom: 20px; border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.search-bar input {
+  width: 100%; padding: 10px 15px; border-radius: 10px;
+  border: 2px solid #e2e8f0; background: #f8fafc;
+  font-size: 1em; color: #1e293b; outline: none;
+}
+
+.search-bar input:focus { border-color: #e94560; }
+.search-bar input::placeholder { color: #94a3b8; }
+
+.search-results {
+  display: none; text-align: center; padding: 8px;
+  color: #64748b; font-size: 0.9em;
+}
+
+/* Topic Sections */
+.topic-section {
+  background: #fff; border-radius: 20px; padding: 30px;
+  margin-bottom: 25px; border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.topic-section.hidden { display: none; }
+
+.topic-sec-header {
+  display: flex; align-items: center; gap: 15px;
+  margin-bottom: 20px; padding-bottom: 15px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.topic-icon {
+  width: 55px; height: 55px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5em; flex-shrink: 0;
+  background: linear-gradient(135deg, #e94560, #ff6b6b); color: #fff;
+}
+
+.topic-sec-info h3 { font-size: 1.3em; }
+.topic-sec-info p { color: #64748b; font-size: 0.9em; }
+
+/* Topic Cards (games within topic) */
+.topic-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px;
+}
+
+.topic-card {
+  background: #f8fafc; border-radius: 14px; padding: 18px;
+  border: 1px solid #e2e8f0; transition: all 0.25s;
+}
+
+.topic-card:hover { border-color: #e94560; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
+.topic-card.card-hidden { display: none; }
+
+.topic-header { margin-bottom: 10px; }
+.topic-name { font-size: 1.05em; font-weight: 700; }
+.topic-meta { font-size: 0.78em; color: #94a3b8; }
+
+.vocab-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+
+.vocab-chip {
+  padding: 4px 10px; border-radius: 12px; font-size: 0.78em; font-weight: 600;
+  background: #e2e8f0; color: #475569; border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.vocab-chip.highlight { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
+
+.play-link {
+  display: inline-block; font-size: 0.78em; color: #e94560;
+  text-decoration: none; font-weight: 600; transition: color 0.2s;
+}
+
+.play-link:hover { color: #c0392b; }
+
+.back-bar { text-align: center; padding: 25px; }
+.back-link { color: #64748b; text-decoration: none; font-size: 0.95em; transition: color 0.3s; }
+.back-link:hover { color: #e94560; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 2em; }
+  .topic-grid { grid-template-columns: 1fr; }
+  .header { padding: 35px 20px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="ielts-badge">IELTS PREPARATION</div>
+  <h1>🗺️ IELTS Vocabulary Map</h1>
+  <div class="subtitle">Every word covered across all IELTS Word Wall games</div>
+  <div class="header-stats">
+    <div class="header-stat">
+      <div class="header-stat-number">415</div>
+      <div class="header-stat-label">Total Words</div>
+    </div>
+    <div class="header-stat">
+      <div class="header-stat-number">12</div>
+      <div class="header-stat-label">Topics</div>
+    </div>
+    <div class="header-stat">
+      <div class="header-stat-number">22</div>
+      <div class="header-stat-label">Games</div>
+    </div>
+  </div>
+</div>
+
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="🔍 Search for any IELTS word..." oninput="searchWords()">
+</div>
+<div class="search-results" id="searchResults"></div>
+
+<div class="topic-section" data-topic="crime">
+  <div class="topic-sec-header">
+    <div class="topic-icon">📚</div>
+    <div class="topic-sec-info">
+      <h3>Crime</h3>
+      <p>40 unique words across 2 games</p>
+    </div>
+  </div>
+  <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Categorize</div>
+    <div class="topic-meta">📦 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">arson</span><span class="vocab-chip">assault</span><span class="vocab-chip">bribery</span><span class="vocab-chip">burglary</span><span class="vocab-chip">counterfeiting</span><span class="vocab-chip">data breach</span><span class="vocab-chip">embezzlement</span><span class="vocab-chip">hacking</span><span class="vocab-chip">identity theft</span><span class="vocab-chip">kidnapping</span><span class="vocab-chip">manslaughter</span><span class="vocab-chip">money laundering</span><span class="vocab-chip">mugging</span><span class="vocab-chip">phishing</span><span class="vocab-chip">piracy</span><span class="vocab-chip">robbery</span><span class="vocab-chip">shoplifting</span><span class="vocab-chip">tax evasion</span><span class="vocab-chip">trespassing</span><span class="vocab-chip">vandalism</span></div>
+  <a class="play-link" href="ielts_ww_categorize_crime.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Quiz</div>
+    <div class="topic-meta">❓ 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">acquit</span><span class="vocab-chip">capital punishment</span><span class="vocab-chip">corporal punishment</span><span class="vocab-chip">custodial sentence</span><span class="vocab-chip">deterrent</span><span class="vocab-chip">forensic</span><span class="vocab-chip">fraud</span><span class="vocab-chip">incarceration</span><span class="vocab-chip">juvenile</span><span class="vocab-chip">legislation</span><span class="vocab-chip">offender</span><span class="vocab-chip">penalty</span><span class="vocab-chip">probation</span><span class="vocab-chip">prosecution</span><span class="vocab-chip">recidivism</span><span class="vocab-chip">rehabilitation</span><span class="vocab-chip">surveillance</span><span class="vocab-chip">verdict</span><span class="vocab-chip">white-collar crime</span><span class="vocab-chip">witness</span></div>
+  <a class="play-link" href="ielts_ww_quiz_crime.html">Play this game →</a>
+</div>
+</div>
+</div>
+<div class="topic-section" data-topic="education">
+  <div class="topic-sec-header">
+    <div class="topic-icon">📚</div>
+    <div class="topic-sec-info">
+      <h3>Education</h3>
+      <p>40 unique words across 2 games</p>
+    </div>
+  </div>
+  <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Match Up</div>
+    <div class="topic-meta">🔗 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">alumni</span><span class="vocab-chip">assessment</span><span class="vocab-chip">compulsory</span><span class="vocab-chip">curriculum</span><span class="vocab-chip">dissertation</span><span class="vocab-chip">elective</span><span class="vocab-chip">enrolment</span><span class="vocab-chip">lecture</span><span class="vocab-chip">literacy</span><span class="vocab-chip">numeracy</span><span class="vocab-chip">pedagogy</span><span class="vocab-chip">plagiarism</span><span class="vocab-chip">postgraduate</span><span class="vocab-chip">scholarship</span><span class="vocab-chip">seminar</span><span class="vocab-chip">syllabus</span><span class="vocab-chip">tertiary</span><span class="vocab-chip">tuition fees</span><span class="vocab-chip">undergraduate</span><span class="vocab-chip">vocational</span></div>
+  <a class="play-link" href="ielts_ww_match_education.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Memory</div>
+    <div class="topic-meta">🧠 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">abstract</span><span class="vocab-chip">analyse</span><span class="vocab-chip">bibliography</span><span class="vocab-chip">citation</span><span class="vocab-chip">correlation</span><span class="vocab-chip">criterion</span><span class="vocab-chip">empirical</span><span class="vocab-chip">evaluate</span><span class="vocab-chip">hypothesis</span><span class="vocab-chip">methodology</span><span class="vocab-chip">objective</span><span class="vocab-chip">paradigm</span><span class="vocab-chip">peer review</span><span class="vocab-chip">phenomenon</span><span class="vocab-chip">qualitative</span><span class="vocab-chip">quantitative</span><span class="vocab-chip">synthesise</span><span class="vocab-chip">theoretical</span><span class="vocab-chip">thesis</span><span class="vocab-chip">variable</span></div>
+  <a class="play-link" href="ielts_ww_memory_education.html">Play this game →</a>
+</div>
+</div>
+</div>
+<div class="topic-section" data-topic="environment">
+  <div class="topic-sec-header">
+    <div class="topic-icon">📚</div>
+    <div class="topic-sec-info">
+      <h3>Environment</h3>
+      <p>39 unique words across 2 games</p>
+    </div>
+  </div>
+  <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Anagram</div>
+    <div class="topic-meta">🔤 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">afforestation</span><span class="vocab-chip">atmosphere</span><span class="vocab-chip">biodegradable</span><span class="vocab-chip">carbon</span><span class="vocab-chip">compost</span><span class="vocab-chip">conservation</span><span class="vocab-chip">contamination</span><span class="vocab-chip">desertification</span><span class="vocab-chip">glacier</span><span class="vocab-chip">industrialisation</span><span class="vocab-chip">infrastructure</span><span class="vocab-chip">irrigation</span><span class="vocab-chip">organic</span><span class="vocab-chip">ozone</span><span class="vocab-chip">pesticide</span><span class="vocab-chip">recycle</span><span class="vocab-chip">reforestation</span><span class="vocab-chip">sustainable</span><span class="vocab-chip">urbanisation</span><span class="vocab-chip">vegetation</span></div>
+  <a class="play-link" href="ielts_ww_anagram_environment.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Match Up</div>
+    <div class="topic-meta">🔗 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">biodiversity</span><span class="vocab-chip">carbon footprint</span><span class="vocab-chip">conservation</span><span class="vocab-chip">deforestation</span><span class="vocab-chip">depletion</span><span class="vocab-chip">drought</span><span class="vocab-chip">ecological</span><span class="vocab-chip">ecosystem</span><span class="vocab-chip">emissions</span><span class="vocab-chip">endangered</span><span class="vocab-chip">erosion</span><span class="vocab-chip">extinction</span><span class="vocab-chip">flooding</span><span class="vocab-chip">fossil fuel</span><span class="vocab-chip">greenhouse effect</span><span class="vocab-chip">habitat</span><span class="vocab-chip">landfill</span><span class="vocab-chip">pollution</span><span class="vocab-chip">renewable energy</span><span class="vocab-chip">sustainability</span></div>
+  <a class="play-link" href="ielts_ww_match_environment.html">Play this game →</a>
+</div>
+</div>
+</div>
+<div class="topic-section" data-topic="globalisation">
+  <div class="topic-sec-header">
+    <div class="topic-icon">📚</div>
+    <div class="topic-sec-info">
+      <h3>Globalisation</h3>
+      <p>40 unique words across 2 games</p>
+    </div>
+  </div>
+  <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Anagram</div>
+    <div class="topic-meta">🔤 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">altruism</span><span class="vocab-chip">autonomy</span><span class="vocab-chip">bureaucracy</span><span class="vocab-chip">capitalism</span><span class="vocab-chip">censorship</span><span class="vocab-chip">communism</span><span class="vocab-chip">consumerism</span><span class="vocab-chip">corruption</span><span class="vocab-chip">democracy</span><span class="vocab-chip">equality</span><span class="vocab-chip">exploitation</span><span class="vocab-chip">freedom</span><span class="vocab-chip">humanitarian</span><span class="vocab-chip">ideology</span><span class="vocab-chip">nationalism</span><span class="vocab-chip">patriotism</span><span class="vocab-chip">philanthropy</span><span class="vocab-chip">propaganda</span><span class="vocab-chip">solidarity</span><span class="vocab-chip">sovereignty</span></div>
+  <a class="play-link" href="ielts_ww_anagram_globalisation.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Match Up</div>
+    <div class="topic-meta">🔗 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">assimilation</span><span class="vocab-chip">cosmopolitan</span><span class="vocab-chip">cultural heritage</span><span class="vocab-chip">customs</span><span class="vocab-chip">diaspora</span><span class="vocab-chip">discrimination</span><span class="vocab-chip">diversity</span><span class="vocab-chip">emigration</span><span class="vocab-chip">ethnocentrism</span><span class="vocab-chip">globalisation</span><span class="vocab-chip">homogenisation</span><span class="vocab-chip">identity</span><span class="vocab-chip">immigration</span><span class="vocab-chip">indigenous</span><span class="vocab-chip">integration</span><span class="vocab-chip">multiculturalism</span><span class="vocab-chip">prejudice</span><span class="vocab-chip">stereotype</span><span class="vocab-chip">tolerance</span><span class="vocab-chip">tradition</span></div>
+  <a class="play-link" href="ielts_ww_match_globalisation.html">Play this game →</a>
+</div>
+</div>
+</div>
+<div class="topic-section" data-topic="health">
+  <div class="topic-sec-header">
+    <div class="topic-icon">📚</div>
+    <div class="topic-sec-info">
+      <h3>Health</h3>
+      <p>39 unique words across 2 games</p>
+    </div>
+  </div>
+  <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Match Up</div>
+    <div class="topic-meta">🔗 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">acute</span><span class="vocab-chip">chronic</span><span class="vocab-chip">contagious</span><span class="vocab-chip">diagnosis</span><span class="vocab-chip">epidemic</span><span class="vocab-chip">healthcare</span><span class="vocab-chip">immune system</span><span class="vocab-chip">life expectancy</span><span class="vocab-chip">malnutrition</span><span class="vocab-chip">obesity</span><span class="vocab-chip">pandemic</span><span class="vocab-chip">prescription</span><span class="vocab-chip">preventive</span><span class="vocab-chip">prognosis</span><span class="vocab-chip">rehabilitation</span><span class="vocab-chip">sanitation</span><span class="vocab-chip">sedentary</span><span class="vocab-chip">symptom</span><span class="vocab-chip">vaccination</span><span class="vocab-chip">well-being</span></div>
+  <a class="play-link" href="ielts_ww_match_health.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Quiz</div>
+    <div class="topic-meta">❓ 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">ailment</span><span class="vocab-chip">allergic</span><span class="vocab-chip">anaesthetic</span><span class="vocab-chip">antibiotics</span><span class="vocab-chip">clinical trial</span><span class="vocab-chip">diagnosis</span><span class="vocab-chip">dosage</span><span class="vocab-chip">fertility</span><span class="vocab-chip">holistic</span><span class="vocab-chip">hygiene</span><span class="vocab-chip">mental health</span><span class="vocab-chip">mortality rate</span><span class="vocab-chip">outbreak</span><span class="vocab-chip">palliative</span><span class="vocab-chip">pharmaceutical</span><span class="vocab-chip">physiotherapy</span><span class="vocab-chip">supplement</span><span class="vocab-chip">surgeon</span><span class="vocab-chip">therapeutic</span><span class="vocab-chip">transplant</span></div>
+  <a class="play-link" href="ielts_ww_quiz_health.html">Play this game →</a>
+</div>
+</div>
+</div>
+<div class="topic-section" data-topic="media">
+  <div class="topic-sec-header">
+    <div class="topic-icon">📚</div>
+    <div class="topic-sec-info">
+      <h3>Media</h3>
+      <p>40 unique words across 2 games</p>
+    </div>
+  </div>
+  <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Categorize</div>
+    <div class="topic-meta">📦 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">billboard</span><span class="vocab-chip">blog</span><span class="vocab-chip">campaign</span><span class="vocab-chip">commercial</span><span class="vocab-chip">documentary</span><span class="vocab-chip">journal</span><span class="vocab-chip">magazine</span><span class="vocab-chip">news bulletin</span><span class="vocab-chip">newsletter</span><span class="vocab-chip">newspaper</span><span class="vocab-chip">pamphlet</span><span class="vocab-chip">podcast</span><span class="vocab-chip">radio</span><span class="vocab-chip">slogan</span><span class="vocab-chip">social media</span><span class="vocab-chip">sponsorship</span><span class="vocab-chip">streaming</span><span class="vocab-chip">television</span><span class="vocab-chip">vlog</span><span class="vocab-chip">website</span></div>
+  <a class="play-link" href="ielts_ww_categorize_media.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Memory</div>
+    <div class="topic-meta">🧠 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">advertisement</span><span class="vocab-chip">bias</span><span class="vocab-chip">brand</span><span class="vocab-chip">broadsheet</span><span class="vocab-chip">censorship</span><span class="vocab-chip">circulation</span><span class="vocab-chip">clickbait</span><span class="vocab-chip">disinformation</span><span class="vocab-chip">editorial</span><span class="vocab-chip">endorsement</span><span class="vocab-chip">fake news</span><span class="vocab-chip">influencer</span><span class="vocab-chip">mainstream</span><span class="vocab-chip">objectivity</span><span class="vocab-chip">press freedom</span><span class="vocab-chip">propaganda</span><span class="vocab-chip">sensationalism</span><span class="vocab-chip">tabloid</span><span class="vocab-chip">target audience</span><span class="vocab-chip">viewer ratings</span></div>
+  <a class="play-link" href="ielts_ww_memory_media.html">Play this game →</a>
+</div>
+</div>
+</div>
+<div class="topic-section" data-topic="spelling">
+  <div class="topic-sec-header">
+    <div class="topic-icon">📚</div>
+    <div class="topic-sec-info">
+      <h3>Spelling</h3>
+      <p>20 unique words across 1 game</p>
+    </div>
+  </div>
+  <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Anagram</div>
+    <div class="topic-meta">🔤 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">accommodation</span><span class="vocab-chip">achieve</span><span class="vocab-chip">beginning</span><span class="vocab-chip">conscience</span><span class="vocab-chip">definitely</span><span class="vocab-chip">development</span><span class="vocab-chip">embarrass</span><span class="vocab-chip">environment</span><span class="vocab-chip">exaggerate</span><span class="vocab-chip">government</span><span class="vocab-chip">immediately</span><span class="vocab-chip">independent</span><span class="vocab-chip">maintenance</span><span class="vocab-chip">necessary</span><span class="vocab-chip">occurrence</span><span class="vocab-chip">opportunity</span><span class="vocab-chip">privilege</span><span class="vocab-chip">receive</span><span class="vocab-chip">recommend</span><span class="vocab-chip">separate</span></div>
+  <a class="play-link" href="ielts_ww_anagram_spelling.html">Play this game →</a>
+</div>
+</div>
+</div>
+<div class="topic-section" data-topic="technology">
+  <div class="topic-sec-header">
+    <div class="topic-icon">📚</div>
+    <div class="topic-sec-info">
+      <h3>Technology</h3>
+      <p>40 unique words across 2 games</p>
+    </div>
+  </div>
+  <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Match Up</div>
+    <div class="topic-meta">🔗 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">algorithm</span><span class="vocab-chip">artificial intelligence</span><span class="vocab-chip">automation</span><span class="vocab-chip">biotechnology</span><span class="vocab-chip">breakthrough</span><span class="vocab-chip">broadband</span><span class="vocab-chip">cybersecurity</span><span class="vocab-chip">data privacy</span><span class="vocab-chip">digital literacy</span><span class="vocab-chip">e-commerce</span><span class="vocab-chip">genetic engineering</span><span class="vocab-chip">innovation</span><span class="vocab-chip">nanotechnology</span><span class="vocab-chip">obsolete</span><span class="vocab-chip">renewable technology</span><span class="vocab-chip">robotics</span><span class="vocab-chip">social media</span><span class="vocab-chip">surveillance</span><span class="vocab-chip">telecommunications</span><span class="vocab-chip">virtual reality</span></div>
+  <a class="play-link" href="ielts_ww_match_technology.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Memory</div>
+    <div class="topic-meta">🧠 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">bandwidth</span><span class="vocab-chip">cloud computing</span><span class="vocab-chip">database</span><span class="vocab-chip">digital divide</span><span class="vocab-chip">download</span><span class="vocab-chip">encryption</span><span class="vocab-chip">gadget</span><span class="vocab-chip">hacking</span><span class="vocab-chip">hardware</span><span class="vocab-chip">interface</span><span class="vocab-chip">malware</span><span class="vocab-chip">outsourcing</span><span class="vocab-chip">patent</span><span class="vocab-chip">platform</span><span class="vocab-chip">prototype</span><span class="vocab-chip">server</span><span class="vocab-chip">smartphone</span><span class="vocab-chip">software</span><span class="vocab-chip">startup</span><span class="vocab-chip">streaming</span></div>
+  <a class="play-link" href="ielts_ww_memory_technology.html">Play this game →</a>
+</div>
+</div>
+</div>
+<div class="topic-section" data-topic="transport">
+  <div class="topic-sec-header">
+    <div class="topic-icon">📚</div>
+    <div class="topic-sec-info">
+      <h3>Transport</h3>
+      <p>20 unique words across 1 game</p>
+    </div>
+  </div>
+  <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Anagram</div>
+    <div class="topic-meta">🔤 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">autonomous</span><span class="vocab-chip">aviation</span><span class="vocab-chip">carpooling</span><span class="vocab-chip">commuter</span><span class="vocab-chip">congestion</span><span class="vocab-chip">congestion charge</span><span class="vocab-chip">emissions</span><span class="vocab-chip">expressway</span><span class="vocab-chip">freight</span><span class="vocab-chip">hybrid</span><span class="vocab-chip">infrastructure</span><span class="vocab-chip">interchange</span><span class="vocab-chip">locomotive</span><span class="vocab-chip">logistics</span><span class="vocab-chip">navigation</span><span class="vocab-chip">pedestrian</span><span class="vocab-chip">subway</span><span class="vocab-chip">sustainable</span><span class="vocab-chip">terminal</span><span class="vocab-chip">transit</span></div>
+  <a class="play-link" href="ielts_ww_anagram_transport.html">Play this game →</a>
+</div>
+</div>
+</div>
+<div class="topic-section" data-topic="urbanisation">
+  <div class="topic-sec-header">
+    <div class="topic-icon">📚</div>
+    <div class="topic-sec-info">
+      <h3>Urbanisation</h3>
+      <p>20 unique words across 1 game</p>
+    </div>
+  </div>
+  <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Quiz</div>
+    <div class="topic-meta">❓ 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">carbon neutral</span><span class="vocab-chip">commuter</span><span class="vocab-chip">congestion</span><span class="vocab-chip">density</span><span class="vocab-chip">emission-free</span><span class="vocab-chip">gentrification</span><span class="vocab-chip">housing shortage</span><span class="vocab-chip">infrastructure</span><span class="vocab-chip">metropolitan</span><span class="vocab-chip">overpopulation</span><span class="vocab-chip">pedestrianised</span><span class="vocab-chip">public transport</span><span class="vocab-chip">regeneration</span><span class="vocab-chip">slum</span><span class="vocab-chip">smart city</span><span class="vocab-chip">suburban</span><span class="vocab-chip">sustainability</span><span class="vocab-chip">urban sprawl</span><span class="vocab-chip">urbanisation</span><span class="vocab-chip">zoning</span></div>
+  <a class="play-link" href="ielts_ww_quiz_urbanisation.html">Play this game →</a>
+</div>
+</div>
+</div>
+<div class="topic-section" data-topic="work">
+  <div class="topic-sec-header">
+    <div class="topic-icon">📚</div>
+    <div class="topic-sec-info">
+      <h3>Work</h3>
+      <p>39 unique words across 2 games</p>
+    </div>
+  </div>
+  <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Categorize</div>
+    <div class="topic-meta">📦 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">application</span><span class="vocab-chip">colleague</span><span class="vocab-chip">commute</span><span class="vocab-chip">contract</span><span class="vocab-chip">cv</span><span class="vocab-chip">deadline</span><span class="vocab-chip">dismissal</span><span class="vocab-chip">grievance</span><span class="vocab-chip">interview</span><span class="vocab-chip">layoff</span><span class="vocab-chip">maternity leave</span><span class="vocab-chip">overtime</span><span class="vocab-chip">promotion</span><span class="vocab-chip">recruitment</span><span class="vocab-chip">redundancy</span><span class="vocab-chip">resignation</span><span class="vocab-chip">severance</span><span class="vocab-chip">shortlist</span><span class="vocab-chip">sick pay</span><span class="vocab-chip">tribunal</span></div>
+  <a class="play-link" href="ielts_ww_categorize_work.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Match Up</div>
+    <div class="topic-meta">🔗 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">apprenticeship</span><span class="vocab-chip">blue-collar</span><span class="vocab-chip">discrimination</span><span class="vocab-chip">entrepreneur</span><span class="vocab-chip">freelance</span><span class="vocab-chip">gender pay gap</span><span class="vocab-chip">internship</span><span class="vocab-chip">job security</span><span class="vocab-chip">minimum wage</span><span class="vocab-chip">occupation</span><span class="vocab-chip">pension</span><span class="vocab-chip">productivity</span><span class="vocab-chip">qualifications</span><span class="vocab-chip">redundancy</span><span class="vocab-chip">remote working</span><span class="vocab-chip">retirement</span><span class="vocab-chip">trade union</span><span class="vocab-chip">unemployment</span><span class="vocab-chip">white-collar</span><span class="vocab-chip">work-life balance</span></div>
+  <a class="play-link" href="ielts_ww_match_work.html">Play this game →</a>
+</div>
+</div>
+</div>
+<div class="topic-section" data-topic="writing">
+  <div class="topic-sec-header">
+    <div class="topic-icon">📚</div>
+    <div class="topic-sec-info">
+      <h3>Writing</h3>
+      <p>54 unique words across 3 games</p>
+    </div>
+  </div>
+  <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Categorize</div>
+    <div class="topic-meta">📦 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">additionally</span><span class="vocab-chip">conversely</span><span class="vocab-chip">for instance</span><span class="vocab-chip">furthermore</span><span class="vocab-chip">however</span><span class="vocab-chip">in addition</span><span class="vocab-chip">in conclusion</span><span class="vocab-chip">in particular</span><span class="vocab-chip">moreover</span><span class="vocab-chip">namely</span><span class="vocab-chip">nevertheless</span><span class="vocab-chip">on balance</span><span class="vocab-chip">on the other hand</span><span class="vocab-chip">overall</span><span class="vocab-chip">such as</span><span class="vocab-chip">taking everything into account</span><span class="vocab-chip">to illustrate</span><span class="vocab-chip">to sum up</span><span class="vocab-chip">what is more</span><span class="vocab-chip">whereas</span></div>
+  <a class="play-link" href="ielts_ww_categorize_writing.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Match Up</div>
+    <div class="topic-meta">🔗 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">approximately</span><span class="vocab-chip">comprise</span><span class="vocab-chip">consequently</span><span class="vocab-chip">decline</span><span class="vocab-chip">dramatically</span><span class="vocab-chip">fluctuate</span><span class="vocab-chip">furthermore</span><span class="vocab-chip">gradually</span><span class="vocab-chip">illustrate</span><span class="vocab-chip">majority</span><span class="vocab-chip">minority</span><span class="vocab-chip">moreover</span><span class="vocab-chip">nevertheless</span><span class="vocab-chip">outweigh</span><span class="vocab-chip">peak</span><span class="vocab-chip">plateau</span><span class="vocab-chip">proportion</span><span class="vocab-chip">significantly</span><span class="vocab-chip">tendency</span><span class="vocab-chip">whereas</span></div>
+  <a class="play-link" href="ielts_ww_match_writing.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Quiz</div>
+    <div class="topic-meta">❓ 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">account for</span><span class="vocab-chip">aggregate</span><span class="vocab-chip">anticipated</span><span class="vocab-chip">conversely</span><span class="vocab-chip">correspond to</span><span class="vocab-chip">disproportionate</span><span class="vocab-chip">marginal</span><span class="vocab-chip">negligible</span><span class="vocab-chip">notably</span><span class="vocab-chip">overall</span><span class="vocab-chip">plummet</span><span class="vocab-chip">preceding</span><span class="vocab-chip">projected</span><span class="vocab-chip">respectively</span><span class="vocab-chip">soar</span><span class="vocab-chip">stagnate</span><span class="vocab-chip">steady</span><span class="vocab-chip">subsequent</span><span class="vocab-chip">substantial</span><span class="vocab-chip">surge</span></div>
+  <a class="play-link" href="ielts_ww_quiz_writing.html">Play this game →</a>
+</div>
+</div>
+</div>
+
+
+<div class="back-bar">
+  <a class="back-link" href="ielts_wordwall_dashboard.html">← Back to IELTS Word Wall Dashboard</a>
+</div>
+
+</div>
+
+<script>
+function searchWords() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if (!q) {
+    document.querySelectorAll('.topic-section').forEach(s => s.classList.remove('hidden'));
+    document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('card-hidden'));
+    document.querySelectorAll('.vocab-chip').forEach(c => c.classList.remove('highlight'));
+    document.getElementById('searchResults').style.display = 'none';
+    return;
+  }
+  let matchCount = 0;
+  document.querySelectorAll('.topic-section').forEach(section => {
+    let sectionHasMatch = false;
+    section.querySelectorAll('.topic-card').forEach(card => {
+      const chips = card.querySelectorAll('.vocab-chip');
+      let hasMatch = false;
+      chips.forEach(chip => {
+        const isMatch = chip.textContent.toLowerCase().includes(q);
+        chip.classList.toggle('highlight', isMatch);
+        if (isMatch) { hasMatch = true; matchCount++; }
+      });
+      card.classList.toggle('card-hidden', !hasMatch);
+      if (hasMatch) sectionHasMatch = true;
+    });
+    section.classList.toggle('hidden', !sectionHasMatch);
+  });
+  const res = document.getElementById('searchResults');
+  res.style.display = 'block';
+  res.textContent = matchCount === 0 ? 'No words found' : matchCount + ' word' + (matchCount !== 1 ? 's' : '') + ' found';
+}
+</script>
+</body>
+</html>
