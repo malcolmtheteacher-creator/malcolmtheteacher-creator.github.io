@@ -77,95 +77,66 @@ body {
 
 /* ── Journey Container ── */
 .journey {
-  max-width: 960px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 40px 30px 60px;
   position: relative;
 }
 
-/* SVG road */
-.road-svg {
+/* Vertical timeline line */
+.journey::before {
+  content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
+  top: 40px;
+  bottom: 60px;
+  left: 58px;
+  width: 2px;
+  background: var(--warm-gray);
 }
 
-.road-path {
-  fill: none;
-  stroke: var(--warm-gray);
-  stroke-width: 3;
-  stroke-dasharray: 12 8;
-  stroke-linecap: round;
-}
-
-/* ── Chapters (winding) ── */
+/* ── Chapters ── */
 .chapter {
-  display: grid;
-  grid-template-columns: 1fr 60px 1fr;
-  align-items: start;
-  margin-bottom: 20px;
+  display: flex;
+  gap: 24px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.chapter-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 56px;
+  flex-shrink: 0;
+  padding-top: 24px;
   position: relative;
   z-index: 1;
 }
 
-.chapter-left .chapter-card {
-  grid-column: 1;
-  grid-row: 1;
-}
-.chapter-left .chapter-stop {
-  grid-column: 2;
-  grid-row: 1;
-}
-.chapter-left .chapter-spacer {
-  grid-column: 3;
-  grid-row: 1;
-}
-
-.chapter-right .chapter-card {
-  grid-column: 3;
-  grid-row: 1;
-}
-.chapter-right .chapter-stop {
-  grid-column: 2;
-  grid-row: 1;
-}
-.chapter-right .chapter-spacer {
-  grid-column: 1;
-  grid-row: 1;
-}
-
-/* The stop marker on the road */
-.chapter-stop {
-  display: flex;
-  justify-content: center;
-  padding-top: 28px;
-  position: relative;
-  z-index: 2;
-}
-
-.chapter-stop-inner {
-  width: 20px;
-  height: 20px;
+.chapter-dot {
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  border: 3px solid var(--white);
-  box-shadow: 0 0 0 3px var(--warm-gray), 0 2px 8px rgba(0,0,0,0.1);
   flex-shrink: 0;
 }
 
-/* The content card */
-.chapter-card {
+.chapter-level {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.chapter-content {
+  flex: 1;
   background: var(--off-white);
   border: 1px solid var(--warm-gray);
   padding: 24px;
-  position: relative;
   transition: box-shadow 0.3s;
 }
 
-.chapter-card:hover {
+.chapter-content:hover {
   box-shadow: 0 4px 20px rgba(0,0,0,0.06);
 }
 
@@ -279,7 +250,7 @@ body {
   text-align: center;
   padding: 30px;
   border-top: 1px solid var(--warm-gray);
-  max-width: 960px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -296,7 +267,7 @@ body {
 
 /* ── Switch Bar ── */
 .switch-bar {
-  max-width: 960px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 0 30px 10px;
   display: flex;
@@ -328,45 +299,19 @@ body {
   border-color: var(--accent);
 }
 
-/* ── Finish marker ── */
-.finish-marker {
-  text-align: center;
-  padding: 20px 0 10px;
-  position: relative;
-  z-index: 1;
-}
-
-.finish-flag {
-  font-size: 2rem;
-}
-
 /* ── Responsive ── */
-@media (max-width: 740px) {
+@media (max-width: 640px) {
   .hero h1 { font-size: 2rem; }
   .hero { padding: 40px 20px 35px; }
 
-  .chapter {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
+  .journey { padding: 30px 15px 40px; }
+  .journey::before { left: 28px; }
 
-  .chapter-left .chapter-card,
-  .chapter-right .chapter-card {
-    grid-column: auto;
-    order: 2;
-  }
+  .chapter-marker { width: 28px; padding-top: 20px; }
+  .chapter-level { font-size: 0.55rem; }
+  .chapter-dot { width: 12px; height: 12px; }
 
-  .chapter-stop {
-    order: 1;
-    padding: 0 0 8px 0;
-    justify-content: flex-start;
-    padding-left: 20px;
-  }
-
-  .road-svg { display: none; }
-
-  .chapter-card { padding: 18px; }
+  .chapter-content { padding: 18px; }
   .path-card { padding: 10px 12px; }
 }
 </style>
@@ -389,14 +334,14 @@ body {
   <a class="switch-btn" href="journey_academic.html">Academic English</a>
 </div>
 
-<div class="journey" id="journey">
-  <svg class="road-svg" id="roadSvg"><path class="road-path" id="roadPath"></path></svg>
+<div class="journey">
 
-<div class="chapter chapter-left">
-  <div class="chapter-stop" style="border-color: #2ecc71">
-    <div class="chapter-stop-inner" style="background: #2ecc71"></div>
+<div class="chapter">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #2ecc71; box-shadow: 0 0 0 4px #2ecc7120"></div>
+    <div class="chapter-level" style="color: #2ecc71">A1</div>
   </div>
-  <div class="chapter-card">
+  <div class="chapter-content">
     <div class="chapter-badge" style="background: #2ecc71">A1</div>
     <h3 class="chapter-title">First Steps</h3>
     <p class="chapter-desc">You're starting from scratch or know just a few words. These lessons build your foundation — greetings, daily routines, simple questions, and the grammar that holds it all together.</p>
@@ -436,11 +381,12 @@ body {
   </div>
 </div>
 
-<div class="chapter chapter-right">
-  <div class="chapter-stop" style="border-color: #f39c12">
-    <div class="chapter-stop-inner" style="background: #f39c12"></div>
+<div class="chapter">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #f39c12; box-shadow: 0 0 0 4px #f39c1220"></div>
+    <div class="chapter-level" style="color: #f39c12">A2</div>
   </div>
-  <div class="chapter-card">
+  <div class="chapter-content">
     <div class="chapter-badge" style="background: #f39c12">A2</div>
     <h3 class="chapter-title">Finding Your Voice</h3>
     <p class="chapter-desc">You can handle basic situations. Now it's time to start really speaking — ordering food, talking about your weekend, sharing opinions, and building the fluency that makes you feel like 'you' in English.</p>
@@ -500,11 +446,12 @@ body {
   </div>
 </div>
 
-<div class="chapter chapter-left">
-  <div class="chapter-stop" style="border-color: #667eea">
-    <div class="chapter-stop-inner" style="background: #667eea"></div>
+<div class="chapter">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #667eea; box-shadow: 0 0 0 4px #667eea20"></div>
+    <div class="chapter-level" style="color: #667eea">B1</div>
   </div>
-  <div class="chapter-card">
+  <div class="chapter-content">
     <div class="chapter-badge" style="background: #667eea">B1</div>
     <h3 class="chapter-title">Growing Confidence</h3>
     <p class="chapter-desc">You can survive in English. Now you want to thrive. These lessons help you hold longer conversations, express complex ideas, and start sounding less like a textbook and more like yourself.</p>
@@ -594,11 +541,12 @@ body {
   </div>
 </div>
 
-<div class="chapter chapter-right">
-  <div class="chapter-stop" style="border-color: #48dbfb">
-    <div class="chapter-stop-inner" style="background: #48dbfb"></div>
+<div class="chapter">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #48dbfb; box-shadow: 0 0 0 4px #48dbfb20"></div>
+    <div class="chapter-level" style="color: #48dbfb">B2</div>
   </div>
-  <div class="chapter-card">
+  <div class="chapter-content">
     <div class="chapter-badge" style="background: #48dbfb">B2</div>
     <h3 class="chapter-title">Real Fluency</h3>
     <p class="chapter-desc">You're comfortable in English but want to be impressive. These lessons polish your speaking, deepen your vocabulary, and help you express exactly what you mean — not just something close to it.</p>
@@ -658,11 +606,12 @@ body {
   </div>
 </div>
 
-<div class="chapter chapter-left">
-  <div class="chapter-stop" style="border-color: #a855f7">
-    <div class="chapter-stop-inner" style="background: #a855f7"></div>
+<div class="chapter">
+  <div class="chapter-marker">
+    <div class="chapter-dot" style="background: #a855f7; box-shadow: 0 0 0 4px #a855f720"></div>
+    <div class="chapter-level" style="color: #a855f7">C1–C2</div>
   </div>
-  <div class="chapter-card">
+  <div class="chapter-content">
     <div class="chapter-badge" style="background: #a855f7">C1–C2</div>
     <h3 class="chapter-title">Mastery</h3>
     <p class="chapter-desc">You're fluent. Now become eloquent. These lessons are about sophistication — the subtle choices that make the difference between speaking English and commanding it.</p>
@@ -762,66 +711,11 @@ body {
   </div>
 </div>
 
-  <div class="finish-marker"><div class="finish-flag">🏁</div></div>
 </div>
 
 <div class="back-bar">
   <a class="back-link" href="malcolm_lesson_index.html">&larr; Back to All Lessons</a>
 </div>
-
-<script>
-// Draw the winding road SVG through the chapter stop markers
-function drawRoad() {
-  const journey = document.getElementById('journey');
-  const svg = document.getElementById('roadSvg');
-  const path = document.getElementById('roadPath');
-  const stops = document.querySelectorAll('.chapter-stop-inner');
-  const finish = document.querySelector('.finish-flag');
-
-  if (stops.length < 2) return;
-
-  const jRect = journey.getBoundingClientRect();
-  svg.setAttribute('width', jRect.width);
-  svg.setAttribute('height', jRect.height);
-  svg.style.width = jRect.width + 'px';
-  svg.style.height = jRect.height + 'px';
-
-  // Collect stop center points relative to journey container
-  const points = [];
-  stops.forEach(s => {
-    const r = s.getBoundingClientRect();
-    points.push({
-      x: r.left + r.width/2 - jRect.left,
-      y: r.top + r.height/2 - jRect.top
-    });
-  });
-
-  // Add finish point
-  if (finish) {
-    const fr = finish.getBoundingClientRect();
-    points.push({
-      x: fr.left + fr.width/2 - jRect.left,
-      y: fr.top + fr.height/2 - jRect.top
-    });
-  }
-
-  // Build smooth cubic bezier path through points
-  let d = `M ${points[0].x} ${points[0].y}`;
-  for (let i = 1; i < points.length; i++) {
-    const prev = points[i-1];
-    const curr = points[i];
-    const midY = (prev.y + curr.y) / 2;
-    // Control points create the S-curve
-    d += ` C ${prev.x} ${midY}, ${curr.x} ${midY}, ${curr.x} ${curr.y}`;
-  }
-
-  path.setAttribute('d', d);
-}
-
-// Draw on load and resize
-window.addEventListener('load', () => { setTimeout(drawRoad, 100); });
-window.addEventListener('resize', drawRoad);
-</script>
 
 </body>
 </html>
