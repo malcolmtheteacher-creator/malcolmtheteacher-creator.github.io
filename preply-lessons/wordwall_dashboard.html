@@ -19,11 +19,11 @@ body {
 
 /* Header */
 .header {
-  background: linear-gradient(135deg, #6c5ce7 0%, #a855f7 50%, #ec4899 100%);
+  background: linear-gradient(135deg, #0ea5e9 0%, #2dd4bf 50%, #06b6d4 100%);
   border-radius: 20px;
   padding: 50px 40px;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(108, 92, 231, 0.3);
+  box-shadow: 0 20px 60px rgba(14, 165, 233, 0.3);
   margin-bottom: 30px;
   position: relative;
   overflow: hidden;
@@ -109,8 +109,8 @@ body {
   cursor: pointer; transition: all 0.2s;
 }
 
-.filter-btn:hover { border-color: #a855f7; color: #a855f7; }
-.filter-btn.active { background: #a855f7; color: #fff; border-color: #a855f7; }
+.filter-btn:hover { border-color: #0ea5e9; color: #0ea5e9; }
+.filter-btn.active { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
 
 .level-filter-btn {
   padding: 8px 18px; border-radius: 20px;
@@ -130,7 +130,7 @@ body {
   transition: border-color 0.3s;
 }
 
-.search-box:focus { border-color: #a855f7; }
+.search-box:focus { border-color: #0ea5e9; }
 .search-box::placeholder { color: #94a3b8; }
 
 /* Level Sections */
@@ -177,7 +177,7 @@ body {
 .game-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-  border-color: #a855f7;
+  border-color: #0ea5e9;
   background: #fff;
 }
 
@@ -202,7 +202,7 @@ body {
   transition: color 0.3s;
 }
 
-.back-link:hover { color: #a855f7; }
+.back-link:hover { color: #0ea5e9; }
 
 @media (max-width: 600px) {
   .header h1 { font-size: 2.2em; }
@@ -233,13 +233,19 @@ body {
       <div class="header-stat-label">Game Types</div>
     </div>
   </div>
-  <a class="vocab-map-link" href="wordwall_vocab_map.html">🗺️ View Vocabulary Map</a>
+
 </div>
+
+<a href="wordwall_vocab_map.html" style="display:block;background:#fff;border-radius:16px;padding:20px 30px;margin-bottom:20px;border:2px solid #2dd4bf;box-shadow:0 4px 15px rgba(45,212,191,0.15);text-decoration:none;transition:all 0.3s;text-align:center;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 25px rgba(45,212,191,0.25)'" onmouseout="this.style.transform='none';this.style.boxShadow='0 4px 15px rgba(45,212,191,0.15)'">
+  <span style="font-size:1.5em;margin-right:10px;">🗺️</span>
+  <span style="font-size:1.15em;font-weight:800;color:#0ea5e9;">Vocabulary Map</span>
+  <span style="font-size:0.9em;color:#64748b;margin-left:8px;">— Browse all 2,092 words across every level</span>
+</a>
 
 <div class="filter-bar">
   <div class="filter-row">
     <span class="filter-label">Level</span>
-    <button class="level-filter-btn active" style="--c:#a855f7" onclick="filterLevel('all')" data-level="all">All</button>
+    <button class="level-filter-btn active" style="--c:#0ea5e9" onclick="filterLevel('all')" data-level="all">All</button>
     <button class="level-filter-btn" style="--c:#2ecc71;border-color:#2ecc71;color:#2ecc71" data-level="A1" onclick="filterLevel('A1')">A1</button>
     <button class="level-filter-btn" style="--c:#f093fb;border-color:#f093fb;color:#f093fb" data-level="A2" onclick="filterLevel('A2')">A2</button>
     <button class="level-filter-btn" style="--c:#667eea;border-color:#667eea;color:#667eea" data-level="B1" onclick="filterLevel('B1')">B1</button>
