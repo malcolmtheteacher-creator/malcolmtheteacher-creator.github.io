@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anagram — Animals</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  color: #fff; min-height: 100vh; padding: 20px;
+}
+
+.game-header { text-align: center; padding: 25px; margin-bottom: 20px; }
+.game-header h1 {
+  font-size: 2.5em; font-weight: 900;
+  background: linear-gradient(90deg, #ff6b6b, #ee5a24);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px;
+}
+.game-header .topic { font-size: 1.3em; color: rgba(255,255,255,0.7); margin-bottom: 10px; }
+.game-header .level-badge {
+  display: inline-block; padding: 4px 16px; border-radius: 20px;
+  font-size: 0.8em; font-weight: 800; background: #2ecc71; color: #1a1a2e; letter-spacing: 1px;
+}
+
+/* Progress & Score */
+.status-bar {
+  display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap;
+}
+.status-item { text-align: center; }
+.status-value { font-size: 1.8em; font-weight: 800; font-family: 'Courier New', monospace; }
+.status-value.score { color: #2ecc71; }
+.status-value.current { color: #feca57; }
+.status-label { font-size: 0.75em; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+
+.progress-container { max-width: 600px; margin: 0 auto 25px; padding: 0 20px; }
+.progress-bar-bg { height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, #ff6b6b, #ee5a24); border-radius: 4px; transition: width 0.4s ease; width: 0%; }
+
+/* Anagram Area */
+.anagram-area { max-width: 600px; margin: 0 auto; text-align: center; }
+
+.hint-text {
+  font-size: 1em; color: rgba(255,255,255,0.5); margin-bottom: 20px;
+  font-style: italic; min-height: 1.4em;
+}
+
+/* Letter tiles */
+.scrambled-letters {
+  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 30px;
+  min-height: 70px;
+}
+
+.letter-tile {
+  width: 52px; height: 58px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.5em; font-weight: 800; border-radius: 12px; cursor: pointer;
+  transition: all 0.2s ease; text-transform: uppercase;
+  background: linear-gradient(135deg, rgba(255,107,107,0.25), rgba(238,90,36,0.25));
+  border: 2px solid rgba(255,107,107,0.4);
+}
+
+.letter-tile:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255,107,107,0.3); }
+.letter-tile.used { opacity: 0.2; cursor: default; transform: none; }
+
+/* Answer slots */
+.answer-area {
+  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 25px;
+  min-height: 70px;
+}
+
+.answer-slot {
+  width: 52px; height: 58px; display: flex; align-items: center; justify-content: center;
+  font-size: 1.5em; font-weight: 800; border-radius: 12px; text-transform: uppercase;
+  border: 2px dashed rgba(255,255,255,0.2); background: rgba(255,255,255,0.04);
+  cursor: pointer; transition: all 0.2s ease;
+}
+
+.answer-slot.filled {
+  background: linear-gradient(135deg, rgba(78,205,196,0.25), rgba(68,160,141,0.25));
+  border: 2px solid rgba(78,205,196,0.5); cursor: pointer;
+}
+
+.answer-slot.filled:hover { transform: translateY(-2px); }
+
+.answer-slot.correct {
+  background: rgba(46,204,113,0.25); border-color: #2ecc71;
+  box-shadow: 0 0 15px rgba(46,204,113,0.3);
+}
+
+.answer-slot.wrong {
+  background: rgba(255,107,107,0.2); border-color: #ff6b6b;
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-6px); } 40%,80% { transform: translateX(6px); }
+}
+
+/* Controls */
+.controls {
+  display: flex; justify-content: center; gap: 12px; margin-top: 20px;
+}
+
+.ctrl-btn {
+  padding: 10px 25px; border-radius: 25px; border: 2px solid rgba(255,255,255,0.2);
+  background: transparent; color: #fff; font-weight: 700; font-size: 0.9em;
+  cursor: pointer; transition: all 0.3s ease;
+}
+
+.ctrl-btn:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+.ctrl-btn.submit {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24); border-color: transparent; color: #fff;
+}
+.ctrl-btn.submit:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(255,107,107,0.4); }
+
+.feedback {
+  margin-top: 15px; padding: 12px; border-radius: 12px; font-weight: 600;
+  display: none; animation: fadeIn 0.3s ease;
+}
+.feedback.show { display: block; }
+.feedback.correct-fb { background: rgba(46,204,113,0.15); color: #2ecc71; }
+.feedback.wrong-fb { background: rgba(255,107,107,0.15); color: #ff6b6b; }
+
+/* Completion */
+.completion { display: none; text-align: center; padding: 60px 30px; max-width: 500px; margin: 0 auto; }
+.completion.show { display: block; animation: fadeIn 0.5s ease; }
+.completion h2 { font-size: 2.5em; margin-bottom: 10px; }
+.completion .result-emoji { font-size: 4em; margin-bottom: 20px; }
+.result-stats { display: flex; justify-content: center; gap: 25px; margin: 25px 0; flex-wrap: wrap; }
+.result-stat-value { font-size: 2em; font-weight: 800; color: #feca57; }
+.result-stat-label { font-size: 0.8em; color: rgba(255,255,255,0.5); }
+.stars { font-size: 2em; margin: 15px 0; letter-spacing: 5px; }
+.play-again-btn {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: #fff; border: none;
+  padding: 15px 40px; border-radius: 25px; font-size: 1.1em; font-weight: 800;
+  cursor: pointer; transition: all 0.3s ease; margin-top: 20px;
+}
+.play-again-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(255,107,107,0.4); }
+.back-link { display: inline-block; margin-top: 15px; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9em; }
+.back-link:hover { color: #fff; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 500px) {
+  .letter-tile, .answer-slot { width: 42px; height: 48px; font-size: 1.2em; }
+  .game-header h1 { font-size: 1.8em; }
+}
+</style>
+</head>
+<body>
+
+<div class="game-header">
+  <h1>🔤 Anagram</h1>
+  <div class="topic">Animals</div>
+  <span class="level-badge">A1</span>
+</div>
+
+<div class="status-bar">
+  <div class="status-item">
+    <div class="status-value score" id="score">0</div>
+    <div class="score-label">Correct</div>
+  </div>
+  <div class="status-item">
+    <div class="status-value current" id="wordNum">1 / 10</div>
+    <div class="status-label">Word</div>
+  </div>
+</div>
+
+<div class="progress-container">
+  <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+</div>
+
+<div class="anagram-area" id="anagramArea">
+  <div class="hint-text" id="hint"></div>
+  <div class="answer-area" id="answerArea"></div>
+  <div class="scrambled-letters" id="scrambledLetters"></div>
+  <div class="controls">
+    <button class="ctrl-btn" onclick="clearAnswer()">Clear</button>
+    <button class="ctrl-btn submit" onclick="checkAnswer()">Check</button>
+    <button class="ctrl-btn" onclick="skipWord()">Skip →</button>
+  </div>
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<div class="completion" id="completion">
+  <div class="result-emoji" id="resultEmoji">🎉</div>
+  <h2 id="resultTitle">All Done!</h2>
+  <div class="stars" id="stars">⭐⭐⭐</div>
+  <div class="result-stats">
+    <div class="status-item">
+      <div class="result-stat-value" id="finalScore">0/0</div>
+      <div class="result-stat-label">Score</div>
+    </div>
+    <div class="status-item">
+      <div class="result-stat-value" id="finalPercent">0%</div>
+      <div class="result-stat-label">Accuracy</div>
+    </div>
+  </div>
+  <button class="play-again-btn" onclick="startGame()">Play Again</button>
+  <br>
+  <a class="back-link" href="wordwall_dashboard.html">← Back to Word Wall</a>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// WORD DATA — Edit this to create new Anagram games
+// ═══════════════════════════════════════════════════════════
+const WORD_DATA = [
+  { word: "cat", hint: "A small pet that says meow" },
+  { word: "dog", hint: "A pet that barks and wags its tail" },
+  { word: "fish", hint: "It lives in water and can swim" },
+  { word: "bird", hint: "It has wings and can fly" },
+  { word: "horse", hint: "A large animal you can ride" },
+  { word: "mouse", hint: "A very small animal with a long tail" },
+  { word: "snake", hint: "A long animal with no legs" },
+  { word: "tiger", hint: "A big orange cat with black stripes" },
+  { word: "rabbit", hint: "It has long ears and hops" },
+  { word: "monkey", hint: "It lives in trees and loves bananas" },
+  { word: "elephant", hint: "The biggest land animal with a long nose" },
+  { word: "chicken", hint: "A farm bird that gives us eggs" },
+  { word: "sheep", hint: "A farm animal with thick wool" },
+  { word: "frog", hint: "A small green animal that jumps and lives near water" },
+];
+
+const WORDS_PER_ROUND = 10;
+
+// ═══════════════════════════════════════════════════════════
+// GAME ENGINE
+// ═══════════════════════════════════════════════════════════
+let words = [];
+let currentIdx = 0;
+let correctCount = 0;
+let answerLetters = [];
+let scrambledOrder = [];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  currentIdx = 0; correctCount = 0;
+  words = shuffle(WORD_DATA).slice(0, WORDS_PER_ROUND);
+  document.getElementById('completion').classList.remove('show');
+  document.getElementById('anagramArea').style.display = 'block';
+  document.getElementById('score').textContent = '0';
+  showWord();
+}
+
+function showWord() {
+  const w = words[currentIdx];
+  answerLetters = [];
+  document.getElementById('hint').textContent = w.hint;
+  document.getElementById('wordNum').textContent = `${currentIdx + 1} / ${WORDS_PER_ROUND}`;
+  document.getElementById('progressFill').style.width = (currentIdx / WORDS_PER_ROUND * 100) + '%';
+  document.getElementById('feedback').classList.remove('show');
+
+  // Scramble letters
+  const letters = w.word.split('');
+  scrambledOrder = shuffle(letters.map((l, i) => ({ letter: l, origIndex: i })));
+
+  // Ensure scrambled is different from original
+  let attempts = 0;
+  while (scrambledOrder.map(s => s.letter).join('') === w.word && attempts < 20) {
+    scrambledOrder = shuffle(scrambledOrder);
+    attempts++;
+  }
+
+  renderTiles();
+  renderSlots();
+}
+
+function renderTiles() {
+  const container = document.getElementById('scrambledLetters');
+  container.innerHTML = '';
+  scrambledOrder.forEach((s, i) => {
+    const tile = document.createElement('div');
+    tile.className = 'letter-tile' + (answerLetters.includes(i) ? ' used' : '');
+    tile.textContent = s.letter;
+    tile.onclick = () => addLetter(i);
+    container.appendChild(tile);
+  });
+}
+
+function renderSlots() {
+  const w = words[currentIdx];
+  const container = document.getElementById('answerArea');
+  container.innerHTML = '';
+  for (let i = 0; i < w.word.length; i++) {
+    const slot = document.createElement('div');
+    slot.className = 'answer-slot';
+    if (i < answerLetters.length) {
+      slot.textContent = scrambledOrder[answerLetters[i]].letter;
+      slot.classList.add('filled');
+      slot.onclick = () => removeLetter(i);
+    }
+    container.appendChild(slot);
+  }
+}
+
+function addLetter(tileIndex) {
+  if (answerLetters.includes(tileIndex)) return;
+  if (answerLetters.length >= words[currentIdx].word.length) return;
+  answerLetters.push(tileIndex);
+  renderTiles();
+  renderSlots();
+}
+
+function removeLetter(slotIndex) {
+  answerLetters.splice(slotIndex, 1);
+  renderTiles();
+  renderSlots();
+}
+
+function clearAnswer() {
+  answerLetters = [];
+  renderTiles();
+  renderSlots();
+  document.getElementById('feedback').classList.remove('show');
+}
+
+function checkAnswer() {
+  const w = words[currentIdx];
+  const guess = answerLetters.map(i => scrambledOrder[i].letter).join('');
+
+  if (guess.length < w.word.length) return; // not complete
+
+  const fb = document.getElementById('feedback');
+  const slots = document.querySelectorAll('.answer-slot');
+
+  if (guess === w.word) {
+    slots.forEach(s => s.classList.add('correct'));
+    correctCount++;
+    document.getElementById('score').textContent = correctCount;
+    fb.textContent = '✓ Correct!';
+    fb.className = 'feedback correct-fb show';
+    setTimeout(() => { currentIdx++; advance(); }, 1000);
+  } else {
+    slots.forEach(s => s.classList.add('wrong'));
+    fb.textContent = `✗ Try again! The word has ${w.word.length} letters.`;
+    fb.className = 'feedback wrong-fb show';
+    setTimeout(() => {
+      slots.forEach(s => s.classList.remove('wrong'));
+    }, 600);
+  }
+}
+
+function skipWord() {
+  currentIdx++;
+  advance();
+}
+
+function advance() {
+  if (currentIdx >= WORDS_PER_ROUND) {
+    endGame();
+  } else {
+    showWord();
+  }
+}
+
+function endGame() {
+  document.getElementById('anagramArea').style.display = 'none';
+  document.getElementById('progressFill').style.width = '100%';
+
+  const percent = Math.round((correctCount / WORDS_PER_ROUND) * 100);
+  let stars, emoji, title;
+  if (percent >= 90) { stars = '⭐⭐⭐'; emoji = '🏆'; title = 'Spelling Champion!'; }
+  else if (percent >= 70) { stars = '⭐⭐'; emoji = '🎉'; title = 'Great Spelling!'; }
+  else if (percent >= 50) { stars = '⭐'; emoji = '👍'; title = 'Good Effort!'; }
+  else { stars = ''; emoji = '💪'; title = 'Keep Practising!'; }
+
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('stars').textContent = stars;
+  document.getElementById('finalScore').textContent = `${correctCount}/${WORDS_PER_ROUND}`;
+  document.getElementById('finalPercent').textContent = percent + '%';
+  document.getElementById('completion').classList.add('show');
+}
+
+startGame();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Wall — Vocabulary Pathway</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  color: #fff;
+  min-height: 100vh;
+  padding: 30px 20px;
+}
+
+.dashboard-header {
+  text-align: center;
+  padding: 50px 30px;
+  margin-bottom: 40px;
+}
+
+.dashboard-header h1 {
+  font-size: 3.5em;
+  font-weight: 900;
+  background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #ff6b6b);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow 4s linear infinite;
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+}
+
+@keyframes rainbow {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+.dashboard-header .subtitle {
+  font-size: 1.2em;
+  color: rgba(255,255,255,0.6);
+  font-weight: 300;
+  margin-bottom: 25px;
+}
+
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2em;
+  font-weight: 800;
+  color: #feca57;
+}
+
+.stat-label {
+  font-size: 0.8em;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Filter Controls */
+.filter-section {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.filter-label {
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.4);
+  width: 100%;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.filter-btn {
+  padding: 8px 20px;
+  border-radius: 30px;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: transparent;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+  border-color: #fff;
+  background: rgba(255,255,255,0.1);
+}
+
+.filter-btn.active {
+  background: #fff;
+  color: #1a1a2e;
+  border-color: #fff;
+}
+
+.filter-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 35px;
+  padding: 0 20px;
+}
+
+/* Level Colors */
+.level-a1 { --level-color: #2ecc71; --level-dark: #27ae60; }
+.level-a2 { --level-color: #ff9ff3; --level-dark: #f368e0; }
+.level-b1 { --level-color: #feca57; --level-dark: #ff9f43; }
+.level-b2 { --level-color: #48dbfb; --level-dark: #0abde3; }
+.level-c1 { --level-color: #54a0ff; --level-dark: #2e86de; }
+.level-c2 { --level-color: #ff6b6b; --level-dark: #ee5a24; }
+
+/* Game Type Colors */
+.type-match { --type-color: #4ecdc4; }
+.type-memory { --type-color: #f093fb; }
+.type-quiz { --type-color: #feca57; }
+.type-anagram { --type-color: #ff6b6b; }
+.type-categorize { --type-color: #54a0ff; }
+
+/* Game Cards Grid */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.game-card {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.1);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  display: block;
+}
+
+.game-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--level-color), var(--type-color, var(--level-dark)));
+}
+
+.game-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.14);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.game-icon {
+  font-size: 2em;
+}
+
+.card-badges {
+  display: flex;
+  gap: 8px;
+}
+
+.level-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--level-color);
+  color: #1a1a2e;
+}
+
+.type-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.8);
+}
+
+.game-title {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.game-desc {
+  font-size: 0.9em;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.game-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.game-tag {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.7em;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+}
+
+/* Section Headers */
+.level-section {
+  max-width: 1400px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
+}
+
+.level-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+}
+
+.level-header h2 {
+  font-size: 1.8em;
+  font-weight: 800;
+}
+
+.level-header .level-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--level-color);
+}
+
+.level-header .level-count {
+  font-size: 0.85em;
+  color: rgba(255,255,255,0.4);
+  margin-left: auto;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: rgba(255,255,255,0.4);
+}
+
+.empty-state .emoji {
+  font-size: 3em;
+  margin-bottom: 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-header h1 { font-size: 2.2em; }
+  .games-grid { grid-template-columns: 1fr; }
+  .stats-bar { gap: 15px; }
+  .stat-number { font-size: 1.5em; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.game-card { animation: fadeIn 0.3s ease forwards; }
+</style>
+</head>
+<body>
+
+<div class="dashboard-header">
+  <h1>Word Wall</h1>
+  <div class="subtitle">Vocabulary Pathway — Interactive Games for Every Level</div>
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-number" id="totalGames">0</div>
+      <div class="stat-label">Games</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" id="totalLevels">6</div>
+      <div class="stat-label">Levels</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" id="totalTypes">5</div>
+      <div class="stat-label">Game Types</div>
+    </div>
+  </div>
+</div>
+
+<div class="filter-controls">
+  <div class="filter-section">
+    <div class="filter-label">Level</div>
+    <button class="filter-btn active" onclick="filterLevel('all')">All</button>
+    <button class="filter-btn" onclick="filterLevel('a1')">A1</button>
+    <button class="filter-btn" onclick="filterLevel('a2')">A2</button>
+    <button class="filter-btn" onclick="filterLevel('b1')">B1</button>
+    <button class="filter-btn" onclick="filterLevel('b2')">B2</button>
+    <button class="filter-btn" onclick="filterLevel('c1')">C1</button>
+    <button class="filter-btn" onclick="filterLevel('c2')">C2</button>
+  </div>
+  <div class="filter-section">
+    <div class="filter-label">Game Type</div>
+    <button class="filter-btn active" onclick="filterType('all')">All</button>
+    <button class="filter-btn" onclick="filterType('match')">🔗 Match Up</button>
+    <button class="filter-btn" onclick="filterType('memory')">🧠 Memory</button>
+    <button class="filter-btn" onclick="filterType('quiz')">❓ Quiz</button>
+    <button class="filter-btn" onclick="filterType('anagram')">🔤 Anagram</button>
+    <button class="filter-btn" onclick="filterType('categorize')">📦 Categorize</button>
+  </div>
+</div>
+
+<div class="games-grid" id="gamesGrid"></div>
+<div class="empty-state" id="emptyState" style="display:none;">
+  <div class="emoji">🔍</div>
+  <p>No games match your filters. Try a different combination.</p>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// GAME REGISTRY — Add new games here
+// ═══════════════════════════════════════════════════════════
+const games = [
+  // ── A1 ──
+  { title: "Food & Drink", level: "a1", type: "match", icon: "🍕", file: "ww_match_a1_food.html", desc: "Match everyday food and drink words to their pictures", tags: ["Nouns", "Daily Life"] },
+  { title: "Family Members", level: "a1", type: "memory", icon: "👨‍👩‍👧‍👦", file: "ww_memory_a1_family.html", desc: "Flip cards to match family words with their meanings", tags: ["Nouns", "People"] },
+  { title: "Daily Routines", level: "a1", type: "quiz", icon: "⏰", file: "ww_quiz_a1_routines.html", desc: "Choose the right word for everyday actions and habits", tags: ["Verbs", "Daily Life"] },
+  { title: "Animals", level: "a1", type: "anagram", icon: "🐾", file: "ww_anagram_a1_animals.html", desc: "Unscramble the letters to find animal names", tags: ["Nouns", "Nature"] },
+  { title: "Clothes & Colors", level: "a1", type: "categorize", icon: "👕", file: "ww_categorize_a1_clothes.html", desc: "Sort items into the right clothing and colour groups", tags: ["Nouns", "Adjectives"] },
+  { title: "Numbers & Money", level: "a1", type: "match", icon: "💰", file: "ww_match_a1_numbers.html", desc: "Match number words to digits and prices", tags: ["Numbers", "Shopping"] },
+  { title: "House & Home", level: "a1", type: "memory", icon: "🏠", file: "ww_memory_a1_house.html", desc: "Match rooms and household objects", tags: ["Nouns", "Daily Life"] },
+  { title: "Weather", level: "a1", type: "quiz", icon: "🌤️", file: "ww_quiz_a1_weather.html", desc: "Choose the right weather word for each situation", tags: ["Nouns", "Adjectives"] },
+  { title: "Body Parts", level: "a1", type: "anagram", icon: "🦴", file: "ww_anagram_a1_body.html", desc: "Unscramble letters to spell parts of the body", tags: ["Nouns", "Health"] },
+  { title: "Jobs", level: "a1", type: "categorize", icon: "👷", file: "ww_categorize_a1_jobs.html", desc: "Sort jobs into the right workplace categories", tags: ["Nouns", "Work"] },
+
+  // ── A2 ──
+  { title: "Travel & Transport", level: "a2", type: "match", icon: "✈️", file: "ww_match_a2_travel.html", desc: "Match travel vocabulary to definitions", tags: ["Nouns", "Verbs"] },
+  { title: "Health & Body", level: "a2", type: "memory", icon: "🏥", file: "ww_memory_a2_health.html", desc: "Match health problems with remedies and treatments", tags: ["Nouns", "Health"] },
+  { title: "Shopping & Services", level: "a2", type: "quiz", icon: "🛒", file: "ww_quiz_a2_shopping.html", desc: "Pick the best word for shopping situations", tags: ["Nouns", "Verbs"] },
+  { title: "Feelings & Emotions", level: "a2", type: "anagram", icon: "😊", file: "ww_anagram_a2_feelings.html", desc: "Unscramble adjectives that describe emotions", tags: ["Adjectives", "People"] },
+  { title: "Town & Directions", level: "a2", type: "categorize", icon: "🏙️", file: "ww_categorize_a2_town.html", desc: "Sort places and directions into categories", tags: ["Nouns", "Prepositions"] },
+  { title: "Sports & Hobbies", level: "a2", type: "match", icon: "⚽", file: "ww_match_a2_sports.html", desc: "Match sports and hobbies with their equipment", tags: ["Nouns", "Verbs"] },
+  { title: "Technology Basics", level: "a2", type: "memory", icon: "📱", file: "ww_memory_a2_tech.html", desc: "Match tech words with what they do", tags: ["Nouns", "Verbs"] },
+  { title: "Education", level: "a2", type: "quiz", icon: "📚", file: "ww_quiz_a2_education.html", desc: "Choose the right school and study vocabulary", tags: ["Nouns", "Academic"] },
+  { title: "Nature & Environment", level: "a2", type: "anagram", icon: "🌿", file: "ww_anagram_a2_nature.html", desc: "Unscramble nature and environment words", tags: ["Nouns", "Adjectives"] },
+  { title: "Celebrations", level: "a2", type: "categorize", icon: "🎉", file: "ww_categorize_a2_celebrations.html", desc: "Sort celebration vocabulary into event types", tags: ["Nouns", "Culture"] },
+
+  // ── B1 ──
+  { title: "Work & Career", level: "b1", type: "match", icon: "💼", file: "ww_match_b1_work.html", desc: "Match professional vocabulary to workplace situations", tags: ["Nouns", "Verbs", "Business"] },
+  { title: "Media & News", level: "b1", type: "memory", icon: "📰", file: "ww_memory_b1_media.html", desc: "Match media terminology with definitions", tags: ["Nouns", "Communication"] },
+  { title: "Environment", level: "b1", type: "quiz", icon: "🌍", file: "ww_quiz_b1_environment.html", desc: "Test your knowledge of environmental vocabulary", tags: ["Nouns", "Issues"] },
+  { title: "Relationships", level: "b1", type: "anagram", icon: "🤝", file: "ww_anagram_b1_relationships.html", desc: "Unscramble words about personal relationships", tags: ["Nouns", "Verbs"] },
+  { title: "Crime & Law", level: "b1", type: "categorize", icon: "⚖️", file: "ww_categorize_b1_crime.html", desc: "Sort legal and crime words into categories", tags: ["Nouns", "Society"] },
+  { title: "Money & Finance", level: "b1", type: "match", icon: "🏦", file: "ww_match_b1_finance.html", desc: "Match financial terms to their meanings", tags: ["Nouns", "Business"] },
+  { title: "Science Basics", level: "b1", type: "memory", icon: "🔬", file: "ww_memory_b1_science.html", desc: "Match science words with their definitions", tags: ["Nouns", "Academic"] },
+  { title: "Art & Culture", level: "b1", type: "quiz", icon: "🎨", file: "ww_quiz_b1_culture.html", desc: "Test your vocabulary for art and cultural topics", tags: ["Nouns", "Culture"] },
+  { title: "Food & Cooking", level: "b1", type: "anagram", icon: "👨‍🍳", file: "ww_anagram_b1_cooking.html", desc: "Unscramble cooking methods and ingredients", tags: ["Verbs", "Nouns"] },
+  { title: "Transport Systems", level: "b1", type: "categorize", icon: "🚆", file: "ww_categorize_b1_transport.html", desc: "Sort transport vocabulary into travel categories", tags: ["Nouns", "Verbs"] },
+
+  // ── B2 ──
+  { title: "Business & Commerce", level: "b2", type: "match", icon: "📊", file: "ww_match_b2_business.html", desc: "Match advanced business terms to definitions", tags: ["Nouns", "Business"] },
+  { title: "Politics & Government", level: "b2", type: "memory", icon: "🏛️", file: "ww_memory_b2_politics.html", desc: "Match political terms with their meanings", tags: ["Nouns", "Society"] },
+  { title: "Health & Medicine", level: "b2", type: "quiz", icon: "💊", file: "ww_quiz_b2_health.html", desc: "Advanced medical and health vocabulary quiz", tags: ["Nouns", "Science"] },
+  { title: "Technology", level: "b2", type: "anagram", icon: "💻", file: "ww_anagram_b2_technology.html", desc: "Unscramble cutting-edge tech terminology", tags: ["Nouns", "Verbs"] },
+  { title: "Social Issues", level: "b2", type: "categorize", icon: "🗣️", file: "ww_categorize_b2_social.html", desc: "Sort social issue vocabulary into themes", tags: ["Nouns", "Issues"] },
+  { title: "Phrasal Verbs", level: "b2", type: "match", icon: "🔄", file: "ww_match_b2_phrasal.html", desc: "Match phrasal verbs with their meanings", tags: ["Verbs", "Grammar"] },
+  { title: "Psychology", level: "b2", type: "memory", icon: "🧠", file: "ww_memory_b2_psychology.html", desc: "Match psychological terms with definitions", tags: ["Nouns", "Science"] },
+  { title: "Law & Justice", level: "b2", type: "quiz", icon: "⚖️", file: "ww_quiz_b2_law.html", desc: "Legal vocabulary for advanced learners", tags: ["Nouns", "Society"] },
+  { title: "Education Systems", level: "b2", type: "anagram", icon: "🎓", file: "ww_anagram_b2_education.html", desc: "Unscramble academic and education terms", tags: ["Nouns", "Academic"] },
+  { title: "Media & Communication", level: "b2", type: "categorize", icon: "📡", file: "ww_categorize_b2_media.html", desc: "Sort media vocabulary into communication categories", tags: ["Nouns", "Communication"] },
+
+  // ── C1 ──
+  { title: "Abstract Concepts", level: "c1", type: "match", icon: "💭", file: "ww_match_c1_abstract.html", desc: "Match abstract nouns to nuanced definitions", tags: ["Nouns", "Academic"] },
+  { title: "Academic Language", level: "c1", type: "memory", icon: "🎓", file: "ww_memory_c1_academic.html", desc: "Match academic collocations and formal register", tags: ["Collocations", "Academic"] },
+  { title: "Idioms", level: "c1", type: "quiz", icon: "🗝️", file: "ww_quiz_c1_idioms.html", desc: "Test your knowledge of English idioms", tags: ["Idioms", "Culture"] },
+  { title: "Economics", level: "c1", type: "anagram", icon: "📈", file: "ww_anagram_c1_economics.html", desc: "Unscramble advanced economic terms", tags: ["Nouns", "Business"] },
+  { title: "Formal vs Informal", level: "c1", type: "categorize", icon: "🎭", file: "ww_categorize_c1_register.html", desc: "Sort vocabulary by register — formal or informal", tags: ["Register", "Style"] },
+  { title: "Collocations", level: "c1", type: "match", icon: "🔗", file: "ww_match_c1_collocations.html", desc: "Match strong collocations used in academic writing", tags: ["Collocations", "Academic"] },
+  { title: "The Arts", level: "c1", type: "memory", icon: "🎭", file: "ww_memory_c1_arts.html", desc: "Match sophisticated arts and literature vocabulary", tags: ["Nouns", "Culture"] },
+  { title: "Current Affairs", level: "c1", type: "quiz", icon: "🌐", file: "ww_quiz_c1_affairs.html", desc: "Advanced vocabulary for discussing world events", tags: ["Nouns", "Society"] },
+  { title: "Philosophy", level: "c1", type: "anagram", icon: "🏛️", file: "ww_anagram_c1_philosophy.html", desc: "Unscramble philosophical and ethical terms", tags: ["Nouns", "Academic"] },
+  { title: "Science Advanced", level: "c1", type: "categorize", icon: "⚗️", file: "ww_categorize_c1_science.html", desc: "Sort advanced science terms into fields", tags: ["Nouns", "Science"] },
+];
+
+// ═══════════════════════════════════════════════════════════
+// RENDERING & FILTERING
+// ═══════════════════════════════════════════════════════════
+let activeLevel = 'all';
+let activeType = 'all';
+
+const typeLabels = {
+  match: '🔗 Match Up',
+  memory: '🧠 Memory',
+  quiz: '❓ Quiz',
+  anagram: '🔤 Anagram',
+  categorize: '📦 Categorize'
+};
+
+const levelLabels = {
+  a1: 'A1 — Beginner',
+  a2: 'A2 — Elementary',
+  b1: 'B1 — Intermediate',
+  b2: 'B2 — Upper Intermediate',
+  c1: 'C1 — Advanced',
+  c2: 'C2 — Proficiency'
+};
+
+function filterLevel(level) {
+  activeLevel = level;
+  document.querySelectorAll('.filter-section')[0].querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === level || (level === 'all' && btn.textContent.trim() === 'All'));
+  });
+  renderGames();
+}
+
+function filterType(type) {
+  activeType = type;
+  document.querySelectorAll('.filter-section')[1].querySelectorAll('.filter-btn').forEach(btn => {
+    const btnType = btn.getAttribute('onclick')?.match(/'(\w+)'/)?.[1];
+    btn.classList.toggle('active', btnType === type);
+  });
+  renderGames();
+}
+
+function renderGames() {
+  const filtered = games.filter(g => {
+    const levelMatch = activeLevel === 'all' || g.level === activeLevel;
+    const typeMatch = activeType === 'all' || g.type === activeType;
+    return levelMatch && typeMatch;
+  });
+
+  const grid = document.getElementById('gamesGrid');
+  const empty = document.getElementById('emptyState');
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  // Group by level
+  const grouped = {};
+  filtered.forEach(g => {
+    if (!grouped[g.level]) grouped[g.level] = [];
+    grouped[g.level].push(g);
+  });
+
+  let html = '';
+  const levelOrder = ['a1', 'a2', 'b1', 'b2', 'c1', 'c2'];
+
+  levelOrder.forEach(level => {
+    if (!grouped[level]) return;
+    html += `<div class="level-section-inline level-${level}">`;
+    html += `<div class="level-header-inline"><span class="level-dot-inline" style="background:var(--level-color)"></span> ${levelLabels[level]} <span class="level-count-inline">${grouped[level].length} games</span></div>`;
+    grouped[level].forEach((g, i) => {
+      html += `
+        <a class="game-card level-${g.level} type-${g.type}" href="${g.file}" style="animation-delay:${i * 0.05}s">
+          <div class="card-top">
+            <div class="game-icon">${g.icon}</div>
+            <div class="card-badges">
+              <span class="type-badge">${typeLabels[g.type]}</span>
+              <span class="level-badge">${g.level.toUpperCase()}</span>
+            </div>
+          </div>
+          <div class="game-title">${g.title}</div>
+          <div class="game-desc">${g.desc}</div>
+          <div class="game-tags">${g.tags.map(t => `<span class="game-tag">${t}</span>`).join('')}</div>
+        </a>`;
+    });
+    html += '</div>';
+  });
+
+  grid.innerHTML = html;
+  document.getElementById('totalGames').textContent = games.length;
+}
+
+// Initial render
+renderGames();
+</script>
+
+<style>
+.level-section-inline {
+  grid-column: 1 / -1;
+  margin-bottom: 10px;
+}
+.level-header-inline {
+  font-size: 1.4em;
+  font-weight: 800;
+  padding: 10px 0;
+  margin-bottom: 5px;
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.level-dot-inline {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.level-count-inline {
+  font-size: 0.55em;
+  color: rgba(255,255,255,0.4);
+  margin-left: auto;
+  font-weight: 400;
+}
+</style>
+
+</body>
+</html>
