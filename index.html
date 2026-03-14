@@ -199,7 +199,7 @@
         /* ── Featured Row ── */
         .featured-row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 14px;
             margin-bottom: 36px;
         }
@@ -238,6 +238,9 @@
         }
         .fc-gameroom { background: linear-gradient(135deg, #1a1a2e, #0984e3); }
         .fc-quickfix { background: linear-gradient(135deg, #1a3a2e, #16a34a); }
+        .fc-wordwall { background: linear-gradient(135deg, #4a1942, #c0392b, #e74c3c); background-size: 200% 200%; animation: wordwall-glow 4s ease infinite; }
+        @keyframes wordwall-glow { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .fc-wordwall .fc-new-badge { display: inline-block; background: #feca57; color: #1a1a2e; padding: 2px 8px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; border-radius: 2px; }
 
         /* ── Resource Grid ── */
         .resources-grid {
@@ -621,6 +624,13 @@
         <div class="fc-title">Quick Fix Matrix</div>
         <div class="fc-desc">132 searchable micro-lessons for common errors. Filter by grammar, vocabulary, collocations, false friends, pronunciation, spelling, and your first language.</div>
         <div class="fc-stat">A2 → C1 · 132 Fixes</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/wordwall_dashboard.html" class="featured-card fc-wordwall">
+        <div class="fc-new-badge">New</div>
+        <div class="fc-icon">🧱</div>
+        <div class="fc-title">Word Wall</div>
+        <div class="fc-desc">50 vocabulary games across 5 game types. Match, Memory, Quiz, Anagram, and Categorize — interactive practice for every level.</div>
+        <div class="fc-stat">A1 → C1 · 50 Games · 5 Types</div>
     </a>
 </div>
 
