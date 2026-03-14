@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speaking Naturally TEENS: Critical Conversations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+        }
+
+        .series-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .level-badge {
+            display: inline-block;
+            background: #ff4757;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-left: 10px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .header h1 {
+            font-size: 3.2em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            color: #555;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header .level-info {
+            font-size: 1em;
+            color: #777;
+            margin-top: 15px;
+        }
+
+        /* Course Info Section */
+        .course-info {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .course-info h2 {
+            color: #667eea;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+
+        .course-info p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .feature-highlight {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #764ba2;
+        }
+
+        .feature-highlight h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-bottom: 12px;
+        }
+
+        .feature-highlight ul {
+            margin-left: 25px;
+            line-height: 2;
+        }
+
+        .feature-highlight li {
+            color: #555;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .progress-section h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-container {
+            background: #f0f0f0;
+            border-radius: 15px;
+            height: 40px;
+            overflow: hidden;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .progress-bar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: width 0.5s;
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255,255,255,0.3), 
+                transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Lessons Grid */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .lesson-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .lesson-card.available {
+            border: 3px solid #28a745;
+        }
+
+        .lesson-number {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+        }
+
+        .lesson-status {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .status-available {
+            background: #28a745;
+            color: white;
+        }
+
+        .lesson-title {
+            font-size: 1.7em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: bold;
+            padding-right: 80px;
+        }
+
+        .lesson-description {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1.05em;
+        }
+
+        .lesson-details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .lesson-details strong {
+            color: #764ba2;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .lesson-details ul {
+            margin-left: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .lesson-details li {
+            margin: 8px 0;
+        }
+
+        .vocab-preview {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .vocab-preview h4 {
+            color: #2e7d32;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+        }
+
+        .vocab-preview p {
+            color: #555;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .lesson-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+        }
+
+        .lesson-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102,126,234,0.6);
+        }
+
+        /* Key Features */
+        .key-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border-top: 4px solid #667eea;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .feature-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            color: #764ba2;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .header .subtitle {
+                font-size: 1.1em;
+            }
+
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .key-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="series-badge">For Advanced Teenage Learners<span class="level-badge">C2 LEVEL</span></div>
+            <h1>Speaking Naturally TEENS</h1>
+            <p class="subtitle">Critical Conversations for Thinking Minds</p>
+            <p class="level-info">6 Interactive Lessons | Ages 15-18 | 50 minutes each | 1-to-1 Format</p>
+        </div>
+
+        <!-- Course Info -->
+        <div class="course-info">
+            <h2>About This Series</h2>
+            <p>
+                This is NOT your typical "teen topics" ESL course. These lessons tackle <strong>real issues</strong> 
+                that sophisticated 15-18 year olds are already thinking about—social media impact, education system 
+                problems, climate responsibility, AI's future, and generational challenges.
+            </p>
+            <p>
+                Each lesson combines <strong>C2-level vocabulary</strong> (12 advanced expressions per lesson) with 
+                <strong>critical thinking frameworks</strong> that teach students to analyze arguments, evaluate evidence, 
+                and present nuanced positions. This is university-level discourse practice.
+            </p>
+
+            <div class="feature-highlight">
+                <h3>Why This Series Works:</h3>
+                <ul>
+                    <li><strong>Real content:</strong> Actual research, statistics, and stories (not hypothetical scenarios)</li>
+                    <li><strong>Sophisticated vocabulary:</strong> Academic discourse expressions for formal argumentation</li>
+                    <li><strong>Critical thinking:</strong> Analysis, evaluation, synthesis—not just opinion sharing</li>
+                    <li><strong>Student choice:</strong> Pick 2-3 discussion topics that matter to YOU</li>
+                    <li><strong>Evidence-based discussion:</strong> Like university seminars, not high school debates</li>
+                    <li><strong>Respects intelligence:</strong> Treats teens like thinking adults, not children</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-section">
+            <h2>Course Progress</h2>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 100%;">
+                    6 Core Lessons + 1 Bonus Complete (100%)
+                </div>
+            </div>
+            <p style="color: #555; margin-top: 15px;">
+                All core lessons complete! Plus 1 bonus philosophy lesson available. 
+                Total: <strong>30 key expressions</strong> (5 per core lesson) + <strong>5 bonus expressions</strong>.
+            </p>
+        </div>
+
+        <!-- Key Features -->
+        <div class="course-info">
+            <h2>What Makes These Lessons Different</h2>
+            <div class="key-features">
+                <div class="feature-card">
+                    <span class="icon">🎯</span>
+                    <h3>Real Issues</h3>
+                    <p>Not "teen topics"—real societal issues that affect their lives RIGHT NOW. From algorithmic manipulation to job automation to cancel culture.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="icon">📚</span>
+                    <h3>C2 Vocabulary</h3>
+                    <p>12 sophisticated expressions per lesson. Academic discourse, critical analysis, and formal argumentation vocabulary.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="icon">🧠</span>
+                    <h3>Critical Thinking</h3>
+                    <p>Every lesson builds analysis, evaluation, and synthesis skills. Evidence-based argumentation with counterarguments addressed.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="icon">⏱️</span>
+                    <h3>Timed Challenges</h3>
+                    <p>5-minute formal arguments with timer and color warnings. Builds fluency under pressure like real presentations.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="icon">✅</span>
+                    <h3>Expression Tracker</h3>
+                    <p>Real-time tracking of which expressions students use during discussion. Visual feedback on progress (0/12 → 8/12).</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="icon">🎨</span>
+                    <h3>Interactive Design</h3>
+                    <p>Click-to-reveal vocabulary cards, topic selection, support deck for hints, self-assessment tools. Engaging and professional.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lessons Grid -->
+        <div class="lessons-grid">
+            <!-- Lesson 1 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">01</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">Social Media & Mental Health</div>
+                <div class="lesson-description">
+                    "The Algorithm Knows You Better Than You Know Yourself" — Explore how social media companies 
+                    exploit psychological vulnerabilities, what Frances Haugen's leaked research revealed, and whether 
+                    platforms should be banned for under-16s.
+                </div>
+                <div class="lesson-details">
+                    <strong>Real Content:</strong>
+                    <ul>
+                        <li>Instagram's internal research showing harm to teen girls</li>
+                        <li>Emma's story: 6 months without social media</li>
+                        <li>How TikTok's algorithm creates addiction</li>
+                        <li>40% of teens feel "addicted" (Pew Research)</li>
+                    </ul>
+                </div>
+                <div class="vocab-preview">
+                    <h4>12 C2 Expressions You'll Learn:</h4>
+                    <p><strong>Set 1:</strong> exploit vulnerabilities • algorithmic manipulation • dopamine-driven feedback loops • echo chambers • cognitive bias • curate a persona</p>
+                    <p><strong>Set 2:</strong> the evidence suggests that... • one could argue that... • while it's true that... • the correlation between X and Y • to conflate A with B • a more nuanced perspective would acknowledge...</p>
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_teens_01_social_media.html" class="lesson-button">Start Lesson 1 →</a>
+            </div>
+
+            <!-- Lesson 2 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">02</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">Education System - "Why Are We Learning Like It's 1950?"</div>
+                <div class="lesson-description">
+                    Question the purpose and effectiveness of modern education. Compare Finland's no-homework system with 
+                    traditional approaches. Is school designed to educate you or control you?
+                </div>
+                <div class="lesson-details">
+                    <strong>Real Content:</strong>
+                    <ul>
+                        <li>Finland ranks #1 with no homework, no tests until age 16</li>
+                        <li>Jake's story: Dropped out at 16, earning six figures at 20</li>
+                        <li>75% of students say school doesn't prepare them for real life</li>
+                        <li>Ken Robinson's TED talk: "Schools kill creativity"</li>
+                    </ul>
+                </div>
+                <div class="vocab-preview">
+                    <h4>12 C2 Expressions You'll Learn:</h4>
+                    <p><strong>Set 1:</strong> rote learning • standardized assessment • to stifle creativity • intrinsic vs. extrinsic motivation • critical pedagogy • the hidden curriculum</p>
+                    <p><strong>Set 2:</strong> in stark contrast to... • a fundamental flaw in the system • this begs the question... • the status quo • to draw parallels between... • an outdated paradigm</p>
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_teens_02_education_system.html" class="lesson-button">Start Lesson 2 →</a>
+            </div>
+
+            <!-- Lesson 3 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">03</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">Climate Change - "You're Inheriting a Broken Planet"</div>
+                <div class="lesson-description">
+                    Examine generational responsibility, corporate vs. individual action, and climate anxiety. 
+                    100 companies = 71% of emissions. Should YOUR generation clean up the mess?
+                </div>
+                <div class="lesson-details">
+                    <strong>Real Content:</strong>
+                    <ul>
+                        <li>Carbon Majors Report: 100 companies responsible for 71% of emissions</li>
+                        <li>45% of teens experience climate anxiety affecting daily life</li>
+                        <li>Greta Thunberg at 16 vs. world leaders—who had more impact?</li>
+                        <li>Greenwashing: How companies pretend to care</li>
+                    </ul>
+                </div>
+                <div class="vocab-preview">
+                    <h4>12 C2 Expressions You'll Learn:</h4>
+                    <p><strong>Set 1:</strong> systemic change vs. individual action • greenwashing • intergenerational injustice • carbon footprint • regulatory capture • existential threat</p>
+                    <p><strong>Set 2:</strong> the burden of proof lies with... • a false dichotomy • to shift the onus onto... • the moral imperative • incrementalism vs. radical change • to hold accountable</p>
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_teens_03_climate_change.html" class="lesson-button">Start Lesson 3 →</a>
+            </div>
+
+            <!-- Lesson 4 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">04</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">Artificial Intelligence - "Will You Have a Job in 20 Years?"</div>
+                <div class="lesson-description">
+                    Explore AI's impact on jobs, meaning of work, and your uncertain future. GPT-4 passes law exams. 
+                    300M jobs affected by 2030. If AI does everything, what gives life meaning?
+                </div>
+                <div class="lesson-details">
+                    <strong>Real Content:</strong>
+                    <ul>
+                        <li>GPT-4 passes law exams, bar exams, medical licensing tests</li>
+                        <li>Goldman Sachs: 300M jobs affected by AI by 2030</li>
+                        <li>Graphic designers, writers, coders losing work to AI</li>
+                        <li>Universal Basic Income: Will we need it?</li>
+                    </ul>
+                </div>
+                <div class="vocab-preview">
+                    <h4>12 C2 Expressions You'll Learn:</h4>
+                    <p><strong>Set 1:</strong> automation anxiety • the singularity • to augment human capability • ethical implications • dystopian vs. utopian scenarios • human agency</p>
+                    <p><strong>Set 2:</strong> it's conceivable that... • extrapolating from current trends... • in all likelihood... • a plausible scenario • to hedge one's bets • the trajectory suggests...</p>
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_teens_04_ai_jobs.html" class="lesson-button">Start Lesson 4 →</a>
+            </div>
+
+            <!-- Lesson 5 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">05</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">Cancel Culture - "Accountability or Mob Justice?"</div>
+                <div class="lesson-description">
+                    Examine public shaming, free speech boundaries, and proportionality. Should people be judged 
+                    forever for past mistakes? Where's the line between accountability and digital authoritarianism?
+                </div>
+                <div class="lesson-details">
+                    <strong>Real Content:</strong>
+                    <ul>
+                        <li>Real cases: People fired for decade-old tweets</li>
+                        <li>62% of Americans afraid to share political views (Cato Institute)</li>
+                        <li>Teen lost university place over viral video from age 15</li>
+                        <li>Counter-story: Calling out workplace racism led to policy change</li>
+                    </ul>
+                </div>
+                <div class="vocab-preview">
+                    <h4>12 C2 Expressions You'll Learn:</h4>
+                    <p><strong>Set 1:</strong> public shaming • virtue signaling • due process • disproportionate response • contextual understanding • mob mentality</p>
+                    <p><strong>Set 2:</strong> I'm torn between... • on the one hand... on the other hand... • it's a double-edged sword • there's a fine line between... • this raises thorny questions about... • we must be wary of...</p>
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_teens_05_cancel_culture.html" class="lesson-button">Start Lesson 5 →</a>
+            </div>
+
+            <!-- Lesson 6 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">06</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">Your Generation vs. Your Parents' - "Everything Looks Easy Until You Have to Do It"</div>
+                <div class="lesson-description">
+                    Compare generational challenges and economic realities. Gen Z = first generation poorer than parents. 
+                    Your dad bought a house at 25. You're 25 with 2 jobs and can't afford rent. Who has it harder?
+                </div>
+                <div class="lesson-details">
+                    <strong>Real Content:</strong>
+                    <ul>
+                        <li>Housing costs 1980 vs 2024: 3x salary vs 15x salary</li>
+                        <li>Gen Z first generation poorer than parents in modern history</li>
+                        <li>Counter: "But you have smartphones, internet, opportunities we never had"</li>
+                        <li>Finding common ground between generations</li>
+                    </ul>
+                </div>
+                <div class="vocab-preview">
+                    <h4>5 Key Expressions You'll Learn:</h4>
+                    <p>"The goalposts have moved since..." • "That's comparing apples to oranges" • "The elephant in the room is..." • "To be fair..." • "Taking everything into account..."</p>
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_teens_06_generation_vs_parents.html" class="lesson-button">Start Lesson 6 →</a>
+            </div>
+        </div>
+
+        <!-- BONUS LESSON -->
+        <div class="course-info">
+            <h2>🎁 Bonus Lesson: Philosophy for Teens</h2>
+            <p style="font-size: 1.1em; line-height: 1.8;">
+                An additional standalone lesson exploring Nietzsche's philosophy of identity and authenticity—
+                perfect for students interested in philosophy, psychology, or anyone questioning "who am I really?"
+            </p>
+        </div>
+
+        <div class="lessons-grid">
+            <!-- Bonus Lesson -->
+            <div class="lesson-card available" style="border: 3px solid #ffc107;">
+                <div class="lesson-number">🌟</div>
+                <div class="lesson-status" style="background: #ffc107;">Bonus Content</div>
+                <div class="lesson-title">Who Are You Really? Finding Your Authentic Self</div>
+                <div class="lesson-description">
+                    Explore Nietzsche's Three Metamorphoses: Are you living by others' rules (the Camel), 
+                    rebelling to prove independence (the Lion), or creating your own authentic path (the Child)?
+                </div>
+                <div class="lesson-details">
+                    <strong>Philosophical Content:</strong>
+                    <ul>
+                        <li>Nietzsche's Three Metamorphoses adapted for teenage life</li>
+                        <li>Real teen examples: A-level choices, uni vs gap year, career paths</li>
+                        <li>The difference between rebellion and authenticity</li>
+                        <li>Creating identity from genuine desire, not duty or defiance</li>
+                    </ul>
+                </div>
+                <div class="vocab-preview">
+                    <h4>5 Key Expressions You'll Learn:</h4>
+                    <p>"Living by other people's rules when..." • "I'm at a crossroads where..." • "The turning point came when..." • "To play devil's advocate..." • "I've stopped defining myself by..."</p>
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_teens_06_who_are_you_really.html" class="lesson-button" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);">Explore Bonus Lesson →</a>
+            </div>
+        </div>
+
+        <!-- Teaching Format -->
+        <div class="course-info">
+            <h2>1-to-1 Teaching Format</h2>
+            <p>
+                These lessons are designed for <strong>one-on-one Preply classroom teaching</strong>. 
+                Each lesson follows a proven 6-tab structure:
+            </p>
+            <div class="key-features">
+                <div class="feature-card">
+                    <span class="icon">📰</span>
+                    <h3>Tab 1: The Reality</h3>
+                    <p>Real headlines, statistics, stories, and provocative questions. All content built into the lesson—no external videos required.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="icon">📖</span>
+                    <h3>Tabs 2-3: Vocabulary</h3>
+                    <p>5 focused expressions total (2-3 per tab). Click-to-reveal cards with meanings, contexts, examples, and "NOW YOU TRY" prompts. All examples tied to the lesson content.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="icon">💬</span>
+                    <h3>Tab 4: Discussion</h3>
+                    <p>Student picks 2-3 topics from 8 options. Teacher plays devil's advocate. Expression tracker monitors usage in real-time.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="icon">⏱️</span>
+                    <h3>Tab 5: Challenge</h3>
+                    <p>5-minute formal argument with evidence, counterarguments, and timer. Support deck available if student gets stuck.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="icon">✅</span>
+                    <h3>Tab 6: Review</h3>
+                    <p>Complete vocabulary summary, self-assessment, homework suggestions, and structured teacher notes section.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Getting Started -->
+        <div class="course-info" style="text-align: center; padding: 40px;">
+            <h2>Ready to Start?</h2>
+            <p style="font-size: 1.2em; margin: 20px 0;">
+                Begin with <strong>Lesson 1: Social Media & Mental Health</strong> or jump to any topic that 
+                interests your student most. Each lesson is self-contained and works independently.
+            </p>
+            <p style="color: #777; margin-top: 30px;">
+                <strong>Total Learning:</strong> 35 key expressions (30 core + 5 bonus) • 6 critical thinking frameworks • 
+                Evidence-based argumentation practice • University-level discourse preparation
+            </p>
+            <p style="color: #777; margin-top: 10px; font-size: 0.95em;">
+                <em>Note: Lesson 6 uses the proven 5-expression formula. Earlier lessons (1-5) use 12 expressions but will be updated to match the improved format.</em>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

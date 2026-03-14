@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discourse Bestiary Pathway | Memorize 30 Expressions</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0a0a1a; color: #e0e0e0; min-height: 100vh; }
+
+.container { max-width: 760px; margin: 0 auto; padding: 40px 20px 60px; }
+
+.header { text-align: center; margin-bottom: 40px; }
+.header h1 { font-size: 2.2em; font-weight: 900; margin-bottom: 8px; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.header p { color: #888; font-size: 1em; line-height: 1.6; max-width: 520px; margin: 0 auto; }
+
+.phase { margin-bottom: 36px; }
+.phase-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.phase-number { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85em; flex-shrink: 0; }
+.phase-1 .phase-number { background: #667eea; color: #fff; }
+.phase-2 .phase-number { background: #764ba2; color: #fff; }
+.phase-3 .phase-number { background: #5a3a99; color: #fff; }
+.phase-4 .phase-number { background: #483a8e; color: #fff; }
+.phase-5 .phase-number { background: #3a2c7f; color: #fff; }
+.phase-6 .phase-number { background: #2d1f70; color: #fff; }
+.phase-label { font-weight: 800; font-size: 0.75em; text-transform: uppercase; letter-spacing: 0.08em; }
+.phase-1 .phase-label { color: #667eea; }
+.phase-2 .phase-label { color: #9b7ed8; }
+.phase-3 .phase-label { color: #8a6bc4; }
+.phase-4 .phase-label { color: #7b5eb0; }
+.phase-5 .phase-label { color: #6c519c; }
+.phase-6 .phase-label { color: #5d4488; }
+.phase-desc { color: #888; font-size: 0.85em; margin-left: 44px; margin-bottom: 16px; }
+
+.lesson { display: flex; align-items: stretch; gap: 16px; text-decoration: none; color: inherit; background: #16162a; border: 2px solid #222; border-radius: 12px; padding: 20px; margin-bottom: 10px; transition: all 0.25s; position: relative; overflow: hidden; }
+.lesson:hover { border-color: #667eea; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(102,126,234,0.15); }
+
+.lesson-num { width: 36px; height: 36px; border-radius: 50%; background: rgba(102,126,234,0.15); color: #667eea; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9em; flex-shrink: 0; }
+.lesson-body { flex: 1; min-width: 0; }
+.lesson-title { font-weight: 700; font-size: 1.05em; margin-bottom: 4px; color: #fff; }
+.lesson-sub { color: #888; font-size: 0.85em; line-height: 1.5; }
+.lesson-arrow { color: #444; font-size: 1.2em; display: flex; align-items: center; transition: color 0.2s; }
+.lesson:hover .lesson-arrow { color: #667eea; }
+
+.connector { width: 3px; height: 14px; background: #333; margin: 0 0 0 37px; border-radius: 2px; }
+.connector-phase { width: 3px; height: 24px; background: linear-gradient(to bottom, #333, #667eea); margin: 4px 0 4px 37px; border-radius: 2px; }
+
+.tag { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 0.7em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-right: 6px; }
+.tag-frame { background: rgba(102,126,234,0.15); color: #667eea; }
+.tag-position { background: rgba(155,126,216,0.15); color: #9b7ed8; }
+.tag-navigate { background: rgba(138,107,196,0.15); color: #8a6bc4; }
+.tag-qualify { background: rgba(123,94,176,0.15); color: #7b5eb0; }
+.tag-connect { background: rgba(108,81,156,0.15); color: #6c519c; }
+.tag-command { background: rgba(93,68,136,0.15); color: #5d4488; }
+.tag-new { background: rgba(225,112,85,0.2); color: #e17055; }
+.tag-coming { background: rgba(136,136,136,0.15); color: #888; }
+
+.creatures { color: #667eea; font-size: 0.8em; font-weight: 700; margin-top: 6px; }
+
+.progress-strip { display: flex; gap: 4px; margin-top: 32px; }
+.progress-dot { flex: 1; height: 4px; border-radius: 2px; background: #222; }
+
+.footer { text-align: center; margin-top: 40px; padding-top: 24px; border-top: 1px solid #222; }
+.footer a { color: #667eea; text-decoration: none; font-weight: 600; font-size: 0.9em; }
+.footer a:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 1.6em; }
+  .lesson { padding: 16px; }
+  .lesson-title { font-size: 0.95em; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>Discourse Bestiary</h1>
+    <p>30 expressions that command any room — locked into memory with the Bestiary system. 6 lessons, 5 creatures each, one complete speaking toolkit.</p>
+  </div>
+
+  <!-- FRAME -->
+  <div class="phase phase-1">
+    <div class="phase-header">
+      <div class="phase-number">1</div>
+      <div class="phase-label">Frame</div>
+    </div>
+    <div class="phase-desc">Open with composure — buy time, weigh up, reframe, caveat.</div>
+
+    <a class="lesson" href="bestiary_discourse_frame.html">
+      <div class="lesson-num">1</div>
+      <div class="lesson-body">
+        <div><span class="tag tag-frame">Frame</span> <span class="tag tag-new">New</span></div>
+        <div class="lesson-title">FRAME — Open with Authority</div>
+        <div class="lesson-sub">5 expressions for buying time, weighing options, introducing possibilities, reframing, and adding caveats.</div>
+        <div class="creatures">Numbat → Bat → Cow → Frogmouth → Camel</div>
+      </div>
+      <div class="lesson-arrow">→</div>
+    </a>
+  </div>
+
+  <div class="connector-phase"></div>
+
+  <!-- POSITION -->
+  <div class="phase phase-2">
+    <div class="phase-header">
+      <div class="phase-number">2</div>
+      <div class="phase-label">Position</div>
+    </div>
+    <div class="phase-desc">Build arguments — state your stance, cite evidence, explain, defend.</div>
+
+    <a class="lesson" href="bestiary_discourse_position.html">
+      <div class="lesson-num">2</div>
+      <div class="lesson-body">
+        <div><span class="tag tag-position">Position</span> <span class="tag tag-new">New</span></div>
+        <div class="lesson-title">POSITION — Build Your Argument</div>
+        <div class="lesson-sub">5 expressions for stating your stance, citing evidence, explaining implications, acknowledging counterpoints, and strengthening reasoning.</div>
+        <div class="creatures">Polar Bear → Elephant → Praying Mantis → Tapir → Stingray</div>
+      </div>
+      <div class="lesson-arrow">→</div>
+    </a>
+  </div>
+
+  <div class="connector-phase"></div>
+
+  <!-- NAVIGATE -->
+  <div class="phase phase-3">
+    <div class="phase-header">
+      <div class="phase-number">3</div>
+      <div class="phase-label">Navigate</div>
+    </div>
+    <div class="phase-desc">Handle pushback — redirect, challenge, agree to disagree.</div>
+
+    <a class="lesson" href="bestiary_discourse_navigate.html">
+      <div class="lesson-num">3</div>
+      <div class="lesson-body">
+        <div><span class="tag tag-navigate">Navigate</span> <span class="tag tag-new">New</span></div>
+        <div class="lesson-title">NAVIGATE — Handle Pushback</div>
+        <div class="lesson-sub">5 expressions for acknowledging then redirecting, offering alternatives, pushing back diplomatically, playing devil's advocate, and agreeing to disagree.</div>
+        <div class="creatures">Seahorse → Angel → Puffin → Platypus → Agaric Fungi</div>
+      </div>
+      <div class="lesson-arrow">→</div>
+    </a>
+  </div>
+
+  <div class="connector-phase"></div>
+
+  <!-- QUALIFY -->
+  <div class="phase phase-4">
+    <div class="phase-header">
+      <div class="phase-number">4</div>
+      <div class="phase-label">Qualify</div>
+    </div>
+    <div class="phase-desc">Calibrate certainty — hypothesise, predict, keep options open.</div>
+
+    <a class="lesson" href="bestiary_discourse_qualify.html">
+      <div class="lesson-num">4</div>
+      <div class="lesson-body">
+        <div><span class="tag tag-qualify">Qualify</span> <span class="tag tag-new">New</span></div>
+        <div class="lesson-title">QUALIFY — Calibrate Certainty</div>
+        <div class="lesson-sub">5 expressions for introducing possibilities, hypothetical consequences, expressing probability, keeping options open, and forecasting outcomes.</div>
+        <div class="creatures">Emu → Weasel → Lionfish → Wolverine → Walrus</div>
+      </div>
+      <div class="lesson-arrow">→</div>
+    </a>
+  </div>
+
+  <div class="connector-phase"></div>
+
+  <!-- CONNECT -->
+  <div class="phase phase-5">
+    <div class="phase-header">
+      <div class="phase-number">5</div>
+      <div class="phase-label">Connect</div>
+    </div>
+    <div class="phase-desc">Sustain extended turns — build, circle back, synthesise.</div>
+
+    <a class="lesson" href="bestiary_discourse_connect.html">
+      <div class="lesson-num">5</div>
+      <div class="lesson-body">
+        <div><span class="tag tag-connect">Connect</span> <span class="tag tag-new">New</span></div>
+        <div class="lesson-title">CONNECT — Sustain the Turn</div>
+        <div class="lesson-sub">5 expressions for building on points, circling back, synthesising themes, naming throughlines, and elevating to broader principles.</div>
+        <div class="creatures">Buffalo → Cicada → Tiger → Thorny Devil → Quail</div>
+      </div>
+      <div class="lesson-arrow">→</div>
+    </a>
+  </div>
+
+  <div class="connector-phase"></div>
+
+  <!-- COMMAND -->
+  <div class="phase phase-6">
+    <div class="phase-header">
+      <div class="phase-number">6</div>
+      <div class="phase-label">Command</div>
+    </div>
+    <div class="phase-desc">Drive outcomes under pressure — direct, propose, summarise.</div>
+
+    <a class="lesson" href="bestiary_discourse_command.html">
+      <div class="lesson-num">6</div>
+      <div class="lesson-body">
+        <div><span class="tag tag-command">Command</span> <span class="tag tag-new">New</span></div>
+        <div class="lesson-title">COMMAND — Drive Outcomes</div>
+        <div class="lesson-sub">5 expressions for directness, bottom-line clarity, making asks, proposing solutions, and summarising takeaways.</div>
+        <div class="creatures">Dingo → Boar → Newt → Hedgehog → Sunbird</div>
+      </div>
+      <div class="lesson-arrow">→</div>
+    </a>
+  </div>
+
+  <div class="progress-strip">
+    <div class="progress-dot" style="background: #667eea;"></div>
+    <div class="progress-dot" style="background: #764ba2;"></div>
+    <div class="progress-dot" style="background: #5a3a99;"></div>
+    <div class="progress-dot" style="background: #483a8e;"></div>
+    <div class="progress-dot" style="background: #3a2c7f;"></div>
+    <div class="progress-dot" style="background: #2d1f70;"></div>
+  </div>
+
+  <div class="footer">
+    <a href="https://malcolmhyndman.com">← Back to Malcolm Hyndman</a>
+  </div>
+
+</div>
+</body>
+</html>

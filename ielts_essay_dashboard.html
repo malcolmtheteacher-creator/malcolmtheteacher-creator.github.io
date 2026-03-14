@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Writing Task 2: Essay Practice Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;background:#f8f9fa;color:#1a1a2e}
+.container{max-width:960px;margin:0 auto;padding:24px}
+header{text-align:center;padding:36px 20px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:16px;margin-bottom:30px;color:white}
+header h1{font-size:2.1rem;margin-bottom:8px}
+header p{opacity:0.9;font-size:1rem;line-height:1.6}
+.method{display:flex;justify-content:center;gap:16px;margin-top:20px;flex-wrap:wrap}
+.ms{background:rgba(255,255,255,0.2);border-radius:10px;padding:12px 24px;text-align:center;min-width:110px}
+.ms .ic{font-size:1.4rem;margin-bottom:5px}.ms .lb{font-size:0.85rem;font-weight:bold}.ms .sb{font-size:0.72rem;opacity:0.85}
+.intro-card{background:white;border:1px solid #e0e0e0;border-radius:14px;padding:24px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.intro-card h2{color:#667eea;margin-bottom:14px}
+.intro-card p{line-height:1.7;color:#444;margin-bottom:12px}
+.how-it-works{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0}
+.hw{background:#f8f9fa;border-radius:10px;padding:14px;text-align:center}
+.hw .n{width:32px;height:32px;background:#667eea;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;margin:0 auto 8px;font-size:0.9rem}
+.hw p{font-size:0.84rem;color:#555;line-height:1.5}
+.section-title{color:#1a1a2e;font-size:1.2rem;font-weight:bold;margin:28px 0 16px;padding-bottom:8px;border-bottom:2px solid #e0e0e0}
+.essays{display:grid;gap:16px}
+.essay-card{background:white;border:1px solid #e0e0e0;border-radius:14px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,0.05);display:flex;gap:20px;align-items:flex-start;transition:transform 0.2s,box-shadow 0.2s}
+.essay-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.1)}
+.essay-num{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:bold;color:white;flex-shrink:0}
+.essay-body{flex:1}
+.essay-body h3{font-size:1.1rem;margin-bottom:5px}
+.essay-body .q{color:#888;font-size:0.82rem;margin-bottom:10px;font-style:italic}
+.essay-body .topic{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.key-rules{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.rule{padding:3px 10px;border-radius:20px;font-size:0.76rem;font-weight:bold;background:#f0f0f0;color:#555}
+.btn-link{display:inline-block;padding:10px 22px;border-radius:9px;text-decoration:none;font-weight:bold;font-size:0.88rem;color:white;transition:opacity 0.2s}
+.btn-link:hover{opacity:0.85}
+.c1{background:#667eea}.c2{background:#764ba2}.c3{background:#4a90e2}.c4{background:#e67e22}.c5{background:#16a085}
+.b1{background:#667eea}.b2{background:#764ba2}.b3{background:#4a90e2}.b4{background:#e67e22}.b5{background:#16a085}
+.cheatsheet{background:white;border:1px solid #e0e0e0;border-radius:14px;padding:24px;margin-top:24px;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.cheatsheet h2{color:#667eea;margin-bottom:18px}
+.cs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.cs-item{background:#f8f9fa;border-radius:10px;padding:15px;border-left:3px solid}
+.cs-item h4{margin-bottom:10px;font-size:0.95rem}
+.cs-item ul{margin-left:16px;font-size:0.84rem;line-height:2;color:#444}
+.tip-box{background:linear-gradient(135deg,#667eea10,#764ba210);border:1px solid #667eea30;border-radius:12px;padding:20px;margin-top:20px}
+.tip-box h3{color:#667eea;margin-bottom:12px}
+.tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.tip{background:white;border-radius:8px;padding:12px;font-size:0.84rem;border-left:3px solid #667eea;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>IELTS Writing Task 2</h1>
+  <p>Essay Practice: All Five Essay Types<br>Interactive guided practice with model essays and sentence frames</p>
+  <div class="method">
+    <div class="ms"><div class="ic">👁</div><div class="lb">I DO</div><div class="sb">Model essay + analysis</div></div>
+    <div class="ms"><div class="ic">🤝</div><div class="lb">WE DO</div><div class="sb">Guided paragraph writing</div></div>
+    <div class="ms"><div class="ic">✍️</div><div class="lb">YOU DO</div><div class="sb">Full essay, assembled</div></div>
+  </div>
+</header>
+
+<div class="intro-card">
+  <h2>How These Lessons Work</h2>
+  <p>Each lesson focuses on one essay type. You will see a Band 8 model, analyse the structures, then write your own essay paragraph by paragraph using sentence frames for support. By Tab 7, you have a complete essay.</p>
+  <div class="how-it-works">
+    <div class="hw"><div class="n">1</div><p>Understand the essay type and plan your ideas</p></div>
+    <div class="hw"><div class="n">2</div><p>Read and analyse a Band 8 model essay</p></div>
+    <div class="hw"><div class="n">3-6</div><p>Write each paragraph with sentence frames and model reveals</p></div>
+    <div class="hw"><div class="n">7</div><p>Assemble your complete essay and self-assess</p></div>
+  </div>
+</div>
+
+<div class="section-title">Choose an Essay Type to Practise</div>
+
+<div class="essays">
+
+  <div class="essay-card">
+    <div class="essay-num b1">1</div>
+    <div class="essay-body">
+      <h3 style="color:#667eea">Opinion Essay</h3>
+      <div class="q">To what extent do you agree or disagree?</div>
+      <div class="topic"><strong>Today's question:</strong> University education should be provided free of charge by the government.</div>
+      <div class="key-rules">
+        <span class="rule" style="background:#667eea20;color:#667eea">State opinion in introduction</span>
+        <span class="rule" style="background:#667eea20;color:#667eea">Maintain it throughout</span>
+        <span class="rule" style="background:#667eea20;color:#667eea">Inversion + nominalization</span>
+      </div>
+      <a href="essay_practice_opinion.html" class="btn-link c1">Start Lesson</a>
+    </div>
+  </div>
+
+  <div class="essay-card">
+    <div class="essay-num b2">2</div>
+    <div class="essay-body">
+      <h3 style="color:#764ba2">Discussion Essay</h3>
+      <div class="q">Discuss both views and give your own opinion.</div>
+      <div class="topic"><strong>Today's question:</strong> Working from home vs the traditional office environment.</div>
+      <div class="key-rules">
+        <span class="rule" style="background:#764ba220;color:#764ba2">Cover both sides fairly</span>
+        <span class="rule" style="background:#764ba220;color:#764ba2">Opinion only in conclusion</span>
+        <span class="rule" style="background:#764ba220;color:#764ba2">Distancing phrases</span>
+      </div>
+      <a href="essay_practice_discussion.html" class="btn-link c2">Start Lesson</a>
+    </div>
+  </div>
+
+  <div class="essay-card">
+    <div class="essay-num b3">3</div>
+    <div class="essay-body">
+      <h3 style="color:#4a90e2">Problem/Solution Essay</h3>
+      <div class="q">What are the causes? What measures could be taken?</div>
+      <div class="topic"><strong>Today's question:</strong> Traffic congestion in cities around the world.</div>
+      <div class="key-rules">
+        <span class="rule" style="background:#4a90e220;color:#4a90e2">Specific causes with impact</span>
+        <span class="rule" style="background:#4a90e220;color:#4a90e2">Specific solutions with HOW</span>
+        <span class="rule" style="background:#4a90e220;color:#4a90e2">Real examples + evidence</span>
+      </div>
+      <a href="essay_practice_problem_solution.html" class="btn-link c3">Start Lesson</a>
+    </div>
+  </div>
+
+  <div class="essay-card">
+    <div class="essay-num b4">4</div>
+    <div class="essay-body">
+      <h3 style="color:#e67e22">Advantages/Disadvantages Essay</h3>
+      <div class="q">Do the advantages outweigh the disadvantages?</div>
+      <div class="topic"><strong>Today's question:</strong> The widespread use of social media.</div>
+      <div class="key-rules">
+        <span class="rule" style="background:#e67e2220;color:#e67e22">Verdict in introduction</span>
+        <span class="rule" style="background:#e67e2220;color:#e67e22">Both sides covered</span>
+        <span class="rule" style="background:#e67e2220;color:#e67e22">Clear "which outweighs" conclusion</span>
+      </div>
+      <a href="essay_practice_advantages_disadvantages.html" class="btn-link c4">Start Lesson</a>
+    </div>
+  </div>
+
+  <div class="essay-card">
+    <div class="essay-num b5">5</div>
+    <div class="essay-body">
+      <h3 style="color:#16a085">Two-Part Question Essay</h3>
+      <div class="q">Two separate questions — you must answer both.</div>
+      <div class="topic"><strong>Today's question:</strong> Why do people travel abroad? What impact does tourism have on local communities?</div>
+      <div class="key-rules">
+        <span class="rule" style="background:#16a08520;color:#16a085">Answer BOTH questions</span>
+        <span class="rule" style="background:#16a08520;color:#16a085">Equal depth for each</span>
+        <span class="rule" style="background:#16a08520;color:#16a085">Parallel conclusion</span>
+      </div>
+      <a href="essay_practice_two_part.html" class="btn-link c5">Start Lesson</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="cheatsheet">
+  <h2>Quick Reference: How to Spot the Essay Type</h2>
+  <div class="cs-grid">
+    <div class="cs-item" style="border-color:#667eea">
+      <h4 style="color:#667eea">Opinion Essay</h4>
+      <ul>
+        <li>"To what extent do you agree or disagree?"</li>
+        <li>"Do you agree or disagree?"</li>
+        <li>"What is your opinion?"</li>
+      </ul>
+    </div>
+    <div class="cs-item" style="border-color:#764ba2">
+      <h4 style="color:#764ba2">Discussion Essay</h4>
+      <ul>
+        <li>"Discuss both views and give your own opinion."</li>
+        <li>"Some people believe X. Others argue Y."</li>
+      </ul>
+    </div>
+    <div class="cs-item" style="border-color:#4a90e2">
+      <h4 style="color:#4a90e2">Problem/Solution</h4>
+      <ul>
+        <li>"What are the causes of...?"</li>
+        <li>"What measures could be taken to solve...?"</li>
+      </ul>
+    </div>
+    <div class="cs-item" style="border-color:#e67e22">
+      <h4 style="color:#e67e22">Advantages/Disadvantages</h4>
+      <ul>
+        <li>"Discuss the advantages and disadvantages."</li>
+        <li>"Do the advantages outweigh the disadvantages?"</li>
+      </ul>
+    </div>
+    <div class="cs-item" style="border-color:#16a085">
+      <h4 style="color:#16a085">Two-Part Question</h4>
+      <ul>
+        <li>"Why does X happen?"</li>
+        <li>"What effects does X have?"</li>
+        <li>Two separate question marks in the task</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="tip-box">
+  <h3>Band 7+ Principles (Apply to Every Essay Type)</h3>
+  <div class="tips">
+    <div class="tip"><strong>Paraphrase the question.</strong> Never copy words from the task into your introduction.</div>
+    <div class="tip"><strong>Topic sentence first.</strong> The first sentence of each body paragraph must state the argument clearly.</div>
+    <div class="tip"><strong>Explain, don't just state.</strong> After every argument, explain WHY it matters.</div>
+    <div class="tip"><strong>Specificity over vagueness.</strong> "London's congestion charge reduced traffic by 30%" beats "the government should act."</div>
+    <div class="tip"><strong>Use advanced structures.</strong> Inversion, nominalization, and complex conditionals push you from Band 6 to Band 7+.</div>
+    <div class="tip"><strong>Word count 250-290.</strong> Under 250 = automatic penalty. Over 300 = time risk. Aim for 260-280.</div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

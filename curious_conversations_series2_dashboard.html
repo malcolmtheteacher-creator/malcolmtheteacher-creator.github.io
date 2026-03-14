@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curious Conversations: Series 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1em;
+            color: #777;
+        }
+
+        .series-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .course-info {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .course-info h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .course-info p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .progress-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+
+        .progress-section h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-container {
+            background: #f0f0f0;
+            border-radius: 15px;
+            height: 40px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: width 0.5s;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .lesson-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .lesson-card.available {
+            border: 3px solid #28a745;
+        }
+
+        .lesson-card.coming-soon {
+            opacity: 0.7;
+        }
+
+        .lesson-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .lesson-card.coming-soon .lesson-number {
+            background: #6c757d;
+        }
+
+        .lesson-status {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .status-available {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-coming {
+            background: #6c757d;
+            color: white;
+        }
+
+        .lesson-title {
+            font-size: 1.6em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .lesson-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .lesson-details {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .lesson-details ul {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .lesson-details li {
+            margin: 5px 0;
+        }
+
+        .lesson-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .lesson-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .lesson-button.disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .back-link {
+            background: white;
+            border-radius: 20px;
+            padding: 20px 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .back-link a:hover {
+            color: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1.1em;
+            }
+
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Link -->
+        <div class="back-link">
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_dashboard.html">← Back to Series 1</a>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>Curious Conversations</h1>
+            <p>Series 2: More Fascinating Topics</p>
+            <div class="subtitle">Lessons 7-12 | C1-C2 Level | 50 minutes each</div>
+            <div class="series-badge">Series 2</div>
+        </div>
+
+        <!-- Course Info -->
+        <div class="course-info">
+            <h2>About Series 2</h2>
+            <p>
+                Series 2 continues the Curious Conversations approach with six more fascinating topics 
+                designed to spark genuine curiosity and create natural, engaging discussions. Each lesson 
+                focuses on universal human experiences that everyone has opinions about.
+            </p>
+            <p>
+                <strong>What makes these lessons work:</strong> Real research, real stories, 5 focused 
+                expressions per lesson, student choice in discussion topics, and content that makes you 
+                forget you're in an English lesson.
+            </p>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-section">
+            <h2>Your Progress: Series 2</h2>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 100%;">
+                    6 of 6 Lessons Available (100%)
+                </div>
+            </div>
+            <p style="color: #555; margin-top: 15px;">All Series 2 lessons are ready to explore!</p>
+        </div>
+
+        <!-- Lessons Grid -->
+        <div class="lessons-grid">
+            <!-- Lesson 7 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">07</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">Why We Can't Stop Checking Our Phones</div>
+                <div class="lesson-description">
+                    Explore the psychology of digital addiction. Why do we check our phones 96 times a day? 
+                    What is "phantom vibration syndrome"? Are we more connected or more lonely?
+                </div>
+                <div class="lesson-details">
+                    <strong>You'll discuss:</strong>
+                    <ul>
+                        <li>Dopamine loops and phone addiction</li>
+                        <li>Nomophobia (fear of being without phone)</li>
+                        <li>Social media's impact on relationships</li>
+                        <li>Your own phone habits and patterns</li>
+                    </ul>
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_07_phone_addiction.html" class="lesson-button">Start Lesson 7 →</a>
+            </div>
+
+            <!-- Lesson 8 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">08</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">Why We Procrastinate (And How to Stop)</div>
+                <div class="lesson-description">
+                    Understand the psychology behind procrastination. Why do we put things off even when 
+                    we know we shouldn't? What are the real causes, and what actually works to overcome it?
+                </div>
+                <div class="lesson-details">
+                    <strong>You'll discuss:</strong>
+                    <ul>
+                        <li>The psychology of avoidance</li>
+                        <li>Perfectionism and fear of failure</li>
+                        <li>Your procrastination patterns</li>
+                        <li>Strategies that actually work</li>
+                    </ul>
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_08_procrastination.html" class="lesson-button">Start Lesson 8 →</a>
+            </div>
+
+            <!-- Lesson 9 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">09</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">Dreams That Make No Sense</div>
+                <div class="lesson-description">
+                    Why do we have weird dreams? What do they mean (if anything)? Explore the fascinating 
+                    science and psychology of dreaming, and share your strangest dream experiences.
+                </div>
+                <div class="lesson-details">
+                    <strong>You'll discuss:</strong>
+                    <ul>
+                        <li>Why we dream and what dreams might mean</li>
+                        <li>Common dream themes across cultures</li>
+                        <li>Lucid dreaming and nightmares</li>
+                        <li>Your weirdest dreams</li>
+                    </ul>
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_09_dreams.html" class="lesson-button">Start Lesson 9 →</a>
+            </div>
+
+            <!-- Lesson 10 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">10</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">The Lies We Tell to Be Polite</div>
+                <div class="lesson-description">
+                    "I'm fine." "Traffic was terrible." "Sorry, I didn't see your message." Why do we lie 
+                    to be polite? When is it okay, and when does it cause problems? Explore white lies 
+                    and social deception.
+                </div>
+                <div class="lesson-details">
+                    <strong>You'll discuss:</strong>
+                    <ul>
+                        <li>Common polite lies everyone tells</li>
+                        <li>Cultural differences in honesty</li>
+                        <li>When white lies become problems</li>
+                        <li>Your own relationship with truth</li>
+                    </ul>
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_10_polite_lies.html" class="lesson-button">Start Lesson 10 →</a>
+            </div>
+
+            <!-- Lesson 11 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">11</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">Why Time Feels Faster as We Age</div>
+                <div class="lesson-description">
+                    Why did childhood summers feel endless, but adult years fly by? Explore the psychology 
+                    of time perception and why our experience of time changes throughout our lives.
+                </div>
+                <div class="lesson-details">
+                    <strong>You'll discuss:</strong>
+                    <ul>
+                        <li>The psychology of time perception</li>
+                        <li>Why routine makes time disappear</li>
+                        <li>How to make time feel slower</li>
+                        <li>Your own experience of time</li>
+                    </ul>
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_11_time_perception.html" class="lesson-button">Start Lesson 11 →</a>
+            </div>
+
+            <!-- Lesson 12 -->
+            <div class="lesson-card available">
+                <div class="lesson-number">12</div>
+                <div class="lesson-status status-available">Available Now</div>
+                <div class="lesson-title">Unwritten Social Rules We All Follow</div>
+                <div class="lesson-description">
+                    Why do we stand on the right side of escalators? Why do we pretend not to notice someone 
+                    in an elevator? Explore the fascinating unwritten rules that govern social behavior.
+                </div>
+                <div class="lesson-details">
+                    <strong>You'll discuss:</strong>
+                    <ul>
+                        <li>Hidden rules of social behavior</li>
+                        <li>What happens when rules are broken</li>
+                        <li>Cultural variations in social norms</li>
+                        <li>Rules you find frustrating</li>
+                    </ul>
+                </div>
+                <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_12_social_rules.html" class="lesson-button">Start Lesson 12 →</a>
+            </div>
+        </div>
+
+        <!-- Footer Info -->
+        <div class="course-info" style="text-align: center;">
+            <h2>The Curious Conversations Approach</h2>
+            <p>
+                These lessons work because they respect your intelligence and focus on what matters: 
+                <strong>fascinating content</strong> that makes you want to talk, <strong>focused vocabulary</strong> 
+                you can actually use, and <strong>student choice</strong> in what you discuss.
+            </p>
+            <p style="margin-top: 20px;">
+                Each lesson: 5 expressions | 6 discussion topics | Timed challenges | 50 minutes | 70% student speaking
+            </p>
+        </div>
+    </div>
+</body>
+</html>

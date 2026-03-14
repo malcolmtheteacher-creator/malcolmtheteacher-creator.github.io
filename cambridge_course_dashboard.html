@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambridge Exam Preparation - Complete Course</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #2d2d4a;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #e94560, #f093fb, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .exam-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .toggle-btn {
+            padding: 15px 40px;
+            border: 2px solid #e94560;
+            background: transparent;
+            color: #e94560;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(233, 69, 96, 0.1);
+        }
+
+        .toggle-btn.active {
+            background: linear-gradient(90deg, #e94560, #f093fb);
+            color: white;
+            border-color: transparent;
+        }
+
+        .toggle-btn .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            margin-left: 8px;
+        }
+
+        .course-content {
+            display: none;
+        }
+
+        .course-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pathway-section {
+            margin-bottom: 30px;
+        }
+
+        .pathway-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 15px;
+            border-left: 4px solid #e94560;
+        }
+
+        .pathway-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #e94560, #f093fb);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .pathway-info h2 {
+            color: #fff;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .pathway-info p {
+            color: #a0a0a0;
+            font-size: 0.95rem;
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .lesson-card {
+            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+            border-radius: 15px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            border-color: #e94560;
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.2);
+        }
+
+        .lesson-card.completed {
+            border-color: #4ade80;
+        }
+
+        .lesson-card.completed::after {
+            content: '✓';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #4ade80;
+            color: #0f3460;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .lesson-card .lesson-number {
+            display: inline-block;
+            background: rgba(233, 69, 96, 0.2);
+            color: #e94560;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .lesson-card h3 {
+            color: #fff;
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .lesson-card p {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .lesson-card .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .lesson-card .tag {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .lesson-card .tag.reading { background: rgba(233, 69, 96, 0.2); color: #e94560; }
+        .lesson-card .tag.writing { background: rgba(240, 147, 251, 0.2); color: #f093fb; }
+        .lesson-card .tag.listening { background: rgba(74, 144, 226, 0.2); color: #4a90e2; }
+        .lesson-card .tag.speaking { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+
+        .progress-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #2d2d4a;
+        }
+
+        .progress-section h3 {
+            color: #fff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .progress-bar-container {
+            background: #0f3460;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #e94560, #f093fb, #667eea);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        .quick-start {
+            background: linear-gradient(135deg, #e94560 0%, #f093fb 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .quick-start h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .quick-start p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 15px;
+        }
+
+        .quick-start-btn {
+            display: inline-block;
+            background: white;
+            color: #e94560;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .quick-start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .coming-soon {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .coming-soon::before {
+            content: 'Coming Soon';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            background: rgba(233, 69, 96, 0.9);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .info-banner {
+            background: linear-gradient(135deg, #16213e 0%, #1a4a7a 100%);
+            border: 1px solid #4a90e2;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .info-banner .icon {
+            font-size: 2rem;
+        }
+
+        .info-banner .text h4 {
+            color: #4fc3f7;
+            margin-bottom: 5px;
+        }
+
+        .info-banner .text p {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        .exam-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .overview-card {
+            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .overview-card h4 {
+            color: #e94560;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .overview-card .value {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #e94560, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .overview-card .label {
+            color: #a0a0a0;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #e94560;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .exam-toggle {
+                flex-direction: column;
+            }
+
+            .toggle-btn {
+                width: 100%;
+            }
+
+            .pathway-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Cambridge Exam Preparation</h1>
+            <p>Master the Cambridge C1 Advanced (CAE) or C2 Proficiency (CPE) with our complete course</p>
+
+            <div class="exam-toggle">
+                <button class="toggle-btn active" onclick="showExam('cae')">
+                    C1 Advanced (CAE)
+                    <span class="badge">12 Lessons</span>
+                </button>
+                <button class="toggle-btn" onclick="showExam('cpe')">
+                    C2 Proficiency (CPE)
+                    <span class="badge">Coming Soon</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- CAE Course Content -->
+        <div id="cae-content" class="course-content active">
+
+            <div class="quick-start">
+                <h3>New to CAE?</h3>
+                <p>Start with the Introduction lesson to understand the exam format and what to expect.</p>
+                <a href="cambridge_cae_introduction.html" class="quick-start-btn">Start Introduction</a>
+            </div>
+
+            <div class="exam-overview">
+                <div class="overview-card">
+                    <h4>Total Exam Time</h4>
+                    <div class="value">~4h</div>
+                    <div class="label">4 papers</div>
+                </div>
+                <div class="overview-card">
+                    <h4>Reading & Use of English</h4>
+                    <div class="value">1h30</div>
+                    <div class="label">8 parts, 56 questions</div>
+                </div>
+                <div class="overview-card">
+                    <h4>Writing</h4>
+                    <div class="value">1h30</div>
+                    <div class="label">2 tasks</div>
+                </div>
+                <div class="overview-card">
+                    <h4>Listening</h4>
+                    <div class="value">40m</div>
+                    <div class="label">4 parts, 30 questions</div>
+                </div>
+                <div class="overview-card">
+                    <h4>Speaking</h4>
+                    <div class="value">15m</div>
+                    <div class="label">4 parts, with partner</div>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <h3>Your Progress</h3>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="progress-stats">
+                    <span id="cae-completed">0 of 12 lessons completed</span>
+                    <span id="cae-percent">0%</span>
+                </div>
+            </div>
+
+            <!-- Phase 1: Orientation -->
+            <div class="pathway-section">
+                <div class="pathway-header">
+                    <div class="pathway-number">1</div>
+                    <div class="pathway-info">
+                        <h2>Phase 1: Orientation</h2>
+                        <p>Understand the exam format and assess your current level</p>
+                    </div>
+                </div>
+                <div class="lessons-grid">
+                    <div class="lesson-card" onclick="openLesson('cambridge_cae_introduction.html')">
+                        <span class="lesson-number">Lesson 1</span>
+                        <h3>Introduction to CAE</h3>
+                        <p>Understand the exam format, scoring system, and what examiners are looking for.</p>
+                        <div class="tags">
+                            <span class="tag">Overview</span>
+                            <span class="tag">45 mins</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2: Use of English -->
+            <div class="pathway-section">
+                <div class="pathway-header">
+                    <div class="pathway-number">2</div>
+                    <div class="pathway-info">
+                        <h2>Phase 2: Reading & Use of English Mastery</h2>
+                        <p>Master Parts 1-4 of the Use of English paper (40% of your score!)</p>
+                    </div>
+                </div>
+                <div class="lessons-grid">
+                    <div class="lesson-card" onclick="openLesson('cambridge_cae_lesson1_multiple_choice_cloze.html')">
+                        <span class="lesson-number">Lesson 2</span>
+                        <h3>Part 1: Multiple Choice Cloze</h3>
+                        <p>Master collocations, phrasal verbs, and vocabulary in context. 8 questions, 8 marks.</p>
+                        <div class="tags">
+                            <span class="tag reading">Use of English</span>
+                            <span class="tag">50 mins</span>
+                        </div>
+                    </div>
+                    <div class="lesson-card" onclick="openLesson('cambridge_cae_lesson3_open_cloze.html')">
+                        <span class="lesson-number">Lesson 3</span>
+                        <h3>Part 2: Open Cloze</h3>
+                        <p>Fill gaps with single words. Test grammar, prepositions, and structural words.</p>
+                        <div class="tags">
+                            <span class="tag reading">Use of English</span>
+                            <span class="tag">50 mins</span>
+                        </div>
+                    </div>
+                    <div class="lesson-card" onclick="openLesson('cambridge_cae_lesson4_word_formation.html')">
+                        <span class="lesson-number">Lesson 4</span>
+                        <h3>Part 3: Word Formation</h3>
+                        <p>Transform words using prefixes and suffixes. Learn the patterns that unlock marks.</p>
+                        <div class="tags">
+                            <span class="tag reading">Use of English</span>
+                            <span class="tag">50 mins</span>
+                        </div>
+                    </div>
+                    <div class="lesson-card" onclick="openLesson('cambridge_cae_lesson2_kwt.html')">
+                        <span class="lesson-number">Lesson 5</span>
+                        <h3>Part 4: Key Word Transformations</h3>
+                        <p>The "3 Decisions" framework for rewriting sentences. 6 questions, 12 marks.</p>
+                        <div class="tags">
+                            <span class="tag reading">Use of English</span>
+                            <span class="tag">50 mins</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3: Reading -->
+            <div class="pathway-section">
+                <div class="pathway-header">
+                    <div class="pathway-number">3</div>
+                    <div class="pathway-info">
+                        <h2>Phase 3: Reading Skills</h2>
+                        <p>Tackle the long reading texts in Parts 5-8</p>
+                    </div>
+                </div>
+                <div class="lessons-grid">
+                    <div class="lesson-card" onclick="openLesson('cambridge_cae_lesson5_reading_strategies.html')">
+                        <span class="lesson-number">Lesson 6</span>
+                        <h3>Reading Strategies: Parts 5-8</h3>
+                        <p>Strategies for multiple choice, cross-text matching, gapped text, and multiple matching.</p>
+                        <div class="tags">
+                            <span class="tag reading">Reading</span>
+                            <span class="tag">60 mins</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4: Writing -->
+            <div class="pathway-section">
+                <div class="pathway-header">
+                    <div class="pathway-number">4</div>
+                    <div class="pathway-info">
+                        <h2>Phase 4: Writing Paper</h2>
+                        <p>Master essay writing and Part 2 text types</p>
+                    </div>
+                </div>
+                <div class="lessons-grid">
+                    <div class="lesson-card" onclick="openLesson('cambridge_cae_writing_essay.html')">
+                        <span class="lesson-number">Lesson 7</span>
+                        <h3>Writing Part 1: Essay Masterclass</h3>
+                        <p>Structure, language, and strategy for the compulsory essay. 220-260 words.</p>
+                        <div class="tags">
+                            <span class="tag writing">Writing</span>
+                            <span class="tag">60 mins</span>
+                        </div>
+                    </div>
+                    <div class="lesson-card" onclick="openLesson('cambridge_cae_writing_reports_proposals.html')">
+                        <span class="lesson-number">Lesson 8</span>
+                        <h3>Writing Part 2: Reports & Proposals</h3>
+                        <p>Professional formats with recommendations and clear sections.</p>
+                        <div class="tags">
+                            <span class="tag writing">Writing</span>
+                            <span class="tag">50 mins</span>
+                        </div>
+                    </div>
+                    <div class="lesson-card" onclick="openLesson('cambridge_cae_writing_reviews_letters.html')">
+                        <span class="lesson-number">Lesson 9</span>
+                        <h3>Writing Part 2: Reviews & Letters</h3>
+                        <p>Engaging reviews and formal/informal emails.</p>
+                        <div class="tags">
+                            <span class="tag writing">Writing</span>
+                            <span class="tag">50 mins</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 5: Listening -->
+            <div class="pathway-section">
+                <div class="pathway-header">
+                    <div class="pathway-number">5</div>
+                    <div class="pathway-info">
+                        <h2>Phase 5: Listening Paper</h2>
+                        <p>Strategies for all 4 listening parts</p>
+                    </div>
+                </div>
+                <div class="lessons-grid">
+                    <div class="lesson-card" onclick="openLesson('cambridge_cae_listening_strategies.html')">
+                        <span class="lesson-number">Lesson 10</span>
+                        <h3>Listening Strategies: All Parts</h3>
+                        <p>Use reading time, spot paraphrases, avoid distractors, and use the second listen.</p>
+                        <div class="tags">
+                            <span class="tag listening">Listening</span>
+                            <span class="tag">50 mins</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 6: Speaking -->
+            <div class="pathway-section">
+                <div class="pathway-header">
+                    <div class="pathway-number">6</div>
+                    <div class="pathway-info">
+                        <h2>Phase 6: Speaking Paper</h2>
+                        <p>Ace the face-to-face speaking test with your partner</p>
+                    </div>
+                </div>
+                <div class="lessons-grid">
+                    <div class="lesson-card" onclick="openLesson('cambridge_cae_speaking_complete.html')">
+                        <span class="lesson-number">Lesson 11</span>
+                        <h3>Speaking: Complete Guide (Parts 1-4)</h3>
+                        <p>Interview, comparing photos, collaborative task, and discussion. All the phrases you need.</p>
+                        <div class="tags">
+                            <span class="tag speaking">Speaking</span>
+                            <span class="tag">60 mins</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 7: Exam Simulation -->
+            <div class="pathway-section">
+                <div class="pathway-header">
+                    <div class="pathway-number">7</div>
+                    <div class="pathway-info">
+                        <h2>Phase 7: Exam Simulation</h2>
+                        <p>Put it all together with timed practice</p>
+                    </div>
+                </div>
+                <div class="lessons-grid">
+                    <div class="lesson-card" onclick="openLesson('cambridge_cae_exam_simulation.html')">
+                        <span class="lesson-number">Lesson 12</span>
+                        <h3>Full Exam Simulation</h3>
+                        <p>Complete timed practice under exam conditions with self-assessment.</p>
+                        <div class="tags">
+                            <span class="tag">All Skills</span>
+                            <span class="tag">4 hours</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CPE Course Content -->
+        <div id="cpe-content" class="course-content">
+
+            <div class="info-banner">
+                <div class="icon">🚧</div>
+                <div class="text">
+                    <h4>CPE Course Coming Soon</h4>
+                    <p>We're building a complete C2 Proficiency course. In the meantime, start with the CPE Introduction below.</p>
+                </div>
+            </div>
+
+            <div class="exam-overview">
+                <div class="overview-card">
+                    <h4>CEFR Level</h4>
+                    <div class="value">C2</div>
+                    <div class="label">Highest level</div>
+                </div>
+                <div class="overview-card">
+                    <h4>Total Exam Time</h4>
+                    <div class="value">~4h</div>
+                    <div class="label">4 papers</div>
+                </div>
+                <div class="overview-card">
+                    <h4>Key Difference</h4>
+                    <div class="value">3-8</div>
+                    <div class="label">words in Part 4</div>
+                </div>
+                <div class="overview-card">
+                    <h4>Listening Part 2</h4>
+                    <div class="value">1x</div>
+                    <div class="label">Heard ONCE only</div>
+                </div>
+            </div>
+
+            <div class="pathway-section">
+                <div class="pathway-header">
+                    <div class="pathway-number">1</div>
+                    <div class="pathway-info">
+                        <h2>Available Now</h2>
+                        <p>Start with the CPE introduction to understand the exam</p>
+                    </div>
+                </div>
+                <div class="lessons-grid">
+                    <div class="lesson-card" onclick="openLesson('cambridge_cpe_introduction.html')">
+                        <span class="lesson-number">Lesson 1</span>
+                        <h3>Introduction to CPE</h3>
+                        <p>Understand what makes C2 Proficiency different from CAE and decide if you're ready.</p>
+                        <div class="tags">
+                            <span class="tag">Overview</span>
+                            <span class="tag">45 mins</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-banner" style="border-color: #f093fb;">
+                <div class="icon">💡</div>
+                <div class="text">
+                    <h4>Recommended Path</h4>
+                    <p>If you haven't passed CAE with Grade A or B yet, we recommend completing the CAE course first. A solid C1 foundation makes CPE preparation much more effective.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Cambridge Exam Prep by Malcolm | <a href="malcolm_lesson_index.html">View All Lessons</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const BASE_URL = 'https://malcolmtheteacher-creator.github.io/preply-lessons/';
+
+        function showExam(exam) {
+            // Toggle buttons
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Toggle content
+            document.querySelectorAll('.course-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(exam + '-content').classList.add('active');
+        }
+
+        function openLesson(filename) {
+            window.open(BASE_URL + filename, '_blank');
+        }
+
+        // Track progress with localStorage
+        function updateProgress() {
+            const completed = JSON.parse(localStorage.getItem('cae-completed') || '[]');
+            const total = 12;
+            const percent = Math.round((completed.length / total) * 100);
+
+            document.getElementById('cae-completed').textContent = `${completed.length} of ${total} lessons completed`;
+            document.getElementById('cae-percent').textContent = `${percent}%`;
+            document.querySelector('.progress-bar').style.width = `${percent}%`;
+
+            // Mark completed cards
+            completed.forEach(lesson => {
+                const cards = document.querySelectorAll('.lesson-card');
+                cards.forEach(card => {
+                    if (card.querySelector('h3').textContent.includes(lesson)) {
+                        card.classList.add('completed');
+                    }
+                });
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', updateProgress);
+    </script>
+</body>
+</html>

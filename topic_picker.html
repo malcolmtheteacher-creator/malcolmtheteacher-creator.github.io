@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topic Explorer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 2rem; margin-bottom: 8px; font-weight: 700; }
+        .header p { font-size: 1.1rem; opacity: 0.9; }
+
+        /* Filter section */
+        .filter-section {
+            max-width: 1100px;
+            margin: 24px auto 0;
+            padding: 0 20px;
+        }
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .filter-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            min-width: 50px;
+        }
+        .filter-btn {
+            padding: 7px 18px;
+            border-radius: 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .filter-btn:hover { background: #f0edff; }
+        .filter-btn.active { background: #667eea; color: white; }
+
+        .filter-btn.lvl { border-color: #94a3b8; color: #64748b; font-size: 0.82rem; padding: 5px 14px; }
+        .filter-btn.lvl:hover { background: #f1f5f9; }
+        .filter-btn.lvl.active { background: #64748b; color: white; border-color: #64748b; }
+
+        .search-box {
+            flex: 1; min-width: 200px;
+            padding: 9px 16px; border-radius: 20px;
+            border: 2px solid #ddd; font-size: 0.9rem; outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-box:focus { border-color: #667eea; }
+
+        .lesson-count {
+            max-width: 1100px; margin: 6px auto 0; padding: 0 20px;
+            font-size: 0.82rem; color: #999;
+        }
+
+        /* Grid */
+        .grid {
+            max-width: 1100px;
+            margin: 20px auto 40px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 18px;
+        }
+        .category-label {
+            grid-column: 1 / -1;
+            font-size: 1.25rem; font-weight: 700; color: #444;
+            margin-top: 10px; padding-bottom: 6px;
+            border-bottom: 2px solid #667eea;
+            display: flex; align-items: center; gap: 10px;
+        }
+
+        /* Cards */
+        .card {
+            background: white; border-radius: 14px; overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex; flex-direction: column;
+            text-decoration: none; color: inherit; cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.18);
+        }
+
+        .card-banner { height: 6px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-banner.b1 { background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); }
+        .card-banner.b2 { background: linear-gradient(135deg, #e67e22 0%, #d35400 100%); }
+        .card-banner.c1 { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
+        .card-banner.c2 { background: linear-gradient(135deg, #8e44ad 0%, #6c3483 100%); }
+
+        .card-body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+
+        .card-level {
+            display: inline-block; padding: 2px 8px; border-radius: 8px;
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.5px; width: fit-content; margin-bottom: 8px;
+        }
+        .card-level.a2 { background: #e8f5e9; color: #2e7d32; }
+        .card-level.b1 { background: #e3f2fd; color: #1565c0; }
+        .card-level.b2 { background: #fff3e0; color: #e65100; }
+        .card-level.c1 { background: #fce4ec; color: #c62828; }
+        .card-level.c2 { background: #f3e5f5; color: #6a1b9a; }
+
+        .card-title-row {
+            display: flex; align-items: center; flex-wrap: wrap;
+            gap: 6px; margin-bottom: 8px;
+        }
+        .card-title {
+            font-size: 1.1rem; font-weight: 700; color: #222;
+        }
+
+        /* CEFR grammar badge — subtle, matches speaking pathway */
+        .cefr-badge {
+            display: inline-block; padding: 2px 9px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 10px; font-size: 0.7rem; color: #059669;
+            font-weight: 600; text-decoration: none; white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        .cefr-badge:hover {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%);
+            border-color: rgba(16, 185, 129, 0.5); color: #047857; transform: scale(1.05);
+        }
+
+        /* Speaking pathway badge */
+        .sp-badge {
+            display: inline-block; padding: 2px 9px;
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.08) 0%, rgba(255, 107, 107, 0.08) 100%);
+            border: 1px solid rgba(233, 69, 96, 0.25);
+            border-radius: 10px; font-size: 0.7rem; color: #d63453;
+            font-weight: 600; text-decoration: none; white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        .sp-badge:hover {
+            background: rgba(233, 69, 96, 0.15);
+            border-color: rgba(233, 69, 96, 0.5); transform: scale(1.05);
+        }
+
+        .card-desc {
+            font-size: 0.88rem; color: #666; line-height: 1.5; flex: 1;
+        }
+        .card-tags {
+            display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px;
+        }
+        .tag {
+            padding: 2px 9px; background: #f0f0ff; color: #667eea;
+            border-radius: 8px; font-size: 0.72rem; font-weight: 600;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #999;
+        }
+        .empty-state .emoji { font-size: 3rem; margin-bottom: 12px; }
+
+        @media (max-width: 700px) {
+            .header h1 { font-size: 1.5rem; }
+            .grid { grid-template-columns: 1fr; }
+            .filter-row { flex-direction: column; align-items: stretch; }
+            .search-box { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Topic Explorer</h1>
+    <p>Pick something that interests you — learn what you want, when you want.</p>
+</div>
+
+<div class="filter-section">
+    <div class="filter-row">
+        <button class="filter-btn active" onclick="ft('all')">All Topics</button>
+        <button class="filter-btn" onclick="ft('food')">Food &amp; Culture</button>
+        <button class="filter-btn" onclick="ft('travel')">Travel &amp; Places</button>
+        <button class="filter-btn" onclick="ft('life')">Daily Life</button>
+        <button class="filter-btn" onclick="ft('entertainment')">Entertainment</button>
+        <button class="filter-btn" onclick="ft('work')">Work &amp; Money</button>
+        <button class="filter-btn" onclick="ft('health')">Health &amp; Sports</button>
+        <button class="filter-btn" onclick="ft('people')">People</button>
+        <button class="filter-btn" onclick="ft('world')">Big Ideas</button>
+        <input type="text" class="search-box" placeholder="Search topics, grammar, vocabulary..." oninput="ss(this.value)">
+    </div>
+    <div class="filter-row">
+        <span class="filter-label">Level</span>
+        <button class="filter-btn lvl active" onclick="fl('all')">All</button>
+        <button class="filter-btn lvl" onclick="fl('a2')">A2</button>
+        <button class="filter-btn lvl" onclick="fl('b1')">B1</button>
+        <button class="filter-btn lvl" onclick="fl('b2')">B2</button>
+        <button class="filter-btn lvl" onclick="fl('c1')">B2–C1</button>
+        <button class="filter-btn lvl" onclick="fl('c2')">C2</button>
+    </div>
+</div>
+<div class="lesson-count" id="cnt"></div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const L = [
+    // ===== FOOD & CULTURE =====
+    { cat:'food', ic:'🍽️', cl:'Food & Culture', t:'Discussing Restaurants', lv:'a2', f:'su_a2_01_discussing_restaurants.html',
+      d:'Talk about your favourite restaurants, describe dishes, and share food recommendations.',
+      tags:['food vocabulary','opinions','present tenses'], g:'Present Tenses', gl:'grammar_a2_01_past_future_tense.html', sl:'sp_a2_03_simple_opinions.html' },
+    { cat:'food', t:'Comparing Cultures', lv:'a2', f:'su_a2_05_comparing_cultures.html',
+      d:'Explore cultural differences and similarities — customs, traditions, and everyday life.',
+      tags:['comparatives','culture','opinions'], g:'Comparatives', gl:'qf_grammar_comparative_superlative.html', sl:'sp_a2_07_comparing_things.html' },
+    { cat:'food', t:'Memorable Meals', lv:'a2', f:'su_a2_06_memorable_meals.html',
+      d:'Describe unforgettable food experiences and tell stories about meals that left an impression.',
+      tags:['past tenses','adjectives','storytelling'], g:'Past Simple', gl:'grammar_a2_01_past_future_tense.html', sl:'sp_a2_04_telling_stories.html' },
+    { cat:'food', t:'Cultural Celebrations', lv:'a2', f:'su_a2_11_cultural_celebrations.html',
+      d:'Describe festivals, holidays, and celebrations from different cultures.',
+      tags:['present simple','traditions','descriptions'], g:'Present Simple', gl:'grammar_a2_01_past_future_tense.html' },
+    { cat:'food', t:'Ordering Food', lv:'a2', f:'su_a2_30_ordering_food.html',
+      d:'Order food and drinks, handle restaurant conversations, and practise polite requests.',
+      tags:['functional language','polite requests','food vocabulary'], g:'Could / Would', gl:'grammar_a2_04_modals_obligation_request.html' },
+    { cat:'food', t:'Buying and Shopping', lv:'a2', f:'su_a2_36_buying_and_shopping.html',
+      d:'Learn to ask for things in a shop, practise countable and uncountable nouns with quantifiers, and role-play shopping conversations.',
+      tags:['quantifiers','shopping language','countable uncountable'], g:'Quantifiers', gl:'grammar_a2_09_prepositions_conjunctions_gerunds.html' },
+    { cat:'food', t:'Designing a Restaurant', lv:'a2', f:'su_a2_40_designing_a_restaurant.html',
+      d:'Discuss restaurant experiences using superlative adjectives, then design your own restaurant concept and present your ideas.',
+      tags:['superlatives','restaurant vocabulary','creative task'], g:'Superlatives', gl:'qf_grammar_comparative_superlative.html' },
+    { cat:'food', t:'A Passion for Food', lv:'b2', f:'bc_passion_for_food_b2c1.html',
+      d:'Discuss food culture, express sophisticated opinions about cuisine, and debate food trends.',
+      tags:['opinion language','food culture','advanced vocabulary'], g:'Expressing Opinions', gl:'grammar_b2_13_advanced_adjective_adverb.html' },
+
+    // ===== TRAVEL & PLACES =====
+    { cat:'travel', ic:'✈️', cl:'Travel & Places', t:'Getting Around Town', lv:'a2', f:'su_a2_03_getting_around_town.html',
+      d:'Give and follow directions, talk about transport, and navigate unfamiliar places.',
+      tags:['directions','prepositions','transport'], g:'Prepositions', gl:'grammar_a2_09_prepositions_conjunctions_gerunds.html' },
+    { cat:'travel', t:'Holidays', lv:'a2', f:'su_a2_08_holidays.html',
+      d:'Talk about past holidays, ask about travel experiences, and share favourite memories.',
+      tags:['past simple','question forms','travel'], g:'Past Simple Questions', gl:'grammar_a2_01_past_future_tense.html', sl:'sp_a2_04_telling_stories.html' },
+    { cat:'travel', t:'Travel Plans', lv:'a2', f:'su_a2_09_travel_plans.html',
+      d:'Discuss future trips, make plans, and talk about what you want to do on holiday.',
+      tags:['going to','future plans','travel'], g:'Going to', gl:'grammar_a2_02_future_arrangements.html' },
+    { cat:'travel', t:'It Was a Disaster!', lv:'a2', f:'su_a2_20_it_was_a_disaster.html',
+      d:'Tell stories about travel problems — lost luggage, bad hotels, and holiday nightmares.',
+      tags:['negative adjectives','sympathy phrases','past tenses'], g:'Past Continuous', gl:'qf_grammar_past_continuous_simple.html', sl:'sp_a2_17_simple_narratives.html' },
+    { cat:'travel', t:'Dream Retirement', lv:'a2', f:'su_a2_22_dream_retirement.html',
+      d:'Compare countries for retirement and use the second conditional to imagine your future.',
+      tags:['second conditional','compound nouns','places'], g:'Second Conditional', gl:'qf_grammar_second_conditional.html' },
+    { cat:'travel', t:'A Good Holiday', lv:'a2', f:'su_a2_28_a_good_holiday.html',
+      d:'Plan an ideal holiday, discuss preferences, and describe what makes a trip memorable.',
+      tags:['superlatives','preferences','travel vocabulary'], g:'Superlatives', gl:'qf_grammar_comparative_superlative.html' },
+    { cat:'travel', t:'Places I Have Visited', lv:'a2', f:'su_a2_32_places_i_have_visited.html',
+      d:'Describe places you\'ve stayed, learn adjectives and their opposites, and write hotel reviews.',
+      tags:['adjectives','opposites','describing places'], g:'Adjectives & Opposites', gl:'qf_grammar_comparative_superlative.html' },
+    { cat:'travel', t:'Getting the Right Information', lv:'a2', f:'su_a2_34_getting_the_right_information.html',
+      d:'Practise making and answering telephone enquiries using polite expressions for getting information.',
+      tags:['functional language','telephone expressions','polite requests'], g:'Polite Requests', gl:'grammar_a2_04_modals_obligation_request.html' },
+    { cat:'travel', t:'Travel Problems', lv:'a2', f:'su_a2_42_travel_problems.html',
+      d:'Handle common travel problems using polite complaint language. Practise role-plays for hotels, flights, and lost luggage.',
+      tags:['polite complaints','travel vocabulary','role-play'], g:'Polite Requests', gl:'grammar_a2_04_modals_obligation_request.html' },
+    { cat:'travel', t:'A Memorable Holiday', lv:'b1', f:'b1_06_a_memorable_holiday.html',
+      d:'Tell detailed holiday stories using narrative tenses — what was happening when something went wrong.',
+      tags:['narrative tenses','past continuous','storytelling'], g:'Narrative Tenses', gl:'grammar_b1_02_past_tense_mastery.html', sl:'sp_b1_23_three_part_structure.html' },
+    { cat:'travel', t:'Tourism & Alternative Holidays', lv:'b2', f:'bc_tourism_alternative_holidays_b2c1.html',
+      d:'Discuss sustainable tourism, compare types of holidays, and debate the impact of travel.',
+      tags:['discussion','tourism vocabulary','advanced opinions'], g:'Passive Voice', gl:'grammar_b2_06_advanced_passive.html' },
+    { cat:'travel', t:'Culture Shock', lv:'b2', f:'bc_culture_shock_b2c1.html',
+      d:'Discuss the stages of culture shock, share cross-cultural experiences, and analyse adaptation strategies.',
+      tags:['narrative','culture','feelings vocabulary'], g:'Reported Speech', gl:'grammar_b2_08_reporting_verbs_patterns.html' },
+    { cat:'travel', t:'Cultural Differences', lv:'b2', f:'b2_06_cultural_differences.html',
+      d:'Explore how cultures communicate differently in business — giving advice, directness, and etiquette.',
+      tags:['cultural awareness','tentative language','business'], g:'Tentative Language', gl:'grammar_b2_14_complex_prepositions_cohesion.html' },
+
+    // ===== DAILY LIFE =====
+    { cat:'life', ic:'🏠', cl:'Daily Life', t:'Lifestyle Changes', lv:'a2', f:'su_a2_02_lifestyle_changes.html',
+      d:'Describe changes in your life, health habits, and everyday routines.',
+      tags:['used to','present perfect','health'], g:'Used to', gl:'qf_grammar_used_to.html' },
+    { cat:'life', t:'Planning the Future', lv:'a2', f:'su_a2_10_planning_the_future.html',
+      d:'Talk about goals, ambitions, and plans for the future using time expressions.',
+      tags:['future forms','time phrases','goals'], g:'Will & Going to', gl:'grammar_a2_02_future_arrangements.html' },
+    { cat:'life', t:'Talking About Fashion', lv:'a2', f:'su_a2_13_talking_about_fashion.html',
+      d:'Describe clothing and style, discuss fashion trends, and express preferences.',
+      tags:['adjectives','preferences','present tenses'], g:'Adjective Order', gl:'qf_grammar_adjective_order.html' },
+    { cat:'life', t:'Online or Offline?', lv:'a2', f:'su_a2_14_online_or_offline.html',
+      d:'Compare online and offline activities — shopping, learning, and social life.',
+      tags:['likes & dislikes','comparisons','technology'], g:'Comparatives', gl:'qf_grammar_comparative_superlative.html', sl:'sp_a2_14_expressing_preferences.html' },
+    { cat:'life', t:'Describing Objects', lv:'a2', f:'su_a2_15_describing_objects.html',
+      d:'Describe everyday items, explain what things are for, and practise selling an object.',
+      tags:['adjective order','function phrases','descriptions'], g:'Adjective Order', gl:'qf_grammar_adjective_order.html' },
+    { cat:'life', t:'A Special Occasion', lv:'a2', f:'su_a2_19_a_special_occasion.html',
+      d:'Describe important events — weddings, birthdays, ceremonies — and what happened.',
+      tags:['past simple','past continuous','events'], g:'Past Continuous', gl:'qf_grammar_past_continuous_simple.html' },
+    { cat:'life', t:'Important Events in My Life', lv:'a2', f:'su_a2_25_important_events.html',
+      d:'Talk about key moments in your life using irregular past tense verbs.',
+      tags:['irregular verbs','past simple','life events'], g:'Past Simple', gl:'grammar_a2_01_past_future_tense.html' },
+    { cat:'life', t:'Describing Future Technology', lv:'a2', f:'su_a2_29_describing_future_technology.html',
+      d:'Imagine and describe future inventions using will, might, and prediction language.',
+      tags:['will & might','predictions','technology'], g:'Will for Predictions', gl:'grammar_a2_02_future_arrangements.html' },
+    { cat:'life', t:'Mistakes and Misadventures', lv:'a2', f:'su_a2_33_mistakes_and_misadventures.html',
+      d:'Tell stories about past mistakes using narrative tenses — past simple and past continuous.',
+      tags:['narrative tenses','past continuous','storytelling'], g:'Past Continuous', gl:'qf_grammar_past_continuous_simple.html', sl:'sp_a2_17_simple_narratives.html' },
+    { cat:'life', t:'Online Learning', lv:'a2', f:'su_a2_35_online_learning.html',
+      d:'Discuss online learning habits, review vocabulary for digital education, and practise frequency expressions.',
+      tags:['present simple','frequency expressions','technology'], g:'Present Simple', gl:'grammar_a2_01_past_future_tense.html' },
+    { cat:'life', t:'My Celebrations', lv:'a2', f:'su_a2_39_my_celebrations.html',
+      d:'Ask and answer questions about big events and celebrations using past simple tense. Tell stories about birthdays, weddings, and life milestones.',
+      tags:['past simple','celebrations vocabulary','life events'], g:'Past Simple', gl:'grammar_a2_01_past_future_tense.html' },
+    { cat:'life', t:'Home', lv:'b1', f:'b1_08_home.html',
+      d:'Describe your ideal home, discuss neighbourhoods, and compare living situations.',
+      tags:['describing places','preferences','there is/are'], g:'Relative Clauses', gl:'grammar_b1_10_relative_clauses_extended.html' },
+
+    // ===== HEALTH & SPORTS =====
+    { cat:'health', ic:'💪', cl:'Health & Sports', t:'Staying Healthy', lv:'a2', f:'su_a2_23_staying_healthy.html',
+      d:'Give advice about fitness and healthy eating using health collocations.',
+      tags:['collocations','giving advice','health vocabulary'], g:'Should / Must', gl:'qf_grammar_modal_advice.html' },
+    { cat:'health', t:'Sports and Games', lv:'a2', f:'su_a2_24_sports_and_games.html',
+      d:'Talk about sports, hobbies, and how often you exercise.',
+      tags:['frequency adverbs','sports vocabulary','play/do/go'], g:'Adverb Position', gl:'qf_grammar_adverb_position.html' },
+    { cat:'health', t:'Keeping Fit', lv:'b1', f:'b1_01_keeping_fit.html',
+      d:'Discuss fitness routines, give health advice, and debate the best ways to stay healthy.',
+      tags:['modals of advice','health collocations','opinions'], g:'Modals of Advice', gl:'grammar_b1_04_modals_obligation_deduction.html', sl:'sp_b1_28_advantages_disadvantages.html' },
+    { cat:'health', t:'Mind Over Body', lv:'b2', f:'bc_mind_over_body_health_b2c1.html',
+      d:'Discuss the mind-body connection, alternative medicine, and whether attitude affects health.',
+      tags:['health debate','advanced opinions','cause & effect'], g:'Modal Deduction', gl:'grammar_b2_03_modal_deduction.html' },
+
+    // ===== ENTERTAINMENT =====
+    { cat:'entertainment', ic:'🎬', cl:'Entertainment', t:'Describing Experiences', lv:'a2', f:'su_a2_04_describing_experiences.html',
+      d:'Share personal experiences, react to stories, and describe memorable moments.',
+      tags:['present perfect','reactions','experiences'], g:'Present Perfect', gl:'grammar_a2_03_present_perfect_intro.html', sl:'sp_a2_13_describing_experiences.html' },
+    { cat:'entertainment', t:'The Silver Screen', lv:'a2', f:'su_a2_07_the_silver_screen.html',
+      d:'Talk about films, describe plots, and share your opinions on movies.',
+      tags:['film vocabulary','opinions','adjectives'], g:'Adjectives', gl:'grammar_a2_08_pronouns_adjectives.html', sl:'sp_a2_03_simple_opinions.html' },
+    { cat:'entertainment', t:'Musicians', lv:'a2', f:'su_a2_12_musicians.html',
+      d:'Discuss music, describe musicians, and talk about concerts and songs.',
+      tags:['past simple','music vocabulary','interviews'], g:'Past Simple', gl:'grammar_a2_01_past_future_tense.html' },
+    { cat:'entertainment', t:'Interesting Stories', lv:'a2', f:'su_a2_38_interesting_stories.html',
+      d:'Tell interesting stories using narrative tenses (past simple + past continuous) and learn active listening phrases to show interest.',
+      tags:['narrative tenses','active listening','storytelling'], g:'Past Continuous', gl:'qf_grammar_past_continuous_simple.html', sl:'sp_a2_17_simple_narratives.html' },
+    { cat:'entertainment', t:'Surprising Tales', lv:'a2', f:'su_a2_16_surprising_tales.html',
+      d:'Tell and react to surprising stories using adverbs and dramatic language.',
+      tags:['adverbs','storytelling','reactions'], g:'Adverbs', gl:'qf_grammar_adverb_position.html', sl:'sp_a2_17_simple_narratives.html' },
+    { cat:'entertainment', t:'Being Nostalgic', lv:'a2', f:'su_a2_21_being_nostalgic.html',
+      d:'Talk about childhood memories, past habits, and things you used to do.',
+      tags:['used to','past simple','memories'], g:'Used to', gl:'qf_grammar_used_to.html' },
+    { cat:'entertainment', t:'First Times', lv:'a2', f:'su_a2_26_first_times.html',
+      d:'Share stories about doing something for the first time — exciting, scary, and unforgettable.',
+      tags:['present perfect','past simple','experiences'], g:'Pres. Perfect vs Past', gl:'qf_grammar_present_perfect_past.html', sl:'sp_a2_13_describing_experiences.html' },
+    { cat:'entertainment', t:'Creating a Story', lv:'a2', f:'su_a2_27_creating_a_story.html',
+      d:'Build a narrative together using sequencing words and past tenses.',
+      tags:['narrative structure','connectors','past tenses'], g:'Narrative Tenses', gl:'grammar_a2_01_past_future_tense.html', sl:'sp_a2_17_simple_narratives.html' },
+    { cat:'entertainment', t:'My Past Story', lv:'a2', f:'su_a2_41_my_past_story.html',
+      d:'Tell a personal story about money. Learn money vocabulary, present perfect for experiences, and natural word linking.',
+      tags:['money vocabulary','present perfect','pronunciation'], g:'Present Perfect', gl:'grammar_a2_03_present_perfect_intro.html', sl:'sp_a2_04_telling_stories.html' },
+    { cat:'entertainment', t:'Discussing Art', lv:'b1', f:'b1_07_discussing_art.html',
+      d:'Describe artwork, express preferences, and discuss what makes art meaningful.',
+      tags:['opinion phrases','describing','adjectives'], g:'Gerunds & Infinitives', gl:'grammar_b1_16_gerunds_infinitives_semantic.html' },
+    { cat:'entertainment', t:'Telling a Funny Story', lv:'b2', f:'b2_04_telling_a_funny_story.html',
+      d:'Master narrative techniques for humour — timing, exaggeration, and punchlines.',
+      tags:['narrative tenses','exaggeration','humour'], g:'Past Perfect Continuous', gl:'grammar_b2_01_past_perfect_continuous_narrative.html', sl:'sp_b2_51_idiomatic.html' },
+    { cat:'entertainment', t:'Books that Changed the World', lv:'b2', f:'bc_conspiracy_theories_b2c1.html',
+      d:'Discuss influential books, debate ideas, and practise persuasive language.',
+      tags:['persuasion','abstract ideas','discussion'], g:'Cleft Sentences', gl:'grammar_b2_11_cleft_sentences_emphasis.html' },
+
+    // ===== WORK & MONEY =====
+    { cat:'work', ic:'💼', cl:'Work & Money', t:'Getting a Bargain', lv:'a2', f:'su_a2_17_getting_a_bargain.html',
+      d:'Practise negotiating, giving shopping advice, and talking about spending and saving.',
+      tags:['first conditional','shopping','advice'], g:'First Conditional', gl:'grammar_a2_05_conditional_basic_passive.html' },
+    { cat:'work', t:'Choosing a Job', lv:'a2', f:'su_a2_18_choosing_a_job.html',
+      d:'Explore different jobs, discuss what makes work enjoyable, and match skills to careers.',
+      tags:['job vocabulary','collocations','preferences'], g:'Gerund & Infinitive', gl:'qf_grammar_gerund_infinitive.html' },
+    { cat:'work', t:'Budget and Future Plans', lv:'a2', f:'su_a2_37_budget.html',
+      d:'Talk about the economy, practise making promises and predictions using plan/hope/promise/want + infinitive, and discuss city problems.',
+      tags:['future plans','infinitive patterns','economy vocabulary'], g:'Infinitive Patterns', gl:'grammar_a2_02_future_arrangements.html' },
+    { cat:'work', t:'Making Requests', lv:'a2', f:'su_a2_43_making_requests.html',
+      d:'Learn polite ways to make requests and ask for permission. Practise different levels of formality and saying yes and no.',
+      tags:['functional language','polite requests','formality'], g:'Polite Requests', gl:'grammar_a2_04_modals_obligation_request.html' },
+    { cat:'work', t:'Working Smarter', lv:'a2', f:'su_a2_44_working_smarter.html',
+      d:'Discuss work habits and productivity. Learn vocabulary for time management, take a work patterns quiz, and practise giving advice.',
+      tags:['should/could','productivity vocabulary','work habits'], g:'Should / Could', gl:'qf_grammar_modal_advice.html' },
+    { cat:'work', t:'Presentation Skills', lv:'a2', f:'su_a2_45_presentation_skills.html',
+      d:'Learn to structure a presentation using the power of three. Practise transition signals and give a short talk.',
+      tags:['presentation structure','transition signals','speaking'], g:'Connectors', gl:'grammar_a2_09_prepositions_conjunctions_gerunds.html' },
+    { cat:'work', t:'Body Language', lv:'a2', f:'su_a2_46_body_language.html',
+      d:'Explore non-verbal communication and the 4 Ps of vocal delivery: power, pause, pace, and pitch. Practise sentence stress.',
+      tags:['body language','vocal delivery','sentence stress'], g:'Imperatives', gl:'grammar_a2_09_prepositions_conjunctions_gerunds.html' },
+    { cat:'work', t:'Making Decisions', lv:'a2', f:'su_a2_47_making_decisions.html',
+      d:'Learn language for agreeing and disagreeing in meetings. Discuss employee qualities and make a hiring decision.',
+      tags:['agreeing disagreeing','meetings','employee qualities'], g:'Gerunds vs Infinitives', gl:'grammar_a2_09_prepositions_conjunctions_gerunds.html' },
+    { cat:'work', t:'Solving Problems', lv:'a2', f:'su_a2_48_solving_problems.html',
+      d:'Use the first conditional to discuss workplace problems and find solutions. Explore a staff retention scenario.',
+      tags:['first conditional','problem solving','workplace'], g:'First Conditional', gl:'grammar_a2_08_conditionals.html' },
+    { cat:'people', t:'Communication Styles', lv:'a2', f:'su_a2_49_communication_styles.html',
+      d:'Compare direct and indirect communication styles. Practise softening language and explore cultural time preferences.',
+      tags:['direct indirect','softening language','intercultural'], g:'Modal Verbs', gl:'grammar_a2_07_modal_verbs.html' },
+    { cat:'people', t:'Getting in Touch', lv:'a2', f:'su_a2_50_getting_in_touch.html',
+      d:'Learn the differences between formal and informal writing. Practise contractions and write an email to an old friend.',
+      tags:['formal informal','contractions','email writing'], g:'Present Perfect', gl:'grammar_a2_06_present_perfect.html' },
+    { cat:'life', t:'Life Stories', lv:'a2', f:'su_a2_51_life_stories.html',
+      d:'Tell stories about your life using past tense verbs. Learn narrative linkers and practise structuring a personal story.',
+      tags:['past simple','narrative linkers','storytelling'], g:'Past Simple', gl:'grammar_a2_03_past_simple.html' },
+    { cat:'work', t:'Handling Questions', lv:'a2', f:'su_a2_52_handling_questions.html',
+      d:'Learn key phrases for handling questions in presentations. Practise acknowledging, deflecting, and answering with confidence.',
+      tags:['presentations','Q&A','professional phrases'], g:'Question Forms', gl:'grammar_a2_04_questions.html' },
+    { cat:'work', t:'Qualifications Required', lv:'a2', f:'su_a2_53_qualifications_required.html',
+      d:'Talk about jobs and qualifications using must, have to, and don\'t have to. Analyse job requirements and discuss career paths.',
+      tags:['modal verbs','qualifications','career'], g:'Modal Verbs', gl:'grammar_a2_07_modal_verbs.html' },
+    { cat:'work', t:'Managing Time with Others', lv:'a2', f:'su_a2_54_managing_time_with_others.html',
+      d:'Learn strategies for staying focused at work. Practise polite ways to say no and set boundaries with colleagues.',
+      tags:['time management','saying no','workplace communication'], g:'Imperatives & Suggestions', gl:'grammar_a2_07_modal_verbs.html' },
+    { cat:'life', t:'Memorable Events', lv:'a2', f:'su_a2_55_memorable_events.html',
+      d:'Talk about childhood memories and past habits using "used to". Compare how life has changed and debate statements about the past.',
+      tags:['used to','childhood memories','past habits'], g:'Used To', gl:'grammar_a2_03_past_simple.html' },
+    { cat:'work', t:'Seeing is Believing', lv:'a2', f:'su_a2_56_seeing_is_believing.html',
+      d:'Learn about effective slide design and visual aids. Explore different slide types, design principles, and create a storyboard.',
+      tags:['presentations','visual aids','slide design'], g:'Imperatives', gl:'grammar_a2_07_modal_verbs.html' },
+    { cat:'work', t:'Investigating a Problem', lv:'a2', f:'su_a2_57_investigating_a_problem.html',
+      d:'Learn to investigate workplace problems using question patterns. Practise security vocabulary and problem-solving discussions.',
+      tags:['problem solving','questions','workplace security'], g:'Question Forms', gl:'grammar_a2_04_questions.html' },
+    { cat:'people', t:'Preparing for New Cultures', lv:'a2', f:'su_a2_58_preparing_for_new_cultures.html',
+      d:'Understand the difference between generalisations and stereotypes. Learn the LAWS framework to prepare for intercultural situations.',
+      tags:['intercultural','stereotypes','culture shock'], g:'Modal Verbs', gl:'grammar_a2_07_modal_verbs.html' },
+    { cat:'work', t:'Applying for a Job', lv:'a2', f:'su_a2_59_applying_for_a_job.html',
+      d:'Learn to write a cover letter with formal language. Study a model letter, practise key phrases, and plan your own application.',
+      tags:['cover letter','job application','formal writing'], g:'Present Perfect', gl:'grammar_a2_06_present_perfect.html' },
+    { cat:'people', t:'Interacting with People', lv:'a2', f:'su_a2_60_interacting_with_people.html',
+      d:'Practise giving opinions and making suggestions in workplace discussions. Learn would/might for hypothetical situations.',
+      tags:['opinions','suggestions','would might'], g:'Would & Might', gl:'grammar_a2_08_conditionals.html' },
+    { cat:'work', t:'Win-Win Negotiations', lv:'b2', f:'bc_win_win_negotiations_b2c1.html',
+      d:'Learn negotiation strategies, practise diplomatic language, and role-play business scenarios.',
+      tags:['negotiation','diplomatic language','conditionals'], g:'Mixed Conditionals', gl:'grammar_b2_05_third_mixed_conditionals.html', sl:'sp_b2_58_diplomatic.html' },
+    { cat:'work', t:'The Lottery & Grants', lv:'b2', f:'bc_the_lottery_grants_b2c1.html',
+      d:'Discuss money, luck, and funding — what would you do with a million pounds?',
+      tags:['conditionals','money vocabulary','speculation'], g:'Third Conditional', gl:'qf_grammar_third_conditional.html' },
+    { cat:'work', t:'High Performers & Workaholism', lv:'b2', f:'bc_high_performers_workaholism_b2c1.html',
+      d:'Debate work-life balance, discuss ambition, and analyse what drives people.',
+      tags:['work vocabulary','debate','cause & effect'], g:'Reported Speech', gl:'grammar_b2_08_reporting_verbs_patterns.html' },
+
+    // ===== PEOPLE & COMMUNICATION =====
+    { cat:'people', ic:'🗣️', cl:'People & Communication', t:'Life Stories', lv:'b1', f:'b1_02_life_stories.html',
+      d:'Tell your life story, describe turning points, and use a range of past tenses fluently.',
+      tags:['narrative tenses','past perfect','life events'], g:'Past Perfect', gl:'grammar_b1_02_past_tense_mastery.html', sl:'sp_b1_23_three_part_structure.html' },
+    { cat:'people', t:'Talking About Events', lv:'b1', f:'b1_03_talking_about_events.html',
+      d:'Describe events in detail, explain what was happening, and react to surprising news.',
+      tags:['past continuous','reactions','descriptions'], g:'Past Continuous', gl:'grammar_b1_02_past_tense_mastery.html' },
+    { cat:'people', t:'Emotions and Feelings', lv:'b1', f:'b1_05_emotions_and_feelings.html',
+      d:'Express how you feel, describe emotional reactions, and discuss what affects your mood.',
+      tags:['emotion vocabulary','-ed/-ing adjectives','feelings'], g:'-ed/-ing Adjectives', gl:'qf_grammar_ed_vs_ing_adjectives.html', sl:'sp_b1_26_abstract_concepts.html' },
+    { cat:'people', t:'Comparing Situations', lv:'b1', f:'b1_10_comparing_situations.html',
+      d:'Compare different situations, weigh up options, and express nuanced preferences.',
+      tags:['comparative structures','expressing preference','analysis'], g:'Comparatives (B1)', gl:'grammar_b1_comparative_language.html', sl:'sp_b1_28_advantages_disadvantages.html' },
+    { cat:'people', t:'Social Networking', lv:'a2', f:'su_a2_31_social_networking.html',
+      d:'Discuss advantages and disadvantages of social media, learn vocabulary for online platforms, and practise pros & cons language.',
+      tags:['social media','advantages & disadvantages','functional language'], g:'Functional Language', gl:'grammar_a2_09_prepositions_conjunctions_gerunds.html' },
+    { cat:'people', t:'Online Bullying', lv:'b1', f:'b1_09_online_bullying.html',
+      d:'Discuss cyberbullying, express opinions on solutions, and debate digital safety.',
+      tags:['opinion language','modals','social issues'], g:'Must / Should / Might', gl:'grammar_b1_04_modals_obligation_deduction.html', sl:'sp_b1_31_managing_disagreement.html' },
+    { cat:'people', t:'Truth and Lies', lv:'b2', f:'b2_01_truth_and_lies.html',
+      d:'Discuss honesty and deception, speculate about behaviour, and debate ethical dilemmas.',
+      tags:['speculation','modal perfects','ethics'], g:'Modal Speculation', gl:'grammar_b2_03_modal_deduction.html', sl:'sp_b2_53_abstract_reasoning.html' },
+    { cat:'people', t:'Explaining Emotions', lv:'b2', f:'b2_02_explaining_emotions.html',
+      d:'Describe complex emotions precisely and discuss emotional intelligence.',
+      tags:['emotion collocations','cause & result','nuanced language'], g:'Cause & Result', gl:'grammar_b2_14_complex_prepositions_cohesion.html', sl:'sp_b2_46_nuanced_description.html' },
+    { cat:'people', t:'Making Your Opinion Heard', lv:'b2', f:'b2_03_making_your_opinion_heard.html',
+      d:'Express opinions forcefully, use multi-word verbs, and handle challenging discussions.',
+      tags:['multi-word verbs','idioms','persuasion'], g:'Phrasal Verbs', gl:'grammar_b2_16_complex_gerund_infinitive.html', sl:'sp_b2_57_persuasion.html' },
+    { cat:'people', t:'Dealing with Disaster', lv:'b2', f:'b2_05_dealing_with_disaster.html',
+      d:'Discuss crisis scenarios, express certainty and give advice under pressure.',
+      tags:['certainty expressions','giving advice','crisis language'], g:'Modals of Certainty', gl:'grammar_b2_03_modal_deduction.html' },
+    { cat:'people', t:'Happiness', lv:'b2', f:'b2_09_happiness.html',
+      d:'Explore what happiness means, discuss contributing factors, and compare cultural perspectives.',
+      tags:['abstract discussion','well-being vocabulary','cultural views'], g:'Gerunds & Infinitives', gl:'grammar_b2_16_complex_gerund_infinitive.html', sl:'sp_b2_53_abstract_reasoning.html' },
+    { cat:'people', t:'A Person You Admire', lv:'b2', f:'bc_person_you_admire_b2c1.html',
+      d:'Describe someone you admire, explain what makes them special, and discuss role models.',
+      tags:['describing people','relative clauses','character'], g:'Relative Clauses', gl:'grammar_b2_10_advanced_relative_clauses.html' },
+    { cat:'people', t:'Inspiring Women', lv:'b2', f:'bc_inspiring_women_b2c1.html',
+      d:'Discuss inspirational figures, debate gender equality, and share personal heroes.',
+      tags:['biography','discussion','opinions'], g:'Passive Reporting', gl:'grammar_b2_07_impersonal_reporting_passive.html' },
+    { cat:'people', t:'Honesty & Dishonesty', lv:'b2', f:'bc_honesty_dishonesty_b2c1.html',
+      d:'Explore the ethics of lying, discuss white lies, and debate moral dilemmas.',
+      tags:['ethics','debate','conditional language'], g:'Third Conditional', gl:'qf_grammar_third_conditional.html' },
+    { cat:'people', t:'Nine Team Roles', lv:'b2', f:'bc_nine_team_roles_belbin_b2c1.html',
+      d:'Discover Belbin team roles, analyse your own strengths, and discuss effective teamwork.',
+      tags:['personality','team roles','discussion'], g:'Gerunds & Infinitives', gl:'grammar_b2_16_complex_gerund_infinitive.html' },
+
+    // ===== BIG IDEAS =====
+    { cat:'world', ic:'🌍', cl:'Big Ideas', t:'Technology: Friend or Foe?', lv:'b1', f:'b1_04_technology_friend_or_foe.html',
+      d:'Debate whether technology helps or harms society, using persuasive language and examples.',
+      tags:['debate language','opinions','technology'], g:'Present Perfect', gl:'grammar_b1_01_perfect_tenses_aspect.html', sl:'sp_b1_28_advantages_disadvantages.html' },
+    { cat:'world', t:'Climate Change', lv:'b2', f:'bc_climate_change_b2c1.html',
+      d:'Discuss environmental issues, analyse data, and debate solutions to climate change.',
+      tags:['environment','data discussion','advanced opinions'], g:'Future Tenses', gl:'grammar_b2_02_future_tenses_advanced.html' },
+    { cat:'world', t:'Conspiracy Theories', lv:'b2', f:'bc_conspiracy_theories_b2c1.html',
+      d:'Analyse conspiracy theories, evaluate evidence, and practise critical thinking.',
+      tags:['critical thinking','speculation','modal verbs'], g:'Modal Speculation', gl:'grammar_b2_03_modal_deduction.html' },
+    { cat:'world', t:'Life on Mars', lv:'b2', f:'bc_life_on_mars_b2c1.html',
+      d:'Debate space exploration, discuss the future of humanity, and speculate about life elsewhere.',
+      tags:['speculation','future tenses','science'], g:'Future Perfect', gl:'grammar_b2_02_future_tenses_advanced.html' },
+    { cat:'world', t:'Endangered Species', lv:'b2', f:'bc_endangered_species_b2c1.html',
+      d:'Discuss wildlife conservation, debate priorities, and analyse environmental policy.',
+      tags:['environment','passive voice','discussion'], g:'Advanced Passive', gl:'grammar_b2_06_advanced_passive.html' },
+    { cat:'world', t:'Broadening Horizons', lv:'b2', f:'bc_broadening_horizons_b2c1.html',
+      d:'Discuss personal growth, living abroad, and how new experiences change your perspective.',
+      tags:['personal development','narrative','opinions'], g:'Past Perfect Narrative', gl:'grammar_b2_01_past_perfect_continuous_narrative.html' },
+    { cat:'world', t:'Charity', lv:'b2', f:'bc_charity_b2c1.html',
+      d:'Discuss charitable giving, debate effective altruism, and plan a fundraising campaign.',
+      tags:['persuasion','conditionals','social issues'], g:'Mixed Conditionals', gl:'grammar_b2_05_third_mixed_conditionals.html' },
+    { cat:'world', t:'Future Shock: AI', lv:'b2', f:'bc_future_shock_ai_b2c1.html',
+      d:'Debate artificial intelligence, discuss automation, and speculate about the future of work.',
+      tags:['AI & technology','speculation','future forms'], g:'Future Forms', gl:'grammar_b2_02_future_tenses_advanced.html' },
+    { cat:'world', t:'Is TV Bad for Us?', lv:'b2', f:'b2_07_is_tv_bad_for_us.html',
+      d:'Debate the impact of television on society — argue for and against with persuasive language.',
+      tags:['debate','media vocabulary','opinions'], g:'Adverbial Inversion', gl:'grammar_b2_09_negative_adverbials_inversion.html', sl:'sp_b2_47_counterarguments.html' },
+    { cat:'world', t:'Great Achievements', lv:'b2', f:'b2_08_great_achievements.html',
+      d:'Discuss humanity\'s greatest inventions, add emphasis to your arguments, and present on technology.',
+      tags:['emphasis','technology vocabulary','presentations'], g:'Adding Emphasis', gl:'grammar_b2_11_cleft_sentences_emphasis.html' },
+    { cat:'world', t:'Gadgets & Persuasion', lv:'b2', f:'bc_gadgets_persuasion_b2c1.html',
+      d:'Discuss technology marketing, analyse persuasive techniques, and pitch a product.',
+      tags:['persuasion','marketing','presentations'], g:'Emphasis & Cleft', gl:'grammar_b2_11_cleft_sentences_emphasis.html' },
+    { cat:'world', t:'Theories & Mixed Conditionals', lv:'b2', f:'bc_theories_mixed_conditionals_b2c1.html',
+      d:'Explore historical "what ifs", debate alternate outcomes, and master mixed conditionals.',
+      tags:['mixed conditionals','history','speculation'], g:'Mixed Conditionals', gl:'grammar_b2_05_third_mixed_conditionals.html' },
+    { cat:'world', t:'Creative Decision Making', lv:'b2', f:'bc_creative_decision_making_b2c1.html',
+      d:'Explore problem-solving strategies, discuss lateral thinking, and practise decision language.',
+      tags:['problem solving','discussion','functional language'], g:'Reporting Verbs', gl:'grammar_b2_08_reporting_verbs_patterns.html' },
+    { cat:'world', t:'Aliens & Probability', lv:'b2', f:'bc_aliens_probability_b2c1.html',
+      d:'Discuss the probability of alien life, practise speculation, and debate scientific evidence.',
+      tags:['probability','modal verbs','science'], g:'Modal Deduction', gl:'grammar_b2_03_modal_deduction.html' },
+    { cat:'world', t:'An Account of a Crime', lv:'b2', f:'bc_account_of_a_crime_b2c1.html',
+      d:'Describe crimes, analyse evidence, and practise narrative and reporting language.',
+      tags:['narrative','reported speech','crime vocabulary'], g:'Reported Speech', gl:'grammar_b2_08_reporting_verbs_patterns.html' },
+
+    // ===== ADVANCED =====
+    { cat:'world', t:'The Way Things Are Going', lv:'c2', f:'c2_01_the_way_things_are_going.html',
+      d:'Analyse real-world data, discuss trends, and practise hedging and speculating.',
+      tags:['data analysis','hedging','trend language'], g:'Hedging & Speculation', gl:'grammar_c1_13_discourse_hedging.html' }
+];
+
+let aT='all', aL='all', sT='';
+
+function render() {
+    const g = document.getElementById('grid');
+    g.innerHTML = '';
+    const f = L.filter(l => {
+        const mt = aT==='all' || l.cat===aT;
+        const ml = aL==='all' || l.lv===aL || (aL==='c1' && (l.lv==='b2'||l.lv==='c1'));
+        const ms = !sT || l.t.toLowerCase().includes(sT) || l.d.toLowerCase().includes(sT)
+            || l.g.toLowerCase().includes(sT) || l.tags.some(x=>x.toLowerCase().includes(sT));
+        return mt && ml && ms;
+    });
+    document.getElementById('cnt').textContent = f.length===L.length ? L.length+' lessons available' : 'Showing '+f.length+' of '+L.length+' lessons';
+    if(!f.length){ g.innerHTML='<div class="empty-state"><div class="emoji">🔍</div><p>No lessons match. Try different filters!</p></div>'; return; }
+    const cats=[]; const seen=new Set();
+    f.forEach(l=>{ if(!seen.has(l.cat)){ seen.add(l.cat); cats.push(l.cat); }});
+    cats.forEach(c=>{
+        const cl=f.filter(l=>l.cat===c);
+        const first=L.find(l=>l.cat===c && l.ic);
+        const lb=document.createElement('div'); lb.className='category-label';
+        lb.innerHTML=`<span>${first?first.ic:''}</span> ${first?first.cl:c}`;
+        g.appendChild(lb);
+        cl.forEach(l=>{
+            const d=document.createElement('a'); d.className='card'; d.href=l.f;
+            let badges='';
+            if(l.gl) badges+=`<a href="${l.gl}" class="cefr-badge" title="Study the grammar" onclick="event.stopPropagation()">${l.g}</a>`;
+            if(l.sl) badges+=`<a href="${l.sl}" class="sp-badge" title="Speaking skills practice" onclick="event.stopPropagation()">Speaking</a>`;
+            d.innerHTML=`<div class="card-banner ${l.lv}"></div><div class="card-body">
+                <span class="card-level ${l.lv}">${l.lv.toUpperCase()}</span>
+                <div class="card-title-row"><span class="card-title">${l.t}</span>${badges}</div>
+                <div class="card-desc">${l.d}</div>
+                <div class="card-tags">${l.tags.map(x=>`<span class="tag">${x}</span>`).join('')}</div>
+            </div>`;
+            g.appendChild(d);
+        });
+    });
+}
+
+function ft(c){
+    aT=c;
+    document.querySelectorAll('.filter-btn:not(.lvl)').forEach(b=>{
+        const txt=b.textContent.trim();
+        b.classList.toggle('active',
+            (c==='all'&&txt==='All Topics')||(c==='food'&&txt.includes('Food'))||(c==='travel'&&txt.includes('Travel'))
+            ||(c==='life'&&txt.includes('Daily'))||(c==='entertainment'&&txt.includes('Entertainment'))
+            ||(c==='work'&&txt.includes('Work'))||(c==='health'&&txt.includes('Health'))
+            ||(c==='people'&&txt==='People')||(c==='world'&&txt.includes('Big'))
+        );
+    }); render();
+}
+function fl(v){
+    aL=v;
+    document.querySelectorAll('.lvl').forEach(b=>b.classList.toggle('active',b.textContent.trim().toLowerCase()===v||(v==='all'&&b.textContent.trim()==='All')||(v==='c1'&&b.textContent.trim()==='B2–C1')));
+    render();
+}
+function ss(v){ sT=v.toLowerCase().trim(); render(); }
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Fix Matrix — Fossilized Error Corrector</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f7; min-height: 100vh; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 8px; }
+        .header p { opacity: 0.9; font-size: 1.1rem; }
+        .header .subtitle { font-size: 0.95rem; opacity: 0.75; margin-top: 5px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px 20px; }
+
+        /* Search & Filters */
+        .search-box { background: white; border-radius: 12px; padding: 20px; margin-bottom: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .search-box input { width: 100%; padding: 15px 20px; font-size: 1.1rem; border: 2px solid #e0e0e0; border-radius: 8px; outline: none; transition: border-color 0.3s; }
+        .search-box input:focus { border-color: #667eea; }
+
+        .filter-section { margin-top: 15px; }
+        .filter-label { font-size: 0.8rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; display: block; }
+        .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+        .filter-btn { padding: 7px 14px; border: 2px solid #e0e0e0; background: white; border-radius: 20px; cursor: pointer; transition: all 0.3s; font-size: 0.85rem; font-weight: 500; }
+        .filter-btn:hover { border-color: #667eea; background: #f0f0ff; }
+        .filter-btn.active { border-color: #667eea; background: #667eea; color: white; }
+
+        /* Category colors */
+        .filter-btn[data-filter-type="category"][data-value="Grammar"].active { background: #3b82f6; border-color: #3b82f6; }
+        .filter-btn[data-filter-type="category"][data-value="Collocations"].active { background: #f59e0b; border-color: #f59e0b; }
+        .filter-btn[data-filter-type="category"][data-value="False Friends"].active { background: #ef4444; border-color: #ef4444; }
+        .filter-btn[data-filter-type="category"][data-value="Pronunciation"].active { background: #10b981; border-color: #10b981; }
+        .filter-btn[data-filter-type="category"][data-value="Vocabulary"].active { background: #8b5cf6; border-color: #8b5cf6; }
+        .filter-btn[data-filter-type="category"][data-value="Spelling"].active { background: #6366f1; border-color: #6366f1; }
+
+        .stats { color: #666; margin-top: 12px; font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center; }
+        .clear-filters { color: #667eea; cursor: pointer; font-size: 0.85rem; font-weight: 500; }
+        .clear-filters:hover { text-decoration: underline; }
+
+        /* Grid */
+        .lessons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+
+        /* Cards */
+        .error-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); cursor: pointer; transition: all 0.3s; border-left: 4px solid #667eea; position: relative; }
+        .error-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+        .error-card.coming-soon { opacity: 0.7; cursor: default; }
+        .error-card.coming-soon:hover { transform: none; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .coming-soon-badge { position: absolute; top: 12px; right: 12px; background: #e0e0e0; color: #888; font-size: 0.65rem; padding: 3px 8px; border-radius: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Card category borders */
+        .error-card[data-category="Grammar"] { border-left-color: #3b82f6; }
+        .error-card[data-category="Collocations"] { border-left-color: #f59e0b; }
+        .error-card[data-category="False Friends"] { border-left-color: #ef4444; }
+        .error-card[data-category="Pronunciation"] { border-left-color: #10b981; }
+
+        .card-title { font-weight: 600; font-size: 1.05rem; margin-bottom: 10px; color: #333; }
+        .error-example { font-size: 0.9rem; margin-bottom: 12px; line-height: 1.5; }
+        .error-wrong { color: #d32f2f; text-decoration: line-through; }
+        .error-correct { color: #2e7d32; font-weight: 600; }
+        .error-arrow { color: #999; margin: 0 4px; }
+
+        .card-meta { display: flex; flex-wrap: wrap; gap: 6px; }
+        .badge { padding: 3px 9px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; }
+        .badge-category { background: #e3f2fd; color: #1565c0; }
+        .badge-category[data-cat="Grammar"] { background: #dbeafe; color: #1d4ed8; }
+        .badge-category[data-cat="Collocations"] { background: #fef3c7; color: #92400e; }
+        .badge-category[data-cat="False Friends"] { background: #fee2e2; color: #991b1b; }
+        .badge-category[data-cat="Pronunciation"] { background: #d1fae5; color: #065f46; }
+        .badge-level { background: #e8f5e9; color: #2e7d32; }
+        .badge-l1 { background: #f3e5f5; color: #7b1fa2; }
+
+        .hidden { display: none !important; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.8rem; }
+            .lessons-grid { grid-template-columns: 1fr; }
+            .filters { gap: 6px; }
+            .filter-btn { padding: 6px 10px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Quick Fix Matrix</h1>
+        <p>Mid-lesson error correction for fossilized mistakes</p>
+        <div class="subtitle">Search, filter, and launch a 5-minute fix</div>
+    </div>
+    <div class="container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search errors... (e.g., 'much many', 'Italian', 'articles', 'B1')" oninput="filterCards()">
+
+            <div class="filter-section">
+                <span class="filter-label">Category</span>
+                <div class="filters" id="categoryFilters">
+                    <button class="filter-btn" data-filter-type="category" data-value="" onclick="toggleFilter(this)">All</button>
+                    <button class="filter-btn" data-filter-type="category" data-value="Grammar" onclick="toggleFilter(this)">Grammar</button>
+                    <button class="filter-btn" data-filter-type="category" data-value="Collocations" onclick="toggleFilter(this)">Collocations</button>
+                    <button class="filter-btn" data-filter-type="category" data-value="Vocabulary" onclick="toggleFilter(this)">Vocabulary</button>
+                    <button class="filter-btn" data-filter-type="category" data-value="False Friends" onclick="toggleFilter(this)">False Friends</button>
+                    <button class="filter-btn" data-filter-type="category" data-value="Pronunciation" onclick="toggleFilter(this)">Pronunciation</button>
+                    <button class="filter-btn" data-filter-type="category" data-value="Spelling" onclick="toggleFilter(this)">Spelling</button>
+                </div>
+
+                <span class="filter-label">Level</span>
+                <div class="filters" id="levelFilters">
+                    <button class="filter-btn" data-filter-type="level" data-value="" onclick="toggleFilter(this)">All</button>
+                    <button class="filter-btn" data-filter-type="level" data-value="A1" onclick="toggleFilter(this)">A1</button>
+                    <button class="filter-btn" data-filter-type="level" data-value="A2" onclick="toggleFilter(this)">A2</button>
+                    <button class="filter-btn" data-filter-type="level" data-value="B1" onclick="toggleFilter(this)">B1</button>
+                    <button class="filter-btn" data-filter-type="level" data-value="B2" onclick="toggleFilter(this)">B2</button>
+                    <button class="filter-btn" data-filter-type="level" data-value="C1" onclick="toggleFilter(this)">C1</button>
+                </div>
+
+                <span class="filter-label">Student's First Language</span>
+                <div class="filters" id="l1Filters">
+                    <button class="filter-btn" data-filter-type="l1" data-value="" onclick="toggleFilter(this)">All</button>
+                    <button class="filter-btn" data-filter-type="l1" data-value="Universal" onclick="toggleFilter(this)">Universal</button>
+                    <button class="filter-btn" data-filter-type="l1" data-value="Italian" onclick="toggleFilter(this)">Italian</button>
+                    <button class="filter-btn" data-filter-type="l1" data-value="Spanish" onclick="toggleFilter(this)">Spanish</button>
+                    <button class="filter-btn" data-filter-type="l1" data-value="French" onclick="toggleFilter(this)">French</button>
+                    <button class="filter-btn" data-filter-type="l1" data-value="Portuguese" onclick="toggleFilter(this)">Portuguese</button>
+                    <button class="filter-btn" data-filter-type="l1" data-value="German" onclick="toggleFilter(this)">German</button>
+                    <button class="filter-btn" data-filter-type="l1" data-value="Polish" onclick="toggleFilter(this)">Polish</button>
+                    <button class="filter-btn" data-filter-type="l1" data-value="Russian" onclick="toggleFilter(this)">Russian</button>
+                </div>
+            </div>
+
+            <div class="stats">
+                <span id="resultCount">90 errors</span>
+                <span class="clear-filters" onclick="clearAllFilters()">Clear all filters</span>
+            </div>
+        </div>
+
+        <div class="lessons-grid" id="errorGrid"></div>
+    </div>
+
+    <script>
+    const BASE_URL = '';
+    const activeFilters = { category: '', level: '', l1: '' };
+
+    const errorData = [
+        // ═══════════════════════════════════════
+        // GRAMMAR (~35 errors)
+        // ═══════════════════════════════════════
+
+        // --- Quantifiers ---
+        { id: 'grammar_much_many', title: 'Much vs Many', category: 'Grammar', level: 'A2', l1: ['Universal'], wrong: 'I have much friends', correct: 'I have many friends', keywords: 'quantifiers countable uncountable', hasLesson: true },
+        { id: 'grammar_a_few_a_little', title: 'A Few vs A Little', category: 'Grammar', level: 'A2', l1: ['Universal'], wrong: 'I have a little friends', correct: 'I have a few friends', keywords: 'quantifiers countable uncountable', hasLesson: true },
+        { id: 'grammar_some_any', title: 'Some vs Any', category: 'Grammar', level: 'A2', l1: ['Universal', 'Russian', 'Polish'], wrong: 'Do you have some questions?', correct: 'Do you have any questions?', keywords: 'quantifiers questions negatives', hasLesson: true },
+
+        // --- Articles ---
+        { id: 'grammar_articles', title: 'Articles: A / An / The', category: 'Grammar', level: 'A1', l1: ['Russian', 'Polish', 'Italian', 'Spanish'], wrong: 'I went to school yesterday', correct: 'I went to the school yesterday', keywords: 'articles definite indefinite zero article', hasLesson: true },
+        { id: 'grammar_zero_article', title: 'Zero Article (No Article Needed)', category: 'Grammar', level: 'B1', l1: ['French', 'Italian', 'Spanish', 'Portuguese'], wrong: 'I like the music', correct: 'I like music', keywords: 'articles general statements uncountable', hasLesson: true },
+        { id: 'grammar_article_professions', title: 'Articles with Professions', category: 'Grammar', level: 'A2', l1: ['Russian', 'Polish', 'Italian'], wrong: 'She is teacher', correct: 'She is a teacher', keywords: 'articles jobs professions a an', hasLesson: true },
+
+        // --- Tenses ---
+        { id: 'grammar_present_perfect_past', title: 'Present Perfect vs Past Simple', category: 'Grammar', level: 'A2', l1: ['Universal'], wrong: 'I have been to Rome last year', correct: 'I went to Rome last year', keywords: 'tenses present perfect past simple finished time', hasLesson: true },
+        { id: 'grammar_since_for', title: 'Since vs For', category: 'Grammar', level: 'B1', l1: ['Italian', 'Spanish', 'French', 'Portuguese'], wrong: 'I have lived here since 5 years', correct: 'I have lived here for 5 years', keywords: 'tenses present perfect duration point', hasLesson: true },
+        { id: 'grammar_present_continuous_state', title: 'Present Continuous with State Verbs', category: 'Grammar', level: 'A2', l1: ['Universal'], wrong: 'I am knowing the answer', correct: 'I know the answer', keywords: 'tenses continuous stative verbs know believe', hasLesson: true },
+        { id: 'grammar_will_going_to', title: 'Will vs Going To', category: 'Grammar', level: 'B1', l1: ['Universal', 'Italian', 'Spanish'], wrong: 'Look at the clouds! It will rain', correct: 'Look at the clouds! It is going to rain', keywords: 'future tenses prediction plan evidence', hasLesson: true },
+        { id: 'grammar_past_continuous_simple', title: 'Past Simple vs Past Continuous', category: 'Grammar', level: 'A2', l1: ['Universal', 'Russian'], wrong: 'I was walking when I was seeing her', correct: 'I was walking when I saw her', keywords: 'tenses interrupted action background', hasLesson: true },
+        { id: 'grammar_used_to', title: 'Used To vs Would vs Past Simple', category: 'Grammar', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'I used to go there yesterday', correct: 'I went there yesterday', keywords: 'past habits used to would repeated', hasLesson: true },
+        { id: 'grammar_present_perfect_continuous', title: 'Present Perfect Simple vs Continuous', category: 'Grammar', level: 'B2', l1: ['Universal'], wrong: 'I have been reading this book — it is great', correct: 'I have read this book — it is great', keywords: 'tenses duration result completed ongoing', hasLesson: true },
+        { id: 'grammar_third_conditional', title: 'Third Conditional Errors', category: 'Grammar', level: 'B2', l1: ['Universal', 'Italian', 'Spanish'], wrong: 'If I would have known, I would have come', correct: 'If I had known, I would have come', keywords: 'conditionals third past unreal would have', hasLesson: true },
+        { id: 'grammar_second_conditional', title: 'Second Conditional Errors', category: 'Grammar', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'If I would be rich, I would buy a house', correct: 'If I were rich, I would buy a house', keywords: 'conditionals second unreal present would', hasLesson: true },
+
+        // --- Word Order ---
+        { id: 'grammar_question_word_order', title: 'Word Order in Questions', category: 'Grammar', level: 'A1', l1: ['Italian', 'Spanish', 'French', 'German', 'Russian'], wrong: 'Where you are going?', correct: 'Where are you going?', keywords: 'word order questions inversion auxiliary', hasLesson: true },
+        { id: 'grammar_indirect_questions', title: 'Indirect Question Word Order', category: 'Grammar', level: 'B1', l1: ['Universal', 'German', 'Polish'], wrong: 'Can you tell me where is the station?', correct: 'Can you tell me where the station is?', keywords: 'word order indirect questions embedded', hasLesson: true },
+        { id: 'grammar_adverb_position', title: 'Adverb Position', category: 'Grammar', level: 'B1', l1: ['French', 'Italian', 'Spanish'], wrong: 'I go always to the gym', correct: 'I always go to the gym', keywords: 'adverbs position frequency always usually', hasLesson: true },
+        { id: 'grammar_adjective_order', title: 'Adjective Order', category: 'Grammar', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'A red beautiful big car', correct: 'A beautiful big red car', keywords: 'adjective order opinion size colour OSASCOMP', hasLesson: true },
+
+        // --- Subject-Verb Agreement ---
+        { id: 'grammar_sv_agreement', title: 'Subject-Verb Agreement', category: 'Grammar', level: 'A1', l1: ['Universal'], wrong: 'She go to school every day', correct: 'She goes to school every day', keywords: 'agreement third person singular -s -es', hasLesson: true },
+        { id: 'grammar_there_is_are', title: 'There Is vs There Are', category: 'Grammar', level: 'A1', l1: ['Italian', 'Spanish', 'French', 'Portuguese'], wrong: 'There is many people here', correct: 'There are many people here', keywords: 'agreement singular plural there is are', hasLesson: true },
+
+        // --- Gerund / Infinitive ---
+        { id: 'grammar_gerund_infinitive', title: 'Gerund vs Infinitive', category: 'Grammar', level: 'B1', l1: ['Universal', 'Italian', 'Spanish', 'French'], wrong: 'I enjoy to play tennis', correct: 'I enjoy playing tennis', keywords: 'gerund infinitive -ing to verb', hasLesson: true },
+        { id: 'grammar_stop_remember', title: 'Stop / Remember + Gerund or Infinitive', category: 'Grammar', level: 'B2', l1: ['Universal'], wrong: 'I stopped to smoke (meaning quit)', correct: 'I stopped smoking', keywords: 'gerund infinitive meaning change stop remember', hasLesson: true },
+
+        // --- Prepositions ---
+        { id: 'grammar_prepositions_time', title: 'Prepositions of Time: In / On / At', category: 'Grammar', level: 'A2', l1: ['Italian', 'Spanish', 'French', 'Portuguese', 'Russian'], wrong: 'I was born in Monday', correct: 'I was born on Monday', keywords: 'prepositions time in on at', hasLesson: true },
+        { id: 'grammar_prepositions_place', title: 'Prepositions of Place: In / On / At', category: 'Grammar', level: 'A2', l1: ['Universal', 'Russian', 'Polish'], wrong: 'I am in the bus stop', correct: 'I am at the bus stop', keywords: 'prepositions place in on at location', hasLesson: true },
+        { id: 'grammar_depend_on', title: 'Depend On (Not Depend From)', category: 'Grammar', level: 'B1', l1: ['Italian', 'Spanish', 'French', 'Portuguese'], wrong: 'It depends from the weather', correct: 'It depends on the weather', keywords: 'prepositions depend on from verb', hasLesson: true },
+        { id: 'grammar_interested_in', title: 'Interested In (Not Interested To)', category: 'Grammar', level: 'A2', l1: ['Italian', 'Spanish'], wrong: 'I am interested to learn English', correct: 'I am interested in learning English', keywords: 'prepositions interested in adjective', hasLesson: true },
+        { id: 'grammar_ed_vs_ing_adjectives', title: '-ED vs -ING Adjectives', category: 'Grammar', level: 'A2', l1: ['Universal'], wrong: 'I am very boring / The film was bored', correct: 'I am very bored / The film was boring', keywords: 'ed ing adjectives excited exciting bored boring interested interesting confused confusing', hasLesson: true },
+
+        // --- Other Grammar ---
+        { id: 'grammar_relative_clauses', title: 'Relative Pronouns: Who / Which / That', category: 'Grammar', level: 'B1', l1: ['Universal', 'Russian', 'Polish'], wrong: 'The man which called you is here', correct: 'The man who called you is here', keywords: 'relative clauses who which that defining', hasLesson: true },
+        { id: 'grammar_passive_voice', title: 'Passive Voice Formation', category: 'Grammar', level: 'B1', l1: ['Universal', 'Russian'], wrong: 'The house built in 1990', correct: 'The house was built in 1990', keywords: 'passive voice be past participle', hasLesson: true },
+        { id: 'grammar_reported_speech', title: 'Reported Speech Tense Shift', category: 'Grammar', level: 'B2', l1: ['Universal', 'Italian', 'Spanish'], wrong: 'She said she is tired', correct: 'She said she was tired', keywords: 'reported speech indirect backshift tense', hasLesson: true },
+        { id: 'grammar_comparative_superlative', title: 'Comparative & Superlative Errors', category: 'Grammar', level: 'A2', l1: ['Universal', 'Italian', 'Russian'], wrong: 'She is more taller than me', correct: 'She is taller than me', keywords: 'comparatives superlatives more -er than', hasLesson: true },
+        { id: 'grammar_double_negative', title: 'Double Negatives', category: 'Grammar', level: 'A2', l1: ['Italian', 'Spanish', 'French', 'Russian', 'Polish'], wrong: 'I don\'t have nothing', correct: 'I don\'t have anything', keywords: 'negation double negative anything nothing', hasLesson: true },
+        { id: 'grammar_modal_advice', title: 'Should vs Must vs Have To', category: 'Grammar', level: 'B1', l1: ['Universal', 'Italian', 'Spanish'], wrong: 'You should to study harder', correct: 'You should study harder', keywords: 'modals should must have to bare infinitive', hasLesson: true },
+        { id: 'grammar_wish_regret', title: 'Wish + Past Simple / Past Perfect', category: 'Grammar', level: 'B2', l1: ['Universal', 'Italian', 'Spanish'], wrong: 'I wish I can speak better', correct: 'I wish I could speak better', keywords: 'wish regret unreal past subjunctive', hasLesson: true },
+
+        // ═══════════════════════════════════════
+        // VOCABULARY / COLLOCATIONS (~20 errors)
+        // ═══════════════════════════════════════
+
+        { id: 'collocation_make_do', title: 'Make vs Do', category: 'Collocations', level: 'A2', l1: ['Universal'], wrong: 'I need to make my homework', correct: 'I need to do my homework', keywords: 'collocations make do homework exercise', hasLesson: true },
+        { id: 'collocation_say_tell', title: 'Say vs Tell', category: 'Collocations', level: 'A2', l1: ['Universal', 'Russian', 'Polish'], wrong: 'He said me a story', correct: 'He told me a story', keywords: 'say tell speech reporting object', hasLesson: true },
+        { id: 'collocation_take_make_photo', title: 'Take a Photo (Not Make)', category: 'Collocations', level: 'A2', l1: ['Russian', 'German', 'Polish', 'Italian'], wrong: 'Can you make a photo of me?', correct: 'Can you take a photo of me?', keywords: 'collocations take make photo picture', hasLesson: true },
+        { id: 'collocation_heavy_strong_rain', title: 'Heavy Rain (Not Strong)', category: 'Collocations', level: 'B1', l1: ['Italian', 'Spanish', 'French', 'Portuguese'], wrong: 'There was a strong rain yesterday', correct: 'There was heavy rain yesterday', keywords: 'collocations weather heavy rain strong wind', hasLesson: true },
+        { id: 'collocation_lend_borrow', title: 'Lend vs Borrow', category: 'Collocations', level: 'A2', l1: ['Italian', 'Spanish', 'French', 'German'], wrong: 'Can you borrow me your pen?', correct: 'Can you lend me your pen?', keywords: 'lend borrow give take direction', hasLesson: true },
+        { id: 'collocation_bring_take', title: 'Bring vs Take', category: 'Collocations', level: 'A2', l1: ['Italian', 'Spanish', 'German'], wrong: 'Don\'t forget to bring an umbrella when you go', correct: 'Don\'t forget to take an umbrella when you go', keywords: 'bring take direction towards away', hasLesson: true },
+        { id: 'collocation_rob_steal', title: 'Rob vs Steal', category: 'Collocations', level: 'B1', l1: ['Universal', 'Italian', 'Spanish'], wrong: 'Someone stole the bank', correct: 'Someone robbed the bank', keywords: 'rob steal person place thing', hasLesson: true },
+        { id: 'collocation_remember_remind', title: 'Remember vs Remind', category: 'Collocations', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'Can you remember me to call her?', correct: 'Can you remind me to call her?', keywords: 'remember remind someone to do', hasLesson: true },
+        { id: 'collocation_have_reason', title: 'You Are Right (Not Have Reason)', category: 'Collocations', level: 'A2', l1: ['Italian', 'Spanish', 'French', 'Portuguese'], wrong: 'You have reason', correct: 'You are right', keywords: 'have reason be right translation', hasLesson: true },
+        { id: 'collocation_get_married', title: 'Get Married TO (Not With)', category: 'Collocations', level: 'B1', l1: ['Italian', 'Spanish', 'French', 'German', 'Russian'], wrong: 'She got married with her boyfriend', correct: 'She got married to her boyfriend', keywords: 'get married to with preposition', hasLesson: true },
+        { id: 'collocation_high_tall', title: 'High vs Tall', category: 'Collocations', level: 'A2', l1: ['Italian', 'Spanish', 'French', 'German'], wrong: 'My brother is very high', correct: 'My brother is very tall', keywords: 'high tall people buildings mountains', hasLesson: true },
+        { id: 'collocation_fun_funny', title: 'Fun vs Funny', category: 'Collocations', level: 'A2', l1: ['Italian', 'Spanish', 'German'], wrong: 'The party was very funny', correct: 'The party was fun / a lot of fun', keywords: 'fun funny enjoyable amusing adjective noun', hasLesson: true },
+        { id: 'collocation_look_watch_see', title: 'Look / Watch / See', category: 'Collocations', level: 'A2', l1: ['Italian', 'Spanish', 'French', 'Portuguese'], wrong: 'I was looking a film last night', correct: 'I was watching a film last night', keywords: 'look watch see perception deliberate', hasLesson: true },
+        { id: 'collocation_do_have_experience', title: 'Have an Experience (Not Do)', category: 'Collocations', level: 'B1', l1: ['Italian', 'Spanish', 'German', 'Polish'], wrong: 'I did a great experience', correct: 'I had a great experience', keywords: 'have do experience collocations', hasLesson: true },
+        { id: 'collocation_sensible_sensitive', title: 'Sensible vs Sensitive', category: 'Collocations', level: 'B1', l1: ['Italian', 'Spanish', 'French', 'Portuguese'], wrong: 'She is very sensible — she cries easily', correct: 'She is very sensitive — she cries easily', keywords: 'sensible sensitive false friend adjective', hasLesson: true },
+
+        // ═══════════════════════════════════════
+        // FALSE FRIENDS BY L1 (~25 errors)
+        // ═══════════════════════════════════════
+
+        // Italian
+        { id: 'falsefriend_italian_parenti', title: 'Parenti ≠ Parents', category: 'False Friends', level: 'A2', l1: ['Italian'], wrong: 'I visited my parents (meaning relatives)', correct: 'I visited my relatives', keywords: 'Italian parenti relatives parents family', hasLesson: true },
+        { id: 'falsefriend_italian_morbido', title: 'Morbido ≠ Morbid', category: 'False Friends', level: 'B1', l1: ['Italian'], wrong: 'This pillow is very morbid', correct: 'This pillow is very soft', keywords: 'Italian morbido soft morbid', hasLesson: true },
+        { id: 'falsefriend_italian_camera', title: 'Camera ≠ Camera', category: 'False Friends', level: 'A2', l1: ['Italian'], wrong: 'I went to my camera (meaning room)', correct: 'I went to my room', keywords: 'Italian camera room bedroom', hasLesson: true },
+        { id: 'falsefriend_italian_estate', title: 'Estate ≠ Estate', category: 'False Friends', level: 'A2', l1: ['Italian'], wrong: 'In the estate it is very hot (meaning summer)', correct: 'In summer it is very hot', keywords: 'Italian estate summer season', hasLesson: true },
+        { id: 'falsefriend_italian_annoiare', title: 'Annoiare ≠ Annoy', category: 'False Friends', level: 'B1', l1: ['Italian'], wrong: 'The film annoyed me (meaning bored)', correct: 'The film bored me', keywords: 'Italian annoiare bore annoy bored annoyed', hasLesson: true },
+
+        // Spanish
+        { id: 'falsefriend_spanish_embarazada', title: 'Embarazada ≠ Embarrassed', category: 'False Friends', level: 'A2', l1: ['Spanish'], wrong: 'I am very embarrassed (meaning pregnant)', correct: 'I am pregnant', keywords: 'Spanish embarazada pregnant embarrassed', hasLesson: true },
+        { id: 'falsefriend_spanish_asistir', title: 'Asistir ≠ Assist', category: 'False Friends', level: 'B1', l1: ['Spanish', 'Portuguese', 'French'], wrong: 'I assisted the concert (meaning attended)', correct: 'I attended the concert', keywords: 'Spanish asistir attend assist', hasLesson: true },
+        { id: 'falsefriend_spanish_exito', title: 'Exito ≠ Exit', category: 'False Friends', level: 'B1', l1: ['Spanish'], wrong: 'The project was a big exit (meaning success)', correct: 'The project was a big success', keywords: 'Spanish exito success exit', hasLesson: true },
+        { id: 'falsefriend_spanish_carpeta', title: 'Carpeta ≠ Carpet', category: 'False Friends', level: 'A2', l1: ['Spanish'], wrong: 'Put the papers on the carpet (meaning folder)', correct: 'Put the papers in the folder', keywords: 'Spanish carpeta folder carpet', hasLesson: true },
+
+        // French
+        { id: 'falsefriend_french_actuellement', title: 'Actuellement ≠ Actually', category: 'False Friends', level: 'B1', l1: ['French', 'Portuguese'], wrong: 'Actually, I am working at a bank (meaning currently)', correct: 'Currently, I am working at a bank', keywords: 'French actuellement currently actually', hasLesson: true },
+        { id: 'falsefriend_french_librairie', title: 'Librairie ≠ Library', category: 'False Friends', level: 'A2', l1: ['French'], wrong: 'I bought a book at the library (meaning bookshop)', correct: 'I bought a book at the bookshop', keywords: 'French librairie bookshop library', hasLesson: true },
+        { id: 'falsefriend_french_demander', title: 'Demander ≠ Demand', category: 'False Friends', level: 'B1', l1: ['French'], wrong: 'I demanded him a question (meaning asked)', correct: 'I asked him a question', keywords: 'French demander ask demand', hasLesson: true },
+        { id: 'falsefriend_french_attendre', title: 'Attendre ≠ Attend', category: 'False Friends', level: 'B1', l1: ['French'], wrong: 'I will attend for you (meaning wait)', correct: 'I will wait for you', keywords: 'French attendre wait attend', hasLesson: true },
+        { id: 'falsefriend_french_rester', title: 'Rester ≠ Rest', category: 'False Friends', level: 'A2', l1: ['French'], wrong: 'I rested in Paris for three days (meaning stayed)', correct: 'I stayed in Paris for three days', keywords: 'French rester stay rest', hasLesson: true },
+
+        // Portuguese
+        { id: 'falsefriend_portuguese_constipado', title: 'Constipado ≠ Constipated', category: 'False Friends', level: 'A2', l1: ['Portuguese'], wrong: 'I am constipated (meaning have a cold)', correct: 'I have a cold', keywords: 'Portuguese constipado cold constipated', hasLesson: true },
+        { id: 'falsefriend_portuguese_pretender', title: 'Pretender ≠ Pretend', category: 'False Friends', level: 'B1', l1: ['Portuguese', 'Spanish'], wrong: 'I pretend to travel next year (meaning intend)', correct: 'I intend to travel next year', keywords: 'Portuguese pretender intend pretend', hasLesson: true },
+
+        // German
+        { id: 'falsefriend_german_gift', title: 'Gift ≠ Gift', category: 'False Friends', level: 'A2', l1: ['German'], wrong: 'Be careful of the gift! (meaning poison)', correct: 'Be careful of the poison!', keywords: 'German Gift poison present', hasLesson: true },
+        { id: 'falsefriend_german_bekommen', title: 'Bekommen ≠ Become', category: 'False Friends', level: 'B1', l1: ['German'], wrong: 'I became a letter today (meaning received)', correct: 'I received / got a letter today', keywords: 'German bekommen receive become get', hasLesson: true },
+        { id: 'falsefriend_german_handy', title: 'Handy ≠ Handy', category: 'False Friends', level: 'A2', l1: ['German'], wrong: 'Where is my handy? (meaning mobile phone)', correct: 'Where is my mobile phone?', keywords: 'German Handy mobile phone cell', hasLesson: true },
+
+        // Polish
+        { id: 'falsefriend_polish_sympathyczny', title: 'Sympatyczny ≠ Sympathetic', category: 'False Friends', level: 'B1', l1: ['Polish', 'Russian'], wrong: 'He is very sympathetic (meaning nice/likeable)', correct: 'He is very nice / likeable', keywords: 'Polish sympatyczny nice sympathetic', hasLesson: true },
+        { id: 'falsefriend_polish_ewentualnie', title: 'Ewentualnie ≠ Eventually', category: 'False Friends', level: 'B1', l1: ['Polish'], wrong: 'Eventually, we could go tomorrow (meaning possibly)', correct: 'Possibly / Perhaps we could go tomorrow', keywords: 'Polish ewentualnie possibly eventually', hasLesson: true },
+
+        // Russian
+        { id: 'falsefriend_russian_magazine', title: 'Magazin ≠ Magazine', category: 'False Friends', level: 'A2', l1: ['Russian'], wrong: 'I went to the magazine (meaning shop)', correct: 'I went to the shop', keywords: 'Russian magazin shop magazine store', hasLesson: true },
+        { id: 'falsefriend_russian_accurate', title: 'Akkuratnyy ≠ Accurate', category: 'False Friends', level: 'B1', l1: ['Russian'], wrong: 'She is very accurate (meaning neat/tidy)', correct: 'She is very neat / tidy', keywords: 'Russian akkuratnyy neat accurate tidy', hasLesson: true },
+
+        // ═══════════════════════════════════════
+        // PRONUNCIATION (~10 errors)
+        // ═══════════════════════════════════════
+
+        { id: 'pronunciation_th_sounds', title: '/θ/ and /ð/ — The TH Sounds', category: 'Pronunciation', level: 'A1', l1: ['French', 'Spanish', 'German', 'Italian', 'Russian', 'Polish'], wrong: 'sink / zing / free (for think / the / three)', correct: 'think / the / three', keywords: 'pronunciation th theta eth voiceless voiced dental', hasLesson: true },
+        { id: 'pronunciation_final_ed', title: 'Final -ED Pronunciation', category: 'Pronunciation', level: 'A2', l1: ['Italian', 'Russian', 'Spanish', 'Polish'], wrong: 'walk-ED / play-ED (extra syllable)', correct: 'walked /t/ / played /d/', keywords: 'pronunciation -ed past tense /t/ /d/ /ɪd/', hasLesson: true },
+        { id: 'pronunciation_word_stress', title: 'Word Stress Patterns', category: 'Pronunciation', level: 'B1', l1: ['French', 'Italian', 'Polish'], wrong: 'phoTOgraphy / hoTEL (wrong stress)', correct: 'phoTOGraphy / hoTEL', keywords: 'pronunciation stress syllable emphasis', hasLesson: true },
+        { id: 'pronunciation_minimal_pairs_i', title: 'Ship vs Sheep — /ɪ/ vs /iː/', category: 'Pronunciation', level: 'A2', l1: ['Italian', 'Spanish', 'French', 'Portuguese'], wrong: 'I need to sit on the seat → confusion', correct: 'sit /ɪ/ vs seat /iː/', keywords: 'pronunciation minimal pairs vowels short long', hasLesson: true },
+        { id: 'pronunciation_silent_letters', title: 'Silent Letters', category: 'Pronunciation', level: 'A2', l1: ['Italian', 'Spanish', 'Polish', 'Russian'], wrong: 'k-nife, w-rite, lis-ten', correct: 'knife /naɪf/, write /raɪt/, listen /ˈlɪsən/', keywords: 'pronunciation silent letters kn wr mb', hasLesson: true },
+        { id: 'pronunciation_h_sound', title: 'The /h/ Sound (Dropping or Adding)', category: 'Pronunciation', level: 'A2', l1: ['Italian', 'French', 'Spanish', 'Portuguese'], wrong: '\'ave (have) or heggsample (example)', correct: 'have /hæv/, example /ɪɡˈzæmpəl/', keywords: 'pronunciation h aspiration dropping adding', hasLesson: true },
+        { id: 'pronunciation_final_consonant_clusters', title: 'Final Consonant Clusters', category: 'Pronunciation', level: 'B1', l1: ['Italian', 'Spanish', 'Portuguese'], wrong: 'tex-a (text), nex-a (next)', correct: 'text /tekst/, next /nekst/', keywords: 'pronunciation consonant clusters final position', hasLesson: true },
+        { id: 'pronunciation_schwa', title: 'The Schwa Sound /ə/', category: 'Pronunciation', level: 'B1', l1: ['Italian', 'Spanish', 'Russian', 'Polish'], wrong: 'a-BOUT, to-GETH-er (overpronouncing)', correct: 'about /əˈbaʊt/, together /təˈɡeðər/', keywords: 'pronunciation schwa weak unstressed vowel', hasLesson: true },
+        { id: 'pronunciation_v_w', title: '/v/ vs /w/ Confusion', category: 'Pronunciation', level: 'A2', l1: ['German', 'Polish', 'Russian'], wrong: 'I vant to vin (want, win)', correct: 'want /wɒnt/, win /wɪn/', keywords: 'pronunciation v w minimal pairs', hasLesson: true },
+        { id: 'pronunciation_r_sounds', title: 'English /r/ vs Rolled R', category: 'Pronunciation', level: 'A2', l1: ['Italian', 'Spanish', 'French', 'Portuguese', 'Russian', 'Polish'], wrong: 'rrrred (trilled R)', correct: 'red /ɹed/ (approximant)', keywords: 'pronunciation r trilled approximant', hasLesson: true },
+
+        // ===== NEW: 50 Additional Errors =====
+
+        // Grammar
+        { id: 'grammar_have_age', title: 'I Have 20 Years → I Am 20', category: 'Grammar', level: 'A2', l1: ['Italian', 'Spanish', 'French', 'Portuguese', 'German'], wrong: 'I have 20 years', correct: 'I am 20 years old', keywords: 'age have be years old how old', hasLesson: true },
+        { id: 'grammar_discuss_about', title: 'Discuss (Not Discuss About)', category: 'Grammar', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'We discussed about the policy', correct: 'We discussed the policy', keywords: 'discuss about preposition transitive', hasLesson: true },
+        { id: 'grammar_explain_me', title: 'Explain TO Me (Not Explain Me)', category: 'Grammar', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'Can you explain me this?', correct: 'Can you explain this to me?', keywords: 'explain indirect object to preposition', hasLesson: true },
+        { id: 'grammar_arrive_at', title: 'Arrive AT/IN (Not To)', category: 'Grammar', level: 'A2', l1: ['Italian', 'Spanish', 'French', 'Portuguese'], wrong: 'We arrived to the airport', correct: 'We arrived at the airport', keywords: 'arrive at in preposition destination', hasLesson: true },
+        { id: 'grammar_is_depend', title: 'It Depends (Not Is Depend)', category: 'Grammar', level: 'B1', l1: ['Universal'], wrong: 'It is depend on your decision', correct: 'It depends on your decision', keywords: 'depend verb form spoken grammar', hasLesson: true },
+        { id: 'grammar_most_of', title: 'Most / Most of the', category: 'Grammar', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'The most of students passed', correct: 'Most students passed', keywords: 'most quantifier determiner of the', hasLesson: true },
+        { id: 'grammar_on_other_hand', title: 'On The Other Hand (Not In)', category: 'Grammar', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'In the other hand, I disagree', correct: 'On the other hand, I disagree', keywords: 'discourse marker contrast preposition', hasLesson: true },
+        { id: 'grammar_despite_of', title: 'Despite (Not Despite Of)', category: 'Grammar', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'Despite of the rain', correct: 'Despite the rain', keywords: 'despite in spite of concession', hasLesson: true },
+        { id: 'grammar_look_forward', title: 'Look Forward TO + -ING', category: 'Grammar', level: 'B1', l1: ['Universal'], wrong: 'I look forward to meet you', correct: 'I look forward to meeting you', keywords: 'look forward to gerund preposition', hasLesson: true },
+        { id: 'grammar_succeed_in', title: 'Succeed IN + -ING', category: 'Grammar', level: 'B2', l1: ['French', 'Spanish', 'German'], wrong: 'She succeeded to pass', correct: 'She succeeded in passing', keywords: 'succeed in gerund preposition', hasLesson: true },
+        { id: 'grammar_different_from', title: 'Different FROM', category: 'Grammar', level: 'B1', l1: ['Spanish', 'French', 'German'], wrong: 'Different to yours', correct: 'Different from yours', keywords: 'different from to than preposition', hasLesson: true },
+        { id: 'grammar_compare_to_with', title: 'Compare TO vs WITH', category: 'Grammar', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'Compare to (when analysing)', correct: 'Compare to (similarity) / with (analysis)', keywords: 'compare preposition to with', hasLesson: true },
+        { id: 'grammar_confused_by', title: 'Confused BY (Not With)', category: 'Grammar', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'Confused with the instructions', correct: 'Confused by the instructions', keywords: 'confused by with preposition', hasLesson: true },
+        { id: 'grammar_spend_time', title: 'Spend Time + -ING', category: 'Grammar', level: 'B1', l1: ['French', 'Spanish', 'German'], wrong: 'Spent time in reading', correct: 'Spent time reading', keywords: 'spend time gerund on preposition', hasLesson: true },
+        { id: 'grammar_each_every', title: 'Each vs Every', category: 'Grammar', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'Every student got a different book', correct: 'Each student got a different book', keywords: 'each every individual group determiner', hasLesson: true },
+        { id: 'grammar_used_to_gerund', title: 'Be Used TO + -ING', category: 'Grammar', level: 'B1', l1: ['Universal'], wrong: "I'm used to wake up early", correct: "I'm used to waking up early", keywords: 'used to be used to gerund accustomed', hasLesson: true },
+        { id: 'grammar_so_such', title: 'So vs Such', category: 'Grammar', level: 'A2', l1: ['Universal'], wrong: 'It was a so beautiful day', correct: 'It was such a beautiful day', keywords: 'so such intensifier adjective noun', hasLesson: true },
+        { id: 'grammar_make_let_causative', title: 'Make/Let + Bare Infinitive', category: 'Grammar', level: 'B1', l1: ['Universal'], wrong: 'She made me to wait', correct: 'She made me wait', keywords: 'make let allow causative bare infinitive', hasLesson: true },
+        { id: 'grammar_even_though', title: 'Even Though vs Even If', category: 'Grammar', level: 'B2', l1: ['Universal'], wrong: 'Even if she was tired (fact)', correct: 'Even though she was tired', keywords: 'even though even if concession hypothetical', hasLesson: true },
+        { id: 'grammar_wish_would', title: 'Wish + WOULD (Complaint)', category: 'Grammar', level: 'B2', l1: ['Universal'], wrong: 'I wish it stops raining', correct: 'I wish it would stop raining', keywords: 'wish would complaint annoyance', hasLesson: true },
+        { id: 'grammar_suggest_recommend', title: 'Suggest/Recommend + -ING', category: 'Grammar', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'I suggest you to try this', correct: 'I suggest trying this', keywords: 'suggest recommend gerund subjunctive', hasLesson: true },
+
+        // Vocabulary
+        { id: 'vocab_actually_currently', title: 'Actually vs Currently', category: 'Vocabulary', level: 'B1', l1: ['French', 'Spanish', 'Russian'], wrong: "I'm actually working here (meaning now)", correct: "I'm currently working here", keywords: 'actually currently false cognate', hasLesson: true },
+        { id: 'vocab_eventually_finally', title: 'Eventually vs Finally', category: 'Vocabulary', level: 'B1', l1: ['German', 'Spanish', 'French', 'Italian'], wrong: 'Eventually he passed (meaning at last)', correct: 'Finally he passed', keywords: 'eventually finally at last', hasLesson: true },
+        { id: 'vocab_actual_current', title: 'Actual vs Current', category: 'Vocabulary', level: 'B1', l1: ['Spanish', 'French', 'Italian', 'Portuguese'], wrong: 'The actual situation (meaning present)', correct: 'The current situation', keywords: 'actual current real present', hasLesson: true },
+        { id: 'vocab_trip_travel_journey', title: 'Trip vs Travel vs Journey', category: 'Vocabulary', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'I did a beautiful travel', correct: 'I went on a trip / The journey was long', keywords: 'trip travel journey countable', hasLesson: true },
+        { id: 'vocab_job_work', title: 'Job vs Work', category: 'Vocabulary', level: 'A2', l1: ['Italian', 'Spanish', 'French'], wrong: "I'm looking for a work", correct: "I'm looking for a job", keywords: 'job work countable uncountable', hasLesson: true },
+        { id: 'vocab_possibility_opportunity', title: 'Possibility vs Opportunity', category: 'Vocabulary', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'I had the possibility to meet the CEO', correct: 'I had the opportunity to meet the CEO', keywords: 'possibility opportunity chance', hasLesson: true },
+        { id: 'vocab_listen_hear', title: 'Listen vs Hear', category: 'Vocabulary', level: 'A2', l1: ['Universal'], wrong: 'Can you listen that sound?', correct: 'Can you hear that sound?', keywords: 'listen hear active passive', hasLesson: true },
+        { id: 'vocab_advice_advise', title: 'Advice vs Advise', category: 'Vocabulary', level: 'A2', l1: ['Universal'], wrong: 'Can you advice me?', correct: 'Can you advise me?', keywords: 'advice advise noun verb spelling', hasLesson: true },
+        { id: 'vocab_remember_remind_ext', title: 'Remember vs Remind — Structures', category: 'Vocabulary', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'This song remembers me of home', correct: 'This song reminds me of home', keywords: 'remember remind of to do', hasLesson: true },
+        { id: 'vocab_miss_meaning', title: 'Miss — Multiple Meanings', category: 'Vocabulary', level: 'A2', l1: ['Italian', 'Spanish', 'French'], wrong: 'I miss = fail to catch + feel absence', correct: 'miss the bus / miss my family', keywords: 'miss bus family attend absence', hasLesson: true },
+        { id: 'vocab_historic_historical', title: 'Historic vs Historical', category: 'Vocabulary', level: 'B2', l1: ['Universal'], wrong: 'A historical event (meaning important)', correct: 'A historic event = important', keywords: 'historic historical important past', hasLesson: true },
+
+        // Collocations
+        { id: 'collocation_do_take_exam', title: 'Take an Exam (Not Do/Make)', category: 'Collocations', level: 'A2', l1: ['Italian', 'Spanish', 'French'], wrong: 'I will do an exam', correct: 'I will take an exam', keywords: 'take do make exam test', hasLesson: true },
+        { id: 'collocation_have_shower', title: 'Have a Shower / Have Lunch', category: 'Collocations', level: 'A2', l1: ['Italian', 'Spanish', 'French', 'German'], wrong: 'I make a shower', correct: 'I have a shower', keywords: 'have shower breakfast routine', hasLesson: true },
+        { id: 'collocation_catch_bus', title: 'Catch/Take the Bus', category: 'Collocations', level: 'A2', l1: ['Italian', 'Spanish', 'French'], wrong: 'I need to pick the bus', correct: 'I need to catch the bus', keywords: 'catch take bus train transport', hasLesson: true },
+        { id: 'collocation_pay_attention', title: 'Pay Attention TO', category: 'Collocations', level: 'A2', l1: ['Italian', 'Spanish', 'French'], wrong: 'Put attention to the teacher', correct: 'Pay attention to the teacher', keywords: 'pay attention put give', hasLesson: true },
+        { id: 'collocation_strong_opinion', title: 'Strong Opinion / Heavy Traffic', category: 'Collocations', level: 'B1', l1: ['Universal'], wrong: 'I have a big opinion', correct: 'I have a strong opinion', keywords: 'strong heavy deep adjective noun', hasLesson: true },
+
+        // False Friends
+        { id: 'falsefriend_italian_preservativo', title: 'Preservativo ≠ Preservative', category: 'False Friends', level: 'B1', l1: ['Italian'], wrong: 'No preservativo in this food', correct: 'No preservatives in this food', keywords: 'Italian preservativo preservative', hasLesson: true },
+        { id: 'falsefriend_spanish_constipated', title: 'Constipado ≠ Constipated', category: 'False Friends', level: 'A2', l1: ['Spanish'], wrong: "I'm constipated (meaning cold)", correct: 'I have a cold', keywords: 'Spanish constipado cold', hasLesson: true },
+        { id: 'falsefriend_french_actual', title: 'Actuel ≠ Actual', category: 'False Friends', level: 'B1', l1: ['French'], wrong: 'The actual government (meaning current)', correct: 'The current government', keywords: 'French actuel actual current', hasLesson: true },
+        { id: 'falsefriend_polish_realizowac', title: 'Realizować ≠ Realize', category: 'False Friends', level: 'B1', l1: ['Polish'], wrong: 'We realized the project (meaning completed)', correct: 'We completed the project', keywords: 'Polish realizować realize implement', hasLesson: true },
+        { id: 'falsefriend_russian_sympathetic', title: 'Симпатичный ≠ Sympathetic', category: 'False Friends', level: 'B1', l1: ['Russian'], wrong: "She's very sympathetic (meaning attractive)", correct: "She's very attractive", keywords: 'Russian simpatichnyy sympathetic attractive', hasLesson: true },
+
+        // Pronunciation
+        { id: 'pronunciation_noun_verb_stress', title: 'Noun vs Verb Stress Pairs', category: 'Pronunciation', level: 'B1', l1: ['Italian', 'Spanish', 'French'], wrong: 'Wrong stress on REcord/reCORD', correct: 'REcord=noun, reCORD=verb', keywords: 'pronunciation stress shift noun verb', hasLesson: true },
+        { id: 'pronunciation_ough', title: 'The -OUGH Problem', category: 'Pronunciation', level: 'B1', l1: ['Universal'], wrong: 'All -ough words pronounced same', correct: 'through/though/thought/tough all differ', keywords: 'pronunciation ough spelling chaos', hasLesson: true },
+        { id: 'pronunciation_ed_adjectives', title: '-ED Adjective Pronunciation', category: 'Pronunciation', level: 'B1', l1: ['Universal'], wrong: 'wickd (one syllable)', correct: 'WICK-ed (two syllables)', keywords: 'pronunciation ed adjective naked wicked', hasLesson: true },
+        { id: 'pronunciation_homophones', title: 'Their/There/They\'re', category: 'Pronunciation', level: 'A2', l1: ['Universal'], wrong: 'There going to the park', correct: "They're going to the park", keywords: 'homophones spelling their there', hasLesson: true },
+        { id: 'pronunciation_would_wood', title: '/ʊ/ vs /uː/ (Good vs Food)', category: 'Pronunciation', level: 'A2', l1: ['Italian', 'Spanish', 'French', 'German', 'Russian'], wrong: 'Confusing good/food vowels', correct: 'good=/ʊ/ food=/uː/', keywords: 'pronunciation vowel length short long', hasLesson: true },
+
+        // Spelling
+        { id: 'spelling_their_they_re', title: "Your/You're and Its/It's", category: 'Spelling', level: 'A2', l1: ['Universal'], wrong: "Your welcome / Its raining", correct: "You're welcome / It's raining", keywords: 'spelling possessive contraction apostrophe', hasLesson: true },
+        { id: 'spelling_accommodate', title: 'Accommodate (Double Letters)', category: 'Spelling', level: 'B1', l1: ['Universal'], wrong: 'accomodate', correct: 'accommodate (2Cs, 2Ms)', keywords: 'spelling double letters accommodation', hasLesson: true },
+        { id: 'spelling_necessary', title: 'Necessary (1C, 2S)', category: 'Spelling', level: 'B1', l1: ['Universal'], wrong: 'necessery', correct: 'necessary', keywords: 'spelling necessary mnemonic shirt', hasLesson: true },
+    ];
+
+    function renderCards() {
+        const grid = document.getElementById('errorGrid');
+        grid.innerHTML = errorData.map(e => {
+            const l1Badges = e.l1.map(l => `<span class="badge badge-l1">${l}</span>`).join('');
+            const comingSoon = !e.hasLesson;
+            const onclick = e.hasLesson ? `onclick="window.open('${BASE_URL}qf_${e.id}.html', '_blank')"` : '';
+            return `
+                <div class="error-card ${comingSoon ? 'coming-soon' : ''}"
+                     data-id="${e.id}" data-category="${e.category}" data-level="${e.level}"
+                     data-l1="${e.l1.join(',')}" data-keywords="${e.keywords}"
+                     data-title="${e.title}" ${onclick}>
+                    ${comingSoon ? '<span class="coming-soon-badge">Coming Soon</span>' : ''}
+                    <div class="card-title">${e.title}</div>
+                    <div class="error-example">
+                        <span class="error-wrong">${e.wrong}</span>
+                        <span class="error-arrow">&rarr;</span>
+                        <span class="error-correct">${e.correct}</span>
+                    </div>
+                    <div class="card-meta">
+                        <span class="badge badge-category" data-cat="${e.category}">${e.category}</span>
+                        <span class="badge badge-level">${e.level}</span>
+                        ${l1Badges}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function toggleFilter(btn) {
+        const type = btn.dataset.filterType;
+        const value = btn.dataset.value;
+
+        // Deactivate siblings
+        const parent = btn.parentElement;
+        parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+
+        // Activate clicked (or "All" if same filter clicked again)
+        if (activeFilters[type] === value || value === '') {
+            activeFilters[type] = '';
+            parent.querySelector('[data-value=""]').classList.add('active');
+        } else {
+            activeFilters[type] = value;
+            btn.classList.add('active');
+        }
+
+        filterCards();
+    }
+
+    function clearAllFilters() {
+        activeFilters.category = '';
+        activeFilters.level = '';
+        activeFilters.l1 = '';
+        document.getElementById('searchInput').value = '';
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.filter-btn[data-value=""]').forEach(b => b.classList.add('active'));
+        filterCards();
+    }
+
+    function filterCards() {
+        const search = document.getElementById('searchInput').value.toLowerCase().replace(/[-_]/g, ' ');
+        const cards = document.querySelectorAll('.error-card');
+        let visible = 0;
+
+        cards.forEach(card => {
+            const text = (card.dataset.title + ' ' + card.dataset.category + ' ' + card.dataset.level + ' ' + card.dataset.l1 + ' ' + card.dataset.keywords).toLowerCase().replace(/[-_]/g, ' ');
+
+            const matchesSearch = !search || text.includes(search);
+            const matchesCategory = !activeFilters.category || card.dataset.category === activeFilters.category;
+            const matchesLevel = !activeFilters.level || card.dataset.level === activeFilters.level;
+            const matchesL1 = !activeFilters.l1 || card.dataset.l1.includes(activeFilters.l1);
+
+            if (matchesSearch && matchesCategory && matchesLevel && matchesL1) {
+                card.classList.remove('hidden');
+                visible++;
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('resultCount').textContent = visible + ' of ' + errorData.length + ' errors';
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        renderCards();
+        document.querySelectorAll('.filter-btn[data-value=""]').forEach(b => b.classList.add('active'));
+        document.getElementById('resultCount').textContent = errorData.length + ' errors';
+    });
+    </script>
+</body>
+</html>

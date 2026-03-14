@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Meetings: The Essentials | B1 Course</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .level-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 25px;
+            margin-top: 15px;
+            font-size: 0.95em;
+        }
+
+        .course-info {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .course-info h2 {
+            color: #1e3a5f;
+            margin-bottom: 15px;
+        }
+        .course-info p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        .course-stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .stat {
+            background: #f0f7ff;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1e3a5f;
+        }
+        .stat-label {
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .lessons-grid {
+            display: grid;
+            gap: 20px;
+        }
+        .lesson-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .lesson-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .lesson-number {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .lesson-content {
+            flex: 1;
+        }
+        .lesson-content h3 {
+            color: #1e3a5f;
+            margin-bottom: 8px;
+            font-size: 1.2em;
+        }
+        .lesson-content p {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        .phrases-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .phrase-tag {
+            background: #f0f7ff;
+            color: #2d5a87;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+        .lesson-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: transform 0.2s;
+        }
+        .lesson-link:hover {
+            transform: scale(1.05);
+        }
+        .lesson-link.coming-soon {
+            background: #e9ecef;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.8em; }
+            .lesson-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .lesson-number {
+                margin: 0 auto;
+            }
+            .phrases-preview {
+                justify-content: center;
+            }
+            .course-stats {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Business Meetings: The Essentials</h1>
+            <p>Confident English for professional meetings</p>
+            <div class="level-badge">B1 Intermediate | 6 Lessons | 30 Phrases</div>
+        </div>
+
+        <div class="course-info">
+            <h2>About This Course</h2>
+            <p>This course gives you the essential English phrases for business meetings. From small talk at the start to follow-up emails after, you'll learn practical language you can use immediately.</p>
+            <p>Each lesson teaches 5 key phrases with real examples, practice activities, and speaking challenges. By the end, you'll have 30 professional phrases ready for any meeting situation.</p>
+            <div class="course-stats">
+                <div class="stat">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Lessons</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">Key Phrases</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">B1</div>
+                    <div class="stat-label">Level</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lessons-grid">
+            <div class="lesson-card">
+                <div class="lesson-number">1</div>
+                <div class="lesson-content">
+                    <h3>First Impressions: Small Talk That Works</h3>
+                    <p>Start meetings with confidence. Learn professional small talk that builds relationships without awkward silences.</p>
+                    <div class="phrases-preview">
+                        <span class="phrase-tag">How was your trip?</span>
+                        <span class="phrase-tag">How's business?</span>
+                        <span class="phrase-tag">Shall we get started?</span>
+                    </div>
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/first_impressions_small_talk.html" class="lesson-link" target="_blank">Open Lesson</a>
+                </div>
+            </div>
+
+            <div class="lesson-card">
+                <div class="lesson-number">2</div>
+                <div class="lesson-content">
+                    <h3>Presenting Your Business</h3>
+                    <p>Introduce your company and yourself professionally. Learn the INTRO framework for clear, confident presentations.</p>
+                    <div class="phrases-preview">
+                        <span class="phrase-tag">We specialize in...</span>
+                        <span class="phrase-tag">What makes us different is...</span>
+                        <span class="phrase-tag">Our main clients are...</span>
+                    </div>
+                    <span class="lesson-link coming-soon">Coming Soon</span>
+                </div>
+            </div>
+
+            <div class="lesson-card">
+                <div class="lesson-number">3</div>
+                <div class="lesson-content">
+                    <h3>Giving Opinions and Making Suggestions</h3>
+                    <p>Contribute your ideas in meetings. Learn to agree, disagree politely, and propose solutions.</p>
+                    <div class="phrases-preview">
+                        <span class="phrase-tag">I think...</span>
+                        <span class="phrase-tag">Maybe we could...</span>
+                        <span class="phrase-tag">Yes, but...</span>
+                    </div>
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/giving_opinions_suggestions.html" class="lesson-link" target="_blank">Open Lesson</a>
+                </div>
+            </div>
+
+            <div class="lesson-card">
+                <div class="lesson-number">4</div>
+                <div class="lesson-content">
+                    <h3>Handling Questions and Buying Time</h3>
+                    <p>What to say when you don't know the answer. Learn professional phrases to buy time and respond honestly.</p>
+                    <div class="phrases-preview">
+                        <span class="phrase-tag">That's a good question...</span>
+                        <span class="phrase-tag">What do you mean by...?</span>
+                        <span class="phrase-tag">I can check and tell you...</span>
+                    </div>
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/handling_questions_buying_time.html" class="lesson-link" target="_blank">Open Lesson</a>
+                </div>
+            </div>
+
+            <div class="lesson-card">
+                <div class="lesson-number">5</div>
+                <div class="lesson-content">
+                    <h3>Problems and Solutions</h3>
+                    <p>Discuss challenges professionally. Learn to identify problems and propose solutions like a problem-solver, not a complainer.</p>
+                    <div class="phrases-preview">
+                        <span class="phrase-tag">The issue is...</span>
+                        <span class="phrase-tag">One solution could be...</span>
+                        <span class="phrase-tag">What if we...?</span>
+                    </div>
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/problems_and_solutions.html" class="lesson-link" target="_blank">Open Lesson</a>
+                </div>
+            </div>
+
+            <div class="lesson-card">
+                <div class="lesson-number">6</div>
+                <div class="lesson-content">
+                    <h3>Closing Meetings and Following Up</h3>
+                    <p>End meetings professionally and ensure action happens. Learn to summarize, assign tasks, and write follow-up emails.</p>
+                    <div class="phrases-preview">
+                        <span class="phrase-tag">So, to summarize...</span>
+                        <span class="phrase-tag">The next steps are...</span>
+                        <span class="phrase-tag">As discussed...</span>
+                    </div>
+                    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/closing_meetings_following_up.html" class="lesson-link" target="_blank">Open Lesson</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Business Meetings: The Essentials | B1 Business English Course</p>
+        </div>
+    </div>
+</body>
+</html>
