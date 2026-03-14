@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz — Cooking & Kitchen</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.game-header {
+  text-align: center; padding: 25px; margin-bottom: 20px;
+}
+.game-header h1 {
+  font-size: 2.5em; font-weight: 900;
+  background: linear-gradient(90deg, #feca57, #ff9f43);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px;
+}
+.game-header .topic { font-size: 1.3em; color: rgba(255,255,255,0.7); margin-bottom: 10px; }
+.game-header .level-badge {
+  display: inline-block; padding: 4px 16px; border-radius: 20px;
+  font-size: 0.8em; font-weight: 800; background: #ff9ff3; color: #1a1a2e; letter-spacing: 1px;
+}
+
+/* Progress Bar */
+.progress-container {
+  max-width: 600px; margin: 0 auto 25px; padding: 0 20px;
+}
+.progress-bar-bg {
+  height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%; background: linear-gradient(90deg, #feca57, #ff9f43);
+  border-radius: 4px; transition: width 0.4s ease; width: 0%;
+}
+.progress-text {
+  text-align: center; margin-top: 8px; font-size: 0.85em; color: rgba(255,255,255,0.5);
+}
+
+/* Question Area */
+.quiz-area {
+  max-width: 650px; margin: 0 auto;
+}
+
+.question-card {
+  background: rgba(255,255,255,0.08); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
+  padding: 35px 30px; text-align: center; margin-bottom: 20px;
+}
+
+.question-number {
+  font-size: 0.8em; color: rgba(255,255,255,0.4); text-transform: uppercase;
+  letter-spacing: 2px; margin-bottom: 15px;
+}
+
+.question-text {
+  font-size: 1.4em; font-weight: 700; line-height: 1.4; margin-bottom: 8px;
+}
+
+.question-context {
+  font-size: 0.95em; color: rgba(255,255,255,0.5); font-style: italic;
+}
+
+/* Answer Options */
+.options {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;
+}
+
+.option-btn {
+  background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 14px; padding: 18px 20px; color: #fff; font-size: 1.1em;
+  font-weight: 600; cursor: pointer; transition: all 0.25s ease; text-align: center;
+}
+
+.option-btn:hover:not(.disabled) {
+  background: rgba(255,255,255,0.14); transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.3);
+}
+
+.option-btn.correct {
+  border-color: #2ecc71; background: rgba(46,204,113,0.25);
+  box-shadow: 0 0 20px rgba(46,204,113,0.3);
+}
+
+.option-btn.wrong {
+  border-color: #ff6b6b; background: rgba(255,107,107,0.2);
+  animation: shake 0.5s ease;
+}
+
+.option-btn.disabled { cursor: default; opacity: 0.5; pointer-events: none; }
+
+.option-btn.correct::before { content: '✓ '; color: #2ecc71; }
+.option-btn.wrong::before { content: '✗ '; color: #ff6b6b; }
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-6px); } 40%,80% { transform: translateX(6px); }
+}
+
+/* Feedback */
+.feedback {
+  text-align: center; margin-top: 15px; padding: 12px; border-radius: 12px;
+  font-weight: 600; display: none; animation: fadeIn 0.3s ease;
+}
+.feedback.show { display: block; }
+.feedback.correct-feedback { background: rgba(46,204,113,0.15); color: #2ecc71; }
+.feedback.wrong-feedback { background: rgba(255,107,107,0.15); color: #ff6b6b; }
+
+.next-btn {
+  display: none; margin: 20px auto 0; background: linear-gradient(135deg, #feca57, #ff9f43);
+  color: #1a1a2e; border: none; padding: 12px 35px; border-radius: 25px;
+  font-size: 1em; font-weight: 800; cursor: pointer; transition: all 0.3s ease;
+}
+.next-btn.show { display: block; }
+.next-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(254,202,87,0.4); }
+
+/* Score Bar */
+.score-bar {
+  display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap;
+}
+.score-item { text-align: center; }
+.score-value { font-size: 1.8em; font-weight: 800; font-family: 'Courier New', monospace; }
+.score-value.correct-count { color: #2ecc71; }
+.score-value.wrong-count { color: #ff6b6b; }
+.score-value.streak-count { color: #feca57; }
+.score-label { font-size: 0.75em; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+
+/* Completion */
+.completion { display: none; text-align: center; padding: 60px 30px; max-width: 500px; margin: 0 auto; }
+.completion.show { display: block; animation: fadeIn 0.5s ease; }
+.completion h2 { font-size: 2.5em; margin-bottom: 10px; }
+.completion .result-emoji { font-size: 4em; margin-bottom: 20px; }
+.result-stats { display: flex; justify-content: center; gap: 25px; margin: 25px 0; flex-wrap: wrap; }
+.result-stat-value { font-size: 2em; font-weight: 800; color: #feca57; }
+.result-stat-label { font-size: 0.8em; color: rgba(255,255,255,0.5); }
+.stars { font-size: 2em; margin: 15px 0; letter-spacing: 5px; }
+.play-again-btn {
+  background: linear-gradient(135deg, #feca57, #ff9f43); color: #1a1a2e; border: none;
+  padding: 15px 40px; border-radius: 25px; font-size: 1.1em; font-weight: 800;
+  cursor: pointer; transition: all 0.3s ease; margin-top: 20px;
+}
+.play-again-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(254,202,87,0.4); }
+.back-link { display: inline-block; margin-top: 15px; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9em; }
+.back-link:hover { color: #fff; }
+
+/* Review */
+.review-section { max-width: 600px; margin: 30px auto 0; }
+.review-item {
+  display: flex; justify-content: space-between; align-items: center; padding: 10px 15px;
+  border-radius: 10px; margin-bottom: 6px; font-size: 0.9em;
+}
+.review-correct { background: rgba(46,204,113,0.1); }
+.review-wrong { background: rgba(255,107,107,0.1); }
+.review-word { font-weight: 700; }
+.review-answer { color: rgba(255,255,255,0.6); }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 500px) {
+  .options { grid-template-columns: 1fr; }
+  .game-header h1 { font-size: 1.8em; }
+  .question-text { font-size: 1.15em; }
+}
+</style>
+</head>
+<body>
+
+<div class="game-header">
+  <h1>❓ Quiz</h1>
+  <div class="topic">Cooking & Kitchen</div>
+  <span class="level-badge">A2</span>
+</div>
+
+<div class="score-bar">
+  <div class="score-item">
+    <div class="score-value correct-count" id="correctCount">0</div>
+    <div class="score-label">Correct</div>
+  </div>
+  <div class="score-item">
+    <div class="score-value wrong-count" id="wrongCount">0</div>
+    <div class="score-label">Wrong</div>
+  </div>
+  <div class="score-item">
+    <div class="score-value streak-count" id="streakCount">0</div>
+    <div class="score-label">Streak</div>
+  </div>
+</div>
+
+<div class="progress-container">
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+  <div class="progress-text" id="progressText">Question 1 of 10</div>
+</div>
+
+<div class="quiz-area" id="quizArea">
+  <div class="question-card">
+    <div class="question-number" id="qNum">Question 1</div>
+    <div class="question-text" id="qText"></div>
+    <div class="question-context" id="qContext"></div>
+  </div>
+  <div class="options" id="options"></div>
+  <div class="feedback" id="feedback"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next →</button>
+</div>
+
+<div class="completion" id="completion">
+  <div class="result-emoji" id="resultEmoji">🎉</div>
+  <h2 id="resultTitle">Quiz Complete!</h2>
+  <div class="stars" id="stars">⭐⭐⭐</div>
+  <div class="result-stats">
+    <div class="score-item">
+      <div class="result-stat-value" id="finalScore">0/0</div>
+      <div class="result-stat-label">Score</div>
+    </div>
+    <div class="score-item">
+      <div class="result-stat-value" id="finalPercent">0%</div>
+      <div class="result-stat-label">Accuracy</div>
+    </div>
+    <div class="score-item">
+      <div class="result-stat-value" id="finalStreak">0</div>
+      <div class="result-stat-label">Best Streak</div>
+    </div>
+  </div>
+  <div class="review-section" id="reviewSection"></div>
+  <button class="play-again-btn" onclick="startGame()">Play Again</button>
+  <br>
+  <a class="back-link" href="wordwall_dashboard.html">← Back to Word Wall</a>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// QUIZ DATA — Edit this to create new Quiz games
+// Each item needs: word, correct answer, 3 wrong answers, optional context
+// ═══════════════════════════════════════════════════════════
+const QUIZ_DATA = [
+
+  { word: "fry", correct: "to cook food in hot oil in a pan", wrong: ["to cook food in water", "to cook food in the oven with dry heat", "to cook food over a fire outside"], context: "_____ the onions in olive oil for three minutes." },
+  { word: "boil", correct: "to heat water or liquid until bubbles appear", wrong: ["to cool food down in the fridge", "to mix ingredients together", "to cut food into small pieces"], context: "_____ the water and then add the pasta." },
+  { word: "bake", correct: "to cook food in the oven using dry heat", wrong: ["to cook food on top of the stove", "to cook food over a barbecue", "to cook food by putting it in hot oil"], context: "I'm going to _____ a chocolate cake for the party." },
+  { word: "slice", correct: "to cut food into thin, flat pieces", wrong: ["to mix food with a spoon", "to heat food in the microwave", "to pour liquid into a glass"], context: "_____ the bread and put it on the table." },
+  { word: "stir", correct: "to move food around in a pot with a spoon", wrong: ["to cut food into small pieces", "to put food in the oven", "to add water to food"], context: "_____ the soup so it doesn't burn." },
+  { word: "peel", correct: "to remove the skin from a fruit or vegetable", wrong: ["to add salt and pepper to food", "to put food on a plate", "to wash food under water"], context: "_____ the potatoes before you boil them." },
+  { word: "recipe", correct: "written instructions for making a dish", wrong: ["a list of things to buy at the supermarket", "a review of a restaurant", "a menu showing prices"], context: "This _____ for pasta sauce is really easy to follow." },
+  { word: "ingredient", correct: "one of the foods you need to make a dish", wrong: ["a tool you use in the kitchen", "a step in a cooking method", "a type of cooking style"], context: "The main _____ in this soup is tomato." },
+  { word: "saucepan", correct: "a deep cooking pot with a long handle", wrong: ["a flat surface for cutting food", "a bowl for serving salad", "a sharp tool for cutting meat"], context: "Heat the milk in a _____ on the stove." },
+  { word: "chopping board", correct: "a flat surface used for cutting food on", wrong: ["a tray for serving drinks", "a plate for eating dinner", "a shelf for storing cups"], context: "Put the vegetables on the _____ and cut them up." },
+  { word: "grate", correct: "to rub food against a rough surface to make small pieces", wrong: ["to put food in the freezer", "to pour liquid over food", "to heat food until it turns brown"], context: "_____ the cheese on top of the pasta." },
+  { word: "teaspoon", correct: "a small spoon used for stirring tea or measuring", wrong: ["a large spoon for serving soup", "a flat knife for spreading butter", "a sharp fork for eating meat"], context: "Add one _____ of sugar to the mixture." },
+  { word: "raw", correct: "food that has not been cooked", wrong: ["food that has been cooked too long", "food that has gone bad", "food that has been frozen"], context: "You can eat carrots _____ — they're crunchy and sweet." },
+  { word: "spicy", correct: "having a strong, hot flavour like chilli", wrong: ["having a sweet flavour like sugar", "having a sour flavour like lemon", "having a salty flavour like the sea"], context: "This curry is very _____ — I need some water!" },
+  { word: "bitter", correct: "a sharp, unpleasant taste like very dark coffee", wrong: ["a very sweet taste like honey", "a very sour taste like vinegar", "a very salty taste like chips"], context: "This coffee is too _____ for me — I'll add some sugar." },
+  { word: "bland", correct: "having very little flavour, boring to eat", wrong: ["having too much salt", "having a very strong taste", "having a sweet aftertaste"], context: "The rice is a bit _____ — try adding some sauce." },
+  { word: "portion", correct: "the amount of food served to one person", wrong: ["the price of a meal", "the recipe for a dish", "the ingredient list on a packet"], context: "The _____s in this restaurant are very generous." },
+  { word: "leftovers", correct: "food that was not eaten and is saved for later", wrong: ["food that has gone bad and must be thrown away", "food that is bought fresh from the market", "food that is still being cooked"], context: "We can eat the _____ from last night for lunch." },
+  { word: "microwave", correct: "a small oven that heats food very quickly using waves", wrong: ["a large oven for baking bread", "a machine that washes dishes", "a device that keeps food cold"], context: "Just put it in the _____ for two minutes to heat it up." },
+  { word: "takeaway", correct: "food you buy from a restaurant and eat at home", wrong: ["food you grow in your garden", "food you eat at a fancy restaurant", "food you cook from a recipe book"], context: "I don't feel like cooking — let's order a _____." }
+
+];
+
+const QUESTIONS_PER_ROUND = 10;
+
+// ═══════════════════════════════════════════════════════════
+// GAME ENGINE
+// ═══════════════════════════════════════════════════════════
+let questions = [];
+let currentQ = 0;
+let correct = 0;
+let wrong = 0;
+let streak = 0;
+let bestStreak = 0;
+let results = [];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  currentQ = 0; correct = 0; wrong = 0; streak = 0; bestStreak = 0; results = [];
+  questions = shuffle(QUIZ_DATA).slice(0, QUESTIONS_PER_ROUND);
+
+  document.getElementById('completion').classList.remove('show');
+  document.getElementById('quizArea').style.display = 'block';
+  document.getElementById('correctCount').textContent = '0';
+  document.getElementById('wrongCount').textContent = '0';
+  document.getElementById('streakCount').textContent = '0';
+
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('qNum').textContent = `Question ${currentQ + 1}`;
+  document.getElementById('qText').textContent = `What does "${q.word}" mean?`;
+  document.getElementById('qContext').textContent = q.context || '';
+  document.getElementById('progressFill').style.width = ((currentQ) / QUESTIONS_PER_ROUND * 100) + '%';
+  document.getElementById('progressText').textContent = `Question ${currentQ + 1} of ${QUESTIONS_PER_ROUND}`;
+
+  // Shuffle options
+  const opts = shuffle([q.correct, ...q.wrong]);
+  const optDiv = document.getElementById('options');
+  optDiv.innerHTML = '';
+
+  opts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt;
+    btn.onclick = () => selectAnswer(btn, opt === q.correct, q.correct);
+    optDiv.appendChild(btn);
+  });
+
+  document.getElementById('feedback').classList.remove('show');
+  document.getElementById('feedback').className = 'feedback';
+  document.getElementById('nextBtn').classList.remove('show');
+}
+
+function selectAnswer(btn, isCorrect, correctAnswer) {
+  // Disable all buttons
+  document.querySelectorAll('.option-btn').forEach(b => {
+    b.classList.add('disabled');
+    if (b.textContent === correctAnswer) b.classList.add('correct');
+  });
+
+  const fb = document.getElementById('feedback');
+
+  if (isCorrect) {
+    btn.classList.add('correct');
+    correct++;
+    streak++;
+    if (streak > bestStreak) bestStreak = streak;
+    fb.textContent = '✓ Correct!';
+    fb.className = 'feedback correct-feedback show';
+    results.push({ word: questions[currentQ].word, correct: true });
+  } else {
+    btn.classList.add('wrong');
+    wrong++;
+    streak = 0;
+    fb.textContent = `✗ The answer is: ${correctAnswer}`;
+    fb.className = 'feedback wrong-feedback show';
+    results.push({ word: questions[currentQ].word, correct: false, answer: correctAnswer });
+  }
+
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = wrong;
+  document.getElementById('streakCount').textContent = streak;
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= QUESTIONS_PER_ROUND) {
+    endGame();
+  } else {
+    showQuestion();
+  }
+}
+
+function endGame() {
+  document.getElementById('quizArea').style.display = 'none';
+  document.getElementById('progressFill').style.width = '100%';
+
+  const percent = Math.round((correct / QUESTIONS_PER_ROUND) * 100);
+  let stars, emoji, title;
+
+  if (percent >= 90) { stars = '⭐⭐⭐'; emoji = '🏆'; title = 'Outstanding!'; }
+  else if (percent >= 70) { stars = '⭐⭐'; emoji = '🎉'; title = 'Great Job!'; }
+  else if (percent >= 50) { stars = '⭐'; emoji = '👍'; title = 'Good Effort!'; }
+  else { stars = ''; emoji = '💪'; title = 'Keep Practising!'; }
+
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('stars').textContent = stars;
+  document.getElementById('finalScore').textContent = `${correct}/${QUESTIONS_PER_ROUND}`;
+  document.getElementById('finalPercent').textContent = percent + '%';
+  document.getElementById('finalStreak').textContent = bestStreak;
+
+  // Build review
+  let reviewHTML = '';
+  results.forEach(r => {
+    if (r.correct) {
+      reviewHTML += `<div class="review-item review-correct"><span class="review-word">${r.word}</span><span>✓</span></div>`;
+    } else {
+      reviewHTML += `<div class="review-item review-wrong"><span class="review-word">${r.word}</span><span class="review-answer">→ ${r.answer}</span></div>`;
+    }
+  });
+  document.getElementById('reviewSection').innerHTML = reviewHTML;
+  document.getElementById('completion').classList.add('show');
+}
+
+startGame();
+</script>
+
+</body>
+</html>

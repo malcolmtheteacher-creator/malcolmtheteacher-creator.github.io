@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory Pairs — Housing & Property</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.game-header {
+  text-align: center;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+.game-header h1 {
+  font-size: 2.5em;
+  font-weight: 900;
+  background: linear-gradient(90deg, #f093fb, #f5576c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 5px;
+}
+
+.game-header .topic { font-size: 1.3em; color: rgba(255,255,255,0.7); margin-bottom: 10px; }
+.game-header .level-badge {
+  display: inline-block; padding: 4px 16px; border-radius: 20px;
+  font-size: 0.8em; font-weight: 800; background: #feca57; color: #1a1a2e; letter-spacing: 1px;
+}
+
+.status-bar {
+  display: flex; justify-content: center; gap: 30px; margin-bottom: 25px; flex-wrap: wrap;
+}
+.status-item { text-align: center; }
+.status-value { font-size: 2em; font-weight: 800; font-family: 'Courier New', monospace; }
+.status-value.timer { color: #f093fb; }
+.status-value.timer.warning { color: #feca57; }
+.status-value.timer.danger { color: #ff6b6b; animation: pulse 1s infinite; }
+.status-value.pairs { color: #feca57; }
+.status-value.moves { color: #48dbfb; }
+.status-label { font-size: 0.75em; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+/* Card Grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.memory-card {
+  aspect-ratio: 1;
+  perspective: 800px;
+  cursor: pointer;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+.memory-card.flipped .card-inner { transform: rotateY(180deg); }
+.memory-card.matched .card-inner { transform: rotateY(180deg); }
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  font-weight: 700;
+}
+
+.card-front {
+  background: linear-gradient(135deg, rgba(240,147,251,0.2), rgba(245,87,108,0.2));
+  border: 2px solid rgba(240,147,251,0.3);
+  font-size: 2.5em;
+}
+
+.card-front::after {
+  content: '?';
+  font-size: 1em;
+  color: rgba(255,255,255,0.3);
+}
+
+.card-back {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.2);
+  transform: rotateY(180deg);
+  font-size: 1em;
+  line-height: 1.3;
+  color: #fff;
+}
+
+.card-back.is-word {
+  background: linear-gradient(135deg, rgba(78,205,196,0.25), rgba(68,160,141,0.25));
+  border-color: rgba(78,205,196,0.4);
+  font-size: 1.3em;
+}
+
+.card-back.is-def {
+  background: linear-gradient(135deg, rgba(240,147,251,0.2), rgba(245,87,108,0.2));
+  border-color: rgba(240,147,251,0.3);
+  font-size: 0.85em;
+}
+
+.memory-card.matched .card-face {
+  opacity: 0.5;
+}
+
+.memory-card.matched .card-back {
+  border-color: #2ecc71;
+  box-shadow: 0 0 15px rgba(46,204,113,0.3);
+}
+
+.memory-card:hover:not(.flipped):not(.matched) .card-inner {
+  transform: scale(1.03);
+}
+
+/* Completion */
+.completion {
+  display: none; text-align: center; padding: 60px 30px; max-width: 500px; margin: 0 auto;
+}
+.completion.show { display: block; animation: fadeIn 0.5s ease; }
+.completion h2 { font-size: 2.5em; margin-bottom: 10px; }
+.completion .result-emoji { font-size: 4em; margin-bottom: 20px; }
+.completion .result-stats { display: flex; justify-content: center; gap: 30px; margin: 25px 0; }
+.result-stat-value { font-size: 2em; font-weight: 800; color: #feca57; }
+.result-stat-label { font-size: 0.8em; color: rgba(255,255,255,0.5); }
+.stars { font-size: 2em; margin: 15px 0; letter-spacing: 5px; }
+
+.play-again-btn {
+  background: linear-gradient(135deg, #f093fb, #f5576c); color: #fff; border: none;
+  padding: 15px 40px; border-radius: 25px; font-size: 1.1em; font-weight: 800;
+  cursor: pointer; transition: all 0.3s ease; margin-top: 20px;
+}
+.play-again-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(240,147,251,0.4); }
+.back-link { display: inline-block; margin-top: 15px; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9em; }
+.back-link:hover { color: #fff; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 500px) {
+  .card-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .card-back.is-def { font-size: 0.7em; }
+  .card-back.is-word { font-size: 1em; }
+  .game-header h1 { font-size: 1.8em; }
+}
+</style>
+</head>
+<body>
+
+<div class="game-header">
+  <h1>🧠 Memory Pairs</h1>
+  <div class="topic">Housing & Property</div>
+  <span class="level-badge">B1</span>
+</div>
+
+<div class="status-bar">
+  <div class="status-item">
+    <div class="status-value timer" id="timer">0</div>
+    <div class="status-label">Seconds</div>
+  </div>
+  <div class="status-item">
+    <div class="status-value pairs" id="pairs">0 / 0</div>
+    <div class="status-label">Pairs Found</div>
+  </div>
+  <div class="status-item">
+    <div class="status-value moves" id="moves">0</div>
+    <div class="status-label">Flips</div>
+  </div>
+</div>
+
+<div class="card-grid" id="cardGrid"></div>
+
+<div class="completion" id="completion">
+  <div class="result-emoji" id="resultEmoji">🎉</div>
+  <h2 id="resultTitle">All Pairs Found!</h2>
+  <div class="stars" id="stars">⭐⭐⭐</div>
+  <div class="result-stats">
+    <div class="status-item">
+      <div class="result-stat-value" id="finalTime">0s</div>
+      <div class="result-stat-label">Time</div>
+    </div>
+    <div class="status-item">
+      <div class="result-stat-value" id="finalMoves">0</div>
+      <div class="result-stat-label">Flips</div>
+    </div>
+  </div>
+  <button class="play-again-btn" onclick="startGame()">Play Again</button>
+  <br>
+  <a class="back-link" href="wordwall_dashboard.html">← Back to Word Wall</a>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// WORD DATA — Edit this to create new Memory games
+// ═══════════════════════════════════════════════════════════
+const WORD_DATA = [
+
+  { word: "mortgage", definition: "a long-term bank loan for buying a house" },
+  { word: "deposit", definition: "money paid upfront when renting or buying" },
+  { word: "lease", definition: "a legal contract for renting a property" },
+  { word: "estate agent", definition: "a person who helps buy and sell houses" },
+  { word: "landlord", definition: "the owner of a property that someone rents" },
+  { word: "tenant", definition: "a person who pays rent to live in a property" },
+  { word: "renovation", definition: "improving a building by repairing and updating it" },
+  { word: "eviction", definition: "being forced to leave a rented property" },
+  { word: "detached", definition: "a house that is not joined to another building" },
+  { word: "semi-detached", definition: "a house joined to one other house" },
+  { word: "terraced", definition: "a row of houses joined together" },
+  { word: "studio flat", definition: "a small flat with one room for living and sleeping" },
+  { word: "furnished", definition: "a property that comes with furniture included" },
+  { word: "utilities", definition: "essential services like water, gas and electricity" },
+  { word: "insulation", definition: "material used to keep heat inside a building" },
+  { word: "damp", definition: "slightly wet, often causing mould in a building" },
+  { word: "extension", definition: "an extra room added to a building" },
+  { word: "planning permission", definition: "official approval to build or change a building" },
+  { word: "commute", definition: "the regular journey from home to work" },
+  { word: "neighbourhood", definition: "the area around your home" }
+
+];
+
+const PAIRS_PER_ROUND = 6; // 6 pairs = 12 cards (4x3 grid)
+
+// ═══════════════════════════════════════════════════════════
+// GAME ENGINE
+// ═══════════════════════════════════════════════════════════
+let cards = [];
+let flippedCards = [];
+let matchedCount = 0;
+let flipCount = 0;
+let timerInterval = null;
+let seconds = 0;
+let lockBoard = false;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  matchedCount = 0;
+  flipCount = 0;
+  seconds = 0;
+  flippedCards = [];
+  lockBoard = false;
+  if (timerInterval) clearInterval(timerInterval);
+
+  document.getElementById('completion').classList.remove('show');
+  document.getElementById('cardGrid').style.display = 'grid';
+  document.getElementById('pairs').textContent = `0 / ${PAIRS_PER_ROUND}`;
+  document.getElementById('moves').textContent = '0';
+  document.getElementById('timer').textContent = '0';
+  document.getElementById('timer').className = 'status-value timer';
+
+  // Pick random pairs and create cards
+  const selected = shuffle(WORD_DATA).slice(0, PAIRS_PER_ROUND);
+  cards = [];
+  selected.forEach(p => {
+    cards.push({ id: p.word, text: p.word, type: 'word' });
+    cards.push({ id: p.word, text: p.definition, type: 'def' });
+  });
+  cards = shuffle(cards);
+
+  const grid = document.getElementById('cardGrid');
+  grid.innerHTML = '';
+
+  cards.forEach((card, i) => {
+    const el = document.createElement('div');
+    el.className = 'memory-card';
+    el.dataset.id = card.id;
+    el.dataset.index = i;
+    el.innerHTML = `
+      <div class="card-inner">
+        <div class="card-face card-front"></div>
+        <div class="card-face card-back ${card.type === 'word' ? 'is-word' : 'is-def'}">${card.text}</div>
+      </div>`;
+    el.onclick = () => flipCard(el);
+    grid.appendChild(el);
+  });
+
+  // Adjust grid columns based on card count
+  const cols = cards.length <= 12 ? 4 : 4;
+  grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+
+  timerInterval = setInterval(() => {
+    seconds++;
+    const d = document.getElementById('timer');
+    d.textContent = seconds;
+    if (seconds >= 60) d.classList.add('warning');
+    if (seconds >= 90) { d.classList.remove('warning'); d.classList.add('danger'); }
+  }, 1000);
+}
+
+function flipCard(el) {
+  if (lockBoard) return;
+  if (el.classList.contains('flipped') || el.classList.contains('matched')) return;
+
+  el.classList.add('flipped');
+  flippedCards.push(el);
+  flipCount++;
+  document.getElementById('moves').textContent = flipCount;
+
+  if (flippedCards.length === 2) {
+    lockBoard = true;
+    const [a, b] = flippedCards;
+
+    if (a.dataset.id === b.dataset.id) {
+      // Match!
+      a.classList.add('matched');
+      b.classList.add('matched');
+      matchedCount++;
+      document.getElementById('pairs').textContent = `${matchedCount} / ${PAIRS_PER_ROUND}`;
+      flippedCards = [];
+      lockBoard = false;
+
+      if (matchedCount === PAIRS_PER_ROUND) {
+        setTimeout(endGame, 500);
+      }
+    } else {
+      // No match
+      setTimeout(() => {
+        a.classList.remove('flipped');
+        b.classList.remove('flipped');
+        flippedCards = [];
+        lockBoard = false;
+      }, 900);
+    }
+  }
+}
+
+function endGame() {
+  clearInterval(timerInterval);
+  document.getElementById('cardGrid').style.display = 'none';
+
+  let stars, emoji, title;
+  const efficiency = PAIRS_PER_ROUND * 2; // perfect = 2 flips per pair
+  const ratio = flipCount / efficiency;
+
+  if (ratio <= 1.5 && seconds <= 40) {
+    stars = '⭐⭐⭐'; emoji = '🏆'; title = 'Amazing Memory!';
+  } else if (ratio <= 2.5 && seconds <= 70) {
+    stars = '⭐⭐'; emoji = '🎉'; title = 'Great Job!';
+  } else {
+    stars = '⭐'; emoji = '👍'; title = 'All Pairs Found!';
+  }
+
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('stars').textContent = stars;
+  document.getElementById('finalTime').textContent = seconds + 's';
+  document.getElementById('finalMoves').textContent = flipCount;
+  document.getElementById('completion').classList.add('show');
+}
+
+startGame();
+</script>
+
+</body>
+</html>

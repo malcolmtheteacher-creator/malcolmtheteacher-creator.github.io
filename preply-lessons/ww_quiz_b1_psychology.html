@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz — Mind & Behaviour</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.game-header {
+  text-align: center; padding: 25px; margin-bottom: 20px;
+}
+.game-header h1 {
+  font-size: 2.5em; font-weight: 900;
+  background: linear-gradient(90deg, #feca57, #ff9f43);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px;
+}
+.game-header .topic { font-size: 1.3em; color: rgba(255,255,255,0.7); margin-bottom: 10px; }
+.game-header .level-badge {
+  display: inline-block; padding: 4px 16px; border-radius: 20px;
+  font-size: 0.8em; font-weight: 800; background: #feca57; color: #1a1a2e; letter-spacing: 1px;
+}
+
+/* Progress Bar */
+.progress-container {
+  max-width: 600px; margin: 0 auto 25px; padding: 0 20px;
+}
+.progress-bar-bg {
+  height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%; background: linear-gradient(90deg, #feca57, #ff9f43);
+  border-radius: 4px; transition: width 0.4s ease; width: 0%;
+}
+.progress-text {
+  text-align: center; margin-top: 8px; font-size: 0.85em; color: rgba(255,255,255,0.5);
+}
+
+/* Question Area */
+.quiz-area {
+  max-width: 650px; margin: 0 auto;
+}
+
+.question-card {
+  background: rgba(255,255,255,0.08); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
+  padding: 35px 30px; text-align: center; margin-bottom: 20px;
+}
+
+.question-number {
+  font-size: 0.8em; color: rgba(255,255,255,0.4); text-transform: uppercase;
+  letter-spacing: 2px; margin-bottom: 15px;
+}
+
+.question-text {
+  font-size: 1.4em; font-weight: 700; line-height: 1.4; margin-bottom: 8px;
+}
+
+.question-context {
+  font-size: 0.95em; color: rgba(255,255,255,0.5); font-style: italic;
+}
+
+/* Answer Options */
+.options {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;
+}
+
+.option-btn {
+  background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 14px; padding: 18px 20px; color: #fff; font-size: 1.1em;
+  font-weight: 600; cursor: pointer; transition: all 0.25s ease; text-align: center;
+}
+
+.option-btn:hover:not(.disabled) {
+  background: rgba(255,255,255,0.14); transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.3);
+}
+
+.option-btn.correct {
+  border-color: #2ecc71; background: rgba(46,204,113,0.25);
+  box-shadow: 0 0 20px rgba(46,204,113,0.3);
+}
+
+.option-btn.wrong {
+  border-color: #ff6b6b; background: rgba(255,107,107,0.2);
+  animation: shake 0.5s ease;
+}
+
+.option-btn.disabled { cursor: default; opacity: 0.5; pointer-events: none; }
+
+.option-btn.correct::before { content: '✓ '; color: #2ecc71; }
+.option-btn.wrong::before { content: '✗ '; color: #ff6b6b; }
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-6px); } 40%,80% { transform: translateX(6px); }
+}
+
+/* Feedback */
+.feedback {
+  text-align: center; margin-top: 15px; padding: 12px; border-radius: 12px;
+  font-weight: 600; display: none; animation: fadeIn 0.3s ease;
+}
+.feedback.show { display: block; }
+.feedback.correct-feedback { background: rgba(46,204,113,0.15); color: #2ecc71; }
+.feedback.wrong-feedback { background: rgba(255,107,107,0.15); color: #ff6b6b; }
+
+.next-btn {
+  display: none; margin: 20px auto 0; background: linear-gradient(135deg, #feca57, #ff9f43);
+  color: #1a1a2e; border: none; padding: 12px 35px; border-radius: 25px;
+  font-size: 1em; font-weight: 800; cursor: pointer; transition: all 0.3s ease;
+}
+.next-btn.show { display: block; }
+.next-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(254,202,87,0.4); }
+
+/* Score Bar */
+.score-bar {
+  display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap;
+}
+.score-item { text-align: center; }
+.score-value { font-size: 1.8em; font-weight: 800; font-family: 'Courier New', monospace; }
+.score-value.correct-count { color: #2ecc71; }
+.score-value.wrong-count { color: #ff6b6b; }
+.score-value.streak-count { color: #feca57; }
+.score-label { font-size: 0.75em; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+
+/* Completion */
+.completion { display: none; text-align: center; padding: 60px 30px; max-width: 500px; margin: 0 auto; }
+.completion.show { display: block; animation: fadeIn 0.5s ease; }
+.completion h2 { font-size: 2.5em; margin-bottom: 10px; }
+.completion .result-emoji { font-size: 4em; margin-bottom: 20px; }
+.result-stats { display: flex; justify-content: center; gap: 25px; margin: 25px 0; flex-wrap: wrap; }
+.result-stat-value { font-size: 2em; font-weight: 800; color: #feca57; }
+.result-stat-label { font-size: 0.8em; color: rgba(255,255,255,0.5); }
+.stars { font-size: 2em; margin: 15px 0; letter-spacing: 5px; }
+.play-again-btn {
+  background: linear-gradient(135deg, #feca57, #ff9f43); color: #1a1a2e; border: none;
+  padding: 15px 40px; border-radius: 25px; font-size: 1.1em; font-weight: 800;
+  cursor: pointer; transition: all 0.3s ease; margin-top: 20px;
+}
+.play-again-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(254,202,87,0.4); }
+.back-link { display: inline-block; margin-top: 15px; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9em; }
+.back-link:hover { color: #fff; }
+
+/* Review */
+.review-section { max-width: 600px; margin: 30px auto 0; }
+.review-item {
+  display: flex; justify-content: space-between; align-items: center; padding: 10px 15px;
+  border-radius: 10px; margin-bottom: 6px; font-size: 0.9em;
+}
+.review-correct { background: rgba(46,204,113,0.1); }
+.review-wrong { background: rgba(255,107,107,0.1); }
+.review-word { font-weight: 700; }
+.review-answer { color: rgba(255,255,255,0.6); }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 500px) {
+  .options { grid-template-columns: 1fr; }
+  .game-header h1 { font-size: 1.8em; }
+  .question-text { font-size: 1.15em; }
+}
+</style>
+</head>
+<body>
+
+<div class="game-header">
+  <h1>❓ Quiz</h1>
+  <div class="topic">Mind & Behaviour</div>
+  <span class="level-badge">B1</span>
+</div>
+
+<div class="score-bar">
+  <div class="score-item">
+    <div class="score-value correct-count" id="correctCount">0</div>
+    <div class="score-label">Correct</div>
+  </div>
+  <div class="score-item">
+    <div class="score-value wrong-count" id="wrongCount">0</div>
+    <div class="score-label">Wrong</div>
+  </div>
+  <div class="score-item">
+    <div class="score-value streak-count" id="streakCount">0</div>
+    <div class="score-label">Streak</div>
+  </div>
+</div>
+
+<div class="progress-container">
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+  <div class="progress-text" id="progressText">Question 1 of 10</div>
+</div>
+
+<div class="quiz-area" id="quizArea">
+  <div class="question-card">
+    <div class="question-number" id="qNum">Question 1</div>
+    <div class="question-text" id="qText"></div>
+    <div class="question-context" id="qContext"></div>
+  </div>
+  <div class="options" id="options"></div>
+  <div class="feedback" id="feedback"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next →</button>
+</div>
+
+<div class="completion" id="completion">
+  <div class="result-emoji" id="resultEmoji">🎉</div>
+  <h2 id="resultTitle">Quiz Complete!</h2>
+  <div class="stars" id="stars">⭐⭐⭐</div>
+  <div class="result-stats">
+    <div class="score-item">
+      <div class="result-stat-value" id="finalScore">0/0</div>
+      <div class="result-stat-label">Score</div>
+    </div>
+    <div class="score-item">
+      <div class="result-stat-value" id="finalPercent">0%</div>
+      <div class="result-stat-label">Accuracy</div>
+    </div>
+    <div class="score-item">
+      <div class="result-stat-value" id="finalStreak">0</div>
+      <div class="result-stat-label">Best Streak</div>
+    </div>
+  </div>
+  <div class="review-section" id="reviewSection"></div>
+  <button class="play-again-btn" onclick="startGame()">Play Again</button>
+  <br>
+  <a class="back-link" href="wordwall_dashboard.html">← Back to Word Wall</a>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// QUIZ DATA — Edit this to create new Quiz games
+// Each item needs: word, correct answer, 3 wrong answers, optional context
+// ═══════════════════════════════════════════════════════════
+const QUIZ_DATA = [
+
+  { word: "habit", correct: "something you do regularly, often without thinking", wrong: ["a one-time action you plan carefully", "a skill you learn at school", "a decision you make after discussion"], context: "Biting your nails is a common bad _____." },
+  { word: "motivation", correct: "the reason or desire behind your actions", wrong: ["the fear of failing at something", "the result of working hard", "the money you earn from a job"], context: "Her main _____ for studying is to get a good job." },
+  { word: "self-esteem", correct: "how you feel about your own value and abilities", wrong: ["how other people feel about you", "how much money you have", "how many friends you have"], context: "Positive feedback helps build children's _____." },
+  { word: "anxiety", correct: "a feeling of worry and nervousness about the future", wrong: ["a feeling of excitement about a holiday", "a feeling of anger about a mistake", "a feeling of boredom during a lecture"], context: "She experiences _____ before exams." },
+  { word: "depression", correct: "a mental health condition causing persistent sadness", wrong: ["a temporary feeling of tiredness", "a physical injury from sport", "a short period of bad luck"], context: "_____ is a serious condition that requires professional help." },
+  { word: "therapy", correct: "treatment for mental health through talking with a professional", wrong: ["medicine taken for a physical illness", "exercise done at the gym", "a holiday to relax and unwind"], context: "Talking _____ can help people understand their feelings." },
+  { word: "mindfulness", correct: "the practice of focusing on the present moment", wrong: ["the ability to remember everything", "the habit of planning for the future", "the skill of doing many things at once"], context: "_____ meditation helps reduce stress." },
+  { word: "instinct", correct: "a natural tendency to behave in a certain way without thinking", wrong: ["a carefully planned decision", "a skill learned through practice", "an opinion formed after research"], context: "My _____ told me something was wrong." },
+  { word: "phobia", correct: "an extreme, irrational fear of something", wrong: ["a mild preference for something", "a strong interest in a subject", "a natural talent for a skill"], context: "She has a _____ of spiders — she can't even look at them." },
+  { word: "personality", correct: "the set of qualities that make someone who they are", wrong: ["the job that a person does", "the clothes that a person wears", "the house where a person lives"], context: "She has a warm, outgoing _____ that everyone loves." },
+  { word: "trauma", correct: "a deeply distressing experience that has lasting effects", wrong: ["a minor inconvenience at work", "a pleasant surprise from a friend", "a routine medical check-up"], context: "Childhood _____ can affect people well into adult life." },
+  { word: "resilience", correct: "the ability to recover from difficult situations", wrong: ["the tendency to give up easily", "the desire to avoid all problems", "the habit of ignoring bad news"], context: "Children who face challenges often develop greater _____." },
+  { word: "empathy", correct: "the ability to understand and share another person's feelings", wrong: ["the desire to be better than others", "the inability to feel emotions", "the habit of ignoring other people"], context: "A good counsellor needs strong _____." },
+  { word: "introvert", correct: "a person who feels more comfortable being alone or in small groups", wrong: ["a person who loves being the centre of attention", "a person who talks to strangers easily", "a person who goes to parties every weekend"], context: "As an _____, he prefers quiet evenings at home." },
+  { word: "stress", correct: "mental or emotional tension caused by demanding situations", wrong: ["physical strength gained from exercise", "financial wealth from a good salary", "social popularity from many friends"], context: "Work-related _____ is one of the biggest health problems today." },
+  { word: "addiction", correct: "being physically or mentally dependent on something", wrong: ["a healthy daily routine", "a creative new hobby", "a positive personality trait"], context: "Phone _____ is becoming a real problem among teenagers." },
+  { word: "self-discipline", correct: "the ability to control your behaviour and work hard", wrong: ["the habit of letting others decide for you", "the tendency to procrastinate", "the desire to have fun all the time"], context: "Learning a language requires _____." },
+  { word: "peer pressure", correct: "the influence of people your age on your behaviour", wrong: ["the advice given by a teacher", "the rules set by your parents", "the guidance from a doctor"], context: "Teenagers often start smoking because of _____." },
+  { word: "burnout", correct: "extreme tiredness from too much work or stress", wrong: ["excitement about starting a new project", "energy from a good night's sleep", "enthusiasm for a new hobby"], context: "After working 80 hours a week, she experienced _____." },
+  { word: "wellbeing", correct: "the state of being comfortable, healthy and happy", wrong: ["the feeling of being extremely wealthy", "the state of being physically strong", "the condition of being very popular"], context: "Companies should care about their employees' _____." }
+
+];
+
+const QUESTIONS_PER_ROUND = 10;
+
+// ═══════════════════════════════════════════════════════════
+// GAME ENGINE
+// ═══════════════════════════════════════════════════════════
+let questions = [];
+let currentQ = 0;
+let correct = 0;
+let wrong = 0;
+let streak = 0;
+let bestStreak = 0;
+let results = [];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  currentQ = 0; correct = 0; wrong = 0; streak = 0; bestStreak = 0; results = [];
+  questions = shuffle(QUIZ_DATA).slice(0, QUESTIONS_PER_ROUND);
+
+  document.getElementById('completion').classList.remove('show');
+  document.getElementById('quizArea').style.display = 'block';
+  document.getElementById('correctCount').textContent = '0';
+  document.getElementById('wrongCount').textContent = '0';
+  document.getElementById('streakCount').textContent = '0';
+
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('qNum').textContent = `Question ${currentQ + 1}`;
+  document.getElementById('qText').textContent = `What does "${q.word}" mean?`;
+  document.getElementById('qContext').textContent = q.context || '';
+  document.getElementById('progressFill').style.width = ((currentQ) / QUESTIONS_PER_ROUND * 100) + '%';
+  document.getElementById('progressText').textContent = `Question ${currentQ + 1} of ${QUESTIONS_PER_ROUND}`;
+
+  // Shuffle options
+  const opts = shuffle([q.correct, ...q.wrong]);
+  const optDiv = document.getElementById('options');
+  optDiv.innerHTML = '';
+
+  opts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt;
+    btn.onclick = () => selectAnswer(btn, opt === q.correct, q.correct);
+    optDiv.appendChild(btn);
+  });
+
+  document.getElementById('feedback').classList.remove('show');
+  document.getElementById('feedback').className = 'feedback';
+  document.getElementById('nextBtn').classList.remove('show');
+}
+
+function selectAnswer(btn, isCorrect, correctAnswer) {
+  // Disable all buttons
+  document.querySelectorAll('.option-btn').forEach(b => {
+    b.classList.add('disabled');
+    if (b.textContent === correctAnswer) b.classList.add('correct');
+  });
+
+  const fb = document.getElementById('feedback');
+
+  if (isCorrect) {
+    btn.classList.add('correct');
+    correct++;
+    streak++;
+    if (streak > bestStreak) bestStreak = streak;
+    fb.textContent = '✓ Correct!';
+    fb.className = 'feedback correct-feedback show';
+    results.push({ word: questions[currentQ].word, correct: true });
+  } else {
+    btn.classList.add('wrong');
+    wrong++;
+    streak = 0;
+    fb.textContent = `✗ The answer is: ${correctAnswer}`;
+    fb.className = 'feedback wrong-feedback show';
+    results.push({ word: questions[currentQ].word, correct: false, answer: correctAnswer });
+  }
+
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = wrong;
+  document.getElementById('streakCount').textContent = streak;
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= QUESTIONS_PER_ROUND) {
+    endGame();
+  } else {
+    showQuestion();
+  }
+}
+
+function endGame() {
+  document.getElementById('quizArea').style.display = 'none';
+  document.getElementById('progressFill').style.width = '100%';
+
+  const percent = Math.round((correct / QUESTIONS_PER_ROUND) * 100);
+  let stars, emoji, title;
+
+  if (percent >= 90) { stars = '⭐⭐⭐'; emoji = '🏆'; title = 'Outstanding!'; }
+  else if (percent >= 70) { stars = '⭐⭐'; emoji = '🎉'; title = 'Great Job!'; }
+  else if (percent >= 50) { stars = '⭐'; emoji = '👍'; title = 'Good Effort!'; }
+  else { stars = ''; emoji = '💪'; title = 'Keep Practising!'; }
+
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('stars').textContent = stars;
+  document.getElementById('finalScore').textContent = `${correct}/${QUESTIONS_PER_ROUND}`;
+  document.getElementById('finalPercent').textContent = percent + '%';
+  document.getElementById('finalStreak').textContent = bestStreak;
+
+  // Build review
+  let reviewHTML = '';
+  results.forEach(r => {
+    if (r.correct) {
+      reviewHTML += `<div class="review-item review-correct"><span class="review-word">${r.word}</span><span>✓</span></div>`;
+    } else {
+      reviewHTML += `<div class="review-item review-wrong"><span class="review-word">${r.word}</span><span class="review-answer">→ ${r.answer}</span></div>`;
+    }
+  });
+  document.getElementById('reviewSection').innerHTML = reviewHTML;
+  document.getElementById('completion').classList.add('show');
+}
+
+startGame();
+</script>
+
+</body>
+</html>

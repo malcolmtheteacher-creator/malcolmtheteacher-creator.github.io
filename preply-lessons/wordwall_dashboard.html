@@ -9,541 +9,1276 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-  color: #fff;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
   min-height: 100vh;
-  padding: 30px 20px;
+  padding: 20px;
+  color: #1e293b;
 }
 
-.dashboard-header {
+.container { max-width: 1400px; margin: 0 auto; }
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #6c5ce7 0%, #a855f7 50%, #ec4899 100%);
+  border-radius: 20px;
+  padding: 50px 40px;
   text-align: center;
-  padding: 50px 30px;
-  margin-bottom: 40px;
+  box-shadow: 0 20px 60px rgba(108, 92, 231, 0.3);
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
 }
 
-.dashboard-header h1 {
-  font-size: 3.5em;
-  font-weight: 900;
-  background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #ff6b6b);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: rainbow 4s linear infinite;
-  margin-bottom: 10px;
-  letter-spacing: -1px;
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+  animation: shimmer 15s infinite linear;
 }
 
-@keyframes rainbow {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
+@keyframes shimmer {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-.dashboard-header .subtitle {
-  font-size: 1.2em;
-  color: rgba(255,255,255,0.6);
-  font-weight: 300;
-  margin-bottom: 25px;
+.header h1 {
+  font-size: 3.5em; color: white;
+  margin-bottom: 10px; position: relative;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
-.stats-bar {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-  margin-top: 20px;
+.header .subtitle {
+  font-size: 1.3em; color: rgba(255,255,255,0.9);
+  margin-bottom: 20px; position: relative;
 }
 
-.stat-item {
+.header-stats {
+  display: flex; justify-content: center; gap: 30px;
+  flex-wrap: wrap; position: relative;
+}
+
+.header-stat {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  padding: 12px 25px; border-radius: 15px;
   text-align: center;
 }
 
-.stat-number {
-  font-size: 2em;
-  font-weight: 800;
-  color: #feca57;
+.header-stat-number { font-size: 2em; font-weight: 900; color: #fff; }
+.header-stat-label { font-size: 0.8em; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1px; }
+
+.vocab-map-link {
+  display: inline-block; margin-top: 20px;
+  padding: 12px 30px; border-radius: 25px;
+  background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.4);
+  color: #fff; text-decoration: none;
+  font-weight: 700; font-size: 1em;
+  transition: all 0.3s; position: relative;
 }
 
-.stat-label {
-  font-size: 0.8em;
-  color: rgba(255,255,255,0.5);
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.vocab-map-link:hover { background: rgba(255,255,255,0.3); transform: translateY(-2px); }
+
+/* Filters */
+.filter-bar {
+  background: #ffffff; border-radius: 16px;
+  padding: 20px 25px; margin-bottom: 25px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
-/* Filter Controls */
-.filter-section {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 15px;
+.filter-row {
+  display: flex; align-items: center; gap: 10px;
+  flex-wrap: wrap; margin-bottom: 10px;
 }
+
+.filter-row:last-child { margin-bottom: 0; }
 
 .filter-label {
-  font-size: 0.8em;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: rgba(255,255,255,0.4);
-  width: 100%;
-  text-align: center;
-  margin-bottom: 5px;
+  font-weight: 700; font-size: 0.85em;
+  color: #64748b; text-transform: uppercase;
+  letter-spacing: 1px; min-width: 80px;
 }
 
 .filter-btn {
-  padding: 8px 20px;
-  border-radius: 30px;
-  border: 2px solid rgba(255,255,255,0.3);
-  background: transparent;
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.85em;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  padding: 8px 18px; border-radius: 20px;
+  border: 2px solid #e2e8f0; background: #fff;
+  color: #475569; font-weight: 600; font-size: 0.85em;
+  cursor: pointer; transition: all 0.2s;
 }
 
-.filter-btn:hover {
-  border-color: #fff;
-  background: rgba(255,255,255,0.1);
+.filter-btn:hover { border-color: #a855f7; color: #a855f7; }
+.filter-btn.active { background: #a855f7; color: #fff; border-color: #a855f7; }
+
+.level-filter-btn {
+  padding: 8px 18px; border-radius: 20px;
+  border: 2px solid #e2e8f0; background: #fff;
+  font-weight: 700; font-size: 0.85em;
+  cursor: pointer; transition: all 0.2s;
 }
 
-.filter-btn.active {
-  background: #fff;
-  color: #1a1a2e;
-  border-color: #fff;
+.level-filter-btn:hover { transform: translateY(-1px); }
+.level-filter-btn.active { color: #fff; }
+
+/* Search */
+.search-box {
+  width: 100%; padding: 10px 18px; border-radius: 12px;
+  border: 2px solid #e2e8f0; background: #f8fafc;
+  font-size: 0.95em; color: #1e293b; outline: none;
+  transition: border-color 0.3s;
 }
 
-.filter-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 35px;
-  padding: 0 20px;
-}
+.search-box:focus { border-color: #a855f7; }
+.search-box::placeholder { color: #94a3b8; }
 
-/* Level Colors */
-.level-a1 { --level-color: #2ecc71; --level-dark: #27ae60; }
-.level-a2 { --level-color: #ff9ff3; --level-dark: #f368e0; }
-.level-b1 { --level-color: #feca57; --level-dark: #ff9f43; }
-.level-b2 { --level-color: #48dbfb; --level-dark: #0abde3; }
-.level-c1 { --level-color: #54a0ff; --level-dark: #2e86de; }
-.level-c2 { --level-color: #ff6b6b; --level-dark: #ee5a24; }
-
-/* Game Type Colors */
-.type-match { --type-color: #4ecdc4; }
-.type-memory { --type-color: #f093fb; }
-.type-quiz { --type-color: #feca57; }
-.type-anagram { --type-color: #ff6b6b; }
-.type-categorize { --type-color: #54a0ff; }
-
-/* Game Cards Grid */
-.games-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
-  padding: 0 20px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.game-card {
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 25px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255,255,255,0.1);
-  position: relative;
-  overflow: hidden;
-  text-decoration: none;
-  color: #fff;
-  display: block;
-}
-
-.game-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--level-color), var(--type-color, var(--level-dark)));
-}
-
-.game-card:hover {
-  transform: translateY(-4px);
-  background: rgba(255,255,255,0.14);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-}
-
-.card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.game-icon {
-  font-size: 2em;
-}
-
-.card-badges {
-  display: flex;
-  gap: 8px;
-}
-
-.level-badge {
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  background: var(--level-color);
-  color: #1a1a2e;
-}
-
-.type-badge {
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  background: rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.8);
-}
-
-.game-title {
-  font-size: 1.2em;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.game-desc {
-  font-size: 0.9em;
-  color: rgba(255,255,255,0.6);
-  line-height: 1.5;
-  margin-bottom: 15px;
-}
-
-.game-tags {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.game-tag {
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 0.7em;
-  background: rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.7);
-}
-
-/* Section Headers */
+/* Level Sections */
 .level-section {
-  max-width: 1400px;
-  margin: 0 auto 40px;
-  padding: 0 20px;
+  background: #ffffff; border-radius: 20px;
+  padding: 30px; margin-bottom: 25px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
 .level-header {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid rgba(255,255,255,0.1);
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 20px;
+  flex-wrap: wrap; gap: 15px;
 }
 
-.level-header h2 {
-  font-size: 1.8em;
-  font-weight: 800;
+.level-title { display: flex; align-items: center; gap: 15px; }
+
+.level-icon {
+  width: 55px; height: 55px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5em; font-weight: 900;
 }
 
-.level-header .level-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--level-color);
+.level-info h3 { font-size: 1.4em; color: #1e293b; }
+.level-info p { color: #64748b; font-size: 0.9em; }
+
+/* Game Cards */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
 }
 
-.level-header .level-count {
-  font-size: 0.85em;
-  color: rgba(255,255,255,0.4);
-  margin-left: auto;
+.game-card {
+  display: flex; align-items: center; gap: 12px;
+  background: #f8fafc; border-radius: 12px;
+  padding: 14px 16px; text-decoration: none;
+  border: 1px solid #e2e8f0;
+  transition: all 0.25s ease;
+  color: #1e293b;
 }
 
-/* Empty State */
-.empty-state {
-  text-align: center;
-  padding: 60px 20px;
-  color: rgba(255,255,255,0.4);
+.game-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  border-color: #a855f7;
+  background: #fff;
 }
 
-.empty-state .emoji {
-  font-size: 3em;
-  margin-bottom: 15px;
+.game-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1em; flex-shrink: 0; color: #fff;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .dashboard-header h1 { font-size: 2.2em; }
+.game-topic { font-weight: 700; font-size: 0.95em; }
+.game-type { font-size: 0.78em; font-weight: 600; }
+
+.game-card.hidden { display: none; }
+
+/* Back */
+.back-bar {
+  text-align: center; padding: 25px;
+}
+
+.back-link {
+  color: #64748b; text-decoration: none; font-size: 0.95em;
+  transition: color 0.3s;
+}
+
+.back-link:hover { color: #a855f7; }
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 2.2em; }
+  .header { padding: 35px 20px; }
   .games-grid { grid-template-columns: 1fr; }
-  .stats-bar { gap: 15px; }
-  .stat-number { font-size: 1.5em; }
+  .header-stats { gap: 10px; }
+  .filter-row { gap: 6px; }
 }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.game-card { animation: fadeIn 0.3s ease forwards; }
 </style>
 </head>
 <body>
+<div class="container">
 
-<div class="dashboard-header">
-  <h1>Word Wall</h1>
+<div class="header">
+  <h1>🧱 Word Wall</h1>
   <div class="subtitle">Vocabulary Pathway — Interactive Games for Every Level</div>
-  <div class="stats-bar">
-    <div class="stat-item">
-      <div class="stat-number" id="totalGames">0</div>
-      <div class="stat-label">Games</div>
+  <div class="header-stats">
+    <div class="header-stat">
+      <div class="header-stat-number">125</div>
+      <div class="header-stat-label">Games</div>
     </div>
-    <div class="stat-item">
-      <div class="stat-number" id="totalLevels">6</div>
-      <div class="stat-label">Levels</div>
+    <div class="header-stat">
+      <div class="header-stat-number">5</div>
+      <div class="header-stat-label">Levels</div>
     </div>
-    <div class="stat-item">
-      <div class="stat-number" id="totalTypes">5</div>
-      <div class="stat-label">Game Types</div>
+    <div class="header-stat">
+      <div class="header-stat-number">5</div>
+      <div class="header-stat-label">Game Types</div>
     </div>
   </div>
-  <a href="wordwall_vocab_map.html" style="display:inline-block;margin-top:20px;padding:10px 28px;border-radius:25px;background:linear-gradient(135deg,rgba(240,147,251,0.2),rgba(254,202,87,0.2));border:2px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);text-decoration:none;font-weight:700;font-size:0.95em;transition:all 0.3s;">🗺️ Vocabulary Map — 684 words</a>
+  <a class="vocab-map-link" href="wordwall_vocab_map.html">🗺️ View Vocabulary Map</a>
 </div>
 
-<div class="filter-controls">
-  <div class="filter-section">
-    <div class="filter-label">Level</div>
-    <button class="filter-btn active" onclick="filterLevel('all')">All</button>
-    <button class="filter-btn" onclick="filterLevel('a1')">A1</button>
-    <button class="filter-btn" onclick="filterLevel('a2')">A2</button>
-    <button class="filter-btn" onclick="filterLevel('b1')">B1</button>
-    <button class="filter-btn" onclick="filterLevel('b2')">B2</button>
-    <button class="filter-btn" onclick="filterLevel('c1')">C1</button>
-    <button class="filter-btn" onclick="filterLevel('c2')">C2</button>
+<div class="filter-bar">
+  <div class="filter-row">
+    <span class="filter-label">Level</span>
+    <button class="level-filter-btn active" style="--c:#a855f7" onclick="filterLevel('all')" data-level="all">All</button>
+    <button class="level-filter-btn" style="--c:#2ecc71;border-color:#2ecc71;color:#2ecc71" data-level="A1" onclick="filterLevel('A1')">A1</button>
+    <button class="level-filter-btn" style="--c:#f093fb;border-color:#f093fb;color:#f093fb" data-level="A2" onclick="filterLevel('A2')">A2</button>
+    <button class="level-filter-btn" style="--c:#667eea;border-color:#667eea;color:#667eea" data-level="B1" onclick="filterLevel('B1')">B1</button>
+    <button class="level-filter-btn" style="--c:#48dbfb;border-color:#48dbfb;color:#48dbfb" data-level="B2" onclick="filterLevel('B2')">B2</button>
+    <button class="level-filter-btn" style="--c:#54a0ff;border-color:#54a0ff;color:#54a0ff" data-level="C1" onclick="filterLevel('C1')">C1</button>
   </div>
-  <div class="filter-section">
-    <div class="filter-label">Game Type</div>
+  <div class="filter-row">
+    <span class="filter-label">Type</span>
     <button class="filter-btn active" onclick="filterType('all')">All</button>
-    <button class="filter-btn" onclick="filterType('match')">🔗 Match Up</button>
-    <button class="filter-btn" onclick="filterType('memory')">🧠 Memory</button>
-    <button class="filter-btn" onclick="filterType('quiz')">❓ Quiz</button>
-    <button class="filter-btn" onclick="filterType('anagram')">🔤 Anagram</button>
-    <button class="filter-btn" onclick="filterType('categorize')">📦 Categorize</button>
+    <button class="filter-btn" data-type="match" onclick="filterType('match')">🔗 Match Up</button>
+<button class="filter-btn" data-type="memory" onclick="filterType('memory')">🧠 Memory</button>
+<button class="filter-btn" data-type="quiz" onclick="filterType('quiz')">❓ Quiz</button>
+<button class="filter-btn" data-type="anagram" onclick="filterType('anagram')">🔤 Anagram</button>
+<button class="filter-btn" data-type="categorize" onclick="filterType('categorize')">📦 Categorize</button>
+
+  </div>
+  <div class="filter-row">
+    <span class="filter-label">Search</span>
+    <input type="text" class="search-box" id="searchBox" placeholder="Search by topic..." oninput="searchGames()">
   </div>
 </div>
 
-<div class="games-grid" id="gamesGrid"></div>
-<div class="empty-state" id="emptyState" style="display:none;">
-  <div class="emoji">🔍</div>
-  <p>No games match your filters. Try a different combination.</p>
+<div class="level-section">
+  <div class="level-header">
+    <div class="level-title">
+      <div class="level-icon" style="background:linear-gradient(135deg, #2ecc71, #27ae60);color:#fff">A1</div>
+      <div class="level-info">
+        <h3>A1 Vocabulary</h3>
+        <p>25 games</p>
+      </div>
+    </div>
+  </div>
+  <div class="games-grid"><a href="ww_anagram_a1_adjectives.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Adjectives</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_a1_animals.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Animals</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_a1_body.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Body</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_a1_drinks.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Drinks</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_a1_fruit.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Fruit</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_categorize_a1_bodyparts.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Bodyparts</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_a1_clothes.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Clothes</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_a1_foodgroups.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Foodgroups</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_a1_jobs.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Jobs</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_a1_sports.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Sports</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_match_a1_classroom.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Classroom</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_a1_colours.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Colours</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_a1_food.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Food</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_a1_numbers.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Numbers</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_a1_time.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Time</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_memory_a1_family.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Family</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_a1_feelings.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Feelings</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_a1_hobbies.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Hobbies</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_a1_house.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">House</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_a1_transport.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Transport</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_quiz_a1_furniture.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Furniture</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_a1_objects.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Objects</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_a1_places.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Places</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_a1_routines.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Routines</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_a1_weather.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Weather</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="level-section">
+  <div class="level-header">
+    <div class="level-title">
+      <div class="level-icon" style="background:linear-gradient(135deg, #f093fb, #f5576c);color:#fff">A2</div>
+      <div class="level-info">
+        <h3>A2 Vocabulary</h3>
+        <p>25 games</p>
+      </div>
+    </div>
+  </div>
+  <div class="games-grid"><a href="ww_anagram_a2_fashion.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Fashion</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_a2_feelings.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Feelings</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_a2_home.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Home</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_a2_nature.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Nature</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_a2_weather.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Weather</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_categorize_a2_celebrations.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Celebrations</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_a2_movement.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Movement</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_a2_taste.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Taste</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_a2_technology.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Technology</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_a2_town.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Town</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_match_a2_appearance.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Appearance</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_a2_money.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Money</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_a2_personality.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Personality</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_a2_sports.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Sports</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_a2_travel.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Travel</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_memory_a2_communication.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Communication</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_a2_health.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Health</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_a2_movies.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Movies</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_a2_music.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Music</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_a2_tech.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Tech</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_quiz_a2_cooking.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Cooking</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_a2_directions.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Directions</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_a2_education.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Education</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_a2_shopping.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Shopping</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_a2_work.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Work</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="level-section">
+  <div class="level-header">
+    <div class="level-title">
+      <div class="level-icon" style="background:linear-gradient(135deg, #667eea, #764ba2);color:#fff">B1</div>
+      <div class="level-info">
+        <h3>B1 Vocabulary</h3>
+        <p>25 games</p>
+      </div>
+    </div>
+  </div>
+  <div class="games-grid"><a href="ww_anagram_b1_communication.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Communication</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_b1_cooking.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Cooking</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_b1_fashion.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Fashion</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_b1_law.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Law</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_b1_relationships.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Relationships</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_categorize_b1_crime.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Crime</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_b1_feelings.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Feelings</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_b1_phrasal.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Phrasal</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_b1_subjects.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Subjects</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_b1_transport.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Transport</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_match_b1_education.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Education</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_b1_finance.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Finance</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_b1_health.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Health</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_b1_technology.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Technology</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_b1_work.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Work</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_memory_b1_art.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Art</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_b1_housing.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Housing</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_b1_media.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Media</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_b1_science.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Science</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_b1_travel.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Travel</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_quiz_b1_culture.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Culture</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_b1_environment.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Environment</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_b1_food.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Food</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_b1_psychology.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Psychology</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_b1_social.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Social</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="level-section">
+  <div class="level-header">
+    <div class="level-title">
+      <div class="level-icon" style="background:linear-gradient(135deg, #48dbfb, #0abde3);color:#fff">B2</div>
+      <div class="level-info">
+        <h3>B2 Vocabulary</h3>
+        <p>25 games</p>
+      </div>
+    </div>
+  </div>
+  <div class="games-grid"><a href="ww_anagram_b2_education.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Education</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_b2_finance.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Finance</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_b2_idioms.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Idioms</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_b2_philosophy.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Philosophy</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_b2_technology.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Technology</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_categorize_b2_collocations.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Collocations</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_b2_connectors.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Connectors</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_b2_global.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Global</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_b2_media.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Media</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_b2_social.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Social</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_match_b2_business.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Business</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_b2_environment.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Environment</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_b2_phrasal.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Phrasal</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_b2_science.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Science</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_b2_travel.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Travel</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_memory_b2_arts.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Arts</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_b2_crime.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Crime</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_b2_politics.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Politics</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_b2_psychology.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Psychology</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_b2_rhetoric.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Rhetoric</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_quiz_b2_architecture.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Architecture</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_b2_health.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Health</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_b2_law.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Law</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_b2_mind.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Mind</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_b2_relationships.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Relationships</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+</div>
+</div>
+<div class="level-section">
+  <div class="level-header">
+    <div class="level-title">
+      <div class="level-icon" style="background:linear-gradient(135deg, #54a0ff, #2e86de);color:#fff">C1</div>
+      <div class="level-info">
+        <h3>C1 Vocabulary</h3>
+        <p>25 games</p>
+      </div>
+    </div>
+  </div>
+  <div class="games-grid"><a href="ww_anagram_c1_business.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Business</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_c1_economics.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Economics</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_c1_ethics.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Ethics</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_c1_philosophy.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Philosophy</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_anagram_c1_sociology.html" class="game-card">
+  <div class="game-icon" style="background:#ff6b6b">🔤</div>
+  <div class="game-info">
+    <div class="game-topic">Sociology</div>
+    <div class="game-type" style="color:#ff6b6b">Anagram</div>
+  </div>
+</a>
+<a href="ww_categorize_c1_academic.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Academic</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_c1_formal.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Formal</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_c1_register.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Register</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_c1_science.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Science</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_categorize_c1_wordformation.html" class="game-card">
+  <div class="game-icon" style="background:#54a0ff">📦</div>
+  <div class="game-info">
+    <div class="game-topic">Wordformation</div>
+    <div class="game-type" style="color:#54a0ff">Categorize</div>
+  </div>
+</a>
+<a href="ww_match_c1_abstract.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Abstract</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_c1_collocations.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Collocations</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_c1_law.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Law</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_c1_medicine.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Medicine</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_match_c1_technology.html" class="game-card">
+  <div class="game-icon" style="background:#4ecdc4">🔗</div>
+  <div class="game-info">
+    <div class="game-topic">Technology</div>
+    <div class="game-type" style="color:#4ecdc4">Match Up</div>
+  </div>
+</a>
+<a href="ww_memory_c1_academic.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Academic</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_c1_arts.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Arts</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_c1_environment.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Environment</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_c1_literature.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Literature</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_memory_c1_psychology.html" class="game-card">
+  <div class="game-icon" style="background:#f093fb">🧠</div>
+  <div class="game-info">
+    <div class="game-topic">Psychology</div>
+    <div class="game-type" style="color:#f093fb">Memory</div>
+  </div>
+</a>
+<a href="ww_quiz_c1_affairs.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Affairs</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_c1_business.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Business</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_c1_idioms.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Idioms</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_c1_linguistics.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Linguistics</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+<a href="ww_quiz_c1_media.html" class="game-card">
+  <div class="game-icon" style="background:#feca57">❓</div>
+  <div class="game-info">
+    <div class="game-topic">Media</div>
+    <div class="game-type" style="color:#feca57">Quiz</div>
+  </div>
+</a>
+</div>
+</div>
+
+
+<div class="back-bar">
+  <a class="back-link" href="index.html">← Back to Home</a>
+</div>
+
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════════
-// GAME REGISTRY — Add new games here
-// ═══════════════════════════════════════════════════════════
-const games = [
-  // ── A1 ──
-  { title: "Food & Drink", level: "a1", type: "match", icon: "🍕", file: "ww_match_a1_food.html", desc: "Match everyday food and drink words to their pictures", tags: ["Nouns", "Daily Life"] },
-  { title: "Family Members", level: "a1", type: "memory", icon: "👨‍👩‍👧‍👦", file: "ww_memory_a1_family.html", desc: "Flip cards to match family words with their meanings", tags: ["Nouns", "People"] },
-  { title: "Daily Routines", level: "a1", type: "quiz", icon: "⏰", file: "ww_quiz_a1_routines.html", desc: "Choose the right word for everyday actions and habits", tags: ["Verbs", "Daily Life"] },
-  { title: "Animals", level: "a1", type: "anagram", icon: "🐾", file: "ww_anagram_a1_animals.html", desc: "Unscramble the letters to find animal names", tags: ["Nouns", "Nature"] },
-  { title: "Clothes & Colors", level: "a1", type: "categorize", icon: "👕", file: "ww_categorize_a1_clothes.html", desc: "Sort items into the right clothing and colour groups", tags: ["Nouns", "Adjectives"] },
-  { title: "Numbers & Money", level: "a1", type: "match", icon: "💰", file: "ww_match_a1_numbers.html", desc: "Match number words to digits and prices", tags: ["Numbers", "Shopping"] },
-  { title: "House & Home", level: "a1", type: "memory", icon: "🏠", file: "ww_memory_a1_house.html", desc: "Match rooms and household objects", tags: ["Nouns", "Daily Life"] },
-  { title: "Weather", level: "a1", type: "quiz", icon: "🌤️", file: "ww_quiz_a1_weather.html", desc: "Choose the right weather word for each situation", tags: ["Nouns", "Adjectives"] },
-  { title: "Body Parts", level: "a1", type: "anagram", icon: "🦴", file: "ww_anagram_a1_body.html", desc: "Unscramble letters to spell parts of the body", tags: ["Nouns", "Health"] },
-  { title: "Jobs", level: "a1", type: "categorize", icon: "👷", file: "ww_categorize_a1_jobs.html", desc: "Sort jobs into the right workplace categories", tags: ["Nouns", "Work"] },
-
-  // ── A2 ──
-  { title: "Travel & Transport", level: "a2", type: "match", icon: "✈️", file: "ww_match_a2_travel.html", desc: "Match travel vocabulary to definitions", tags: ["Nouns", "Verbs"] },
-  { title: "Health & Body", level: "a2", type: "memory", icon: "🏥", file: "ww_memory_a2_health.html", desc: "Match health problems with remedies and treatments", tags: ["Nouns", "Health"] },
-  { title: "Shopping & Services", level: "a2", type: "quiz", icon: "🛒", file: "ww_quiz_a2_shopping.html", desc: "Pick the best word for shopping situations", tags: ["Nouns", "Verbs"] },
-  { title: "Feelings & Emotions", level: "a2", type: "anagram", icon: "😊", file: "ww_anagram_a2_feelings.html", desc: "Unscramble adjectives that describe emotions", tags: ["Adjectives", "People"] },
-  { title: "Town & Directions", level: "a2", type: "categorize", icon: "🏙️", file: "ww_categorize_a2_town.html", desc: "Sort places and directions into categories", tags: ["Nouns", "Prepositions"] },
-  { title: "Sports & Hobbies", level: "a2", type: "match", icon: "⚽", file: "ww_match_a2_sports.html", desc: "Match sports and hobbies with their equipment", tags: ["Nouns", "Verbs"] },
-  { title: "Technology Basics", level: "a2", type: "memory", icon: "📱", file: "ww_memory_a2_tech.html", desc: "Match tech words with what they do", tags: ["Nouns", "Verbs"] },
-  { title: "Education", level: "a2", type: "quiz", icon: "📚", file: "ww_quiz_a2_education.html", desc: "Choose the right school and study vocabulary", tags: ["Nouns", "Academic"] },
-  { title: "Nature & Environment", level: "a2", type: "anagram", icon: "🌿", file: "ww_anagram_a2_nature.html", desc: "Unscramble nature and environment words", tags: ["Nouns", "Adjectives"] },
-  { title: "Celebrations", level: "a2", type: "categorize", icon: "🎉", file: "ww_categorize_a2_celebrations.html", desc: "Sort celebration vocabulary into event types", tags: ["Nouns", "Culture"] },
-
-  // ── B1 ──
-  { title: "Work & Career", level: "b1", type: "match", icon: "💼", file: "ww_match_b1_work.html", desc: "Match professional vocabulary to workplace situations", tags: ["Nouns", "Verbs", "Business"] },
-  { title: "Media & News", level: "b1", type: "memory", icon: "📰", file: "ww_memory_b1_media.html", desc: "Match media terminology with definitions", tags: ["Nouns", "Communication"] },
-  { title: "Environment", level: "b1", type: "quiz", icon: "🌍", file: "ww_quiz_b1_environment.html", desc: "Test your knowledge of environmental vocabulary", tags: ["Nouns", "Issues"] },
-  { title: "Relationships", level: "b1", type: "anagram", icon: "🤝", file: "ww_anagram_b1_relationships.html", desc: "Unscramble words about personal relationships", tags: ["Nouns", "Verbs"] },
-  { title: "Crime & Law", level: "b1", type: "categorize", icon: "⚖️", file: "ww_categorize_b1_crime.html", desc: "Sort legal and crime words into categories", tags: ["Nouns", "Society"] },
-  { title: "Money & Finance", level: "b1", type: "match", icon: "🏦", file: "ww_match_b1_finance.html", desc: "Match financial terms to their meanings", tags: ["Nouns", "Business"] },
-  { title: "Science Basics", level: "b1", type: "memory", icon: "🔬", file: "ww_memory_b1_science.html", desc: "Match science words with their definitions", tags: ["Nouns", "Academic"] },
-  { title: "Art & Culture", level: "b1", type: "quiz", icon: "🎨", file: "ww_quiz_b1_culture.html", desc: "Test your vocabulary for art and cultural topics", tags: ["Nouns", "Culture"] },
-  { title: "Food & Cooking", level: "b1", type: "anagram", icon: "👨‍🍳", file: "ww_anagram_b1_cooking.html", desc: "Unscramble cooking methods and ingredients", tags: ["Verbs", "Nouns"] },
-  { title: "Transport Systems", level: "b1", type: "categorize", icon: "🚆", file: "ww_categorize_b1_transport.html", desc: "Sort transport vocabulary into travel categories", tags: ["Nouns", "Verbs"] },
-
-  // ── B2 ──
-  { title: "Business & Commerce", level: "b2", type: "match", icon: "📊", file: "ww_match_b2_business.html", desc: "Match advanced business terms to definitions", tags: ["Nouns", "Business"] },
-  { title: "Politics & Government", level: "b2", type: "memory", icon: "🏛️", file: "ww_memory_b2_politics.html", desc: "Match political terms with their meanings", tags: ["Nouns", "Society"] },
-  { title: "Health & Medicine", level: "b2", type: "quiz", icon: "💊", file: "ww_quiz_b2_health.html", desc: "Advanced medical and health vocabulary quiz", tags: ["Nouns", "Science"] },
-  { title: "Technology", level: "b2", type: "anagram", icon: "💻", file: "ww_anagram_b2_technology.html", desc: "Unscramble cutting-edge tech terminology", tags: ["Nouns", "Verbs"] },
-  { title: "Social Issues", level: "b2", type: "categorize", icon: "🗣️", file: "ww_categorize_b2_social.html", desc: "Sort social issue vocabulary into themes", tags: ["Nouns", "Issues"] },
-  { title: "Phrasal Verbs", level: "b2", type: "match", icon: "🔄", file: "ww_match_b2_phrasal.html", desc: "Match phrasal verbs with their meanings", tags: ["Verbs", "Grammar"] },
-  { title: "Psychology", level: "b2", type: "memory", icon: "🧠", file: "ww_memory_b2_psychology.html", desc: "Match psychological terms with definitions", tags: ["Nouns", "Science"] },
-  { title: "Law & Justice", level: "b2", type: "quiz", icon: "⚖️", file: "ww_quiz_b2_law.html", desc: "Legal vocabulary for advanced learners", tags: ["Nouns", "Society"] },
-  { title: "Education Systems", level: "b2", type: "anagram", icon: "🎓", file: "ww_anagram_b2_education.html", desc: "Unscramble academic and education terms", tags: ["Nouns", "Academic"] },
-  { title: "Media & Communication", level: "b2", type: "categorize", icon: "📡", file: "ww_categorize_b2_media.html", desc: "Sort media vocabulary into communication categories", tags: ["Nouns", "Communication"] },
-
-  // ── C1 ──
-  { title: "Abstract Concepts", level: "c1", type: "match", icon: "💭", file: "ww_match_c1_abstract.html", desc: "Match abstract nouns to nuanced definitions", tags: ["Nouns", "Academic"] },
-  { title: "Academic Language", level: "c1", type: "memory", icon: "🎓", file: "ww_memory_c1_academic.html", desc: "Match academic collocations and formal register", tags: ["Collocations", "Academic"] },
-  { title: "Idioms", level: "c1", type: "quiz", icon: "🗝️", file: "ww_quiz_c1_idioms.html", desc: "Test your knowledge of English idioms", tags: ["Idioms", "Culture"] },
-  { title: "Economics", level: "c1", type: "anagram", icon: "📈", file: "ww_anagram_c1_economics.html", desc: "Unscramble advanced economic terms", tags: ["Nouns", "Business"] },
-  { title: "Formal vs Informal", level: "c1", type: "categorize", icon: "🎭", file: "ww_categorize_c1_register.html", desc: "Sort vocabulary by register — formal or informal", tags: ["Register", "Style"] },
-  { title: "Collocations", level: "c1", type: "match", icon: "🔗", file: "ww_match_c1_collocations.html", desc: "Match strong collocations used in academic writing", tags: ["Collocations", "Academic"] },
-  { title: "The Arts", level: "c1", type: "memory", icon: "🎭", file: "ww_memory_c1_arts.html", desc: "Match sophisticated arts and literature vocabulary", tags: ["Nouns", "Culture"] },
-  { title: "Current Affairs", level: "c1", type: "quiz", icon: "🌐", file: "ww_quiz_c1_affairs.html", desc: "Advanced vocabulary for discussing world events", tags: ["Nouns", "Society"] },
-  { title: "Philosophy", level: "c1", type: "anagram", icon: "🏛️", file: "ww_anagram_c1_philosophy.html", desc: "Unscramble philosophical and ethical terms", tags: ["Nouns", "Academic"] },
-  { title: "Science Advanced", level: "c1", type: "categorize", icon: "⚗️", file: "ww_categorize_c1_science.html", desc: "Sort advanced science terms into fields", tags: ["Nouns", "Science"] },
-];
-
-// ═══════════════════════════════════════════════════════════
-// RENDERING & FILTERING
-// ═══════════════════════════════════════════════════════════
-let activeLevel = 'all';
-let activeType = 'all';
-
-const typeLabels = {
-  match: '🔗 Match Up',
-  memory: '🧠 Memory',
-  quiz: '❓ Quiz',
-  anagram: '🔤 Anagram',
-  categorize: '📦 Categorize'
-};
-
-const levelLabels = {
-  a1: 'A1 — Beginner',
-  a2: 'A2 — Elementary',
-  b1: 'B1 — Intermediate',
-  b2: 'B2 — Upper Intermediate',
-  c1: 'C1 — Advanced',
-  c2: 'C2 — Proficiency'
-};
+let currentLevel = 'all';
+let currentType = 'all';
 
 function filterLevel(level) {
-  activeLevel = level;
-  document.querySelectorAll('.filter-section')[0].querySelectorAll('.filter-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === level || (level === 'all' && btn.textContent.trim() === 'All'));
+  currentLevel = level;
+  // Update buttons
+  document.querySelectorAll('.level-filter-btn').forEach(b => {
+    const isActive = b.dataset.level === level;
+    b.classList.toggle('active', isActive);
+    if (isActive) {
+      b.style.background = b.style.getPropertyValue('--c') || '#a855f7';
+      b.style.color = '#fff';
+    } else {
+      b.style.background = '#fff';
+      b.style.color = b.style.borderColor || '#475569';
+    }
   });
-  renderGames();
+  applyFilters();
 }
 
 function filterType(type) {
-  activeType = type;
-  document.querySelectorAll('.filter-section')[1].querySelectorAll('.filter-btn').forEach(btn => {
-    const btnType = btn.getAttribute('onclick')?.match(/'(\w+)'/)?.[1];
-    btn.classList.toggle('active', btnType === type);
+  currentType = type;
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.toggle('active', (b.dataset.type === type) || (type === 'all' && !b.dataset.type));
   });
-  renderGames();
-}
-
-function renderGames() {
-  const filtered = games.filter(g => {
-    const levelMatch = activeLevel === 'all' || g.level === activeLevel;
-    const typeMatch = activeType === 'all' || g.type === activeType;
-    return levelMatch && typeMatch;
-  });
-
-  const grid = document.getElementById('gamesGrid');
-  const empty = document.getElementById('emptyState');
-
-  if (filtered.length === 0) {
-    grid.innerHTML = '';
-    empty.style.display = 'block';
-    return;
-  }
-  empty.style.display = 'none';
-
-  // Group by level
-  const grouped = {};
-  filtered.forEach(g => {
-    if (!grouped[g.level]) grouped[g.level] = [];
-    grouped[g.level].push(g);
-  });
-
-  let html = '';
-  const levelOrder = ['a1', 'a2', 'b1', 'b2', 'c1', 'c2'];
-
-  levelOrder.forEach(level => {
-    if (!grouped[level]) return;
-    html += `<div class="level-section-inline level-${level}">`;
-    html += `<div class="level-header-inline"><span class="level-dot-inline" style="background:var(--level-color)"></span> ${levelLabels[level]} <span class="level-count-inline">${grouped[level].length} games</span></div>`;
-    grouped[level].forEach((g, i) => {
-      html += `
-        <a class="game-card level-${g.level} type-${g.type}" href="${g.file}" style="animation-delay:${i * 0.05}s">
-          <div class="card-top">
-            <div class="game-icon">${g.icon}</div>
-            <div class="card-badges">
-              <span class="type-badge">${typeLabels[g.type]}</span>
-              <span class="level-badge">${g.level.toUpperCase()}</span>
-            </div>
-          </div>
-          <div class="game-title">${g.title}</div>
-          <div class="game-desc">${g.desc}</div>
-          <div class="game-tags">${g.tags.map(t => `<span class="game-tag">${t}</span>`).join('')}</div>
-        </a>`;
+  // Handle "All" button
+  if (type === 'all') {
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.remove('active');
     });
-    html += '</div>';
+    document.querySelector('.filter-btn:not([data-type])') && document.querySelectorAll('.filter-btn').forEach(b => {
+      if (!b.dataset.type) b.classList.add('active');
+    });
+  }
+  applyFilters();
+}
+
+function searchGames() {
+  applyFilters();
+}
+
+function applyFilters() {
+  const query = document.getElementById('searchBox').value.toLowerCase().trim();
+
+  document.querySelectorAll('.level-section').forEach(section => {
+    const sectionLevel = section.querySelector('.level-icon').textContent.trim();
+    const levelMatch = currentLevel === 'all' || sectionLevel === currentLevel;
+
+    let visibleCards = 0;
+    section.querySelectorAll('.game-card').forEach(card => {
+      const cardType = card.dataset.type;
+      const cardTopic = card.querySelector('.game-topic').textContent.toLowerCase();
+
+      const typeMatch = currentType === 'all' || cardType === currentType;
+      const searchMatch = !query || cardTopic.includes(query);
+
+      const show = levelMatch && typeMatch && searchMatch;
+      card.classList.toggle('hidden', !show);
+      if (show) visibleCards++;
+    });
+
+    section.style.display = (levelMatch && visibleCards > 0) ? 'block' : 'none';
   });
-
-  grid.innerHTML = html;
-  document.getElementById('totalGames').textContent = games.length;
 }
 
-// Initial render
-renderGames();
+// Add data-type to game cards
+document.querySelectorAll('.game-card').forEach(card => {
+  const href = card.getAttribute('href');
+  if (href) {
+    const parts = href.replace('.html','').split('_');
+    if (parts.length >= 2) card.dataset.type = parts[1];
+  }
+});
 </script>
-
-<style>
-.level-section-inline {
-  grid-column: 1 / -1;
-  margin-bottom: 10px;
-}
-.level-header-inline {
-  font-size: 1.4em;
-  font-weight: 800;
-  padding: 10px 0;
-  margin-bottom: 5px;
-  border-bottom: 2px solid rgba(255,255,255,0.1);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.level-dot-inline {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-}
-.level-count-inline {
-  font-size: 0.55em;
-  color: rgba(255,255,255,0.4);
-  margin-left: auto;
-  font-weight: 400;
-}
-</style>
-
 </body>
 </html>

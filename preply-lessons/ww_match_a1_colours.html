@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Match Up — Colours & Descriptions</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-user-select: none; user-select: none; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.game-header {
+  text-align: center;
+  padding: 30px;
+  margin-bottom: 25px;
+}
+
+.game-header h1 {
+  font-size: 2.5em;
+  font-weight: 900;
+  background: linear-gradient(90deg, #4ecdc4, #44a08d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 5px;
+}
+
+.game-header .topic {
+  font-size: 1.3em;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 10px;
+}
+
+.game-header .level-badge {
+  display: inline-block;
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 800;
+  background: #2ecc71;
+  color: #1a1a2e;
+  letter-spacing: 1px;
+}
+
+/* Score & Timer Bar */
+.status-bar {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.status-item {
+  text-align: center;
+}
+
+.status-value {
+  font-size: 2em;
+  font-weight: 800;
+  font-family: 'Courier New', monospace;
+}
+
+.status-value.timer { color: #4ecdc4; }
+.status-value.timer.warning { color: #feca57; }
+.status-value.timer.danger { color: #ff6b6b; animation: pulse 1s infinite; }
+.status-value.score { color: #feca57; }
+.status-value.moves { color: #ff9ff3; }
+
+.status-label {
+  font-size: 0.75em;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+/* Game Area */
+.match-area {
+  display: flex;
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.column {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.column-label {
+  text-align: center;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 5px;
+}
+
+.match-item {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 14px;
+  padding: 18px 22px;
+  font-size: 1.15em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+  position: relative;
+}
+
+.match-item:hover {
+  background: rgba(255,255,255,0.14);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.match-item.selected {
+  border-color: #4ecdc4;
+  background: rgba(78, 205, 196, 0.15);
+  box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+  transform: scale(1.03);
+}
+
+.match-item.correct {
+  border-color: #2ecc71;
+  background: rgba(46, 204, 113, 0.2);
+  box-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
+  cursor: default;
+  opacity: 0.7;
+  transform: none;
+  pointer-events: none;
+}
+
+.match-item.correct::after {
+  content: '✓';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #2ecc71;
+  font-weight: 900;
+  font-size: 1.2em;
+}
+
+.match-item.wrong {
+  border-color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.2);
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%,60% { transform: translateX(-6px); }
+  40%,80% { transform: translateX(6px); }
+}
+
+/* Completion Screen */
+.completion {
+  display: none;
+  text-align: center;
+  padding: 60px 30px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.completion.show { display: block; animation: fadeIn 0.5s ease; }
+
+.completion h2 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.completion .result-emoji { font-size: 4em; margin-bottom: 20px; }
+
+.completion .result-stats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 25px 0;
+}
+
+.result-stat-value {
+  font-size: 2em;
+  font-weight: 800;
+  color: #feca57;
+}
+
+.result-stat-label {
+  font-size: 0.8em;
+  color: rgba(255,255,255,0.5);
+}
+
+.stars {
+  font-size: 2em;
+  margin: 15px 0;
+  letter-spacing: 5px;
+}
+
+.play-again-btn {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: #1a1a2e;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 25px;
+  font-size: 1.1em;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.play-again-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(78, 205, 196, 0.4);
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 15px;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.back-link:hover { color: #fff; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .game-header h1 { font-size: 1.8em; }
+  .match-area { flex-direction: column; gap: 20px; }
+  .column { min-width: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="game-header">
+  <h1>🔗 Match Up</h1>
+  <div class="topic">Colours & Descriptions</div>
+  <span class="level-badge">A1</span>
+</div>
+
+<div class="status-bar">
+  <div class="status-item">
+    <div class="status-value timer" id="timer">0</div>
+    <div class="status-label">Seconds</div>
+  </div>
+  <div class="status-item">
+    <div class="status-value score" id="score">0 / 0</div>
+    <div class="status-label">Matched</div>
+  </div>
+  <div class="status-item">
+    <div class="status-value moves" id="moves">0</div>
+    <div class="status-label">Attempts</div>
+  </div>
+</div>
+
+<div class="match-area" id="gameArea">
+  <div class="column" id="leftCol">
+    <div class="column-label">Word</div>
+  </div>
+  <div class="column" id="rightCol">
+    <div class="column-label">Definition</div>
+  </div>
+</div>
+
+<div class="completion" id="completion">
+  <div class="result-emoji" id="resultEmoji">🎉</div>
+  <h2 id="resultTitle">Well Done!</h2>
+  <div class="stars" id="stars">⭐⭐⭐</div>
+  <div class="result-stats">
+    <div class="status-item">
+      <div class="result-stat-value" id="finalTime">0s</div>
+      <div class="result-stat-label">Time</div>
+    </div>
+    <div class="status-item">
+      <div class="result-stat-value" id="finalMoves">0</div>
+      <div class="result-stat-label">Attempts</div>
+    </div>
+    <div class="status-item">
+      <div class="result-stat-value" id="finalAccuracy">0%</div>
+      <div class="result-stat-label">Accuracy</div>
+    </div>
+  </div>
+  <button class="play-again-btn" onclick="startGame()">Play Again</button>
+  <br>
+  <a class="back-link" href="wordwall_dashboard.html">← Back to Word Wall</a>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// WORD DATA — Edit this to create new Match Up games
+// ═══════════════════════════════════════════════════════════
+const WORD_DATA = [
+
+  { word: "red", definition: "the colour of a tomato or strawberry" },
+  { word: "blue", definition: "the colour of the sky on a clear day" },
+  { word: "green", definition: "the colour of grass and leaves" },
+  { word: "yellow", definition: "the colour of the sun and bananas" },
+  { word: "black", definition: "the darkest colour, like the night sky" },
+  { word: "white", definition: "the colour of snow and milk" },
+  { word: "orange", definition: "the colour of a carrot or sunset" },
+  { word: "pink", definition: "a light colour made from red and white" },
+  { word: "purple", definition: "a colour made from red and blue" },
+  { word: "brown", definition: "the colour of chocolate and wood" },
+  { word: "grey", definition: "a colour between black and white" },
+  { word: "bright", definition: "a strong, vivid colour that is easy to see" },
+  { word: "dark", definition: "a deep shade, close to black" },
+  { word: "light", definition: "a pale, soft shade of a colour" },
+  { word: "colourful", definition: "having many different colours" },
+  { word: "golden", definition: "a warm, shiny yellow like gold" },
+  { word: "silver", definition: "a shiny grey colour like the metal" },
+  { word: "pale", definition: "very light in colour, almost white" },
+  { word: "striped", definition: "having long lines of colour" },
+  { word: "spotted", definition: "having round dots of colour" }
+
+];
+
+// Show 8 pairs at a time (shuffle and pick)
+const PAIRS_PER_ROUND = 8;
+
+// ═══════════════════════════════════════════════════════════
+// GAME ENGINE — Don't edit below unless improving the engine
+// ═══════════════════════════════════════════════════════════
+let pairs = [];
+let selectedLeft = null;
+let selectedRight = null;
+let matched = 0;
+let attempts = 0;
+let timerInterval = null;
+let seconds = 0;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  // Reset
+  matched = 0;
+  attempts = 0;
+  seconds = 0;
+  selectedLeft = null;
+  selectedRight = null;
+  if (timerInterval) clearInterval(timerInterval);
+
+  document.getElementById('completion').classList.remove('show');
+  document.getElementById('gameArea').style.display = 'flex';
+  document.getElementById('score').textContent = `0 / ${PAIRS_PER_ROUND}`;
+  document.getElementById('moves').textContent = '0';
+  document.getElementById('timer').textContent = '0';
+  document.getElementById('timer').className = 'status-value timer';
+
+  // Pick random pairs
+  pairs = shuffle(WORD_DATA).slice(0, PAIRS_PER_ROUND);
+  const leftItems = shuffle(pairs);
+  const rightItems = shuffle(pairs);
+
+  const leftCol = document.getElementById('leftCol');
+  const rightCol = document.getElementById('rightCol');
+
+  leftCol.innerHTML = '<div class="column-label">Word</div>';
+  rightCol.innerHTML = '<div class="column-label">Definition</div>';
+
+  leftItems.forEach((p, i) => {
+    const el = document.createElement('div');
+    el.className = 'match-item';
+    el.textContent = p.word;
+    el.dataset.id = p.word;
+    el.dataset.side = 'left';
+    el.onclick = () => selectItem(el, 'left');
+    leftCol.appendChild(el);
+  });
+
+  rightItems.forEach((p, i) => {
+    const el = document.createElement('div');
+    el.className = 'match-item';
+    el.textContent = p.definition;
+    el.dataset.id = p.word;
+    el.dataset.side = 'right';
+    el.onclick = () => selectItem(el, 'right');
+    rightCol.appendChild(el);
+  });
+
+  // Start timer
+  timerInterval = setInterval(() => {
+    seconds++;
+    const display = document.getElementById('timer');
+    display.textContent = seconds;
+    if (seconds >= 60) display.classList.add('warning');
+    if (seconds >= 90) { display.classList.remove('warning'); display.classList.add('danger'); }
+  }, 1000);
+}
+
+function selectItem(el, side) {
+  if (el.classList.contains('correct')) return;
+
+  if (side === 'left') {
+    if (selectedLeft) selectedLeft.classList.remove('selected');
+    selectedLeft = el;
+    el.classList.add('selected');
+  } else {
+    if (selectedRight) selectedRight.classList.remove('selected');
+    selectedRight = el;
+    el.classList.add('selected');
+  }
+
+  // Check match if both selected
+  if (selectedLeft && selectedRight) {
+    attempts++;
+    document.getElementById('moves').textContent = attempts;
+
+    if (selectedLeft.dataset.id === selectedRight.dataset.id) {
+      // Correct!
+      selectedLeft.classList.remove('selected');
+      selectedRight.classList.remove('selected');
+      selectedLeft.classList.add('correct');
+      selectedRight.classList.add('correct');
+      matched++;
+      document.getElementById('score').textContent = `${matched} / ${PAIRS_PER_ROUND}`;
+      selectedLeft = null;
+      selectedRight = null;
+
+      if (matched === PAIRS_PER_ROUND) {
+        endGame();
+      }
+    } else {
+      // Wrong
+      selectedLeft.classList.add('wrong');
+      selectedRight.classList.add('wrong');
+      const l = selectedLeft, r = selectedRight;
+      setTimeout(() => {
+        l.classList.remove('wrong', 'selected');
+        r.classList.remove('wrong', 'selected');
+      }, 600);
+      selectedLeft = null;
+      selectedRight = null;
+    }
+  }
+}
+
+function endGame() {
+  clearInterval(timerInterval);
+  document.getElementById('gameArea').style.display = 'none';
+
+  const accuracy = Math.round((PAIRS_PER_ROUND / attempts) * 100);
+  let stars, emoji, title;
+
+  if (accuracy >= 90 && seconds <= 30) {
+    stars = '⭐⭐⭐'; emoji = '🏆'; title = 'Perfect!';
+  } else if (accuracy >= 70 && seconds <= 60) {
+    stars = '⭐⭐'; emoji = '🎉'; title = 'Great Job!';
+  } else {
+    stars = '⭐'; emoji = '👍'; title = 'Well Done!';
+  }
+
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('stars').textContent = stars;
+  document.getElementById('finalTime').textContent = seconds + 's';
+  document.getElementById('finalMoves').textContent = attempts;
+  document.getElementById('finalAccuracy').textContent = accuracy + '%';
+  document.getElementById('completion').classList.add('show');
+}
+
+// Auto-start
+startGame();
+</script>
+
+</body>
+</html>

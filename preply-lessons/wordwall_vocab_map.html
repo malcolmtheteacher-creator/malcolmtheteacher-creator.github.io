@@ -9,115 +9,110 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-  color: #fff; min-height: 100vh; padding: 20px;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+  min-height: 100vh; padding: 20px; color: #1e293b;
 }
 
-.page-header {
-  text-align: center; padding: 30px 20px 15px; margin-bottom: 10px;
+.container { max-width: 1400px; margin: 0 auto; }
+
+.header {
+  background: linear-gradient(135deg, #6c5ce7 0%, #a855f7 50%, #ec4899 100%);
+  border-radius: 20px; padding: 50px 40px; text-align: center;
+  box-shadow: 0 20px 60px rgba(108, 92, 231, 0.3);
+  margin-bottom: 30px; position: relative; overflow: hidden;
 }
 
-.page-header h1 {
-  font-size: 2.5em; font-weight: 900;
-  background: linear-gradient(90deg, #f093fb, #feca57, #54a0ff, #2ecc71);
-  background-size: 300% 300%;
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  animation: gradShift 6s ease infinite;
+.header::before {
+  content: ''; position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+  animation: shimmer 15s infinite linear;
 }
 
-@keyframes gradShift {
-  0%,100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+@keyframes shimmer { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+.header h1 { font-size: 3em; color: white; margin-bottom: 8px; position: relative; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+.header .subtitle { font-size: 1.1em; color: rgba(255,255,255,0.85); position: relative; margin-bottom: 15px; }
+
+.total-badge {
+  display: inline-block; background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px); padding: 15px 35px;
+  border-radius: 20px; position: relative;
 }
 
-.page-header .subtitle {
-  color: rgba(255,255,255,0.5); font-size: 1.1em; margin-top: 8px;
-}
-
-.total-banner {
-  text-align: center; margin-bottom: 25px;
-}
-
-.total-number {
-  font-size: 3.5em; font-weight: 900; color: #feca57;
-  font-family: 'Courier New', monospace;
-}
-
-.total-label {
-  font-size: 0.9em; color: rgba(255,255,255,0.4); text-transform: uppercase;
-  letter-spacing: 2px;
-}
+.total-number { font-size: 3em; font-weight: 900; color: #fff; }
+.total-label { font-size: 0.8em; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 2px; }
 
 /* Search */
 .search-bar {
-  max-width: 500px; margin: 0 auto 20px; position: relative;
+  background: #fff; border-radius: 16px; padding: 15px 20px;
+  margin-bottom: 20px; border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
 .search-bar input {
-  width: 100%; padding: 14px 20px 14px 45px; border-radius: 30px;
-  border: 2px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06);
-  color: #fff; font-size: 1em; outline: none;
-  transition: border-color 0.3s;
+  width: 100%; padding: 10px 15px; border-radius: 10px;
+  border: 2px solid #e2e8f0; background: #f8fafc;
+  font-size: 1em; color: #1e293b; outline: none;
 }
 
-.search-bar input::placeholder { color: rgba(255,255,255,0.3); }
-.search-bar input:focus { border-color: rgba(255,255,255,0.4); }
-
-.search-bar::before {
-  content: '🔍'; position: absolute; left: 16px; top: 50%;
-  transform: translateY(-50%); font-size: 1.1em;
-}
+.search-bar input:focus { border-color: #a855f7; }
+.search-bar input::placeholder { color: #94a3b8; }
 
 .search-results {
-  display: none; text-align: center; margin-bottom: 15px;
-  color: rgba(255,255,255,0.5); font-size: 0.9em;
+  display: none; text-align: center; padding: 8px;
+  color: #64748b; font-size: 0.9em;
 }
 
 /* Level Tabs */
 .level-nav {
-  display: flex; justify-content: center; gap: 8px; margin-bottom: 25px; flex-wrap: wrap;
+  display: flex; justify-content: center; gap: 8px;
+  margin-bottom: 25px; flex-wrap: wrap;
 }
 
-.level-tab {
-  padding: 10px 22px; border-radius: 25px; border: 2px solid var(--lc);
-  background: transparent; color: var(--lc); font-weight: 800; font-size: 0.95em;
-  cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 8px;
+.show-all-btn, .level-tab {
+  padding: 10px 22px; border-radius: 25px;
+  border: 2px solid #e2e8f0; background: #fff;
+  font-weight: 800; font-size: 0.9em;
+  cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; gap: 8px;
 }
 
-.level-tab:hover { background: rgba(255,255,255,0.08); }
-.level-tab.active { background: var(--lc); color: #1a1a2e; }
+.show-all-btn:hover, .level-tab:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.show-all-btn.active { background: #a855f7; color: #fff; border-color: #a855f7; }
+.level-tab.active { color: #fff !important; }
 
 .tab-count {
-  font-size: 0.8em; padding: 2px 8px; border-radius: 12px;
-  background: rgba(255,255,255,0.15);
+  font-size: 0.75em; padding: 2px 8px; border-radius: 10px;
+  background: rgba(0,0,0,0.06);
 }
 
-.level-tab.active .tab-count { background: rgba(0,0,0,0.2); }
-
-.show-all-btn {
-  padding: 10px 22px; border-radius: 25px; border: 2px solid rgba(255,255,255,0.3);
-  background: transparent; color: rgba(255,255,255,0.6); font-weight: 800; font-size: 0.95em;
-  cursor: pointer; transition: all 0.3s;
-}
-
-.show-all-btn:hover { background: rgba(255,255,255,0.08); }
-.show-all-btn.active { background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.5); }
+.level-tab.active .tab-count { background: rgba(255,255,255,0.25); }
 
 /* Level Sections */
-.level-section { margin-bottom: 35px; display: none; }
-.level-section.visible { display: block; animation: fadeIn 0.4s ease; }
-
-.level-header {
-  display: flex; align-items: center; gap: 15px; margin-bottom: 18px;
-  padding-bottom: 12px; border-bottom: 2px solid rgba(255,255,255,0.08);
+.level-section {
+  background: #fff; border-radius: 20px; padding: 30px;
+  margin-bottom: 25px; border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  display: none;
 }
 
-.level-badge-big {
-  padding: 8px 22px; border-radius: 12px; font-weight: 900; font-size: 1.3em;
-  color: #1a1a2e;
+.level-section.visible { display: block; animation: fadeIn 0.3s ease; }
+
+.level-sec-header {
+  display: flex; align-items: center; gap: 15px;
+  margin-bottom: 20px; padding-bottom: 15px;
+  border-bottom: 1px solid #e2e8f0;
 }
 
-.level-word-count { color: rgba(255,255,255,0.5); font-size: 1em; }
+.level-icon {
+  width: 55px; height: 55px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5em; font-weight: 900; flex-shrink: 0;
+}
+
+.level-sec-info h3 { font-size: 1.3em; }
+.level-sec-info p { color: #64748b; font-size: 0.9em; }
 
 /* Topic Cards */
 .topic-grid {
@@ -125,104 +120,91 @@ body {
 }
 
 .topic-card {
-  background: rgba(255,255,255,0.05); backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.1); border-radius: 16px;
-  padding: 20px; transition: all 0.3s;
+  background: #f8fafc; border-radius: 14px; padding: 18px;
+  border: 1px solid #e2e8f0; transition: all 0.25s;
 }
 
-.topic-card:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); }
+.topic-card:hover { border-color: #a855f7; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
 .topic-card.hidden { display: none; }
 
-.topic-header { margin-bottom: 12px; }
+.topic-header { margin-bottom: 10px; }
+.topic-name { font-size: 1.05em; font-weight: 700; }
+.topic-meta { font-size: 0.78em; color: #94a3b8; }
 
-.topic-name {
-  font-size: 1.15em; font-weight: 800; margin-bottom: 4px;
-}
-
-.topic-meta {
-  font-size: 0.8em; color: rgba(255,255,255,0.4);
-}
-
-.vocab-chips {
-  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;
-}
+.vocab-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
 
 .vocab-chip {
-  padding: 5px 12px; border-radius: 15px; font-size: 0.82em; font-weight: 600;
-  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
-  transition: all 0.3s;
+  padding: 4px 10px; border-radius: 12px; font-size: 0.78em; font-weight: 600;
+  background: #e2e8f0; color: #475569; border: 1px solid transparent;
+  transition: all 0.2s;
 }
 
-.vocab-chip.highlight {
-  background: rgba(254,202,87,0.25); border-color: #feca57; color: #feca57;
-}
+.vocab-chip.highlight { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
 
 .play-link {
-  display: inline-block; font-size: 0.8em; color: rgba(255,255,255,0.4);
-  text-decoration: none; transition: color 0.3s;
+  display: inline-block; font-size: 0.78em; color: #a855f7;
+  text-decoration: none; font-weight: 600; transition: color 0.2s;
 }
 
-.play-link:hover { color: #fff; }
+.play-link:hover { color: #7c3aed; }
 
-/* Back link */
-.back-bar {
-  text-align: center; margin-top: 30px; padding: 20px;
-}
+.back-bar { text-align: center; padding: 25px; }
+.back-link { color: #64748b; text-decoration: none; font-size: 0.95em; transition: color 0.3s; }
+.back-link:hover { color: #a855f7; }
 
-.back-link {
-  color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.95em;
-  transition: color 0.3s;
-}
-
-.back-link:hover { color: #fff; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 600px) {
-  .page-header h1 { font-size: 1.8em; }
-  .total-number { font-size: 2.5em; }
+  .header h1 { font-size: 2em; }
   .topic-grid { grid-template-columns: 1fr; }
-  .level-nav { gap: 5px; }
-  .level-tab { padding: 8px 14px; font-size: 0.85em; }
+  .total-number { font-size: 2.2em; }
 }
 </style>
 </head>
 <body>
+<div class="container">
 
-<div class="page-header">
+<div class="header">
   <h1>🗺️ Vocabulary Map</h1>
   <div class="subtitle">Every word covered across all Word Wall games</div>
-</div>
-
-<div class="total-banner">
-  <div class="total-number">684</div>
-  <div class="total-label">Total Words</div>
+  <div class="total-badge">
+    <div class="total-number">2092</div>
+    <div class="total-label">Total Words</div>
+  </div>
 </div>
 
 <div class="search-bar">
-  <input type="text" id="searchInput" placeholder="Search for any word..." oninput="searchWords()">
+  <input type="text" id="searchInput" placeholder="🔍 Search for any word..." oninput="searchWords()">
 </div>
 <div class="search-results" id="searchResults"></div>
 
 <div class="level-nav">
   <button class="show-all-btn active" onclick="showAll()">All</button>
-  <button class="level-tab" data-level="A1" style="--lc:#2ecc71" onclick="showLevel('A1')">A1<span class="tab-count">139</span></button>
-<button class="level-tab" data-level="A2" style="--lc:#ff9ff3" onclick="showLevel('A2')">A2<span class="tab-count">140</span></button>
-<button class="level-tab" data-level="B1" style="--lc:#feca57" onclick="showLevel('B1')">B1<span class="tab-count">137</span></button>
-<button class="level-tab" data-level="B2" style="--lc:#48dbfb" onclick="showLevel('B2')">B2<span class="tab-count">133</span></button>
-<button class="level-tab" data-level="C1" style="--lc:#54a0ff" onclick="showLevel('C1')">C1<span class="tab-count">135</span></button>
+  <button class="level-tab" data-level="A1" style="border-color:#2ecc71;color:#2ecc71" onclick="showLevel('A1')">A1<span class="tab-count">424</span></button>
+<button class="level-tab" data-level="A2" style="border-color:#f093fb;color:#f093fb" onclick="showLevel('A2')">A2<span class="tab-count">436</span></button>
+<button class="level-tab" data-level="B1" style="border-color:#667eea;color:#667eea" onclick="showLevel('B1')">B1<span class="tab-count">420</span></button>
+<button class="level-tab" data-level="B2" style="border-color:#48dbfb;color:#48dbfb" onclick="showLevel('B2')">B2<span class="tab-count">412</span></button>
+<button class="level-tab" data-level="C1" style="border-color:#54a0ff;color:#54a0ff" onclick="showLevel('C1')">C1<span class="tab-count">400</span></button>
 
 </div>
 
-<div class="level-section" id="level-A1" style="--lc:#2ecc71">
-  <div class="level-header">
-    <span class="level-badge-big" style="background:#2ecc71">A1</span>
-    <span class="level-word-count">139 words across 10 games</span>
+<div class="level-section" id="level-A1">
+  <div class="level-sec-header">
+    <div class="level-icon" style="background:linear-gradient(135deg, #2ecc71, #27ae60);color:#fff">A1</div>
+    <div class="level-sec-info">
+      <h3>A1 Vocabulary</h3>
+      <p>424 unique words across 25 games</p>
+    </div>
   </div>
   <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Adjectives</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">beautiful</span><span class="vocab-chip">big</span><span class="vocab-chip">clean</span><span class="vocab-chip">dirty</span><span class="vocab-chip">empty</span><span class="vocab-chip">fast</span><span class="vocab-chip">full</span><span class="vocab-chip">heavy</span><span class="vocab-chip">long</span><span class="vocab-chip">old</span><span class="vocab-chip">poor</span><span class="vocab-chip">quiet</span><span class="vocab-chip">rich</span><span class="vocab-chip">short</span><span class="vocab-chip">slow</span><span class="vocab-chip">small</span><span class="vocab-chip">strong</span><span class="vocab-chip">ugly</span><span class="vocab-chip">weak</span><span class="vocab-chip">young</span></div>
+  <a class="play-link" href="ww_anagram_a1_adjectives.html">Play this game →</a>
+</div>
+<div class="topic-card">
   <div class="topic-header">
     <div class="topic-name">Animals</div>
     <div class="topic-meta">🔤 Anagram · 14 words</div>
@@ -240,11 +222,43 @@ body {
 </div>
 <div class="topic-card">
   <div class="topic-header">
+    <div class="topic-name">Bodyparts</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">ankle</span><span class="vocab-chip">bone</span><span class="vocab-chip">brain</span><span class="vocab-chip">cheek</span><span class="vocab-chip">chin</span><span class="vocab-chip">eyebrow</span><span class="vocab-chip">fist</span><span class="vocab-chip">forehead</span><span class="vocab-chip">heart</span><span class="vocab-chip">heel</span><span class="vocab-chip">lip</span><span class="vocab-chip">liver</span><span class="vocab-chip">lungs</span><span class="vocab-chip">nail</span><span class="vocab-chip">palm</span><span class="vocab-chip">shin</span><span class="vocab-chip">thigh</span><span class="vocab-chip">thumb</span><span class="vocab-chip">toe</span><span class="vocab-chip">wrist</span></div>
+  <a class="play-link" href="ww_categorize_a1_bodyparts.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Classroom</div>
+    <div class="topic-meta">🔗 Match Up · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">answer</span><span class="vocab-chip">board</span><span class="vocab-chip">book</span><span class="vocab-chip">chair</span><span class="vocab-chip">desk</span><span class="vocab-chip">dictionary</span><span class="vocab-chip">exam</span><span class="vocab-chip">homework</span><span class="vocab-chip">lesson</span><span class="vocab-chip">mistake</span><span class="vocab-chip">notebook</span><span class="vocab-chip">page</span><span class="vocab-chip">pen</span><span class="vocab-chip">pencil</span><span class="vocab-chip">question</span><span class="vocab-chip">rubber</span><span class="vocab-chip">ruler</span><span class="vocab-chip">scissors</span><span class="vocab-chip">sentence</span><span class="vocab-chip">word</span></div>
+  <a class="play-link" href="ww_match_a1_classroom.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
     <div class="topic-name">Clothes</div>
     <div class="topic-meta">📦 Categorize · 20 words</div>
   </div>
   <div class="vocab-chips"><span class="vocab-chip">belt</span><span class="vocab-chip">blouse</span><span class="vocab-chip">boots</span><span class="vocab-chip">gloves</span><span class="vocab-chip">hat</span><span class="vocab-chip">heels</span><span class="vocab-chip">hoodie</span><span class="vocab-chip">jacket</span><span class="vocab-chip">jeans</span><span class="vocab-chip">leggings</span><span class="vocab-chip">sandals</span><span class="vocab-chip">scarf</span><span class="vocab-chip">shorts</span><span class="vocab-chip">skirt</span><span class="vocab-chip">slippers</span><span class="vocab-chip">sunglasses</span><span class="vocab-chip">sweater</span><span class="vocab-chip">t-shirt</span><span class="vocab-chip">trainers</span><span class="vocab-chip">trousers</span></div>
   <a class="play-link" href="ww_categorize_a1_clothes.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Colours</div>
+    <div class="topic-meta">🔗 Match Up · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">black</span><span class="vocab-chip">blue</span><span class="vocab-chip">bright</span><span class="vocab-chip">brown</span><span class="vocab-chip">colourful</span><span class="vocab-chip">dark</span><span class="vocab-chip">golden</span><span class="vocab-chip">green</span><span class="vocab-chip">grey</span><span class="vocab-chip">light</span><span class="vocab-chip">orange</span><span class="vocab-chip">pale</span><span class="vocab-chip">pink</span><span class="vocab-chip">purple</span><span class="vocab-chip">red</span><span class="vocab-chip">silver</span><span class="vocab-chip">spotted</span><span class="vocab-chip">striped</span><span class="vocab-chip">white</span><span class="vocab-chip">yellow</span></div>
+  <a class="play-link" href="ww_match_a1_colours.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Drinks</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">beer</span><span class="vocab-chip">cappuccino</span><span class="vocab-chip">champagne</span><span class="vocab-chip">cider</span><span class="vocab-chip">cocktail</span><span class="vocab-chip">cocoa</span><span class="vocab-chip">coffee</span><span class="vocab-chip">espresso</span><span class="vocab-chip">juice</span><span class="vocab-chip">lemonade</span><span class="vocab-chip">milk</span><span class="vocab-chip">milkshake</span><span class="vocab-chip">smoothie</span><span class="vocab-chip">soda</span><span class="vocab-chip">squash</span><span class="vocab-chip">tea</span><span class="vocab-chip">tonic</span><span class="vocab-chip">water</span><span class="vocab-chip">whisky</span><span class="vocab-chip">wine</span></div>
+  <a class="play-link" href="ww_anagram_a1_drinks.html">Play this game →</a>
 </div>
 <div class="topic-card">
   <div class="topic-header">
@@ -256,11 +270,51 @@ body {
 </div>
 <div class="topic-card">
   <div class="topic-header">
+    <div class="topic-name">Feelings</div>
+    <div class="topic-meta">🧠 Memory · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">angry</span><span class="vocab-chip">bored</span><span class="vocab-chip">calm</span><span class="vocab-chip">confused</span><span class="vocab-chip">curious</span><span class="vocab-chip">excited</span><span class="vocab-chip">friendly</span><span class="vocab-chip">happy</span><span class="vocab-chip">hungry</span><span class="vocab-chip">lazy</span><span class="vocab-chip">lonely</span><span class="vocab-chip">nervous</span><span class="vocab-chip">proud</span><span class="vocab-chip">sad</span><span class="vocab-chip">scared</span><span class="vocab-chip">shy</span><span class="vocab-chip">sick</span><span class="vocab-chip">surprised</span><span class="vocab-chip">thirsty</span><span class="vocab-chip">tired</span></div>
+  <a class="play-link" href="ww_memory_a1_feelings.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
     <div class="topic-name">Food</div>
     <div class="topic-meta">🔗 Match Up · 12 words</div>
   </div>
   <div class="vocab-chips"><span class="vocab-chip">apple</span><span class="vocab-chip">bread</span><span class="vocab-chip">cheese</span><span class="vocab-chip">chicken</span><span class="vocab-chip">coffee</span><span class="vocab-chip">egg</span><span class="vocab-chip">juice</span><span class="vocab-chip">milk</span><span class="vocab-chip">pasta</span><span class="vocab-chip">rice</span><span class="vocab-chip">salad</span><span class="vocab-chip">soup</span></div>
   <a class="play-link" href="ww_match_a1_food.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Foodgroups</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">beef</span><span class="vocab-chip">biscuit</span><span class="vocab-chip">bread</span><span class="vocab-chip">butter</span><span class="vocab-chip">cereal</span><span class="vocab-chip">cheese</span><span class="vocab-chip">chocolate</span><span class="vocab-chip">cream</span><span class="vocab-chip">crisps</span><span class="vocab-chip">ice cream</span><span class="vocab-chip">lamb</span><span class="vocab-chip">milk</span><span class="vocab-chip">noodles</span><span class="vocab-chip">pasta</span><span class="vocab-chip">popcorn</span><span class="vocab-chip">pork</span><span class="vocab-chip">rice</span><span class="vocab-chip">salmon</span><span class="vocab-chip">tuna</span><span class="vocab-chip">yoghurt</span></div>
+  <a class="play-link" href="ww_categorize_a1_foodgroups.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Fruit</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">apple</span><span class="vocab-chip">banana</span><span class="vocab-chip">broccoli</span><span class="vocab-chip">carrot</span><span class="vocab-chip">cherry</span><span class="vocab-chip">coconut</span><span class="vocab-chip">cucumber</span><span class="vocab-chip">garlic</span><span class="vocab-chip">grape</span><span class="vocab-chip">lemon</span><span class="vocab-chip">mango</span><span class="vocab-chip">mushroom</span><span class="vocab-chip">onion</span><span class="vocab-chip">orange</span><span class="vocab-chip">pepper</span><span class="vocab-chip">pineapple</span><span class="vocab-chip">potato</span><span class="vocab-chip">spinach</span><span class="vocab-chip">strawberry</span><span class="vocab-chip">tomato</span></div>
+  <a class="play-link" href="ww_anagram_a1_fruit.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Furniture</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">attic</span><span class="vocab-chip">balcony</span><span class="vocab-chip">basement</span><span class="vocab-chip">bin</span><span class="vocab-chip">ceiling</span><span class="vocab-chip">chimney</span><span class="vocab-chip">curtain</span><span class="vocab-chip">cushion</span><span class="vocab-chip">doorbell</span><span class="vocab-chip">drawer</span><span class="vocab-chip">fence</span><span class="vocab-chip">garage</span><span class="vocab-chip">oven</span><span class="vocab-chip">radiator</span><span class="vocab-chip">rug</span><span class="vocab-chip">shelf</span><span class="vocab-chip">sink</span><span class="vocab-chip">tap</span><span class="vocab-chip">wardrobe</span><span class="vocab-chip">washing machine</span></div>
+  <a class="play-link" href="ww_quiz_a1_furniture.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Hobbies</div>
+    <div class="topic-meta">🧠 Memory · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">camping</span><span class="vocab-chip">cooking</span><span class="vocab-chip">cycling</span><span class="vocab-chip">dancing</span><span class="vocab-chip">drawing</span><span class="vocab-chip">fishing</span><span class="vocab-chip">gaming</span><span class="vocab-chip">gardening</span><span class="vocab-chip">hiking</span><span class="vocab-chip">painting</span><span class="vocab-chip">photography</span><span class="vocab-chip">reading</span><span class="vocab-chip">running</span><span class="vocab-chip">shopping</span><span class="vocab-chip">singing</span><span class="vocab-chip">skateboarding</span><span class="vocab-chip">surfing</span><span class="vocab-chip">swimming</span><span class="vocab-chip">travelling</span><span class="vocab-chip">yoga</span></div>
+  <a class="play-link" href="ww_memory_a1_hobbies.html">Play this game →</a>
 </div>
 <div class="topic-card">
   <div class="topic-header">
@@ -288,11 +342,51 @@ body {
 </div>
 <div class="topic-card">
   <div class="topic-header">
+    <div class="topic-name">Objects</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">bag</span><span class="vocab-chip">battery</span><span class="vocab-chip">blanket</span><span class="vocab-chip">bottle</span><span class="vocab-chip">charger</span><span class="vocab-chip">envelope</span><span class="vocab-chip">glasses</span><span class="vocab-chip">keys</span><span class="vocab-chip">lighter</span><span class="vocab-chip">phone</span><span class="vocab-chip">plug</span><span class="vocab-chip">remote control</span><span class="vocab-chip">scissors</span><span class="vocab-chip">soap</span><span class="vocab-chip">tissue</span><span class="vocab-chip">toothbrush</span><span class="vocab-chip">torch</span><span class="vocab-chip">towel</span><span class="vocab-chip">wallet</span><span class="vocab-chip">watch</span></div>
+  <a class="play-link" href="ww_quiz_a1_objects.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Places</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">bakery</span><span class="vocab-chip">bank</span><span class="vocab-chip">church</span><span class="vocab-chip">cinema</span><span class="vocab-chip">gym</span><span class="vocab-chip">hospital</span><span class="vocab-chip">hotel</span><span class="vocab-chip">library</span><span class="vocab-chip">market</span><span class="vocab-chip">museum</span><span class="vocab-chip">park</span><span class="vocab-chip">petrol station</span><span class="vocab-chip">pharmacy</span><span class="vocab-chip">playground</span><span class="vocab-chip">police station</span><span class="vocab-chip">post office</span><span class="vocab-chip">restaurant</span><span class="vocab-chip">school</span><span class="vocab-chip">supermarket</span><span class="vocab-chip">zoo</span></div>
+  <a class="play-link" href="ww_quiz_a1_places.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
     <div class="topic-name">Routines</div>
     <div class="topic-meta">❓ Quiz · 12 words</div>
   </div>
   <div class="vocab-chips"><span class="vocab-chip">brush your teeth</span><span class="vocab-chip">commute</span><span class="vocab-chip">cook dinner</span><span class="vocab-chip">do homework</span><span class="vocab-chip">get dressed</span><span class="vocab-chip">go to bed</span><span class="vocab-chip">go to work</span><span class="vocab-chip">have breakfast</span><span class="vocab-chip">have lunch</span><span class="vocab-chip">take a shower</span><span class="vocab-chip">wake up</span><span class="vocab-chip">watch tv</span></div>
   <a class="play-link" href="ww_quiz_a1_routines.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Sports</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">baseball</span><span class="vocab-chip">basketball</span><span class="vocab-chip">boxing</span><span class="vocab-chip">cricket</span><span class="vocab-chip">cycling</span><span class="vocab-chip">diving</span><span class="vocab-chip">football</span><span class="vocab-chip">golf</span><span class="vocab-chip">gymnastics</span><span class="vocab-chip">handball</span><span class="vocab-chip">hockey</span><span class="vocab-chip">kayaking</span><span class="vocab-chip">rugby</span><span class="vocab-chip">running</span><span class="vocab-chip">sailing</span><span class="vocab-chip">skiing</span><span class="vocab-chip">surfing</span><span class="vocab-chip">swimming</span><span class="vocab-chip">tennis</span><span class="vocab-chip">volleyball</span></div>
+  <a class="play-link" href="ww_categorize_a1_sports.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Time</div>
+    <div class="topic-meta">🔗 Match Up · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">afternoon</span><span class="vocab-chip">always</span><span class="vocab-chip">clock</span><span class="vocab-chip">early</span><span class="vocab-chip">evening</span><span class="vocab-chip">hour</span><span class="vocab-chip">late</span><span class="vocab-chip">midnight</span><span class="vocab-chip">minute</span><span class="vocab-chip">morning</span><span class="vocab-chip">never</span><span class="vocab-chip">night</span><span class="vocab-chip">often</span><span class="vocab-chip">sometimes</span><span class="vocab-chip">today</span><span class="vocab-chip">tomorrow</span><span class="vocab-chip">usually</span><span class="vocab-chip">weekday</span><span class="vocab-chip">weekend</span><span class="vocab-chip">yesterday</span></div>
+  <a class="play-link" href="ww_match_a1_time.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Transport</div>
+    <div class="topic-meta">🧠 Memory · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">airport</span><span class="vocab-chip">bicycle</span><span class="vocab-chip">boat</span><span class="vocab-chip">bus</span><span class="vocab-chip">car</span><span class="vocab-chip">driver</span><span class="vocab-chip">ferry</span><span class="vocab-chip">helicopter</span><span class="vocab-chip">journey</span><span class="vocab-chip">map</span><span class="vocab-chip">motorbike</span><span class="vocab-chip">parking</span><span class="vocab-chip">passenger</span><span class="vocab-chip">plane</span><span class="vocab-chip">station</span><span class="vocab-chip">taxi</span><span class="vocab-chip">ticket</span><span class="vocab-chip">traffic</span><span class="vocab-chip">train</span><span class="vocab-chip">tram</span></div>
+  <a class="play-link" href="ww_memory_a1_transport.html">Play this game →</a>
 </div>
 <div class="topic-card">
   <div class="topic-header">
@@ -304,12 +398,23 @@ body {
 </div>
 </div>
 </div>
-<div class="level-section" id="level-A2" style="--lc:#ff9ff3">
-  <div class="level-header">
-    <span class="level-badge-big" style="background:#ff9ff3">A2</span>
-    <span class="level-word-count">140 words across 10 games</span>
+<div class="level-section" id="level-A2">
+  <div class="level-sec-header">
+    <div class="level-icon" style="background:linear-gradient(135deg, #f093fb, #f5576c);color:#fff">A2</div>
+    <div class="level-sec-info">
+      <h3>A2 Vocabulary</h3>
+      <p>436 unique words across 25 games</p>
+    </div>
   </div>
   <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Appearance</div>
+    <div class="topic-meta">🔗 Match Up · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">attractive</span><span class="vocab-chip">bald</span><span class="vocab-chip">beard</span><span class="vocab-chip">curly</span><span class="vocab-chip">elderly</span><span class="vocab-chip">freckles</span><span class="vocab-chip">fringe</span><span class="vocab-chip">medium-height</span><span class="vocab-chip">moustache</span><span class="vocab-chip">muscular</span><span class="vocab-chip">overweight</span><span class="vocab-chip">pale</span><span class="vocab-chip">plump</span><span class="vocab-chip">ponytail</span><span class="vocab-chip">scar</span><span class="vocab-chip">slim</span><span class="vocab-chip">straight</span><span class="vocab-chip">tan</span><span class="vocab-chip">well-built</span><span class="vocab-chip">wrinkles</span></div>
+  <a class="play-link" href="ww_match_a2_appearance.html">Play this game →</a>
+</div>
+<div class="topic-card">
   <div class="topic-header">
     <div class="topic-name">Celebrations</div>
     <div class="topic-meta">📦 Categorize · 20 words</div>
@@ -319,11 +424,43 @@ body {
 </div>
 <div class="topic-card">
   <div class="topic-header">
+    <div class="topic-name">Communication</div>
+    <div class="topic-meta">🧠 Memory · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">agree</span><span class="vocab-chip">apologise</span><span class="vocab-chip">argue</span><span class="vocab-chip">chat</span><span class="vocab-chip">complaint</span><span class="vocab-chip">conversation</span><span class="vocab-chip">disagree</span><span class="vocab-chip">email</span><span class="vocab-chip">explain</span><span class="vocab-chip">interrupt</span><span class="vocab-chip">invite</span><span class="vocab-chip">mention</span><span class="vocab-chip">message</span><span class="vocab-chip">promise</span><span class="vocab-chip">recommend</span><span class="vocab-chip">remind</span><span class="vocab-chip">shout</span><span class="vocab-chip">suggest</span><span class="vocab-chip">voicemail</span><span class="vocab-chip">whisper</span></div>
+  <a class="play-link" href="ww_memory_a2_communication.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Cooking</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">bake</span><span class="vocab-chip">bitter</span><span class="vocab-chip">bland</span><span class="vocab-chip">boil</span><span class="vocab-chip">chopping board</span><span class="vocab-chip">fry</span><span class="vocab-chip">grate</span><span class="vocab-chip">ingredient</span><span class="vocab-chip">leftovers</span><span class="vocab-chip">microwave</span><span class="vocab-chip">peel</span><span class="vocab-chip">portion</span><span class="vocab-chip">raw</span><span class="vocab-chip">recipe</span><span class="vocab-chip">saucepan</span><span class="vocab-chip">slice</span><span class="vocab-chip">spicy</span><span class="vocab-chip">stir</span><span class="vocab-chip">takeaway</span><span class="vocab-chip">teaspoon</span></div>
+  <a class="play-link" href="ww_quiz_a2_cooking.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Directions</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">alley</span><span class="vocab-chip">block</span><span class="vocab-chip">bridge</span><span class="vocab-chip">corner</span><span class="vocab-chip">crossroads</span><span class="vocab-chip">cul-de-sac</span><span class="vocab-chip">detour</span><span class="vocab-chip">gps</span><span class="vocab-chip">highway</span><span class="vocab-chip">intersection</span><span class="vocab-chip">junction</span><span class="vocab-chip">landmark</span><span class="vocab-chip">neighbourhood</span><span class="vocab-chip">pavement</span><span class="vocab-chip">pedestrian</span><span class="vocab-chip">roundabout</span><span class="vocab-chip">shortcut</span><span class="vocab-chip">signpost</span><span class="vocab-chip">suburb</span><span class="vocab-chip">tunnel</span></div>
+  <a class="play-link" href="ww_quiz_a2_directions.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
     <div class="topic-name">Education</div>
     <div class="topic-meta">❓ Quiz · 12 words</div>
   </div>
   <div class="vocab-chips"><span class="vocab-chip">assignment</span><span class="vocab-chip">classmate</span><span class="vocab-chip">curriculum</span><span class="vocab-chip">deadline</span><span class="vocab-chip">diploma</span><span class="vocab-chip">grade</span><span class="vocab-chip">lecture</span><span class="vocab-chip">revision</span><span class="vocab-chip">scholarship</span><span class="vocab-chip">semester</span><span class="vocab-chip">textbook</span><span class="vocab-chip">tutor</span></div>
   <a class="play-link" href="ww_quiz_a2_education.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Fashion</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">bracelet</span><span class="vocab-chip">button</span><span class="vocab-chip">cardigan</span><span class="vocab-chip">collar</span><span class="vocab-chip">cotton</span><span class="vocab-chip">fashionable</span><span class="vocab-chip">jewellery</span><span class="vocab-chip">laundry</span><span class="vocab-chip">leather</span><span class="vocab-chip">necklace</span><span class="vocab-chip">outfit</span><span class="vocab-chip">pattern</span><span class="vocab-chip">pocket</span><span class="vocab-chip">raincoat</span><span class="vocab-chip">sleeve</span><span class="vocab-chip">tracksuit</span><span class="vocab-chip">underwear</span><span class="vocab-chip">wardrobe</span><span class="vocab-chip">wool</span><span class="vocab-chip">zip</span></div>
+  <a class="play-link" href="ww_anagram_a2_fashion.html">Play this game →</a>
 </div>
 <div class="topic-card">
   <div class="topic-header">
@@ -343,11 +480,59 @@ body {
 </div>
 <div class="topic-card">
   <div class="topic-header">
+    <div class="topic-name">Home</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">central heating</span><span class="vocab-chip">decorating</span><span class="vocab-chip">detergent</span><span class="vocab-chip">dusting</span><span class="vocab-chip">electricity</span><span class="vocab-chip">furniture</span><span class="vocab-chip">ironing</span><span class="vocab-chip">landlord</span><span class="vocab-chip">leak</span><span class="vocab-chip">mopping</span><span class="vocab-chip">mortgage</span><span class="vocab-chip">plumber</span><span class="vocab-chip">property</span><span class="vocab-chip">recycling</span><span class="vocab-chip">renovation</span><span class="vocab-chip">stain</span><span class="vocab-chip">sweeping</span><span class="vocab-chip">tenant</span><span class="vocab-chip">tidying</span><span class="vocab-chip">vacuum</span></div>
+  <a class="play-link" href="ww_anagram_a2_home.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Money</div>
+    <div class="topic-meta">🔗 Match Up · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">account</span><span class="vocab-chip">afford</span><span class="vocab-chip">atm</span><span class="vocab-chip">bill</span><span class="vocab-chip">borrow</span><span class="vocab-chip">cash</span><span class="vocab-chip">cost</span><span class="vocab-chip">credit card</span><span class="vocab-chip">debt</span><span class="vocab-chip">earn</span><span class="vocab-chip">lend</span><span class="vocab-chip">owe</span><span class="vocab-chip">pay</span><span class="vocab-chip">salary</span><span class="vocab-chip">save</span><span class="vocab-chip">savings</span><span class="vocab-chip">spend</span><span class="vocab-chip">tax</span><span class="vocab-chip">tip</span><span class="vocab-chip">waste</span></div>
+  <a class="play-link" href="ww_match_a2_money.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Movement</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">bounce</span><span class="vocab-chip">climb</span><span class="vocab-chip">crawl</span><span class="vocab-chip">creep</span><span class="vocab-chip">dash</span><span class="vocab-chip">drag</span><span class="vocab-chip">hop</span><span class="vocab-chip">hurry</span><span class="vocab-chip">jump</span><span class="vocab-chip">leap</span><span class="vocab-chip">limp</span><span class="vocab-chip">race</span><span class="vocab-chip">rush</span><span class="vocab-chip">sprint</span><span class="vocab-chip">squeeze</span><span class="vocab-chip">stroll</span><span class="vocab-chip">struggle</span><span class="vocab-chip">stumble</span><span class="vocab-chip">tiptoe</span><span class="vocab-chip">wander</span></div>
+  <a class="play-link" href="ww_categorize_a2_movement.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Movies</div>
+    <div class="topic-meta">🧠 Memory · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">actor</span><span class="vocab-chip">award</span><span class="vocab-chip">cartoon</span><span class="vocab-chip">character</span><span class="vocab-chip">comedy</span><span class="vocab-chip">director</span><span class="vocab-chip">documentary</span><span class="vocab-chip">episode</span><span class="vocab-chip">horror</span><span class="vocab-chip">plot</span><span class="vocab-chip">popcorn</span><span class="vocab-chip">review</span><span class="vocab-chip">scene</span><span class="vocab-chip">screen</span><span class="vocab-chip">sequel</span><span class="vocab-chip">series</span><span class="vocab-chip">soundtrack</span><span class="vocab-chip">streaming</span><span class="vocab-chip">subtitle</span><span class="vocab-chip">trailer</span></div>
+  <a class="play-link" href="ww_memory_a2_movies.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Music</div>
+    <div class="topic-meta">🧠 Memory · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">album</span><span class="vocab-chip">audience</span><span class="vocab-chip">band</span><span class="vocab-chip">choir</span><span class="vocab-chip">concert</span><span class="vocab-chip">drums</span><span class="vocab-chip">guitar</span><span class="vocab-chip">headphones</span><span class="vocab-chip">lyrics</span><span class="vocab-chip">melody</span><span class="vocab-chip">microphone</span><span class="vocab-chip">piano</span><span class="vocab-chip">playlist</span><span class="vocab-chip">rehearsal</span><span class="vocab-chip">rhythm</span><span class="vocab-chip">speaker</span><span class="vocab-chip">stage</span><span class="vocab-chip">trumpet</span><span class="vocab-chip">violin</span><span class="vocab-chip">volume</span></div>
+  <a class="play-link" href="ww_memory_a2_music.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
     <div class="topic-name">Nature</div>
     <div class="topic-meta">🔤 Anagram · 14 words</div>
   </div>
   <div class="vocab-chips"><span class="vocab-chip">cave</span><span class="vocab-chip">cliff</span><span class="vocab-chip">desert</span><span class="vocab-chip">forest</span><span class="vocab-chip">glacier</span><span class="vocab-chip">island</span><span class="vocab-chip">jungle</span><span class="vocab-chip">mountain</span><span class="vocab-chip">ocean</span><span class="vocab-chip">river</span><span class="vocab-chip">swamp</span><span class="vocab-chip">valley</span><span class="vocab-chip">volcano</span><span class="vocab-chip">waterfall</span></div>
   <a class="play-link" href="ww_anagram_a2_nature.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Personality</div>
+    <div class="topic-meta">🔗 Match Up · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">ambitious</span><span class="vocab-chip">cheerful</span><span class="vocab-chip">clumsy</span><span class="vocab-chip">confident</span><span class="vocab-chip">creative</span><span class="vocab-chip">generous</span><span class="vocab-chip">honest</span><span class="vocab-chip">kind</span><span class="vocab-chip">lazy</span><span class="vocab-chip">moody</span><span class="vocab-chip">outgoing</span><span class="vocab-chip">patient</span><span class="vocab-chip">polite</span><span class="vocab-chip">reliable</span><span class="vocab-chip">rude</span><span class="vocab-chip">selfish</span><span class="vocab-chip">sensible</span><span class="vocab-chip">shy</span><span class="vocab-chip">stubborn</span><span class="vocab-chip">talkative</span></div>
+  <a class="play-link" href="ww_match_a2_personality.html">Play this game →</a>
 </div>
 <div class="topic-card">
   <div class="topic-header">
@@ -367,11 +552,27 @@ body {
 </div>
 <div class="topic-card">
   <div class="topic-header">
+    <div class="topic-name">Taste</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">anchovies</span><span class="vocab-chip">bacon</span><span class="vocab-chip">cake</span><span class="vocab-chip">candy</span><span class="vocab-chip">cranberry</span><span class="vocab-chip">crisps</span><span class="vocab-chip">grapefruit</span><span class="vocab-chip">gravy</span><span class="vocab-chip">honey</span><span class="vocab-chip">jam</span><span class="vocab-chip">lemon</span><span class="vocab-chip">lime</span><span class="vocab-chip">mushroom</span><span class="vocab-chip">olive</span><span class="vocab-chip">parmesan</span><span class="vocab-chip">pretzels</span><span class="vocab-chip">soy sauce</span><span class="vocab-chip">steak</span><span class="vocab-chip">syrup</span><span class="vocab-chip">vinegar</span></div>
+  <a class="play-link" href="ww_categorize_a2_taste.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
     <div class="topic-name">Tech</div>
     <div class="topic-meta">🧠 Memory · 12 words</div>
   </div>
   <div class="vocab-chips"><span class="vocab-chip">app</span><span class="vocab-chip">browser</span><span class="vocab-chip">charger</span><span class="vocab-chip">download</span><span class="vocab-chip">notification</span><span class="vocab-chip">password</span><span class="vocab-chip">screenshot</span><span class="vocab-chip">settings</span><span class="vocab-chip">storage</span><span class="vocab-chip">update</span><span class="vocab-chip">upload</span><span class="vocab-chip">wi-fi</span></div>
   <a class="play-link" href="ww_memory_a2_tech.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Technology</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">browse</span><span class="vocab-chip">crash</span><span class="vocab-chip">download</span><span class="vocab-chip">follower</span><span class="vocab-chip">glitch</span><span class="vocab-chip">hashtag</span><span class="vocab-chip">lag</span><span class="vocab-chip">laptop</span><span class="vocab-chip">post</span><span class="vocab-chip">printer</span><span class="vocab-chip">profile</span><span class="vocab-chip">share</span><span class="vocab-chip">smartwatch</span><span class="vocab-chip">spam</span><span class="vocab-chip">stream</span><span class="vocab-chip">subscribe</span><span class="vocab-chip">tablet</span><span class="vocab-chip">upload</span><span class="vocab-chip">virus</span><span class="vocab-chip">webcam</span></div>
+  <a class="play-link" href="ww_categorize_a2_technology.html">Play this game →</a>
 </div>
 <div class="topic-card">
   <div class="topic-header">
@@ -389,14 +590,49 @@ body {
   <div class="vocab-chips"><span class="vocab-chip">accommodation</span><span class="vocab-chip">arrival</span><span class="vocab-chip">boarding pass</span><span class="vocab-chip">currency</span><span class="vocab-chip">delay</span><span class="vocab-chip">departure</span><span class="vocab-chip">guidebook</span><span class="vocab-chip">itinerary</span><span class="vocab-chip">luggage</span><span class="vocab-chip">passport</span><span class="vocab-chip">platform</span><span class="vocab-chip">single ticket</span></div>
   <a class="play-link" href="ww_match_a2_travel.html">Play this game →</a>
 </div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Weather</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">autumn</span><span class="vocab-chip">blizzard</span><span class="vocab-chip">breeze</span><span class="vocab-chip">celsius</span><span class="vocab-chip">drizzle</span><span class="vocab-chip">forecast</span><span class="vocab-chip">freeze</span><span class="vocab-chip">frost</span><span class="vocab-chip">hail</span><span class="vocab-chip">heatwave</span><span class="vocab-chip">humid</span><span class="vocab-chip">lightning</span><span class="vocab-chip">melt</span><span class="vocab-chip">overcast</span><span class="vocab-chip">puddle</span><span class="vocab-chip">rainbow</span><span class="vocab-chip">shower</span><span class="vocab-chip">spring</span><span class="vocab-chip">sunshine</span><span class="vocab-chip">thunder</span></div>
+  <a class="play-link" href="ww_anagram_a2_weather.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Work</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">apply</span><span class="vocab-chip">boss</span><span class="vocab-chip">colleague</span><span class="vocab-chip">commute</span><span class="vocab-chip">contract</span><span class="vocab-chip">deadline</span><span class="vocab-chip">experience</span><span class="vocab-chip">interview</span><span class="vocab-chip">meeting</span><span class="vocab-chip">overtime</span><span class="vocab-chip">part-time</span><span class="vocab-chip">promotion</span><span class="vocab-chip">qualification</span><span class="vocab-chip">resign</span><span class="vocab-chip">retire</span><span class="vocab-chip">shift</span><span class="vocab-chip">training</span><span class="vocab-chip">uniform</span><span class="vocab-chip">vacancy</span><span class="vocab-chip">wage</span></div>
+  <a class="play-link" href="ww_quiz_a2_work.html">Play this game →</a>
 </div>
 </div>
-<div class="level-section" id="level-B1" style="--lc:#feca57">
-  <div class="level-header">
-    <span class="level-badge-big" style="background:#feca57">B1</span>
-    <span class="level-word-count">137 words across 10 games</span>
+</div>
+<div class="level-section" id="level-B1">
+  <div class="level-sec-header">
+    <div class="level-icon" style="background:linear-gradient(135deg, #667eea, #764ba2);color:#fff">B1</div>
+    <div class="level-sec-info">
+      <h3>B1 Vocabulary</h3>
+      <p>420 unique words across 25 games</p>
+    </div>
   </div>
   <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Art</div>
+    <div class="topic-meta">🧠 Memory · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">abstract</span><span class="vocab-chip">calligraphy</span><span class="vocab-chip">canvas</span><span class="vocab-chip">composition</span><span class="vocab-chip">curator</span><span class="vocab-chip">exhibition</span><span class="vocab-chip">frame</span><span class="vocab-chip">gallery</span><span class="vocab-chip">inspiration</span><span class="vocab-chip">installation</span><span class="vocab-chip">landscape</span><span class="vocab-chip">masterpiece</span><span class="vocab-chip">mosaic</span><span class="vocab-chip">mural</span><span class="vocab-chip">perspective</span><span class="vocab-chip">portrait</span><span class="vocab-chip">pottery</span><span class="vocab-chip">sculpture</span><span class="vocab-chip">sketch</span><span class="vocab-chip">watercolour</span></div>
+  <a class="play-link" href="ww_memory_b1_art.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Communication</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">accent</span><span class="vocab-chip">acknowledge</span><span class="vocab-chip">bilingual</span><span class="vocab-chip">clarify</span><span class="vocab-chip">compliment</span><span class="vocab-chip">contradict</span><span class="vocab-chip">criticise</span><span class="vocab-chip">dialect</span><span class="vocab-chip">elaborate</span><span class="vocab-chip">emphasise</span><span class="vocab-chip">exaggerate</span><span class="vocab-chip">fluent</span><span class="vocab-chip">gossip</span><span class="vocab-chip">idiom</span><span class="vocab-chip">lecture</span><span class="vocab-chip">negotiate</span><span class="vocab-chip">persuade</span><span class="vocab-chip">slang</span><span class="vocab-chip">stammer</span><span class="vocab-chip">summarise</span></div>
+  <a class="play-link" href="ww_anagram_b1_communication.html">Play this game →</a>
+</div>
+<div class="topic-card">
   <div class="topic-header">
     <div class="topic-name">Cooking</div>
     <div class="topic-meta">🔤 Anagram · 14 words</div>
@@ -422,11 +658,35 @@ body {
 </div>
 <div class="topic-card">
   <div class="topic-header">
+    <div class="topic-name">Education</div>
+    <div class="topic-meta">🔗 Match Up · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">assessment</span><span class="vocab-chip">attendance</span><span class="vocab-chip">campus</span><span class="vocab-chip">curriculum</span><span class="vocab-chip">dean</span><span class="vocab-chip">discipline</span><span class="vocab-chip">elective</span><span class="vocab-chip">enrol</span><span class="vocab-chip">extracurricular</span><span class="vocab-chip">graduate</span><span class="vocab-chip">lecture</span><span class="vocab-chip">literacy</span><span class="vocab-chip">plagiarism</span><span class="vocab-chip">scholarship</span><span class="vocab-chip">seminar</span><span class="vocab-chip">syllabus</span><span class="vocab-chip">thesis</span><span class="vocab-chip">tuition</span><span class="vocab-chip">undergraduate</span><span class="vocab-chip">vocational</span></div>
+  <a class="play-link" href="ww_match_b1_education.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
     <div class="topic-name">Environment</div>
     <div class="topic-meta">❓ Quiz · 12 words</div>
   </div>
   <div class="vocab-chips"><span class="vocab-chip">carbon footprint</span><span class="vocab-chip">conservation</span><span class="vocab-chip">deforestation</span><span class="vocab-chip">drought</span><span class="vocab-chip">ecosystem</span><span class="vocab-chip">endangered</span><span class="vocab-chip">greenhouse effect</span><span class="vocab-chip">habitat</span><span class="vocab-chip">pollution</span><span class="vocab-chip">recycle</span><span class="vocab-chip">renewable energy</span><span class="vocab-chip">sustainable</span></div>
   <a class="play-link" href="ww_quiz_b1_environment.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Fashion</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">accessory</span><span class="vocab-chip">boutique</span><span class="vocab-chip">casual</span><span class="vocab-chip">catwalk</span><span class="vocab-chip">couture</span><span class="vocab-chip">denim</span><span class="vocab-chip">designer</span><span class="vocab-chip">elegant</span><span class="vocab-chip">embroidery</span><span class="vocab-chip">ensemble</span><span class="vocab-chip">fabric</span><span class="vocab-chip">formal</span><span class="vocab-chip">garment</span><span class="vocab-chip">hemline</span><span class="vocab-chip">lingerie</span><span class="vocab-chip">secondhand</span><span class="vocab-chip">tailored</span><span class="vocab-chip">trendy</span><span class="vocab-chip">vintage</span><span class="vocab-chip">wardrobe</span></div>
+  <a class="play-link" href="ww_anagram_b1_fashion.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Feelings</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">alarmed</span><span class="vocab-chip">anxious</span><span class="vocab-chip">content</span><span class="vocab-chip">delighted</span><span class="vocab-chip">devastated</span><span class="vocab-chip">disappointed</span><span class="vocab-chip">frustrated</span><span class="vocab-chip">furious</span><span class="vocab-chip">gloomy</span><span class="vocab-chip">grateful</span><span class="vocab-chip">heartbroken</span><span class="vocab-chip">irritated</span><span class="vocab-chip">miserable</span><span class="vocab-chip">outraged</span><span class="vocab-chip">overjoyed</span><span class="vocab-chip">panicked</span><span class="vocab-chip">resentful</span><span class="vocab-chip">terrified</span><span class="vocab-chip">thrilled</span><span class="vocab-chip">uneasy</span></div>
+  <a class="play-link" href="ww_categorize_b1_feelings.html">Play this game →</a>
 </div>
 <div class="topic-card">
   <div class="topic-header">
@@ -438,11 +698,59 @@ body {
 </div>
 <div class="topic-card">
   <div class="topic-header">
+    <div class="topic-name">Food</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">allergic</span><span class="vocab-chip">appetiser</span><span class="vocab-chip">bill</span><span class="vocab-chip">complimentary</span><span class="vocab-chip">cuisine</span><span class="vocab-chip">cutlery</span><span class="vocab-chip">delicacy</span><span class="vocab-chip">dessert</span><span class="vocab-chip">fusion</span><span class="vocab-chip">garnish</span><span class="vocab-chip">gluten-free</span><span class="vocab-chip">main course</span><span class="vocab-chip">organic</span><span class="vocab-chip">portion</span><span class="vocab-chip">reservation</span><span class="vocab-chip">seasonal</span><span class="vocab-chip">tip</span><span class="vocab-chip">vegan</span><span class="vocab-chip">vegetarian</span><span class="vocab-chip">waiter</span></div>
+  <a class="play-link" href="ww_quiz_b1_food.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Health</div>
+    <div class="topic-meta">🔗 Match Up · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">allergy</span><span class="vocab-chip">blood pressure</span><span class="vocab-chip">calories</span><span class="vocab-chip">check-up</span><span class="vocab-chip">contagious</span><span class="vocab-chip">diagnosis</span><span class="vocab-chip">dose</span><span class="vocab-chip">immune system</span><span class="vocab-chip">nutrition</span><span class="vocab-chip">obesity</span><span class="vocab-chip">painkiller</span><span class="vocab-chip">prescription</span><span class="vocab-chip">recovery</span><span class="vocab-chip">side effect</span><span class="vocab-chip">supplement</span><span class="vocab-chip">surgery</span><span class="vocab-chip">symptom</span><span class="vocab-chip">therapist</span><span class="vocab-chip">treatment</span><span class="vocab-chip">ward</span></div>
+  <a class="play-link" href="ww_match_b1_health.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Housing</div>
+    <div class="topic-meta">🧠 Memory · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">commute</span><span class="vocab-chip">damp</span><span class="vocab-chip">deposit</span><span class="vocab-chip">detached</span><span class="vocab-chip">estate agent</span><span class="vocab-chip">eviction</span><span class="vocab-chip">extension</span><span class="vocab-chip">furnished</span><span class="vocab-chip">insulation</span><span class="vocab-chip">landlord</span><span class="vocab-chip">lease</span><span class="vocab-chip">mortgage</span><span class="vocab-chip">neighbourhood</span><span class="vocab-chip">planning permission</span><span class="vocab-chip">renovation</span><span class="vocab-chip">semi-detached</span><span class="vocab-chip">studio flat</span><span class="vocab-chip">tenant</span><span class="vocab-chip">terraced</span><span class="vocab-chip">utilities</span></div>
+  <a class="play-link" href="ww_memory_b1_housing.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Law</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">appeal</span><span class="vocab-chip">bail</span><span class="vocab-chip">convict</span><span class="vocab-chip">defendant</span><span class="vocab-chip">evidence</span><span class="vocab-chip">fine</span><span class="vocab-chip">fraud</span><span class="vocab-chip">guilty</span><span class="vocab-chip">innocent</span><span class="vocab-chip">lawyer</span><span class="vocab-chip">offence</span><span class="vocab-chip">parole</span><span class="vocab-chip">penalty</span><span class="vocab-chip">prosecute</span><span class="vocab-chip">sentence</span><span class="vocab-chip">solicitor</span><span class="vocab-chip">testimony</span><span class="vocab-chip">theft</span><span class="vocab-chip">trial</span><span class="vocab-chip">verdict</span></div>
+  <a class="play-link" href="ww_anagram_b1_law.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
     <div class="topic-name">Media</div>
     <div class="topic-meta">🧠 Memory · 12 words</div>
   </div>
   <div class="vocab-chips"><span class="vocab-chip">bias</span><span class="vocab-chip">broadcast</span><span class="vocab-chip">censorship</span><span class="vocab-chip">circulation</span><span class="vocab-chip">correspondent</span><span class="vocab-chip">coverage</span><span class="vocab-chip">editorial</span><span class="vocab-chip">headline</span><span class="vocab-chip">journalist</span><span class="vocab-chip">source</span><span class="vocab-chip">subscribe</span><span class="vocab-chip">tabloid</span></div>
   <a class="play-link" href="ww_memory_b1_media.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Phrasal</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">break into</span><span class="vocab-chip">bring back</span><span class="vocab-chip">call off</span><span class="vocab-chip">carry on</span><span class="vocab-chip">come back</span><span class="vocab-chip">cut out</span><span class="vocab-chip">get back</span><span class="vocab-chip">get going</span><span class="vocab-chip">give up</span><span class="vocab-chip">go back</span><span class="vocab-chip">go on</span><span class="vocab-chip">hold on</span><span class="vocab-chip">keep up</span><span class="vocab-chip">kick off</span><span class="vocab-chip">pull out</span><span class="vocab-chip">set up</span><span class="vocab-chip">stick with</span><span class="vocab-chip">take back</span><span class="vocab-chip">take on</span><span class="vocab-chip">wind down</span></div>
+  <a class="play-link" href="ww_categorize_b1_phrasal.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Psychology</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">addiction</span><span class="vocab-chip">anxiety</span><span class="vocab-chip">burnout</span><span class="vocab-chip">depression</span><span class="vocab-chip">empathy</span><span class="vocab-chip">habit</span><span class="vocab-chip">instinct</span><span class="vocab-chip">introvert</span><span class="vocab-chip">mindfulness</span><span class="vocab-chip">motivation</span><span class="vocab-chip">peer pressure</span><span class="vocab-chip">personality</span><span class="vocab-chip">phobia</span><span class="vocab-chip">resilience</span><span class="vocab-chip">self-discipline</span><span class="vocab-chip">self-esteem</span><span class="vocab-chip">stress</span><span class="vocab-chip">therapy</span><span class="vocab-chip">trauma</span><span class="vocab-chip">wellbeing</span></div>
+  <a class="play-link" href="ww_quiz_b1_psychology.html">Play this game →</a>
 </div>
 <div class="topic-card">
   <div class="topic-header">
@@ -462,11 +770,43 @@ body {
 </div>
 <div class="topic-card">
   <div class="topic-header">
+    <div class="topic-name">Social</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">accessible</span><span class="vocab-chip">awareness</span><span class="vocab-chip">campaign</span><span class="vocab-chip">charity</span><span class="vocab-chip">community</span><span class="vocab-chip">discrimination</span><span class="vocab-chip">diversity</span><span class="vocab-chip">donate</span><span class="vocab-chip">empowerment</span><span class="vocab-chip">homelessness</span><span class="vocab-chip">inequality</span><span class="vocab-chip">integration</span><span class="vocab-chip">petition</span><span class="vocab-chip">poverty</span><span class="vocab-chip">prejudice</span><span class="vocab-chip">protest</span><span class="vocab-chip">refugee</span><span class="vocab-chip">stereotype</span><span class="vocab-chip">volunteer</span><span class="vocab-chip">welfare</span></div>
+  <a class="play-link" href="ww_quiz_b1_social.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Subjects</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">anthropology</span><span class="vocab-chip">architecture</span><span class="vocab-chip">astronomy</span><span class="vocab-chip">biology</span><span class="vocab-chip">chemistry</span><span class="vocab-chip">economics</span><span class="vocab-chip">filmmaking</span><span class="vocab-chip">geology</span><span class="vocab-chip">graphic design</span><span class="vocab-chip">history</span><span class="vocab-chip">linguistics</span><span class="vocab-chip">literature</span><span class="vocab-chip">philosophy</span><span class="vocab-chip">photography</span><span class="vocab-chip">physics</span><span class="vocab-chip">politics</span><span class="vocab-chip">psychology</span><span class="vocab-chip">sculpture</span><span class="vocab-chip">sociology</span><span class="vocab-chip">theology</span></div>
+  <a class="play-link" href="ww_categorize_b1_subjects.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Technology</div>
+    <div class="topic-meta">🔗 Match Up · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">algorithm</span><span class="vocab-chip">backup</span><span class="vocab-chip">bandwidth</span><span class="vocab-chip">cloud</span><span class="vocab-chip">database</span><span class="vocab-chip">debug</span><span class="vocab-chip">domain</span><span class="vocab-chip">encrypt</span><span class="vocab-chip">firewall</span><span class="vocab-chip">hack</span><span class="vocab-chip">hardware</span><span class="vocab-chip">interface</span><span class="vocab-chip">lag</span><span class="vocab-chip">phishing</span><span class="vocab-chip">pixel</span><span class="vocab-chip">reboot</span><span class="vocab-chip">router</span><span class="vocab-chip">software</span><span class="vocab-chip">spam</span><span class="vocab-chip">sync</span></div>
+  <a class="play-link" href="ww_match_b1_technology.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
     <div class="topic-name">Transport</div>
     <div class="topic-meta">📦 Categorize · 20 words</div>
   </div>
   <div class="vocab-chips"><span class="vocab-chip">anchor</span><span class="vocab-chip">boarding gate</span><span class="vocab-chip">cabin</span><span class="vocab-chip">cabin crew</span><span class="vocab-chip">carriage</span><span class="vocab-chip">commuter</span><span class="vocab-chip">cruise</span><span class="vocab-chip">deck</span><span class="vocab-chip">express</span><span class="vocab-chip">harbour</span><span class="vocab-chip">junction</span><span class="vocab-chip">layover</span><span class="vocab-chip">motorway</span><span class="vocab-chip">overtake</span><span class="vocab-chip">platform</span><span class="vocab-chip">roundabout</span><span class="vocab-chip">runway</span><span class="vocab-chip">speed limit</span><span class="vocab-chip">timetable</span><span class="vocab-chip">turbulence</span></div>
   <a class="play-link" href="ww_categorize_b1_transport.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Travel</div>
+    <div class="topic-meta">🧠 Memory · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">all-inclusive</span><span class="vocab-chip">backpacking</span><span class="vocab-chip">check in</span><span class="vocab-chip">cruise</span><span class="vocab-chip">currency exchange</span><span class="vocab-chip">customs</span><span class="vocab-chip">destination</span><span class="vocab-chip">excursion</span><span class="vocab-chip">hostel</span><span class="vocab-chip">itinerary</span><span class="vocab-chip">jet lag</span><span class="vocab-chip">layover</span><span class="vocab-chip">off-peak</span><span class="vocab-chip">package holiday</span><span class="vocab-chip">resort</span><span class="vocab-chip">self-catering</span><span class="vocab-chip">sightseeing</span><span class="vocab-chip">souvenir</span><span class="vocab-chip">vaccinations</span><span class="vocab-chip">visa</span></div>
+  <a class="play-link" href="ww_memory_b1_travel.html">Play this game →</a>
 </div>
 <div class="topic-card">
   <div class="topic-header">
@@ -478,18 +818,61 @@ body {
 </div>
 </div>
 </div>
-<div class="level-section" id="level-B2" style="--lc:#48dbfb">
-  <div class="level-header">
-    <span class="level-badge-big" style="background:#48dbfb">B2</span>
-    <span class="level-word-count">133 words across 10 games</span>
+<div class="level-section" id="level-B2">
+  <div class="level-sec-header">
+    <div class="level-icon" style="background:linear-gradient(135deg, #48dbfb, #0abde3);color:#fff">B2</div>
+    <div class="level-sec-info">
+      <h3>B2 Vocabulary</h3>
+      <p>412 unique words across 25 games</p>
+    </div>
   </div>
   <div class="topic-grid"><div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Architecture</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">acoustic</span><span class="vocab-chip">atrium</span><span class="vocab-chip">blueprint</span><span class="vocab-chip">cantilever</span><span class="vocab-chip">dome</span><span class="vocab-chip">facade</span><span class="vocab-chip">foundation</span><span class="vocab-chip">interior design</span><span class="vocab-chip">landmark</span><span class="vocab-chip">mezzanine</span><span class="vocab-chip">minimalist</span><span class="vocab-chip">pillar</span><span class="vocab-chip">renovation</span><span class="vocab-chip">restoration</span><span class="vocab-chip">scaffold</span><span class="vocab-chip">skyscraper</span><span class="vocab-chip">sustainable</span><span class="vocab-chip">symmetry</span><span class="vocab-chip">urban planning</span><span class="vocab-chip">ventilation</span></div>
+  <a class="play-link" href="ww_quiz_b2_architecture.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Arts</div>
+    <div class="topic-meta">🧠 Memory · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">aesthetic</span><span class="vocab-chip">anthology</span><span class="vocab-chip">avant-garde</span><span class="vocab-chip">censorship</span><span class="vocab-chip">choreography</span><span class="vocab-chip">commission</span><span class="vocab-chip">contemporary</span><span class="vocab-chip">critique</span><span class="vocab-chip">genre</span><span class="vocab-chip">heritage</span><span class="vocab-chip">improvisation</span><span class="vocab-chip">narrative</span><span class="vocab-chip">patron</span><span class="vocab-chip">philanthropy</span><span class="vocab-chip">premiere</span><span class="vocab-chip">renaissance</span><span class="vocab-chip">repertoire</span><span class="vocab-chip">surrealism</span><span class="vocab-chip">symbolism</span><span class="vocab-chip">venue</span></div>
+  <a class="play-link" href="ww_memory_b2_arts.html">Play this game →</a>
+</div>
+<div class="topic-card">
   <div class="topic-header">
     <div class="topic-name">Business</div>
     <div class="topic-meta">🔗 Match Up · 12 words</div>
   </div>
   <div class="vocab-chips"><span class="vocab-chip">acquisition</span><span class="vocab-chip">bankruptcy</span><span class="vocab-chip">dividend</span><span class="vocab-chip">equity</span><span class="vocab-chip">liability</span><span class="vocab-chip">logistics</span><span class="vocab-chip">merger</span><span class="vocab-chip">outsource</span><span class="vocab-chip">revenue</span><span class="vocab-chip">stakeholder</span><span class="vocab-chip">subsidiary</span><span class="vocab-chip">turnover</span></div>
   <a class="play-link" href="ww_match_b2_business.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Collocations</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">do business</span><span class="vocab-chip">do damage</span><span class="vocab-chip">do harm</span><span class="vocab-chip">do justice</span><span class="vocab-chip">do research</span><span class="vocab-chip">give advice</span><span class="vocab-chip">give birth</span><span class="vocab-chip">give evidence</span><span class="vocab-chip">give permission</span><span class="vocab-chip">give priority</span><span class="vocab-chip">make a complaint</span><span class="vocab-chip">make a decision</span><span class="vocab-chip">make a mistake</span><span class="vocab-chip">make an effort</span><span class="vocab-chip">make progress</span><span class="vocab-chip">take a risk</span><span class="vocab-chip">take action</span><span class="vocab-chip">take advantage</span><span class="vocab-chip">take offence</span><span class="vocab-chip">take responsibility</span></div>
+  <a class="play-link" href="ww_categorize_b2_collocations.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Connectors</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">as a result</span><span class="vocab-chip">besides</span><span class="vocab-chip">consequently</span><span class="vocab-chip">despite</span><span class="vocab-chip">eventually</span><span class="vocab-chip">furthermore</span><span class="vocab-chip">hence</span><span class="vocab-chip">however</span><span class="vocab-chip">in addition</span><span class="vocab-chip">initially</span><span class="vocab-chip">likewise</span><span class="vocab-chip">meanwhile</span><span class="vocab-chip">moreover</span><span class="vocab-chip">nevertheless</span><span class="vocab-chip">on the other hand</span><span class="vocab-chip">previously</span><span class="vocab-chip">subsequently</span><span class="vocab-chip">therefore</span><span class="vocab-chip">thus</span><span class="vocab-chip">whereas</span></div>
+  <a class="play-link" href="ww_categorize_b2_connectors.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Crime</div>
+    <div class="topic-meta">🧠 Memory · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">accomplice</span><span class="vocab-chip">alibi</span><span class="vocab-chip">blackmail</span><span class="vocab-chip">bribery</span><span class="vocab-chip">custody</span><span class="vocab-chip">deterrent</span><span class="vocab-chip">embezzlement</span><span class="vocab-chip">forensic</span><span class="vocab-chip">forgery</span><span class="vocab-chip">infringement</span><span class="vocab-chip">manslaughter</span><span class="vocab-chip">misdemeanour</span><span class="vocab-chip">perjury</span><span class="vocab-chip">probation</span><span class="vocab-chip">prosecution</span><span class="vocab-chip">ransom</span><span class="vocab-chip">rehabilitation</span><span class="vocab-chip">smuggling</span><span class="vocab-chip">surveillance</span><span class="vocab-chip">verdict</span></div>
+  <a class="play-link" href="ww_memory_b2_crime.html">Play this game →</a>
 </div>
 <div class="topic-card">
   <div class="topic-header">
@@ -501,11 +884,43 @@ body {
 </div>
 <div class="topic-card">
   <div class="topic-header">
+    <div class="topic-name">Environment</div>
+    <div class="topic-meta">🔗 Match Up · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">biodiversity</span><span class="vocab-chip">carbon footprint</span><span class="vocab-chip">conservation</span><span class="vocab-chip">deforestation</span><span class="vocab-chip">drought</span><span class="vocab-chip">ecosystem</span><span class="vocab-chip">emissions</span><span class="vocab-chip">erosion</span><span class="vocab-chip">extinction</span><span class="vocab-chip">flood</span><span class="vocab-chip">fossil fuel</span><span class="vocab-chip">habitat</span><span class="vocab-chip">landfill</span><span class="vocab-chip">organic</span><span class="vocab-chip">ozone layer</span><span class="vocab-chip">pesticide</span><span class="vocab-chip">pollution</span><span class="vocab-chip">recycle</span><span class="vocab-chip">renewable</span><span class="vocab-chip">sustainable</span></div>
+  <a class="play-link" href="ww_match_b2_environment.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Finance</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">audit</span><span class="vocab-chip">bankruptcy</span><span class="vocab-chip">collateral</span><span class="vocab-chip">commodity</span><span class="vocab-chip">currency</span><span class="vocab-chip">deficit</span><span class="vocab-chip">depreciation</span><span class="vocab-chip">dividend</span><span class="vocab-chip">expenditure</span><span class="vocab-chip">inflation</span><span class="vocab-chip">interest</span><span class="vocab-chip">mortgage</span><span class="vocab-chip">portfolio</span><span class="vocab-chip">recession</span><span class="vocab-chip">revenue</span><span class="vocab-chip">shareholder</span><span class="vocab-chip">speculation</span><span class="vocab-chip">subsidy</span><span class="vocab-chip">surplus</span><span class="vocab-chip">volatility</span></div>
+  <a class="play-link" href="ww_anagram_b2_finance.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Global</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">antibiotic resistance</span><span class="vocab-chip">automation</span><span class="vocab-chip">carbon neutral</span><span class="vocab-chip">child labour</span><span class="vocab-chip">deforestation</span><span class="vocab-chip">digital divide</span><span class="vocab-chip">energy crisis</span><span class="vocab-chip">food insecurity</span><span class="vocab-chip">gender equality</span><span class="vocab-chip">global warming</span><span class="vocab-chip">greenhouse gas</span><span class="vocab-chip">human trafficking</span><span class="vocab-chip">mental health</span><span class="vocab-chip">obesity crisis</span><span class="vocab-chip">pandemic</span><span class="vocab-chip">press freedom</span><span class="vocab-chip">rising sea levels</span><span class="vocab-chip">vaccination</span><span class="vocab-chip">water scarcity</span><span class="vocab-chip">wealth inequality</span></div>
+  <a class="play-link" href="ww_categorize_b2_global.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
     <div class="topic-name">Health</div>
     <div class="topic-meta">❓ Quiz · 10 words</div>
   </div>
   <div class="vocab-chips"><span class="vocab-chip">chronic</span><span class="vocab-chip">contagious</span><span class="vocab-chip">diagnosis</span><span class="vocab-chip">epidemic</span><span class="vocab-chip">immune system</span><span class="vocab-chip">rehabilitation</span><span class="vocab-chip">side effect</span><span class="vocab-chip">symptom</span><span class="vocab-chip">therapy</span><span class="vocab-chip">transplant</span></div>
   <a class="play-link" href="ww_quiz_b2_health.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Idioms</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">aftermath</span><span class="vocab-chip">backbone</span><span class="vocab-chip">benchmark</span><span class="vocab-chip">blueprint</span><span class="vocab-chip">bottleneck</span><span class="vocab-chip">brainstorm</span><span class="vocab-chip">breakthrough</span><span class="vocab-chip">deadline</span><span class="vocab-chip">downside</span><span class="vocab-chip">drawback</span><span class="vocab-chip">feedback</span><span class="vocab-chip">frontrunner</span><span class="vocab-chip">groundwork</span><span class="vocab-chip">loophole</span><span class="vocab-chip">milestone</span><span class="vocab-chip">network</span><span class="vocab-chip">outlook</span><span class="vocab-chip">setback</span><span class="vocab-chip">shortcoming</span><span class="vocab-chip">standpoint</span></div>
+  <a class="play-link" href="ww_anagram_b2_idioms.html">Play this game →</a>
 </div>
 <div class="topic-card">
   <div class="topic-header">
@@ -522,6 +937,22 @@ body {
   </div>
   <div class="vocab-chips"><span class="vocab-chip">algorithm</span><span class="vocab-chip">anchor</span><span class="vocab-chip">brand</span><span class="vocab-chip">broadsheet</span><span class="vocab-chip">bulletin</span><span class="vocab-chip">campaign</span><span class="vocab-chip">circulation</span><span class="vocab-chip">column</span><span class="vocab-chip">correspondent</span><span class="vocab-chip">documentary</span><span class="vocab-chip">editorial</span><span class="vocab-chip">endorsement</span><span class="vocab-chip">influencer</span><span class="vocab-chip">live feed</span><span class="vocab-chip">podcast</span><span class="vocab-chip">slogan</span><span class="vocab-chip">streaming</span><span class="vocab-chip">supplement</span><span class="vocab-chip">target audience</span><span class="vocab-chip">viral</span></div>
   <a class="play-link" href="ww_categorize_b2_media.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Mind</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">consciousness</span><span class="vocab-chip">determinism</span><span class="vocab-chip">dualism</span><span class="vocab-chip">empiricism</span><span class="vocab-chip">existentialism</span><span class="vocab-chip">free will</span><span class="vocab-chip">identity</span><span class="vocab-chip">illusion</span><span class="vocab-chip">intuition</span><span class="vocab-chip">materialism</span><span class="vocab-chip">nihilism</span><span class="vocab-chip">paradox</span><span class="vocab-chip">perception</span><span class="vocab-chip">pragmatism</span><span class="vocab-chip">rational</span><span class="vocab-chip">relativism</span><span class="vocab-chip">scepticism</span><span class="vocab-chip">stoicism</span><span class="vocab-chip">subconscious</span><span class="vocab-chip">utilitarianism</span></div>
+  <a class="play-link" href="ww_quiz_b2_mind.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Philosophy</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">accountability</span><span class="vocab-chip">autonomy</span><span class="vocab-chip">censorship</span><span class="vocab-chip">compassion</span><span class="vocab-chip">conscience</span><span class="vocab-chip">consent</span><span class="vocab-chip">dignity</span><span class="vocab-chip">dilemma</span><span class="vocab-chip">equality</span><span class="vocab-chip">integrity</span><span class="vocab-chip">justice</span><span class="vocab-chip">morality</span><span class="vocab-chip">obligation</span><span class="vocab-chip">prejudice</span><span class="vocab-chip">principle</span><span class="vocab-chip">privilege</span><span class="vocab-chip">sustainability</span><span class="vocab-chip">tolerance</span><span class="vocab-chip">transparency</span><span class="vocab-chip">virtue</span></div>
+  <a class="play-link" href="ww_anagram_b2_philosophy.html">Play this game →</a>
 </div>
 <div class="topic-card">
   <div class="topic-header">
@@ -549,6 +980,30 @@ body {
 </div>
 <div class="topic-card">
   <div class="topic-header">
+    <div class="topic-name">Relationships</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">affection</span><span class="vocab-chip">attachment</span><span class="vocab-chip">betrayal</span><span class="vocab-chip">boundary</span><span class="vocab-chip">codependent</span><span class="vocab-chip">commitment</span><span class="vocab-chip">compatibility</span><span class="vocab-chip">empathetic</span><span class="vocab-chip">estranged</span><span class="vocab-chip">infatuation</span><span class="vocab-chip">intimacy</span><span class="vocab-chip">mutual</span><span class="vocab-chip">nurture</span><span class="vocab-chip">platonic</span><span class="vocab-chip">possessive</span><span class="vocab-chip">reconciliation</span><span class="vocab-chip">resentment</span><span class="vocab-chip">toxic</span><span class="vocab-chip">unconditional</span><span class="vocab-chip">vulnerability</span></div>
+  <a class="play-link" href="ww_quiz_b2_relationships.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Rhetoric</div>
+    <div class="topic-meta">🧠 Memory · 19 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">ambiguity</span><span class="vocab-chip">analogy</span><span class="vocab-chip">anecdote</span><span class="vocab-chip">articulate</span><span class="vocab-chip">bias</span><span class="vocab-chip">coherent</span><span class="vocab-chip">concise</span><span class="vocab-chip">connotation</span><span class="vocab-chip">eloquent</span><span class="vocab-chip">euphemism</span><span class="vocab-chip">fallacy</span><span class="vocab-chip">hyperbole</span><span class="vocab-chip">irony</span><span class="vocab-chip">nuance</span><span class="vocab-chip">paraphrase</span><span class="vocab-chip">propaganda</span><span class="vocab-chip">rhetoric</span><span class="vocab-chip">understatement</span><span class="vocab-chip">verbose</span></div>
+  <a class="play-link" href="ww_memory_b2_rhetoric.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Science</div>
+    <div class="topic-meta">🔗 Match Up · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">bias</span><span class="vocab-chip">breakthrough</span><span class="vocab-chip">conclusion</span><span class="vocab-chip">control group</span><span class="vocab-chip">correlation</span><span class="vocab-chip">data</span><span class="vocab-chip">empirical</span><span class="vocab-chip">finding</span><span class="vocab-chip">hypothesis</span><span class="vocab-chip">laboratory</span><span class="vocab-chip">methodology</span><span class="vocab-chip">peer review</span><span class="vocab-chip">phenomenon</span><span class="vocab-chip">qualitative</span><span class="vocab-chip">quantitative</span><span class="vocab-chip">replicate</span><span class="vocab-chip">sample</span><span class="vocab-chip">specimen</span><span class="vocab-chip">theory</span><span class="vocab-chip">variable</span></div>
+  <a class="play-link" href="ww_match_b2_science.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
     <div class="topic-name">Social</div>
     <div class="topic-meta">📦 Categorize · 20 words</div>
   </div>
@@ -563,12 +1018,23 @@ body {
   <div class="vocab-chips"><span class="vocab-chip">algorithm</span><span class="vocab-chip">bandwidth</span><span class="vocab-chip">database</span><span class="vocab-chip">debug</span><span class="vocab-chip">encryption</span><span class="vocab-chip">firmware</span><span class="vocab-chip">interface</span><span class="vocab-chip">malware</span><span class="vocab-chip">pixel</span><span class="vocab-chip">platform</span><span class="vocab-chip">server</span><span class="vocab-chip">startup</span><span class="vocab-chip">virtual</span><span class="vocab-chip">wireless</span></div>
   <a class="play-link" href="ww_anagram_b2_technology.html">Play this game →</a>
 </div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Travel</div>
+    <div class="topic-meta">🔗 Match Up · 19 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">acclimatise</span><span class="vocab-chip">altitude</span><span class="vocab-chip">authentic</span><span class="vocab-chip">eco-tourism</span><span class="vocab-chip">exotic</span><span class="vocab-chip">expedition</span><span class="vocab-chip">heritage</span><span class="vocab-chip">hospitality</span><span class="vocab-chip">immerse</span><span class="vocab-chip">landmark</span><span class="vocab-chip">navigate</span><span class="vocab-chip">nomadic</span><span class="vocab-chip">off the beaten track</span><span class="vocab-chip">pilgrimage</span><span class="vocab-chip">sabbatical</span><span class="vocab-chip">souvenir</span><span class="vocab-chip">terrain</span><span class="vocab-chip">trek</span><span class="vocab-chip">wilderness</span></div>
+  <a class="play-link" href="ww_match_b2_travel.html">Play this game →</a>
 </div>
 </div>
-<div class="level-section" id="level-C1" style="--lc:#54a0ff">
-  <div class="level-header">
-    <span class="level-badge-big" style="background:#54a0ff">C1</span>
-    <span class="level-word-count">135 words across 10 games</span>
+</div>
+<div class="level-section" id="level-C1">
+  <div class="level-sec-header">
+    <div class="level-icon" style="background:linear-gradient(135deg, #54a0ff, #2e86de);color:#fff">C1</div>
+    <div class="level-sec-info">
+      <h3>C1 Vocabulary</h3>
+      <p>400 unique words across 25 games</p>
+    </div>
   </div>
   <div class="topic-grid"><div class="topic-card">
   <div class="topic-header">
@@ -577,6 +1043,14 @@ body {
   </div>
   <div class="vocab-chips"><span class="vocab-chip">ambiguity</span><span class="vocab-chip">autonomy</span><span class="vocab-chip">complacency</span><span class="vocab-chip">empathy</span><span class="vocab-chip">ethos</span><span class="vocab-chip">integrity</span><span class="vocab-chip">nostalgia</span><span class="vocab-chip">nuance</span><span class="vocab-chip">paradox</span><span class="vocab-chip">pragmatism</span><span class="vocab-chip">resilience</span><span class="vocab-chip">rhetoric</span></div>
   <a class="play-link" href="ww_match_c1_abstract.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Academic</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">advocate</span><span class="vocab-chip">appraise</span><span class="vocab-chip">assert</span><span class="vocab-chip">assess</span><span class="vocab-chip">clarify</span><span class="vocab-chip">condense</span><span class="vocab-chip">contend</span><span class="vocab-chip">distil</span><span class="vocab-chip">elaborate</span><span class="vocab-chip">elucidate</span><span class="vocab-chip">encapsulate</span><span class="vocab-chip">evaluate</span><span class="vocab-chip">examine</span><span class="vocab-chip">expound</span><span class="vocab-chip">illustrate</span><span class="vocab-chip">outline</span><span class="vocab-chip">rebut</span><span class="vocab-chip">recapitulate</span><span class="vocab-chip">refute</span><span class="vocab-chip">scrutinise</span></div>
+  <a class="play-link" href="ww_categorize_c1_academic.html">Play this game →</a>
 </div>
 <div class="topic-card">
   <div class="topic-header">
@@ -604,6 +1078,22 @@ body {
 </div>
 <div class="topic-card">
   <div class="topic-header">
+    <div class="topic-name">Business</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">allocate</span><span class="vocab-chip">collaborate</span><span class="vocab-chip">consolidate</span><span class="vocab-chip">depreciate</span><span class="vocab-chip">diversify</span><span class="vocab-chip">expedite</span><span class="vocab-chip">facilitate</span><span class="vocab-chip">implement</span><span class="vocab-chip">incentivize</span><span class="vocab-chip">innovate</span><span class="vocab-chip">leverage</span><span class="vocab-chip">mitigate</span><span class="vocab-chip">monetize</span><span class="vocab-chip">optimize</span><span class="vocab-chip">outsource</span><span class="vocab-chip">paradigm</span><span class="vocab-chip">restructure</span><span class="vocab-chip">scalable</span><span class="vocab-chip">streamline</span><span class="vocab-chip">synergy</span></div>
+  <a class="play-link" href="ww_anagram_c1_business.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Business</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">accountability</span><span class="vocab-chip">acquisition</span><span class="vocab-chip">benchmark</span><span class="vocab-chip">delegating</span><span class="vocab-chip">disrupt</span><span class="vocab-chip">diversification</span><span class="vocab-chip">downsizing</span><span class="vocab-chip">due diligence</span><span class="vocab-chip">equity</span><span class="vocab-chip">innovation</span><span class="vocab-chip">kpi</span><span class="vocab-chip">leverage</span><span class="vocab-chip">outsourcing</span><span class="vocab-chip">pivot</span><span class="vocab-chip">roi</span><span class="vocab-chip">scalable</span><span class="vocab-chip">stakeholder</span><span class="vocab-chip">synergy</span><span class="vocab-chip">transparency</span><span class="vocab-chip">venture capital</span></div>
+  <a class="play-link" href="ww_quiz_c1_business.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
     <div class="topic-name">Collocations</div>
     <div class="topic-meta">🔗 Match Up · 12 words</div>
   </div>
@@ -620,6 +1110,30 @@ body {
 </div>
 <div class="topic-card">
   <div class="topic-header">
+    <div class="topic-name">Environment</div>
+    <div class="topic-meta">🧠 Memory · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">agroforestry</span><span class="vocab-chip">anthropocene</span><span class="vocab-chip">aquifer</span><span class="vocab-chip">biodegradable</span><span class="vocab-chip">biomass</span><span class="vocab-chip">carbon neutral</span><span class="vocab-chip">carbon sequestration</span><span class="vocab-chip">circular economy</span><span class="vocab-chip">desertification</span><span class="vocab-chip">eutrophication</span><span class="vocab-chip">greenwashing</span><span class="vocab-chip">microplastic</span><span class="vocab-chip">monoculture</span><span class="vocab-chip">offsetting</span><span class="vocab-chip">permafrost</span><span class="vocab-chip">reforestation</span><span class="vocab-chip">resilience</span><span class="vocab-chip">stewardship</span><span class="vocab-chip">tipping point</span><span class="vocab-chip">watershed</span></div>
+  <a class="play-link" href="ww_memory_c1_environment.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Ethics</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">absolutism</span><span class="vocab-chip">altruism</span><span class="vocab-chip">benevolence</span><span class="vocab-chip">bioethics</span><span class="vocab-chip">complicity</span><span class="vocab-chip">consequentialism</span><span class="vocab-chip">corruption</span><span class="vocab-chip">culpability</span><span class="vocab-chip">deontology</span><span class="vocab-chip">dilemma</span><span class="vocab-chip">euthanasia</span><span class="vocab-chip">exploitation</span><span class="vocab-chip">impartiality</span><span class="vocab-chip">nepotism</span><span class="vocab-chip">paternalism</span><span class="vocab-chip">philanthropy</span><span class="vocab-chip">relativism</span><span class="vocab-chip">reparation</span><span class="vocab-chip">utilitarianism</span><span class="vocab-chip">whistleblower</span></div>
+  <a class="play-link" href="ww_anagram_c1_ethics.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Formal</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">ascertain</span><span class="vocab-chip">commence</span><span class="vocab-chip">doable</span><span class="vocab-chip">end</span><span class="vocab-chip">endeavour</span><span class="vocab-chip">enough</span><span class="vocab-chip">facilitate</span><span class="vocab-chip">feasible</span><span class="vocab-chip">find out</span><span class="vocab-chip">help</span><span class="vocab-chip">main</span><span class="vocab-chip">negligible</span><span class="vocab-chip">next</span><span class="vocab-chip">predominant</span><span class="vocab-chip">start</span><span class="vocab-chip">subsequent</span><span class="vocab-chip">sufficient</span><span class="vocab-chip">terminate</span><span class="vocab-chip">tiny</span><span class="vocab-chip">try</span></div>
+  <a class="play-link" href="ww_categorize_c1_formal.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
     <div class="topic-name">Idioms</div>
     <div class="topic-meta">❓ Quiz · 10 words</div>
   </div>
@@ -628,11 +1142,59 @@ body {
 </div>
 <div class="topic-card">
   <div class="topic-header">
+    <div class="topic-name">Law</div>
+    <div class="topic-meta">🔗 Match Up · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">amnesty</span><span class="vocab-chip">arbitration</span><span class="vocab-chip">bylaws</span><span class="vocab-chip">compliance</span><span class="vocab-chip">constitution</span><span class="vocab-chip">embargo</span><span class="vocab-chip">extradition</span><span class="vocab-chip">indictment</span><span class="vocab-chip">injunction</span><span class="vocab-chip">jurisdiction</span><span class="vocab-chip">jurisprudence</span><span class="vocab-chip">liability</span><span class="vocab-chip">litigation</span><span class="vocab-chip">ombudsman</span><span class="vocab-chip">precedent</span><span class="vocab-chip">ratify</span><span class="vocab-chip">restitution</span><span class="vocab-chip">sovereignty</span><span class="vocab-chip">statute</span><span class="vocab-chip">tribunal</span></div>
+  <a class="play-link" href="ww_match_c1_law.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Linguistics</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">bilingualism</span><span class="vocab-chip">cognate</span><span class="vocab-chip">colloquial</span><span class="vocab-chip">connotation</span><span class="vocab-chip">creole</span><span class="vocab-chip">dialect</span><span class="vocab-chip">disambiguation</span><span class="vocab-chip">etymology</span><span class="vocab-chip">euphemism</span><span class="vocab-chip">inflection</span><span class="vocab-chip">lexicon</span><span class="vocab-chip">lingua franca</span><span class="vocab-chip">morphology</span><span class="vocab-chip">neologism</span><span class="vocab-chip">phonetics</span><span class="vocab-chip">pidgin</span><span class="vocab-chip">pragmatics</span><span class="vocab-chip">register</span><span class="vocab-chip">semantics</span><span class="vocab-chip">syntax</span></div>
+  <a class="play-link" href="ww_quiz_c1_linguistics.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Literature</div>
+    <div class="topic-meta">🧠 Memory · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">allegory</span><span class="vocab-chip">antagonist</span><span class="vocab-chip">dystopia</span><span class="vocab-chip">epitome</span><span class="vocab-chip">etymology</span><span class="vocab-chip">foreshadowing</span><span class="vocab-chip">genre</span><span class="vocab-chip">irony</span><span class="vocab-chip">metaphor</span><span class="vocab-chip">narrator</span><span class="vocab-chip">omniscient</span><span class="vocab-chip">oxymoron</span><span class="vocab-chip">paradox</span><span class="vocab-chip">plagiarism</span><span class="vocab-chip">prose</span><span class="vocab-chip">protagonist</span><span class="vocab-chip">rhetoric</span><span class="vocab-chip">satire</span><span class="vocab-chip">utopia</span><span class="vocab-chip">verse</span></div>
+  <a class="play-link" href="ww_memory_c1_literature.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Media</div>
+    <div class="topic-meta">❓ Quiz · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">algorithm</span><span class="vocab-chip">clickbait</span><span class="vocab-chip">corroborate</span><span class="vocab-chip">disinformation</span><span class="vocab-chip">editorial</span><span class="vocab-chip">embargo</span><span class="vocab-chip">investigative</span><span class="vocab-chip">libel</span><span class="vocab-chip">objectivity</span><span class="vocab-chip">paparazzi</span><span class="vocab-chip">plurality</span><span class="vocab-chip">press freedom</span><span class="vocab-chip">propaganda</span><span class="vocab-chip">redaction</span><span class="vocab-chip">retraction</span><span class="vocab-chip">satire</span><span class="vocab-chip">sensationalism</span><span class="vocab-chip">spin</span><span class="vocab-chip">syndication</span><span class="vocab-chip">whistleblower</span></div>
+  <a class="play-link" href="ww_quiz_c1_media.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Medicine</div>
+    <div class="topic-meta">🔗 Match Up · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">acute</span><span class="vocab-chip">antibody</span><span class="vocab-chip">asymptomatic</span><span class="vocab-chip">benign</span><span class="vocab-chip">chronic</span><span class="vocab-chip">contraindication</span><span class="vocab-chip">diagnosis</span><span class="vocab-chip">dosage</span><span class="vocab-chip">incubation</span><span class="vocab-chip">inflammatory</span><span class="vocab-chip">malignant</span><span class="vocab-chip">morbidity</span><span class="vocab-chip">mortality</span><span class="vocab-chip">palliative</span><span class="vocab-chip">pathogen</span><span class="vocab-chip">placebo</span><span class="vocab-chip">prognosis</span><span class="vocab-chip">rehabilitation</span><span class="vocab-chip">remission</span><span class="vocab-chip">triage</span></div>
+  <a class="play-link" href="ww_match_c1_medicine.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
     <div class="topic-name">Philosophy</div>
     <div class="topic-meta">🔤 Anagram · 14 words</div>
   </div>
   <div class="vocab-chips"><span class="vocab-chip">altruism</span><span class="vocab-chip">determinism</span><span class="vocab-chip">dialectic</span><span class="vocab-chip">dualism</span><span class="vocab-chip">empiricism</span><span class="vocab-chip">ethics</span><span class="vocab-chip">hedonism</span><span class="vocab-chip">metaphysics</span><span class="vocab-chip">nihilism</span><span class="vocab-chip">pragmatism</span><span class="vocab-chip">relativism</span><span class="vocab-chip">solipsism</span><span class="vocab-chip">stoicism</span><span class="vocab-chip">utopia</span></div>
   <a class="play-link" href="ww_anagram_c1_philosophy.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Psychology</div>
+    <div class="topic-meta">🧠 Memory · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">amygdala</span><span class="vocab-chip">catharsis</span><span class="vocab-chip">cognition</span><span class="vocab-chip">cognitive dissonance</span><span class="vocab-chip">conditioning</span><span class="vocab-chip">confirmation bias</span><span class="vocab-chip">cortisol</span><span class="vocab-chip">desensitisation</span><span class="vocab-chip">displacement</span><span class="vocab-chip">dopamine</span><span class="vocab-chip">groupthink</span><span class="vocab-chip">heuristic</span><span class="vocab-chip">implicit bias</span><span class="vocab-chip">metacognition</span><span class="vocab-chip">neuroplasticity</span><span class="vocab-chip">prefrontal cortex</span><span class="vocab-chip">projection</span><span class="vocab-chip">psychosomatic</span><span class="vocab-chip">rationalisation</span><span class="vocab-chip">sublimation</span></div>
+  <a class="play-link" href="ww_memory_c1_psychology.html">Play this game →</a>
 </div>
 <div class="topic-card">
   <div class="topic-header">
@@ -650,12 +1212,38 @@ body {
   <div class="vocab-chips"><span class="vocab-chip">catalyst</span><span class="vocab-chip">entropy</span><span class="vocab-chip">enzyme</span><span class="vocab-chip">erosion</span><span class="vocab-chip">genome</span><span class="vocab-chip">inertia</span><span class="vocab-chip">isotope</span><span class="vocab-chip">magma</span><span class="vocab-chip">mitosis</span><span class="vocab-chip">mutation</span><span class="vocab-chip">oxidation</span><span class="vocab-chip">photon</span><span class="vocab-chip">polymer</span><span class="vocab-chip">quantum</span><span class="vocab-chip">relativity</span><span class="vocab-chip">seismic</span><span class="vocab-chip">solvent</span><span class="vocab-chip">stratosphere</span><span class="vocab-chip">symbiosis</span><span class="vocab-chip">tectonic</span></div>
   <a class="play-link" href="ww_categorize_c1_science.html">Play this game →</a>
 </div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Sociology</div>
+    <div class="topic-meta">🔤 Anagram · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">alienation</span><span class="vocab-chip">assimilation</span><span class="vocab-chip">bureaucracy</span><span class="vocab-chip">capitalism</span><span class="vocab-chip">conformity</span><span class="vocab-chip">demography</span><span class="vocab-chip">deviance</span><span class="vocab-chip">diaspora</span><span class="vocab-chip">egalitarian</span><span class="vocab-chip">emancipation</span><span class="vocab-chip">gentrification</span><span class="vocab-chip">globalisation</span><span class="vocab-chip">hegemony</span><span class="vocab-chip">meritocracy</span><span class="vocab-chip">patriarchy</span><span class="vocab-chip">pluralism</span><span class="vocab-chip">secularism</span><span class="vocab-chip">socialism</span><span class="vocab-chip">stigma</span><span class="vocab-chip">stratification</span></div>
+  <a class="play-link" href="ww_anagram_c1_sociology.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Technology</div>
+    <div class="topic-meta">🔗 Match Up · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">algorithm</span><span class="vocab-chip">artificial intelligence</span><span class="vocab-chip">augmented reality</span><span class="vocab-chip">automation</span><span class="vocab-chip">big data</span><span class="vocab-chip">biometrics</span><span class="vocab-chip">blockchain</span><span class="vocab-chip">cloud computing</span><span class="vocab-chip">cryptocurrency</span><span class="vocab-chip">cybersecurity</span><span class="vocab-chip">disruptive</span><span class="vocab-chip">interoperability</span><span class="vocab-chip">machine learning</span><span class="vocab-chip">nanotechnology</span><span class="vocab-chip">obsolete</span><span class="vocab-chip">open source</span><span class="vocab-chip">patent</span><span class="vocab-chip">prototype</span><span class="vocab-chip">quantum computing</span><span class="vocab-chip">scalability</span></div>
+  <a class="play-link" href="ww_match_c1_technology.html">Play this game →</a>
+</div>
+<div class="topic-card">
+  <div class="topic-header">
+    <div class="topic-name">Wordformation</div>
+    <div class="topic-meta">📦 Categorize · 20 words</div>
+  </div>
+  <div class="vocab-chips"><span class="vocab-chip">accountability</span><span class="vocab-chip">acknowledgement</span><span class="vocab-chip">anonymity</span><span class="vocab-chip">consciousness</span><span class="vocab-chip">deterioration</span><span class="vocab-chip">disillusion</span><span class="vocab-chip">empowerment</span><span class="vocab-chip">endorsement</span><span class="vocab-chip">feasibility</span><span class="vocab-chip">implementation</span><span class="vocab-chip">irreversible</span><span class="vocab-chip">jurisdiction</span><span class="vocab-chip">misconception</span><span class="vocab-chip">noncompliant</span><span class="vocab-chip">procurement</span><span class="vocab-chip">proliferation</span><span class="vocab-chip">ramification</span><span class="vocab-chip">reimbursement</span><span class="vocab-chip">unprecedented</span><span class="vocab-chip">vulnerability</span></div>
+  <a class="play-link" href="ww_categorize_c1_wordformation.html">Play this game →</a>
+</div>
 </div>
 </div>
 
 
 <div class="back-bar">
   <a class="back-link" href="wordwall_dashboard.html">← Back to Word Wall Dashboard</a>
+</div>
+
 </div>
 
 <script>
@@ -667,7 +1255,10 @@ function showLevel(level) {
     s.classList.toggle('visible', s.id === 'level-' + level);
   });
   document.querySelectorAll('.level-tab').forEach(t => {
-    t.classList.toggle('active', t.dataset.level === level);
+    const isActive = t.dataset.level === level;
+    t.classList.toggle('active', isActive);
+    if (isActive) { t.style.background = t.style.borderColor; }
+    else { t.style.background = '#fff'; }
   });
   document.querySelector('.show-all-btn').classList.remove('active');
   document.getElementById('searchInput').value = '';
@@ -677,7 +1268,10 @@ function showLevel(level) {
 function showAll() {
   currentLevel = 'all';
   document.querySelectorAll('.level-section').forEach(s => s.classList.add('visible'));
-  document.querySelectorAll('.level-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.level-tab').forEach(t => {
+    t.classList.remove('active');
+    t.style.background = '#fff';
+  });
   document.querySelector('.show-all-btn').classList.add('active');
   document.getElementById('searchInput').value = '';
   clearSearch();
@@ -692,12 +1286,9 @@ function clearSearch() {
 function searchWords() {
   const q = document.getElementById('searchInput').value.trim().toLowerCase();
   if (!q) { clearSearch(); return; }
-
-  // Show all levels when searching
   document.querySelectorAll('.level-section').forEach(s => s.classList.add('visible'));
-  document.querySelectorAll('.level-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.level-tab').forEach(t => { t.classList.remove('active'); t.style.background = '#fff'; });
   document.querySelector('.show-all-btn').classList.add('active');
-
   let matchCount = 0;
   document.querySelectorAll('.topic-card').forEach(card => {
     const chips = card.querySelectorAll('.vocab-chip');
@@ -709,15 +1300,13 @@ function searchWords() {
     });
     card.classList.toggle('hidden', !hasMatch);
   });
-
   const res = document.getElementById('searchResults');
   res.style.display = 'block';
   res.textContent = matchCount === 0 ? 'No words found' : matchCount + ' word' + (matchCount !== 1 ? 's' : '') + ' found';
 }
 
-// Init: show all
 showAll();
 </script>
-
+</div>
 </body>
 </html>
