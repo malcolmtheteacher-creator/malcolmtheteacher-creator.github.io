@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Scenario Practice | Malcolm Hyndman</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --off-white: #f8f7f4;
+  --warm-gray: #e8e6e1;
+  --mid-gray: #6b6b6b;
+  --accent: #1e3a2f;
+  --accent-light: #2c5530;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--white);
+  color: var(--black);
+  line-height: 1.6;
+  font-size: 17px;
+}
+
+.lesson-header {
+  color: white;
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.lesson-meta {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.lesson-badge {
+  font-size: 0.75rem;
+  padding: 5px 12px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lesson-header h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.lesson-subtitle {
+  opacity: 0.9;
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Tabs */
+.tab-nav {
+  display: flex;
+  background: var(--off-white);
+  border-bottom: 1px solid var(--warm-gray);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tab-btn {
+  flex: 1;
+  min-width: 100px;
+  padding: 15px 20px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--mid-gray);
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover { color: var(--black); background: var(--warm-gray); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--white); }
+
+.tab-content {
+  display: none;
+  padding: 40px 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  min-height: 500px;
+}
+
+.tab-content.active { display: block; }
+
+.tab-content h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin-bottom: 25px;
+  color: var(--accent);
+}
+
+.tab-content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 30px 0 15px;
+}
+
+.tab-content p { margin-bottom: 20px; line-height: 1.8; }
+
+/* Framework */
+.framework-box {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 30px;
+  margin: 30px 0;
+}
+
+.framework-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.framework-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 15px;
+}
+
+.framework-step {
+  background: white;
+  padding: 18px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.framework-step .letter {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  line-height: 36px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.framework-step .word { display: block; font-weight: 600; margin-bottom: 4px; font-size: 0.9rem; }
+.framework-step .desc { font-size: 0.8rem; color: var(--mid-gray); }
+
+/* Phrase Bank */
+.phrase-bank {
+  background: var(--off-white);
+  border-radius: 12px;
+  padding: 25px;
+  margin: 25px 0;
+}
+
+.phrase-bank h4 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 15px;
+}
+
+.phrase-item {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border-left: 4px solid var(--accent);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.phrase-item:hover { transform: translateX(5px); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.phrase-text { font-weight: 500; margin-bottom: 5px; }
+.phrase-context { font-size: 0.85rem; color: var(--mid-gray); display: none; }
+.phrase-item.expanded .phrase-context { display: block; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--warm-gray); }
+
+/* Comparison */
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 25px 0; }
+.comparison-card { padding: 25px; border-radius: 12px; }
+.comparison-card.weak { background: #fef2f2; border: 2px solid #fecaca; }
+.comparison-card.strong { background: #f0fdf4; border: 2px solid #bbf7d0; }
+.comparison-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 15px; }
+.comparison-card.weak .comparison-label { color: #dc2626; }
+.comparison-card.strong .comparison-label { color: #16a34a; }
+.comparison-text { font-style: italic; line-height: 1.7; }
+
+/* Scenario Box */
+.scenario-box {
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 30px;
+  margin: 25px 0;
+}
+
+.scenario-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #2563eb; margin-bottom: 15px; }
+.scenario-context { font-style: italic; color: var(--mid-gray); margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--warm-gray); }
+
+/* Response Area */
+.response-area { margin: 25px 0; }
+.response-area textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 20px;
+  border: 2px solid var(--warm-gray);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.6;
+  resize: vertical;
+  transition: border-color 0.3s;
+}
+.response-area textarea:focus { outline: none; border-color: var(--accent); }
+
+/* Timer */
+.timer-container { text-align: center; margin: 30px 0; }
+.timer-display { font-size: 3rem; font-weight: 300; color: var(--accent); margin-bottom: 20px; }
+.timer-display.warning { color: #f59e0b; }
+.timer-display.danger { color: #dc2626; animation: pulse 1s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.timer-buttons { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+
+.timer-btn, .action-btn {
+  padding: 12px 25px;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 8px;
+}
+
+.timer-btn:hover, .action-btn:hover { background: var(--accent); color: white; }
+.timer-btn.active, .action-btn.primary { background: var(--accent); color: white; }
+.action-btn { margin: 10px 5px 10px 0; }
+.action-btn.secondary { background: transparent; color: var(--accent); }
+
+/* Model Answer */
+.model-answer {
+  background: #f0fdf4;
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 25px;
+  margin: 25px 0;
+  display: none;
+}
+.model-answer.visible { display: block; }
+.model-answer-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 15px; }
+.model-answer-text { line-height: 1.8; font-style: italic; }
+
+/* Summary */
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 25px 0; }
+.summary-card { background: var(--off-white); padding: 25px; border-radius: 12px; text-align: center; }
+.summary-card .icon { font-size: 2rem; margin-bottom: 10px; }
+.summary-card h4 { font-size: 1rem; margin-bottom: 10px; }
+.summary-card p { font-size: 0.9rem; color: var(--mid-gray); margin: 0; }
+
+/* Nav */
+.nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--warm-gray); }
+.nav-btn { padding: 14px 30px; border: none; font-family: inherit; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; border-radius: 8px; }
+.nav-btn.prev { background: var(--off-white); color: var(--black); }
+.nav-btn.prev:hover { background: var(--warm-gray); }
+.nav-btn.next { background: var(--accent); color: white; }
+.nav-btn.next:hover { background: var(--accent-light); }
+.nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+blockquote { background: var(--off-white); border-left: 4px solid var(--accent); padding: 20px 25px; margin: 25px 0; font-style: italic; }
+.highlight { background: linear-gradient(transparent 60%, #fef08a 60%); padding: 0 2px; }
+
+/* Footer */
+.lesson-footer { background: var(--black); color: white; padding: 40px 30px; text-align: center; }
+.footer-cta { font-family: 'Instrument Serif', serif; font-size: 1.3rem; margin-bottom: 20px; }
+.footer-btn { display: inline-block; background: white; color: var(--black); padding: 14px 35px; text-decoration: none; font-weight: 600; border-radius: 8px; transition: all 0.3s; }
+.footer-btn:hover { background: var(--off-white); }
+.footer-back { display: block; margin-top: 20px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; }
+.footer-back:hover { color: white; }
+
+/* Not Found */
+.not-found { max-width: 600px; margin: 80px auto; text-align: center; padding: 40px; }
+.not-found h1 { font-family: 'Instrument Serif', serif; font-size: 2.5rem; margin-bottom: 20px; }
+.not-found a { color: var(--accent); }
+
+@media (max-width: 768px) {
+  .lesson-header { padding: 30px 20px; }
+  .lesson-header h1 { font-size: 1.6rem; }
+  .tab-content { padding: 30px 20px; }
+  .framework-steps { grid-template-columns: 1fr; }
+  .comparison { grid-template-columns: 1fr; }
+  .nav-buttons { flex-direction: column; gap: 10px; }
+  .nav-btn { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+// ═══════════════════════════════════════════
+// SECTOR DATA
+// ═══════════════════════════════════════════
+const sectors = [
+  { id:"A", name:"Professional Services", subsectors:[
+    {id:"A1",name:"Consulting"},{id:"A2",name:"Legal"},{id:"A3",name:"Accounting & Audit"},{id:"A4",name:"Recruitment & HR Services"}
+  ]},
+  { id:"B", name:"Technology & Engineering", subsectors:[
+    {id:"B1",name:"Software Development"},{id:"B2",name:"IT & Systems"},{id:"B3",name:"Product Management"},{id:"B4",name:"Data & Analytics"},{id:"B5",name:"Engineering"}
+  ]},
+  { id:"C", name:"Finance & Banking", subsectors:[
+    {id:"C1",name:"Investment Banking"},{id:"C2",name:"Asset Management"},{id:"C3",name:"Retail Banking"},{id:"C4",name:"Insurance"},{id:"C5",name:"Fintech"}
+  ]},
+  { id:"D", name:"Healthcare & Life Sciences", subsectors:[
+    {id:"D1",name:"Clinical / Medical Practice"},{id:"D2",name:"Pharmaceuticals"},{id:"D3",name:"Medical Devices"},{id:"D4",name:"Healthcare Administration"},{id:"D5",name:"Research & Biotech"}
+  ]},
+  { id:"E", name:"Creative & Media", subsectors:[
+    {id:"E1",name:"Advertising & Marketing"},{id:"E2",name:"Publishing"},{id:"E3",name:"Broadcasting & Production"},{id:"E4",name:"Design"}
+  ]},
+  { id:"F", name:"Manufacturing & Industry", subsectors:[
+    {id:"F1",name:"Production & Operations"},{id:"F2",name:"Quality & Compliance"},{id:"F3",name:"Supply Chain & Procurement"},{id:"F4",name:"Logistics & Distribution"}
+  ]},
+  { id:"G", name:"Retail & Consumer", subsectors:[
+    {id:"G1",name:"Retail Operations"},{id:"G2",name:"E-commerce"},{id:"G3",name:"Hospitality & Travel"},{id:"G4",name:"Consumer Goods / FMCG"}
+  ]},
+  { id:"H", name:"Energy & Infrastructure", subsectors:[
+    {id:"H1",name:"Oil & Gas"},{id:"H2",name:"Renewables"},{id:"H3",name:"Utilities"},{id:"H4",name:"Construction & Property"}
+  ]},
+  { id:"I", name:"Public Sector & Non-Profit", subsectors:[
+    {id:"I1",name:"Government & Civil Service"},{id:"I2",name:"NGOs & Charities"},{id:"I3",name:"Education & Academia"},{id:"I4",name:"International Organisations"}
+  ]}
+];
+
+const functions = [
+  {id:1, name:"Client-Facing / Account Management", short:"Client-Facing"},
+  {id:2, name:"Technical / Specialist", short:"Technical"},
+  {id:3, name:"Operations & Systems", short:"Operations"},
+  {id:4, name:"Sales & Business Development", short:"Sales"},
+  {id:5, name:"Project & Programme Management", short:"Project Management"},
+  {id:6, name:"Leadership & Strategy", short:"Leadership"},
+  {id:7, name:"Support & Service", short:"Support"}
+];
+
+// All 276 scenarios
+const scenarios = {
+  "A1-1":"Resetting expectations when a project is behind schedule","A1-2":"Explaining methodology limitations to a client who expected definitive answers","A1-3":"Briefing the home office on resource conflicts across multiple engagements","A1-4":"Pitching follow-on work without seeming like you're inventing problems","A1-5":"Running a steering committee when the client sponsor is disengaged","A1-6":"Giving developmental feedback to a high-performing but difficult consultant","A1-7":"Handling a client complaint about junior team member performance",
+  "A2-1":"Delivering unwelcome legal advice without destroying the relationship","A2-2":"Explaining regulatory risk to business colleagues who just want a yes or no","A2-3":"Coordinating across practice groups on a multi-jurisdictional matter","A2-4":"Following up on a pitch without seeming desperate","A2-5":"Managing a due diligence process when the deal timeline keeps shifting","A2-6":"Addressing associate burnout without promising what you can't deliver","A2-7":"Responding to a client who's frustrated with billing",
+  "A3-1":"Discussing a material weakness finding with a defensive CFO","A3-2":"Explaining new accounting standards to clients who don't see why it matters","A3-3":"Managing audit fieldwork when client staff are unresponsive","A3-4":"Pitching advisory services to an existing audit client","A3-5":"Keeping a complex engagement on track when scope keeps expanding","A3-6":"Having a performance conversation with an underperforming senior","A3-7":"De-escalating a dispute about audit fees",
+  "A4-1":"Telling a client their preferred candidate didn't pass references","A4-2":"Explaining why a 'perfect match' candidate isn't actually right for the role","A4-3":"Managing expectations when a search is taking longer than promised","A4-4":"Pitching recruitment services to a sceptical hiring manager","A4-5":"Coordinating between multiple hiring managers with conflicting requirements","A4-6":"Addressing high turnover in your own recruitment team","A4-7":"Handling a candidate complaint about the interview process",
+  "B1-1":"Explaining to product why the feature they want will take 3x longer than they think","B1-2":"Communicating technical debt to business stakeholders","B1-3":"Reporting a production incident to leadership without causing panic","B1-4":"Pitching a new technology stack to a conservative CTO","B1-5":"Estimating timelines when requirements keep changing","B1-6":"Giving feedback to a talented developer who won't collaborate","B1-7":"Responding to an angry user who found a critical bug in production",
+  "B2-1":"Explaining a major system outage to non-technical leadership","B2-2":"Justifying infrastructure spending to a cost-cutting CFO","B2-3":"Managing an upgrade project that's disrupting daily operations","B2-4":"Selling managed services to a company that wants to do everything in-house","B2-5":"Running a post-mortem without it becoming a blame session","B2-6":"Telling your team about a reorganisation that affects their roles","B2-7":"Handling a frustrated user who's been waiting weeks for a fix",
+  "B3-1":"Saying no to the CEO's pet feature without damaging the relationship","B3-2":"Explaining why you're killing a feature that customers love but data says isn't working","B3-3":"Presenting a missed target to the leadership team","B3-4":"Pitching a pivot to investors who backed your original direction","B3-5":"Managing competing priorities from engineering, design, and sales","B3-6":"Giving feedback to a designer whose work isn't meeting the bar","B3-7":"Responding to a power user who's threatening to churn over a feature removal",
+  "B4-1":"Presenting findings that contradict what leadership wants to hear","B4-2":"Explaining statistical uncertainty to people who want definitive answers","B4-3":"Coordinating a data migration when business won't pause operations","B4-4":"Selling a data platform investment to budget-conscious leadership","B4-5":"Managing a project when data quality issues keep derailing timelines","B4-6":"Having a difficult conversation about a team member's analytical errors","B4-7":"Responding to a business user who's built reports on flawed assumptions",
+  "B5-1":"Telling a client their design expectations are physically impossible","B5-2":"Explaining a safety margin decision that adds cost and time","B5-3":"Coordinating between site team and head office when priorities conflict","B5-4":"Winning a contract against a competitor who's underbid you significantly","B5-5":"Managing a construction delay caused by factors outside your control","B5-6":"Addressing poor workmanship by a subcontractor without destroying the relationship","B5-7":"Handling a resident complaint about noise and disruption",
+  "C1-1":"Managing client expectations during a market downturn","C1-2":"Explaining a complex financial product to a client who doesn't understand the risks","C1-3":"Coordinating across teams on a deal when internal politics are complicating things","C1-4":"Pitching for a mandate against a larger, more established competitor","C1-5":"Managing a deal timeline when the regulatory process is taking longer than expected","C1-6":"Delivering negative performance feedback to a high-revenue-generating MD","C1-7":"Handling a client who's angry about losses they were warned about",
+  "C2-1":"Telling a major client their portfolio is underperforming","C2-2":"Explaining why you're recommending a strategy change that contradicts your previous advice","C2-3":"Managing reporting obligations when market conditions are volatile","C2-4":"Pitching a new fund to institutional investors who've never heard of you","C2-5":"Keeping a fund launch on track when compliance keeps finding issues","C2-6":"Addressing retention concerns with a star analyst who has competing offers","C2-7":"Responding to a client who wants to withdraw everything after a bad quarter",
+  "C3-1":"Explaining a mortgage rejection to an upset customer","C3-2":"Communicating a policy change that will frustrate existing customers","C3-3":"Managing a branch through a system migration that's affecting service","C3-4":"Selling financial products ethically when targets are aggressive","C3-5":"Running a branch renovation project while maintaining normal service","C3-6":"Having a conversation with a team member about compliance breaches","C3-7":"De-escalating an angry customer in a public branch environment",
+  "C4-1":"Explaining a claim denial to a policyholder who thinks they're covered","C4-2":"Communicating rate increases without losing the client","C4-3":"Coordinating a complex claim across multiple parties and adjusters","C4-4":"Cross-selling additional coverage without seeming opportunistic","C4-5":"Managing a claims backlog during a catastrophe event","C4-6":"Addressing underperformance in a broker relationship","C4-7":"Handling a complaint that's escalated to the regulator",
+  "C5-1":"Explaining to a corporate client why integration will take longer than your sales team promised","C5-2":"Communicating a security incident to users and regulators","C5-3":"Managing a product rollout across multiple markets with different regulations","C5-4":"Pitching to a traditional bank that sees you as a threat rather than a partner","C5-5":"Prioritising features when your biggest client wants something different from your roadmap","C5-6":"Telling your founding team that roles need to change as the company scales","C5-7":"Handling user complaints about a UI change they hate",
+  "D1-1":"Breaking bad news to a patient about test results","D1-2":"Explaining a treatment plan to a patient who's read conflicting information online","D1-3":"Coordinating care handover between departments with communication gaps","D1-4":"Persuading hospital administration to approve new equipment","D1-5":"Managing a department when budget cuts mean reducing services","D1-6":"Giving feedback to a colleague whose bedside manner is causing complaints","D1-7":"Handling a patient complaint about waiting times",
+  "D2-1":"Presenting mixed trial results to a board expecting good news","D2-2":"Explaining why a promising compound needs to go back to earlier testing","D2-3":"Coordinating a global clinical trial across sites with different standards","D2-4":"Pitching a partnership to a company that's had bad experiences with pharma partners","D2-5":"Managing a drug launch timeline when regulatory approval is delayed","D2-6":"Addressing morale in a team after a major project cancellation","D2-7":"Responding to an HCP who's concerned about side effects your reps downplayed",
+  "D3-1":"Explaining a product recall to healthcare providers who rely on your device","D3-2":"Communicating design limitations to surgeons who want more features","D3-3":"Managing a cross-functional team during a regulatory submission","D3-4":"Selling a premium device when the hospital is pushing for the cheapest option","D3-5":"Keeping a product launch on track when manufacturing issues arise","D3-6":"Having a performance conversation with a rep who's falsifying call reports","D3-7":"Handling a complaint from a surgeon about device failure during a procedure",
+  "D4-1":"Communicating service cuts to a community that depends on them","D4-2":"Explaining new compliance requirements to staff who see them as bureaucracy","D4-3":"Coordinating a hospital merger when staff are anxious about redundancies","D4-4":"Persuading donors to fund a programme that doesn't have obvious appeal","D4-5":"Managing an IT transformation while maintaining patient care","D4-6":"Addressing burnout in your management team without acknowledging your own","D4-7":"Responding to a family complaint about end-of-life care",
+  "D5-1":"Presenting unexpected research findings to a funder who expected different results","D5-2":"Explaining methodology limitations to a non-scientific review board","D5-3":"Coordinating between academic partners who have competing publication interests","D5-4":"Pitching for funding when your research area isn't currently fashionable","D5-5":"Managing a research timeline when key equipment is delayed","D5-6":"Giving feedback to a postdoc whose work ethic is affecting the whole lab","D5-7":"Handling an ethics complaint about your research methodology",
+  "E1-1":"Managing a client who keeps changing the creative brief","E1-2":"Explaining why the client's 'simple' request actually requires a complete rethink","E1-3":"Coordinating between creative, media, and account teams who blame each other","E1-4":"Pitching to a client who's been burned by agencies before","E1-5":"Delivering a campaign on time when the client's approvals process is glacial","E1-6":"Giving honest feedback to a creative director whose work isn't landing","E1-7":"Handling a client who's upset about campaign performance",
+  "E2-1":"Telling an author their manuscript needs major revisions","E2-2":"Explaining market realities to a debut author with unrealistic expectations","E2-3":"Coordinating a book launch across editorial, marketing, and sales","E2-4":"Pitching a book that doesn't fit neatly into existing categories","E2-5":"Managing production schedules when multiple titles are behind","E2-6":"Addressing a senior editor whose acquisitions consistently underperform","E2-7":"Handling a complaint from a bestselling author about their cover design",
+  "E3-1":"Telling a client their creative vision won't work within the budget","E3-2":"Explaining production constraints to a director who sees them as excuses","E3-3":"Managing a live production when technical problems threaten the broadcast","E3-4":"Pitching an original format to commissioners who want proven concepts","E3-5":"Keeping a production on schedule when talent availability keeps changing","E3-6":"Giving feedback to on-air talent about viewer complaints","E3-7":"Handling a public controversy about content you've broadcast",
+  "E4-1":"Presenting a design direction the client didn't expect or ask for","E4-2":"Explaining why 'make the logo bigger' is undermining the design","E4-3":"Coordinating between UX research, visual design, and engineering","E4-4":"Pitching a complete rebrand to a company attached to their current identity","E4-5":"Managing a design sprint when stakeholder feedback keeps contradicting itself","E4-6":"Giving feedback to a junior designer who's technically skilled but lacks conceptual thinking","E4-7":"Handling a client who wants to use AI-generated designs instead of paying for yours",
+  "F1-1":"Explaining a production delay to a customer with a firm delivery date","F1-2":"Communicating a new safety procedure that slows down the line","F1-3":"Coordinating between day and night shifts when handover communication keeps failing","F1-4":"Selling an automation solution to a workforce worried about job losses","F1-5":"Managing a factory move while maintaining production targets","F1-6":"Addressing consistent safety violations by an experienced operator","F1-7":"Handling a customer complaint about product quality",
+  "F2-1":"Telling a production manager their line is being shut down for non-compliance","F2-2":"Explaining a new regulation to operators who think it's unnecessary bureaucracy","F2-3":"Coordinating a product recall across multiple departments and markets","F2-4":"Persuading leadership to invest in compliance infrastructure before it's legally required","F2-5":"Managing an audit when you know you'll get findings","F2-6":"Addressing a quality manager who's been signing off on borderline results","F2-7":"Handling a regulatory inspector who's being unreasonable",
+  "F3-1":"Telling your manufacturing team their preferred supplier has been dropped","F3-2":"Explaining price increases to internal stakeholders who blame procurement","F3-3":"Coordinating a supplier switch without disrupting production","F3-4":"Negotiating better terms with a supplier who knows they're your only option","F3-5":"Managing a supply chain disruption that affects multiple product lines","F3-6":"Giving feedback to a buyer who consistently overpromises to internal stakeholders","F3-7":"Handling an ethical concern about a supplier's working conditions",
+  "F4-1":"Explaining a delivery failure to a key account","F4-2":"Communicating route changes to drivers who see them as management interference","F4-3":"Coordinating peak season operations across multiple warehouses","F4-4":"Selling a logistics partnership to a company that wants to keep everything in-house","F4-5":"Managing a warehouse relocation while maintaining service levels","F4-6":"Addressing persistent lateness and absence in the warehouse team","F4-7":"Handling a customer complaint about damaged goods",
+  "G1-1":"Explaining to head office why your store's numbers are down","G1-2":"Communicating a planogram change to staff who think they know their customers better","G1-3":"Coordinating a store refit while staying open for business","G1-4":"Selling a loyalty programme to customers who are sceptical about data sharing","G1-5":"Managing seasonal hiring when your budget has been cut","G1-6":"Giving feedback to a long-serving team member whose customer service has slipped","G1-7":"De-escalating a confrontational customer in front of other shoppers",
+  "G2-1":"Explaining a price increase to customers on social media without starting a backlash","G2-2":"Communicating a data breach to customers and regulators","G2-3":"Coordinating a flash sale across marketing, logistics, and customer service","G2-4":"Pitching marketplace features to sellers who feel the platform is working against them","G2-5":"Managing a product launch when your supplier can't deliver on time","G2-6":"Addressing a team leader whose department has the highest complaint rate","G2-7":"Handling a viral negative review",
+  "G3-1":"Recovering a guest experience after a service failure","G3-2":"Explaining to a guest why their room isn't available despite a confirmed booking","G3-3":"Coordinating a large event when multiple departments aren't communicating","G3-4":"Upselling premium services without being pushy","G3-5":"Managing a renovation project while maintaining guest satisfaction","G3-6":"Having a conversation with a team member about personal hygiene","G3-7":"Handling an aggressive guest who's disturbing other customers",
+  "G4-1":"Telling a retailer you're discontinuing their best-selling product","G4-2":"Explaining a packaging change to consumers who loved the old design","G4-3":"Coordinating a product launch across manufacturing, marketing, and retail","G4-4":"Pitching a premium line to a retailer focused on value products","G4-5":"Managing a product recall while protecting brand reputation","G4-6":"Giving feedback to a brand manager whose campaigns keep missing targets","G4-7":"Responding to a social media campaign against one of your ingredients",
+  "H1-1":"Communicating a project overrun to partners who are watching every dollar","H1-2":"Explaining environmental impact data to regulators and community groups","H1-3":"Coordinating operations across onshore and offshore teams with limited connectivity","H1-4":"Pitching a joint venture to a national oil company","H1-5":"Managing a project when weather delays keep pushing back milestones","H1-6":"Addressing safety complacency in experienced crew members","H1-7":"Handling a community protest about your operations",
+  "H2-1":"Explaining why a project's ROI won't materialise as quickly as investors were told","H2-2":"Communicating grid connection delays to stakeholders who've already announced timelines","H2-3":"Coordinating between engineering, environmental, and community relations teams","H2-4":"Selling a renewable energy solution to a company that thinks it's too expensive","H2-5":"Managing a wind/solar farm project when planning permissions are delayed","H2-6":"Giving feedback to a project manager who overpromises on timelines","H2-7":"Responding to local opposition to a renewable energy installation",
+  "H3-1":"Explaining a rate increase to residential customers","H3-2":"Communicating planned outages to businesses that can't afford downtime","H3-3":"Coordinating emergency response across multiple utility teams","H3-4":"Selling smart grid solutions to municipalities resistant to change","H3-5":"Managing a network upgrade that's more disruptive than originally planned","H3-6":"Addressing a team leader who's failing to report safety incidents","H3-7":"Handling a media enquiry about service failures during extreme weather",
+  "H4-1":"Telling a client their project is significantly over budget","H4-2":"Explaining building code requirements to a client who sees them as obstacles","H4-3":"Coordinating subcontractors who are blaming each other for delays","H4-4":"Winning a contract when the client's priority is lowest price","H4-5":"Managing a development when planning conditions keep changing","H4-6":"Addressing poor workmanship on site without losing the subcontractor","H4-7":"Handling a homeowner complaint about construction noise and disruption",
+  "I1-1":"Briefing a minister on a policy failure they need to announce publicly","I1-2":"Explaining a policy change to citizens who see it as unfair","I1-3":"Coordinating across departments that have different priorities and budgets","I1-4":"Persuading leadership to adopt a new digital service","I1-5":"Managing a procurement process that's fallen behind schedule","I1-6":"Giving feedback to a senior colleague who's resistant to change","I1-7":"Handling a citizen complaint that's been escalated to the press",
+  "I2-1":"Telling donors a project hasn't achieved its intended impact","I2-2":"Explaining to beneficiaries why a programme is being cut","I2-3":"Coordinating between field teams and head office when priorities diverge","I2-4":"Pitching to a corporate sponsor whose values don't perfectly align with yours","I2-5":"Managing a grant timeline when partner organisations keep missing deadlines","I2-6":"Addressing staff burnout and compassion fatigue in a small team","I2-7":"Handling a media story that misrepresents your organisation's work",
+  "I3-1":"Presenting research findings that challenge your funder's assumptions","I3-2":"Explaining why your research methodology is rigorous to a sceptical funder","I3-3":"Coordinating a multi-institution research project when partners aren't pulling their weight","I3-4":"Pitching for funding when your research area isn't currently fashionable","I3-5":"Managing student expectations when the course isn't going as planned","I3-6":"Giving feedback to a tenured colleague whose teaching evaluations are consistently poor","I3-7":"Handling a student complaint about grading fairness",
+  "I4-1":"Presenting a programme evaluation that shows limited impact to member states","I4-2":"Explaining bureaucratic delays to field staff who need resources now","I4-3":"Coordinating across agencies with overlapping mandates and competing agendas","I4-4":"Pitching a new initiative to sceptical donor governments","I4-5":"Managing a complex multi-country project when political conditions keep shifting","I4-6":"Addressing team dysfunction in a culturally diverse office","I4-7":"Handling a whistleblower allegation about programme mismanagement"
+};
+
+// ═══════════════════════════════════════════
+// FUNCTION-TYPE TEACHING CONTENT (7 types)
+// ═══════════════════════════════════════════
+const functionTeaching = {
+  1: { // Client-Facing
+    framework: {name:"RESET", steps:[
+      {l:"R",w:"Recognise",d:"Acknowledge their frustration before anything else"},
+      {l:"E",w:"Explain",d:"Give the reason — briefly, no excuses"},
+      {l:"S",w:"Solutions",d:"Present 2-3 options, not just one"},
+      {l:"E",w:"Empathise",d:"Show you understand the impact on them"},
+      {l:"T",w:"Timeline",d:"Commit to specific next steps with dates"}
+    ]},
+    phrases:[
+      {cat:"Opening with Empathy", items:[
+        {t:"\"I understand this isn't the update you were hoping for, and I want to be upfront with you.\"", c:"Opens with honesty. Shows respect. Avoids defensive language."},
+        {t:"\"Before I walk you through the options, I want to acknowledge that this affects your planning.\"", c:"Shows you understand the business impact, not just the task."},
+        {t:"\"I'd rather tell you now and give us time to adjust than surprise you closer to the deadline.\"", c:"Reframes early communication as a strength, not a failure."}
+      ]},
+      {cat:"Presenting Options", items:[
+        {t:"\"We have a few paths forward. Let me walk you through the trade-offs of each.\"", c:"Positions you as a problem-solver, not a problem-reporter."},
+        {t:"\"Option A gets us there fastest but with some compromises. Option B takes longer but delivers everything. Which matters more right now?\"", c:"Gives the client control. They choose; you advise."},
+        {t:"\"If we adjust the scope slightly, we can still hit the original timeline. Would that work for you?\"", c:"Shows flexibility without promising the impossible."}
+      ]},
+      {cat:"Handling Pushback", items:[
+        {t:"\"That's a fair concern. Let me address that specifically.\"", c:"Validates without agreeing or caving. Buys you time to respond well."},
+        {t:"\"I hear you. The reason I'm recommending this approach is...\"", c:"Acknowledges their point, then redirects to your expertise."}
+      ]}
+    ],
+    weak:{label:"What Most People Say",text:"\"Sorry, we're running a bit behind. There were some issues. We'll try to catch up. I'll keep you posted.\""},
+    strong:{label:"What the Client Actually Thinks",text:"\"Vague. No details. No plan. 'Try to catch up' means they don't know. 'Keep you posted' means I'll have to chase them. I'm worried now.\""},
+    sim_context:"Your project was supposed to deliver Phase 1 by end of month. You've just realised it will take 2 more weeks. The client has a board presentation scheduled around the original date.",
+    sim_prompt:"Write a message to your client informing them about the delay and proposing a path forward.",
+    summary:[
+      {icon:"🎯",title:"Honesty First",desc:"Tell them early. Surprises are worse than bad news."},
+      {icon:"🔄",title:"Options, Not Excuses",desc:"Always present solutions alongside the problem."},
+      {icon:"🤝",title:"Their Perspective",desc:"Frame everything in terms of impact on them."},
+      {icon:"📅",title:"Specific Commitments",desc:"Dates and actions, not vague reassurances."}
+    ]
+  },
+  2: { // Technical / Specialist
+    framework: {name:"CLEAR", steps:[
+      {l:"C",w:"Context",d:"Start with what they already know"},
+      {l:"L",w:"Layman terms",d:"Translate jargon into business language"},
+      {l:"E",w:"Evidence",d:"Use numbers and concrete examples"},
+      {l:"A",w:"Acknowledge limits",d:"Be honest about uncertainty"},
+      {l:"R",w:"Recommend",d:"End with a clear recommendation"}
+    ]},
+    phrases:[
+      {cat:"Translating Complexity", items:[
+        {t:"\"In practical terms, what this means for us is...\"", c:"Bridges from technical detail to business impact."},
+        {t:"\"Think of it like [analogy]. The key difference is...\"", c:"Analogies do 90% of the explanation work."},
+        {t:"\"The simplest way to think about this is...\"", c:"Signals you're about to make it accessible, not dumb it down."}
+      ]},
+      {cat:"Presenting Evidence", items:[
+        {t:"\"The data shows three things. First...\"", c:"Numbered structure helps non-experts follow complex information."},
+        {t:"\"Based on what we've seen so far, our confidence level is about [X]%.\"", c:"Quantifying uncertainty is more useful than hiding it."},
+        {t:"\"Here's what we know for certain, and here's what we're still investigating.\"", c:"Separates facts from hypotheses. Builds trust."}
+      ]},
+      {cat:"Handling 'Just Give Me the Answer'", items:[
+        {t:"\"The short answer is [X]. The reason it's not quite that simple is...\"", c:"Gives them what they want, then adds the nuance they need."},
+        {t:"\"If I had to make the call today, I'd say [X]. But here's what could change that.\"", c:"Shows decisiveness while being honest about uncertainty."}
+      ]}
+    ],
+    weak:{label:"What Specialists Often Say",text:"\"The results show a statistically significant correlation (p<0.05) between the two variables, though the effect size is moderate and there are several confounding factors we need to control for in the next phase.\""},
+    strong:{label:"What Non-Experts Actually Hear",text:"\"Numbers I don't understand. Something is significant but also moderate? And there are problems? I can't tell if this is good news or bad news. I'll just nod and ask someone else later.\""},
+    sim_context:"You've completed an analysis that shows mixed results. Your leadership team needs to make a decision this week about whether to proceed, pause, or change direction.",
+    sim_prompt:"Write a summary for leadership that explains your findings clearly and gives them what they need to decide.",
+    summary:[
+      {icon:"🌉",title:"Bridge the Gap",desc:"Start from what they know. Build towards what they need to know."},
+      {icon:"📊",title:"Numbers Beat Jargon",desc:"One clear statistic is worth a thousand technical terms."},
+      {icon:"🎯",title:"Lead with the Headline",desc:"Give the answer first, then the reasoning."},
+      {icon:"⚖️",title:"Own the Uncertainty",desc:"Being honest about what you don't know builds more trust than pretending."}
+    ]
+  },
+  3: { // Operations & Systems
+    framework: {name:"CHAIN", steps:[
+      {l:"C",w:"Contain",d:"What have we already done?"},
+      {l:"H",w:"Highlight",d:"State the impact clearly and factually"},
+      {l:"A",w:"Assign",d:"Who is doing what right now?"},
+      {l:"I",w:"Inform",d:"Who needs to know and by when?"},
+      {l:"N",w:"Next steps",d:"What happens in the next 24-72 hours?"}
+    ]},
+    phrases:[
+      {cat:"Situation Reporting", items:[
+        {t:"\"Here's where we stand as of [time]. I'll update you again at [time].\"", c:"Creates predictability. People can handle bad news; they can't handle silence."},
+        {t:"\"The immediate impact is [X]. We've contained it by [Y].\"", c:"Impact + action in one sentence. Shows you're in control."},
+        {t:"\"This affects [these teams/processes]. It does NOT affect [these others].\"", c:"Defining the boundary of the problem reduces panic."}
+      ]},
+      {cat:"Coordinating Action", items:[
+        {t:"\"I need [X] from your team by [time]. Can you confirm that's possible?\"", c:"Specific, time-bound, with a confirmation request. No ambiguity."},
+        {t:"\"Here's what I'm proposing. If I don't hear objections by [time], I'll proceed.\"", c:"Assumes action. Prevents the 'waiting for approval' bottleneck."},
+        {t:"\"Let me be clear about the priority order: first [A], then [B], then [C].\"", c:"When everything feels urgent, explicit prioritisation cuts through noise."}
+      ]},
+      {cat:"De-escalating Pressure", items:[
+        {t:"\"I understand the urgency. Here's what's realistic in that timeframe.\"", c:"Acknowledges pressure without making promises you can't keep."},
+        {t:"\"The fastest path to resolution is [X]. The thorough path is [Y]. Here's the risk of each.\"", c:"Gives decision-makers what they need: options with consequences."}
+      ]}
+    ],
+    weak:{label:"What Often Gets Said",text:"\"There's been an issue. We're looking into it. I'll get back to you when I know more.\""},
+    strong:{label:"What Leadership Actually Thinks",text:"\"What issue? How bad? Who's on it? When will I know more? This person has no handle on the situation. I need to get involved now.\""},
+    sim_context:"A critical system/process has failed. Multiple teams are affected. Your manager and two other department heads need an update. You have 20 minutes of information and a lot of uncertainty.",
+    sim_prompt:"Write the update message you'd send to the three stakeholders right now.",
+    summary:[
+      {icon:"🚨",title:"Contain First",desc:"Show what you've already done before explaining the problem."},
+      {icon:"📋",title:"Specifics, Not Vague",desc:"Times, names, numbers. Never 'soon' or 'someone'."},
+      {icon:"🔄",title:"Update Rhythm",desc:"Commit to regular updates. Silence breeds anxiety."},
+      {icon:"🎯",title:"Clear Priorities",desc:"When everything's urgent, you decide what's first."}
+    ]
+  },
+  4: { // Sales & BD
+    framework: {name:"VALUE", steps:[
+      {l:"V",w:"Validate",d:"Acknowledge their current situation and concerns"},
+      {l:"A",w:"Align",d:"Show you understand their specific goals"},
+      {l:"L",w:"Leverage",d:"Present evidence from similar situations"},
+      {l:"U",w:"Underline",d:"Quantify the cost of inaction"},
+      {l:"E",w:"Engage",d:"Propose a low-risk next step"}
+    ]},
+    phrases:[
+      {cat:"Building Credibility", items:[
+        {t:"\"I've worked with several companies in your position. The pattern I see is...\"", c:"Positions you as experienced without being arrogant."},
+        {t:"\"You're right to be cautious. Most of our best clients started exactly where you are.\"", c:"Validates scepticism while subtly reframing it as normal."},
+        {t:"\"Let me share what happened when [similar company] faced this same decision.\"", c:"Stories sell. Case studies in conversational form."}
+      ]},
+      {cat:"Handling Objections", items:[
+        {t:"\"That's the most common concern we hear. Here's what we've found...\"", c:"Normalises the objection and shows you've heard it before."},
+        {t:"\"Fair point. If we could address that specifically, would the rest make sense?\"", c:"Isolates the objection. Prevents 'whack-a-mole' objection handling."},
+        {t:"\"What would need to be true for this to be worth exploring further?\"", c:"Gets them to define their own buying criteria. Powerful."}
+      ]},
+      {cat:"Creating Urgency Without Pressure", items:[
+        {t:"\"The cost of waiting another quarter is roughly [X]. Not a reason to rush, but worth knowing.\"", c:"Quantifies inaction. Lets the number do the persuading."},
+        {t:"\"There's no pressure from my side. But I'd hate for timing to take this option off the table.\"", c:"Soft urgency. Respectful but real."}
+      ]}
+    ],
+    weak:{label:"What Salespeople Often Say",text:"\"We're the market leader with 15 years of experience. Our solution offers best-in-class features including [long list]. We'd love to set up a demo to show you what we can do.\""},
+    strong:{label:"What the Prospect Actually Thinks",text:"\"Everyone says they're the market leader. I don't care about your features — I care about my problems. A demo sounds like a pitch I'll have to sit through. No thanks.\""},
+    sim_context:"You're in a meeting with a potential client who has said: \"We've tried something like this before and it didn't work. Why would this time be different?\"",
+    sim_prompt:"Write your response. You need to overcome their scepticism without dismissing their past experience.",
+    summary:[
+      {icon:"👂",title:"Listen First, Pitch Second",desc:"Understand their world before presenting yours."},
+      {icon:"📈",title:"Quantify Everything",desc:"'Save time' means nothing. 'Save 12 hours a week' means everything."},
+      {icon:"🤝",title:"Small Next Steps",desc:"Don't ask for the deal. Ask for 15 minutes."},
+      {icon:"🎯",title:"Their Language, Not Yours",desc:"Use their words, their metrics, their priorities."}
+    ]
+  },
+  5: { // Project & Programme Management
+    framework: {name:"STEER", steps:[
+      {l:"S",w:"Status",d:"Where are we — green, amber, or red?"},
+      {l:"T",w:"Trade-offs",d:"What are we balancing?"},
+      {l:"E",w:"Escalation",d:"What decisions do you need from leadership?"},
+      {l:"E",w:"Evidence",d:"Back it up with data"},
+      {l:"R",w:"Roadmap",d:"What happens next and when?"}
+    ]},
+    phrases:[
+      {cat:"Status Communication", items:[
+        {t:"\"The project is currently amber. Here's specifically why, and here's the path back to green.\"", c:"Traffic light status + explanation + recovery plan in one breath."},
+        {t:"\"We're on track for [X] and [Y]. We have a risk on [Z] that I want to flag now.\"", c:"Good news and bad news together. Builds credibility."},
+        {t:"\"If nothing changes, we'll miss the deadline by [X]. Here's what we can do about it.\"", c:"Honest projection + action plan. Never just the problem."}
+      ]},
+      {cat:"Managing Competing Priorities", items:[
+        {t:"\"Both are important. With current resources, we can deliver [A] by [date] or [B] by [date]. We can't do both by [date]. Which should we prioritise?\"", c:"Puts the decision where it belongs — with the people who set the priorities."},
+        {t:"\"I want to make sure we're aligned on what 'done' looks like for this phase.\"", c:"Prevents scope creep by defining the finish line upfront."},
+        {t:"\"Adding this to the scope means moving [X] out. Is that the right trade-off?\"", c:"Makes the cost of 'yes' visible. Stops scope from creeping."}
+      ]},
+      {cat:"Escalating Effectively", items:[
+        {t:"\"I need a decision on [X] by [date]. Without it, we'll be blocked on [Y].\"", c:"Clear, specific, consequential. Makes inaction visible."},
+        {t:"\"I've tried to resolve this at my level. The blocker is [X] and it needs your input.\"", c:"Shows you're not escalating lazily — you've done your part."}
+      ]}
+    ],
+    weak:{label:"What PMs Often Say",text:"\"Just wanted to give you a quick update — things are progressing. We've had a few challenges but the team is working hard. I'll send a more detailed update next week.\""},
+    strong:{label:"What Stakeholders Actually Think",text:"\"Progressing towards what? What challenges? Are we on track or not? 'Working hard' isn't a status. I have no idea if I should be worried. I'll assume I should be.\""},
+    sim_context:"You're managing a project that's running 3 weeks behind. The sponsor doesn't know yet. You also have a dependency on another team that hasn't confirmed their delivery date. You have a steering committee meeting tomorrow.",
+    sim_prompt:"Write the status update you'll present at tomorrow's steering committee. Be honest, specific, and actionable.",
+    summary:[
+      {icon:"🚦",title:"RAG Status, Always",desc:"Red, Amber, Green — never leave them guessing."},
+      {icon:"⚖️",title:"Trade-offs, Not Problems",desc:"Present choices, not just challenges."},
+      {icon:"📊",title:"Data Over Feelings",desc:"'3 weeks behind' beats 'slightly delayed'."},
+      {icon:"🔼",title:"Escalate with Purpose",desc:"Always say what you need and by when."}
+    ]
+  },
+  6: { // Leadership & Strategy
+    framework: {name:"TRUST", steps:[
+      {l:"T",w:"Transparent",d:"Share what you know — and what you don't"},
+      {l:"R",w:"Reasoning",d:"Explain the why behind the decision"},
+      {l:"U",w:"Understanding",d:"Acknowledge the human impact"},
+      {l:"S",w:"Steps forward",d:"Give people something concrete to do"},
+      {l:"T",w:"Together",d:"Reinforce shared purpose"}
+    ]},
+    phrases:[
+      {cat:"Delivering Difficult Decisions", items:[
+        {t:"\"I want to be direct with you about a decision that's been made, and I want to explain the reasoning behind it.\"", c:"Signals honesty. Prepares them without creating unnecessary dread."},
+        {t:"\"This wasn't an easy decision. Here's what we weighed up.\"", c:"Shows the decision was thoughtful, not arbitrary."},
+        {t:"\"I know this raises questions. Let me tell you what I know, what I don't know yet, and when I'll have more answers.\"", c:"The three-part honesty formula. Incredibly powerful in uncertain times."}
+      ]},
+      {cat:"Motivating Through Change", items:[
+        {t:"\"What isn't changing is [X]. That's still our foundation.\"", c:"Anchoring to stability when everything else feels uncertain."},
+        {t:"\"I need your help with this. Specifically, I need you to...\"", c:"People want to contribute. Give them a role in the solution."},
+        {t:"\"I don't have all the answers yet, and I'm not going to pretend I do. What I can tell you is...\"", c:"Vulnerability from leadership builds more trust than false confidence."}
+      ]},
+      {cat:"Handling Resistance", items:[
+        {t:"\"I understand why you see it that way. Here's the perspective I'd add...\"", c:"Validates their view, then expands it. Doesn't dismiss."},
+        {t:"\"Tell me what you'd need to feel confident about this direction.\"", c:"Turns resistance into requirements. Much more productive than debate."}
+      ]}
+    ],
+    weak:{label:"What Leaders Often Say",text:"\"We've decided to restructure the department. This is an exciting opportunity to streamline our operations. I'm confident this will make us stronger. HR will be in touch with details.\""},
+    strong:{label:"What the Team Actually Thinks",text:"\"'Exciting opportunity' = bad news they're trying to spin. 'Streamline' = cuts. 'HR will be in touch' = I might lose my job and my boss can't even tell me directly. I don't trust a word of this.\""},
+    sim_context:"A major project has been cancelled due to budget cuts. Your team of 8 people spent the last 4 months on it. Morale will take a hit. Some may question whether their roles are secure.",
+    sim_prompt:"Write what you'd say to your team in the meeting where you break this news.",
+    summary:[
+      {icon:"🪟",title:"Radical Transparency",desc:"Tell them what you know AND what you don't know."},
+      {icon:"🧠",title:"Explain the Why",desc:"People accept hard decisions when they understand the reasoning."},
+      {icon:"❤️",title:"Acknowledge the Human",desc:"Before the strategy talk, recognise how people feel."},
+      {icon:"🤝",title:"Give Them a Role",desc:"Agency reduces anxiety. Tell them what they CAN do."}
+    ]
+  },
+  7: { // Support & Service
+    framework: {name:"HEARD", steps:[
+      {l:"H",w:"Hear",d:"Let them finish. Don't interrupt or defend."},
+      {l:"E",w:"Empathise",d:"Name their feeling. Show you get it."},
+      {l:"A",w:"Apologise",d:"Take responsibility — no 'but'."},
+      {l:"R",w:"Resolve",d:"Fix it now, or explain exactly what happens next."},
+      {l:"D",w:"Delight",d:"Go one step beyond what they expected."}
+    ]},
+    phrases:[
+      {cat:"Acknowledging the Problem", items:[
+        {t:"\"I can see why that's frustrating. Let me fix this for you right now.\"", c:"Validates + action in one sentence. The fastest path to de-escalation."},
+        {t:"\"You're absolutely right — that shouldn't have happened. I'm sorry.\"", c:"No hedging, no deflecting. Clean apology. Disarms anger instantly."},
+        {t:"\"Thank you for telling me about this. I want to make sure we get it right.\"", c:"Reframes complaint as helpful feedback. Changes the dynamic."}
+      ]},
+      {cat:"Taking Ownership", items:[
+        {t:"\"I'm going to take personal responsibility for making sure this gets resolved.\"", c:"Ownership creates trust. They're no longer shouting into a void."},
+        {t:"\"Here's exactly what I'm going to do, and here's when you'll hear from me.\"", c:"Specific commitment. No 'we'll look into it' vagueness."},
+        {t:"\"I don't want to give you an answer I'm not sure about. Let me check and come back to you within [time].\"", c:"Honest uncertainty is better than a confident wrong answer."}
+      ]},
+      {cat:"Going Beyond", items:[
+        {t:"\"I've fixed the issue. I've also [extra step] so this won't happen again.\"", c:"The 'extra step' is what turns a complaint into a loyalty moment."},
+        {t:"\"Is there anything else I can help with while I have you?\"", c:"Shows you're not rushing to get rid of them. Simple but powerful."}
+      ]}
+    ],
+    weak:{label:"What Support Staff Often Say",text:"\"I understand your frustration. Unfortunately, our policy is [X]. I can put in a request but I can't guarantee anything. Is there anything else I can help you with?\""},
+    strong:{label:"What the Customer Actually Thinks",text:"\"You don't understand — you're reading a script. 'Unfortunately our policy' means no. 'Can't guarantee' means nothing will happen. Asking 'anything else' when you haven't fixed the first thing is insulting.\""},
+    sim_context:"A customer/client has contacted you. They're upset because they received the wrong product/service, it's the second time it's happened, and they've already wasted time trying to resolve it through another channel.",
+    sim_prompt:"Write your response. Remember: they're already frustrated from their previous attempt to get this fixed.",
+    summary:[
+      {icon:"👂",title:"Listen Fully",desc:"Let them finish. The urge to explain is the enemy."},
+      {icon:"🎯",title:"Clean Apology",desc:"'I'm sorry' — no 'but', no 'however', no policy citation."},
+      {icon:"⚡",title:"Speed Matters",desc:"Fix it now. Every minute of waiting multiplies frustration."},
+      {icon:"✨",title:"The Extra Step",desc:"One unexpected gesture turns anger into loyalty."}
+    ]
+  }
+};
+
+// Sector gradients
+const sectorGradients = {
+  A:"linear-gradient(135deg, #1e3a2f 0%, #2c5530 100%)",
+  B:"linear-gradient(135deg, #1e3a5f 0%, #2c5530 100%)",
+  C:"linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)",
+  D:"linear-gradient(135deg, #2d3436 0%, #0d6efd 100%)",
+  E:"linear-gradient(135deg, #c0392b 0%, #8e44ad 100%)",
+  F:"linear-gradient(135deg, #2c3e50 0%, #3498db 100%)",
+  G:"linear-gradient(135deg, #1e3a2f 0%, #f39c12 50%, #1e3a2f 100%)",
+  H:"linear-gradient(135deg, #0f4c75 0%, #3282b8 100%)",
+  I:"linear-gradient(135deg, #4a1942 0%, #6a3093 100%)"
+};
+
+// ═══════════════════════════════════════════
+// LESSON BUILDER
+// ═══════════════════════════════════════════
+function lookupScenario(key) {
+  const [subId, funcId] = key.split('-');
+  const sectorLetter = subId.replace(/[0-9]/g,'');
+  let sector, subsector;
+  for (const s of sectors) {
+    const found = s.subsectors.find(sub => sub.id === subId);
+    if (found) { sector = s; subsector = found; break; }
+  }
+  const func = functions.find(f => f.id === parseInt(funcId));
+  const scenario = scenarios[key];
+  return { sector, subsector, func, scenario, sectorLetter };
+}
+
+function buildLesson(key) {
+  const info = lookupScenario(key);
+  if (!info.scenario) return notFound(key);
+  const t = functionTeaching[info.func.id];
+  const gradient = sectorGradients[info.sectorLetter] || sectorGradients.A;
+
+  return `
+<header class="lesson-header" style="background:${gradient}">
+  <div class="lesson-meta">
+    <span class="lesson-badge">${info.subsector.name}</span>
+    <span class="lesson-badge">${info.func.short}</span>
+    <span class="lesson-badge">B2-C1</span>
+  </div>
+  <h1>${info.scenario}</h1>
+  <p class="lesson-subtitle">${info.sector.name} · ${info.subsector.name} · ${info.func.name}</p>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab(0)">1. The Challenge</button>
+  <button class="tab-btn" onclick="showTab(1)">2. Framework</button>
+  <button class="tab-btn" onclick="showTab(2)">3. Language</button>
+  <button class="tab-btn" onclick="showTab(3)">4. Practice</button>
+  <button class="tab-btn" onclick="showTab(4)">5. Wrap-Up</button>
+</nav>
+
+<!-- TAB 1: Challenge -->
+<section class="tab-content active" id="tab-0">
+  <h2>The Real Challenge</h2>
+  <p>You work in <strong>${info.subsector.name}</strong> (${info.sector.name}). Your role involves <strong>${info.func.name.toLowerCase()}</strong>. And right now, you're facing this situation:</p>
+  <blockquote>${info.scenario}</blockquote>
+  <p>This is one of the most common communication challenges in your field. The words you choose, the structure you use, and the way you manage the conversation will determine the outcome — not just for this situation, but for the relationship.</p>
+
+  <h3>Why This Conversation Goes Wrong</h3>
+  <div class="comparison">
+    <div class="comparison-card weak">
+      <div class="comparison-label">${t.weak.label}</div>
+      <div class="comparison-text">${t.weak.text}</div>
+    </div>
+    <div class="comparison-card strong">
+      <div class="comparison-label">${t.strong.label}</div>
+      <div class="comparison-text">${t.strong.text}</div>
+    </div>
+  </div>
+  <p>The problem isn't your knowledge or intentions. It's that <span class="highlight">the way you structure the message changes everything about how it lands.</span></p>
+
+  <h3>What You'll Learn</h3>
+  <ul style="margin-left:20px;line-height:2.2;">
+    <li>A proven framework for structuring this type of conversation</li>
+    <li>Specific phrases that work in high-stakes professional situations</li>
+    <li>How to handle pushback and resistance confidently</li>
+    <li>Practice under realistic conditions with a model answer to compare</li>
+  </ul>
+
+  <div class="nav-buttons">
+    <button class="nav-btn prev" disabled>← Previous</button>
+    <button class="nav-btn next" onclick="showTab(1)">Next: The Framework →</button>
+  </div>
+</section>
+
+<!-- TAB 2: Framework -->
+<section class="tab-content" id="tab-1">
+  <h2>The ${t.framework.name} Framework</h2>
+  <p>When you face this kind of situation, use the <strong>${t.framework.name}</strong> framework to structure your communication. It works because it puts the other person's needs at the centre.</p>
+  <div class="framework-box">
+    <div class="framework-title">${t.framework.name}</div>
+    <div class="framework-steps">
+      ${t.framework.steps.map(s => `<div class="framework-step"><span class="letter">${s.l}</span><span class="word">${s.w}</span><span class="desc">${s.d}</span></div>`).join('')}
+    </div>
+  </div>
+  ${t.framework.steps.map(s => `<p><strong>${s.l} — ${s.w}:</strong> ${s.d}. This step matters because in professional communication, the <em>order</em> in which you say things changes <em>how</em> they're received.</p>`).join('')}
+  <div class="nav-buttons">
+    <button class="nav-btn prev" onclick="showTab(0)">← Previous</button>
+    <button class="nav-btn next" onclick="showTab(2)">Next: The Language →</button>
+  </div>
+</section>
+
+<!-- TAB 3: Language -->
+<section class="tab-content" id="tab-2">
+  <h2>Phrases That Work</h2>
+  <p>Click each phrase to see when and how to use it.</p>
+  ${t.phrases.map(bank => `
+    <div class="phrase-bank">
+      <h4>${bank.cat}</h4>
+      ${bank.items.map(item => `
+        <div class="phrase-item" onclick="this.classList.toggle('expanded')">
+          <div class="phrase-text">${item.t}</div>
+          <div class="phrase-context"><strong>Why it works:</strong> ${item.c}</div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('')}
+  <div class="nav-buttons">
+    <button class="nav-btn prev" onclick="showTab(1)">← Previous</button>
+    <button class="nav-btn next" onclick="showTab(3)">Next: Practice →</button>
+  </div>
+</section>
+
+<!-- TAB 4: Practice -->
+<section class="tab-content" id="tab-3">
+  <h2>Your Turn: Practice</h2>
+  <p>Now apply the ${t.framework.name} framework to your specific scenario.</p>
+  <div class="scenario-box">
+    <div class="scenario-label">Your Scenario</div>
+    <div class="scenario-context">${t.sim_context}</div>
+    <p><strong>Your task:</strong> ${t.sim_prompt}</p>
+  </div>
+
+  <div class="timer-container">
+    <div class="timer-display" id="timer">3:00</div>
+    <div class="timer-buttons">
+      <button class="timer-btn" onclick="setTimer(180)">3 min</button>
+      <button class="timer-btn" onclick="setTimer(300)">5 min</button>
+      <button class="timer-btn" onclick="startTimer()">Start</button>
+      <button class="timer-btn" onclick="resetTimer()">Reset</button>
+    </div>
+  </div>
+
+  <div class="response-area">
+    <h3>Write Your Response</h3>
+    <textarea id="user-response" placeholder="Use the ${t.framework.name} framework to structure your response..."></textarea>
+  </div>
+
+  <button class="action-btn primary" onclick="document.getElementById('model-answer').classList.add('visible')">See Model Approach</button>
+
+  <div class="model-answer" id="model-answer">
+    <div class="model-answer-label">How to approach this using ${t.framework.name}</div>
+    <div class="model-answer-text">
+      ${t.framework.steps.map(s => `<strong>${s.l} — ${s.w}:</strong> Start by ${s.d.toLowerCase()}. ${s.l === t.framework.steps[0].l ? 'This is where most people go wrong — they skip straight to the problem.' : 'Build on what you\'ve established so far.'}<br><br>`).join('')}
+      The key is following this order. Each step prepares the ground for the next.
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="nav-btn prev" onclick="showTab(2)">← Previous</button>
+    <button class="nav-btn next" onclick="showTab(4)">Next: Wrap-Up →</button>
+  </div>
+</section>
+
+<!-- TAB 5: Wrap-Up -->
+<section class="tab-content" id="tab-4">
+  <h2>What You've Learned</h2>
+  <div class="summary-grid">
+    ${t.summary.map(s => `<div class="summary-card"><div class="icon">${s.icon}</div><h4>${s.title}</h4><p>${s.desc}</p></div>`).join('')}
+  </div>
+
+  <h3>The ${t.framework.name} Framework — Your Checklist</h3>
+  <ul style="margin-left:20px;line-height:2.2;">
+    ${t.framework.steps.map(s => `<li><strong>${s.l}</strong> — ${s.w}: ${s.d}</li>`).join('')}
+  </ul>
+
+  <h3>Key Phrases to Remember</h3>
+  <ul style="margin-left:20px;line-height:2.2;">
+    ${t.phrases[0].items.slice(0,3).map(p => `<li>${p.t}</li>`).join('')}
+  </ul>
+
+  <h3>Practice This Week</h3>
+  <p>Take one real conversation this week and consciously apply the ${t.framework.name} framework. It feels structured at first, but quickly becomes natural. The phrases will start to feel like your own.</p>
+
+  <div class="nav-buttons">
+    <button class="nav-btn prev" onclick="showTab(3)">← Previous</button>
+    <button class="nav-btn next" disabled>End of Lesson</button>
+  </div>
+</section>
+
+<footer class="lesson-footer">
+  <div class="footer-cta">Want to practise this scenario in a real conversation with a teacher?</div>
+  <a href="https://preply.com/en/tutor/4383857" target="_blank" class="footer-btn">Book a Lesson on Preply →</a>
+  <a href="professional-skills.html" class="footer-back">← Back to All Scenarios</a>
+</footer>`;
+}
+
+function notFound(key) {
+  return `<div class="not-found">
+    <h1>Scenario Not Found</h1>
+    <p>The scenario "${key}" doesn't exist. <a href="professional-skills.html">Browse all 276 scenarios →</a></p>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════
+// TAB & TIMER LOGIC
+// ═══════════════════════════════════════════
+function showTab(n) {
+  document.querySelectorAll('.tab-content').forEach((t,i) => {
+    t.classList.toggle('active', i===n);
+  });
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    b.classList.toggle('active', i===n);
+  });
+  window.scrollTo(0, 0);
+}
+
+let timerInterval, timerSeconds = 180;
+function setTimer(s) { timerSeconds = s; document.getElementById('timer').textContent = formatTime(s); document.getElementById('timer').className = 'timer-display'; }
+function startTimer() {
+  clearInterval(timerInterval);
+  let s = timerSeconds;
+  timerInterval = setInterval(() => {
+    s--;
+    const el = document.getElementById('timer');
+    el.textContent = formatTime(s);
+    el.className = 'timer-display' + (s <= 30 ? ' danger' : s <= 60 ? ' warning' : '');
+    if (s <= 0) clearInterval(timerInterval);
+  }, 1000);
+}
+function resetTimer() { clearInterval(timerInterval); setTimer(timerSeconds); }
+function formatTime(s) { return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0'); }
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+const key = window.location.hash.slice(1) || 'A1-1';
+document.getElementById('app').innerHTML = buildLesson(key);
+
+window.addEventListener('hashchange', () => {
+  const k = window.location.hash.slice(1);
+  document.getElementById('app').innerHTML = buildLesson(k);
+  window.scrollTo(0,0);
+});
+</script>
+</body>
+</html>

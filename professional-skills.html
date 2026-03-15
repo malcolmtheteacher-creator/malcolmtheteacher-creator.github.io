@@ -506,6 +506,29 @@
             background: var(--accent);
         }
 
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .modal-cta-secondary {
+            display: inline-block;
+            background: transparent;
+            color: var(--accent);
+            padding: 16px 35px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 2px solid var(--accent);
+            transition: all 0.3s;
+        }
+
+        .modal-cta-secondary:hover {
+            background: var(--accent);
+            color: var(--white);
+        }
+
         /* Footer */
         footer {
             background: var(--black);
@@ -682,7 +705,10 @@
         <div class="modal-meta" id="modal-meta"></div>
         <p>This is a real communication challenge professionals face in your industry and role. In our session, we'll work through this scenario together — building the specific language, frameworks, and confidence you need.</p>
         <p>Every lesson is tailored. We start with your version of this challenge, in your context, with your stakeholders in mind.</p>
-        <a href="https://preply.com/en/tutor/4383857" target="_blank" class="modal-cta">Let's Work on This Together</a>
+        <div class="modal-buttons">
+            <a href="https://preply.com/en/tutor/4383857" target="_blank" class="modal-cta">Let's Work on This Together</a>
+            <a href="#" id="free-lesson-btn" class="modal-cta-secondary" style="display: none;">Try Free Lesson →</a>
+        </div>
     </div>
 </div>
 
@@ -1335,11 +1361,18 @@ function selectFunction(functionId) {
     renderFunctionScenarios(functionId);
 }
 
+// Mapping of scenarios that have free lessons
+const freeLessons = {
+    "B1-2": "lessons/scenario-B1-2-technical-debt.html",
+    "A1-1": "lessons/scenario-A1-1-resetting-expectations.html",
+    "G3-1": "lessons/scenario-G3-1-guest-recovery.html"
+};
+
 function openModal(scenarioKey) {
     const [subsectorId, functionId] = scenarioKey.split('-');
     const scenario = scenarios[scenarioKey];
     const func = functions.find(f => f.id === parseInt(functionId));
-    
+
     // Find subsector and sector
     let subsector, sector;
     for (const s of sectors) {
@@ -1350,14 +1383,25 @@ function openModal(scenarioKey) {
             break;
         }
     }
-    
+
     document.getElementById('modal-title').textContent = scenario;
     document.getElementById('modal-meta').innerHTML = `
         <span class="scenario-badge">${sector.name}</span>
         <span class="scenario-badge">${subsector.name}</span>
         <span class="scenario-badge function">${func.name}</span>
     `;
-    
+
+    // ALL scenarios now have a free practice lesson
+    const freeLessonBtn = document.getElementById('free-lesson-btn');
+    if (freeLessons[scenarioKey]) {
+        // Original hand-crafted lessons (keep these)
+        freeLessonBtn.href = freeLessons[scenarioKey];
+    } else {
+        // All other scenarios → single-page lesson app
+        freeLessonBtn.href = 'scenario-lessons.html#' + scenarioKey;
+    }
+    freeLessonBtn.style.display = 'inline-block';
+
     document.getElementById('modal-overlay').classList.add('active');
 }
 
