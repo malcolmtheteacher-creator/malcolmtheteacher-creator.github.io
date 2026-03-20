@@ -269,6 +269,11 @@ body { font-family: 'Inter', sans-serif; background: #f8f7ff; color: #2d2d2d; mi
       <div class="oc-desc">All four skills, exam practice and test strategy</div>
     </div>
   </div>
+
+  <div class="form-group" id="professionGroup" style="margin-top:24px;">
+    <label class="form-label">What's your profession or field of work? <span style="color:#aaa;font-weight:400;text-transform:none;font-size:0.85rem;">(optional — helps us pick relevant topics)</span></label>
+    <input type="text" class="form-input" id="studentProfession" placeholder="e.g. doctor, software engineer, history professor, sales manager..." autocomplete="off" oninput="profile.profession=this.value">
+  </div>
   <div class="nav-row">
     <button class="btn btn-back" onclick="goBack(2)">← Back</button>
     <button class="btn btn-primary" id="nextBtn2" onclick="goNext(2)" disabled>Next →</button>
@@ -443,7 +448,7 @@ body { font-family: 'Inter', sans-serif; background: #f8f7ff; color: #2d2d2d; mi
 // PROFILE STATE
 // =====================================================
 const profile = {
-  name: '', level: '', goal: '', interests: [], weakAreas: [], time: ''
+  name: '', level: '', goal: '', profession: '', interests: [], weakAreas: [], time: ''
 };
 
 const TOTAL_STEPS = 6;
@@ -473,8 +478,9 @@ function goBack(current) {
   showStep(current - 1);
 }
 function resetAndStart() {
-  profile.name = ''; profile.level = ''; profile.goal = '';
+  profile.name = ''; profile.level = ''; profile.goal = ''; profile.profession = '';
   profile.interests.length = 0; profile.weakAreas.length = 0; profile.time = '';
+  const profEl = document.getElementById('studentProfession'); if(profEl) profEl.value = '';
   document.querySelectorAll('.option-card').forEach(function(el) { el.classList.remove('selected'); });
   document.querySelectorAll('.check-card').forEach(function(el) { el.classList.remove('selected'); });
   document.getElementById('studentName').value = '';
@@ -584,7 +590,7 @@ const GRAMMAR_SPINE = {
   ]
 };
 
-const SITE_BASE = 'https://malcolmhyndman.com/';
+const SITE_BASE = 'https://malcolmtheteacher-creator.github.io/preply-lessons/';
 
 const CAT_ICONS = {
   work:'💼', world:'🌍', people:'👥', food:'🍽️',
@@ -608,104 +614,192 @@ const LESSONS = [{"cat":"food","t":"Discussing Restaurants","lv":"a2","f":"su_a2
 // =====================================================
 // PATHWAY GENERATION ALGORITHM
 // =====================================================
+
+// Profession keyword map → boosts matching categories/tags
+const PROFESSION_WEIGHTS = {
+  // Medical / health
+  doctor:['health'], nurse:['health'], physician:['health'], therapist:['health'],
+  pharmacist:['health'], dentist:['health'], surgeon:['health'], medic:['health'],
+  // Business / management
+  manager:['work'], director:['work'], executive:['work'], ceo:['work'],
+  consultant:['work'], analyst:['work'], accountant:['work'], banker:['work','world'],
+  lawyer:['work','world'], attorney:['work','world'],
+  // Education / academic
+  teacher:['people','world'], professor:['world'], researcher:['world'],
+  historian:['world'], lecturer:['world'], academic:['world'],
+  // Engineering / tech
+  engineer:['work','world'], developer:['work'], programmer:['work'],
+  technician:['work'], scientist:['world','health'],
+  // Creative
+  designer:['entertainment','life'], artist:['entertainment'], journalist:['world','people'],
+  writer:['world','entertainment'], photographer:['entertainment'],
+  // Hospitality / food
+  chef:['food'], cook:['food'], waiter:['food'], restaurateur:['food'],
+  hotelier:['travel','life'], tourism:['travel'],
+  // Sales / marketing
+  sales:['work'], marketing:['work'], 'sales manager':['work'],
+  // Other
+  entrepreneur:['work'], founder:['work'], retired:['life','entertainment'],
+  student:['world','people'], nurse:['health'], pilot:['travel'],
+};
+
+function getProfessionBoosts(profession) {
+  if (!profession) return {};
+  const lower = profession.toLowerCase();
+  const boosts = {};
+  Object.keys(PROFESSION_WEIGHTS).forEach(function(kw) {
+    if (lower.includes(kw)) {
+      PROFESSION_WEIGHTS[kw].forEach(function(cat) { boosts[cat] = (boosts[cat]||0) + 12; });
+    }
+  });
+  return boosts;
+}
+
+// Difficulty proxy: su_ lessons are conversational/exploratory (simpler to engage with)
+// bc_ lessons tend to be B2/C1 business context (more demanding)
+// Grammar lessons slot in by spine order (already pedagogically sequenced)
+function getLessonComplexity(l) {
+  if (!l.f) return 5;
+  const f = l.f;
+  // Extract sequence number from filename: su_b1_07_... → 7
+  const numMatch = f.match(/_(\d+)_/);
+  const seqNum = numMatch ? parseInt(numMatch[1]) : 50;
+  // Base complexity by prefix
+  let base = 0;
+  if (f.startsWith('su_')) base = 0;        // conversational starters
+  else if (f.startsWith('sp_')) base = 1;   // speaking focus
+  else if (f.startsWith('qf_')) base = 2;   // quick fix
+  else if (f.startsWith('bc_')) base = 3;   // BC Online (more demanding)
+  else base = 2;
+  // Add sequence number scaled to 0-3
+  return base + (seqNum / 40);
+}
+
 function generatePathway(p) {
-  const { level, goal, interests, weakAreas, time } = p;
+  const { level, goal, profession, interests, weakAreas, time } = p;
+  const profBoosts = getProfessionBoosts(profession);
 
   // Target lesson counts by time commitment
   const targets = { light: 18, regular: 25, intensive: 32 };
   const total = targets[time] || 25;
 
-  // Grammar spine for this level — ALL are mandatory
-  const grammarSpine = (GRAMMAR_SPINE[level] || []).map(g => ({...g, type:'grammar'}));
+  // Grammar spine — ALL mandatory, already in pedagogical sequence
+  const grammarSpine = (GRAMMAR_SPINE[level] || []).map(function(g) { return Object.assign({}, g, {type:'grammar'}); });
   const grammarCount = grammarSpine.length;
-
-  // Topic lesson target (rest of the pathway)
   const topicTarget = total - grammarCount;
 
   // Score a lesson by how well it matches the student's profile
   function scoreLesson(l) {
     let score = 0;
-    // Interest match: big boost
+    // Interest match
     if (interests.includes(l.cat)) score += 20;
-    // Goal-based category preferences
-    if (goal === 'professional' && l.cat === 'work') score += 15;
-    if (goal === 'academic' && (l.cat === 'world' || (l.tags||[]).some(t => t.includes('academic')))) score += 12;
+    // Profession boost
+    score += (profBoosts[l.cat] || 0);
+    // Goal-based preferences
+    if (goal === 'professional') {
+      if (l.cat === 'work') score += 15;
+    }
+    if (goal === 'academic') {
+      if (l.cat === 'world') score += 12;
+      if ((l.tags||[]).some(function(t){ return t.includes('academic'); })) score += 8;
+    }
     if (goal === 'ielts') {
-      // For IELTS, balance across topic types — small boost for variety
-      const ieltsGoodCats = ['world','work','people','health','entertainment'];
-      if (ieltsGoodCats.includes(l.cat)) score += 8;
+      const ieltsGood = ['world','work','people','health','entertainment'];
+      if (ieltsGood.includes(l.cat)) score += 8;
     }
     // Weak area matching
     if (weakAreas.includes('grammar') && l.gl) score += 6;
     if (weakAreas.includes('speaking') && l.sl) score += 6;
-    if (weakAreas.includes('vocabulary') && l.g && l.g.includes('Vocab')) score += 4;
-    // Slight randomness to vary pathways
-    score += Math.random() * 5;
+    // Small randomness to vary pathways
+    score += Math.random() * 3;
     return score;
   }
 
-  // Filter lessons at this level; also include a few from one level below for revision
-  const levelOrder = ['a2','b1','b2','c1','c2'];
-  const levelIdx = levelOrder.indexOf(level);
-  const belowLevel = levelIdx > 0 ? levelOrder[levelIdx - 1] : null;
+  // Build pool at student's level
+  let pool = LESSONS.filter(function(l) { return l.lv === level; });
 
-  let pool = LESSONS.filter(l => l.lv === level);
-
-  // IELTS: ensure variety across categories
   let selectedTopics = [];
+
   if (goal === 'ielts') {
-    // Group pool by category and pick from each
+    // IELTS: round-robin across categories for variety
     const catGroups = {};
-    pool.forEach(l => { if (!catGroups[l.cat]) catGroups[l.cat] = []; catGroups[l.cat].push(l); });
-    Object.values(catGroups).forEach(group => group.sort((a,b) => scoreLesson(b) - scoreLesson(a)));
-    // Round-robin pick from categories
-    let cats = Object.keys(catGroups).filter(c => catGroups[c].length > 0);
+    pool.forEach(function(l) {
+      if (!catGroups[l.cat]) catGroups[l.cat] = [];
+      catGroups[l.cat].push(l);
+    });
+    Object.values(catGroups).forEach(function(g) {
+      g.sort(function(a,b){ return scoreLesson(b)-scoreLesson(a); });
+    });
+    let cats = Object.keys(catGroups).filter(function(c){ return catGroups[c].length > 0; });
     let i = 0;
-    while (selectedTopics.length < topicTarget && cats.some(c => catGroups[c].length > 0)) {
+    while (selectedTopics.length < topicTarget && cats.some(function(c){ return catGroups[c].length > 0; })) {
       const cat = cats[i % cats.length];
       if (catGroups[cat] && catGroups[cat].length > 0) {
-        selectedTopics.push({...catGroups[cat].shift(), type:'topic'});
+        selectedTopics.push(Object.assign({}, catGroups[cat].shift(), {type:'topic'}));
       }
       i++;
     }
   } else {
-    // Score and sort pool
-    pool.sort((a,b) => scoreLesson(b) - scoreLesson(a));
-    // Pick top lessons, ensuring category variety
+    // Score and sort, enforcing category variety
+    pool.sort(function(a,b){ return scoreLesson(b)-scoreLesson(a); });
     const catUsed = {};
-    const maxPerCat = Math.ceil(topicTarget / 3); // No more than 1/3 from same cat initially
-    // First pass: prioritise variety
-    pool.forEach(l => {
+    pool.forEach(function(l) {
       if (selectedTopics.length >= topicTarget) return;
       const cnt = catUsed[l.cat] || 0;
-      if (cnt < 3) {
-        selectedTopics.push({...l, type:'topic'});
+      if (cnt < 4) {
+        selectedTopics.push(Object.assign({}, l, {type:'topic'}));
         catUsed[l.cat] = cnt + 1;
       }
     });
-    // Fill remaining if needed
+    // Fill remaining gaps
     if (selectedTopics.length < topicTarget) {
-      const used = new Set(selectedTopics.map(l => l.f));
-      pool.forEach(l => {
+      const used = new Set(selectedTopics.map(function(l){ return l.f; }));
+      pool.forEach(function(l) {
         if (selectedTopics.length >= topicTarget) return;
         if (!used.has(l.f)) {
-          selectedTopics.push({...l, type:'topic'});
+          selectedTopics.push(Object.assign({}, l, {type:'topic'}));
           used.add(l.f);
         }
       });
     }
   }
 
-  // Add a few revision lessons from lower level (max 3, if level > a2)
-  if (belowLevel && topicTarget > 10) {
-    const lowerPool = LESSONS.filter(l => l.lv === belowLevel)
-      .sort((a,b) => scoreLesson(b) - scoreLesson(a))
+  // ── PROGRESSION: sort topics from simpler → more complex ─────────────────
+  // For professional/academic goals: start with 2-3 general conversation lessons
+  // before diving into the goal-specific content
+  const generalFirst = ['food','life','people','travel'];
+  if (goal === 'professional' || goal === 'academic') {
+    const warmUp = selectedTopics.filter(function(l){ return generalFirst.includes(l.cat); }).slice(0,2);
+    const rest = selectedTopics.filter(function(l){ return !warmUp.includes(l); });
+    selectedTopics = warmUp.concat(rest);
+  }
+  // Sort by complexity within their position (simpler su_ lessons first)
+  // Keep the first 3 warm-up slots simple, then allow complexity to grow
+  const warmUpSlots = selectedTopics.slice(0, 3)
+    .sort(function(a,b){ return getLessonComplexity(a) - getLessonComplexity(b); });
+  const mainSlots = selectedTopics.slice(3)
+    .sort(function(a,b){ return getLessonComplexity(a) - getLessonComplexity(b); });
+  selectedTopics = warmUpSlots.concat(mainSlots);
+
+  // Add 2 revision lessons from one level below (if not A2)
+  const levelOrder = ['a2','b1','b2','c1','c2'];
+  const levelIdx = levelOrder.indexOf(level);
+  if (levelIdx > 0 && topicTarget > 12) {
+    const belowLevel = levelOrder[levelIdx - 1];
+    const lowerPool = LESSONS.filter(function(l){ return l.lv === belowLevel; })
+      .sort(function(a,b){ return scoreLesson(b)-scoreLesson(a); })
       .slice(0, 2);
-    lowerPool.forEach(l => selectedTopics.push({...l, type:'topic', revision: true}));
+    // Insert revision lessons near the start (positions 1-2) as warm-up
+    lowerPool.forEach(function(l, i) {
+      selectedTopics.splice(i+1, 0, Object.assign({}, l, {type:'topic', revision:true}));
+    });
   }
 
-  // Interleave: place grammar lessons evenly throughout the pathway
-  return interleave(selectedTopics.slice(0, topicTarget + 2), grammarSpine);
+  // Trim to target
+  selectedTopics = selectedTopics.slice(0, topicTarget + 2);
+
+  // Interleave grammar spine evenly throughout
+  return interleave(selectedTopics, grammarSpine);
 }
 
 function interleave(topics, grammar) {
@@ -747,12 +841,14 @@ function generateAndShow() {
 
   // Meta badges
   const metaEl = document.getElementById('pathwayMeta');
-  metaEl.innerHTML = [
+  const badges = [
     LV_LABELS[profile.level] + ' Level',
     GOAL_LABELS[profile.goal],
     TIME_LABELS[profile.time],
     generatedPathway.length + ' lessons'
-  ].map(b => `<span class="meta-badge">${b}</span>`).join('');
+  ];
+  if (profile.profession) badges.splice(1, 0, profile.profession);
+  metaEl.innerHTML = badges.map(function(b){ return '<span class="meta-badge">'+b+'</span>'; }).join('');
 
   // Stats
   const grammarCount = generatedPathway.filter(l => l.type === 'grammar').length;
@@ -910,6 +1006,7 @@ body { font-family: 'Inter', sans-serif; background: #f8f7ff; color: #2d2d2d; }
     <span class="pbadge">📚 ${LV_LABELS[p.level]} Level</span>
     <span class="pbadge">🎯 ${GOAL_LABELS[p.goal]}</span>
     <span class="pbadge">⏱ ${TIME_LABELS[p.time]}</span>
+    ${p.profession ? '<span class="pbadge">👤 ' + p.profession + '</span>' : ''}
     ${p.interests.length ? '<span class="pbadge">❤️ ' + interestStr + '</span>' : ''}
   </div>
 </div>
