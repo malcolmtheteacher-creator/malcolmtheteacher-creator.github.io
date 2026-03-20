@@ -661,17 +661,17 @@ function getProfessionBoosts(profession) {
 function getLessonComplexity(l) {
   if (!l.f) return 5;
   const f = l.f;
-  // Extract sequence number from filename: su_b1_07_... → 7
+  // Extract sequence number for ordering within a prefix group
   const numMatch = f.match(/_(\d+)_/);
   const seqNum = numMatch ? parseInt(numMatch[1]) : 50;
-  // Base complexity by prefix
+  // bc_ lessons come FIRST — hand-crafted pre-AI, pedagogically strongest
+  // su_ lessons follow — AI-assisted conversational lessons
   let base = 0;
-  if (f.startsWith('su_')) base = 0;        // conversational starters
-  else if (f.startsWith('sp_')) base = 1;   // speaking focus
-  else if (f.startsWith('qf_')) base = 2;   // quick fix
-  else if (f.startsWith('bc_')) base = 3;   // BC Online (more demanding)
+  if (f.startsWith('bc_')) base = 0;
+  else if (f.startsWith('sp_')) base = 1;
+  else if (f.startsWith('qf_')) base = 2;
+  else if (f.startsWith('su_')) base = 3;
   else base = 2;
-  // Add sequence number scaled to 0-3
   return base + (seqNum / 40);
 }
 
