@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategic Thinking for Professionals</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 120px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102,126,234,0.3); transform: translateY(-5px); }
+        .vocab-card .word { display: block; font-weight: 700; font-size: 1.1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.95em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
+        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
+        .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Strategic Thinking for Professionals</h1>
+            <p>C1 Level · Business Strategy</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'vocab')">Vocabulary</button>
+            <button class="tab-button" onclick="openTab(event, 'frameworks')">Frameworks</button>
+            <button class="tab-button" onclick="openTab(event, 'analysis')">Analysis Practice</button>
+            <button class="tab-button" onclick="openTab(event, 'speaking')">Speaking Task</button>
+        </div>
+
+        <!-- Vocabulary Tab -->
+        <div id="vocab" class="tab-content active">
+            <div class="content-block">
+                <h2>Key Strategic Vocabulary</h2>
+                <p style="margin-bottom: 20px; color: #666;">Click each card to reveal the definition.</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">SWOT</span>
+                        <span class="definition">Analysis of Strengths, Weaknesses, Opportunities, and Threats</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Competitive Advantage</span>
+                        <span class="definition">A unique quality or capability that allows a company to outperform rivals</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Market Positioning</span>
+                        <span class="definition">How a brand or product is perceived by customers relative to competitors</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Value Proposition</span>
+                        <span class="definition">The unique benefit a company offers to justify why customers should buy from them</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Scalability</span>
+                        <span class="definition">The ability of a business to grow without proportional increases in costs</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Disruption</span>
+                        <span class="definition">A significant change in an industry that displaces established competitors</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Strategic Fit</span>
+                        <span class="definition">How well a decision aligns with an organization's overall goals and values</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">ROI</span>
+                        <span class="definition">Return on Investment; the profit gained from an investment relative to its cost</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Synergy</span>
+                        <span class="definition">The interaction of two elements producing a combined effect greater than the sum of parts</span>
+                    </div>
+                    <div class="vocab-card" onclick="flipCard(this)">
+                        <span class="word">Pivot</span>
+                        <span class="definition">A fundamental change in strategy or business direction in response to new information</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Frameworks Tab -->
+        <div id="frameworks" class="tab-content">
+            <div class="content-block">
+                <h2>Strategic Frameworks</h2>
+
+                <h3>SWOT Analysis</h3>
+                <p style="margin-bottom: 15px;">SWOT is a practical tool for evaluating your competitive position:</p>
+                <ul style="margin-left: 25px; margin-bottom: 20px; line-height: 1.8;">
+                    <li><strong>Strengths:</strong> Internal advantages (brand reputation, skilled workforce, technology)</li>
+                    <li><strong>Weaknesses:</strong> Internal disadvantages (limited budget, outdated processes, lack of expertise)</li>
+                    <li><strong>Opportunities:</strong> External positive factors (market growth, new technologies, regulatory changes)</li>
+                    <li><strong>Threats:</strong> External risks (new competitors, economic downturns, changing customer preferences)</li>
+                </ul>
+
+                <h3>Porter's Five Forces</h3>
+                <p style="margin-bottom: 15px;">This framework helps you understand industry competition:</p>
+                <ul style="margin-left: 25px; margin-bottom: 20px; line-height: 1.8;">
+                    <li><strong>Supplier Power:</strong> How much control suppliers have over prices and quality</li>
+                    <li><strong>Buyer Power:</strong> How much control customers have over prices (high power = competitive markets)</li>
+                    <li><strong>Competitive Rivalry:</strong> The intensity of competition in the industry</li>
+                    <li><strong>Threat of New Entrants:</strong> How easy it is for new companies to enter the market</li>
+                    <li><strong>Threat of Substitutes:</strong> The availability of alternative products or services</li>
+                </ul>
+
+                <h3>Strategic Fit Questions</h3>
+                <p style="margin-bottom: 15px;">Ask these questions before committing to a strategy:</p>
+                <ul style="margin-left: 25px; line-height: 1.8;">
+                    <li>Does this align with our core mission and values?</li>
+                    <li>Do we have the resources and capability to execute?</li>
+                    <li>What is the realistic ROI and timeline?</li>
+                    <li>How does this strengthen or weaken our competitive position?</li>
+                    <li>What are the risks if this fails?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Analysis Practice Tab -->
+        <div id="analysis" class="tab-content">
+            <div class="content-block">
+                <h2>Analysis Practice</h2>
+                <p style="margin-bottom: 20px;">Analyse this business scenario using what you've learned.</p>
+
+                <div class="question-block">
+                    <h4>Scenario: Local Bookstore in Decline</h4>
+                    <p style="margin-bottom: 15px;">
+                        An independent bookstore has operated for 20 years in a city centre. Sales have declined by 40% in the last two years. The owner has identified these facts:
+                    </p>
+                    <ul style="margin-left: 25px; margin-bottom: 20px;">
+                        <li>Amazon offers convenience and lower prices</li>
+                        <li>A nearby university brings 30,000 students annually</li>
+                        <li>The store has a loyal community following on social media</li>
+                        <li>Rent is increasing, making profit margins very thin</li>
+                        <li>The owner is passionate about literature and has strong relationships with local authors</li>
+                        <li>Most students now read on e-readers</li>
+                    </ul>
+                </div>
+
+                <div class="question-block">
+                    <h4>Question 1: SWOT Analysis</h4>
+                    <p>Complete a SWOT analysis for this bookstore. What are the key internal and external factors?</p>
+                    <button class="answer-btn" onclick="document.getElementById("ans1").classList.toggle("show")">Show Sample Analysis</button>
+                    <div id="ans1" class="answer-text">
+                        <strong>Strengths:</strong> Loyal community, local author relationships, established brand, passionate owner<br>
+                        <strong>Weaknesses:</strong> Declining sales, thin profit margins, high overhead costs, limited product range<br>
+                        <strong>Opportunities:</strong> University market, events and author readings, community hub positioning, book clubs<br>
+                        <strong>Threats:</strong> Amazon competition, e-reader adoption, rising rent, changing consumer habits
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Question 2: Strategic Pivot Options</h4>
+                    <p>What strategic pivots could save this business? Consider: shifting to a community hub model, focusing on rare/collectible books, hosting events, creating a café, partnering with the university.</p>
+                    <button class="answer-btn" onclick="document.getElementById("ans2").classList.toggle("show")">Show Possible Strategies</button>
+                    <div id="ans2" class="answer-text">
+                        <strong>Option 1 – Community Hub:</strong> Transform into an event space with authors, book clubs, and literary discussions. Revenue from events, café, and curated book selections.<br><br>
+                        <strong>Option 2 – Niche Market:</strong> Focus on rare, signed, and out-of-print books. Target collectors willing to pay premium prices.<br><br>
+                        <strong>Option 3 – University Partnership:</strong> Become the unofficial campus bookstore for humanities students. Stock course-related titles, study guides, and literary analysis.<br><br>
+                        <strong>Option 4 – Hybrid Model:</strong> Combine online sales with a smaller physical space; reduce overhead while maintaining community presence.
+                    </div>
+                </div>
+
+                <div class="question-block">
+                    <h4>Question 3: Your Recommendation</h4>
+                    <p>Which strategy has the strongest value proposition? Why? Consider competitive advantage, scalability, and strategic fit.</p>
+                    <textarea class="textarea-box" placeholder="Write your analysis here..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Speaking Task Tab -->
+        <div id="speaking" class="tab-content">
+            <div class="content-block">
+                <h2>Speaking Task: The Turnaround Pitch</h2>
+
+                <div class="timer">
+                    <span>Time Remaining: <strong id="timer-display">10:00</strong></span>
+                    <div>
+                        <button class="timer-btn" onclick="startTimer()">Start</button>
+                        <button class="timer-btn" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+
+                <div class="discussion-box">
+                    <h3 style="color: #764ba2; margin-bottom: 15px;">Your Task</h3>
+                    <p style="margin-bottom: 15px;">
+                        Imagine you are a business consultant. You have been hired to present a strategic direction to save the bookstore. You have 10 minutes to:
+                    </p>
+                    <ol style="margin-left: 25px; line-height: 1.8;">
+                        <li>State the core problem clearly</li>
+                        <li>Present one strategic pivot you recommend (SWOT-based)</li>
+                        <li>Explain the competitive advantage of your strategy</li>
+                        <li>Outline the first 90 days of implementation</li>
+                        <li>Address one key risk and how you'd mitigate it</li>
+                    </ol>
+                </div>
+
+                <div class="content-block">
+                    <h3>Language Support</h3>
+                    <p style="margin-bottom: 15px;"><strong>Opening your strategy:</strong></p>
+                    <ul style="margin-left: 25px; margin-bottom: 15px;">
+                        <li>"The core issue is that..."</li>
+                        <li>"Our strategic recommendation focuses on..."</li>
+                        <li>"This positions us to..."</li>
+                    </ul>
+
+                    <p style="margin-bottom: 15px;"><strong>Highlighting competitive advantage:</strong></p>
+                    <ul style="margin-left: 25px; margin-bottom: 15px;">
+                        <li>"Unlike our competitors, we can...</li>
+                        <li>"This gives us a sustainable advantage because..."</li>
+                        <li>"The value proposition for customers is..."</li>
+                    </ul>
+
+                    <p style="margin-bottom: 15px;"><strong>Addressing risks:</strong></p>
+                    <ul style="margin-left: 25px;">
+                        <li>"We acknowledge that... could be a risk."</li>
+                        <li>"To mitigate this, we will..."</li>
+                        <li>"We've built in checkpoints to..."</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        function flipCard(el) { el.classList.toggle("flipped"); }
+        let timerInterval = null;
+        let timeRemaining = 600;
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                document.getElementById("timer-display").textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+                const timerEl = document.querySelector(".timer");
+                if (timeRemaining <= 10) { timerEl.classList.add("danger"); timerEl.classList.remove("warning"); }
+                else if (timeRemaining <= 60) { timerEl.classList.add("warning"); timerEl.classList.remove("danger"); }
+                else { timerEl.classList.remove("warning", "danger"); }
+                if (timeRemaining <= 0) { clearInterval(timerInterval); timerInterval = null; document.getElementById("timer-display").textContent = "Time's up!"; }
+            }, 1000);
+        }
+        function resetTimer() {
+            clearInterval(timerInterval); timerInterval = null; timeRemaining = 600;
+            document.getElementById("timer-display").textContent = "10:00";
+            document.querySelector(".timer").classList.remove("warning", "danger");
+        }
+    </script>
+</body>
+</html>
