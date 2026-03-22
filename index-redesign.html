@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malcolm Hyndman | English Teacher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --off-white: #f8f7f4;
+            --warm-gray: #e8e6e1;
+            --mid-gray: #6b6b6b;
+            --light-gray: #f1f0ed;
+            --accent: #1e3a2f;
+            --accent-light: #2a5040;
+            --blue: #2563eb;
+            --orange: #d97706;
+            --green: #16a34a;
+            --purple: #7c3aed;
+            --slate: #64748b;
+            --palace-deep: #0f1a2e;
+            --palace-mid: #162240;
+            --palace-gold: #d4a843;
+            --palace-light: #e8d5a3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        /* ── NAV ── */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--accent);
+            padding: 0 30px;
+        }
+        .nav-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 50px;
+        }
+        .nav-brand {
+            font-family: 'Instrument Serif', serif;
+            color: #fff;
+            font-size: 1.05rem;
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 4px;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 6px 12px;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #fff; }
+        .nav-cta {
+            background: var(--white) !important;
+            color: var(--accent) !important;
+            font-weight: 600 !important;
+            padding: 6px 16px !important;
+        }
+        .nav-cta:hover { background: var(--off-white) !important; }
+        .nav-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer; }
+
+        /* ── HERO ── */
+        .hero {
+            background: var(--accent);
+            color: var(--white);
+            padding: 50px 30px 0;
+        }
+        .hero-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .hero img {
+            width: 130px;
+            height: 162px;
+            object-fit: cover;
+            object-position: top;
+            flex-shrink: 0;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        .hero h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.4rem;
+            font-weight: 400;
+            margin-bottom: 6px;
+        }
+        .hero .tagline {
+            font-size: 1rem;
+            opacity: 0.85;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 24px;
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat strong {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .hero-stat span {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            opacity: 0.7;
+        }
+
+        /* ── CTAs ── */
+        .cta-bar {
+            background: var(--accent);
+            padding: 20px 30px 24px;
+        }
+        .cta-bar-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+        .cta-btn {
+            display: block;
+            padding: 18px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .cta-primary {
+            background: var(--white);
+            color: var(--accent);
+        }
+        .cta-primary:hover { background: var(--off-white); }
+        .cta-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+        .cta-secondary:hover { background: rgba(255,255,255,0.1); border-color: var(--white); }
+
+        /* ── Container ── */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 30px 60px;
+        }
+
+        /* ── Level Finder ── */
+        .finder {
+            background: var(--light-gray);
+            border: 1px solid var(--warm-gray);
+            padding: 28px 32px;
+            margin-bottom: 36px;
+            text-align: center;
+        }
+        .finder h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+            border: none;
+            padding: 0;
+        }
+        .finder p {
+            color: var(--mid-gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        .level-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+        .level-btn {
+            padding: 28px 18px;
+            border: 2px solid var(--warm-gray);
+            background: var(--white);
+            font-weight: 700;
+            font-size: 1.15rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-decoration: none;
+            color: var(--black);
+            text-align: center;
+        }
+        .level-btn:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        .level-btn small {
+            display: block;
+            font-weight: 400;
+            font-size: 0.8rem;
+            color: var(--mid-gray);
+            margin-top: 6px;
+        }
+        .level-btn:hover small { color: rgba(255,255,255,0.7); }
+
+        /* ── Section Headers ── */
+        h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent);
+        }
+        .section-intro {
+            color: var(--mid-gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            margin-top: -12px;
+        }
+
+        /* ── Featured Row ── */
+        .featured-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 36px;
+        }
+        .featured-card {
+            padding: 24px;
+            text-decoration: none;
+            color: var(--white);
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        .featured-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        .featured-card .fc-icon { font-size: 2rem; margin-bottom: 10px; }
+        .featured-card .fc-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 6px;
+        }
+        .featured-card .fc-desc {
+            font-size: 0.88rem;
+            opacity: 0.85;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .featured-card .fc-stat {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+        .fc-pathway { background: linear-gradient(135deg, #1e3a2f, #2a5040); }
+        .fc-gameroom { background: linear-gradient(135deg, #1a1a2e, #0984e3); }
+        .fc-quickfix { background: linear-gradient(135deg, #1a3a2e, #16a34a); }
+        .fc-wordwall { background: linear-gradient(135deg, #4a1942, #c0392b, #e74c3c); background-size: 200% 200%; animation: wordwall-glow 4s ease infinite; }
+        @keyframes wordwall-glow { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .fc-wordwall .fc-new-badge { display: inline-block; background: #feca57; color: #1a1a2e; padding: 2px 8px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; border-radius: 2px; }
+
+        /* ── Course Tabs ── */
+        .tab-bar {
+            display: flex;
+            gap: 2px;
+            border-bottom: 2px solid var(--warm-gray);
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        .tab-btn {
+            padding: 10px 18px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--mid-gray);
+            background: none;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover { color: var(--black); }
+        .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+        .tab-panel { display: none; animation: fadeIn 0.25s ease; }
+        .tab-panel.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* ── Resource Grid ── */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+        .section-label {
+            grid-column: 1 / -1;
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.05rem;
+            color: var(--mid-gray);
+            padding-top: 12px;
+            margin-bottom: -4px;
+        }
+        .section-label:first-child { padding-top: 0; }
+        .resource-card {
+            background: var(--off-white);
+            padding: 22px;
+            border: 1px solid var(--warm-gray);
+            text-decoration: none;
+            color: var(--black);
+            transition: all 0.2s;
+            display: block;
+        }
+        .resource-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+        .resource-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 5px; }
+        .resource-desc { color: var(--mid-gray); font-size: 0.85rem; line-height: 1.5; }
+        .resource-level {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .resource-count {
+            display: inline-block;
+            float: right;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--mid-gray);
+            margin-top: 2px;
+        }
+        .cat-pathway .resource-level { background: #2563eb18; color: #2563eb; border: 1px solid #2563eb30; }
+        .cat-pathway { border-left: 3px solid #2563eb; }
+        .resource-card.featured-pathway { border-left: 4px solid #7c3aed; background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%); }
+        .resource-card.featured-pathway .resource-level { background: #7c3aed18; color: #7c3aed; border: 1px solid #7c3aed30; }
+        .resource-card.featured-pathway .resource-title { font-size: 1.15rem; }
+        .resource-card.featured-pathway .resource-desc { font-size: 0.88rem; }
+        .cat-conversation .resource-level { background: #d9770618; color: #d97706; border: 1px solid #d9770630; }
+        .cat-conversation { border-left: 3px solid #d97706; }
+        .cat-professional .resource-level { background: #16a34a18; color: #16a34a; border: 1px solid #16a34a30; }
+        .cat-professional { border-left: 3px solid #16a34a; }
+        .cat-discourse .resource-level { background: #7c3aed18; color: #7c3aed; border: 1px solid #7c3aed30; }
+        .cat-discourse { border-left: 3px solid #7c3aed; }
+        .cat-skills .resource-level { background: #64748b18; color: #64748b; border: 1px solid #64748b30; }
+        .cat-skills { border-left: 3px solid #64748b; }
+
+        /* ── Banner ── */
+        .banner {
+            padding: 36px;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .banner h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.4rem;
+            color: var(--white);
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+        .banner p {
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 18px;
+            font-size: 0.95rem;
+        }
+        .banner a {
+            display: inline-block;
+            background: var(--white);
+            color: var(--accent);
+            padding: 11px 26px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+        .banner a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* ── Testimonials ── */
+        .testimonials {
+            background: var(--light-gray);
+            padding: 36px;
+            margin-bottom: 48px;
+        }
+        .testimonials h2 {
+            text-align: center;
+            border: none;
+            padding: 0;
+            margin-bottom: 24px;
+        }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .testimonial {
+            background: var(--white);
+            padding: 20px;
+            border: 1px solid var(--warm-gray);
+        }
+        .testimonial .stars {
+            color: #f59e0b;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+        .testimonial p {
+            font-size: 0.88rem;
+            color: #444;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .testimonial .attribution {
+            font-size: 0.78rem;
+            color: var(--mid-gray);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        /* ── IELTS ── */
+        .ielts-section { margin-bottom: 48px; }
+        .ielts-top {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 24px;
+            align-items: start;
+            margin-bottom: 20px;
+        }
+        .ielts-guides {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .ielts-guides a { max-width: 80px; }
+        .ielts-guides img {
+            width: 100%;
+            border-radius: 3px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .ielts-guides img:hover { transform: scale(1.05); }
+        .ielts-desc {
+            font-size: 0.92rem;
+            color: var(--mid-gray);
+            margin-bottom: 12px;
+        }
+
+        /* ── Wisdom ── */
+        .wisdom-section {
+            background: linear-gradient(145deg, var(--palace-deep), var(--palace-mid));
+            padding: 36px;
+            margin-bottom: 48px;
+            text-align: center;
+        }
+        #wisdom-quote {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.25rem;
+            color: var(--palace-light);
+            font-style: italic;
+            line-height: 1.6;
+            transition: opacity 0.5s;
+        }
+        #wisdom-source {
+            margin-top: 12px;
+            font-size: 0.82rem;
+            color: var(--palace-gold);
+            font-weight: 500;
+            transition: opacity 0.5s;
+        }
+
+        /* ── Memory Palace ── */
+        .palace-section {
+            background: linear-gradient(145deg, var(--palace-deep), var(--palace-mid));
+            padding: 48px 36px;
+            margin-bottom: 48px;
+            text-align: center;
+            border: 1px solid rgba(212,168,67,0.15);
+        }
+        .palace-section h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.7rem;
+            color: var(--palace-gold);
+            border: none;
+            padding: 0;
+            margin-bottom: 6px;
+        }
+        .palace-subtitle {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.88rem;
+            font-style: italic;
+            margin-bottom: 24px;
+        }
+        .palace-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .palace-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(212,168,67,0.15);
+            padding: 20px;
+            text-decoration: none;
+            color: var(--white);
+            transition: all 0.25s;
+        }
+        .palace-card:hover {
+            border-color: var(--palace-gold);
+            transform: translateY(-2px);
+            background: rgba(212,168,67,0.06);
+        }
+        .palace-card-icon { font-size: 1.5rem; margin-bottom: 8px; }
+        .palace-card-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.05rem;
+            color: var(--palace-gold);
+            margin-bottom: 4px;
+        }
+        .palace-card-desc {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+        .palace-card-count {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--palace-light);
+            opacity: 0.6;
+        }
+
+        /* ── Methods ── */
+        .methods-section { margin-bottom: 48px; }
+        .methods-image {
+            width: 100%;
+            border: 1px solid var(--warm-gray);
+        }
+        .methods-caption {
+            text-align: center;
+            color: var(--mid-gray);
+            font-size: 0.85rem;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* ── Tools ── */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+        .tool-card {
+            background: var(--off-white);
+            padding: 18px;
+            border: 1px solid var(--warm-gray);
+            text-decoration: none;
+            color: var(--black);
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .tool-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .tool-card .tool-icon { font-size: 1.4rem; margin-bottom: 6px; }
+        .tool-card .tool-name { font-weight: 600; font-size: 0.85rem; }
+        .tool-card .tool-desc { font-size: 0.75rem; color: var(--mid-gray); margin-top: 4px; }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 24px 30px;
+            border-top: 1px solid var(--warm-gray);
+            color: var(--mid-gray);
+            font-size: 0.85rem;
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* ── Responsive ── */
+        @media (max-width: 700px) {
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 50px; left: 0; right: 0;
+                background: var(--accent);
+                padding: 12px 20px;
+                gap: 4px;
+            }
+            .nav-toggle { display: block; }
+            .hero-inner { flex-direction: column; text-align: center; }
+            .hero h1 { font-size: 2rem; }
+            .hero-stats { justify-content: center; }
+            .cta-bar-inner { grid-template-columns: 1fr; }
+            .level-btns { grid-template-columns: 1fr; }
+            .featured-row { grid-template-columns: 1fr; }
+            .testimonial-grid { grid-template-columns: 1fr; }
+            .tools-grid { grid-template-columns: 1fr 1fr; }
+            .ielts-top { grid-template-columns: 1fr; }
+            .hero img { width: 100px; height: 125px; }
+            .palace-section, .banner, .testimonials, .finder { padding: 24px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ════ NAV ════ -->
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="#" class="nav-brand">Malcolm Hyndman</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">☰</button>
+        <ul class="nav-links">
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#exams">Exams</a></li>
+            <li><a href="#palace">Memory Palace</a></li>
+            <li><a href="#tools">Tools</a></li>
+            <li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/malcolm_lesson_index.html">All Lessons</a></li>
+            <li><a href="https://preply.com/en/tutor/4383857" target="_blank" class="nav-cta">Book a Lesson</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ════ HERO ════ -->
+<div class="hero">
+    <div class="hero-inner">
+        <img src="malcolm-photo.jpg" alt="Malcolm Hyndman">
+        <div>
+            <h1>Malcolm Hyndman</h1>
+            <p class="tagline">Online English teacher. 1,950+ free interactive lessons for learners and teachers — beginner to advanced, grammar, speaking, IELTS, business, pronunciation, and more.</p>
+            <div class="hero-stats">
+                <div class="hero-stat"><strong>1,950+</strong><span>Free Lessons</span></div>
+                <div class="hero-stat"><strong>A1–C2</strong><span>All Levels</span></div>
+                <div class="hero-stat"><strong>30+</strong><span>Years Teaching</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ════ CTAs ════ -->
+<div class="cta-bar">
+    <div class="cta-bar-inner">
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/pathway_map.html" class="cta-btn cta-primary">Explore Learning Pathways →</a>
+        <a href="https://preply.com/en/tutor/4383857" target="_blank" class="cta-btn cta-secondary">Book a Trial Lesson on Preply →</a>
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/malcolm_lesson_index.html" class="cta-btn cta-secondary">Browse All 1,950+ Lessons →</a>
+    </div>
+</div>
+
+<!-- ════ TESTIMONIALS (moved up) ════ -->
+<div class="testimonials">
+    <h2>What Students Say</h2>
+    <div class="testimonial-grid">
+        <div class="testimonial">
+            <div class="stars">★★★★★</div>
+            <p>"I've been learning English for many years, and Malcolm is by far the best teacher I've ever had! He is professional, genuinely interested, and also funny. He's very well-read, so we can discuss a wide range of topics. I always look forward to our classes, and I can see real progress in my English."</p>
+            <div class="attribution">— Thomas</div>
+        </div>
+        <div class="testimonial">
+            <div class="stars">★★★★★</div>
+            <p>"Malcolm is a great teacher and a really nice person. In just 8 classes, he helped me improve my IELTS speaking from 6 to 7. It was a pleasure learning from him, and I highly recommend him!"</p>
+            <div class="attribution">— Maria</div>
+        </div>
+        <div class="testimonial">
+            <div class="stars">★★★★★</div>
+            <p>"My English has significantly improved since I started lessons with him. He has a professional attitude; during conversation always observes your English and gives you feedback, all the while adjusting the scope of the lesson to your needs. The atmosphere is always positive, funny and without any pressure."</p>
+            <div class="attribution">— Damian</div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- ════ LEVEL FINDER ════ -->
+<div class="finder">
+    <h2>Where should I start?</h2>
+    <p>Choose your path. I'll show you the journey.</p>
+    <div class="level-btns">
+        <a class="level-btn" href="https://malcolmtheteacher-creator.github.io/preply-lessons/pathway_map.html?path=general">🌍 General<small>Everyday English</small></a>
+        <a class="level-btn" href="https://malcolmtheteacher-creator.github.io/preply-lessons/pathway_map.html?path=professional">💼 Professional<small>English for Work</small></a>
+        <a class="level-btn" href="https://malcolmtheteacher-creator.github.io/preply-lessons/pathway_map.html?path=academic">🎓 Academic<small>Exams & University</small></a>
+    </div>
+    <div style="text-align:center; margin-top:16px;">
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/pathway_builder.html"
+           style="display:inline-block; background:linear-gradient(135deg,#667eea,#764ba2);
+                  color:white; text-decoration:none; font-weight:700; font-size:1.05rem;
+                  padding:18px 48px; border-radius:8px; letter-spacing:0.3px;
+                  transition:opacity 0.2s;">
+            ✨ Not sure? Build a personalised pathway →
+        </a>
+    </div>
+</div>
+
+<!-- ════ FEATURED ════ -->
+<div class="featured-row">
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/pathway_builder.html" class="featured-card fc-pathway">
+        <div class="fc-icon">✨</div>
+        <div class="fc-title">Build My Pathway</div>
+        <div class="fc-desc">Tell me your level, goal and what you do for work — I'll build you a personalised lesson sequence with the right grammar, topics and progression.</div>
+        <div class="fc-stat">A2 → C2 · Personalised · Downloadable</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/game_room_dashboard.html" class="featured-card fc-gameroom">
+        <div class="fc-icon">🎮</div>
+        <div class="fc-title">The Game Room</div>
+        <div class="fc-desc">30 game-based speaking lessons. Conspiracy theories, courtroom interrogations, investor pitches, idiom guessing, and more. Every game is different every time.</div>
+        <div class="fc-stat">A2 → C1 · 30 Games</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/quick_fix_index.html" class="featured-card fc-quickfix">
+        <div class="fc-icon">🔧</div>
+        <div class="fc-title">Quick Fix Matrix</div>
+        <div class="fc-desc">132 searchable micro-lessons for common errors. Filter by grammar, vocabulary, collocations, false friends, pronunciation, spelling, and your first language.</div>
+        <div class="fc-stat">A2 → C1 · 132 Fixes</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/wordwall_dashboard.html" class="featured-card fc-wordwall">
+        <div class="fc-new-badge">New</div>
+        <div class="fc-icon">🧱</div>
+        <div class="fc-title">Word Wall</div>
+        <div class="fc-desc">50 vocabulary games across 5 game types. Match, Memory, Quiz, Anagram, and Categorize — interactive practice for every level.</div>
+        <div class="fc-stat">A1 → C1 · 50 Games · 5 Types</div>
+    </a>
+</div>
+
+<!-- ════ COURSES (Tabbed) ════ -->
+<div id="courses">
+<h2>Courses</h2>
+<p class="section-intro">Structured lesson pathways — each course is a complete learning journey.</p>
+
+<div class="tab-bar">
+    <button class="tab-btn active" data-tab="core">Core Pathways</button>
+    <button class="tab-btn" data-tab="conversation">Conversation</button>
+    <button class="tab-btn" data-tab="professional">Professional</button>
+    <button class="tab-btn" data-tab="discourse">Advanced</button>
+    <button class="tab-btn" data-tab="skills">Pronunciation & Skills</button>
+</div>
+
+<div class="tab-panel active" data-panel="core">
+<div class="resources-grid">
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/pathway_builder.html" class="resource-card featured-pathway">
+        <span class="resource-level">A2 → C2</span><span class="resource-count">Personalised</span>
+        <div class="resource-title">✨ Build My Pathway</div>
+        <div class="resource-desc">Answer a few questions and get a personalised sequence of lessons built around your level, goals, profession and interests.</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/topic_picker.html" class="resource-card featured-pathway">
+        <span class="resource-level">A2 → C2</span><span class="resource-count">466 lessons</span>
+        <div class="resource-title">Topic Explorer</div>
+        <div class="resource-desc">Choose any topic that interests you — food, travel, technology, culture — with grammar and speaking links built in.</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/a1_pathway_dashboard.html" class="resource-card cat-pathway">
+        <span class="resource-level">A1 → A2</span><span class="resource-count">50 lessons</span>
+        <div class="resource-title">A1 English Pathway</div>
+        <div class="resource-desc">Complete pathway from absolute beginner to A2 threshold with spaced repetition.</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/general_english_dashboard.html" class="resource-card cat-pathway">
+        <span class="resource-level">A2 → C1</span><span class="resource-count">50 lessons</span>
+        <div class="resource-title">General English</div>
+        <div class="resource-desc">50 interactive lessons from elementary to advanced.</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_pathway_dashboard.html" class="resource-card cat-pathway">
+        <span class="resource-level">A2 → C1</span><span class="resource-count">75 lessons</span>
+        <div class="resource-title">Speaking Pathway</div>
+        <div class="resource-desc">Vocabulary, readings, and discussion prep to develop speaking fluency.</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/CEFR_Grammar_Dashboard.html" class="resource-card cat-pathway">
+        <span class="resource-level">A1 → C2</span><span class="resource-count">81 lessons</span>
+        <div class="resource-title">CEFR Grammar Course</div>
+        <div class="resource-desc">Complete grammar reference and lesson hub — 260 grammar points across all 6 CEFR levels with interactive lessons.</div>
+    </a>
+</div>
+</div>
+
+<div class="tab-panel" data-panel="conversation">
+<div class="resources-grid">
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_dashboard.html" class="resource-card cat-conversation">
+        <span class="resource-level">B1+</span>
+        <div class="resource-title">Curious Conversations</div>
+        <div class="resource-desc">Discussion-based lessons on philosophy and ideas.</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_series2_dashboard.html" class="resource-card cat-conversation">
+        <span class="resource-level">B1+</span>
+        <div class="resource-title">Curious Conversations: Series 2</div>
+        <div class="resource-desc">More discussion-based lessons exploring ideas and ethics.</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_dashboard.html" class="resource-card cat-conversation">
+        <span class="resource-level">B1+</span>
+        <div class="resource-title">Speaking Naturally</div>
+        <div class="resource-desc">Fluency and natural expression.</div>
+    </a>
+</div>
+</div>
+
+<div class="tab-panel" data-panel="professional">
+<div class="resources-grid">
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/professional_skills_dashboard.html" class="resource-card cat-professional">
+        <span class="resource-level">B1+</span>
+        <div class="resource-title">Professional Skills</div>
+        <div class="resource-desc">Business English and workplace communication.</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_meetings_dashboard.html" class="resource-card cat-professional">
+        <span class="resource-level">B1</span>
+        <div class="resource-title">Business Meeting Essentials</div>
+        <div class="resource-desc">Core skills for leading and participating in professional meetings.</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_bootcamp_dashboard.html" class="resource-card cat-professional">
+        <span class="resource-level">B2 → C1</span><span class="resource-count">8 lessons</span>
+        <div class="resource-title">The Boardroom: Business Bootcamp</div>
+        <div class="resource-desc">Apprentice-inspired lessons on pitching, negotiation, leadership, and business acumen.</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/strategic_storytelling_dashboard.html" class="resource-card cat-professional">
+        <span class="resource-level">C1+ Professional</span><span class="resource-count">12 lessons</span>
+        <div class="resource-title">Strategic Storytelling</div>
+        <div class="resource-desc">Frame stories, reframe narratives, and move rooms. For senior professionals.</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/trade_fair_dashboard.html" class="resource-card cat-professional">
+        <span class="resource-level">A2 → C1</span><span class="resource-count">18 lessons</span>
+        <div class="resource-title">Trade Fair English</div>
+        <div class="resource-desc">From first handshake to signed contract. 17 named frameworks across 3 levels for international trade fairs.</div>
+    </a>
+</div>
+</div>
+
+<div class="tab-panel" data-panel="discourse">
+<div class="resources-grid">
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_teens_dashboard.html" class="resource-card cat-discourse">
+        <span class="resource-level">C2 Teens</span><span class="resource-count">6 lessons</span>
+        <div class="resource-title">Speaking Naturally: Teens</div>
+        <div class="resource-desc">Social media, AI, cancel culture, climate change, and philosophy. University-level discourse for ages 15–18.</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/commanding_discourse_dashboard.html" class="resource-card cat-discourse">
+        <span class="resource-level">C1 → C2</span><span class="resource-count">6 lessons</span>
+        <div class="resource-title">Commanding Discourse</div>
+        <div class="resource-desc">Advanced fluency: hedging, argument structure, speculation, and high-stakes speaking.</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/discourse_bestiary_pathway.html" class="resource-card cat-discourse">
+        <span class="resource-level">C1 → C2</span><span class="resource-count">6 lessons</span>
+        <div class="resource-title">Discourse Bestiary</div>
+        <div class="resource-desc">30 expressions locked into memory with the Bestiary system. 5 creatures each.</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/beyond_perfect_dashboard.html" class="resource-card cat-discourse">
+        <span class="resource-level">C2</span><span class="resource-count">6 lessons</span>
+        <div class="resource-title">Beyond Perfect</div>
+        <div class="resource-desc">When excellent English isn't enough. Register, uncertainty, pragmatics, and strategic communication.</div>
+    </a>
+</div>
+</div>
+
+<div class="tab-panel" data-panel="skills">
+<div class="resources-grid">
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/pronunciation_pathway_dashboard.html" class="resource-card cat-skills">
+        <span class="resource-level">B2 → C1</span><span class="resource-count">6 lessons</span>
+        <div class="resource-title">Pronunciation Pathway: British English</div>
+        <div class="resource-desc">Rhythm, vowels, consonants, connected speech, intonation, and shadowing.</div>
+    </a>
+    <a href="listening-lessons.html" class="resource-card cat-skills">
+        <span class="resource-level">B1 → C1</span><span class="resource-count">9 lessons</span>
+        <div class="resource-title">Listening Practice</div>
+        <div class="resource-desc">Interactive lessons with pre-listening, vocabulary, and comprehension activities.</div>
+    </a>
+</div>
+</div>
+</div><!-- end courses -->
+
+<!-- ════ PROFESSIONAL SCENARIOS ════ -->
+<div class="banner" style="background: var(--accent);">
+    <h3>English for Your Exact Role</h3>
+    <p>273 professional scenarios mapped by industry and function.</p>
+    <a href="https://malcolmhyndman.com/professional-skills.html">Find Your Scenario →</a>
+</div>
+
+<!-- ════ IELTS ════ -->
+<section id="exams" class="ielts-section">
+    <h2>Exam Preparation</h2>
+    <div class="ielts-top">
+        <div class="ielts-guides">
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-master-formula.png" target="_blank"><img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-master-formula.png" alt="IELTS Master Formula"></a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-writing.png" target="_blank"><img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-writing.png" alt="IELTS Writing"></a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-speaking.png" target="_blank"><img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-speaking.png" alt="IELTS Speaking"></a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-reading.png" target="_blank"><img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-reading.png" alt="IELTS Reading"></a>
+            <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-listening.png" target="_blank"><img src="https://malcolmtheteacher-creator.github.io/preply-lessons/images/ielts-listening.png" alt="IELTS Listening"></a>
+        </div>
+        <div>
+            <p class="ielts-desc">Strategy guides and full practice courses for every section of the IELTS exam. Click any guide to view full-size.</p>
+        </div>
+    </div>
+    <div class="resources-grid" style="margin-bottom:0;">
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_task_1_dashboard.html" class="resource-card cat-skills">
+            <span class="resource-level">IELTS Writing</span>
+            <div class="resource-title">Task 1: Reports</div>
+            <div class="resource-desc">Charts, graphs, maps, and process diagrams.</div>
+        </a>
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_course_index.html" class="resource-card cat-skills">
+            <span class="resource-level">IELTS Writing</span>
+            <div class="resource-title">Task 2: Essays</div>
+            <div class="resource-desc">Opinion, discussion, and problem-solution essays.</div>
+        </a>
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_writing_pathway.html" class="resource-card cat-skills">
+            <span class="resource-level">IELTS Writing</span>
+            <div class="resource-title">Writing Pathway</div>
+            <div class="resource-desc">8 lessons from sentences to essays with a Bestiary memory system.</div>
+        </a>
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_essay_dashboard.html" class="resource-card cat-skills">
+            <span class="resource-level">IELTS Writing</span>
+            <div class="resource-title">Essay Practice</div>
+            <div class="resource-desc">Timed practice for all Task 2 types with instant scoring.</div>
+        </a>
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts-reading-tests.html" class="resource-card cat-skills">
+            <span class="resource-level">IELTS Reading</span><span class="resource-count">10 tests</span>
+            <div class="resource-title">Practice Tests</div>
+            <div class="resource-desc">Full reading tests with all question types, timed practice, and instant scoring.</div>
+        </a>
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_wordwall_dashboard.html" class="resource-card cat-vocab" style="background: linear-gradient(135deg, rgba(233,69,96,0.08), rgba(255,107,107,0.08)); border-color: rgba(233,69,96,0.3);">
+            <span class="resource-level" style="background:rgba(233,69,96,0.15);color:#e94560">IELTS Vocabulary</span><span class="resource-count" style="color:#e94560">22 games</span>
+            <div class="resource-title">🧱 IELTS Word Wall</div>
+            <div class="resource-desc">Interactive vocabulary games covering all 10 IELTS topic areas. Match, memory, quiz, anagram &amp; categorize.</div>
+        </a>
+        <div class="section-label">Cambridge</div>
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/cambridge_exam_prep_dashboard.html" class="resource-card cat-skills">
+            <span class="resource-level">B2 → C2</span>
+            <div class="resource-title">Cambridge Exams (CAE &amp; CPE)</div>
+            <div class="resource-desc">FCE, CAE, CPE preparation — use of English, reading, writing, speaking, and listening.</div>
+        </a>
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/cpe_reading_dashboard.html" class="resource-card cat-skills">
+            <span class="resource-level">C1 → C2</span><span class="resource-count">30 lessons</span>
+            <div class="resource-title">CPE Reading Practice</div>
+            <div class="resource-desc">30 fascinating reading passages with Cambridge-style multiple choice, vocabulary, and discussion.</div>
+        </a>
+    </div>
+</section>
+
+<!-- ════ RELIGIOUS STUDIES ════ -->
+<div class="banner" style="background: linear-gradient(135deg, #1a3a5c, #1a5c3a);">
+    <h3>Religious Studies — A Complete Secondary Curriculum</h3>
+    <p>252 interactive lessons — Years 7 to 13. KS3 foundations, AQA GCSE, and A-Level.</p>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_master_dashboard.html">Explore the Curriculum →</a>
+</div>
+
+<!-- ════ MEMORY PALACE ════ -->
+<section id="palace" class="palace-section">
+    <h2>The Memory Palace</h2>
+    <p class="palace-subtitle">A separate project — using ancient memory techniques to hold entire domains of knowledge.</p>
+    <div class="palace-grid">
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/art-of-memory.html" class="palace-card">
+            <div class="palace-card-icon">🧠</div>
+            <div class="palace-card-title">The Art of Memory</div>
+            <div class="palace-card-desc">Master the ancient techniques of memory champions</div>
+            <div class="palace-card-count">30 Interactive Lessons</div>
+        </a>
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ois_dashboard.html" class="palace-card">
+            <div class="palace-card-icon">🏰</div>
+            <div class="palace-card-title">Our Island Story</div>
+            <div class="palace-card-desc">A history of Britain in Marshall's beautiful prose</div>
+            <div class="palace-card-count">20 Interactive Lessons</div>
+        </a>
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/wp_dashboard.html" class="palace-card">
+            <div class="palace-card-icon">🏛️</div>
+            <div class="palace-card-title">A History of Western Philosophy</div>
+            <div class="palace-card-desc">From Thales to the present — 2,600 years of thought</div>
+            <div class="palace-card-count">50 Interactive Lessons</div>
+        </a>
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/epicurean_dashboard.html" class="palace-card">
+            <div class="palace-card-icon">🌿</div>
+            <div class="palace-card-title">The Epicurean Path</div>
+            <div class="palace-card-desc">From the Garden to Gassendi — Epicurean philosophy</div>
+            <div class="palace-card-count">30 Interactive Lessons</div>
+        </a>
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/dewey_palace_architecture.html" class="palace-card">
+            <div class="palace-card-icon">🗂️</div>
+            <div class="palace-card-title">Talk to Anybody About Anything</div>
+            <div class="palace-card-desc">970 facts mapped to the Dewey Decimal System</div>
+            <div class="palace-card-count">99 Divisions · 970 Items</div>
+        </a>
+        <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/bestiary.html" class="palace-card">
+            <div class="palace-card-icon">🦁</div>
+            <div class="palace-card-title">The Bestiary</div>
+            <div class="palace-card-desc">A mnemonic system for encoding names</div>
+            <div class="palace-card-count">200+ Creatures</div>
+        </a>
+        <a href="memory-books.html" class="palace-card">
+            <div class="palace-card-icon">📚</div>
+            <div class="palace-card-title">Essential Reading</div>
+            <div class="palace-card-desc">22 key texts on the art of memory</div>
+            <div class="palace-card-count">22 Annotated Books</div>
+        </a>
+    </div>
+</section>
+
+<!-- ════ TOOLS ════ -->
+<h2 id="tools">Tools</h2>
+<div class="tools-grid">
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/powerup.html" class="tool-card">
+        <div class="tool-icon">⚡</div>
+        <div class="tool-name">PowerUp</div>
+        <div class="tool-desc">Project manager</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/mandalart.html" class="tool-card">
+        <div class="tool-icon">🎯</div>
+        <div class="tool-name">MandalArt</div>
+        <div class="tool-desc">Goal-setting</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/countdownart.html" class="tool-card">
+        <div class="tool-icon">⏱️</div>
+        <div class="tool-name">CountdownArt</div>
+        <div class="tool-desc">Visual countdown</div>
+    </a>
+    <a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/speaking-practice.html" class="tool-card">
+        <div class="tool-icon">🎤</div>
+        <div class="tool-name">Speaking Practice</div>
+        <div class="tool-desc">IELTS simulator</div>
+    </a>
+</div>
+
+<!-- ════ WISDOM ════ -->
+<section class="wisdom-section">
+    <div id="wisdom-quote">"The foundation of every state is the education of its youth."</div>
+    <div id="wisdom-source">— Diogenes of Sinope</div>
+</section>
+
+<!-- ════ METHODS ════ -->
+<section class="methods-section">
+    <img src="teaching-methods.png" alt="Scientifically Proven Teaching and Learning Methods" class="methods-image">
+    <p class="methods-caption">The research behind how I design lessons</p>
+</section>
+
+<section class="methods-section">
+    <img src="storytelling.png" alt="The Story Gap: Why Professionals Who Tell Stories Get Heard" class="methods-image">
+</section>
+
+<footer>
+    <p>Questions? <a href="mailto:malcolmtheteacher@gmail.com">malcolmtheteacher@gmail.com</a></p>
+</footer>
+
+</div>
+
+<script>
+/* ── Tabs ── */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelector(`[data-panel="${tab}"]`).classList.add('active');
+    });
+});
+
+/* ── Close mobile nav on link click ── */
+document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('open');
+    });
+});
+
+/* ── Wisdom Quotes ── */
+const wisdomQuotes = [
+    { quote: "It is not that I am mad, it is only that my head is different from yours.", source: "Diogenes of Sinope" },
+    { quote: "The foundation of every state is the education of its youth.", source: "Diogenes of Sinope" },
+    { quote: "Dogs and philosophers do the greatest good and get the fewest rewards.", source: "Diogenes of Sinope" },
+    { quote: "I am a citizen of the world.", source: "Diogenes of Sinope" },
+    { quote: "He has the most who is most content with the least.", source: "Diogenes of Sinope" },
+    { quote: "Man is the most intelligent of the animals - and the most silly.", source: "Diogenes of Sinope" },
+    { quote: "I threw my cup away when I saw a child drinking from his hands at the trough.", source: "Diogenes of Sinope" },
+    { quote: "We suffer more often in imagination than in reality.", source: "Seneca" },
+    { quote: "Luck is what happens when preparation meets opportunity.", source: "Seneca" },
+    { quote: "It is not that we have a short time to live, but that we waste a lot of it.", source: "Seneca" },
+    { quote: "Difficulties strengthen the mind, as labor does the body.", source: "Seneca" },
+    { quote: "While we are postponing, life speeds by.", source: "Seneca" },
+    { quote: "Waste no more time arguing about what a good man should be. Be one.", source: "Marcus Aurelius" },
+    { quote: "The happiness of your life depends upon the quality of your thoughts.", source: "Marcus Aurelius" },
+    { quote: "You have power over your mind - not outside events. Realize this, and you will find strength.", source: "Marcus Aurelius" },
+    { quote: "Very little is needed to make a happy life; it is all within yourself, in your way of thinking.", source: "Marcus Aurelius" },
+    { quote: "It is not things that disturb us, but our judgments about things.", source: "Epictetus" },
+    { quote: "First say to yourself what you would be; and then do what you have to do.", source: "Epictetus" },
+    { quote: "No man is free who is not master of himself.", source: "Epictetus" },
+    { quote: "Why do you look at the speck of sawdust in your brother's eye and pay no attention to the plank in your own?", source: "Jesus of Nazareth" },
+    { quote: "Let the dead bury their own dead.", source: "Jesus of Nazareth" },
+    { quote: "Do not worry about tomorrow, for tomorrow will worry about itself.", source: "Jesus of Nazareth" },
+    { quote: "What good is it for someone to gain the whole world, yet forfeit their soul?", source: "Jesus of Nazareth" },
+    { quote: "The truth will set you free.", source: "Jesus of Nazareth" },
+    { quote: "You cannot serve both God and money.", source: "Jesus of Nazareth" },
+    { quote: "He who is without sin among you, let him cast the first stone.", source: "Jesus of Nazareth" }
+];
+let currentQuoteIndex = 0;
+function showNextQuote() {
+    const quoteEl = document.getElementById('wisdom-quote');
+    const sourceEl = document.getElementById('wisdom-source');
+    quoteEl.style.opacity = '0';
+    sourceEl.style.opacity = '0';
+    setTimeout(() => {
+        currentQuoteIndex = (currentQuoteIndex + 1) % wisdomQuotes.length;
+        const quote = wisdomQuotes[currentQuoteIndex];
+        quoteEl.textContent = '"' + quote.quote + '"';
+        sourceEl.textContent = '— ' + quote.source;
+        quoteEl.style.opacity = '1';
+        sourceEl.style.opacity = '1';
+    }, 500);
+}
+setInterval(showNextQuote, 12000);
+</script>
+</body>
+</html>
