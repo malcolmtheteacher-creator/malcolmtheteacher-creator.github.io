@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C1 Grammar Diagnostic: Precision Pick</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tab-navigation {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab-btn {
+            background: white;
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: inherit;
+            color: #667eea;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            bottom: -2px;
+        }
+
+        .tab-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .tab-btn.active {
+            color: #db2777;
+            border-bottom-color: #db2777;
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-block {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+        }
+
+        .content-block h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .content-block h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .content-block p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .score-tracker {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .pair-container {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .pair-number {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .pair-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            position: relative;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9fa;
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #eef2ff;
+        }
+
+        .option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        .option-label {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .option-text {
+            color: #333;
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        .option-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            display: none;
+        }
+
+        .option.correct .option-icon,
+        .option.incorrect .option-icon {
+            display: block;
+        }
+
+        .check-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .check-button:hover:not(:disabled) {
+            background: #5568d3;
+        }
+
+        .check-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .explanation {
+            display: none;
+            background: #fff8e1;
+            border-left: 5px solid #db2777;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+        .explanation.show {
+            display: block;
+        }
+
+        .explanation-label {
+            font-weight: 600;
+            color: #db2777;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .explanation-text {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #667eea;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .pair-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-navigation {
+                gap: 5px;
+            }
+
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .content-block {
+                padding: 20px;
+            }
+
+            .pair-container {
+                padding: 20px;
+            }
+
+            .option {
+                padding: 15px;
+            }
+
+            .option-text {
+                font-size: 1rem;
+            }
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .rule-item {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 5px solid #db2777;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .rule-number {
+            color: #db2777;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .rule-title {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .rule-details {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .rule-details strong {
+            color: #333;
+        }
+
+        .lesson-links {
+            background: #eef2ff;
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+
+        .lesson-links a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .lesson-links a:hover {
+            text-decoration: underline;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .result-category {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .result-category h3 {
+            color: #667eea;
+            margin-bottom: 12px;
+        }
+
+        .result-score {
+            color: #db2777;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .result-category p {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .result-category a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .result-category a:hover {
+            text-decoration: underline;
+        }
+
+        .intro-text {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            color: #db2777;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>C1 Grammar Diagnostic</h1>
+            <p>Precision Pick: Choose the grammatically correct sentence</p>
+        </div>
+
+        <div class="tab-navigation">
+            <button class="tab-btn active" onclick="switchTab(event, 'getting-started')">Getting Started</button>
+            <button class="tab-btn" onclick="switchTab(event, 'precision-pick')">Precision Pick</button>
+            <button class="tab-btn" onclick="switchTab(event, 'rules')">The Rules Behind It</button>
+            <button class="tab-btn" onclick="switchTab(event, 'results')">Your Results</button>
+        </div>
+
+        <!-- TAB 1: GETTING STARTED -->
+        <div id="getting-started" class="tab-content active">
+            <div class="content-block">
+                <h2>Getting Started</h2>
+                <p class="intro-text">You're about to take a C1 grammar diagnostic designed to test the <span class="highlight">subtle distinctions</span> that advanced learners need to master.</p>
+                <p class="intro-text">In each pair, both sentences may look similar — but only ONE is grammatically correct or natural. Your job is to pick the correct one.</p>
+                <p class="intro-text">Take your time, think carefully, and learn from the explanations. Ready? Let's warm up with two practice pairs.</p>
+            </div>
+
+            <div class="pair-container">
+                <div class="pair-number">Practice 1</div>
+                <div class="pair-grid">
+                    <div class="option" onclick="selectOption(this, 'practice1')">
+                        <div class="option-label">A</div>
+                        <div class="option-text">Had she known about the meeting, she would have attended.</div>
+                        <div class="option-icon">✓</div>
+                    </div>
+                    <div class="option" onclick="selectOption(this, 'practice1')">
+                        <div class="option-label">B</div>
+                        <div class="option-text">If she would have known about the meeting, she would have attended.</div>
+                        <div class="option-icon">✗</div>
+                    </div>
+                </div>
+                <button class="check-button" onclick="checkAnswer('practice1', 'A')">Check Answer</button>
+                <div class="explanation" id="practice1-explanation">
+                    <div class="explanation-label">The Rule</div>
+                    <div class="explanation-text"><strong>Third conditional:</strong> Use "had + past participle" (not "if + would have"). The correct structure is: Had she known → she would have attended. Using "if would have" is non-standard.</div>
+                </div>
+            </div>
+
+            <div class="pair-container">
+                <div class="pair-number">Practice 2</div>
+                <div class="pair-grid">
+                    <div class="option" onclick="selectOption(this, 'practice2')">
+                        <div class="option-label">A</div>
+                        <div class="option-text">Not only did he finish the project early, but he also exceeded all expectations.</div>
+                        <div class="option-icon">✓</div>
+                    </div>
+                    <div class="option" onclick="selectOption(this, 'practice2')">
+                        <div class="option-label">B</div>
+                        <div class="option-text">Not only he finished the project early, but he also exceeded all expectations.</div>
+                        <div class="option-icon">✗</div>
+                    </div>
+                </div>
+                <button class="check-button" onclick="checkAnswer('practice2', 'A')">Check Answer</button>
+                <div class="explanation" id="practice2-explanation">
+                    <div class="explanation-label">The Rule</div>
+                    <div class="explanation-text"><strong>Inversion after "not only":</strong> When "not only" starts a clause, subject-auxiliary inversion is required in formal English. Correct: "Not only did he finish..." Not: "Not only he finished..."</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: PRECISION PICK -->
+        <div id="precision-pick" class="tab-content">
+            <div class="score-tracker">
+                <span id="score-display">0/10 correct</span>
+            </div>
+
+            <div id="pairs-container"></div>
+        </div>
+
+        <!-- TAB 3: RULES BEHIND IT -->
+        <div id="rules" class="tab-content">
+            <div class="content-block">
+                <h2>The Rules Behind It</h2>
+                <p>Here are the 10 grammar rules tested in this diagnostic. Review each one carefully.</p>
+            </div>
+            <div id="rules-container"></div>
+        </div>
+
+        <!-- TAB 4: YOUR RESULTS -->
+        <div id="results" class="tab-content">
+            <div class="content-block">
+                <h2>Your Results</h2>
+                <p>Once you complete the Precision Pick section, your results will appear here organised by category. Click the lesson links to dive deeper into each grammar topic.</p>
+            </div>
+            <div id="results-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Data structure for all 10 pairs
+        const pairs = [
+            {
+                id: "pair1",
+                number: 1,
+                a: "Were it not for the generous funding, the project would never have succeeded.",
+                b: "Was it not for the generous funding, the project would never have succeeded.",
+                correct: "A",
+                category: "Conditionals",
+                rule: "Formal inverted conditionals use 'were' for all subjects, never 'was'. This follows the subjunctive form: were it not for, were she to, etc.",
+                lesson: "grammar_c1_04_inverted_formal_conditionals.html"
+            },
+            {
+                id: "pair2",
+                number: 2,
+                a: "Scarcely had the meeting begun that the fire alarm went off.",
+                b: "Scarcely had the meeting begun when the fire alarm went off.",
+                correct: "B",
+                category: "Sentence Structure",
+                rule: "The pattern is 'scarcely/hardly...when' or 'no sooner...than'. Never use 'scarcely...that' or 'hardly...that'.",
+                lesson: "grammar_c1_14_sentence_architecture.html"
+            },
+            {
+                id: "pair3",
+                number: 3,
+                a: "It's high time the government took action on climate change.",
+                b: "It's high time the government takes action on climate change.",
+                correct: "A",
+                category: "Conditionals & Hypothetical",
+                rule: "After 'it's (high) time', use the past tense subjunctive form — even though the meaning is present/future. Example: It's time we left. It's time you told the truth.",
+                lesson: "grammar_c1_04_inverted_formal_conditionals.html"
+            },
+            {
+                id: "pair4",
+                number: 4,
+                a: "Not until I read the footnotes I understood the full argument.",
+                b: "Not until I read the footnotes did I understand the full argument.",
+                correct: "B",
+                category: "Sentence Structure",
+                rule: "After 'not until' at the start of a sentence, the main clause requires subject-auxiliary inversion. Structure: Not until X did Y happen.",
+                lesson: "grammar_c1_14_sentence_architecture.html"
+            },
+            {
+                id: "pair5",
+                number: 5,
+                a: "She would sooner resign than accept the new conditions.",
+                b: "She would sooner to resign than to accept the new conditions.",
+                correct: "A",
+                category: "Verb Patterns",
+                rule: "'Would sooner' and 'would rather' are followed by the bare infinitive (no 'to'). Examples: I'd sooner leave, I'd rather stay.",
+                lesson: "grammar_c1_15_gerunds_infinitives_phrasal.html"
+            },
+            {
+                id: "pair6",
+                number: 6,
+                a: "Having been thoroughly reviewed by the committee, they approved the proposal unanimously.",
+                b: "Having been thoroughly reviewed by the committee, the proposal was approved unanimously.",
+                correct: "B",
+                category: "Sentence Structure",
+                rule: "The subject of the main clause must match the implied subject of the participle clause. The proposal was reviewed, not 'they'. The sentence in A contains a dangling modifier error.",
+                lesson: "grammar_c1_14_sentence_architecture.html"
+            },
+            {
+                id: "pair7",
+                number: 7,
+                a: "The team is supposed to have submitted the report by now.",
+                b: "The team is supposed to have been submitting the report by now.",
+                correct: "A",
+                category: "Modal & Semi-modal",
+                rule: "'Be supposed to + perfect infinitive' expresses an expectation about a completed action. The continuous form 'have been submitting' doesn't fit when discussing a single completed action.",
+                lesson: "grammar_c1_03_advanced_modals.html"
+            },
+            {
+                id: "pair8",
+                number: 8,
+                a: "The results were, to put it mildly, somewhat disappointing.",
+                b: "The results were to put it mildly somewhat disappointing.",
+                correct: "A",
+                category: "Punctuation & Style",
+                rule: "Comment adverbials like 'to put it mildly', 'frankly speaking', and 'to be fair' must be set off with commas when they interrupt the sentence.",
+                lesson: "grammar_c1_16_formal_style_word_formation.html"
+            },
+            {
+                id: "pair9",
+                number: 9,
+                a: "What the report fails to acknowledge is the lack of representative data.",
+                b: "What the report fails to acknowledge are the lack of representative data.",
+                correct: "A",
+                category: "Subject-Verb Agreement",
+                rule: "In what-cleft sentences, the verb 'be' agrees with the complement. 'The lack' is singular, so use 'is', not 'are'.",
+                lesson: "grammar_c1_14_sentence_architecture.html"
+            },
+            {
+                id: "pair10",
+                number: 10,
+                a: "The committee will decide whether to proceed with the original plan.",
+                b: "The committee will decide if to proceed with the original plan.",
+                correct: "A",
+                category: "Conjunctions & Connectors",
+                rule: "Before 'to + infinitive', use 'whether', not 'if'. You can say 'decide whether to go' but not 'decide if to go'. 'If' works before a clause but not before an infinitive.",
+                lesson: "grammar_c1_13_discourse_hedging.html"
+            }
+        ];
+
+        // State tracking
+        let userAnswers = {};
+        let selectedOptions = {};
+
+        // Initialize on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            buildPrecisionPickTab();
+            buildRulesTab();
+        });
+
+        // Tab switching
+        function switchTab(event, tabName) {
+            event.preventDefault();
+
+            // Hide all tabs
+            const tabs = document.querySelectorAll(".tab-content");
+            tabs.forEach(tab => tab.classList.remove("active"));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll(".tab-btn");
+            buttons.forEach(btn => btn.classList.remove("active"));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add("active");
+            event.target.classList.add("active");
+
+            // Update results when switching to results tab
+            if (tabName === "results") {
+                updateResults();
+            }
+        }
+
+        // Build Precision Pick tab
+        function buildPrecisionPickTab() {
+            const container = document.getElementById("pairs-container");
+            container.innerHTML = "";
+
+            pairs.forEach(pair => {
+                const pairEl = document.createElement("div");
+                pairEl.className = "pair-container";
+
+                const categoryBadge = "<div class=\"category-tag\">" + pair.category + "</div>";
+
+                pairEl.innerHTML = "<div class=\"pair-number\">Pair " + pair.number + "</div>" + categoryBadge + "<div class=\"pair-grid\"><div class=\"option\" onclick=\"selectOption(this, '" + pair.id + "')\"><div class=\"option-label\">A</div><div class=\"option-text\">" + pair.a + "</div><div class=\"option-icon\">✓</div></div><div class=\"option\" onclick=\"selectOption(this, '" + pair.id + "')\"><div class=\"option-label\">B</div><div class=\"option-text\">" + pair.b + "</div><div class=\"option-icon\">✗</div></div></div><button class=\"check-button\" onclick=\"checkAnswer('" + pair.id + "', '" + pair.correct + "')\">Check Answer</button><div class=\"explanation\" id=\"" + pair.id + "-explanation\"><div class=\"explanation-label\">The Rule</div><div class=\"explanation-text\"><strong>" + pair.category + ":</strong> " + pair.rule + "</div></div>";
+
+                container.appendChild(pairEl);
+            });
+        }
+
+        // Build Rules tab
+        function buildRulesTab() {
+            const container = document.getElementById("rules-container");
+            container.innerHTML = "";
+
+            pairs.forEach(pair => {
+                const ruleEl = document.createElement("div");
+                ruleEl.className = "rule-item";
+
+                const correctSentence = pair.correct === "A" ? pair.a : pair.b;
+
+                ruleEl.innerHTML = "<div class=\"rule-number\">Pair " + pair.number + "</div><div class=\"rule-title\">" + pair.category + "</div><div class=\"rule-details\"><strong>Correct:</strong> \"" + correctSentence + "\"<br><br><strong>Explanation:</strong> " + pair.rule + "</div><div class=\"lesson-links\"><a href=\"" + pair.lesson + "\" target=\"_blank\">→ Explore this lesson</a></div>";
+
+                container.appendChild(ruleEl);
+            });
+        }
+
+        // Select an option
+        function selectOption(element, pairId) {
+            const pair = element.parentElement;
+            const options = pair.querySelectorAll(".option");
+
+            options.forEach(opt => opt.classList.remove("selected"));
+            element.classList.add("selected");
+
+            // Store which option was selected (A or B)
+            const label = element.querySelector(".option-label").textContent;
+            selectedOptions[pairId] = label;
+        }
+
+        // Check answer and reveal result
+        function checkAnswer(pairId, correctAnswer) {
+            const pair = document.querySelector("#" + pairId).parentElement;
+            const options = pair.querySelectorAll(".option");
+            const explanation = document.getElementById(pairId + "-explanation");
+            const button = pair.querySelector(".check-button");
+
+            let userAnswer = selectedOptions[pairId];
+
+            if (!userAnswer) {
+                alert("Please select an option first!");
+                return;
+            }
+
+            // Mark correct and incorrect
+            options.forEach(opt => {
+                const label = opt.querySelector(".option-label").textContent;
+                opt.classList.remove("selected");
+
+                if (label === correctAnswer) {
+                    opt.classList.add("correct");
+                } else if (label === userAnswer && userAnswer !== correctAnswer) {
+                    opt.classList.add("incorrect");
+                }
+            });
+
+            // Track answer
+            userAnswers[pairId] = (userAnswer === correctAnswer);
+
+            // Show explanation
+            explanation.classList.add("show");
+
+            // Disable button
+            button.disabled = true;
+            button.textContent = "Answered";
+
+            // Update score display
+            updateScoreDisplay();
+        }
+
+        // Update score display
+        function updateScoreDisplay() {
+            const correct = Object.values(userAnswers).filter(v => v === true).length;
+            const total = pairs.length;
+            document.getElementById("score-display").textContent = correct + "/" + total + " correct";
+        }
+
+        // Update results tab
+        function updateResults() {
+            const resultsContainer = document.getElementById("results-container");
+
+            // Group pairs by category
+            const categoryMap = {};
+            pairs.forEach(pair => {
+                if (!categoryMap[pair.category]) {
+                    categoryMap[pair.category] = [];
+                }
+                categoryMap[pair.category].push(pair);
+            });
+
+            // Build results display
+            let html = "";
+
+            for (const category in categoryMap) {
+                const categoryPairs = categoryMap[category];
+                const correctCount = categoryPairs.filter(p => userAnswers[p.id] === true).length;
+                const totalCount = categoryPairs.length;
+                const lesson = categoryPairs[0].lesson;
+
+                html += "<div class=\"result-category\"><h3>" + category + "</h3><div class=\"result-score\">" + correctCount + "/" + totalCount + " correct</div><p>Master this grammar area with a focused lesson.</p><a href=\"" + lesson + "\" target=\"_blank\">→ Go to lesson</a></div>";
+            }
+
+            resultsContainer.innerHTML = html || "<p style=\"color: #999;\">Complete the Precision Pick section to see your results.</p>";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Diagnostic — B2 Level</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            background: #7c3aed;
+            color: white;
+            border-color: #7c3aed;
+        }
+
+        .tab-button:hover {
+            border-color: #7c3aed;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .content-block {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+        }
+
+        .content-block h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .content-block h3 {
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .budget-display {
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .budget-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .budget-amount {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .sentence-card {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .sentence-card.bid {
+            border-color: #7c3aed;
+            background: #f3f0ff;
+        }
+
+        .sentence-card.correct {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .sentence-card.incorrect {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .sentence-card.missed {
+            border-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+        .sentence-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .sentence-text {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .sentence-text.error {
+            color: #ef4444;
+        }
+
+        .sentence-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .bid-button {
+            padding: 10px 20px;
+            background: #7c3aed;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .bid-button:hover {
+            background: #6d28d9;
+        }
+
+        .bid-button.active {
+            background: #ef4444;
+        }
+
+        .bid-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .lock-button {
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: 600;
+            display: block;
+            margin: 30px auto;
+            transition: all 0.3s ease;
+        }
+
+        .lock-button:hover {
+            background: #764ba2;
+        }
+
+        .lock-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .result-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .result-banner h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .warm-up-section {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 2px solid #e5e7eb;
+        }
+
+        .warm-up-item {
+            margin-bottom: 20px;
+        }
+
+        .warm-up-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .warm-up-question {
+            font-size: 1.05em;
+            margin-bottom: 10px;
+            padding: 15px;
+            background: #f3f4f6;
+            border-radius: 6px;
+        }
+
+        .warm-up-answer {
+            display: none;
+            padding: 15px;
+            background: #e5fce0;
+            border-radius: 6px;
+            margin-top: 10px;
+            border-left: 4px solid #10b981;
+        }
+
+        .warm-up-answer.show {
+            display: block;
+        }
+
+        .reveal-button {
+            padding: 8px 15px;
+            background: #7c3aed;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .reveal-button:hover {
+            background: #6d28d9;
+        }
+
+        .error-explanation {
+            display: none;
+            background: #fef2f2;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            border-left: 4px solid #ef4444;
+        }
+
+        .error-explanation.show {
+            display: block;
+        }
+
+        .error-explanation strong {
+            color: #dc2626;
+        }
+
+        .correction {
+            background: #e5fce0;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .rule-box {
+            background: #f0fdf4;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            border-left: 4px solid #10b981;
+        }
+
+        .rule-box strong {
+            color: #166534;
+        }
+
+        .lesson-links {
+            background: #f0f9ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .lesson-links h4 {
+            color: #1e40af;
+            margin-bottom: 10px;
+        }
+
+        .lesson-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .lesson-links li {
+            margin-bottom: 8px;
+        }
+
+        .lesson-links a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        .lesson-links a:hover {
+            text-decoration: underline;
+        }
+
+        .category-results {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .category-results h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #10b981;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .tabs {
+                gap: 5px;
+            }
+
+            .tab-button {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+
+            .result-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .sentence-buttons {
+                flex-direction: column;
+            }
+
+            .bid-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Grammar Diagnostic — B2 Level</h1>
+            <p>Test your advanced grammar skills with the Error Auction game</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="getting-started">Getting Started</button>
+            <button class="tab-button" data-tab="auction">The Auction</button>
+            <button class="tab-button" data-tab="fix-errors">Fix the Errors</button>
+            <button class="tab-button" data-tab="results">Your Results</button>
+        </div>
+
+        <!-- TAB 1: GETTING STARTED -->
+        <div id="getting-started" class="tab-content active">
+            <div class="content-block">
+                <h2>How to Play</h2>
+                <p>You start with <strong>$500</strong>. Your job is to find the grammar errors hidden in 10 sentences. When you spot an error, you bid $100 on that sentence.</p>
+                <ul style="margin-left: 20px; margin-top: 15px;">
+                    <li><strong>Correct bid:</strong> You found an error → You get $200 back ($100 profit)</li>
+                    <li><strong>Wrong bid:</strong> The sentence was actually correct → You lose $100</li>
+                    <li><strong>Missed error:</strong> You didn't bid, but there was an error → No penalty, no profit</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Perfect score = $1,000</strong></p>
+            </div>
+
+            <div class="content-block">
+                <h2>Warm-Up: Test Your Instinct</h2>
+                <p>Before you start the auction, try these three sentences. Do they have errors?</p>
+
+                <div class="warm-up-section">
+                    <div class="warm-up-item">
+                        <div class="warm-up-question">1. "Despite feeling unwell, she delivered an excellent presentation."</div>
+                        <button class="reveal-button" onclick="toggleWarmUp(0)">Show answer</button>
+                        <div class="warm-up-answer" id="warmup-0">
+                            <strong>No error.</strong> This is correct. "Despite" is followed by a noun phrase. The sentence uses correct word order and grammar.
+                        </div>
+                    </div>
+
+                    <div class="warm-up-item">
+                        <div class="warm-up-question">2. "She suggested me to take a different approach."</div>
+                        <button class="reveal-button" onclick="toggleWarmUp(1)">Show answer</button>
+                        <div class="warm-up-answer" id="warmup-1">
+                            <strong>ERROR.</strong> "Suggest" cannot be used with an object pronoun + infinitive. The correct form is: <span class="correction">"She suggested that I take a different approach."</span> Or: "She suggested taking a different approach."
+                        </div>
+                    </div>
+
+                    <div class="warm-up-item">
+                        <div class="warm-up-question">3. "I've been meaning to call you — I just haven't had the chance."</div>
+                        <button class="reveal-button" onclick="toggleWarmUp(2)">Show answer</button>
+                        <div class="warm-up-answer" id="warmup-2">
+                            <strong>No error.</strong> This is correct. Present perfect continuous ("I've been meaning") combines with simple present perfect ("I haven't had") naturally.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h2>Ready?</h2>
+                <p>Move to <strong>The Auction</strong> tab to start the game. You'll have 10 sentences. Bid carefully — your budget matters!</p>
+            </div>
+        </div>
+
+        <!-- TAB 2: THE AUCTION -->
+        <div id="auction" class="tab-content">
+            <div class="budget-display">
+                <div class="budget-label">Your Budget</div>
+                <div class="budget-amount" id="budget-display">$500</div>
+            </div>
+
+            <div id="sentences-container"></div>
+
+            <button class="lock-button" id="lock-button" onclick="lockInBids()">Lock In My Bids</button>
+        </div>
+
+        <!-- TAB 3: FIX THE ERRORS -->
+        <div id="fix-errors" class="tab-content">
+            <div class="content-block">
+                <h2>Corrections & Explanations</h2>
+                <p>Here are all the sentences with explanations for each error:</p>
+            </div>
+            <div id="corrections-container"></div>
+        </div>
+
+        <!-- TAB 4: YOUR RESULTS -->
+        <div id="results" class="tab-content">
+            <div id="results-container"></div>
+        </div>
+    </div>
+
+    <script>
+        const sentences = [
+            {
+                id: 1,
+                text: "By this time next year, I will have been living here for a decade.",
+                isError: false,
+                category: "Tenses & Aspect"
+            },
+            {
+                id: 2,
+                text: "Had I known about the delay, I would have taken a different route.",
+                isError: false,
+                category: "Conditionals"
+            },
+            {
+                id: 3,
+                text: "Not only she passed the exam, but she also got the highest mark.",
+                isError: true,
+                category: "Sentence Structure",
+                correction: "Not only did she pass the exam, but she also got the highest mark.",
+                explanation: "After negative adverbials at the start of a sentence (Not only, Never, Rarely, Seldom, Hardly), you MUST invert the subject and auxiliary verb. The correct form is: Not only did she..."
+            },
+            {
+                id: 4,
+                text: "The report, most of which was written by the research team, is due on Friday.",
+                isError: false,
+                category: "Relative Clauses"
+            },
+            {
+                id: 5,
+                text: "He needn't have worried — the test was cancelled in the end.",
+                isError: false,
+                category: "Modal Verbs"
+            },
+            {
+                id: 6,
+                text: "I wish I would have studied harder when I was younger.",
+                isError: true,
+                category: "Conditionals & Hypothetical",
+                correction: "I wish I had studied harder when I was younger.",
+                explanation: "For regrets about the past, use 'wish + past perfect' (wish I had done). 'Wish + would' is only for expressing frustration about someone else's current behaviour (I wish you would stop doing that)."
+            },
+            {
+                id: 7,
+                text: "Despite of the heavy traffic, we managed to arrive on time.",
+                isError: true,
+                category: "Conjunctions & Connectors",
+                correction: "Despite the heavy traffic, we managed to arrive on time.",
+                explanation: "'Despite' is NEVER followed by 'of'. It is 'despite + noun'. If you want 'of', use 'in spite of the heavy traffic' instead."
+            },
+            {
+                id: 8,
+                text: "She is believed to have left the country before the investigation started.",
+                isError: false,
+                category: "Passive Voice"
+            },
+            {
+                id: 9,
+                text: "The more you practice, the more better you become at it.",
+                isError: true,
+                category: "Adjectives & Adverbs",
+                correction: "The more you practice, the better you become at it.",
+                explanation: "Never combine 'more' with a comparative form. It is either 'more + base adjective' (more interesting) OR 'adjective + -er' (better, faster). Never both."
+            },
+            {
+                id: 10,
+                text: "She insisted in paying for the entire meal.",
+                isError: true,
+                category: "Prepositions",
+                correction: "She insisted on paying for the entire meal.",
+                explanation: "The correct preposition after 'insist' is 'on' (insist on doing). This is a common error, especially for speakers of Romance languages."
+            }
+        ];
+
+        const lessonLinks = {
+            "Tenses & Aspect": [
+                { title: "Past Perfect Continuous in Narrative", file: "grammar_b2_01_past_perfect_continuous_narrative.html" },
+                { title: "Future Tenses — Advanced", file: "grammar_b2_02_future_tenses_advanced.html" }
+            ],
+            "Conditionals": [
+                { title: "Third & Mixed Conditionals", file: "grammar_b2_05_third_mixed_conditionals.html" },
+                { title: "Third Conditional Quick Fix", file: "qf_grammar_third_conditional.html" }
+            ],
+            "Conditionals & Hypothetical": [
+                { title: "Wish & Regret", file: "qf_grammar_wish_regret.html" }
+            ],
+            "Sentence Structure": [
+                { title: "Negative Adverbials & Inversion", file: "grammar_b2_09_negative_adverbials_inversion.html" }
+            ],
+            "Relative Clauses": [
+                { title: "Advanced Relative Clauses", file: "grammar_b2_10_advanced_relative_clauses.html" }
+            ],
+            "Modal Verbs": [
+                { title: "Modal Deduction", file: "grammar_b2_03_modal_deduction.html" },
+                { title: "Need — Modals", file: "grammar_b2_04_need_modals.html" }
+            ],
+            "Conjunctions & Connectors": [
+                { title: "Correlative Conjunctions & Concession", file: "grammar_b2_15_correlative_conjunctions_concession.html" },
+                { title: "Despite vs. Of — Quick Fix", file: "qf_grammar_despite_of.html" }
+            ],
+            "Passive Voice": [
+                { title: "Advanced Passive", file: "grammar_b2_06_advanced_passive.html" },
+                { title: "Impersonal Reporting — Passive", file: "grammar_b2_07_impersonal_reporting_passive.html" }
+            ],
+            "Adjectives & Adverbs": [
+                { title: "Advanced Adjective & Adverb", file: "grammar_b2_13_advanced_adjective_adverb.html" },
+                { title: "Comparative & Superlative Quick Fix", file: "qf_grammar_comparative_superlative.html" }
+            ],
+            "Prepositions": [
+                { title: "Complex Prepositions & Cohesion", file: "grammar_b2_14_complex_prepositions_cohesion.html" }
+            ]
+        };
+
+        let bids = {};
+        let gameState = "bidding";
+        let finalBudget = 500;
+
+        function toggleWarmUp(index) {
+            const answer = document.getElementById("warmup-" + index);
+            answer.classList.toggle("show");
+        }
+
+        function initializeAuction() {
+            const container = document.getElementById("sentences-container");
+            container.innerHTML = "";
+
+            sentences.forEach((sentence) => {
+                const card = document.createElement("div");
+                card.className = "sentence-card";
+                card.id = "sentence-" + sentence.id;
+
+                const numberDiv = document.createElement("div");
+                numberDiv.className = "sentence-number";
+                numberDiv.textContent = sentence.id;
+
+                const textDiv = document.createElement("div");
+                textDiv.className = "sentence-text";
+                textDiv.textContent = sentence.text;
+
+                const buttonsDiv = document.createElement("div");
+                buttonsDiv.className = "sentence-buttons";
+
+                const bidButton = document.createElement("button");
+                bidButton.className = "bid-button";
+                bidButton.id = "bid-" + sentence.id;
+                bidButton.textContent = "Bid $100";
+                bidButton.onclick = () => toggleBid(sentence.id);
+
+                buttonsDiv.appendChild(bidButton);
+                card.appendChild(numberDiv);
+                card.appendChild(textDiv);
+                card.appendChild(buttonsDiv);
+                container.appendChild(card);
+
+                bids[sentence.id] = false;
+            });
+        }
+
+        function toggleBid(sentenceId) {
+            const currentBudget = parseInt(document.getElementById("budget-display").textContent.replace("$", ""));
+
+            if (!bids[sentenceId]) {
+                if (currentBudget >= 100) {
+                    bids[sentenceId] = true;
+                    updateBudgetDisplay(currentBudget - 100);
+                    updateSentenceCard(sentenceId);
+                }
+            } else {
+                bids[sentenceId] = false;
+                updateBudgetDisplay(currentBudget + 100);
+                updateSentenceCard(sentenceId);
+            }
+        }
+
+        function updateSentenceCard(sentenceId) {
+            const card = document.getElementById("sentence-" + sentenceId);
+            const button = document.getElementById("bid-" + sentenceId);
+
+            if (bids[sentenceId]) {
+                card.classList.add("bid");
+                button.classList.add("active");
+                button.textContent = "Remove Bid";
+            } else {
+                card.classList.remove("bid");
+                button.classList.remove("active");
+                button.textContent = "Bid $100";
+            }
+        }
+
+        function updateBudgetDisplay(amount) {
+            document.getElementById("budget-display").textContent = "$" + amount;
+        }
+
+        function lockInBids() {
+            gameState = "locked";
+            document.getElementById("lock-button").disabled = true;
+
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let missedCount = 0;
+            let currentBudget = parseInt(document.getElementById("budget-display").textContent.replace("$", ""));
+
+            sentences.forEach((sentence) => {
+                const card = document.getElementById("sentence-" + sentence.id);
+                const button = document.getElementById("bid-" + sentence.id);
+
+                if (bids[sentence.id]) {
+                    if (sentence.isError) {
+                        card.classList.add("correct");
+                        button.textContent = "Correct — Error Found!";
+                        button.disabled = true;
+                        correctCount++;
+                        currentBudget += 200;
+                    } else {
+                        card.classList.add("incorrect");
+                        button.textContent = "Wrong — No Error Here";
+                        button.disabled = true;
+                        incorrectCount++;
+                    }
+                } else {
+                    if (sentence.isError) {
+                        card.classList.add("missed");
+                        card.style.opacity = "0.7";
+                        button.textContent = "Missed Error";
+                        button.disabled = true;
+                        missedCount++;
+                    } else {
+                        button.disabled = true;
+                        card.style.opacity = "0.7";
+                    }
+                }
+            });
+
+            updateBudgetDisplay(currentBudget);
+            finalBudget = currentBudget;
+
+            const resultBanner = document.createElement("div");
+            resultBanner.className = "result-banner";
+            resultBanner.innerHTML = "<h3>Auction Complete!</h3>";
+
+            const stats = document.createElement("div");
+            stats.className = "result-stats";
+            stats.innerHTML = `
+                <div class="stat">
+                    <div class="stat-number">${correctCount}</div>
+                    <div class="stat-label">Correct Finds</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">${incorrectCount}</div>
+                    <div class="stat-label">Wrong Bids</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">${missedCount}</div>
+                    <div class="stat-label">Missed Errors</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">$${currentBudget}</div>
+                    <div class="stat-label">Final Budget</div>
+                </div>
+            `;
+
+            resultBanner.appendChild(stats);
+
+            const container = document.getElementById("sentences-container");
+            container.insertBefore(resultBanner, container.firstChild);
+
+            populateCorrections();
+            populateResults(correctCount, incorrectCount, missedCount, currentBudget);
+        }
+
+        function populateCorrections() {
+            const container = document.getElementById("corrections-container");
+            container.innerHTML = "";
+
+            sentences.forEach((sentence) => {
+                const block = document.createElement("div");
+                block.className = "content-block";
+
+                const heading = document.createElement("h3");
+                heading.textContent = "Sentence " + sentence.id + ": " + sentence.category;
+
+                const text = document.createElement("div");
+                text.className = sentence.isError ? "sentence-text error" : "sentence-text";
+                text.textContent = sentence.text;
+
+                block.appendChild(heading);
+                block.appendChild(text);
+
+                if (sentence.isError) {
+                    const correction = document.createElement("div");
+                    correction.className = "correction";
+                    correction.innerHTML = "<strong>Correction:</strong> " + sentence.correction;
+                    block.appendChild(correction);
+
+                    const explanation = document.createElement("div");
+                    explanation.className = "rule-box";
+                    explanation.innerHTML = "<strong>Why:</strong> " + sentence.explanation;
+                    block.appendChild(explanation);
+                } else {
+                    const correct = document.createElement("div");
+                    correct.className = "rule-box";
+                    correct.innerHTML = "<strong>This sentence is correct.</strong>";
+                    block.appendChild(correct);
+                }
+
+                if (lessonLinks[sentence.category]) {
+                    const linksDiv = document.createElement("div");
+                    linksDiv.className = "lesson-links";
+                    linksDiv.innerHTML = "<h4>Learn more:</h4>";
+
+                    const ul = document.createElement("ul");
+                    lessonLinks[sentence.category].forEach((link) => {
+                        const li = document.createElement("li");
+                        li.innerHTML = "<a href=\"" + link.file + "\">" + link.title + "</a>";
+                        ul.appendChild(li);
+                    });
+
+                    linksDiv.appendChild(ul);
+                    block.appendChild(linksDiv);
+                }
+
+                container.appendChild(block);
+            });
+        }
+
+        function populateResults(correct, incorrect, missed, finalBudget) {
+            const container = document.getElementById("results-container");
+            container.innerHTML = "";
+
+            const resultBanner = document.createElement("div");
+            resultBanner.className = "result-banner";
+            resultBanner.innerHTML = `
+                <h3>Your Score</h3>
+                <div class="result-stats">
+                    <div class="stat">
+                        <div class="stat-number">$${finalBudget}</div>
+                        <div class="stat-label">Final Budget</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">${correct}</div>
+                        <div class="stat-label">Correct Finds</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">${incorrect}</div>
+                        <div class="stat-label">Wrong Bids</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">${missed}</div>
+                        <div class="stat-label">Missed Errors</div>
+                    </div>
+                </div>
+            `;
+
+            container.appendChild(resultBanner);
+
+            const categoryMap = {};
+            sentences.forEach((s) => {
+                if (!categoryMap[s.category]) {
+                    categoryMap[s.category] = { correct: 0, total: 0 };
+                }
+                categoryMap[s.category].total++;
+                if (bids[s.id] && s.isError) {
+                    categoryMap[s.category].correct++;
+                } else if (!bids[s.id] && !s.isError) {
+                    categoryMap[s.category].correct++;
+                }
+            });
+
+            const heading = document.createElement("div");
+            heading.className = "content-block";
+            heading.innerHTML = "<h2>Results by Category</h2>";
+            container.appendChild(heading);
+
+            Object.keys(categoryMap).sort().forEach((category) => {
+                const cat = categoryMap[category];
+                const percentage = Math.round((cat.correct / cat.total) * 100);
+
+                const catDiv = document.createElement("div");
+                catDiv.className = "category-results";
+
+                const catHeading = document.createElement("h4");
+                catHeading.textContent = category;
+
+                const stats = document.createElement("p");
+                stats.textContent = cat.correct + " of " + cat.total + " correct";
+
+                const progressBar = document.createElement("div");
+                progressBar.className = "progress-bar";
+
+                const fill = document.createElement("div");
+                fill.className = "progress-fill";
+                fill.style.width = percentage + "%";
+
+                progressBar.appendChild(fill);
+
+                catDiv.appendChild(catHeading);
+                catDiv.appendChild(stats);
+                catDiv.appendChild(progressBar);
+
+                if (lessonLinks[category]) {
+                    const linksDiv = document.createElement("div");
+                    linksDiv.className = "lesson-links";
+                    linksDiv.innerHTML = "<h4>Learn more:</h4>";
+
+                    const ul = document.createElement("ul");
+                    lessonLinks[category].forEach((link) => {
+                        const li = document.createElement("li");
+                        li.innerHTML = "<a href=\"" + link.file + "\">" + link.title + "</a>";
+                        ul.appendChild(li);
+                    });
+
+                    linksDiv.appendChild(ul);
+                    catDiv.appendChild(linksDiv);
+                }
+
+                container.appendChild(catDiv);
+            });
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll(".tab-content").forEach((tab) => {
+                tab.classList.remove("active");
+            });
+
+            document.querySelectorAll(".tab-button").forEach((button) => {
+                button.classList.remove("active");
+            });
+
+            document.getElementById(tabName).classList.add("active");
+            document.querySelector("[data-tab=\"" + tabName + "\"]").classList.add("active");
+
+            if (tabName === "auction" && document.getElementById("sentences-container").innerHTML === "") {
+                initializeAuction();
+            }
+        }
+
+        document.querySelectorAll(".tab-button").forEach((button) => {
+            button.addEventListener("click", () => {
+                switchTab(button.getAttribute("data-tab"));
+            });
+        });
+
+        initializeAuction();
+    </script>
+</body>
+</html>

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Detective — B1 Diagnostic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .content-block {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+            line-height: 1.8;
+        }
+
+        .case-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 2px solid #e0e7ff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .case-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .case-title::before {
+            content: "🔍";
+            font-size: 1.5em;
+        }
+
+        .paragraph-text {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 1.05em;
+            line-height: 1.8;
+            font-style: italic;
+            color: #2d3748;
+        }
+
+        .error-text {
+            background: #fce4ec;
+            color: #c62828;
+            text-decoration: line-through;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .correction-text {
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-weight: 600;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .correction-note {
+            background: #fff3e0;
+            border-left: 4px solid #f57c00;
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 4px;
+            font-size: 0.95em;
+            color: #e65100;
+        }
+
+        .button {
+            background: #2563eb;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        .evidence-box {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border: 2px solid #c7d2fe;
+        }
+
+        .evidence-box h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .error-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e7ff;
+        }
+
+        .error-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .error-label {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .result-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e0e7ff;
+            text-align: center;
+        }
+
+        .result-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .result-card p {
+            color: #4b5563;
+            margin-bottom: 15px;
+        }
+
+        .lesson-link {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            border-left: 4px solid #2563eb;
+        }
+
+        .lesson-link a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .lesson-link a:hover {
+            text-decoration: underline;
+        }
+
+        .section-heading {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .intro-text {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #2d3748;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .checkbox-group input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            cursor: pointer;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .solved {
+            opacity: 0.7;
+        }
+
+        .solved .paragraph-text {
+            background: #e8f5e9;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                width: 100%;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Grammar Detective</h1>
+            <p>B1 Level Diagnostic — Find the Hidden Errors</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'getting-started')">Getting Started</button>
+            <button class="tab-button" onclick="openTab(event, 'case-files')">Case Files</button>
+            <button class="tab-button" onclick="openTab(event, 'evidence')">The Evidence</button>
+            <button class="tab-button" onclick="openTab(event, 'results')">Your Results</button>
+        </div>
+
+        <!-- TAB 1: GETTING STARTED -->
+        <div id="getting-started" class="tab-content active">
+            <div class="content-block">
+                <h2 class="section-heading">How to Play</h2>
+                <p class="intro-text">
+                    Welcome to Grammar Detective! Your mission is to find and identify grammar errors hidden in natural-sounding paragraphs. This isn't about spotting obvious mistakes — these errors are the kind that native speakers sometimes make, or that learners often struggle with.
+                </p>
+                <p class="intro-text" style="margin-top: 15px;">
+                    You'll examine 4 case files, each containing 2–3 errors. Read carefully, spot the mistakes, and then reveal the corrections to understand the grammar rules at play.
+                </p>
+            </div>
+
+            <div class="content-block">
+                <h3 class="section-heading">Practice Case: Error-Free Paragraph</h3>
+                <p style="margin-bottom: 15px; font-weight: 600; color: #667eea;">Read this paragraph. It contains NO errors. Get a feel for correct grammar:</p>
+                <div class="paragraph-text">
+                    "My sister has lived in London for five years. She works at a big company in the city centre. She told me that she really enjoys her job, although the commute is sometimes tiring."
+                </div>
+                <p style="margin-top: 15px; color: #2e7d32; font-weight: 600;">✓ This paragraph is correct. All verb tenses, prepositions, and structures are accurate.</p>
+            </div>
+
+            <div class="content-block">
+                <h3 class="section-heading">Practice Case: One Error</h3>
+                <p style="margin-bottom: 15px; font-weight: 600; color: #667eea;">Can you spot the error here?</p>
+                <div class="paragraph-text">
+                    "She said me that she would call later."
+                </div>
+                <button class="button" onclick="revealPracticeError()">Show the Correction</button>
+                <div id="practice-error" class="evidence-box hidden" style="margin-top: 15px;">
+                    <h4>The Error:</h4>
+                    <div class="error-item">
+                        <div class="error-label">
+                            <span class="error-text">said me</span> → <span class="correction-text">told me</span>
+                        </div>
+                        <div class="correction-note">
+                            <strong>Rule:</strong> "Say" does not take an indirect object. Use "tell" instead. Correct: "She told me that..." or "She said that she would..."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3 class="section-heading">Ready?</h3>
+                <p class="intro-text">
+                    Now move to the <strong>Case Files</strong> tab to begin investigating the four cases. Remember: read naturally, spot the mistakes, and use the reveal button to check your answers.
+                </p>
+            </div>
+        </div>
+
+        <!-- TAB 2: CASE FILES -->
+        <div id="case-files" class="tab-content">
+            <div class="case-card">
+                <div class="case-title">Case 1: The New Job</div>
+                <div class="paragraph-text">
+                    "I've been working at my new company since three months now, and I really enjoy it. My boss suggested me to take a training course next month, which sounds like a good idea. If I would pass the exam at the end, I might get a promotion."
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="case1-solved" onchange="updateResults()">
+                    <label for="case1-solved">I found all errors in this case</label>
+                </div>
+                <button class="button" onclick="revealCase(1)">Reveal the Evidence</button>
+                <div id="case1-evidence" class="evidence-box hidden" style="margin-top: 15px;">
+                    <h4>Errors Found:</h4>
+                    <div class="error-item">
+                        <div class="error-label">Error 1:</div>
+                        <div><span class="error-text">since three months</span> → <span class="correction-text">for three months</span></div>
+                        <div class="correction-note">
+                            <strong>Rule:</strong> Use "for" with durations (three months, two years). Use "since" with points in time (since January, since 2020).<br>
+                            <strong>Category:</strong> Tenses & Aspect
+                        </div>
+                    </div>
+                    <div class="error-item">
+                        <div class="error-label">Error 2:</div>
+                        <div><span class="error-text">suggested me to take</span> → <span class="correction-text">suggested that I take</span> or <span class="correction-text">suggested I take</span></div>
+                        <div class="correction-note">
+                            <strong>Rule:</strong> After "suggest", use "that + subject + base verb". NOT "suggest + person + to".<br>
+                            <strong>Category:</strong> Verb Patterns (Gerunds & Infinitives)
+                        </div>
+                    </div>
+                    <div class="error-item">
+                        <div class="error-label">Error 3:</div>
+                        <div><span class="error-text">If I would pass</span> → <span class="correction-text">If I passed</span></div>
+                        <div class="correction-note">
+                            <strong>Rule:</strong> Second conditional uses past simple after "if", NOT "would". "Would" only goes in the result clause.<br>
+                            <strong>Category:</strong> Conditionals
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-card">
+                <div class="case-title">Case 2: Last Weekend</div>
+                <div class="paragraph-text">
+                    "Last weekend, we went to a restaurant that was recommended by a friend. The food was absolutely delicious, despite of the long wait for our table. I had never been eating there before, so everything felt special. The waiter, that was very friendly, even gave us a free dessert."
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="case2-solved" onchange="updateResults()">
+                    <label for="case2-solved">I found all errors in this case</label>
+                </div>
+                <button class="button" onclick="revealCase(2)">Reveal the Evidence</button>
+                <div id="case2-evidence" class="evidence-box hidden" style="margin-top: 15px;">
+                    <h4>Errors Found:</h4>
+                    <div class="error-item">
+                        <div class="error-label">Error 1:</div>
+                        <div><span class="error-text">despite of the long wait</span> → <span class="correction-text">despite the long wait</span></div>
+                        <div class="correction-note">
+                            <strong>Rule:</strong> "Despite" is NEVER followed by "of". Use "despite + noun" or "in spite of + noun".<br>
+                            <strong>Category:</strong> Conjunctions & Connectors
+                        </div>
+                    </div>
+                    <div class="error-item">
+                        <div class="error-label">Error 2:</div>
+                        <div><span class="error-text">had never been eating</span> → <span class="correction-text">had never eaten</span></div>
+                        <div class="correction-note">
+                            <strong>Rule:</strong> Use past perfect simple (had + past participle) for completed experiences before a past moment. Past perfect continuous would be "had been eating" but the meaning here requires simple.<br>
+                            <strong>Category:</strong> Tenses & Aspect
+                        </div>
+                    </div>
+                    <div class="error-item">
+                        <div class="error-label">Error 3:</div>
+                        <div><span class="error-text">The waiter, that was</span> → <span class="correction-text">The waiter, who was</span></div>
+                        <div class="correction-note">
+                            <strong>Rule:</strong> In non-defining relative clauses (with commas), use "who" for people, NEVER "that".<br>
+                            <strong>Category:</strong> Relative Clauses
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-card">
+                <div class="case-title">Case 3: Travel Plans</div>
+                <div class="paragraph-text">
+                    "My friend asked me where did I want to go on holiday this year. I told her that I'm thinking about visiting Japan, because I've always been interested about Japanese culture. She said it was a great idea and offered to help me plan the trip."
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="case3-solved" onchange="updateResults()">
+                    <label for="case3-solved">I found all errors in this case</label>
+                </div>
+                <button class="button" onclick="revealCase(3)">Reveal the Evidence</button>
+                <div id="case3-evidence" class="evidence-box hidden" style="margin-top: 15px;">
+                    <h4>Errors Found:</h4>
+                    <div class="error-item">
+                        <div class="error-label">Error 1:</div>
+                        <div><span class="error-text">where did I want</span> → <span class="correction-text">where I wanted</span></div>
+                        <div class="correction-note">
+                            <strong>Rule:</strong> In reported/indirect questions, use statement word order (subject before verb), NOT question word order. Also applies tense backshift: want → wanted.<br>
+                            <strong>Category:</strong> Reported Speech
+                        </div>
+                    </div>
+                    <div class="error-item">
+                        <div class="error-label">Error 2:</div>
+                        <div><span class="error-text">interested about</span> → <span class="correction-text">interested in</span></div>
+                        <div class="correction-note">
+                            <strong>Rule:</strong> The correct preposition after "interested" is always "in".<br>
+                            <strong>Category:</strong> Prepositions
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-card">
+                <div class="case-title">Case 4: Health and Fitness</div>
+                <div class="paragraph-text">
+                    "I've been going to the gym since January, and I definitely feel more healthy now. I used to be quite lazy, but a friend persuaded me to join. In the beginning, I didn't used to enjoy the early mornings, but now I'm completely used to waking up at six. The trainer says if I keep going, I'll see even better results by summer."
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="case4-solved" onchange="updateResults()">
+                    <label for="case4-solved">I found all errors in this case</label>
+                </div>
+                <button class="button" onclick="revealCase(4)">Reveal the Evidence</button>
+                <div id="case4-evidence" class="evidence-box hidden" style="margin-top: 15px;">
+                    <h4>Errors Found:</h4>
+                    <div class="error-item">
+                        <div class="error-label">Error 1:</div>
+                        <div><span class="error-text">more healthy</span> → <span class="correction-text">healthier</span></div>
+                        <div class="correction-note">
+                            <strong>Rule:</strong> One/two-syllable adjectives ending in -y use -ier form (healthy → healthier). Don't use "more" with these.<br>
+                            <strong>Category:</strong> Adjectives & Adverbs
+                        </div>
+                    </div>
+                    <div class="error-item">
+                        <div class="error-label">Error 2:</div>
+                        <div><span class="error-text">didn't used to</span> → <span class="correction-text">didn't use to</span></div>
+                        <div class="correction-note">
+                            <strong>Rule:</strong> In the negative past, it's "didn't use to" (base form after "did"). The -d is on "did", not on "use".<br>
+                            <strong>Category:</strong> Tenses & Aspect
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: THE EVIDENCE -->
+        <div id="evidence" class="tab-content">
+            <div class="content-block">
+                <h2 class="section-heading">Complete Error Summary</h2>
+                <p class="intro-text">
+                    All 10 errors from the case files are listed below, organized by grammar category. Each error includes the correction and the rule it violates.
+                </p>
+            </div>
+
+            <div class="content-block">
+                <h3 style="color: #2563eb; margin-bottom: 15px; font-weight: 600;">📌 Tenses & Aspect (4 errors)</h3>
+
+                <div class="error-item">
+                    <div class="error-label">Case 1, Error 1: Duration vs. Point in Time</div>
+                    <div style="margin: 8px 0;"><span class="error-text">since three months</span> → <span class="correction-text">for three months</span></div>
+                    <div class="correction-note">Use "for" with durations; use "since" with points in time.</div>
+                </div>
+
+                <div class="error-item">
+                    <div class="error-label">Case 2, Error 2: Past Perfect Simple vs. Continuous</div>
+                    <div style="margin: 8px 0;"><span class="error-text">had never been eating</span> → <span class="correction-text">had never eaten</span></div>
+                    <div class="correction-note">Past perfect simple for completed experiences; don't use continuous unless duration is emphasized.</div>
+                </div>
+
+                <div class="error-item">
+                    <div class="error-label">Case 4, Error 2: Negative Past Habit</div>
+                    <div style="margin: 8px 0;"><span class="error-text">didn't used to</span> → <span class="correction-text">didn't use to</span></div>
+                    <div class="correction-note">Base form goes after "did" in negatives. The -d stays on "did".</div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3 style="color: #2563eb; margin-bottom: 15px; font-weight: 600;">📌 Conditionals (1 error)</h3>
+
+                <div class="error-item">
+                    <div class="error-label">Case 1, Error 3: Second Conditional</div>
+                    <div style="margin: 8px 0;"><span class="error-text">If I would pass</span> → <span class="correction-text">If I passed</span></div>
+                    <div class="correction-note">Second conditional: past simple in the if-clause, would + base in the result clause.</div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3 style="color: #2563eb; margin-bottom: 15px; font-weight: 600;">📌 Verb Patterns & Infinitives (1 error)</h3>
+
+                <div class="error-item">
+                    <div class="error-label">Case 1, Error 2: Suggest + Structure</div>
+                    <div style="margin: 8px 0;"><span class="error-text">suggested me to take</span> → <span class="correction-text">suggested that I take</span> or <span class="correction-text">suggested I take</span></div>
+                    <div class="correction-note">"Suggest" takes "that + base verb", not "to". Never use suggest + person + to.</div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3 style="color: #2563eb; margin-bottom: 15px; font-weight: 600;">📌 Conjunctions & Connectors (1 error)</h3>
+
+                <div class="error-item">
+                    <div class="error-label">Case 2, Error 1: Despite vs. Despite of</div>
+                    <div style="margin: 8px 0;"><span class="error-text">despite of the long wait</span> → <span class="correction-text">despite the long wait</span></div>
+                    <div class="correction-note">"Despite" is never followed by "of". Use "despite + noun" or "in spite of + noun".</div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3 style="color: #2563eb; margin-bottom: 15px; font-weight: 600;">📌 Relative Clauses (1 error)</h3>
+
+                <div class="error-item">
+                    <div class="error-label">Case 2, Error 3: Non-Defining Relative Clause</div>
+                    <div style="margin: 8px 0;"><span class="error-text">The waiter, that was</span> → <span class="correction-text">The waiter, who was</span></div>
+                    <div class="correction-note">In non-defining relative clauses (with commas), use "who" for people, never "that".</div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3 style="color: #2563eb; margin-bottom: 15px; font-weight: 600;">📌 Reported Speech (1 error)</h3>
+
+                <div class="error-item">
+                    <div class="error-label">Case 3, Error 1: Indirect Questions</div>
+                    <div style="margin: 8px 0;"><span class="error-text">where did I want</span> → <span class="correction-text">where I wanted</span></div>
+                    <div class="correction-note">Indirect questions use statement word order. Tense also shifts back: want → wanted.</div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3 style="color: #2563eb; margin-bottom: 15px; font-weight: 600;">📌 Prepositions (1 error)</h3>
+
+                <div class="error-item">
+                    <div class="error-label">Case 3, Error 2: Interested + Preposition</div>
+                    <div style="margin: 8px 0;"><span class="error-text">interested about</span> → <span class="correction-text">interested in</span></div>
+                    <div class="correction-note">The preposition after "interested" is always "in".</div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3 style="color: #2563eb; margin-bottom: 15px; font-weight: 600;">📌 Adjectives & Adverbs (1 error)</h3>
+
+                <div class="error-item">
+                    <div class="error-label">Case 4, Error 1: -y Adjective Comparatives</div>
+                    <div style="margin: 8px 0;"><span class="error-text">more healthy</span> → <span class="correction-text">healthier</span></div>
+                    <div class="correction-note">One/two-syllable adjectives ending in -y use -ier (happy → happier, healthy → healthier). Don't use "more".</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: YOUR RESULTS -->
+        <div id="results" class="tab-content">
+            <div class="content-block">
+                <h2 class="section-heading">Your Results</h2>
+                <p class="intro-text" style="margin-bottom: 20px;">
+                    Track your progress below. Cases you've marked as solved appear here. Use these lesson links to review the grammar areas you need to strengthen.
+                </p>
+            </div>
+
+            <div class="results-grid" id="results-summary">
+                <div class="result-card">
+                    <h3>Cases Solved</h3>
+                    <p style="font-size: 2em; font-weight: 600; color: #2563eb;" id="cases-solved">0 / 4</p>
+                </div>
+                <div class="result-card">
+                    <h3>Total Errors Found</h3>
+                    <p style="font-size: 2em; font-weight: 600; color: #2563eb;" id="errors-found">0 / 10</p>
+                </div>
+                <div class="result-card">
+                    <h3>Categories Covered</h3>
+                    <p style="font-size: 2em; font-weight: 600; color: #2563eb;" id="categories-count">8 / 8</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3 class="section-heading">📚 Lesson Links by Category</h3>
+
+                <div style="margin-bottom: 30px;">
+                    <h4 style="color: #667eea; margin-bottom: 15px; font-weight: 600;">Tenses & Aspect</h4>
+                    <div class="lesson-link">
+                        <a href="grammar_b1_01_perfect_tenses_aspect.html">Perfect Tenses & Aspect</a>
+                    </div>
+                    <div class="lesson-link">
+                        <a href="grammar_b1_02_past_tense_mastery.html">Past Tense Mastery</a>
+                    </div>
+                    <div class="lesson-link">
+                        <a href="qf_grammar_since_for.html">Since vs. For</a>
+                    </div>
+                    <div class="lesson-link">
+                        <a href="qf_grammar_present_perfect_past.html">Present Perfect vs. Past Simple</a>
+                    </div>
+                    <div class="lesson-link">
+                        <a href="qf_grammar_used_to.html">Used To & Would</a>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h4 style="color: #667eea; margin-bottom: 15px; font-weight: 600;">Conditionals</h4>
+                    <div class="lesson-link">
+                        <a href="grammar_b1_06_conditionals.html">All Conditionals: A Complete Guide</a>
+                    </div>
+                    <div class="lesson-link">
+                        <a href="qf_grammar_second_conditional.html">Second Conditional Deep Dive</a>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h4 style="color: #667eea; margin-bottom: 15px; font-weight: 600;">Verb Patterns (Gerunds & Infinitives)</h4>
+                    <div class="lesson-link">
+                        <a href="grammar_b1_16_gerunds_infinitives_semantic.html">Gerunds & Infinitives: Full Semantic Guide</a>
+                    </div>
+                    <div class="lesson-link">
+                        <a href="qf_grammar_gerund_infinitive.html">Gerund or Infinitive? Quick Fix</a>
+                    </div>
+                    <div class="lesson-link">
+                        <a href="qf_grammar_suggest_recommend.html">Suggest, Recommend & Similar Verbs</a>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h4 style="color: #667eea; margin-bottom: 15px; font-weight: 600;">Conjunctions & Connectors</h4>
+                    <div class="lesson-link">
+                        <a href="grammar_b1_15_conjunctions_discourse.html">Conjunctions & Discourse Markers</a>
+                    </div>
+                    <div class="lesson-link">
+                        <a href="qf_grammar_despite_of.html">Despite / In Spite Of Quick Fix</a>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h4 style="color: #667eea; margin-bottom: 15px; font-weight: 600;">Relative Clauses</h4>
+                    <div class="lesson-link">
+                        <a href="grammar_b1_10_relative_clauses_extended.html">Relative Clauses: Extended Guide</a>
+                    </div>
+                    <div class="lesson-link">
+                        <a href="qf_grammar_relative_clauses.html">Relative Clauses Quick Fix</a>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h4 style="color: #667eea; margin-bottom: 15px; font-weight: 600;">Reported Speech</h4>
+                    <div class="lesson-link">
+                        <a href="grammar_b1_08_reported_speech_core.html">Reported Speech: Core Concepts</a>
+                    </div>
+                    <div class="lesson-link">
+                        <a href="qf_grammar_reported_speech.html">Reported Speech Quick Fix</a>
+                    </div>
+                    <div class="lesson-link">
+                        <a href="qf_grammar_indirect_questions.html">Indirect Questions Quick Fix</a>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h4 style="color: #667eea; margin-bottom: 15px; font-weight: 600;">Prepositions</h4>
+                    <div class="lesson-link">
+                        <a href="grammar_b1_14_prepositions_advanced.html">Prepositions: Advanced Patterns</a>
+                    </div>
+                    <div class="lesson-link">
+                        <a href="qf_grammar_interested_in.html">Interested In & Similar Expressions</a>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <h4 style="color: #667eea; margin-bottom: 15px; font-weight: 600;">Adjectives & Adverbs</h4>
+                    <div class="lesson-link">
+                        <a href="grammar_b1_13_adjectives_adverbs_intermediate.html">Adjectives & Adverbs: Intermediate</a>
+                    </div>
+                    <div class="lesson-link">
+                        <a href="qf_grammar_comparative_superlative.html">Comparative & Superlative Forms</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3 class="section-heading">💡 Next Steps</h3>
+                <p class="intro-text">
+                    Go back to the Case Files and try to find errors before revealing them. Discuss your answers with your teacher — that conversation is where the real learning happens. Then use the lesson links above to dive deeper into the categories where you made mistakes.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        function revealCase(caseNum) {
+            const evidenceBox = document.getElementById("case" + caseNum + "-evidence");
+            if (evidenceBox.classList.contains("hidden")) {
+                evidenceBox.classList.remove("hidden");
+            } else {
+                evidenceBox.classList.add("hidden");
+            }
+        }
+
+        function revealPracticeError() {
+            const practiceError = document.getElementById("practice-error");
+            if (practiceError.classList.contains("hidden")) {
+                practiceError.classList.remove("hidden");
+            } else {
+                practiceError.classList.add("hidden");
+            }
+        }
+
+        function updateResults() {
+            let solvedCount = 0;
+            for (let i = 1; i <= 4; i++) {
+                if (document.getElementById("case" + i + "-solved").checked) {
+                    solvedCount++;
+                }
+            }
+            document.getElementById("cases-solved").textContent = solvedCount + " / 4";
+
+            const errorCounts = [3, 3, 2, 2];
+            let errorsFound = 0;
+            for (let i = 1; i <= 4; i++) {
+                if (document.getElementById("case" + i + "-solved").checked) {
+                    errorsFound += errorCounts[i - 1];
+                }
+            }
+            document.getElementById("errors-found").textContent = errorsFound + " / 10";
+        }
+    </script>
+</body>
+</html>

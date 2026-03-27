@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Diagnostic A1 | Traffic Lights Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            opacity: 0.95;
+            font-size: 1em;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background: white;
+            color: #667eea;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: #764ba2;
+        }
+
+        .tab-btn.active {
+            background: #f8f9fa;
+            color: #764ba2;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .intro-block {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+        }
+
+        .intro-block h2 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+
+        .intro-block p {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .intro-block ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .intro-block li {
+            margin-bottom: 8px;
+        }
+
+        .score-display {
+            background: white;
+            border: 2px solid #059669;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #059669;
+        }
+
+        .warm-up-grid {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .warm-up-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .warm-up-card p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            color: #1a1a2e;
+        }
+
+        .answer-btn {
+            display: inline-block;
+            padding: 10px 16px;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.2s;
+        }
+
+        .answer-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .answer-text {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background: #f3f4f6;
+            border-radius: 6px;
+            border-left: 4px solid #059669;
+        }
+
+        .answer-text.show {
+            display: block;
+        }
+
+        .answer-text strong {
+            color: #059669;
+            font-weight: 600;
+        }
+
+        .game-grid {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .sentence-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .sentence-card.answered {
+            pointer-events: none;
+            opacity: 0.85;
+        }
+
+        .sentence-card.correct-answer {
+            border-color: #059669;
+            background: #f0fdf4;
+        }
+
+        .sentence-card.wrong-answer {
+            border-color: #dc2626;
+            background: #fef2f2;
+        }
+
+        .sentence-text {
+            font-size: 1.15em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #1a1a2e;
+        }
+
+        .traffic-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .traffic-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .traffic-btn-correct {
+            background: #059669;
+            color: white;
+        }
+
+        .traffic-btn-correct:hover {
+            background: #047857;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+
+        .traffic-btn-error {
+            background: #dc2626;
+            color: white;
+        }
+
+        .traffic-btn-error:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+
+        .traffic-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .feedback-message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            display: none;
+            font-size: 0.95em;
+        }
+
+        .feedback-message.show {
+            display: block;
+        }
+
+        .feedback-correct {
+            background: #dcfce7;
+            color: #166534;
+            border-left: 4px solid #059669;
+        }
+
+        .feedback-wrong {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #dc2626;
+        }
+
+        .results-summary {
+            background: white;
+            border: 2px solid #059669;
+            border-radius: 8px;
+            padding: 28px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .results-summary h2 {
+            font-size: 2em;
+            color: #059669;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .results-summary p {
+            font-size: 1.05em;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .category-breakdown {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .category-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .category-name {
+            font-weight: 600;
+            font-size: 1.05em;
+            color: #1a1a2e;
+        }
+
+        .category-score {
+            font-weight: 700;
+            font-size: 1.1em;
+            color: #059669;
+            background: #f0fdf4;
+            padding: 4px 12px;
+            border-radius: 4px;
+        }
+
+        .category-status {
+            font-size: 0.9em;
+            color: #059669;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .category-status.needs-work {
+            color: #dc2626;
+        }
+
+        .lesson-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .lesson-link {
+            display: inline-block;
+            padding: 8px 12px;
+            background: #f3f4f6;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.85em;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .lesson-link:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .start-btn {
+            display: inline-block;
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .start-btn:hover {
+            background: #047857;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+
+        .results-btn {
+            display: inline-block;
+            margin-top: 25px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .results-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .review-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .review-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 18px;
+        }
+
+        .review-card.has-error {
+            border-color: #dc2626;
+            background: #fef2f2;
+        }
+
+        .review-sentence {
+            font-size: 1.05em;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .review-sentence.error-text {
+            color: #dc2626;
+        }
+
+        .review-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.9em;
+        }
+
+        .review-category {
+            background: #f3f4f6;
+            padding: 4px 10px;
+            border-radius: 4px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .rule-box {
+            background: #f3f4f6;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+            margin-top: 12px;
+            font-size: 0.95em;
+            color: #333;
+        }
+
+        .rule-box strong {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.6em;
+            }
+
+            .traffic-buttons {
+                flex-direction: column;
+            }
+
+            .traffic-btn {
+                min-width: auto;
+            }
+
+            .category-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .results-summary h2 {
+                font-size: 1.6em;
+            }
+
+            .tab-btn {
+                padding: 10px 14px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Grammar Diagnostic — A1 Level</h1>
+        <p>Traffic Lights Game: Spot correct sentences and grammar errors</p>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="getting-started">Getting Started</button>
+            <button class="tab-btn" data-tab="traffic-lights">Traffic Lights</button>
+            <button class="tab-btn" data-tab="review">Review</button>
+            <button class="tab-btn" data-tab="results">Your Results</button>
+        </div>
+
+        <!-- TAB 1: GETTING STARTED -->
+        <div id="getting-started" class="tab-content active">
+            <div class="intro-block">
+                <h2>How This Works</h2>
+                <p>Read each sentence carefully. Tap <strong>Green (Correct)</strong> if the sentence is grammatically correct, or tap <strong>Red (Has an Error)</strong> if it contains a grammar mistake.</p>
+                <p style="margin-top: 15px;">Get instant feedback on every answer, then review all the grammar rules at the end.</p>
+            </div>
+
+            <h3 style="margin-bottom: 15px; margin-top: 25px; color: #1a1a2e; font-size: 1.1em;">Quick Warm-Up</h3>
+            <div class="warm-up-grid">
+                <div class="warm-up-card">
+                    <p>"I am 25 years old."</p>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Check answer</button>
+                    <div class="answer-text">
+                        <strong>Correct!</strong> In English, we use "be" (am/is/are) for age, not "have".
+                    </div>
+                </div>
+                <div class="warm-up-card">
+                    <p>"She have a big garden."</p>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Check answer</button>
+                    <div class="answer-text">
+                        <strong>Error!</strong> Correct: "She has a big garden." With he/she/it, we use "has" (not "have").
+                    </div>
+                </div>
+                <div class="warm-up-card">
+                    <p>"They goes to school by bus."</p>
+                    <button class="answer-btn" onclick="toggleAnswer(this)">Check answer</button>
+                    <div class="answer-text">
+                        <strong>Error!</strong> Correct: "They go to school by bus." With plural subjects, we use the base form of the verb.
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; padding: 20px; background: white; border-radius: 8px; border-left: 5px solid #059669;">
+                <p style="margin-bottom: 15px; font-size: 1.05em;">Ready? Let's play the Traffic Lights game.</p>
+                <button class="start-btn" onclick="switchTab('traffic-lights')">Start the Game →</button>
+            </div>
+        </div>
+
+        <!-- TAB 2: TRAFFIC LIGHTS GAME -->
+        <div id="traffic-lights" class="tab-content">
+            <div class="intro-block">
+                <h2>Traffic Lights Game</h2>
+                <p>You'll see 12 sentences. For each one, choose Green or Red. Your score updates in real time.</p>
+            </div>
+
+            <div class="score-display" id="scoreDisplay">0 / 12 correct</div>
+
+            <div class="game-grid" id="gameGrid"></div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="results-btn" id="resultsBtn" onclick="switchTab('review')" style="display: none;">See Your Review →</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: REVIEW -->
+        <div id="review" class="tab-content">
+            <div class="intro-block">
+                <h2>Review Your Answers</h2>
+                <p>Below are all the sentences with errors. Click to see the corrections and explanations.</p>
+            </div>
+
+            <div class="review-grid" id="reviewGrid"></div>
+        </div>
+
+        <!-- TAB 4: RESULTS -->
+        <div id="results" class="tab-content">
+            <div class="intro-block">
+                <h2>Your Grammar Profile</h2>
+                <p>Here's what we found. Focus on the categories where you need practice using the lesson links below.</p>
+            </div>
+
+            <div class="results-summary" id="resultsSummary"></div>
+
+            <div class="category-breakdown" id="categoryBreakdown"></div>
+        </div>
+    </div>
+
+    <script>
+        const sentences = [
+            {
+                text: "She works in a hospital near the city centre.",
+                correct: true,
+                category: "Tenses",
+                number: 1
+            },
+            {
+                text: "I am have two brothers and one sister.",
+                correct: false,
+                category: "Tenses",
+                fix: "I have two brothers and one sister.",
+                rule: "We don't use 'am' before 'have'. 'Have' is the main verb here.",
+                number: 2
+            },
+            {
+                text: "We go to the park every Sunday morning.",
+                correct: true,
+                category: "Tenses",
+                number: 3
+            },
+            {
+                text: "He don't like coffee very much.",
+                correct: false,
+                category: "Questions & Negation",
+                fix: "He doesn't like coffee very much.",
+                rule: "With he/she/it, use 'doesn't' (not 'don't') in negative sentences.",
+                number: 4
+            },
+            {
+                text: "There are three books on the table.",
+                correct: true,
+                category: "Sentence Structure",
+                number: 5
+            },
+            {
+                text: "She is more tall than her brother.",
+                correct: false,
+                category: "Adjectives & Adverbs",
+                fix: "She is taller than her brother.",
+                rule: "Short adjectives (one syllable like 'tall') add -er. Don't use 'more' with short adjectives.",
+                number: 6
+            },
+            {
+                text: "I can swim, but I can't ride a horse.",
+                correct: true,
+                category: "Modals",
+                number: 7
+            },
+            {
+                text: "We went to cinema last night.",
+                correct: false,
+                category: "Articles & Determiners",
+                fix: "We went to the cinema last night.",
+                rule: "Use 'the' before specific places like 'the cinema', 'the park', 'the supermarket'.",
+                number: 8
+            },
+            {
+                text: "My mother works at a school. She is a teacher.",
+                correct: true,
+                category: "Nouns & Pronouns",
+                number: 9
+            },
+            {
+                text: "I always am tired on Monday mornings.",
+                correct: false,
+                category: "Adjectives & Adverbs",
+                fix: "I am always tired on Monday mornings.",
+                rule: "Adverbs of frequency (always, usually, never) go AFTER 'be' but BEFORE other verbs.",
+                number: 10
+            },
+            {
+                text: "The meeting is on Friday at three o'clock.",
+                correct: true,
+                category: "Prepositions",
+                number: 11
+            },
+            {
+                text: "How much books do you have at home?",
+                correct: false,
+                category: "Quantifiers",
+                fix: "How many books do you have at home?",
+                rule: "Use 'many' with countable nouns (books, people, cars). Use 'much' with uncountable nouns (water, money, time).",
+                number: 12
+            }
+        ];
+
+        const lessonLinks = {
+            "Tenses": ["grammar_a1_01_basic_present_tenses.html", "grammar_a1_02_past_simple_intro.html"],
+            "Questions & Negation": ["grammar_a1_04_conditionals_questions.html", "grammar_a1_05_wh_questions_negation.html"],
+            "Adjectives & Adverbs": ["grammar_a1_08_adjectives_adverbs_comparatives.html", "qf_grammar_comparative_superlative.html", "qf_grammar_adverb_position.html"],
+            "Modals": ["grammar_a1_03_commands_ability.html"],
+            "Articles & Determiners": ["grammar_a1_06_articles_demonstratives.html", "qf_grammar_articles.html"],
+            "Nouns & Pronouns": ["grammar_a1_07_nouns_pronouns.html"],
+            "Sentence Structure": ["grammar_a1_09_prepositions_conjunctions_sentence_structure.html"],
+            "Prepositions": ["grammar_a1_09_prepositions_conjunctions_sentence_structure.html", "qf_grammar_prepositions_time.html"],
+            "Quantifiers": ["qf_grammar_much_many.html"]
+        };
+
+        let gameState = {
+            answers: {},
+            correctCount: 0
+        };
+
+        function toggleAnswer(button) {
+            const answerDiv = button.nextElementSibling;
+            answerDiv.classList.toggle("show");
+            button.textContent = answerDiv.classList.contains("show") ? "Hide answer" : "Check answer";
+        }
+
+        function initializeGame() {
+            renderGameCards();
+        }
+
+        function renderGameCards() {
+            const grid = document.getElementById("gameGrid");
+            grid.innerHTML = "";
+
+            sentences.forEach((sentence, idx) => {
+                const card = document.createElement("div");
+                card.className = "sentence-card";
+                card.id = `sentence-${idx}`;
+
+                const textDiv = document.createElement("div");
+                textDiv.className = "sentence-text";
+                textDiv.textContent = sentence.text;
+
+                const buttonsDiv = document.createElement("div");
+                buttonsDiv.className = "traffic-buttons";
+
+                const correctBtn = document.createElement("button");
+                correctBtn.className = "traffic-btn traffic-btn-correct";
+                correctBtn.textContent = "🟢 Correct";
+                correctBtn.onclick = () => answerQuestion(idx, true);
+
+                const errorBtn = document.createElement("button");
+                errorBtn.className = "traffic-btn traffic-btn-error";
+                errorBtn.textContent = "🔴 Has an Error";
+                errorBtn.onclick = () => answerQuestion(idx, false);
+
+                buttonsDiv.appendChild(correctBtn);
+                buttonsDiv.appendChild(errorBtn);
+
+                const feedbackDiv = document.createElement("div");
+                feedbackDiv.className = "feedback-message";
+                feedbackDiv.id = `feedback-${idx}`;
+
+                card.appendChild(textDiv);
+                card.appendChild(buttonsDiv);
+                card.appendChild(feedbackDiv);
+                grid.appendChild(card);
+            });
+        }
+
+        function answerQuestion(idx, chosenCorrect) {
+            if (gameState.answers[idx] !== undefined) return;
+
+            const sentence = sentences[idx];
+            const isCorrectAnswer = (chosenCorrect === sentence.correct);
+
+            gameState.answers[idx] = isCorrectAnswer;
+
+            if (isCorrectAnswer) {
+                gameState.correctCount++;
+            }
+
+            const card = document.getElementById(`sentence-${idx}`);
+            const feedback = document.getElementById(`feedback-${idx}`);
+            const buttons = card.querySelectorAll(".traffic-btn");
+
+            buttons.forEach(btn => btn.disabled = true);
+            card.classList.add("answered");
+
+            if (isCorrectAnswer) {
+                card.classList.add("correct-answer");
+                feedback.className = "feedback-message show feedback-correct";
+                feedback.innerHTML = "✓ Well done!";
+            } else {
+                card.classList.add("wrong-answer");
+                feedback.className = "feedback-message show feedback-wrong";
+                feedback.innerHTML = "✗ Not quite. Check the Review tab for the explanation.";
+            }
+
+            updateScore();
+
+            if (Object.keys(gameState.answers).length === sentences.length) {
+                setTimeout(() => {
+                    document.getElementById("resultsBtn").style.display = "inline-block";
+                }, 300);
+                buildReview();
+                calculateResults();
+            }
+        }
+
+        function updateScore() {
+            const display = document.getElementById("scoreDisplay");
+            display.textContent = `${gameState.correctCount} / 12 correct`;
+        }
+
+        function buildReview() {
+            const reviewGrid = document.getElementById("reviewGrid");
+            reviewGrid.innerHTML = "";
+
+            sentences.forEach((sentence, idx) => {
+                if (!sentence.correct) {
+                    const card = document.createElement("div");
+                    card.className = "review-card has-error";
+
+                    const metaDiv = document.createElement("div");
+                    metaDiv.className = "review-meta";
+
+                    const numberSpan = document.createElement("span");
+                    numberSpan.textContent = `Sentence ${sentence.number}`;
+                    numberSpan.style.fontWeight = "600";
+
+                    const categorySpan = document.createElement("span");
+                    categorySpan.className = "review-category";
+                    categorySpan.textContent = sentence.category;
+
+                    metaDiv.appendChild(numberSpan);
+                    metaDiv.appendChild(categorySpan);
+
+                    const sentenceDiv = document.createElement("div");
+                    sentenceDiv.className = "review-sentence error-text";
+                    sentenceDiv.textContent = sentence.text;
+
+                    const button = document.createElement("button");
+                    button.className = "answer-btn";
+                    button.textContent = "Show Correction";
+                    button.style.marginTop = "12px";
+
+                    const answerDiv = document.createElement("div");
+                    answerDiv.className = "answer-text";
+
+                    const fixP = document.createElement("p");
+                    fixP.style.color = "#059669";
+                    fixP.style.fontWeight = "600";
+                    fixP.textContent = sentence.fix;
+
+                    const ruleP = document.createElement("p");
+                    ruleP.style.marginTop = "10px";
+                    ruleP.className = "rule-box";
+                    ruleP.innerHTML = `<strong>Rule:</strong> ${sentence.rule}`;
+
+                    answerDiv.appendChild(fixP);
+                    answerDiv.appendChild(ruleP);
+
+                    button.onclick = () => {
+                        answerDiv.classList.toggle("show");
+                        button.textContent = answerDiv.classList.contains("show") ? "Hide Correction" : "Show Correction";
+                    };
+
+                    card.appendChild(metaDiv);
+                    card.appendChild(sentenceDiv);
+                    card.appendChild(button);
+                    card.appendChild(answerDiv);
+                    reviewGrid.appendChild(card);
+                }
+            });
+        }
+
+        function calculateResults() {
+            const categoryStats = {};
+
+            Object.keys(lessonLinks).forEach(cat => {
+                categoryStats[cat] = { correct: 0, total: 0 };
+            });
+
+            sentences.forEach((sentence, idx) => {
+                const cat = sentence.category;
+                if (categoryStats[cat]) {
+                    categoryStats[cat].total++;
+                    if (gameState.answers[idx]) {
+                        categoryStats[cat].correct++;
+                    }
+                }
+            });
+
+            const summary = document.getElementById("resultsSummary");
+            const percentage = Math.round((gameState.correctCount / 12) * 100);
+            let message = "";
+
+            if (gameState.correctCount === 12) {
+                message = "Excellent! Your A1 grammar is very strong.";
+            } else if (gameState.correctCount >= 9) {
+                message = "Great work! You have a solid foundation. A few areas to tighten up.";
+            } else if (gameState.correctCount >= 6) {
+                message = "You know the basics, but some key areas need practice.";
+            } else {
+                message = "Let's build your foundation. Start with the recommended lessons below.";
+            }
+
+            summary.innerHTML = `
+                <h2>${gameState.correctCount} / 12</h2>
+                <p style="font-size: 1.1em; margin-bottom: 12px;">${percentage}% correct</p>
+                <p>${message}</p>
+            `;
+
+            const breakdown = document.getElementById("categoryBreakdown");
+            breakdown.innerHTML = "";
+
+            Object.keys(categoryStats).sort().forEach(category => {
+                const stats = categoryStats[category];
+                if (stats.total > 0) {
+                    const percentage = Math.round((stats.correct / stats.total) * 100);
+                    const allCorrect = stats.correct === stats.total;
+
+                    const card = document.createElement("div");
+                    card.className = "category-card";
+
+                    const headerDiv = document.createElement("div");
+                    headerDiv.className = "category-header";
+
+                    const nameSpan = document.createElement("span");
+                    nameSpan.className = "category-name";
+                    nameSpan.textContent = category;
+
+                    const scoreSpan = document.createElement("span");
+                    scoreSpan.className = "category-score";
+                    scoreSpan.textContent = `${stats.correct}/${stats.total} (${percentage}%)`;
+
+                    headerDiv.appendChild(nameSpan);
+                    headerDiv.appendChild(scoreSpan);
+
+                    const statusP = document.createElement("p");
+                    statusP.className = `category-status ${allCorrect ? "" : "needs-work"}`;
+                    statusP.textContent = allCorrect ? "Looking good!" : "Recommended lessons:";
+
+                    const linksDiv = document.createElement("div");
+                    linksDiv.className = "lesson-links";
+
+                    if (!allCorrect) {
+                        const links = lessonLinks[category] || [];
+                        links.forEach(link => {
+                            const a = document.createElement("a");
+                            a.href = link;
+                            a.className = "lesson-link";
+                            a.textContent = link.replace(/[_-]/g, " ").replace(".html", "").replace(/grammar_a1_\d+_/, "").replace(/qf_grammar_/, "");
+                            a.target = "_blank";
+                            linksDiv.appendChild(a);
+                        });
+                    }
+
+                    card.appendChild(headerDiv);
+                    card.appendChild(statusP);
+                    if (!allCorrect) {
+                        card.appendChild(linksDiv);
+                    }
+                    breakdown.appendChild(card);
+                }
+            });
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+
+            document.getElementById(tabName).classList.add("active");
+            document.querySelectorAll(".tab-btn").forEach(btn => {
+                if (btn.getAttribute("data-tab") === tabName) {
+                    btn.classList.add("active");
+                }
+            });
+        }
+
+        document.querySelectorAll(".tab-btn").forEach(btn => {
+            btn.addEventListener("click", function() {
+                switchTab(this.getAttribute("data-tab"));
+            });
+        });
+
+        window.addEventListener("load", initializeGame);
+    </script>
+</body>
+</html>

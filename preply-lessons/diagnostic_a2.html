@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Diagnostic A2 | Grammar Bingo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.95;
+            font-size: 1em;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            color: #666;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: #667eea;
+        }
+
+        .tab-btn.active {
+            color: white;
+            background: #0d9488;
+            border-bottom-color: #0d9488;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .intro-block {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+        }
+
+        .intro-block h2 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #1a1a2e;
+        }
+
+        .intro-block p {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .intro-block ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .intro-block li {
+            margin-bottom: 6px;
+        }
+
+        .warmup-grid {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .warmup-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .warmup-card p {
+            font-size: 1.05em;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .warmup-label {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .bingo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .bingo-cell {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.95em;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .bingo-cell:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .bingo-cell.marked {
+            background: #d1fae5;
+            border-color: #0d9488;
+            box-shadow: inset 0 0 0 2px #0d9488;
+        }
+
+        .bingo-cell.checked-correct {
+            background: #dcfce7;
+            border-color: #28a745;
+            box-shadow: 0 0 0 2px #28a745;
+        }
+
+        .bingo-cell.checked-correct::after {
+            content: "✓";
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 1.5em;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .bingo-cell.checked-wrong {
+            background: #fee2e2;
+            border-color: #dc3545;
+            box-shadow: 0 0 0 2px #dc3545;
+        }
+
+        .bingo-cell.checked-wrong::after {
+            content: "✗";
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 1.5em;
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .bingo-cell.checked-missed {
+            background: #fef3c7;
+            border-color: #ffc107;
+            box-shadow: 0 0 0 2px #ffc107;
+        }
+
+        .bingo-cell.checked-missed::after {
+            content: "⚠";
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 1.5em;
+            color: #ffc107;
+        }
+
+        .bingo-status {
+            background: white;
+            border: 2px solid #0d9488;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #0d9488;
+        }
+
+        .bingo-status.complete {
+            background: #d1fae5;
+            border-color: #28a745;
+            color: #28a745;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #0d9488;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .review-card {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .review-card h3 {
+            font-size: 1.05em;
+            margin-bottom: 10px;
+            color: #1a1a2e;
+        }
+
+        .review-sentence {
+            font-size: 1.05em;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 4px;
+        }
+
+        .review-sentence.error {
+            border-left: 4px solid #dc3545;
+            color: #dc3545;
+        }
+
+        .review-sentence.correct {
+            border-left: 4px solid #28a745;
+            color: #28a745;
+        }
+
+        .correction-text {
+            font-size: 1.05em;
+            color: #28a745;
+            font-weight: 600;
+            padding: 12px;
+            background: #f0fdf4;
+            border-radius: 4px;
+            margin-top: 8px;
+            margin-bottom: 12px;
+        }
+
+        .rule-text {
+            font-size: 0.95em;
+            color: #555;
+            line-height: 1.6;
+            padding: 12px;
+            background: white;
+            border-radius: 4px;
+            margin-top: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .category-badge {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #667eea;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .score-summary {
+            background: white;
+            border: 2px solid #0d9488;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .score-summary h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #0d9488;
+        }
+
+        .score-summary p {
+            color: #666;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        .results-grid {
+            display: grid;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .category-result {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .category-name {
+            font-weight: 600;
+            font-size: 1.05em;
+            color: #1a1a2e;
+        }
+
+        .category-score {
+            font-weight: 700;
+            font-size: 1.1em;
+            color: #0d9488;
+        }
+
+        .category-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .lesson-link {
+            display: inline-block;
+            padding: 8px 12px;
+            background: #f3f4f6;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.85em;
+            transition: all 0.2s;
+        }
+
+        .lesson-link:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 15px;
+                margin-bottom: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .bingo-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .button-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .tabs {
+                gap: 4px;
+            }
+
+            .tab-btn {
+                padding: 10px 14px;
+                font-size: 0.85em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bingo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-block {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Grammar Diagnostic — Level A2</h1>
+        <p>Find the sentences with errors to complete Grammar Bingo</p>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="getting-started">Getting Started</button>
+            <button class="tab-btn" data-tab="bingo-game">Grammar Bingo</button>
+            <button class="tab-btn" data-tab="review">Review</button>
+            <button class="tab-btn" data-tab="results">Your Results</button>
+        </div>
+
+        <!-- TAB 1: GETTING STARTED -->
+        <div id="getting-started" class="tab-content active">
+            <div class="intro-block">
+                <h2>Welcome to Grammar Bingo</h2>
+                <p>This diagnostic test helps us understand which grammar areas you need to focus on.</p>
+                <p><strong>How to play:</strong></p>
+                <ul>
+                    <li>You'll see a 3×3 grid with 9 sentences</li>
+                    <li>Exactly 5 of them have grammar errors</li>
+                    <li>Click a sentence to mark it as "has an error"</li>
+                    <li>Find all 5 errors to complete the bingo</li>
+                    <li>Check your answers whenever you're ready</li>
+                </ul>
+            </div>
+
+            <h3 style="margin-bottom: 15px; color: #1a1a2e;">Quick Warm-Up</h3>
+            <div class="warmup-grid">
+                <div class="warmup-card">
+                    <p>"I have been to London three times."</p>
+                    <div class="warmup-label">Is this correct or does it have an error?</div>
+                </div>
+                <div class="warmup-card">
+                    <p>"She must to go to the dentist."</p>
+                    <div class="warmup-label">Is this correct or does it have an error?</div>
+                </div>
+                <div class="warmup-card">
+                    <p>"The weather was so bored today."</p>
+                    <div class="warmup-label">Is this correct or does it have an error?</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; padding: 20px; background: white; border-radius: 8px; border-left: 5px solid #0d9488;">
+                <p style="margin-bottom: 15px;">Ready to start the Grammar Bingo?</p>
+                <button class="btn btn-primary" onclick="switchTab('bingo-game')">Begin Grammar Bingo →</button>
+            </div>
+        </div>
+
+        <!-- TAB 2: GRAMMAR BINGO GAME -->
+        <div id="bingo-game" class="tab-content">
+            <div class="intro-block">
+                <h2>Find the Errors</h2>
+                <p>Click a sentence to mark it as containing an error. You need to find exactly 5 errors to complete the bingo. Unmarked sentences are considered correct.</p>
+            </div>
+
+            <div class="bingo-status" id="bingoStatus">
+                Found <strong>0 of 5</strong> errors
+            </div>
+
+            <div class="bingo-grid" id="bingoGrid"></div>
+
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="checkAnswers()">Check My Answers</button>
+                <button class="btn btn-secondary" onclick="resetGame()">Start Over</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: REVIEW -->
+        <div id="review" class="tab-content">
+            <div class="intro-block">
+                <h2>Review the Corrections</h2>
+                <p>Here are all the sentences with errors and the grammar rules behind them.</p>
+            </div>
+
+            <div id="reviewContainer"></div>
+        </div>
+
+        <!-- TAB 4: YOUR RESULTS -->
+        <div id="results" class="tab-content">
+            <div class="intro-block">
+                <h2>Your Grammar Profile</h2>
+                <p>Focus on the categories below to improve your grammar. Use the lesson recommendations to deepen your understanding.</p>
+            </div>
+
+            <div class="score-summary" id="scoreSummary"></div>
+
+            <div class="results-grid" id="resultsContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        const sentences = [
+            {
+                text: "I must to finish this report before Friday.",
+                correct: false,
+                fix: "I must finish this report before Friday.",
+                rule: "After modal verbs (must, can, should, will), use the base form — no 'to'.",
+                category: "Modal Verbs"
+            },
+            {
+                text: "I was watching TV when the phone rang.",
+                correct: true,
+                category: "Tenses"
+            },
+            {
+                text: "I'm going to visit my parents next weekend. I already booked the tickets.",
+                correct: false,
+                fix: "I'm going to visit my parents next weekend. I've already booked the tickets.",
+                rule: "Use present perfect (have + past participle) with 'already', 'just', 'yet' — these signal a connection to now.",
+                category: "Tenses"
+            },
+            {
+                text: "If it rains tomorrow, we will stay at home.",
+                correct: true,
+                category: "Conditionals"
+            },
+            {
+                text: "The film was really bored — I nearly fell asleep.",
+                correct: false,
+                fix: "The film was really boring.",
+                rule: "-ED adjectives describe how a PERSON feels (I was bored). -ING adjectives describe the THING causing the feeling (the film was boring).",
+                category: "Adjectives"
+            },
+            {
+                text: "I don't have to wear a uniform — we can wear what we like.",
+                correct: true,
+                category: "Modal Verbs"
+            },
+            {
+                text: "She told me that she doesn't want to come.",
+                correct: false,
+                fix: "She told me that she didn't want to come.",
+                rule: "After past reporting verbs (told, said), the tense usually shifts back: doesn't → didn't, is → was, will → would.",
+                category: "Reported Speech"
+            },
+            {
+                text: "I used to lived in a small village when I was young.",
+                correct: false,
+                fix: "I used to live in a small village.",
+                rule: "'Used to' is followed by the base form of the verb, not the past form. Used to + live/work/play (NOT lived/worked/played).",
+                category: "Tenses"
+            },
+            {
+                text: "He's lived here for about ten years now.",
+                correct: true,
+                category: "Tenses"
+            }
+        ];
+
+        const lessonLinks = {
+            "Tenses": ["grammar_a2_01_past_future_tense.html", "grammar_a2_02_future_arrangements.html", "grammar_a2_03_present_perfect_intro.html", "qf_grammar_present_perfect_past.html", "qf_grammar_used_to.html"],
+            "Modal Verbs": ["grammar_a2_04_modals_obligation_request.html", "qf_grammar_modal_advice.html"],
+            "Conditionals": ["grammar_a2_05_conditional_basic_passive.html"],
+            "Reported Speech": ["grammar_a2_06_reported_speech_tags.html", "qf_grammar_reported_speech.html"],
+            "Adjectives": ["grammar_a2_08_pronouns_adjectives.html", "qf_grammar_ed_vs_ing_adjectives.html"]
+        };
+
+        let gameState = {
+            marked: {},
+            checked: false,
+            results: {}
+        };
+
+        function initializeGame() {
+            renderBingoGrid();
+        }
+
+        function renderBingoGrid() {
+            const grid = document.getElementById("bingoGrid");
+            grid.innerHTML = "";
+
+            sentences.forEach((sentence, idx) => {
+                const cell = document.createElement("div");
+                cell.className = "bingo-cell";
+                cell.id = `cell-${idx}`;
+                cell.textContent = sentence.text;
+                cell.onclick = () => toggleCell(idx);
+                grid.appendChild(cell);
+            });
+        }
+
+        function toggleCell(idx) {
+            if (gameState.checked) {
+                return;
+            }
+
+            const cell = document.getElementById(`cell-${idx}`);
+            gameState.marked[idx] = !gameState.marked[idx];
+
+            if (gameState.marked[idx]) {
+                cell.classList.add("marked");
+            } else {
+                cell.classList.remove("marked");
+            }
+
+            updateStatus();
+        }
+
+        function updateStatus() {
+            const count = Object.values(gameState.marked).filter(Boolean).length;
+            const status = document.getElementById("bingoStatus");
+            status.textContent = `Found ${count} of 5 errors`;
+
+            if (count === 5) {
+                status.classList.add("complete");
+                status.innerHTML = '<strong style="font-size: 1.2em;">🎉 Bingo! You found all 5 errors!</strong>';
+            } else {
+                status.classList.remove("complete");
+            }
+        }
+
+        function checkAnswers() {
+            gameState.checked = true;
+            const grid = document.getElementById("bingoGrid");
+
+            sentences.forEach((sentence, idx) => {
+                const cell = document.getElementById(`cell-${idx}`);
+                const wasMarked = gameState.marked[idx];
+                const hasError = !sentence.correct;
+
+                cell.classList.remove("marked");
+
+                if (hasError) {
+                    if (wasMarked) {
+                        cell.classList.add("checked-correct");
+                        gameState.results[idx] = "correct";
+                    } else {
+                        cell.classList.add("checked-missed");
+                        gameState.results[idx] = "missed";
+                    }
+                } else {
+                    if (wasMarked) {
+                        cell.classList.add("checked-wrong");
+                        gameState.results[idx] = "wrong";
+                    } else {
+                        gameState.results[idx] = "correct";
+                    }
+                }
+            });
+
+            buildReview();
+            calculateResults();
+
+            setTimeout(() => {
+                switchTab("review");
+            }, 300);
+        }
+
+        function buildReview() {
+            const container = document.getElementById("reviewContainer");
+            container.innerHTML = "";
+
+            const errorSentences = sentences.filter((s, idx) => !s.correct);
+
+            errorSentences.forEach((sentence, idx) => {
+                const fullIdx = sentences.findIndex(s => s === sentence);
+                const div = document.createElement("div");
+                div.className = "review-card";
+
+                let statusText = "";
+                if (gameState.results[fullIdx] === "correct") {
+                    statusText = '<span style="color: #28a745; font-weight: 600;">✓ You spotted this one!</span>';
+                } else if (gameState.results[fullIdx] === "missed") {
+                    statusText = '<span style="color: #dc3545; font-weight: 600;">✗ You missed this one</span>';
+                }
+
+                const categoryBadge = `<span class="category-badge">${sentence.category}</span>`;
+
+                const html = `
+                    <div style="margin-bottom: 10px;">${statusText}</div>
+                    <div class="review-sentence error">"${sentence.text}"</div>
+                    <div class="correction-text">"${sentence.fix}"</div>
+                    <div class="rule-text"><strong>Grammar rule:</strong> ${sentence.rule}</div>
+                    ${categoryBadge}
+                `;
+
+                div.innerHTML = html;
+                container.appendChild(div);
+            });
+        }
+
+        function calculateResults() {
+            const categoryStats = {};
+
+            Object.keys(lessonLinks).forEach(cat => {
+                categoryStats[cat] = { hit: 0, total: 0 };
+            });
+
+            sentences.forEach((sentence, idx) => {
+                const cat = sentence.category;
+                if (categoryStats[cat]) {
+                    categoryStats[cat].total++;
+                    const result = gameState.results[idx];
+                    if (result === "correct") {
+                        categoryStats[cat].hit++;
+                    }
+                }
+            });
+
+            const resultsContainer = document.getElementById("resultsContainer");
+            resultsContainer.innerHTML = "";
+
+            let totalHits = 0;
+            let totalQuestions = 0;
+
+            Object.keys(categoryStats).sort().forEach(category => {
+                const stats = categoryStats[category];
+                if (stats.total > 0) {
+                    totalHits += stats.hit;
+                    totalQuestions += stats.total;
+
+                    const percentage = Math.round((stats.hit / stats.total) * 100);
+                    const div = document.createElement("div");
+                    div.className = "category-result";
+
+                    const links = lessonLinks[category] || [];
+                    let linkHTML = "";
+                    links.forEach(link => {
+                        const displayName = link
+                            .replace(/[_-]/g, " ")
+                            .replace(".html", "");
+                        linkHTML += `<a href="${link}" class="lesson-link">${displayName}</a>`;
+                    });
+
+                    div.innerHTML = `
+                        <div class="category-header">
+                            <span class="category-name">${category}</span>
+                            <span class="category-score">${stats.hit}/${stats.total} (${percentage}%)</span>
+                        </div>
+                        <div class="category-links">
+                            ${linkHTML}
+                        </div>
+                    `;
+                    resultsContainer.appendChild(div);
+                }
+            });
+
+            const percentage = totalQuestions > 0 ? Math.round((totalHits / totalQuestions) * 100) : 0;
+            const summary = document.getElementById("scoreSummary");
+            summary.innerHTML = `
+                <h2>${totalHits} / ${totalQuestions} Correct</h2>
+                <p>You identified ${percentage}% of the grammar errors correctly.</p>
+            `;
+        }
+
+        function resetGame() {
+            gameState = {
+                marked: {},
+                checked: false,
+                results: {}
+            };
+            renderBingoGrid();
+            updateStatus();
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
+
+            document.getElementById(tabName).classList.add("active");
+
+            document.querySelectorAll(".tab-btn").forEach(btn => {
+                if (btn.getAttribute("data-tab") === tabName) {
+                    btn.classList.add("active");
+                }
+            });
+        }
+
+        document.querySelectorAll(".tab-btn").forEach(btn => {
+            btn.addEventListener("click", function() {
+                switchTab(this.getAttribute("data-tab"));
+            });
+        });
+
+        window.addEventListener("load", initializeGame);
+    </script>
+</body>
+</html>
