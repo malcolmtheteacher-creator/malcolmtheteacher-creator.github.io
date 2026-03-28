@@ -76,14 +76,20 @@
             <h2>Comparing Things</h2>
             <div class="retrieval-task">
                 <h3>What Do You Know?</h3>
-                <p>Write 3 sentences comparing two things. Example: "A car is ... than a bicycle."</p>
-                <textarea id="retrieval-input" placeholder="A book is... than a phone"></textarea>
+                <p>Speak about 3 spoken responses comparing two things. Example: "A car is ... than a bicycle."</p>
+                
+        <textarea id="retrieval-input" placeholder="A book is... than a phone"></textarea>
                 <button class="btn-primary" onclick="showRetrievalFeedback()">Check Your Thinking</button>
                 <div id="retrieval-feedback" class="feedback"></div>
             </div>
 
-            <div class="learning-intention">
+        <div class="learning-intention">
                 <strong>Today we're learning:</strong> How to compare two things using comparative adjectives (bigger, faster, more interesting).
+            </div>
+
+        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Bigger</strong> = BIG-ur (two syllables, stress first one)</p><p><strong>Better</strong> = BET-ur (two syllables, stress first one)</p><p><strong>Smaller</strong> = SMAWL-ur (two syllables, stress first one)</p><p><strong>Worse</strong> = WURS (rhymes with "purse")</p><p><strong>Than</strong> = THAN (rhymes with "can", not "then")</p>
             </div>
 
             <div class="content-chunk">
@@ -188,7 +194,7 @@
             <div class="practice-section">
                 <h3>WE DO (Practice Together)</h3>
                 <p><strong>Comparing:</strong> A car vs a bicycle</p>
-                <p style="background: #f8f9fa; padding: 12px; margin: 10px 0; border-radius: 4px;">A car is _____ (fast) than a bicycle.</p>
+                <p style="background: #f8f9fa; padding: 12px; margin: 10px 0; border-radius: 4px;">A car is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (fast) than a bicycle.</p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'we-do-reveal')">Show the answer</button>
                 <div id="we-do-reveal" class="hidden-content">
                     <p><strong>Answer:</strong> A car is <strong>faster</strong> than a bicycle.</p>
@@ -198,19 +204,19 @@
             <div class="practice-section">
                 <h3>YOU DO (Independent Practice)</h3>
                 <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
-                    <p>1. Winter is _____ (cold) than summer.</p>
+                    <p>1. Winter is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (cold) than summer.</p>
                     <button class="reveal-btn" onclick="toggleReveal(event, 'answer1')">Check</button>
                     <div id="answer1" class="hidden-content"><strong>✓</strong> Winter is <strong>colder</strong> than summer.</div>
                 </div>
 
                 <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
-                    <p>2. A dictionary is _____ (heavy) than a notebook.</p>
+                    <p>2. A dictionary is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (heavy) than a notebook.</p>
                     <button class="reveal-btn" onclick="toggleReveal(event, 'answer2')">Check</button>
                     <div id="answer2" class="hidden-content"><strong>✓</strong> A dictionary is <strong>heavier</strong> than a notebook.</div>
                 </div>
 
                 <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
-                    <p>3. A smartphone is _____ (expensive) than a pen.</p>
+                    <p>3. A smartphone is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (expensive) than a pen.</p>
                     <button class="reveal-btn" onclick="toggleReveal(event, 'answer3')">Check</button>
                     <div id="answer3" class="hidden-content"><strong>✓</strong> A smartphone is <strong>more expensive</strong> than a pen.</div>
                 </div>
@@ -223,28 +229,28 @@
             <p style="margin-bottom: 20px;"><strong>Short adjectives:</strong> add -ER. <strong>Long adjectives:</strong> use MORE.</p>
 
             <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
-                <p><strong>1.</strong> A dog is _____ (big) than a cat.</p>
+                <p><strong>1.</strong> A dog is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (big) than a cat.</p>
                 <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="bigger OR more big?">
                 <button class="reveal-btn" onclick="checkAnswer(1)">Check</button>
                 <div id="feedback1" class="feedback"></div>
             </div>
 
             <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
-                <p><strong>2.</strong> Math is _____ (difficult) than spelling.</p>
+                <p><strong>2.</strong> Math is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (difficult) than spelling.</p>
                 <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="difficultER OR more difficult?">
                 <button class="reveal-btn" onclick="checkAnswer(2)">Check</button>
                 <div id="feedback2" class="feedback"></div>
             </div>
 
             <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
-                <p><strong>3.</strong> A mountain is _____ (high) than a hill.</p>
+                <p><strong>3.</strong> A mountain is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (high) than a hill.</p>
                 <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="higher OR more high?">
                 <button class="reveal-btn" onclick="checkAnswer(3)">Check</button>
                 <div id="feedback3" class="feedback"></div>
             </div>
 
             <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
-                <p><strong>4.</strong> Paris is _____ (beautiful) than many cities.</p>
+                <p><strong>4.</strong> Paris is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (beautiful) than many cities.</p>
                 <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="beautifulER OR more beautiful?">
                 <button class="reveal-btn" onclick="checkAnswer(4)">Check</button>
                 <div id="feedback4" class="feedback"></div>
@@ -258,7 +264,8 @@
             <div class="production-task">
                 <h3>📝 Explain in Your Words</h3>
                 <p>When do we use -ER? When do we use MORE?</p>
-                <textarea id="elaboration-input" placeholder="Short adjectives use... Long adjectives use..." style="min-height: 100px;"></textarea>
+                
+        <textarea id="elaboration-input" placeholder="Short adjectives use... Long adjectives use..." style="min-height: 100px;"></textarea>
                 <button class="btn-primary" onclick="saveSpeakingNote()">Save Your Explanation</button>
             </div>
 
@@ -284,7 +291,8 @@
                     <li>Compare two objects in your room</li>
                     <li>Compare two activities you like</li>
                 </ul>
-                <textarea id="production-output" placeholder="A ___ is ___ than a ___..." style="min-height: 150px; margin-top: 15px;"></textarea>
+                
+        <textarea id="production-output" placeholder="A ___ is ___ than a ___..." style="min-height: 150px; margin-top: 15px;"></textarea>
                 <button class="btn-primary" onclick="saveSpeakingNote()">Save Your Comparisons</button>
             </div>
 
@@ -297,11 +305,11 @@
 
             <div class="recall-item">
                 <div class="prompt">💭 From Lesson 18 (How Often):</div>
-                <p>Complete: I _____ (usually) watch TV in the evenings.</p>
+                <p>Complete: I <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (usually) watch TV in the evenings.</p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'recall1')">Show answer</button>
                 <div id="recall1" class="hidden-content">
                     <strong>✓</strong> I <strong>usually</strong> watch TV in the evenings.
-                    <p style="color: #666; font-size: 0.9em; margin-top: 8px;">Frequency adverbs go before the main verb.</p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 8px;">Frequency words go before the main verb.</p>
                 </div>
             </div>
 
@@ -317,7 +325,7 @@
 
             <div class="recall-item">
                 <div class="prompt">💭 From Lesson 20 (Unit 2 Review):</div>
-                <p>How do we ask questions in Present Simple? Example: How do you ask about jobs?</p>
+                <p>How do we ask questions in Present? Example: How do you ask about jobs?</p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'recall3')">Show answer</button>
                 <div id="recall3" class="hidden-content">
                     <strong>✓</strong> We use DO/DOES + Subject + Verb
@@ -332,11 +340,13 @@
 
             <div class="production-task">
                 <h3>Remember Without Looking Back</h3>
-                <p><strong>1. Write the two rules for comparatives:</strong></p>
-                <textarea id="rule-output" placeholder="Rule 1: Short adjectives... Rule 2: Long adjectives..." style="min-height: 80px; margin-bottom: 15px;"></textarea>
+                <p><strong>1. Speak about the two rules for comparatives:</strong></p>
+                
+        <textarea id="rule-output" placeholder="Rule 1: Short adjectives... Rule 2: Long adjectives..." style="min-height: 80px; margin-bottom: 15px;"></textarea>
 
-                <p><strong>2. Write 3 original comparisons from memory:</strong></p>
-                <textarea id="comparisons-output" placeholder="A ___ is ___ than a ___..." style="min-height: 100px; margin-bottom: 15px;"></textarea>
+                <p><strong>2. Speak about 3 original comparisons from memory:</strong></p>
+                
+        <textarea id="comparisons-output" placeholder="A ___ is ___ than a ___..." style="min-height: 100px; margin-bottom: 15px;"></textarea>
 
                 <button class="btn-primary" onclick="checkFinalTest()">Check Your Answers</button>
                 <div id="final-feedback" class="feedback"></div>
@@ -345,7 +355,8 @@
             <div class="metacognition">
                 <h3>🧠 Reflect on Your Learning</h3>
                 <p><strong>Question:</strong> Was the -ER or MORE pattern harder to remember? Why?</p>
-                <textarea id="metacog-input" placeholder="I found... harder because..." style="min-height: 80px;"></textarea>
+                
+        <textarea id="metacog-input" placeholder="I found... harder because..." style="min-height: 80px;"></textarea>
                 <button class="btn-primary" onclick="saveMetacognition()">Save Your Reflection</button>
             </div>
 
@@ -390,7 +401,7 @@
                 feedback.innerHTML = '<strong>✓ Good!</strong> You made a comparison. Now let\'s learn the correct pattern for all comparatives.';
                 feedback.classList.add('show', 'feedback-correct');
             } else {
-                feedback.innerHTML = '<strong>Try again:</strong> Write at least one sentence comparing two things.';
+                feedback.innerHTML = '<strong>Try again:</strong> Speak about at least one sentence comparing two things.';
                 feedback.classList.add('show', 'feedback-incorrect');
             }
         }
@@ -409,7 +420,7 @@
         }
 
         function saveSpeakingNote() {
-            alert('Great! Your response has been saved. Share it with your teacher.');
+            alert('Your response has been saved!');
         }
 
         function checkFinalTest() {
@@ -422,7 +433,7 @@
                     'Check your comparisons: short adjectives + -ER? long adjectives + MORE?';
                 feedback.classList.add('show', 'feedback-correct');
             } else {
-                feedback.innerHTML = '<strong>Try again:</strong> Write both the rules and your comparisons.';
+                feedback.innerHTML = '<strong>Try again:</strong> Speak about both the rules and your comparisons.';
                 feedback.classList.add('show', 'feedback-incorrect');
             }
         }

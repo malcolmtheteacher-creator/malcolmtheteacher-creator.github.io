@@ -40,7 +40,9 @@
         .metacognition-box { background: #f8f9fa; border: 2px solid #667eea; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
         .metacognition-box h4 { color: #667eea; margin-bottom: 10px; }
         @media (max-width: 768px) { .header h1 { font-size: 1.6em; } .tab-button { padding: 12px 15px; font-size: 0.85em; } }
-    </style>
+    
+.tab-btn { display: none; }
+.tab-btn.active { display: block; }</style>
 </head>
 <body>
     <div class="container">
@@ -51,6 +53,11 @@
         
         <div class="learning-intention">
             <strong>Learning Intention:</strong> Today we're learning the first conditional (If + present, will + future) so you can talk about real possibilities and natural consequences.
+        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>If</strong> = IF (one syllable, short I)</p><p><strong>Will</strong> = WIL (one syllable, short I)</p><p><strong>Condition</strong> = kun-DISH-un (three syllables, stress second one)</p><p><strong>Result</strong> = ree-ZULT (two syllables, stress second one)</p><p><strong>Probably</strong> = PROB-uh-lee (three syllables, stress first one)</p>
+            </div>
+
         </div>
         
         <div class="tabs">
@@ -68,8 +75,9 @@
             <div class="content-section">
                 <div class="section-title">🧠 What do you already know?</div>
                 <div class="retrieval-task">
-                    <p>Try writing 2-3 sentences about what will happen if something occurs. For example: "If I study hard, ..."</p>
-                    <textarea placeholder="Write sentences about possibilities..."></textarea>
+                    <p>Try speaking 2-3 spoken responses about what will happen if something occurs. For example: "If I study hard, ..."</p>
+                    
+        <textarea placeholder="Speak about spoken responses about possibilities..."></textarea>
                 </div>
             </div>
             
@@ -96,7 +104,7 @@
                     <h3>Structure:</h3>
                     <table class="form-table">
                         <tr style="background: #ff9800; color: white;">
-                            <td><strong>If clause (present simple)</strong></td>
+                            <td><strong>If clause (present)</strong></td>
                             <td><strong>Main clause (will + verb)</strong></td>
                         </tr>
                         <tr>
@@ -117,7 +125,7 @@
                 <div class="example-box">
                     <strong>Key Points:</strong>
                     <ul style="margin-left: 20px; margin-top: 10px;">
-                        <li><strong>IF clause uses present simple</strong> (not future): "If I go" NOT "If I will go"</li>
+                        <li><strong>IF clause uses present</strong> (not future): "If I go" NOT "If I will go"</li>
                         <li><strong>Main clause uses will/won't</strong>: "I will do" or "I won't do"</li>
                         <li>You can start with either: "If it rains, I'll stay home" OR "I'll stay home if it rains"</li>
                     </ul>
@@ -132,7 +140,7 @@
                 <div class="example-box">
                     <strong>I'll make a sentence about what happens if I drink coffee:</strong><br><br>
                     "If I drink coffee, I will be more awake."<br><br>
-                    <strong>Why:</strong> The IF clause is present simple ("I drink"). The main clause is will + verb ("I will be").
+                    <strong>Why:</strong> The IF clause is present ("I drink"). The main clause is will + verb ("I will be").
                 </div>
             </div>
             
@@ -140,8 +148,9 @@
                 <div class="section-title">👥 WE DO (Together)</div>
                 <div class="practice-box">
                     <p><strong>Complete this first conditional:</strong></p>
-                    <p>"If we study together, we _____________ (understand) the lesson better."</p>
-                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal Answer</button>
+                    <p>"If we study together, we <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (understand) the lesson better."</p>
+                    
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal Answer</button>
                     <div class="hidden-content">
                         <strong>Answer:</strong> "If we study together, we <strong>will understand</strong> the lesson better."<br><br>
                         <strong>Why:</strong> We need "will understand" (future) to show the result of studying.
@@ -153,7 +162,8 @@
                 <div class="section-title">🎓 YOU DO (Independent)</div>
                 <div class="practice-box">
                     <p><strong>Create your own first conditional. Start with "If I..."</strong></p>
-                    <textarea placeholder="Write your sentence: If I... then I will..."></textarea>
+                    
+        <textarea placeholder="Speak about your sentence: If I... then I will..."></textarea>
                 </div>
             </div>
         </div>
@@ -162,11 +172,12 @@
         <div id="tab4" class="tab-content">
             <div class="content-section">
                 <div class="section-title">🎯 Interleaved Practice: Mix old + new</div>
-                <p>These exercises mix the first conditional with past tense and present simple. YOU choose which structure:</p>
+                <p>These exercises mix the first conditional with past tense and present. YOU choose which structure:</p>
                 
                 <div class="practice-box">
-                    <p><strong>1.</strong> If you _____________ (arrive) late, your boss _____________ (be) angry.</p>
-                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                    <p><strong>1.</strong> If you <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (arrive) late, your boss <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (be) angry.</p>
+                    
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                     <div class="hidden-content">
                         <strong>Answer:</strong> "If you <strong>arrive</strong> late, your boss <strong>will be</strong> angry."<br>
                         First conditional: present + will
@@ -174,8 +185,9 @@
                 </div>
                 
                 <div class="practice-box">
-                    <p><strong>2.</strong> They _____________ (go) to the beach yesterday because it _____________ (be) sunny.</p>
-                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                    <p><strong>2.</strong> They <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (go) to the beach yesterday because it <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (be) sunny.</p>
+                    
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                     <div class="hidden-content">
                         <strong>Answer:</strong> "They <strong>went</strong> to the beach yesterday because it <strong>was</strong> sunny."<br>
                         Past simple (not first conditional).
@@ -183,8 +195,9 @@
                 </div>
                 
                 <div class="practice-box">
-                    <p><strong>3.</strong> If the weather _____________ (not improve), the match _____________ (be cancelled).</p>
-                    <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                    <p><strong>3.</strong> If the weather <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (not improve), the match <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (be cancelled).</p>
+                    
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                     <div class="hidden-content">
                         <strong>Answer:</strong> "If the weather <strong>doesn't improve</strong>, the match <strong>will be cancelled</strong>."<br>
                         First conditional with negation.
@@ -199,18 +212,20 @@
                 <div class="section-title">💭 Explain the rule in your own words</div>
                 <div class="retrieval-task">
                     <p>Write a 2-3 sentence explanation: When do we use the first conditional? What's the pattern?</p>
-                    <textarea placeholder="Explain the first conditional..."></textarea>
+                    
+        <textarea placeholder="Explain the first conditional..."></textarea>
                 </div>
             </div>
             
             <div class="content-section">
                 <div class="section-title">🗣️ Speak: Real-life scenarios</div>
                 <div class="practice-box">
-                    <p><strong>Create 3 first conditional sentences about your own life:</strong></p>
-                    <p>• If I _____________, I will _____________</p>
-                    <p>• If _____________, _____________ will happen</p>
-                    <p>• If not _____________, _____________</p>
-                    <textarea placeholder="Write your three sentences..."></textarea>
+                    <p><strong>Create 3 first conditional spoken responses about your own life:</strong></p>
+                    <p>• If I <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="...">, I will <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."></p>
+                    <p>• If <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="...">, <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> will happen</p>
+                    <p>• If not <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="...">, <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."></p>
+                    
+        <textarea placeholder="Speak about your three spoken responses..."></textarea>
                 </div>
             </div>
         </div>
@@ -224,7 +239,8 @@
                     <h3>From Lesson 14: Making Plans (Going To)</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> What's the difference between "I'm going to..." and "I will..."?</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             <strong>Answer:</strong> "Going to" = plans already made. "Will" = decisions in the moment or predictions.
                         </div>
@@ -235,7 +251,8 @@
                     <h3>From Lesson 26: Must & Should</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> Write a sentence using "should" to give advice.</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             <strong>Answer:</strong> Example: "You should study if you want to pass." / "If you're tired, you should sleep."
                         </div>
@@ -246,7 +263,8 @@
                     <h3>From Lesson 28: Have You Ever...?</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> What tense is "Have you ever...?" and what does it mean?</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             <strong>Answer:</strong> Present perfect. It asks about life experiences from the past to now.
                         </div>
@@ -257,7 +275,8 @@
                     <h3>From Lesson 30: Unit 3 Review</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> How do you form comparatives? Example: "This is ... than that."</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             <strong>Answer:</strong> Add "-er" (shorter, bigger) or "more" (more interesting, more difficult)
                         </div>
@@ -272,18 +291,21 @@
                 <div class="section-title">📝 Final Retrieval: From Memory</div>
                 
                 <div class="retrieval-task">
-                    <p><strong>1. Write the first conditional structure from memory:</strong> If ... , ... will ...</p>
-                    <textarea placeholder="Write the pattern..."></textarea>
+                    <p><strong>1. Speak about the first conditional structure from memory:</strong> If ... , ... will ...</p>
+                    
+        <textarea placeholder="Speak about the pattern..."></textarea>
                 </div>
                 
                 <div class="retrieval-task">
-                    <p><strong>2. Write 3 complete first conditional sentences from memory (NOT the same ones from earlier):</strong></p>
-                    <textarea placeholder="Write three new sentences..."></textarea>
+                    <p><strong>2. Speak about 3 speak about first conditional spoken responses from memory (NOT the same ones from earlier):</strong></p>
+                    
+        <textarea placeholder="Speak about three new spoken responses..."></textarea>
                 </div>
                 
                 <div class="retrieval-task">
                     <p><strong>3. What helped you remember the first conditional? The structure? The examples? Practice?</strong></p>
-                    <textarea placeholder="Your reflection..."></textarea>
+                    
+        <textarea placeholder="Your reflection..."></textarea>
                 </div>
             </div>
             
@@ -294,7 +316,8 @@
             <div class="metacognition-box">
                 <h4>🧠 Metacognition: Learning Process</h4>
                 <p>Which activity helped you understand the first conditional best? Why?</p>
-                <textarea placeholder="Your reflection..."></textarea>
+                
+        <textarea placeholder="Your reflection..."></textarea>
             </div>
         </div>
     </div>

@@ -51,15 +51,44 @@
         </header>
 
         <div class="tabs">
-            <button class="tab-btn active" onclick="showTab(event, 'tab1')">1. Achievement Check</button>
+            <button class="tab-btn active" onclick="showTab(event, 'tab0')">0. Quick Warm-up (3 min)</button>
+            <button class="tab-btn" onclick="showTab(event, 'tab1')">1. Achievement Check</button>
             <button class="tab-btn" onclick="showTab(event, 'tab2')">2. Intensive Recall</button>
             <button class="tab-btn" onclick="showTab(event, 'tab3')">3. Integrated Practice</button>
             <button class="tab-btn" onclick="showTab(event, 'tab4')">4. Production Challenge</button>
             <button class="tab-btn" onclick="showTab(event, 'tab5')">5. Reflection & Looking Ahead</button>
+        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Accomplished</strong> = uh-KOM-plisht (three syllables, stress second one)</p><p><strong>Mastered</strong> = MAS-turd (two syllables, stress first one)</p><p><strong>Fluent</strong> = FLOO-ent (two syllables, stress first one)</p><p><strong>Advanced</strong> = ad-VANST (two syllables, stress second one)</p><p><strong>Prepare</strong> = prih-PAIR (two syllables, stress second one)</p>
+            </div>
+        </div>
+
+        <!-- TAB 0: WARM-UP RETRIEVAL -->
+        <div id="tab0" class="tab-content active">
+            <h2>⏱️ Quick Warm-Up: Retrieval (3 minutes)</h2>
+            <p style="margin-bottom: 20px;"><strong>Let's wake up your brain! Quickly recall WITHOUT overthinking:</strong></p>
+
+            <div class="recall-card">
+                <h4>🧠 What's ONE thing from Unit 3?</h4>
+                <p>In one sentence, what's the biggest thing you learned in lessons 21-30?</p>
+                
+        <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 60px; font-family: inherit;" placeholder="I learned how to..."></textarea>
+            </div>
+
+            <div class="recall-card">
+                <h4>🧠 Name 3 grammar structures:</h4>
+                <p>Without looking, can you name 3 grammar topics we covered?</p>
+                
+        <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 60px; font-family: inherit;" placeholder="1) ...&#10;2) ...&#10;3) ..."></textarea>
+            </div>
+
+            <div class="achievement-badge" style="margin-top: 20px;">
+                ✅ Warm-up Complete! You're ready to dive deeper.
+            </div>
         </div>
 
         <!-- TAB 1 -->
-        <div id="tab1" class="tab-content active">
+        <div id="tab1" class="tab-content">
             <h2>🎉 Unit 3 Completed!</h2>
 
             <div class="milestone">
@@ -101,158 +130,216 @@
 
         <!-- TAB 2 -->
         <div id="tab2" class="tab-content">
-            <h2>Bring Back All 10 Lessons</h2>
+            <h2>Recall Zone: Spaced Repetition (8 minutes)</h2>
 
-            <p style="margin-bottom: 20px;"><strong>Comprehensive Retrieval: Test yourself on all major structures from Unit 3:</strong></p>
+            <p style="margin-bottom: 20px;"><strong>Bring back all 10 lessons with spaced intervals. Each card = recall opportunity:</strong></p>
+
+            <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #2196F3;">
+                <strong>Spaced Repetition Schedule:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px; font-size: 0.9em;">
+                    <li>+3 days: Present Continuous (L21, L22 ✓)</li>
+                    <li>+7 days: Comparatives (L22) + Superlatives (L24)</li>
+                    <li>+14 days: Modal Verbs (L26)</li>
+                    <li>+21 days: All structures integrated</li>
+                </ul>
+            </div>
 
             <div class="recall-card">
-                <h4>💭 L21 - Right Now! (Present Continuous)</h4>
-                <p>Complete: She _____ (read) the book right now.</p>
+                <h4>💭 L21 - Right Now! (Present Continuous) [+3 days]</h4>
+                <p><strong>Task:</strong> Complete this sentence: She <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (read) the book right now.</p>
+                <p style="font-size: 0.9em; color: #666; margin-top: 8px;"><em>Hint: Think "be + verb-ing"</em></p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'recall1')">Show answer</button>
                 <div id="recall1" class="hidden-content">
-                    <strong>✓</strong> She <strong>is reading</strong> the book right now.
+                    <strong>✓ Correct Form:</strong> She <strong>is reading</strong> the book right now.
+                    <p style="margin-top: 10px; font-size: 0.9em;"><strong>Why?</strong> Present Continuous = am/is/are + -ing. Use for actions happening RIGHT NOW.</p>
                 </div>
             </div>
 
             <div class="recall-card">
-                <h4>💭 L22 - Bigger & Better (Comparatives)</h4>
-                <p>Complete: A dog is _____ (intelligent) than a cat.</p>
+                <h4>💭 L22 - Bigger & Better (Comparatives) [+3 days]</h4>
+                <p><strong>Task:</strong> Complete: A dog is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (intelligent) than a cat.</p>
+                <p style="font-size: 0.9em; color: #666; margin-top: 8px;"><em>Hint: Think "more/less + adjective"</em></p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'recall2')">Show answer</button>
                 <div id="recall2" class="hidden-content">
-                    <strong>✓</strong> A dog is <strong>more intelligent</strong> than a cat.
+                    <strong>✓ Correct Form:</strong> A dog is <strong>more intelligent</strong> than a cat.
+                    <p style="margin-top: 10px; font-size: 0.9em;"><strong>Why?</strong> Comparative = more/less + long adjective (OR short adjective + -er). Use to compare TWO things.</p>
                 </div>
             </div>
 
             <div class="recall-card">
-                <h4>💭 L23 - Giving Opinions</h4>
-                <p>Write 3 expressions for introducing an opinion:</p>
+                <h4>💭 L23 - Giving Opinions [+7 days]</h4>
+                <p><strong>Task:</strong> Speak about 3 expressions for introducing an opinion:</p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'recall3')">Show answer</button>
                 <div id="recall3" class="hidden-content">
-                    <strong>✓</strong> "I think..." / "I believe..." / "In my opinion..."
+                    <strong>✓ Examples:</strong> "I think..." / "I believe..." / "In my opinion..." / "If you ask me..."
+                    <p style="margin-top: 10px; font-size: 0.9em;"><strong>Why?</strong> These are signal phrases that show you're sharing an opinion, not a fact. Essential for expressing yourself!</p>
                 </div>
             </div>
 
             <div class="recall-card">
-                <h4>💭 L24 - The Best! (Superlatives)</h4>
-                <p>Complete: Everest is _____ (high) mountain in the world.</p>
+                <h4>💭 L24 - The Best! (Superlatives) [+7 days]</h4>
+                <p><strong>Task:</strong> Complete: Everest is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (high) mountain in the world.</p>
+                <p style="font-size: 0.9em; color: #666; margin-top: 8px;"><em>Hint: Think "the + [most/least] + adjective" or "the + adjective + -est"</em></p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'recall4')">Show answer</button>
                 <div id="recall4" class="hidden-content">
-                    <strong>✓</strong> Everest is <strong>the highest</strong> mountain in the world.
+                    <strong>✓ Correct Form:</strong> Everest is <strong>the highest</strong> mountain in the world.
+                    <p style="margin-top: 10px; font-size: 0.9em;"><strong>Why?</strong> Superlative = the + most/least + adjective (OR the + adjective + -est). Use when comparing 3+ things OR saying something is #1.</p>
                 </div>
             </div>
 
             <div class="recall-card">
-                <h4>💭 L26 - Must & Should (Modals)</h4>
-                <p>What's the difference between MUST and SHOULD?</p>
+                <h4>💭 L26 - Must & Should (Modal Verbs) [+14 days]</h4>
+                <p><strong>Task:</strong> What's the difference between MUST and SHOULD? Speak about 1 sentence for each.</p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'recall5')">Show answer</button>
                 <div id="recall5" class="hidden-content">
-                    <strong>✓</strong> MUST = strong obligation. SHOULD = advice/recommendation
+                    <strong>✓ Key Difference:</strong>
+                    <ul style="margin-top: 10px; margin-left: 15px; font-size: 0.9em;">
+                        <li><strong>MUST</strong> = Strong obligation (you HAVE to do it). Example: "You must wear a seatbelt."</li>
+                        <li><strong>SHOULD</strong> = Advice/recommendation (it's a good idea). Example: "You should study harder."</li>
+                    </ul>
                 </div>
             </div>
 
             <div class="recall-card">
-                <h4>💭 L27 - Telling Stories</h4>
-                <p>List 3 sequencing words for stories:</p>
+                <h4>💭 L27 - Telling Stories with Sequencing [+14 days]</h4>
+                <p><strong>Task:</strong> List 3 sequencing words for stories (in order):</p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'recall6')">Show answer</button>
                 <div id="recall6" class="hidden-content">
-                    <strong>✓</strong> First, Then, After that, Next, Finally
+                    <strong>✓ Sequencing Words (Timeline Order):</strong>
+                    <ol style="margin-top: 10px; margin-left: 15px; font-size: 0.9em;">
+                        <li><strong>First</strong> (at the beginning)</li>
+                        <li><strong>Then</strong> / <strong>Next</strong> (what happens after)</li>
+                        <li><strong>Suddenly</strong> (unexpected twist)</li>
+                        <li><strong>Finally</strong> / <strong>In the end</strong> (conclusion)</li>
+                    </ol>
                 </div>
             </div>
 
             <div class="recall-card">
-                <h4>💭 L28 - Have You Ever? (Present Perfect)</h4>
-                <p>Complete: I _____ (never/try) sushi.</p>
+                <h4>💭 L28 - Have You Ever? (Present Perfect) [+21 days]</h4>
+                <p><strong>Task:</strong> Complete: I <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (never/try) sushi.</p>
+                <p style="font-size: 0.9em; color: #666; margin-top: 8px;"><em>Hint: Think "have/has + past participle"</em></p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'recall7')">Show answer</button>
                 <div id="recall7" class="hidden-content">
-                    <strong>✓</strong> I <strong>have never tried</strong> sushi.
+                    <strong>✓ Correct Form:</strong> I <strong>have never tried</strong> sushi.
+                    <p style="margin-top: 10px; font-size: 0.9em;"><strong>Why?</strong> Present Perfect = have/has + past participle. Use for life experiences OR to connect the past to NOW. "Have you ever...?" is a classic question form.</p>
                 </div>
             </div>
 
             <div class="recall-card">
-                <h4>💭 L29 - Making Suggestions</h4>
-                <p>Write 3 ways to make suggestions (casual to formal):</p>
+                <h4>💭 L29 - Making Suggestions [+21 days]</h4>
+                <p><strong>Task:</strong> Speak about 3 ways to make suggestions. Label each as casual, polite, or formal:</p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'recall8')">Show answer</button>
                 <div id="recall8" class="hidden-content">
-                    <strong>✓</strong> "Let's go!" (casual) / "Why don't we...?" (polite) / "Shall we...?" (formal)
+                    <strong>✓ Three Levels of Formality:</strong>
+                    <ul style="margin-top: 10px; margin-left: 15px; font-size: 0.9em;">
+                        <li><strong>Casual:</strong> "Let's go!" / "Wanna come?"</li>
+                        <li><strong>Polite:</strong> "Why don't we...?" / "How about we...?"</li>
+                        <li><strong>Formal:</strong> "Shall we...?" / "I would suggest..."</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>Key skill:</strong> Matching your suggestion to the situation!</p>
                 </div>
             </div>
         </div>
 
         <!-- TAB 3 -->
         <div id="tab3" class="tab-content">
-            <h2>Integrated Skills Challenge</h2>
+            <h2>Integrated Skills Challenge (Interleaved Practice)</h2>
 
-            <p style="margin-bottom: 20px;"><strong>Real-world scenarios combining multiple skills from Unit 3:</strong></p>
+            <p style="margin-bottom: 20px;"><strong>Real-world scenarios combining MULTIPLE structures (not just one topic). This mirrors real communication!</strong></p>
 
-            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #27ae60;">
-                <p><strong>Scenario 1: Comparing & Expressing Opinions</strong></p>
-                <p>Your friend says: "I like summer more than winter."</p>
-                <p>You think winter is better. Respond with:</p>
-                <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li>Your comparative opinion</li>
-                    <li>A reason why</li>
-                    <li>Polite disagreement formula</li>
-                </ul>
-                <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 80px; font-family: inherit;" placeholder="I see what you mean, but... I think winter is..."></textarea>
+            <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ff9800;">
+                <strong>Why Interleaving Works:</strong> In real life, you don't use ONE grammar rule at a time. You mix them. This practice develops flexible thinking.
             </div>
 
             <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #27ae60;">
-                <p><strong>Scenario 2: Storytelling with Sequencing</strong></p>
-                <p>Tell a short story about your best/worst day using:</p>
+                <p><strong>Scenario 1: Comparing & Expressing Opinions [Interleaving L22 + L23]</strong></p>
+                <p><em>Your friend says: "I like summer more than winter."</em></p>
+                <p><strong>Your task:</strong> Disagree politely. Your response MUST include:</p>
                 <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li>Time marker (Yesterday, Last week)</li>
-                    <li>3 events with sequencing words</li>
-                    <li>Final event to end the story</li>
+                    <li>✓ A comparative (using bigger/better/more/less/happier)</li>
+                    <li>✓ An opinion phrase ("I think...", "In my opinion...")</li>
+                    <li>✓ A reason with "because"</li>
                 </ul>
-                <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 100px; font-family: inherit;" placeholder="Last week, I had... First... Then... Finally..."></textarea>
+                
+        <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 80px; font-family: inherit;" placeholder="I see what you mean, but I think... is more... because..."></textarea>
+                <p style="margin-top: 10px; font-size: 0.85em; color: #666;"><strong>Model Answer:</strong> "I see what you mean, but I think winter is more beautiful because it's quieter and the snow is amazing."</p>
             </div>
 
             <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #27ae60;">
-                <p><strong>Scenario 3: Combining Multiple Structures</strong></p>
-                <p>You want to suggest a group activity. Include:</p>
+                <p><strong>Scenario 2: Storytelling with Sequencing [Interleaving L27 + L28]</strong></p>
+                <p><em>Tell a short story about something that happened to you.</em></p>
+                <p><strong>Your story MUST include:</strong></p>
                 <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li>Describe what you're doing now (Present Continuous)</li>
-                    <li>Make a suggestion (Let's/Why don't we/Shall we)</li>
-                    <li>Compare it to another activity</li>
-                    <li>Give a reason (should/must)</li>
+                    <li>✓ Time marker to set the scene (Yesterday, Last week, When I was 10...)</li>
+                    <li>✓ 3 events using sequencing words (First... Then... Suddenly... Finally)</li>
+                    <li>✓ At least ONE "I have never..." or "Have you ever?" reference</li>
                 </ul>
-                <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 100px; font-family: inherit;" placeholder="Right now we're... Why don't we... It's more... because we should..."></textarea>
+                
+        <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 100px; font-family: inherit;" placeholder="Last week, I had an interesting day. First... Then... Suddenly... I've never been so surprised!"></textarea>
+                <p style="margin-top: 10px; font-size: 0.85em; color: #666;"><strong>Model Answer:</strong> "Last week, I had a strange day. First, I missed my bus. Then, I walked to work and met an old friend. Suddenly, it started raining! I have never had such a crazy morning!"</p>
             </div>
 
-            <button class="btn-primary" style="width: 100%; margin-top: 15px;" onclick="alert('Excellent integrated practice!')">Save Responses</button>
+            <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #27ae60;">
+                <p><strong>Scenario 3: Advanced Interleaving [L21 + L22 + L26 + L29]</strong></p>
+                <p><em>You want to suggest a group activity to your friends.</em></p>
+                <p><strong>Your suggestion MUST include:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>✓ Describe what's happening right now (Present Continuous: "We're standing here...")</li>
+                    <li>✓ Make a suggestion (Let's/Why don't we/Shall we)</li>
+                    <li>✓ Compare it to another activity (Comparative: "...is more fun than...")</li>
+                    <li>✓ Give a reason using must/should (Modal verb)</li>
+                </ul>
+                
+        <textarea style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 100px; font-family: inherit;" placeholder="Right now we're standing around... Why don't we... It's more... because we should..."></textarea>
+                <p style="margin-top: 10px; font-size: 0.85em; color: #666;"><strong>Model Answer:</strong> "Right now we're just standing around doing nothing. Why don't we go to the park? It's more interesting than sitting here, and we should get some fresh air. Come on!"</p>
+            </div>
+
+            <button class="btn-primary" style="width: 100%; margin-top: 15px;" onclick="alert('Excellent! You just used multiple grammar structures naturally. That\'s fluency!')">Save Responses</button>
         </div>
 
         <!-- TAB 4 -->
         <div id="tab4" class="tab-content">
-            <h2>Final Production Challenge</h2>
+            <h2>Final Production Challenge (70% Your Output)</h2>
 
             <div class="production-task">
-                <h3>Challenge 1: Extended Speaking</h3>
-                <p>Prepare a 2-3 minute monologue about YOUR life. Include:</p>
+                <h3>Challenge 1: Extended Speaking (Self-Generated)</h3>
+                <p><strong>Create a 2-3 minute monologue about YOUR life using Unit 3 structures.</strong> You can rehearse this and deliver it orally!</p>
+                <p style="background: #e3f2fd; padding: 10px; border-radius: 4px; margin: 10px 0; font-size: 0.95em;">Include at least 5 of these elements:</p>
                 <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li>What you're doing right now (Present Continuous)</li>
-                    <li>Your opinions and what you think is important</li>
-                    <li>Comparisons (your life vs others, present vs past)</li>
-                    <li>A past story with sequencing</li>
-                    <li>Life experiences ("Have you ever...?")</li>
-                    <li>What you should do in the future</li>
+                    <li>Present Continuous: What you're doing now</li>
+                    <li>Comparatives: How your life compares to others</li>
+                    <li>Superlatives: The best/worst thing in your life</li>
+                    <li>Opinion phrases: What you believe is important</li>
+                    <li>Modal verbs (should/must): What you should do</li>
+                    <li>Storytelling: A past event with sequencing</li>
+                    <li>Present Perfect: A life experience</li>
+                    <li>Suggestions: What you want to do in the future</li>
                 </ul>
-                <textarea id="monologue-text" placeholder="Right now, I am... I think... Compared to... First, I remember... I have never... I should..." style="min-height: 200px;"></textarea>
-                <button class="btn-primary" onclick="alert('Excellent extended speech! Practice this out loud.')">Save</button>
+                
+        <textarea id="monologue-text" placeholder="Right now, I'm a student studying English. I think it's the most important skill because... Compared to last year, I'm more confident. First, I remember when I was scared to speak, but then I realized... I have never been so proud of myself. I should practice more because...  Let me suggest we..." style="min-height: 250px;"></textarea>
+                <button class="btn-primary" onclick="alert('Fantastic! This is YOUR creation using all Unit 3 structures. Practice saying this out loud 3x to develop fluency!')">Save & Practice Out Loud</button>
             </div>
 
             <div class="production-task">
-                <h3>Challenge 2: Dialogue Creation</h3>
-                <p>Create a conversation between two people. They should:</p>
+                <h3>Challenge 2: Dialogue Creation (Perform with Partner!)</h3>
+                <p><strong>Write a natural conversation between two friends.</strong> Create ALL the dialogue yourself - both sides!</p>
+                <p style="background: #e3f2fd; padding: 10px; border-radius: 4px; margin: 10px 0; font-size: 0.95em;">Your dialogue MUST include:</p>
                 <ul style="margin-left: 20px; margin-top: 10px;">
-                    <li>Discuss what's happening (Present Continuous)</li>
-                    <li>Exchange opinions and maybe disagree</li>
-                    <li>Make a suggestion</li>
-                    <li>Tell a brief story</li>
-                    <li>Mention a life experience</li>
+                    <li>✓ At least 6 exchanges (3+ lines each)</li>
+                    <li>✓ Present Continuous (what's happening now)</li>
+                    <li>✓ Opinion exchange (agreeing OR disagreeing politely)</li>
+                    <li>✓ A suggestion (Let's / Why don't we...)</li>
+                    <li>✓ A brief story (First... Then...)</li>
+                    <li>✓ A Present Perfect reference (Have you ever...?)</li>
                 </ul>
-                <textarea id="dialogue-text" placeholder="A: Right now I'm... What do you think? B: In my opinion... Let's... Did you ever...?" style="min-height: 200px;"></textarea>
-                <button class="btn-primary" onclick="alert('Great dialogue! Can you perform it with a partner?')">Save</button>
+                
+        <textarea id="dialogue-text" placeholder="A: Hey! What are you doing right now?
+B: I'm studying for my English test. It's the most stressful thing I'm doing this week!
+A: I think you're working too hard. Why don't we take a break and go to the park?
+B: That sounds good! You know, I've never studied in a park before.
+A: Really? I went there last week..." style="min-height: 250px;"></textarea>
+                <button class="btn-primary" onclick="alert('Perfect dialogue! Now practice this out loud with a partner 2-3 times to develop natural flow and confidence!')">Save & Practice with Partner</button>
             </div>
         </div>
 
@@ -263,21 +350,24 @@
             <div class="metacognition">
                 <h3>🧠 Your Greatest Achievement in Unit 3</h3>
                 <p>Which skill did you feel most proud learning in this unit?</p>
-                <textarea id="achievement-text" placeholder="I felt most proud when I learned... because..." style="min-height: 80px;"></textarea>
+                
+        <textarea id="achievement-text" placeholder="I felt most proud when I learned... because..." style="min-height: 80px;"></textarea>
                 <button class="btn-primary" onclick="alert('Reflection saved!')">Save</button>
             </div>
 
             <div class="metacognition">
                 <h3>🧠 What Still Needs Practice?</h3>
                 <p>Which structure or skill still feels challenging?</p>
-                <textarea id="challenge-text" placeholder="I still need to practice... because..." style="min-height: 80px;"></textarea>
+                
+        <textarea id="challenge-text" placeholder="I still need to practice... because..." style="min-height: 80px;"></textarea>
                 <button class="btn-primary" onclick="alert('Reflection saved!')">Save</button>
             </div>
 
             <div class="metacognition">
                 <h3>🧠 Your Growth</h3>
                 <p>How have you grown as an English learner since Lesson 1?</p>
-                <textarea id="growth-text" placeholder="When I started, I could... Now I can..." style="min-height: 100px;"></textarea>
+                
+        <textarea id="growth-text" placeholder="When I started, I could... Now I can..." style="min-height: 100px;"></textarea>
                 <button class="btn-primary" onclick="alert('Reflection saved!')">Save</button>
             </div>
 

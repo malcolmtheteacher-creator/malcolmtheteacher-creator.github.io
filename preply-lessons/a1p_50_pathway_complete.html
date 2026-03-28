@@ -175,7 +175,9 @@
             margin: 20px 0;
             font-size: 1.1em;
         }
-    </style>
+    
+.tab-btn { display: none; }
+.tab-btn.active { display: block; }</style>
 </head>
 <body>
     <div class="container">
@@ -187,19 +189,129 @@
             <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
                 <strong>Today's Learning Intention:</strong> We're celebrating your extraordinary 50-lesson journey and conducting a final comprehensive recall of all skills, tenses, and strategies you've mastered to become a confident A1/A2 English speaker.
             </div>
+        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Complete</strong> = kuhm-PLEET (two syllables, stress second one)</p><p><strong>Accomplished</strong> = uh-KOM-plisht (three syllables, stress second one)</p><p><strong>Fluent</strong> = FLOO-ent (two syllables, stress first one)</p><p><strong>Confident</strong> = KON-fi-dent (three syllables, stress first one)</p><p><strong>Congratulations</strong> = kun-graj-uh-LAY-shunz (five syllables, stress fourth one)</p>
+            </div>
+
+        </div>
+
+        <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #1976d2;">
+            <h3 style="color: #1976d2; margin-top: 0;">👔 BONUS: Complete Formal vs. Casual Register Guide</h3>
+            <p style="margin-top: 10px;"><strong>Throughout these 50 lessons, you've learned that register (formality level) is CRUCIAL. Here's your speak about A1 register reference:</strong></p>
+
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                <tr style="background: #667eea; color: white;">
+                    <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Situation</th>
+                    <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">💬 Casual (Friends/Family)</th>
+                    <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">👔 Formal (Professional/Academic)</th>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Greeting</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">Hey! What's up? How ya doing?</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">Good morning. How do you do? Pleased to meet you.</td>
+                </tr>
+                <tr style="background: #f5f5f5;">
+                    <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Asking for help</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">Can you help me? Can you do that?</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">Could you please assist me? Would you be able to help?</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Past experiences</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">I've been there like three times. Really cool!</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">I have visited on multiple occasions. Quite impressive.</td>
+                </tr>
+                <tr style="background: #f5f5f5;">
+                    <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Opinions</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">I think it's awesome! Really good.</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">In my opinion, it's quite excellent. I would say...</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Making plans</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">Wanna grab coffee? I'm gonna be free Saturday.</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">Would you like to have coffee? I will be available Saturday.</td>
+                </tr>
+                <tr style="background: #f5f5f5;">
+                    <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Disagreement</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">Nah, I don't think so. You're wrong, man.</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">I respectfully disagree. I don't believe that's accurate.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Giving advice</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">You should totally do it! Why don't you try?</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">I would recommend that action. Have you considered...?</td>
+                </tr>
+                <tr style="background: #f5f5f5;">
+                    <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Thanking</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">Thanks a lot! Cheers, mate!</td>
+                    <td style="padding: 12px; border: 1px solid #ddd;">Thank you very much. I appreciate your assistance.</td>
+                </tr>
+            </table>
+
+            <p style="margin-top: 15px;"><strong>Key Register Markers:</strong></p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Casual:</strong> Contractions (I've, don't, wanna), short spoken responses, slang, exclamation marks, friendly tone</li>
+                <li><strong>Formal:</strong> Full forms (I have, I would), longer spoken responses, complex vocabulary, proper punctuation, respectful tone</li>
+            </ul>
         </div>
 
         <div class="tabs">
-            <button class="tab-button active" onclick="showTab(0)">1️⃣ Journey</button>
-            <button class="tab-button" onclick="showTab(1)">2️⃣ 50 Skills</button>
-            <button class="tab-button" onclick="showTab(2)">3️⃣ Unit Review</button>
-            <button class="tab-button" onclick="showTab(3)">4️⃣ Comprehensive Test</button>
-            <button class="tab-button" onclick="showTab(4)">5️⃣ All Tenses</button>
-            <button class="tab-button" onclick="showTab(5)">6️⃣ Celebration</button>
+            <button class="tab-button active" onclick="showTab(0)">0️⃣ Final Warm-Up</button>
+            <button class="tab-button" onclick="showTab(1)">1️⃣ Your Journey</button>
+            <button class="tab-button" onclick="showTab(2)">2️⃣ Master Recall</button>
+            <button class="tab-button" onclick="showTab(3)">3️⃣ Production Test</button>
+            <button class="tab-button" onclick="showTab(4)">4️⃣ Tense Mastery</button>
+            <button class="tab-button" onclick="showTab(5)">5️⃣ Reflection</button>
+            <button class="tab-button" onclick="showTab(6)">6️⃣ Celebration!</button>
+        </div>
+
+        <!-- TAB 0: FINAL WARM-UP -->
+        <div class="tab-content active">
+            <h2>⏱️ Final Warm-Up: Your Greatest Hits (3 minutes)</h2>
+            <p style="margin-bottom: 20px;"><strong>Quick recall before the final review. Name one thing from each unit without overthinking:</strong></p>
+
+            <div class="practice-card">
+                <h3>From Unit 1 (Lessons 1-10): Foundation</h3>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Hint: Greetings, countries, jobs, family, food...</p>
+                
+        <textarea class="textarea" placeholder="One thing I remember is..." style="min-height: 50px;"></textarea>
+            </div>
+
+            <div class="practice-card">
+                <h3>From Unit 2 (Lessons 11-20): Elementary</h3>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Hint: Past simple, shopping, going to, directions...</p>
+                
+        <textarea class="textarea" placeholder="One thing I remember is..." style="min-height: 50px;"></textarea>
+            </div>
+
+            <div class="practice-card">
+                <h3>From Unit 3 (Lessons 21-30): Building</h3>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Hint: Present continuous, comparatives, opinions, storytelling...</p>
+                
+        <textarea class="textarea" placeholder="One thing I remember is..." style="min-height: 50px;"></textarea>
+            </div>
+
+            <div class="practice-card">
+                <h3>From Unit 4 (Lessons 31-40): Intermediate</h3>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Hint: Restaurants, phone calls, first conditional, health...</p>
+                
+        <textarea class="textarea" placeholder="One thing I remember is..." style="min-height: 50px;"></textarea>
+            </div>
+
+            <div class="practice-card">
+                <h3>From Unit 5 (Lessons 41-50): Transition</h3>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 10px;">Hint: Conversation management, extended stories, present perfect vs past...</p>
+                
+        <textarea class="textarea" placeholder="One thing I remember is..." style="min-height: 50px;"></textarea>
+            </div>
+
+            <p style="margin-top: 20px; padding: 15px; background: #fff3e0; border-radius: 4px; border-left: 4px solid #ff9800;">
+                ✅ Correct! You recalled all key elements from the pathway. Now let's dive deep into mastery...
+            </p>
         </div>
 
         <!-- TAB 1: JOURNEY -->
-        <div class="tab-content active">
+        <div class="tab-content">
             <h2>Tab 1: Your 50-Lesson Journey</h2>
 
             <div class="celebration">50 LESSONS IN 10 WEEKS</div>
@@ -225,12 +337,12 @@
 
             <div class="unit-box">
                 <h2>📚 Unit 1: Foundation (Lessons 1-10)</h2>
-                <p>✓ Greetings & introductions | ✓ Countries & nationalities | ✓ Jobs | ✓ Numbers | ✓ Family | ✓ Daily routines | ✓ Food & drinks | ✓ Prepositions</p>
+                <p>✓ Greetings & introductions | ✓ Countries & nationalities | ✓ Jobs | ✓ Numbers | ✓ Family | ✓ Daily routines | ✓ Food & drinks | ✓ Position Words</p>
             </div>
 
             <div class="unit-box">
                 <h2>📚 Unit 2: Elementary (Lessons 11-20)</h2>
-                <p>✓ Past simple regular & irregular | ✓ Shopping | ✓ Going to future | ✓ Can/can't | ✓ Directions | ✓ Frequency adverbs | ✓ Adjectives</p>
+                <p>✓ Past simple regular & irregular | ✓ Shopping | ✓ Going to future | ✓ Can/can't | ✓ Directions | ✓ Frequency words | ✓ Adjectives</p>
             </div>
 
             <div class="unit-box">
@@ -265,11 +377,15 @@
             </div>
         </div>
 
-        <!-- TAB 2: 50 SKILLS -->
+        <!-- TAB 2: MASTER RECALL ZONE -->
         <div class="tab-content">
+            <h2>Master Recall Zone: All 50 Lessons at a Glance</h2>
+            <p style="margin-bottom: 20px;"><strong>Here are key recall moments from your entire journey. Each tests spaced repetition across different time intervals:</strong></p>
             <h2>Tab 2: All 50 Skills You've Mastered</h2>
 
-            <p><strong>Check off the skills you remember best. Then we'll review the ones you need help with!</strong></p>
+            <div style="background: #f3e5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #9c27b0;">
+                <strong>Quick Recall Exercise:</strong> For each unit, say ONE sentence using a key structure from that unit:
+            </div>
 
             <div class="skill-grid">
                 <div class="skill-card">
@@ -286,8 +402,8 @@
                         <li>Can/can't, could/would, must/should</li>
                         <li>Comparatives & superlatives</li>
                         <li>Questions & question words</li>
-                        <li>Prepositions</li>
-                        <li>Possessives</li>
+                        <li>Position Words</li>
+                        <li>My/Your/His/Her</li>
                         <li>Used to</li>
                         <li>Imperatives</li>
                     </ul>
@@ -332,163 +448,138 @@
             <p style="margin-top: 30px; text-align: center;"><strong>Total: 50+ discrete skills across grammar, vocabulary, and speaking 🎯</strong></p>
         </div>
 
-        <!-- TAB 3: UNIT SUMMARY -->
+        <!-- TAB 3: PRODUCTION CHALLENGE -->
         <div class="tab-content">
-            <h2>Tab 3: Comprehensive Unit Review</h2>
+            <h2>70% Your Output: Production Challenge</h2>
 
-            <p><strong>Quick recall from each unit:</strong></p>
+            <p><strong>For each unit, create ONE original sentence using a key structure. This is 100% YOUR creation:</strong></p>
 
             <div class="practice-card">
-                <h3>Unit 1: Foundation Check</h3>
-                <p>Write 1 sentence for each:</p>
-                <p>1. Introduce yourself: _____</p>
-                <input type="text" class="input-field" placeholder="My name is...">
-
-                <p>2. Say your nationality: _____</p>
-                <input type="text" class="input-field" placeholder="I'm from...">
-
-                <p>3. Describe your job: _____</p>
-                <input type="text" class="input-field" placeholder="I'm a...">
+                <h3>Unit 1: Foundation - Introductions (Lessons 1-10)</h3>
+                <p><strong>Create an introduction sentence combining your name, nationality, and job:</strong></p>
+                
+        <textarea class="textarea" placeholder="Hello, my name is... I'm from... I'm a..." style="min-height: 60px;"></textarea>
             </div>
 
             <div class="practice-card">
-                <h3>Unit 2: Elementary Check</h3>
-                <p>1. What did you do yesterday? (Past simple)_____</p>
-                <input type="text" class="input-field" placeholder="I went to...">
-
-                <p>2. What will you do tomorrow? (Going to)_____</p>
-                <input type="text" class="input-field" placeholder="I'm going to...">
-
-                <p>3. Ask for directions: _____</p>
-                <input type="text" class="input-field" placeholder="Excuse me, where is...?">
+                <h3>Unit 2: Elementary - Past, Future & Directions (Lessons 11-20)</h3>
+                <p><strong>Create ONE sentence combining past, going to future, and direction language:</strong></p>
+                
+        <textarea class="textarea" placeholder="Yesterday, I went to... and tomorrow I'm going to... I can find it near..." style="min-height: 80px;"></textarea>
             </div>
 
             <div class="practice-card">
-                <h3>Unit 3: Building Check</h3>
-                <p>1. What are you doing right now? (Present continuous)_____</p>
-                <input type="text" class="input-field" placeholder="I'm learning...">
-
-                <p>2. Compare two things (Comparatives): _____</p>
-                <input type="text" class="input-field" placeholder="Coffee is more/less than tea...">
-
-                <p>3. Give your opinion: _____</p>
-                <input type="text" class="input-field" placeholder="I think that...">
+                <h3>Unit 3: Building - Describing & Comparing (Lessons 21-30)</h3>
+                <p><strong>Create ONE sentence using present continuous, comparatives, and your opinion:</strong></p>
+                
+        <textarea class="textarea" placeholder="Right now I'm... I think that... is more... than..." style="min-height: 80px;"></textarea>
             </div>
 
             <div class="practice-card">
-                <h3>Unit 4: Intermediate Check</h3>
-                <p>1. Order food at a restaurant: _____</p>
-                <input type="text" class="input-field" placeholder="I'd like...">
-
-                <p>2. Make a phone call: _____</p>
-                <input type="text" class="input-field" placeholder="Hello, this is...">
-
-                <p>3. Talk about the weather: _____</p>
-                <input type="text" class="input-field" placeholder="It's...">
+                <h3>Unit 4: Intermediate - Real-World Situations (Lessons 31-40)</h3>
+                <p><strong>Create a dialogue combining restaurant ordering, phone conversation, and weather:</strong></p>
+                
+        <textarea class="textarea" placeholder="A: Hello, what's the weather like today?
+B: It's sunny! I'm going to a restaurant.
+A: Great! I'd like to..." style="min-height: 100px;"></textarea>
             </div>
 
             <div class="practice-card">
-                <h3>Unit 5: Transition Check (Most Advanced!)</h3>
-                <p>1. Keep a conversation going: What question would you ask?_____</p>
-                <input type="text" class="input-field" placeholder="That sounds interesting! What happened next...?">
-
-                <p>2. Tell a story with multiple tenses: _____</p>
-                <textarea class="textarea" placeholder="First... then... suddenly... in the end..."></textarea>
-
-                <p>3. Make an invitation: _____</p>
-                <input type="text" class="input-field" placeholder="Would you like to...?">
-
-                <p>4. Give advice: _____</p>
-                <input type="text" class="input-field" placeholder="You should... / If I were you...">
+                <h3>Unit 5: Advanced - Fluent Conversation (Lessons 41-50)</h3>
+                <p><strong>Create a COMPLETE conversation combining storytelling, CLARITY techniques, invitations, and advice:</strong></p>
+                
+        <textarea class="textarea" placeholder="A: I had the most interesting day yesterday.
+B: Really? Tell me what happened! What makes it interesting?
+A: First, I went to... Then... Suddenly... In the end...
+B: Have you ever...? Wow! Why don't we go there together?
+A: That's a great idea! You should really see it because..." style="min-height: 150px;"></textarea>
             </div>
         </div>
 
-        <!-- TAB 4: COMPREHENSIVE TEST -->
+        <!-- TAB 4: TENSE MASTERY -->
         <div class="tab-content">
-            <h2>Tab 4: Final Comprehensive Test</h2>
+            <h2>Mastery Check: All 7 Tenses in Action</h2>
 
-            <p><strong>Show what you've learned! Write a full story (5-8 sentences) that includes:</strong></p>
+            <p><strong>Create ONE comprehensive story paragraph (6-8 spoken responses) that demonstrates mastery of MULTIPLE tenses used naturally together:</strong></p>
             <ul style="margin-left: 20px; margin-bottom: 20px;">
-                <li>✓ Past simple (main events)</li>
-                <li>✓ Past continuous (background)</li>
-                <li>✓ Present perfect (life experience reference)</li>
-                <li>✓ Story connectors (First, Then, Suddenly, In the end)</li>
-                <li>✓ Adjectives (describing things)</li>
-                <li>✓ Conversation techniques (CLARITY framework)</li>
-                <li>✓ Natural flow (connectors, fillers, linking)</li>
+                <li>✓ Present (facts, habits)</li>
+                <li>✓ Present Continuous (right now)</li>
+                <li>✓ Past (main story events)</li>
+                <li>✓ Past Continuous (background actions)</li>
+                <li>✓ Present Perfect (life experiences)</li>
+                <li>✓ Story connectors (First, Then, Suddenly, While, In the end)</li>
+                <li>✓ Adjectives & descriptive language</li>
             </ul>
 
             <div class="practice-card">
-                <p><strong>Story prompt:</strong> Tell about a memorable day in your life (could be last week, last year, or anytime).</p>
-                <textarea class="textarea" placeholder="Write your comprehensive story using all learned skills..." style="min-height: 200px;"></textarea>
+                <p><strong>Story Prompt:</strong> Tell about one memorable moment from your life. Use tenses naturally and fluidly:</p>
+                <p style="font-size: 0.9em; color: #666; margin-bottom: 15px;"><em>Example structure: "I often... but one day... was happening... when suddenly... I've never felt so... In the end..."</em></p>
+                
+        <textarea class="textarea" placeholder="I usually... but last week... I was... when suddenly... I have never... First... Then... Finally..." style="min-height: 200px;"></textarea>
 
-                <p style="margin-top: 20px;"><strong>Self-assessment:</strong></p>
+                <p style="margin-top: 20px; background: #fff3cd; padding: 15px; border-radius: 4px;"><strong>Self-Assessment Checklist:</strong></p>
                 <ul style="margin-left: 20px;">
-                    <li>✓ Did I use at least 3 different tenses?</li>
-                    <li>✓ Did I use story connectors?</li>
-                    <li>✓ Did I describe how I felt?</li>
-                    <li>✓ Did I use connectors/fillers for natural flow?</li>
-                    <li>✓ Would this be understood by a native speaker?</li>
+                    <li>☐ Did I use at least 4 different tenses naturally?</li>
+                    <li>☐ Did I use story connectors (First, Then, While, Suddenly, In the end)?</li>
+                    <li>☐ Did I express emotions and descriptions with adjectives?</li>
+                    <li>☐ Does my story have a clear beginning, middle, and end?</li>
+                    <li>☐ Would a native speaker understand and enjoy this story?</li>
+                </ul>
+
+                <p style="margin-top: 15px; font-size: 0.9em; color: #666;">
+                    <strong>Pro Tip:</strong> Read this story aloud 3x! Fluency comes from SPEAKING.
+                </p>
+            </div>
+        </div>
+
+        <!-- TAB 5: REFLECTION & METACOGNITION -->
+        <div class="tab-content">
+            <h2>Final Reflection: Your Learning Journey</h2>
+
+            <p><strong>Deep thinking about your growth as an English learner:</strong></p>
+
+            <div class="meta-question">
+                <h3>🧠 What Was Your Biggest Challenge?</h3>
+                <p style="margin-bottom: 10px;">Which grammar structure, tense, or skill took the most effort to master?</p>
+                
+        <textarea class="textarea" placeholder="It was challenging when... but I overcame it by..." style="min-height: 80px;"></textarea>
+            </div>
+
+            <div class="meta-question">
+                <h3>🧠 What Are You MOST Proud Of?</h3>
+                <p style="margin-bottom: 10px;">Which lesson or moment made you feel like you truly accomplished something?</p>
+                
+        <textarea class="textarea" placeholder="I felt most proud when..." style="min-height: 80px;"></textarea>
+            </div>
+
+            <div class="meta-question">
+                <h3>🧠 How Has Your Confidence Changed?</h3>
+                <p style="margin-bottom: 10px;">Compare your confidence now vs. when you started Lesson 1:</p>
+                
+        <textarea class="textarea" placeholder="At the start, I couldn't... Now I can..." style="min-height: 80px;"></textarea>
+            </div>
+
+            <div class="meta-question">
+                <h3>🧠 What's Your Next English Goal?</h3>
+                <p style="margin-bottom: 10px;">What do you want to do with your new English skills?</p>
+                
+        <textarea class="textarea" placeholder="I want to... because..." style="min-height: 80px;"></textarea>
+            </div>
+
+            <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #4caf50;">
+                <h3 style="color: #2e7d32; margin-top: 0;">Your Learning Patterns</h3>
+                <p style="margin-top: 10px;"><strong>Answer these to understand your learning style:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>I learn best through: <strong>speaking</strong> / <strong>speaking</strong> / <strong>listening</strong> / <strong>reading</strong></li>
+                    <li>I remember grammar best by: <strong>example spoken responses</strong> / <strong>rules</strong> / <strong>visual diagrams</strong> / <strong>practice</strong></li>
+                    <li>I feel most confident with: <strong>conversation</strong> / <strong>grammar accuracy</strong> / <strong>vocabulary</strong> / <strong>fluency</strong></li>
                 </ul>
             </div>
         </div>
 
-        <!-- TAB 5: ALL TENSES MASTERY -->
-        <div class="tab-content">
-            <h2>Tab 5: Complete Tense Mastery</h2>
-
-            <p><strong>You've learned 7 tenses. Write one example sentence for each:</strong></p>
-
-            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-                <tr style="background: #667eea; color: white;">
-                    <th style="padding: 15px; text-align: left;">Tense</th>
-                    <th style="padding: 15px; text-align: left;">Form</th>
-                    <th style="padding: 15px; text-align: left;">Your Example</th>
-                </tr>
-                <tr style="border-bottom: 1px solid #ddd;">
-                    <td style="padding: 12px;">Present Simple</td>
-                    <td style="padding: 12px;">I go | She plays | They eat</td>
-                    <td style="padding: 12px;"><input type="text" class="input-field" placeholder="I..."></td>
-                </tr>
-                <tr style="border-bottom: 1px solid #ddd; background: #f5f5f5;">
-                    <td style="padding: 12px;">Present Continuous</td>
-                    <td style="padding: 12px;">Am/Is/Are + -ing</td>
-                    <td style="padding: 12px;"><input type="text" class="input-field" placeholder="I'm..."></td>
-                </tr>
-                <tr style="border-bottom: 1px solid #ddd;">
-                    <td style="padding: 12px;">Past Simple</td>
-                    <td style="padding: 12px;">I went | She ate | They worked</td>
-                    <td style="padding: 12px;"><input type="text" class="input-field" placeholder="I..."></td>
-                </tr>
-                <tr style="border-bottom: 1px solid #ddd; background: #f5f5f5;">
-                    <td style="padding: 12px;">Past Continuous</td>
-                    <td style="padding: 12px;">Was/Were + -ing</td>
-                    <td style="padding: 12px;"><input type="text" class="input-field" placeholder="I was..."></td>
-                </tr>
-                <tr style="border-bottom: 1px solid #ddd;">
-                    <td style="padding: 12px;">Present Perfect</td>
-                    <td style="padding: 12px;">Have/Has + past participle</td>
-                    <td style="padding: 12px;"><input type="text" class="input-field" placeholder="I've..."></td>
-                </tr>
-                <tr style="border-bottom: 1px solid #ddd; background: #f5f5f5;">
-                    <td style="padding: 12px;">Going to Future</td>
-                    <td style="padding: 12px;">Am/Is/Are going to + verb</td>
-                    <td style="padding: 12px;"><input type="text" class="input-field" placeholder="I'm going to..."></td>
-                </tr>
-                <tr>
-                    <td style="padding: 12px;">Will Future</td>
-                    <td style="padding: 12px;">Will + verb</td>
-                    <td style="padding: 12px;"><input type="text" class="input-field" placeholder="I will..."></td>
-                </tr>
-            </table>
-
-            <p style="margin-top: 20px;"><strong>Bonus: Can you use 3 tenses in one sentence?</strong></p>
-            <textarea class="textarea" placeholder="Example: 'I will call you because I've never talked to you while I'm free.' (Will + Present Perfect + Present Continuous)"></textarea>
-        </div>
-
         <!-- TAB 6: CELEBRATION -->
         <div class="tab-content">
-            <h2>Tab 6: Your Achievement! 🎉</h2>
+            <h2>🎉 CONGRATULATIONS! The Grand Finale! 🎉</h2>
 
             <div class="milestone-box">
                 <h2>YOU DID IT!</h2>
@@ -498,7 +589,7 @@
             <div class="i-can-statement">
                 <strong style="font-size: 1.3em;">ALL 50 LESSONS - HERE'S WHAT YOU CAN DO:</strong><br><br>
                 ✅ I can introduce myself confidently and have meaningful conversations with native speakers<br><br>
-                ✅ I can tell detailed stories using Present Simple, Past Simple, Past Continuous, and Present Perfect tenses<br><br>
+                ✅ I can tell detailed stories using Present, Past, Past Continuous, and Present Perfect tenses<br><br>
                 ✅ I can compare and contrast things using comparatives and superlatives<br><br>
                 ✅ I can express opinions, disagree respectfully, and handle opinions from others<br><br>
                 ✅ I can manage extended conversations by asking follow-up questions and showing interest<br><br>
@@ -524,16 +615,20 @@
             <div class="meta-question">
                 <h3>🧠 Final Reflection</h3>
                 <p><strong>What's your biggest achievement in this 50-lesson journey?</strong></p>
-                <textarea class="textarea" placeholder="The skill I'm most proud of is..."></textarea>
+                
+        <textarea class="textarea" placeholder="The skill I'm most proud of is..."></textarea>
 
                 <p style="margin-top: 15px;"><strong>What surprised you most?</strong></p>
-                <textarea class="textarea" placeholder="I was surprised that..."></textarea>
+                
+        <textarea class="textarea" placeholder="I was surprised that..."></textarea>
 
                 <p style="margin-top: 15px;"><strong>What will you do with your new English skills?</strong></p>
-                <textarea class="textarea" placeholder="I want to..."></textarea>
+                
+        <textarea class="textarea" placeholder="I want to..."></textarea>
 
                 <p style="margin-top: 15px;"><strong>Will you continue learning? What's your next goal?</strong></p>
-                <textarea class="textarea" placeholder="My next goal is to..."></textarea>
+                
+        <textarea class="textarea" placeholder="My next goal is to..."></textarea>
             </div>
 
             <div style="background: #fff9c4; border: 2px solid #fbc02d; padding: 30px; border-radius: 10px; margin: 20px 0; text-align: center;">

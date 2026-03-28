@@ -67,13 +67,19 @@
             <h2>Life Experiences</h2>
             <div class="retrieval-task">
                 <h3>What Have You Done?</h3>
-                <p>Write 3 experiences you have had (things you've done in your life so far):</p>
-                <textarea placeholder="I have traveled to... I have eaten... I have learned..."></textarea>
+                <p>Speak about 3 experiences you have had (things you've done in your life so far):</p>
+                
+        <textarea placeholder="I have traveled to... I have eaten... I have learned..."></textarea>
                 <button class="btn-primary" onclick="alert('Good! You shared experiences. Now let\\'s learn the grammar pattern.')">Continue</button>
             </div>
 
-            <div class="learning-intention">
+        <div class="learning-intention">
                 <strong>Today we're learning:</strong> How to ask and talk about life experiences using "Have you ever...?" and Present Perfect (have/has + past participle).
+            </div>
+
+        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Have you ever</strong> = HAV yoo EV-ur (stress first and third words)</p><p><strong>Never</strong> = NEV-ur (two syllables, stress first one)</p><p><strong>Ever</strong> = EV-ur (two syllables, stress first one)</p><p><strong>Before</strong> = bih-FOR (two syllables, stress second one)</p><p><strong>Experience</strong> = ik-SPEER-ee-uns (four syllables, stress second one)</p>
             </div>
 
             <div class="content-chunk">
@@ -149,7 +155,7 @@
             <div class="practice-section">
                 <h3>WE DO</h3>
                 <p><strong>Experience:</strong> Try a new food</p>
-                <p style="background: #f8f9fa; padding: 12px; margin: 10px 0; border-radius: 4px;">She _____ (eat) Thai food before.</p>
+                <p style="background: #f8f9fa; padding: 12px; margin: 10px 0; border-radius: 4px;">She <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (eat) Thai food before.</p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'we-do-reveal')">Show answer</button>
                 <div id="we-do-reveal" class="hidden-content">
                     <p><strong>Answer:</strong> She <strong>has eaten</strong> Thai food before.</p>
@@ -159,19 +165,19 @@
             <div class="practice-section">
                 <h3>YOU DO</h3>
                 <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
-                    <p>1. I _____ (see) that film three times.</p>
+                    <p>1. I <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (see) that film three times.</p>
                     <button class="reveal-btn" onclick="toggleReveal(event, 'answer1')">Check</button>
                     <div id="answer1" class="hidden-content"><strong>✓</strong> I <strong>have seen</strong> that film three times.</div>
                 </div>
 
                 <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
-                    <p>2. He _____ (never/try) pizza.</p>
+                    <p>2. He <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (never/try) pizza.</p>
                     <button class="reveal-btn" onclick="toggleReveal(event, 'answer2')">Check</button>
                     <div id="answer2" class="hidden-content"><strong>✓</strong> He <strong>has never tried</strong> pizza.</div>
                 </div>
 
                 <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
-                    <p>3. They _____ (go) to the beach.</p>
+                    <p>3. They <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (go) to the beach.</p>
                     <button class="reveal-btn" onclick="toggleReveal(event, 'answer3')">Check</button>
                     <div id="answer3" class="hidden-content"><strong>✓</strong> They <strong>have gone</strong> to the beach.</div>
                 </div>
@@ -183,28 +189,28 @@
             <h2>Mixed Practice</h2>
 
             <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
-                <p><strong>1.</strong> _____ you ever _____ (be) to London?</p>
+                <p><strong>1.</strong> <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> you ever <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (be) to London?</p>
                 <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="Have... been OR Do... go?">
                 <button class="reveal-btn" onclick="checkAnswer(1)">Check</button>
                 <div id="feedback1" class="feedback"></div>
             </div>
 
             <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
-                <p><strong>2.</strong> I _____ (never/eat) Chinese food.</p>
+                <p><strong>2.</strong> I <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (never/eat) Chinese food.</p>
                 <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="have never eaten OR don't eat?">
                 <button class="reveal-btn" onclick="checkAnswer(2)">Check</button>
                 <div id="feedback2" class="feedback"></div>
             </div>
 
             <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
-                <p><strong>3.</strong> She _____ (live) in Paris for two years.</p>
+                <p><strong>3.</strong> She <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (live) in Paris for two years.</p>
                 <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="has lived OR lived?">
                 <button class="reveal-btn" onclick="checkAnswer(3)">Check</button>
                 <div id="feedback3" class="feedback"></div>
             </div>
 
             <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
-                <p><strong>4.</strong> _____ you _____ (do) your homework?</p>
+                <p><strong>4.</strong> <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> you <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (do) your homework?</p>
                 <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="Have... done OR Do... do?">
                 <button class="reveal-btn" onclick="checkAnswer(4)">Check</button>
                 <div id="feedback4" class="feedback"></div>
@@ -218,14 +224,16 @@
             <div class="production-task">
                 <h3>📝 When Do We Use Present Perfect?</h3>
                 <p>Explain: When do we ask "Have you ever...?"</p>
-                <textarea id="elaboration-input" placeholder="We use Present Perfect to talk about... because..." style="min-height: 100px;"></textarea>
+                
+        <textarea id="elaboration-input" placeholder="We use Present Perfect to talk about... because..." style="min-height: 100px;"></textarea>
                 <button class="btn-primary" onclick="alert('Good explanation!')">Save</button>
             </div>
 
             <div class="production-task">
                 <h3>🎤 Your Life Experiences</h3>
-                <p>Write 5 things you have done or experiences you have had.</p>
-                <textarea id="experiences-text" placeholder="I have been... I have tried... I have never..." style="min-height: 100px;"></textarea>
+                <p>Speak about 5 things you have done or experiences you have had.</p>
+                
+        <textarea id="experiences-text" placeholder="I have been... I have tried... I have never..." style="min-height: 100px;"></textarea>
                 <button class="btn-primary" onclick="alert('Great experiences!')">Save</button>
             </div>
         </div>
@@ -236,7 +244,7 @@
 
             <div class="production-task">
                 <h3>🎤 Ask & Answer Questions</h3>
-                <p><strong>Write answers to these "Have you ever...?" questions:</strong></p>
+                <p><strong>Speak about answers to these "Have you ever...?" questions:</strong></p>
                 <ul style="margin-left: 20px; margin-top: 10px;">
                     <li>Have you ever traveled abroad?</li>
                     <li>Have you ever tried a new language?</li>
@@ -244,8 +252,9 @@
                     <li>Have you ever had a scary experience?</li>
                     <li>Have you ever achieved something difficult?</li>
                 </ul>
-                <textarea id="qa-text" placeholder="Yes, I have... / No, I haven't... / I have never..." style="min-height: 150px; margin-top: 15px;"></textarea>
-                <button class="btn-primary" onclick="alert('Share these answers with your teacher!')">Save</button>
+                
+        <textarea id="qa-text" placeholder="Yes, I have... / No, I haven't... / I have never..." style="min-height: 150px; margin-top: 15px;"></textarea>
+                <button class="btn-primary" onclick="alert('Saved!')">Save</button>
             </div>
         </div>
 
@@ -258,7 +267,7 @@
                 <p>What tense do we use for finished past actions?</p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'recall1')">Show</button>
                 <div id="recall1" class="hidden-content">
-                    <p><strong>✓</strong> Past Simple</p>
+                    <p><strong>✓</strong> Past</p>
                     <p>Example: "I went to school yesterday."</p>
                 </div>
             </div>
@@ -289,10 +298,12 @@
             <div class="production-task">
                 <h3>From Memory</h3>
                 <p><strong>1. Explain Present Perfect:</strong></p>
-                <textarea id="rule-output" placeholder="Present Perfect is used to..." style="min-height: 80px; margin-bottom: 15px;"></textarea>
+                
+        <textarea id="rule-output" placeholder="Present Perfect is used to..." style="min-height: 80px; margin-bottom: 15px;"></textarea>
 
-                <p><strong>2. Write 3 original Present Perfect sentences about YOUR life:</strong></p>
-                <textarea id="sentences-output" placeholder="I have... She has... They have never..." style="min-height: 100px; margin-bottom: 15px;"></textarea>
+                <p><strong>2. Speak about 3 original Present Perfect spoken responses about YOUR life:</strong></p>
+                
+        <textarea id="spoken responses-output" placeholder="I have... She has... They have never..." style="min-height: 100px; margin-bottom: 15px;"></textarea>
 
                 <button class="btn-primary" onclick="checkFinalTest()">Check</button>
                 <div id="final-feedback" class="feedback"></div>
@@ -300,8 +311,9 @@
 
             <div class="metacognition">
                 <h3>🧠 Reflect</h3>
-                <p>Is Present Perfect easier or harder than Past Simple? Why?</p>
-                <textarea id="metacog-input" placeholder="I think... because..." style="min-height: 80px;"></textarea>
+                <p>Is Present Perfect easier or harder than Past? Why?</p>
+                
+        <textarea id="metacog-input" placeholder="I think... because..." style="min-height: 80px;"></textarea>
                 <button class="btn-primary" onclick="alert('Reflection saved!')">Save</button>
             </div>
 
@@ -359,17 +371,17 @@
 
         function checkFinalTest() {
             var ruleOutput = document.getElementById('rule-output').value;
-            var sentencesOutput = document.getElementById('sentences-output').value;
+            var spoken responsesOutput = document.getElementById('spoken responses-output').value;
             var feedback = document.getElementById('final-feedback');
 
-            if (ruleOutput.trim().length > 20 && sentencesOutput.trim().length > 30) {
-                feedback.innerHTML = '<strong>✓ Excellent!</strong> You understand Present Perfect and can form sentences.';
+            if (ruleOutput.trim().length > 20 && spoken responsesOutput.trim().length > 30) {
+                feedback.innerHTML = '<strong>✓ Excellent!</strong> You understand Present Perfect and can form spoken responses.';
                 feedback.style.backgroundColor = '#e8f5e9';
                 feedback.style.borderLeft = '4px solid #4caf50';
                 feedback.style.color = '#2e7d32';
                 feedback.style.display = 'block';
             } else {
-                feedback.innerHTML = '<strong>Try again:</strong> Write fuller answers.';
+                feedback.innerHTML = '<strong>Try again:</strong> Speak about fuller answers.';
                 feedback.style.backgroundColor = '#ffebee';
                 feedback.style.borderLeft = '4px solid #f44336';
                 feedback.style.color = '#c62828';

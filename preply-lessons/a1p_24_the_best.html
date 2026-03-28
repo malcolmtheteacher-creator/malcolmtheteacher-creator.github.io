@@ -67,13 +67,19 @@
             <h2>What's the BEST?</h2>
             <div class="retrieval-task">
                 <h3>From Memory</h3>
-                <p>What's the BEST (fastest, biggest, most beautiful) thing in each category? Write from memory:</p>
-                <textarea placeholder="The best food is... The fastest animal is... The biggest country is..."></textarea>
+                <p>What's the BEST (fastest, biggest, most beautiful) thing in each category? Speak about from memory:</p>
+                
+        <textarea placeholder="The best food is... The fastest animal is... The biggest country is..."></textarea>
                 <button class="btn-primary" onclick="alert('Good! You expressed superlatives. Now let\'s learn the grammar.')">Check Your Thinking</button>
             </div>
 
-            <div class="learning-intention">
+        <div class="learning-intention">
                 <strong>Today we're learning:</strong> How to express superlatives - the BEST, the BIGGEST, the MOST interesting - when comparing three or more things.
+            </div>
+
+        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Best</strong> = BEST (one syllable, rhymes with "test")</p><p><strong>Worst</strong> = WURST (one syllable, rhymes with "first")</p><p><strong>Most</strong> = MOST (one syllable, rhymes with "ghost")</p><p><strong>Favorite</strong> = FAY-vur-it or FAY-vrit (three or two syllables, stress first)</p><p><strong>Perfect</strong> = PUR-fikt (two syllables, stress first one)</p>
             </div>
 
             <div class="content-chunk">
@@ -172,7 +178,7 @@
             <div class="practice-section">
                 <h3>WE DO</h3>
                 <p><strong>Adjective:</strong> small | <strong>Group:</strong> animals</p>
-                <p style="background: #f8f9fa; padding: 12px; margin: 10px 0; border-radius: 4px;">A mouse is _____ (small) animal in the room.</p>
+                <p style="background: #f8f9fa; padding: 12px; margin: 10px 0; border-radius: 4px;">A mouse is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (small) animal in the room.</p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'we-do-reveal')">Show answer</button>
                 <div id="we-do-reveal" class="hidden-content">
                     <p><strong>Answer:</strong> A mouse is <strong>the smallest</strong> animal in the room.</p>
@@ -182,19 +188,19 @@
             <div class="practice-section">
                 <h3>YOU DO</h3>
                 <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
-                    <p>1. The Eiffel Tower is _____ (tall) tower in Paris.</p>
+                    <p>1. The Eiffel Tower is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (tall) tower in Paris.</p>
                     <button class="reveal-btn" onclick="toggleReveal(event, 'answer1')">Check</button>
                     <div id="answer1" class="hidden-content"><strong>✓</strong> The <strong>tallest</strong> tower in Paris.</div>
                 </div>
 
                 <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
-                    <p>2. This restaurant has _____ (delicious) food in the city.</p>
+                    <p>2. This restaurant has <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (delicious) food in the city.</p>
                     <button class="reveal-btn" onclick="toggleReveal(event, 'answer2')">Check</button>
                     <div id="answer2" class="hidden-content"><strong>✓</strong> The <strong>most delicious</strong> food in the city.</div>
                 </div>
 
                 <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px solid #667eea;">
-                    <p>3. Everest is _____ (high) mountain in the world.</p>
+                    <p>3. Everest is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (high) mountain in the world.</p>
                     <button class="reveal-btn" onclick="toggleReveal(event, 'answer3')">Check</button>
                     <div id="answer3" class="hidden-content"><strong>✓</strong> The <strong>highest</strong> mountain in the world.</div>
                 </div>
@@ -206,28 +212,28 @@
             <h2>Mixed Practice</h2>
 
             <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
-                <p><strong>1.</strong> My brother is _____ (tall) person in our family.</p>
+                <p><strong>1.</strong> My brother is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (tall) person in our family.</p>
                 <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="the tallest OR the most tall?">
                 <button class="reveal-btn" onclick="checkAnswer(1)">Check</button>
                 <div id="feedback1" class="feedback"></div>
             </div>
 
             <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
-                <p><strong>2.</strong> That's _____ (expensive) car I've ever seen!</p>
+                <p><strong>2.</strong> That's <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (expensive) car I've ever seen!</p>
                 <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="the most expensive OR the expensivest?">
                 <button class="reveal-btn" onclick="checkAnswer(2)">Check</button>
                 <div id="feedback2" class="feedback"></div>
             </div>
 
             <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
-                <p><strong>3.</strong> Paris is _____ (beautiful) city in Europe in my opinion.</p>
+                <p><strong>3.</strong> Paris is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (beautiful) city in Europe in my opinion.</p>
                 <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="the most beautiful OR the beautifulest?">
                 <button class="reveal-btn" onclick="checkAnswer(3)">Check</button>
                 <div id="feedback3" class="feedback"></div>
             </div>
 
             <div style="background: white; padding: 15px; border-radius: 4px; margin: 15px 0; border: 2px dashed #667eea;">
-                <p><strong>4.</strong> This coffee is _____ (good) I've ever tasted.</p>
+                <p><strong>4.</strong> This coffee is <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (good) I've ever tasted.</p>
                 <input type="text" style="width: 100%; padding: 8px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;" placeholder="the best OR the goodest?">
                 <button class="reveal-btn" onclick="checkAnswer(4)">Check</button>
                 <div id="feedback4" class="feedback"></div>
@@ -241,14 +247,16 @@
             <div class="production-task">
                 <h3>📝 Explain the Pattern</h3>
                 <p>When do we use -EST? When do we use MOST?</p>
-                <textarea id="elaboration-input" placeholder="Short adjectives... Long adjectives..." style="min-height: 100px;"></textarea>
+                
+        <textarea id="elaboration-input" placeholder="Short adjectives... Long adjectives..." style="min-height: 100px;"></textarea>
                 <button class="btn-primary" onclick="alert('Good explanation!')">Save</button>
             </div>
 
             <div class="production-task">
                 <h3>🎤 Create Your Own Superlatives</h3>
-                <p>Write 3 superlatives about things you know.</p>
-                <textarea id="own-superlatives" placeholder="The ___ is the ___ in the ___..." style="min-height: 100px;"></textarea>
+                <p>Speak about 3 superlatives about things you know.</p>
+                
+        <textarea id="own-superlatives" placeholder="The ___ is the ___ in the ___..." style="min-height: 100px;"></textarea>
                 <button class="btn-primary" onclick="alert('Great examples!')">Save</button>
             </div>
         </div>
@@ -259,7 +267,7 @@
 
             <div class="production-task">
                 <h3>🎤 Describe the BEST/WORST/MOST in your life</h3>
-                <p><strong>Create 5 sentences about extreme things in your life:</strong></p>
+                <p><strong>Create 5 spoken responses about extreme things in your life:</strong></p>
                 <ul style="margin-left: 20px; margin-top: 10px;">
                     <li>The best friend you have</li>
                     <li>The most interesting hobby</li>
@@ -267,8 +275,9 @@
                     <li>The most beautiful place you've seen</li>
                     <li>The most expensive thing you own</li>
                 </ul>
-                <textarea id="production-output" placeholder="The best friend I have is..." style="min-height: 150px; margin-top: 15px;"></textarea>
-                <button class="btn-primary" onclick="alert('Share these with your teacher!')">Save</button>
+                
+        <textarea id="production-output" placeholder="The best friend I have is..." style="min-height: 150px; margin-top: 15px;"></textarea>
+                <button class="btn-primary" onclick="alert('Saved!')">Save</button>
             </div>
         </div>
 
@@ -278,7 +287,7 @@
 
             <div class="recall-item">
                 <div class="prompt">💭 From Lesson 20 (Unit 2 Review):</div>
-                <p>Write 3 adjectives we learned for describing things.</p>
+                <p>Speak about 3 adjectives we learned for describing things.</p>
                 <button class="reveal-btn" onclick="toggleReveal(event, 'recall1')">Show</button>
                 <div id="recall1" class="hidden-content">
                     <p><strong>✓</strong> Examples: interesting, beautiful, amazing, terrible, wonderful, cold, hot, fast, slow</p>
@@ -312,11 +321,13 @@
 
             <div class="production-task">
                 <h3>From Memory</h3>
-                <p><strong>1. Write the two patterns for superlatives:</strong></p>
-                <textarea id="rule-output" placeholder="Pattern 1:... Pattern 2:..." style="min-height: 80px; margin-bottom: 15px;"></textarea>
+                <p><strong>1. Speak about the two patterns for superlatives:</strong></p>
+                
+        <textarea id="rule-output" placeholder="Pattern 1:... Pattern 2:..." style="min-height: 80px; margin-bottom: 15px;"></textarea>
 
-                <p><strong>2. Write 3 original superlative sentences:</strong></p>
-                <textarea id="sentences-output" placeholder="The ___ is the ___ in..." style="min-height: 100px; margin-bottom: 15px;"></textarea>
+                <p><strong>2. Speak about 3 original superlative spoken responses:</strong></p>
+                
+        <textarea id="spoken responses-output" placeholder="The ___ is the ___ in..." style="min-height: 100px; margin-bottom: 15px;"></textarea>
 
                 <button class="btn-primary" onclick="checkFinalTest()">Check</button>
                 <div id="final-feedback" class="feedback"></div>
@@ -325,7 +336,8 @@
             <div class="metacognition">
                 <h3>🧠 Reflect</h3>
                 <p>What helped you remember the superlative patterns?</p>
-                <textarea id="metacog-input" placeholder="I remembered because..." style="min-height: 80px;"></textarea>
+                
+        <textarea id="metacog-input" placeholder="I remembered because..." style="min-height: 80px;"></textarea>
                 <button class="btn-primary" onclick="alert('Reflection saved!')">Save</button>
             </div>
 
@@ -383,17 +395,17 @@
 
         function checkFinalTest() {
             var ruleOutput = document.getElementById('rule-output').value;
-            var sentencesOutput = document.getElementById('sentences-output').value;
+            var spoken responsesOutput = document.getElementById('spoken responses-output').value;
             var feedback = document.getElementById('final-feedback');
 
-            if (ruleOutput.trim().length > 20 && sentencesOutput.trim().length > 30) {
+            if (ruleOutput.trim().length > 20 && spoken responsesOutput.trim().length > 30) {
                 feedback.innerHTML = '<strong>✓ Excellent!</strong> You understand both patterns. Check your work carefully.';
                 feedback.style.backgroundColor = '#e8f5e9';
                 feedback.style.borderLeft = '4px solid #4caf50';
                 feedback.style.color = '#2e7d32';
                 feedback.style.display = 'block';
             } else {
-                feedback.innerHTML = '<strong>Try again:</strong> Write more complete answers.';
+                feedback.innerHTML = '<strong>Try again:</strong> Speak about more speak about answers.';
                 feedback.style.backgroundColor = '#ffebee';
                 feedback.style.borderLeft = '4px solid #f44336';
                 feedback.style.color = '#c62828';

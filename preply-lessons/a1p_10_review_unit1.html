@@ -249,7 +249,9 @@
                 border-radius: 5px;
             }
         }
-    </style>
+    
+.tab-btn { display: none; }
+.tab-btn.active { display: block; }</style>
 </head>
 <body>
     <div class="container">
@@ -288,6 +290,20 @@
                 </ul>
             </div>
 
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Lesson</strong> = LES-un (two syllables, stress first one)</p><p><strong>Summary</strong> = SUM-muh-ree (three syllables, stress first one)</p><p><strong>Vocabulary</strong> = voh-KAB-yuh-lair-ee (four syllables, stress second one)</p><p><strong>Exercise</strong> = EK-sur-syz (three syllables, stress first one)</p><p><strong>Complete</strong> = kuhm-PLEET (two syllables, stress second one)</p>
+            </div>
+
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Lesson</strong> = LES-un (two syllables, stress first one)</p>
+<p><strong>Summary</strong> = SUM-muh-ree (three syllables, stress first one)</p>
+<p><strong>Vocabulary</strong> = voh-KAB-yuh-lair-ee (four syllables, stress second one)</p>
+<p><strong>Exercise</strong> = EK-sur-syz (three syllables, stress first one)</p>
+<p><strong>Complete</strong> = kuhm-PLEET (two syllables, stress second one)</p>
+            </div>
+
             <div class="content-card">
                 <h3>✅ Lesson 2: Where Are You From?</h3>
                 <ul class="progress-list">
@@ -300,7 +316,7 @@
                 <h3>✅ Lesson 3: What Do You Do?</h3>
                 <ul class="progress-list">
                     <li>Jobs and occupations: teacher, doctor, engineer</li>
-                    <li>Present simple: I'm a..., I work as a...</li>
+                    <li>How to say your job: I'm a..., I work as a...</li>
                 </ul>
             </div>
 
@@ -324,14 +340,14 @@
                 <h3>✅ Lesson 6: Family & People</h3>
                 <ul class="progress-list">
                     <li>Family members: mother, father, sister, brother</li>
-                    <li>Possessives: My, Your, His, Her</li>
+                    <li>Words to show who: My, Your, His, Her</li>
                 </ul>
             </div>
 
             <div class="content-card">
                 <h3>✅ Lesson 7: Daily Routines</h3>
                 <ul class="progress-list">
-                    <li>Action verbs: Wake up, shower, work, eat, sleep</li>
+                    <li>Action words: Wake up, shower, work, eat, sleep</li>
                     <li>Time expressions: Morning, afternoon, always, never</li>
                 </ul>
             </div>
@@ -347,7 +363,7 @@
             <div class="content-card">
                 <h3>✅ Lesson 9: Where Is It?</h3>
                 <ul class="progress-list">
-                    <li>Prepositions: IN, ON, UNDER, NEXT TO, BETWEEN</li>
+                    <li>Position words: IN, ON, UNDER, NEXT TO, BETWEEN</li>
                     <li>Location descriptions: "The book is on the table"</li>
                 </ul>
             </div>
@@ -362,26 +378,30 @@
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 3 (7 lessons back - long-term recall)</h3>
-                <p><strong>Question:</strong> Write 3 jobs/occupations and the pattern for saying them:</p>
-                <textarea id="recall1" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Speak about 3 jobs/occupations and the pattern for saying them:</p>
+                
+        <textarea id="recall1" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
             </div>
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 6 (4 lessons back - medium-term recall)</h3>
-                <p><strong>Question:</strong> Write 5 family members and use possessives in 1 sentence:</p>
-                <textarea id="recall2" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Speak about 5 family members and use my/your/his/her in 1 sentence:</p>
+                
+        <textarea id="recall2" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
             </div>
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 7 (3 lessons back - recent recall)</h3>
-                <p><strong>Question:</strong> Write 3 daily routines with time expressions:</p>
-                <textarea id="recall3" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Speak about 3 daily routines with time expressions:</p>
+                
+        <textarea id="recall3" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
             </div>
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 8 (2 lessons back - fresh recall)</h3>
-                <p><strong>Question:</strong> Write 3 foods/drinks and like/dislike statements:</p>
-                <textarea id="recall4" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Speak about 3 foods/drinks and like/dislike statements:</p>
+                
+        <textarea id="recall4" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
             </div>
 
             <button onclick="checkAllRecalls()" style="width: 100%; margin-top: 15px; padding: 12px; font-size: 1em;">Check All Recalls</button>
@@ -392,17 +412,18 @@
             </div>
         </div>
 
-        <!-- Tab 3: Integrated Capstone Test -->
+        <!-- Tab 3: Integrated Final Challenge -->
         <div id="tab3" class="tab-content">
-            <h2>🎯 Capstone Test: Complete Integration</h2>
+            <h2>🎯 Final Challenge: Complete Integration</h2>
             <p>This is the ultimate test. Create a COMPLETE, REAL introduction and daily life description combining ALL 9 lessons. No scaffolding — just produce:</p>
 
             <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 20px; border-radius: 5px; margin: 20px 0;">
                 <strong>🎤 Scenario:</strong> You're at an international conference. Someone asks: "Tell me about yourself." They want to know: Who you are, where you're from, what you do, basic info about your life (family, daily routine, food preferences, where things are in your home).
             </div>
 
-            <textarea id="capstone" placeholder="Write a complete introduction/description combining everything you've learned (at least 10-15 sentences)..." style="min-height: 200px;"></textarea>
-            <button onclick="checkCapstone()">Check My Capstone</button>
+            
+        <textarea id="capstone" placeholder="Write a speak about introduction/description combining everything you've learned (at least 10-15 spoken responses)..." style="min-height: 200px;"></textarea>
+            <button onclick="checkCapstone()"Check My Final Challenge</button>
             <div id="capstoneResult"></div>
 
             <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
@@ -516,7 +537,7 @@
 
                 <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
                     <input type="checkbox" checked disabled>
-                    <strong>I can describe my job/occupation using present simple</strong>
+                    <strong>I can describe my job/occupation</strong>
                 </label>
 
                 <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
@@ -526,12 +547,12 @@
 
                 <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
                     <input type="checkbox" checked disabled>
-                    <strong>I can talk about my family and use possessives (my, your, his, her)</strong>
+                    <strong>I can talk about my family using my, your, his, her</strong>
                 </label>
 
                 <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
                     <input type="checkbox" checked disabled>
-                    <strong>I can describe my daily routine with times and frequency adverbs</strong>
+                    <strong>I can describe my daily routine with times and frequency words</strong>
                 </label>
 
                 <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
@@ -541,7 +562,7 @@
 
                 <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
                     <input type="checkbox" checked disabled>
-                    <strong>I can describe where things are using prepositions of location</strong>
+                    <strong>I can describe where things are using position words (in, on, under, next to, between)</strong>
                 </label>
 
                 <label style="display: block; padding: 12px; margin: 10px 0; background: #f0f0f0; border-radius: 5px; cursor: pointer; border-left: 4px solid #667eea;">
@@ -557,7 +578,7 @@
 
             <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
                 <strong>🎉 Celebration Moment:</strong><br>
-                You've completed 10% of the A1 Pathway! You've mastered survival English and can have basic conversations. The foundation is solid. Well done!
+                You've completed 10% of the A1 Pathway! You've mastered survival English and can have basic conversations. The foundation is solid. You used the right structure.
             </div>
 
             <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe8a8 100%); border: 3px solid #ffc107; padding: 20px; border-radius: 5px; text-align: center; margin: 20px 0;">
@@ -618,14 +639,14 @@
                 if (hasRoutine) score++;
 
                 if (score >= 4) {
-                    result.innerHTML = '<div class="reveal"><strong>✅ EXCELLENT CAPSTONE!</strong> You integrated ' + score + ' out of 5 major topics! That\'s integration mastery!</div>';
+                    result.innerHTML = '<div class="reveal"><strong>✅ EXCELLENT FINAL CHALLENGE!</strong> You integrated ' + score + ' out of 5 major topics! That\'s integration mastery!</div>';
                 } else if (score >= 2) {
                     result.innerHTML = '<div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; border-radius: 5px;"><strong>Good effort!</strong> Try including more of these elements: introduction, location, job, family, routine, food preferences, location descriptions.</div>';
                 } else {
-                    result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">This is a major test! Try writing 15+ sentences covering all 9 lessons. Every lesson should appear somehow.</div>';
+                    result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">This is a major test! Try speaking 15+ spoken responses covering all 9 lessons. Every lesson should appear somehow.</div>';
                 }
             } else {
-                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Write more! Aim for at least 10-15 sentences covering all major topics from the foundation unit.</div>';
+                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Speak about more! Aim for at least 10-15 spoken responses covering all major topics from the foundation unit.</div>';
             }
         }
 

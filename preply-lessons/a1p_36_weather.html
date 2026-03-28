@@ -39,7 +39,9 @@
         .metacognition-box { background: #f8f9fa; border: 2px solid #667eea; padding: 15px; border-radius: 8px; }
         .metacognition-box h4 { color: #667eea; margin-bottom: 10px; }
         @media (max-width: 768px) { .header h1 { font-size: 1.6em; } .tab-button { padding: 12px 15px; font-size: 0.85em; } }
-    </style>
+    
+.tab-btn { display: none; }
+.tab-btn.active { display: block; }</style>
 </head>
 <body>
     <div class="container">
@@ -49,15 +51,20 @@
         </div>
         
         <div class="learning-intention">
-            <strong>Learning Intention:</strong> Today we're learning weather vocabulary and expressions so you can use weather as a springboard for natural conversations and small talk.
+            <strong>Learning Intention:</strong> Today we're learning weather vocabulary and expressions so you can talk about the weather and start simple small talk conversations.
+        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Weather</strong> = WETH-ur (two syllables, stress first one)</p><p><strong>Raining</strong> = RAY-ning (two syllables, stress first one)</p><p><strong>Snowing</strong> = SNOH-wing (two syllables, stress first one)</p><p><strong>Sunny</strong> = SUN-ee (two syllables, stress first one)</p><p><strong>Cloudy</strong> = KLOWD-ee (two syllables, stress first one)</p>
+            </div>
+
         </div>
         
         <div class="tabs">
             <button class="tab-button active" onclick="showTab(event, 'tab1')">Retrieval + Hook</button>
             <button class="tab-button" onclick="showTab(event, 'tab2')">Weather Vocab A</button>
             <button class="tab-button" onclick="showTab(event, 'tab3')">Weather Vocab B</button>
-            <button class="tab-button" onclick="showTab(event, 'tab4')">Your Turn</button>
-            <button class="tab-button" onclick="showTab(event, 'tab5')">Deep Dive</button>
+            <button class="tab-button" onclick="showTab(event, 'tab4')">Dialogue Practice</button>
+            <button class="tab-button" onclick="showTab(event, 'tab5')">Your Turn</button>
             <button class="tab-button" onclick="showTab(event, 'tab6')">Recall Zone</button>
             <button class="tab-button" onclick="showTab(event, 'tab7')">Wrap-Up</button>
         </div>
@@ -67,8 +74,9 @@
             <div class="content-section">
                 <div class="section-title">🧠 What do you already know?</div>
                 <div class="retrieval-task">
-                    <p>Write down 5 weather words you already know in English (rain, sun, snow, etc.)</p>
-                    <textarea placeholder="Write weather words..."></textarea>
+                    <p>Say out loud 5 weather words you already know in English (rain, sun, snow, etc.)</p>
+                    
+        <textarea placeholder="Speak about weather words..."></textarea>
                 </div>
             </div>
             
@@ -110,13 +118,15 @@
             <div class="content-section">
                 <div class="section-title">✍️ YOUR TURN: Match the word</div>
                 <div class="discussion-card">
-                    <p><strong>1. If it's wet outside:</strong> "It's _____ (raining / freezing)"</p>
-                    <textarea placeholder="Choose or write..."></textarea>
+                    <p><strong>1. If it's wet outside:</strong> "It's <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (raining / freezing)"</p>
+                    
+        <textarea placeholder="Choose or write..."></textarea>
                 </div>
                 
                 <div class="discussion-card">
-                    <p><strong>2. If it's below 0°C:</strong> "It's _____ (windy / freezing)"</p>
-                    <textarea placeholder="Choose or write..."></textarea>
+                    <p><strong>2. If it's below 0°C:</strong> "It's <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (windy / freezing)"</p>
+                    
+        <textarea placeholder="Choose or write..."></textarea>
                 </div>
             </div>
         </div>
@@ -149,13 +159,15 @@
             <div class="content-section">
                 <div class="section-title">✍️ YOUR TURN: Complete these small talk starters</div>
                 <div class="discussion-card">
-                    <p><strong>1. "Isn't it _____ today?"</strong> (Use a weather adjective)</p>
-                    <textarea placeholder="Write your response..."></textarea>
+                    <p><strong>1. "Isn't it <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> today?"</strong> (Use a weather adjective)</p>
+                    
+        <textarea placeholder="Speak about your response..."></textarea>
                 </div>
                 
                 <div class="discussion-card">
-                    <p><strong>2. "The weather is so _____, I _____ ."</strong> (Complete with how it affects you)</p>
-                    <textarea placeholder="Write your response..."></textarea>
+                    <p><strong>2. "The weather is so <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="...">, I <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> ."</strong> (Complete with how it affects you)</p>
+                    
+        <textarea placeholder="Speak about your response..."></textarea>
                 </div>
             </div>
         </div>
@@ -163,25 +175,31 @@
         <!-- TAB 4 -->
         <div id="tab4" class="tab-content">
             <div class="content-section">
-                <div class="section-title">🎤 Your Turn: Weather Small Talk (70% Your Output)</div>
-                <p>Choose 2-3 scenarios. Speak or write natural weather small talk. No scaffolding — just you and conversation.</p>
-                
-                <div class="discussion-card">
-                    <h4>Scenario 1: Waiting for a bus on a sunny day</h4>
-                    <p>Stranger next to you. You make small talk about the weather.</p>
-                    <textarea placeholder="What would you say?..."></textarea>
+                <div class="section-title">💬 Guided Dialogue Practice: How Small Talk Flows</div>
+                <p>See how weather conversations actually work — they're short exchanges, not long monologues.</p>
+
+                <div class="example-box">
+                    <strong>Example 1: At a bus stop (sunny day)</strong><br><br>
+                    Person A: "Isn't it hot today?"<br>
+                    Person B: "Yes! Perfect for the beach."<br>
+                    Person A: "Exactly. I love this weather!"<br><br>
+                    <em>Notice: Short turns, agreement, natural flow.</em>
                 </div>
-                
-                <div class="discussion-card">
-                    <h4>Scenario 2: In a coffee shop during heavy rain</h4>
-                    <p>Barista comments on the weather. You respond and continue the conversation.</p>
-                    <textarea placeholder="What would you say?..."></textarea>
+
+                <div class="example-box">
+                    <strong>Example 2: In a shop (rainy day)</strong><br><br>
+                    Person A: "Terrible weather, isn't it?"<br>
+                    Person B: "I know. I got soaked coming here."<br>
+                    Person A: "Me too. At least it will cool things down."<br><br>
+                    <em>Notice: Sympathy, common experience, quick resolution.</em>
                 </div>
-                
-                <div class="discussion-card">
-                    <h4>Scenario 3: Meeting a friend on a cold, snowy day</h4>
-                    <p>You greet them and reference the weather. They respond.</p>
-                    <textarea placeholder="What would you say?..."></textarea>
+
+                <div class="example-box">
+                    <strong>Example 3: With a friend (cold day)</strong><br><br>
+                    Person A: "Brr, it's freezing!"<br>
+                    Person B: "I know. Did you see the snow?"<br>
+                    Person A: "Yes, schools might close tomorrow."<br><br>
+                    <em>Notice: Exclamation, question, prediction (natural flow).</em>
                 </div>
             </div>
         </div>
@@ -189,19 +207,40 @@
         <!-- TAB 5 -->
         <div id="tab5" class="tab-content">
             <div class="content-section">
-                <div class="section-title">🎯 Deep Dive: Extended Weather Talk</div>
-                <div class="example-box">
-                    <strong>Small talk flow:</strong><br><br>
-                    Stranger: "Isn't it hot?"<br>
-                    You: "Yes! I can't believe how hot it is. Unusual for this time of year."<br>
-                    Stranger: "I know. I hope it cools down soon."<br>
-                    You: "Me too. I'm planning to stay inside with air conditioning!"
-                </div>
-                
+                <div class="section-title">🎤 Your Turn: Create Simple Weather Dialogues</div>
+                <p>Now YOU say short 3-4 line weather conversations. Keep them simple — just like the examples above.</p>
+
                 <div class="discussion-card">
-                    <h4>Challenge: Extend a weather conversation</h4>
-                    <p>Start with "Awful weather today!" Then write 3 more lines of conversation developing the topic.</p>
-                    <textarea placeholder="Write the full mini-conversation..."></textarea>
+                    <h4>Dialogue 1: On a warm, sunny day</h4>
+                    <p>Two people greet each other and chat about the nice weather.</p>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;">Person A: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."><br>
+                    Person B: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."><br>
+                    Person A: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."><br>
+                    Person B: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."></p>
+                    
+        <textarea placeholder="Speak about the dialogue..."></textarea>
+                </div>
+
+                <div class="discussion-card">
+                    <h4>Dialogue 2: During rain</h4>
+                    <p>A stranger and you chat about the rainy weather.</p>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;">Stranger: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."><br>
+                    You: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."><br>
+                    Stranger: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."><br>
+                    You: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."></p>
+                    
+        <textarea placeholder="Speak about the dialogue..."></textarea>
+                </div>
+
+                <div class="discussion-card">
+                    <h4>Dialogue 3: Cold/snowy day</h4>
+                    <p>You meet a friend and comment on the cold weather.</p>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;">You: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."><br>
+                    Friend: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."><br>
+                    You: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."><br>
+                    Friend: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."></p>
+                    
+        <textarea placeholder="Speak about the dialogue..."></textarea>
                 </div>
             </div>
         </div>
@@ -215,7 +254,8 @@
                     <h3>From Lesson 19: Describing Things</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> What adjectives did you learn for describing objects? (big, small, beautiful, ugly)</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             Answer: Any descriptive adjectives work (beautiful, terrible, lovely, awful, horrible, nice, pretty)
                         </div>
@@ -226,7 +266,8 @@
                     <h3>From Lesson 30: Unit 3 Review</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> How do you give an opinion? What expressions start with "I think"?</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             Answer: "I think...", "In my opinion...", "I believe...", "It seems like..."
                         </div>
@@ -237,7 +278,8 @@
                     <h3>From Lesson 33: First Conditional</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> Form a first conditional about weather: "If it rains tomorrow, ..."</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             Answer: "If it rains tomorrow, I will stay home" or similar (If + present, will + verb)
                         </div>
@@ -248,7 +290,8 @@
                     <h3>From Lesson 34: Questions</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> Form a WH-question about the weather: "What ... the temperature?"</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             Answer: "What is the temperature?" or "What's the weather like?" (auxiliary before subject)
                         </div>
@@ -260,32 +303,35 @@
         <!-- TAB 7 -->
         <div id="tab7" class="tab-content">
             <div class="content-section">
-                <div class="section-title">📝 Final Retrieval: From Memory</div>
-                
+                <div class="section-title">📝 Final Assessment: Weather Small Talk</div>
+
                 <div class="retrieval-task">
-                    <p><strong>1. Write 5 weather words from memory (no looking back):</strong></p>
-                    <textarea placeholder="List them..."></textarea>
+                    <p><strong>Write a 4-line weather small talk dialogue:</strong></p>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;">You meet someone at a bus stop. The weather is cold and snowy. Write a short conversation where you start by commenting on the weather, and they respond. Keep each line short and natural.</p>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;">Line 1 (You start): <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."><br>
+                    Line 2 (They respond): <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."><br>
+                    Line 3 (You continue): <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."><br>
+                    Line 4 (They reply): <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."></p>
+                    
+        <textarea placeholder="Speak about your dialogue..."></textarea>
                 </div>
-                
+
                 <div class="retrieval-task">
-                    <p><strong>2. Write 3 ways to start weather small talk:</strong></p>
-                    <textarea placeholder="Write starter phrases..."></textarea>
-                </div>
-                
-                <div class="retrieval-task">
-                    <p><strong>3. What's one weather small talk tip that will help you tomorrow?</strong></p>
-                    <textarea placeholder="Your reflection..."></textarea>
+                    <p><strong>Reflection: Which weather expressions felt most natural to you?</strong></p>
+                    
+        <textarea placeholder="Your reflection..."></textarea>
                 </div>
             </div>
-            
+
             <div class="i-can-statement">
-                ✅ <strong>I can:</strong> Use weather vocabulary naturally, make small talk about weather conditions, and sustain brief weather-related conversations
+                ✅ <strong>I can:</strong> Talk about the weather and start simple small talk conversations
             </div>
             
             <div class="metacognition-box">
                 <h4>🧠 Metacognition: Learning Tool</h4>
                 <p>Which activity helped you most? The vocab? The examples? The practice conversations?</p>
-                <textarea placeholder="Your reflection..."></textarea>
+                
+        <textarea placeholder="Your reflection..."></textarea>
             </div>
         </div>
     </div>

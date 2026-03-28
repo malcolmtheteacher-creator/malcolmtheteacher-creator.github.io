@@ -38,7 +38,9 @@
         .retrieval-task { background: #f0f7ff; border-left: 4px solid #4a90e2; padding: 15px; border-radius: 4px; margin-bottom: 15px; }
         .retrieval-task textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; min-height: 80px; }
         @media (max-width: 768px) { .header h1 { font-size: 1.6em; } .tab-button { padding: 12px 15px; font-size: 0.85em; } }
-    </style>
+    
+.tab-btn { display: none; }
+.tab-btn.active { display: block; }</style>
 </head>
 <body>
     <div class="container">
@@ -49,6 +51,11 @@
         
         <div class="learning-intention">
             <strong>Learning Intention:</strong> Today we're reviewing practical social English from the last 4 lessons so you can use restaurant language, phone confidence, conditional thinking, and natural questioning in real conversations.
+        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Conversation</strong> = kon-vur-SAY-shun (four syllables, stress third one)</p><p><strong>Polite</strong> = puh-LITE (two syllables, stress second one)</p><p><strong>Respectful</strong> = rih-SPEK-ful (three syllables, stress second one)</p><p><strong>Friendly</strong> = FREND-lee (two syllables, stress first one)</p><p><strong>Confident</strong> = KON-fi-dent (three syllables, stress first one)</p>
+            </div>
+
         </div>
         
         <div class="tabs">
@@ -76,23 +83,27 @@
             <div class="content-section">
                 <div class="section-title">🧠 Quick Check: What do you remember?</div>
                 <div class="retrieval-task">
-                    <p><strong>1. Write the R.A.B. framework from Lesson 31 (restaurant):</strong></p>
-                    <textarea placeholder="R = ... A = ... B = ..."></textarea>
+                    <p><strong>1. Speak about the R.A.B. framework from Lesson 31 (restaurant):</strong></p>
+                    
+        <textarea placeholder="R = ... A = ... B = ..."></textarea>
                 </div>
                 
                 <div class="retrieval-task">
-                    <p><strong>2. Write the A.M.I. framework from Lesson 32 (phone):</strong></p>
-                    <textarea placeholder="A = ... M = ... I = ..."></textarea>
+                    <p><strong>2. Speak about the A.M.I. framework from Lesson 32 (phone):</strong></p>
+                    
+        <textarea placeholder="A = ... M = ... I = ..."></textarea>
                 </div>
                 
                 <div class="retrieval-task">
                     <p><strong>3. What's the first conditional pattern?</strong></p>
-                    <textarea placeholder="If + present, ... + ..."></textarea>
+                    
+        <textarea placeholder="If + present, ... + ..."></textarea>
                 </div>
                 
                 <div class="retrieval-task">
                     <p><strong>4. What's the word order rule for YES/NO questions?</strong></p>
-                    <textarea placeholder="[What comes first? What comes second?]..."></textarea>
+                    
+        <textarea placeholder="[What comes first? What comes second?]..."></textarea>
                 </div>
             </div>
         </div>
@@ -107,7 +118,8 @@
                     <h3>From Lesson 29: Making Suggestions</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> What are 3 ways to make a suggestion using "Let's", "Why don't", "Shall"?</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             Answer: "Let's go", "Why don't we try...", "Shall we...?"
                         </div>
@@ -118,7 +130,8 @@
                     <h3>From Lesson 30: Unit 3 Review (Describing & Comparing)</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> How do you form a comparative? Example: "This is ___ (big) than that."</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             Answer: Add "-er" for short adjectives (bigger), or "more" for longer ones (more interesting)
                         </div>
@@ -129,7 +142,8 @@
                     <h3>From Lesson 31: At the Restaurant</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> What's the pattern for a polite complaint? Start with "I'm sorry, but..."</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             Answer: "I'm sorry, but [problem]. Could you possibly [solution]?" — Shows politeness without attacking.
                         </div>
@@ -140,7 +154,8 @@
                     <h3>From Lesson 32: Making Phone Calls</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> What are the key parts of a good voicemail message?</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             Answer: Name, reason for calling, phone number (slowly), what they should do next
                         </div>
@@ -150,10 +165,11 @@
                 <div class="recall-zone">
                     <h3>From Lesson 33: First Conditional</h3>
                     <div class="recall-item">
-                        <p><strong>Question:</strong> Write one first conditional sentence from memory:</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        <p><strong>Question:</strong> Speak about one first conditional sentence from memory:</p>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
-                            Answer: Any correct sentence following: If + present simple, will + verb (Example: "If I study, I will pass")
+                            Answer: Any correct sentence following: If + present, will + verb (Example: "If I study, I will pass")
                         </div>
                     </div>
                 </div>
@@ -162,7 +178,8 @@
                     <h3>From Lesson 34: Questions</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> What's wrong with this question? "Where you are going?" — Fix it.</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             Answer: Should be "Where are you going?" — The auxiliary "are" must come BEFORE the subject.
                         </div>
@@ -185,8 +202,9 @@
                         <li>Say what you want (restaurant skill)</li>
                         <li>Ask a question about availability (question skill)</li>
                     </ul>
-                    <p style="margin-top: 10px;"><strong>What do you say? Write or describe the conversation:</strong></p>
-                    <textarea placeholder="Write your conversation..."></textarea>
+                    <p style="margin-top: 10px;"><strong>What do you say? Speak about or describe the conversation:</strong></p>
+                    
+        <textarea placeholder="Speak about your conversation..."></textarea>
                 </div>
                 
                 <div class="scenario-box">
@@ -196,8 +214,9 @@
                         <li>One "If..." statement about what happens if the restaurant is full</li>
                         <li>One question asking about their food preferences</li>
                     </ul>
-                    <p style="margin-top: 10px;"><strong>Write what you would say:</strong></p>
-                    <textarea placeholder="Write your first conditional and question..."></textarea>
+                    <p style="margin-top: 10px;"><strong>Speak about what you would say:</strong></p>
+                    
+        <textarea placeholder="Speak about your first conditional and question..."></textarea>
                 </div>
                 
                 <div class="scenario-box">
@@ -208,7 +227,8 @@
                         <li>Ask a question about solutions</li>
                     </ul>
                     <p style="margin-top: 10px;"><strong>What do you say to the waiter?</strong></p>
-                    <textarea placeholder="Write your complaint..."></textarea>
+                    
+        <textarea placeholder="Speak about your complaint..."></textarea>
                 </div>
             </div>
         </div>
@@ -217,7 +237,7 @@
         <div id="tab4" class="tab-content">
             <div class="content-section">
                 <div class="section-title">🌍 Putting It All Together</div>
-                <p>Here's a complete scenario using ALL skills from Unit 4. Read it, then do the practice:</p>
+                <p>Here's a speak about scenario using ALL skills from Unit 4. Read it, then do the practice:</p>
                 
                 <div class="scenario-box">
                     <h4>📱 SCENARIO: Restaurant Booking by Phone</h4>
@@ -230,8 +250,9 @@
                         <li>A conditional statement about dietary needs (Lesson 33 - First conditional)</li>
                         <li>Asking for confirmation and the bill/cost question (Lesson 31)</li>
                     </ul>
-                    <p style="margin-top: 15px;"><strong>Write or describe the complete phone conversation:</strong></p>
-                    <textarea placeholder="Write the full conversation..."></textarea>
+                    <p style="margin-top: 15px;"><strong>Speak about or describe the speak about phone conversation:</strong></p>
+                    
+        <textarea placeholder="Speak about the full conversation..."></textarea>
                 </div>
             </div>
         </div>
@@ -243,17 +264,20 @@
                 
                 <div class="retrieval-task">
                     <p><strong>1. Which lesson in Unit 4 (31-34) helped you the most? Why?</strong></p>
-                    <textarea placeholder="Your reflection..."></textarea>
+                    
+        <textarea placeholder="Your reflection..."></textarea>
                 </div>
                 
                 <div class="retrieval-task">
                     <p><strong>2. What real situation from your life can you now handle in English?</strong></p>
-                    <textarea placeholder="Describe a real scenario..."></textarea>
+                    
+        <textarea placeholder="Describe a real scenario..."></textarea>
                 </div>
                 
                 <div class="retrieval-task">
                     <p><strong>3. What do you still find challenging?</strong></p>
-                    <textarea placeholder="Be honest about what's still difficult..."></textarea>
+                    
+        <textarea placeholder="Be honest about what's still difficult..."></textarea>
                 </div>
             </div>
             
@@ -279,7 +303,8 @@
             <div class="metacognition-box">
                 <h4>🧠 Metacognition: How Have You Grown?</h4>
                 <p>Since Lesson 31, what skill feels most natural now? What growth are you most proud of?</p>
-                <textarea placeholder="Your reflection..."></textarea>
+                
+        <textarea placeholder="Your reflection..."></textarea>
             </div>
         </div>
     </div>

@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prepositions of Place — Drag & Drop Practice</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f8f9fa;
+    color: #1a1a2e;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #ee8572, #e8637a);
+    color: white;
+    text-align: center;
+    padding: 24px 16px 16px;
+  }
+  .header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+  .header .level-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.25);
+    padding: 2px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .header .li-line {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    opacity: 0.92;
+    font-style: italic;
+  }
+
+  /* Tabs */
+  .tab-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px 8px 0;
+    background: #fff;
+    border-bottom: 2px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .tab-btn {
+    padding: 8px 14px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #888;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: #e8637a; }
+  .tab-btn.active { color: #e8637a; border-bottom-color: #e8637a; }
+
+  .tab-content { display: none; padding: 24px 16px 60px; max-width: 780px; margin: auto; }
+  .tab-content.active { display: block; }
+
+  /* Cards */
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .card h2 {
+    font-size: 1.15rem;
+    color: #e8637a;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card p, .card li { font-size: 0.95rem; }
+
+  /* Drag and Drop */
+  .drag-zone {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 14px;
+    min-height: 52px;
+    background: #fef4f3;
+    border: 2px dashed #e8637a55;
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+  .drag-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    background: linear-gradient(135deg, #ee8572, #e8637a);
+    color: white;
+    border-radius: 24px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    touch-action: none;
+  }
+  .drag-item:active { cursor: grabbing; transform: scale(1.08); box-shadow: 0 4px 14px rgba(232,99,122,0.35); }
+  .drag-item.dragging { opacity: 0.4; }
+
+  .drop-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  @media (max-width: 550px) { .drop-grid { grid-template-columns: 1fr; } }
+
+  .drop-card {
+    background: #fafafa;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+    transition: border-color 0.2s, background 0.2s;
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .drop-card .scene-icon { font-size: 2.4rem; }
+  .drop-card .label { font-size: 0.85rem; color: #666; }
+  .drop-card .drop-slot {
+    width: 100%;
+    min-height: 42px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+    color: #aaa;
+  }
+  .drop-card .drop-slot.drag-over { border-color: #e8637a; background: #fef0ee; }
+  .drop-card .drop-slot.filled { border-style: solid; border-color: #e8637a; background: #fef4f3; }
+  .drop-card .drop-slot .drag-item { cursor: pointer; font-size: 0.85rem; padding: 6px 14px; }
+  .drop-card.correct { border-color: #2ecc71; background: #f0fdf4; }
+  .drop-card.incorrect { border-color: #e74c3c; background: #fef2f2; }
+
+  /* Feedback */
+  .feedback {
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-top: 14px;
+    font-size: 0.92rem;
+    display: none;
+  }
+  .feedback.correct { display: block; background: #f0fdf4; border-left: 4px solid #2ecc71; color: #1a1a2e; }
+  .feedback.incorrect { display: block; background: #fef2f2; border-left: 4px solid #e74c3c; color: #1a1a2e; }
+  .feedback.info { display: block; background: #eff6ff; border-left: 4px solid #3b82f6; color: #1a1a2e; }
+
+  /* Buttons */
+  .btn {
+    padding: 10px 28px;
+    border: none;
+    border-radius: 24px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary { background: linear-gradient(135deg, #ee8572, #e8637a); color: white; }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(232,99,122,0.3); }
+  .btn-outline { background: white; color: #e8637a; border: 2px solid #e8637a; }
+  .btn-outline:hover { background: #fef4f3; }
+  .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+
+  /* Timer */
+  .timer-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding: 10px 16px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #eee;
+  }
+  .timer-display {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2ecc71;
+    min-width: 60px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .timer-display.warning { color: #f39c12; }
+  .timer-display.danger { color: #e74c3c; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+
+  /* Text input */
+  .text-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 60px;
+    transition: border-color 0.2s;
+  }
+  .text-input:focus { outline: none; border-color: #e8637a; }
+
+  /* Sentence builder */
+  .sentence-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    min-height: 48px;
+    padding: 12px;
+    background: #fef4f3;
+    border: 2px dashed #e8637a55;
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+  .sentence-area .drag-item { font-size: 0.85rem; padding: 6px 14px; }
+
+  /* Preposition visual cards — CLICK TO REVEAL */
+  .prep-visual-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+    margin: 14px 0;
+  }
+  .prep-visual-card {
+    background: #fff;
+    border: 2px solid #f0e0de;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    transition: transform 0.15s, border-color 0.2s;
+    cursor: pointer;
+  }
+  .prep-visual-card:hover { transform: translateY(-2px); border-color: #e8637a; }
+  .prep-visual-card .icon { font-size: 2.8rem; margin-bottom: 6px; }
+  .prep-visual-card .prep-word {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #e8637a;
+    margin-bottom: 4px;
+  }
+  .prep-visual-card .hint-text {
+    font-size: 0.82rem;
+    color: #aaa;
+    font-style: italic;
+  }
+  .prep-visual-card .example {
+    font-size: 0.82rem;
+    color: #666;
+    font-style: italic;
+    display: none;
+  }
+  .prep-visual-card.revealed .example { display: block; }
+  .prep-visual-card.revealed .hint-text { display: none; }
+  .prep-visual-card.revealed { border-color: #2ecc71; background: #f9fdf9; }
+
+  /* Can-do statement */
+  .can-do {
+    background: linear-gradient(135deg, #ee857222, #e8637a22);
+    border: 2px solid #e8637a44;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1a1a2e;
+  }
+
+  /* Metacognition */
+  .meta-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+  }
+  .meta-option {
+    padding: 8px 16px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  .meta-option:hover { border-color: #e8637a; }
+  .meta-option.selected { border-color: #e8637a; background: #fef4f3; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="level-badge">A1</div>
+  <h1>Where Is It? — Prepositions of Place</h1>
+  <div class="li-line">Today: prepositions of place so you can describe where things are.</div>
+</div>
+
+<nav class="tab-nav" id="tabNav">
+  <button class="tab-btn active" data-tab="tab1">1. Connect</button>
+  <button class="tab-btn" data-tab="tab2">2. Discover</button>
+  <button class="tab-btn" data-tab="tab3">3. Practice</button>
+  <button class="tab-btn" data-tab="tab4">4. Build</button>
+  <button class="tab-btn" data-tab="tab5">5. Describe</button>
+  <button class="tab-btn" data-tab="tab6">6. Recall Zone</button>
+  <button class="tab-btn" data-tab="tab7">7. Reflect</button>
+</nav>
+
+<!-- ===================== TAB 1: CONNECT ===================== -->
+<div class="tab-content active" id="tab1">
+
+  <div class="card">
+    <h2>What Do You Already Know?</h2>
+    <p>Look at the picture. Where is the cat? Try to describe — don't worry about mistakes!</p>
+
+    <div style="text-align:center; margin: 16px 0;">
+      <svg width="280" height="200" viewBox="0 0 280 200">
+        <rect x="60" y="110" width="160" height="10" rx="3" fill="#b8956a"/>
+        <rect x="70" y="120" width="8" height="60" fill="#a07850"/>
+        <rect x="202" y="120" width="8" height="60" fill="#a07850"/>
+        <ellipse cx="140" cy="100" rx="22" ry="16" fill="#555"/>
+        <circle cx="140" cy="84" r="12" fill="#555"/>
+        <polygon points="130,76 133,66 136,78" fill="#555"/>
+        <polygon points="144,78 147,66 150,76" fill="#555"/>
+        <circle cx="136" cy="82" r="2" fill="#7f7"/>
+        <circle cx="144" cy="82" r="2" fill="#7f7"/>
+        <text x="140" y="155" text-anchor="middle" font-size="13" fill="#888" font-weight="600">table</text>
+      </svg>
+    </div>
+
+    <textarea class="text-input" id="retrieval1" rows="2" placeholder="The cat is... (write your answer)"></textarea>
+
+    <div class="btn-group">
+      <button class="btn btn-outline" onclick="toggleReveal('retrieval1-reveal')">See one answer</button>
+    </div>
+    <div class="feedback info" id="retrieval1-reveal" style="display:none; margin-top:10px;">
+      The cat is <strong>on</strong> the table. — "On" means the cat is touching the top of the table.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Quick Challenge</h2>
+    <p>How many "place words" can you think of in 30 seconds? Words like <em>in, on, under...</em></p>
+    <textarea class="text-input" id="retrieval2" rows="2" placeholder="Write all the place words you know..."></textarea>
+    <div class="btn-group">
+      <button class="btn btn-outline" onclick="toggleReveal('retrieval2-reveal')">Common answers</button>
+    </div>
+    <div class="feedback info" id="retrieval2-reveal" style="display:none; margin-top:10px;">
+      Common prepositions of place: <strong>in, on, under, next to, between, in front of, behind</strong>. Today we learn all seven!
+    </div>
+  </div>
+
+</div>
+
+<!-- ===================== TAB 2: DISCOVER ===================== -->
+<div class="tab-content" id="tab2">
+
+  <div class="card">
+    <h2>Mystery Pictures</h2>
+    <p>Look at each picture and the word. What do you think it means? <strong>Click the card</strong> to see an example sentence.</p>
+  </div>
+
+  <div class="prep-visual-grid" id="prepGrid">
+    <div class="prep-visual-card" onclick="this.classList.toggle('revealed')">
+      <div class="icon">📦🐱</div>
+      <div class="prep-word">in</div>
+      <div class="hint-text">click to check</div>
+      <div class="example">The cat is <strong>in</strong> the box.</div>
+    </div>
+    <div class="prep-visual-card" onclick="this.classList.toggle('revealed')">
+      <div class="icon">📚🍎</div>
+      <div class="prep-word">on</div>
+      <div class="hint-text">click to check</div>
+      <div class="example">The apple is <strong>on</strong> the books.</div>
+    </div>
+    <div class="prep-visual-card" onclick="this.classList.toggle('revealed')">
+      <div class="icon">🛏️👟</div>
+      <div class="prep-word">under</div>
+      <div class="hint-text">click to check</div>
+      <div class="example">The shoes are <strong>under</strong> the bed.</div>
+    </div>
+    <div class="prep-visual-card" onclick="this.classList.toggle('revealed')">
+      <div class="icon">🏠🌳</div>
+      <div class="prep-word">next to</div>
+      <div class="hint-text">click to check</div>
+      <div class="example">The tree is <strong>next to</strong> the house.</div>
+    </div>
+    <div class="prep-visual-card" onclick="this.classList.toggle('revealed')">
+      <div class="icon">🪑🐕🪑</div>
+      <div class="prep-word">between</div>
+      <div class="hint-text">click to check</div>
+      <div class="example">The dog is <strong>between</strong> the chairs.</div>
+    </div>
+    <div class="prep-visual-card" onclick="this.classList.toggle('revealed')">
+      <div class="icon">🚗🏢</div>
+      <div class="prep-word">in front of</div>
+      <div class="hint-text">click to check</div>
+      <div class="example">The car is <strong>in front of</strong> the building.</div>
+    </div>
+    <div class="prep-visual-card" onclick="this.classList.toggle('revealed')">
+      <div class="icon">🌳🏠</div>
+      <div class="prep-word">behind</div>
+      <div class="hint-text">click to check</div>
+      <div class="example">The house is <strong>behind</strong> the tree.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Pattern Check</h2>
+    <p>Can you see a pattern? Drag each description to the correct preposition.</p>
+
+    <div class="drag-zone" id="meaningDragZone">
+      <div class="drag-item" draggable="true" data-value="inside something">inside something</div>
+      <div class="drag-item" draggable="true" data-value="touching the top">touching the top</div>
+      <div class="drag-item" draggable="true" data-value="lower, covered by">lower, covered by</div>
+      <div class="drag-item" draggable="true" data-value="at the side of">at the side of</div>
+      <div class="drag-item" draggable="true" data-value="in the middle of two">in the middle of two</div>
+      <div class="drag-item" draggable="true" data-value="facing it, closer to you">facing it, closer to you</div>
+      <div class="drag-item" draggable="true" data-value="on the other side, hidden">on the other side, hidden</div>
+    </div>
+
+    <div class="drop-grid" id="meaningDropGrid">
+      <div class="drop-card" data-answer="inside something">
+        <div class="scene-icon">📦🐱</div>
+        <div class="label"><strong>in</strong></div>
+        <div class="drop-slot" data-accept="inside something">drop here</div>
+      </div>
+      <div class="drop-card" data-answer="touching the top">
+        <div class="scene-icon">📚🍎</div>
+        <div class="label"><strong>on</strong></div>
+        <div class="drop-slot" data-accept="touching the top">drop here</div>
+      </div>
+      <div class="drop-card" data-answer="lower, covered by">
+        <div class="scene-icon">🛏️👟</div>
+        <div class="label"><strong>under</strong></div>
+        <div class="drop-slot" data-accept="lower, covered by">drop here</div>
+      </div>
+      <div class="drop-card" data-answer="at the side of">
+        <div class="scene-icon">🏠🌳</div>
+        <div class="label"><strong>next to</strong></div>
+        <div class="drop-slot" data-accept="at the side of">drop here</div>
+      </div>
+      <div class="drop-card" data-answer="in the middle of two">
+        <div class="scene-icon">🪑🐕🪑</div>
+        <div class="label"><strong>between</strong></div>
+        <div class="drop-slot" data-accept="in the middle of two">drop here</div>
+      </div>
+      <div class="drop-card" data-answer="facing it, closer to you">
+        <div class="scene-icon">🚗🏢</div>
+        <div class="label"><strong>in front of</strong></div>
+        <div class="drop-slot" data-accept="facing it, closer to you">drop here</div>
+      </div>
+      <div class="drop-card" data-answer="on the other side, hidden">
+        <div class="scene-icon">🌳🏠</div>
+        <div class="label"><strong>behind</strong></div>
+        <div class="drop-slot" data-accept="on the other side, hidden">drop here</div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="checkMeaningDrop()">Check Answers</button>
+      <button class="btn btn-outline" onclick="resetMeaningDrop()">Reset</button>
+    </div>
+    <div class="feedback" id="meaningFeedback"></div>
+  </div>
+
+</div>
+
+<!-- ===================== TAB 3: PRACTICE ===================== -->
+<div class="tab-content" id="tab3">
+
+  <div class="card">
+    <h2>The Room — Drag & Drop</h2>
+    <p>Look at the room. Drag the correct preposition to describe where each object is.</p>
+  </div>
+
+  <div class="drag-zone" id="roomDragZone">
+    <div class="drag-item" draggable="true" data-value="on">on</div>
+    <div class="drag-item" draggable="true" data-value="in">in</div>
+    <div class="drag-item" draggable="true" data-value="under">under</div>
+    <div class="drag-item" draggable="true" data-value="next to">next to</div>
+    <div class="drag-item" draggable="true" data-value="between">between</div>
+    <div class="drag-item" draggable="true" data-value="in front of">in front of</div>
+    <div class="drag-item" draggable="true" data-value="behind">behind</div>
+  </div>
+
+  <div style="text-align:center; background:#fff; border-radius:14px; padding:16px; margin-bottom:18px; box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+    <svg width="560" height="380" viewBox="0 0 560 380">
+      <rect x="20" y="20" width="520" height="340" rx="8" fill="#faf5f0" stroke="#ddd" stroke-width="2"/>
+      <line x1="20" y1="310" x2="540" y2="310" stroke="#d4c4b0" stroke-width="2"/>
+      <rect x="220" y="40" width="120" height="90" rx="4" fill="#d4eaff" stroke="#a0b8c8" stroke-width="2"/>
+      <line x1="280" y1="40" x2="280" y2="130" stroke="#a0b8c8" stroke-width="1.5"/>
+      <line x1="220" y1="85" x2="340" y2="85" stroke="#a0b8c8" stroke-width="1.5"/>
+      <rect x="180" y="210" width="200" height="12" rx="3" fill="#b8956a"/>
+      <rect x="190" y="222" width="8" height="88" fill="#a07850"/>
+      <rect x="362" y="222" width="8" height="88" fill="#a07850"/>
+      <rect x="240" y="195" width="50" height="15" rx="2" fill="#e74c3c"/>
+      <text x="265" y="207" text-anchor="middle" font-size="8" fill="white" font-weight="600">BOOK</text>
+      <ellipse cx="280" cy="280" rx="20" ry="14" fill="#777"/>
+      <circle cx="280" cy="268" r="10" fill="#777"/>
+      <polygon points="272,262 274,254 277,264" fill="#777"/>
+      <polygon points="283,264 286,254 288,262" fill="#777"/>
+      <circle cx="277" cy="267" r="1.5" fill="#7f7"/>
+      <circle cx="283" cy="267" r="1.5" fill="#7f7"/>
+      <rect x="325" y="190" width="8" height="22" fill="#f0c040"/>
+      <polygon points="315,190 345,190 329,170" fill="#f0d060"/>
+      <rect x="200" y="320" width="160" height="30" rx="8" fill="#5b8c85"/>
+      <rect x="195" y="315" width="170" height="12" rx="6" fill="#6ba39c"/>
+      <rect x="395" y="290" width="20" height="22" rx="3" fill="#a07850"/>
+      <circle cx="405" cy="278" r="18" fill="#4a9e4a"/>
+      <circle cx="395" cy="285" r="12" fill="#3d8b3d"/>
+      <circle cx="415" cy="283" r="10" fill="#3d8b3d"/>
+      <rect x="50" y="140" width="80" height="170" rx="4" fill="#c4a07a" stroke="#a07850" stroke-width="2"/>
+      <line x1="50" y1="190" x2="130" y2="190" stroke="#a07850" stroke-width="1.5"/>
+      <line x1="50" y1="240" x2="130" y2="240" stroke="#a07850" stroke-width="1.5"/>
+      <rect x="58" y="148" width="15" height="38" rx="1" fill="#e74c3c"/>
+      <rect x="76" y="152" width="12" height="34" rx="1" fill="#3498db"/>
+      <rect x="92" y="150" width="14" height="36" rx="1" fill="#2ecc71"/>
+      <rect x="58" y="198" width="14" height="38" rx="1" fill="#9b59b6"/>
+      <rect x="78" y="200" width="16" height="36" rx="1" fill="#e67e22"/>
+      <rect x="56" y="248" width="18" height="38" rx="1" fill="#1abc9c"/>
+      <rect x="78" y="250" width="12" height="34" rx="1" fill="#e74c3c"/>
+      <rect x="290" y="198" width="24" height="14" rx="6" fill="#9b59b6"/>
+      <rect x="460" y="60" width="60" height="50" rx="3" fill="#fff" stroke="#c4a07a" stroke-width="2"/>
+      <circle cx="490" cy="78" r="8" fill="#f0d060"/>
+      <polygon points="465,105 490,80 520,105" fill="#4a9e4a"/>
+      <text x="265" y="250" text-anchor="middle" font-size="10" fill="#888">cat</text>
+      <text x="265" y="193" text-anchor="middle" font-size="9" fill="#888">book</text>
+      <text x="329" y="165" text-anchor="middle" font-size="9" fill="#888">lamp</text>
+      <text x="280" y="345" text-anchor="middle" font-size="10" fill="#fff">sofa</text>
+      <text x="405" y="324" text-anchor="middle" font-size="9" fill="#888">plant</text>
+      <text x="90" y="135" text-anchor="middle" font-size="9" fill="#888">shelf</text>
+      <text x="490" y="55" text-anchor="middle" font-size="9" fill="#888">picture</text>
+      <text x="302" y="195" text-anchor="middle" font-size="8" fill="#888">cushion</text>
+    </svg>
+  </div>
+
+  <div class="card">
+    <p style="font-weight:600; margin-bottom:10px;">Complete each sentence. Drag the preposition:</p>
+
+    <div class="drop-grid" id="roomSentenceGrid">
+      <div class="drop-card" data-answer="on">
+        <div class="label">The book is ___ the table.</div>
+        <div class="drop-slot" data-accept="on">drop here</div>
+      </div>
+      <div class="drop-card" data-answer="under">
+        <div class="label">The cat is ___ the table.</div>
+        <div class="drop-slot" data-accept="under">drop here</div>
+      </div>
+      <div class="drop-card" data-answer="next to">
+        <div class="label">The plant is ___ the sofa.</div>
+        <div class="drop-slot" data-accept="next to">drop here</div>
+      </div>
+      <div class="drop-card" data-answer="in front of">
+        <div class="label">The sofa is ___ the table.</div>
+        <div class="drop-slot" data-accept="in front of">drop here</div>
+      </div>
+      <div class="drop-card" data-answer="behind">
+        <div class="label">The shelf is ___ the sofa.</div>
+        <div class="drop-slot" data-accept="behind">drop here</div>
+      </div>
+      <div class="drop-card" data-answer="between">
+        <div class="label">The cushion is ___ the book and the lamp.</div>
+        <div class="drop-slot" data-accept="between">drop here</div>
+      </div>
+      <div class="drop-card" data-answer="in">
+        <div class="label">The books are ___ the shelf.</div>
+        <div class="drop-slot" data-accept="in">drop here</div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="checkRoomDrop()">Check Answers</button>
+      <button class="btn btn-outline" onclick="resetRoomDrop()">Reset</button>
+    </div>
+    <div class="feedback" id="roomFeedback"></div>
+  </div>
+
+</div>
+
+<!-- ===================== TAB 4: BUILD ===================== -->
+<div class="tab-content" id="tab4">
+
+  <div class="card">
+    <h2>Sentence Builder — Drag to Make Sentences</h2>
+    <p>Drag the words in the correct order to make a sentence. Then read it aloud!</p>
+  </div>
+
+  <div class="card" id="sentenceBuilder1">
+    <p style="font-weight:600; margin-bottom:8px;">Sentence 1:</p>
+    <div class="drag-zone" id="wordBank1">
+      <div class="drag-item" draggable="true" data-value="The">The</div>
+      <div class="drag-item" draggable="true" data-value="keys">keys</div>
+      <div class="drag-item" draggable="true" data-value="are">are</div>
+      <div class="drag-item" draggable="true" data-value="in">in</div>
+      <div class="drag-item" draggable="true" data-value="the">the</div>
+      <div class="drag-item" draggable="true" data-value="bag">bag</div>
+      <div class="drag-item" draggable="true" data-value=".">.</div>
+    </div>
+    <div class="sentence-area" id="sentenceArea1" data-correct="The keys are in the bag ."></div>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="checkSentence(1)">Check</button>
+      <button class="btn btn-outline" onclick="resetSentence(1)">Reset</button>
+    </div>
+    <div class="feedback" id="sentFeedback1"></div>
+  </div>
+
+  <div class="card" id="sentenceBuilder2">
+    <p style="font-weight:600; margin-bottom:8px;">Sentence 2:</p>
+    <div class="drag-zone" id="wordBank2">
+      <div class="drag-item" draggable="true" data-value="My">My</div>
+      <div class="drag-item" draggable="true" data-value="phone">phone</div>
+      <div class="drag-item" draggable="true" data-value="is">is</div>
+      <div class="drag-item" draggable="true" data-value="under">under</div>
+      <div class="drag-item" draggable="true" data-value="the">the</div>
+      <div class="drag-item" draggable="true" data-value="pillow">pillow</div>
+      <div class="drag-item" draggable="true" data-value=".">.</div>
+    </div>
+    <div class="sentence-area" id="sentenceArea2" data-correct="My phone is under the pillow ."></div>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="checkSentence(2)">Check</button>
+      <button class="btn btn-outline" onclick="resetSentence(2)">Reset</button>
+    </div>
+    <div class="feedback" id="sentFeedback2"></div>
+  </div>
+
+  <div class="card" id="sentenceBuilder3">
+    <p style="font-weight:600; margin-bottom:8px;">Sentence 3:</p>
+    <div class="drag-zone" id="wordBank3">
+      <div class="drag-item" draggable="true" data-value="The">The</div>
+      <div class="drag-item" draggable="true" data-value="park">park</div>
+      <div class="drag-item" draggable="true" data-value="is">is</div>
+      <div class="drag-item" draggable="true" data-value="between">between</div>
+      <div class="drag-item" draggable="true" data-value="the">the</div>
+      <div class="drag-item" draggable="true" data-value="school">school</div>
+      <div class="drag-item" draggable="true" data-value="and">and</div>
+      <div class="drag-item" draggable="true" data-value="the">the</div>
+      <div class="drag-item" draggable="true" data-value="hospital">hospital</div>
+      <div class="drag-item" draggable="true" data-value=".">.</div>
+    </div>
+    <div class="sentence-area" id="sentenceArea3" data-correct="The park is between the school and the hospital ."></div>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="checkSentence(3)">Check</button>
+      <button class="btn btn-outline" onclick="resetSentence(3)">Reset</button>
+    </div>
+    <div class="feedback" id="sentFeedback3"></div>
+  </div>
+
+  <div class="card" id="sentenceBuilder4">
+    <p style="font-weight:600; margin-bottom:8px;">Sentence 4 (harder!):</p>
+    <div class="drag-zone" id="wordBank4">
+      <div class="drag-item" draggable="true" data-value="The">The</div>
+      <div class="drag-item" draggable="true" data-value="bus stop">bus stop</div>
+      <div class="drag-item" draggable="true" data-value="is">is</div>
+      <div class="drag-item" draggable="true" data-value="in front of">in front of</div>
+      <div class="drag-item" draggable="true" data-value="the">the</div>
+      <div class="drag-item" draggable="true" data-value="supermarket">supermarket</div>
+      <div class="drag-item" draggable="true" data-value=".">.</div>
+    </div>
+    <div class="sentence-area" id="sentenceArea4" data-correct="The bus stop is in front of the supermarket ."></div>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="checkSentence(4)">Check</button>
+      <button class="btn btn-outline" onclick="resetSentence(4)">Reset</button>
+    </div>
+    <div class="feedback" id="sentFeedback4"></div>
+  </div>
+
+</div>
+
+<!-- ===================== TAB 5: DESCRIBE ===================== -->
+<div class="tab-content" id="tab5">
+
+  <div class="card">
+    <h2>Your Room — Describe It!</h2>
+    <p>Think about your room (or any room). Write 5 sentences using different prepositions. Use at least 4 different prepositions from today.</p>
+
+    <div class="timer-bar">
+      <span>⏱️</span>
+      <span class="timer-display" id="timer5">3:00</span>
+      <button class="btn btn-outline" style="padding:6px 14px; font-size:0.8rem;" onclick="startTimer('timer5', 180)">Start</button>
+      <button class="btn btn-outline" style="padding:6px 14px; font-size:0.8rem;" onclick="resetTimer('timer5', 180)">Reset</button>
+    </div>
+
+    <textarea class="text-input" rows="6" id="describeRoom" placeholder="Example: My bed is next to the window.&#10;&#10;1. &#10;2. &#10;3. &#10;4. &#10;5. "></textarea>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="checkDescribe()">Check My Prepositions</button>
+    </div>
+    <div class="feedback" id="describeFeedback"></div>
+  </div>
+
+  <div class="card">
+    <h2>Mixed Challenge — Which Preposition?</h2>
+    <p>These sentences mix everything from today. Drag the correct preposition to each gap.</p>
+
+    <div class="drag-zone" id="mixedDragZone">
+      <div class="drag-item" draggable="true" data-value="behind">behind</div>
+      <div class="drag-item" draggable="true" data-value="on">on</div>
+      <div class="drag-item" draggable="true" data-value="in">in</div>
+      <div class="drag-item" draggable="true" data-value="next to">next to</div>
+      <div class="drag-item" draggable="true" data-value="between">between</div>
+      <div class="drag-item" draggable="true" data-value="under">under</div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:12px; margin-top:12px;" id="mixedSentences">
+      <div class="drop-card" data-answer="in" style="flex-direction:row; justify-content:flex-start; gap:8px; text-align:left;">
+        <span>The milk is</span>
+        <div class="drop-slot" data-accept="in" style="display:inline-flex; min-width:70px; min-height:36px;">drop</div>
+        <span>the fridge.</span>
+      </div>
+      <div class="drop-card" data-answer="behind" style="flex-direction:row; justify-content:flex-start; gap:8px; text-align:left;">
+        <span>The garden is</span>
+        <div class="drop-slot" data-accept="behind" style="display:inline-flex; min-width:70px; min-height:36px;">drop</div>
+        <span>the house.</span>
+      </div>
+      <div class="drop-card" data-answer="on" style="flex-direction:row; justify-content:flex-start; gap:8px; text-align:left;">
+        <span>Your glasses are</span>
+        <div class="drop-slot" data-accept="on" style="display:inline-flex; min-width:70px; min-height:36px;">drop</div>
+        <span>your head!</span>
+      </div>
+      <div class="drop-card" data-answer="between" style="flex-direction:row; justify-content:flex-start; gap:8px; text-align:left;">
+        <span>The cinema is</span>
+        <div class="drop-slot" data-accept="between" style="display:inline-flex; min-width:70px; min-height:36px;">drop</div>
+        <span>the bank and the café.</span>
+      </div>
+      <div class="drop-card" data-answer="next to" style="flex-direction:row; justify-content:flex-start; gap:8px; text-align:left;">
+        <span>Come and sit</span>
+        <div class="drop-slot" data-accept="next to" style="display:inline-flex; min-width:70px; min-height:36px;">drop</div>
+        <span>me.</span>
+      </div>
+      <div class="drop-card" data-answer="under" style="flex-direction:row; justify-content:flex-start; gap:8px; text-align:left;">
+        <span>The dog is sleeping</span>
+        <div class="drop-slot" data-accept="under" style="display:inline-flex; min-width:70px; min-height:36px;">drop</div>
+        <span>the table.</span>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="checkMixedDrop()">Check Answers</button>
+      <button class="btn btn-outline" onclick="resetMixedDrop()">Reset</button>
+    </div>
+    <div class="feedback" id="mixedFeedback"></div>
+  </div>
+
+</div>
+
+<!-- ===================== TAB 6: RECALL ZONE ===================== -->
+<div class="tab-content" id="tab6">
+
+  <div class="card">
+    <h2>Recall Zone — From Previous Lessons</h2>
+    <p>Let's see what you remember from before. Try from memory — no looking!</p>
+  </div>
+
+  <div class="card">
+    <h2>Recall 1: Greetings & Introductions</h2>
+    <p>How many ways can you say hello and introduce yourself? Write at least 3 different ways.</p>
+    <textarea class="text-input" rows="3" placeholder="Hello, my name is... / Hi, I'm... / ..."></textarea>
+    <div class="btn-group">
+      <button class="btn btn-outline" onclick="toggleReveal('recall1-reveal')">Check</button>
+    </div>
+    <div class="feedback info" id="recall1-reveal" style="display:none; margin-top:10px;">
+      Some options: "Hello, my name is..." / "Hi, I'm..." / "Nice to meet you." / "How are you?" / "I'm fine, thank you."
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Recall 2: Common Objects</h2>
+    <p>Write 5 objects you can find in a classroom. From memory!</p>
+    <textarea class="text-input" rows="2" placeholder="desk, ..."></textarea>
+    <div class="btn-group">
+      <button class="btn btn-outline" onclick="toggleReveal('recall2-reveal')">Check</button>
+    </div>
+    <div class="feedback info" id="recall2-reveal" style="display:none; margin-top:10px;">
+      Possible answers: desk, chair, board, book, pen, pencil, bag, computer, window, door, clock, ruler, eraser
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Recall 3: "There is / There are"</h2>
+    <p>Complete from memory: When do we use "there is" and when do we use "there are"?</p>
+    <textarea class="text-input" rows="2" placeholder="We use 'there is' when..."></textarea>
+    <div class="btn-group">
+      <button class="btn btn-outline" onclick="toggleReveal('recall3-reveal')">Check</button>
+    </div>
+    <div class="feedback info" id="recall3-reveal" style="display:none; margin-top:10px;">
+      <strong>There is</strong> + singular (one thing): "There is a book on the table."<br>
+      <strong>There are</strong> + plural (two or more): "There are three chairs in the room."
+    </div>
+  </div>
+
+</div>
+
+<!-- ===================== TAB 7: REFLECT ===================== -->
+<div class="tab-content" id="tab7">
+
+  <div class="card">
+    <h2>Final Check — From Memory!</h2>
+    <p>Close your eyes (or look away). Now write all 7 prepositions of place from today. No looking!</p>
+    <textarea class="text-input" rows="3" id="finalRecall" placeholder="1. in  2. ..."></textarea>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="checkFinalRecall()">Check</button>
+    </div>
+    <div class="feedback" id="finalRecallFeedback"></div>
+  </div>
+
+  <div class="card">
+    <h2>What Helped You Learn Today?</h2>
+    <p>Click the activities that helped you the most:</p>
+    <div class="meta-options" id="metaOptions">
+      <div class="meta-option" onclick="toggleMeta(this)">The pictures</div>
+      <div class="meta-option" onclick="toggleMeta(this)">Drag and drop</div>
+      <div class="meta-option" onclick="toggleMeta(this)">Building sentences</div>
+      <div class="meta-option" onclick="toggleMeta(this)">Describing my room</div>
+      <div class="meta-option" onclick="toggleMeta(this)">The mixed challenge</div>
+      <div class="meta-option" onclick="toggleMeta(this)">The final memory test</div>
+    </div>
+  </div>
+
+  <div class="can-do">
+    I can use <strong>in, on, under, next to, between, in front of,</strong> and <strong>behind</strong> to describe where things are.
+  </div>
+
+</div>
+
+<script>
+// ==================== TAB NAVIGATION ====================
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+});
+
+// ==================== REVEAL TOGGLE ====================
+function toggleReveal(id) {
+  const el = document.getElementById(id);
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+// ==================== DRAG & DROP ENGINE ====================
+let draggedItem = null;
+
+function addDragListeners(container) {
+  container.querySelectorAll('.drag-item').forEach(item => {
+    item.addEventListener('dragstart', (e) => {
+      draggedItem = item;
+      item.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    item.addEventListener('dragend', () => {
+      item.classList.remove('dragging');
+      draggedItem = null;
+    });
+
+    let touchClone = null;
+    item.addEventListener('touchstart', (e) => {
+      draggedItem = item;
+      item.classList.add('dragging');
+      touchClone = item.cloneNode(true);
+      touchClone.style.position = 'fixed';
+      touchClone.style.pointerEvents = 'none';
+      touchClone.style.zIndex = '9999';
+      touchClone.style.opacity = '0.85';
+      touchClone.classList.remove('dragging');
+      document.body.appendChild(touchClone);
+      const t = e.touches[0];
+      touchClone.style.left = (t.clientX - 40) + 'px';
+      touchClone.style.top = (t.clientY - 20) + 'px';
+    }, {passive: true});
+
+    item.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      if (!touchClone) return;
+      const t = e.touches[0];
+      touchClone.style.left = (t.clientX - 40) + 'px';
+      touchClone.style.top = (t.clientY - 20) + 'px';
+      document.querySelectorAll('.drop-slot').forEach(slot => {
+        const r = slot.getBoundingClientRect();
+        if (t.clientX >= r.left && t.clientX <= r.right && t.clientY >= r.top && t.clientY <= r.bottom) {
+          slot.classList.add('drag-over');
+        } else {
+          slot.classList.remove('drag-over');
+        }
+      });
+    }, {passive: false});
+
+    item.addEventListener('touchend', (e) => {
+      if (touchClone) { document.body.removeChild(touchClone); touchClone = null; }
+      if (!draggedItem) return;
+      const t = e.changedTouches[0];
+      document.querySelectorAll('.drop-slot').forEach(slot => {
+        slot.classList.remove('drag-over');
+        const r = slot.getBoundingClientRect();
+        if (t.clientX >= r.left && t.clientX <= r.right && t.clientY >= r.top && t.clientY <= r.bottom) {
+          handleDrop(slot, draggedItem);
+        }
+      });
+      document.querySelectorAll('.sentence-area').forEach(area => {
+        const r = area.getBoundingClientRect();
+        if (t.clientX >= r.left && t.clientX <= r.right && t.clientY >= r.top && t.clientY <= r.bottom) {
+          handleSentenceDrop(area, draggedItem);
+        }
+      });
+      draggedItem.classList.remove('dragging');
+      draggedItem = null;
+    });
+  });
+}
+
+function handleDrop(slot, item) {
+  const existing = slot.querySelector('.drag-item');
+  if (existing) returnToDragZone(existing);
+  slot.textContent = '';
+  const clone = item.cloneNode(true);
+  clone.setAttribute('draggable', 'false');
+  clone.style.cursor = 'pointer';
+  clone.addEventListener('click', () => {
+    returnToDragZone(clone);
+    slot.textContent = 'drop here';
+    slot.classList.remove('filled');
+  });
+  slot.appendChild(clone);
+  slot.classList.add('filled');
+  item.style.display = 'none';
+}
+
+function returnToDragZone(clone) {
+  const val = clone.dataset.value;
+  document.querySelectorAll('.drag-zone .drag-item').forEach(orig => {
+    if (orig.dataset.value === val && orig.style.display === 'none') orig.style.display = '';
+  });
+  clone.remove();
+}
+
+document.querySelectorAll('.drop-slot').forEach(slot => {
+  slot.addEventListener('dragover', (e) => { e.preventDefault(); slot.classList.add('drag-over'); });
+  slot.addEventListener('dragleave', () => slot.classList.remove('drag-over'));
+  slot.addEventListener('drop', (e) => {
+    e.preventDefault();
+    slot.classList.remove('drag-over');
+    if (draggedItem) handleDrop(slot, draggedItem);
+  });
+});
+
+document.querySelectorAll('.sentence-area').forEach(area => {
+  area.addEventListener('dragover', (e) => e.preventDefault());
+  area.addEventListener('drop', (e) => {
+    e.preventDefault();
+    if (draggedItem) handleSentenceDrop(area, draggedItem);
+  });
+});
+
+function handleSentenceDrop(area, item) {
+  const clone = item.cloneNode(true);
+  clone.setAttribute('draggable', 'false');
+  clone.style.cursor = 'pointer';
+  clone.addEventListener('click', () => {
+    const val = clone.dataset.value;
+    const num = area.id.replace('sentenceArea', '');
+    const bank = document.getElementById('wordBank' + num);
+    if (bank) {
+      bank.querySelectorAll('.drag-item').forEach(orig => {
+        if (orig.dataset.value === val && orig.style.display === 'none') orig.style.display = '';
+      });
+    }
+    clone.remove();
+  });
+  area.appendChild(clone);
+  item.style.display = 'none';
+}
+
+document.querySelectorAll('.drag-zone').forEach(z => addDragListeners(z));
+
+// ==================== CHECK FUNCTIONS ====================
+function checkDropGrid(gridId, feedbackId) {
+  const grid = document.getElementById(gridId);
+  const cards = grid.querySelectorAll('.drop-card');
+  let correct = 0, total = cards.length;
+  cards.forEach(card => {
+    card.classList.remove('correct', 'incorrect');
+    const expected = card.dataset.answer;
+    const slot = card.querySelector('.drop-slot');
+    const placed = slot.querySelector('.drag-item');
+    if (placed && placed.dataset.value === expected) { card.classList.add('correct'); correct++; }
+    else if (placed) card.classList.add('incorrect');
+  });
+  const fb = document.getElementById(feedbackId);
+  if (correct === total) {
+    fb.className = 'feedback correct';
+    fb.innerHTML = 'All ' + total + ' correct! Every preposition matches its meaning.';
+  } else {
+    fb.className = 'feedback incorrect';
+    fb.innerHTML = correct + ' out of ' + total + ' correct. Look at the red cards — try moving those prepositions.';
+  }
+}
+
+function checkMeaningDrop() { checkDropGrid('meaningDropGrid', 'meaningFeedback'); }
+function checkRoomDrop() { checkDropGrid('roomSentenceGrid', 'roomFeedback'); }
+
+function checkMixedDrop() {
+  const container = document.getElementById('mixedSentences');
+  const cards = container.querySelectorAll('.drop-card');
+  let correct = 0, total = cards.length;
+  cards.forEach(card => {
+    card.classList.remove('correct', 'incorrect');
+    const expected = card.dataset.answer;
+    const slot = card.querySelector('.drop-slot');
+    const placed = slot.querySelector('.drag-item');
+    if (placed && placed.dataset.value === expected) { card.classList.add('correct'); correct++; }
+    else if (placed) card.classList.add('incorrect');
+  });
+  const fb = document.getElementById('mixedFeedback');
+  if (correct === total) {
+    fb.className = 'feedback correct';
+    fb.innerHTML = 'All ' + total + ' correct! You can use all 7 prepositions accurately in different sentences.';
+  } else {
+    fb.className = 'feedback incorrect';
+    fb.innerHTML = correct + ' out of ' + total + ' correct. Read each sentence carefully — think about the meaning of each preposition.';
+  }
+}
+
+function resetDropGrid(gridId, dragZoneId) {
+  const grid = document.getElementById(gridId);
+  grid.querySelectorAll('.drop-card').forEach(c => c.classList.remove('correct', 'incorrect'));
+  grid.querySelectorAll('.drop-slot').forEach(slot => { slot.innerHTML = 'drop here'; slot.classList.remove('filled'); });
+  const dz = document.getElementById(dragZoneId);
+  if (dz) dz.querySelectorAll('.drag-item').forEach(i => i.style.display = '');
+}
+
+function resetMeaningDrop() { resetDropGrid('meaningDropGrid', 'meaningDragZone'); document.getElementById('meaningFeedback').className = 'feedback'; }
+function resetRoomDrop() { resetDropGrid('roomSentenceGrid', 'roomDragZone'); document.getElementById('roomFeedback').className = 'feedback'; }
+function resetMixedDrop() {
+  const c = document.getElementById('mixedSentences');
+  c.querySelectorAll('.drop-card').forEach(c => c.classList.remove('correct', 'incorrect'));
+  c.querySelectorAll('.drop-slot').forEach(s => { s.innerHTML = 'drop'; s.classList.remove('filled'); });
+  document.getElementById('mixedDragZone').querySelectorAll('.drag-item').forEach(i => i.style.display = '');
+  document.getElementById('mixedFeedback').className = 'feedback';
+}
+
+// ==================== SENTENCE BUILDER ====================
+function checkSentence(n) {
+  const area = document.getElementById('sentenceArea' + n);
+  const items = area.querySelectorAll('.drag-item');
+  const words = Array.from(items).map(i => i.dataset.value).join(' ');
+  const correct = area.dataset.correct;
+  const fb = document.getElementById('sentFeedback' + n);
+  if (words === correct) {
+    fb.className = 'feedback correct';
+    fb.innerHTML = 'Correct! "' + correct.replace(' .', '.') + '" — The word order is right.';
+  } else {
+    fb.className = 'feedback incorrect';
+    fb.innerHTML = 'Not quite. Check the word order. Remember: Subject + verb + preposition + object. The correct sentence is: "' + correct.replace(' .', '.') + '".';
+  }
+}
+
+function resetSentence(n) {
+  document.getElementById('sentenceArea' + n).innerHTML = '';
+  document.getElementById('wordBank' + n).querySelectorAll('.drag-item').forEach(i => i.style.display = '');
+  const fb = document.getElementById('sentFeedback' + n);
+  fb.className = 'feedback'; fb.innerHTML = '';
+}
+
+// ==================== DESCRIBE CHECKER ====================
+function checkDescribe() {
+  const text = document.getElementById('describeRoom').value.toLowerCase();
+  const preps = ['in', 'on', 'under', 'next to', 'between', 'in front of', 'behind'];
+  const found = preps.filter(p => text.includes(p));
+  const fb = document.getElementById('describeFeedback');
+  if (found.length >= 4) {
+    fb.className = 'feedback correct';
+    fb.innerHTML = 'You used ' + found.length + ' different prepositions: <strong>' + found.join(', ') + '</strong>. That meets the target of 4+. Now try saying your sentences aloud!';
+  } else if (found.length > 0) {
+    const missing = preps.filter(p => !found.includes(p));
+    fb.className = 'feedback incorrect';
+    fb.innerHTML = 'You used ' + found.length + ' preposition(s): <strong>' + found.join(', ') + '</strong>. Try to use at least 4 different ones. You haven\'t used: <strong>' + missing.join(', ') + '</strong>.';
+  } else {
+    fb.className = 'feedback incorrect';
+    fb.innerHTML = 'No prepositions of place detected yet. Remember to use words like: <strong>in, on, under, next to, between, in front of, behind</strong>.';
+  }
+}
+
+// ==================== FINAL RECALL ====================
+function checkFinalRecall() {
+  const text = document.getElementById('finalRecall').value.toLowerCase();
+  const preps = ['in', 'on', 'under', 'next to', 'between', 'in front of', 'behind'];
+  const found = preps.filter(p => text.includes(p));
+  const fb = document.getElementById('finalRecallFeedback');
+  if (found.length === 7) {
+    fb.className = 'feedback correct';
+    fb.innerHTML = 'All 7 prepositions recalled from memory! You remembered: <strong>' + found.join(', ') + '</strong>.';
+  } else if (found.length >= 5) {
+    const missing = preps.filter(p => !found.includes(p));
+    fb.className = 'feedback correct';
+    fb.innerHTML = found.length + ' out of 7 — strong recall! You\'re missing: <strong>' + missing.join(', ') + '</strong>. Add them to make it complete.';
+  } else {
+    const missing = preps.filter(p => !found.includes(p));
+    fb.className = 'feedback incorrect';
+    fb.innerHTML = found.length + ' out of 7 so far. You still need: <strong>' + missing.join(', ') + '</strong>. Go back to Tab 2 if you need a reminder, then try again without looking.';
+  }
+}
+
+// ==================== METACOGNITION ====================
+function toggleMeta(el) { el.classList.toggle('selected'); }
+
+// ==================== TIMER ====================
+let timerIntervals = {};
+function startTimer(id, total) {
+  if (timerIntervals[id]) clearInterval(timerIntervals[id]);
+  let remaining = total;
+  const display = document.getElementById(id);
+  updateTimerDisplay(display, remaining);
+  timerIntervals[id] = setInterval(() => {
+    remaining--;
+    if (remaining <= 0) { clearInterval(timerIntervals[id]); remaining = 0; }
+    updateTimerDisplay(display, remaining);
+  }, 1000);
+}
+function resetTimer(id, total) {
+  if (timerIntervals[id]) clearInterval(timerIntervals[id]);
+  const display = document.getElementById(id);
+  display.className = 'timer-display';
+  updateTimerDisplay(display, total);
+}
+function updateTimerDisplay(display, seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  display.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+  if (seconds <= 10) display.className = 'timer-display danger';
+  else if (seconds <= 30) display.className = 'timer-display warning';
+  else display.className = 'timer-display';
+}
+</script>
+
+</body>
+</html>

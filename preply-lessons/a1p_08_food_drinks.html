@@ -258,7 +258,9 @@
                 border-radius: 5px;
             }
         }
-    </style>
+    
+.tab-btn { display: none; }
+.tab-btn.active { display: block; }</style>
 </head>
 <body>
     <div class="container">
@@ -288,23 +290,26 @@
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 4 (4 lessons back)</h3>
-                <p><strong>Question:</strong> Write numbers 11, 28, 75 in English:</p>
-                <textarea id="recall1" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Speak about numbers 11, 28, 75 in English:</p>
+                
+        <textarea id="recall1" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
             </div>
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 5 (Review - 3 lessons back)</h3>
-                <p><strong>Question:</strong> Write one "I can..." statement from the foundation unit:</p>
-                <textarea id="recall2" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Speak about one "I can..." statement from the foundation unit:</p>
+                
+        <textarea id="recall2" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
             </div>
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 6 (2 lessons back)</h3>
-                <p><strong>Question:</strong> Write possessives (my, your, his, her) and use one in a sentence:</p>
-                <textarea id="recall3" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Speak about my/your/his/her (my, your, his, her) and use one in a sentence:</p>
+                
+        <textarea id="recall3" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
             </div>
 
-            <button onclick="alert('✅ Spaced recall complete! You\'re maintaining long-term memory!')" style="width: 100%; margin-top: 15px; padding: 12px;">Check Recalls</button>
+            <button onclick="alert('✅ Spaced recall speak about! You\'re maintaining long-term memory!')" style="width: 100%; margin-top: 15px; padding: 12px;">Check Recalls</button>
 
             <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
                 <strong>📌 Pattern:</strong> These are spaced from L4 (4 back), L5 (3 back), L6 (2 back). This spacing is based on research about memory!
@@ -410,6 +415,20 @@
                 </ul>
             </div>
 
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Water</strong> = WAW-tur (stress first syllable, sounds like "waw")</p><p><strong>Coffee</strong> = KAW-fee (two syllables, stress first one)</p><p><strong>Apple</strong> = AP-ul (two syllables, stress first, short A)</p><p><strong>Orange</strong> = OR-ij (two syllables, stress first, "orange" sounds like "OR-inj")</p><p><strong>Vegetable</strong> = VEJ-tuh-bul (three syllables, stress first one)</p>
+            </div>
+
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Water</strong> = WAW-tur (stress first syllable, sounds like "waw")</p>
+<p><strong>Coffee</strong> = KAW-fee (two syllables, stress first one)</p>
+<p><strong>Apple</strong> = AP-ul (two syllables, stress first, short A)</p>
+<p><strong>Orange</strong> = OR-ij (two syllables, stress first, "orange" sounds like "OR-inj")</p>
+<p><strong>Vegetable</strong> = VEJ-tuh-bul (three syllables, stress first one)</p>
+            </div>
+
             <div class="content-card">
                 <h3>Negative: "I don't like..."</h3>
                 <p><strong>Pattern:</strong> I + don't like + [food]</p>
@@ -437,26 +456,29 @@
         <!-- Tab 4: Your Food Preferences -->
         <div id="tab4" class="tab-content">
             <h2>🎯 Your Turn: Share Your Food Preferences</h2>
-            <p>Create sentences about REAL foods you like and don't like. No models — produce from memory:</p>
+            <p>Create spoken responses about REAL foods you like and don't like. No models — produce from memory:</p>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 1: Simple Like/Dislike 🍕</h3>
                 <p><strong>Task:</strong> "I like [food]" and "I don't like [food]"</p>
-                <textarea id="food1" placeholder="Example: I like pizza. I don't like fish."></textarea>
+                
+        <textarea id="food1" placeholder="Example: I like pizza. I don't like fish."></textarea>
                 <button onclick="saveResponse('food1')">Save</button>
             </div>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 2: With Emphasis 💪</h3>
                 <p><strong>Task:</strong> Use "really" or "love/hate" for stronger feeling</p>
-                <textarea id="food2" placeholder="Example: I really like coffee. I hate spicy food."></textarea>
+                
+        <textarea id="food2" placeholder="Example: I really like coffee. I hate spicy food."></textarea>
                 <button onclick="saveResponse('food2')">Save</button>
             </div>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 3: Mix Drink & Food 🍴</h3>
                 <p><strong>Task:</strong> Combine food AND drink preferences in one response</p>
-                <textarea id="food3" placeholder="Example: I like pizza and coffee. I don't like beer."></textarea>
+                
+        <textarea id="food3" placeholder="Example: I like pizza and coffee. I don't like beer."></textarea>
                 <button onclick="saveResponse('food3')">Save</button>
             </div>
 
@@ -512,8 +534,9 @@
                 <strong style="color: #ff6b6b;">You:</strong>
             </div>
 
-            <textarea id="order" placeholder="Write your complete order (include food + drink + politeness)..."></textarea>
-            <button onclick="checkOrder()">Check My Order</button>
+            
+        <textarea id="order" placeholder="Speak about your speak about order (include food + drink + politeness)..."></textarea>
+            <button onclick="checkOrder()"Check My Order</button>
             <div id="orderResult"></div>
 
             <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
@@ -532,9 +555,10 @@
                 <ol style="margin-left: 20px; margin-top: 10px;">
                     <li>5 foods or drinks from today</li>
                     <li>2 like statements and 2 don't like statements</li>
-                    <li>A complete restaurant order</li>
+                    <li>A speak about restaurant order</li>
                 </ol>
-                <textarea id="finalRecall" placeholder="Write from memory..."></textarea>
+                
+        <textarea id="finalRecall" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
                 <button onclick="revealAnswer()">I'm Ready to Check</button>
             </div>
 
@@ -547,7 +571,7 @@
                 </div>
 
                 <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                    <strong>💭 Metacognitive Reflection:</strong> Which was easier — remembering food words or expressing preferences? Why?
+                    <strong>💭 Think About Your Learning:</strong> Which was easier — remembering food words or saying what you like and don't like? Why?
                 </div>
             </div>
 
@@ -557,7 +581,7 @@
 
             <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
                 <strong>🎉 Lesson 8 Complete!</strong><br>
-                You can now order food and drinks anywhere English is spoken. Next lesson, we'll learn about location and prepositions — describing WHERE things are!
+                You can now order food and drinks anywhere English is spoken. Next lesson, we'll learn about location and position words — describing WHERE things are!
             </div>
         </div>
     </div>
@@ -601,7 +625,7 @@
                     result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Include at least one food or drink item!</div>';
                 }
             } else {
-                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Write a complete order with food, drink, and politeness!</div>';
+                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Write a speak about order with food, drink, and politeness!</div>';
             }
         }
 

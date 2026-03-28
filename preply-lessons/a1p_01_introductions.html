@@ -238,6 +238,38 @@
             margin: 20px 0;
         }
 
+        .answer-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .answer-btn:hover {
+            background: #764ba2;
+        }
+
+        .answer-text {
+            display: none;
+            background: #e8f5e9;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            color: #1b5e20;
+        }
+
+        .answer-text.show {
+            display: block;
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8em;
@@ -260,7 +292,9 @@
                 border-radius: 5px;
             }
         }
-    </style>
+
+.tab-btn { display: none; }
+.tab-btn.active { display: block; }</style>
 </head>
 <body>
     <div class="container">
@@ -289,9 +323,11 @@
             <p>Before we learn new things, let's remember what you might already know about greetings in English. <strong>No notes, no looking things up — just from your memory!</strong></p>
 
             <div class="retrieval-task">
-                <h3>💭 Recall Task</h3>
-                <p>Write down 2-3 greetings or ways to introduce yourself in English that you already know. What are some ways English speakers say "hello"?</p>
-                <textarea id="retrieval1" placeholder="Write what you remember..."></textarea>
+                <h3>💭 Recall Task (SPEAKING)</h3>
+        <div style="background: #e3f2fd; padding: 12px; border-radius: 5px; margin-bottom: 10px; border-left: 4px solid #2196f3;"><strong>📌 FOR TUTOR:</strong> Ask these questions and listen to student responses. Encourage full spoken responses.</div>
+                <p>Say out loud 2-3 greetings or ways to introduce yourself in English that you already know. What are some ways English speakers say "hello"?</p>
+                
+        <textarea id="retrieval1" placeholder="Speak about what you remember..."></textarea>
                 <button onclick="saveResponse('retrieval1')">Save My Answer</button>
             </div>
 
@@ -311,6 +347,20 @@
             <div class="content-card">
                 <h3>1️⃣ "Hi!" / "Hello!"</h3>
                 <div class="emoji-large">👋</div>
+
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Hello</strong> = heh-LOH (stress on second syllable)</p><p><strong>Hi</strong> = HY (one syllable, short and sharp)</p><p><strong>My name is</strong> = my NAYM iz (words flow together)</p><p><strong>Nice to meet you</strong> = NICE tuh MEET yoo (stress on first and third words)</p><p><strong>I'm</strong> = IME (sounds like "I'm" not "I am" when speaking)</p>
+            </div>
+
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Hello</strong> = heh-LOH (stress on second syllable)</p>
+<p><strong>Hi</strong> = HY (one syllable, short and sharp)</p>
+<p><strong>My name is</strong> = my NAYM iz (words flow together)</p>
+<p><strong>Nice to meet you</strong> = NICE tuh MEET yoo (stress on first and third words)</p>
+<p><strong>I'm</strong> = IME (sounds like "I'm" not "I am" when speaking)</p>
+            </div>
                 <p><strong>When to use:</strong> Casual and friendly — works almost anywhere.</p>
                 <p><strong>Example:</strong> "Hi! How are you?"</p>
                 <p><strong>Feel:</strong> Warm and approachable. ✓ Safe choice for beginners</p>
@@ -341,7 +391,9 @@
             </div>
 
             <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                <strong>Quick Check:</strong> Which greeting would you use with your boss? <span onclick="alert('Good morning! / Good afternoon!')" style="cursor: pointer; color: #ff6b6b; font-weight: bold;">Click for answer →</span>
+                <strong>Quick Check:</strong> Which greeting would you use with your boss?
+                <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</button>
+                <div class="answer-text">Good morning! / Good afternoon!</div>
             </div>
         </div>
 
@@ -381,7 +433,9 @@
             </div>
 
             <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                <strong>Quick Check:</strong> Which is more casual? <span onclick="alert('I\\'m... is more casual and common in everyday conversation.')" style="cursor: pointer; color: #ff6b6b; font-weight: bold;">Click for answer →</span>
+                <strong>Quick Check:</strong> Which is more casual?
+                <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show Answer</button>
+                <div class="answer-text">I'm... is more casual and common in everyday conversation.</div>
             </div>
         </div>
 
@@ -394,7 +448,8 @@
                 <h3>Challenge 1: The Casual Version 😎</h3>
                 <p><strong>Situation:</strong> You're meeting a friend of a friend at a café.</p>
                 <p><strong>Your Task:</strong> Say a casual greeting + your name (use "I'm..."). Speak it out loud or type it below:</p>
-                <textarea id="intro1" placeholder="Example: Hi! I'm Maya. How's it going?"></textarea>
+                
+        <textarea id="intro1" placeholder="Example: Hi! I'm Maya. How's it going?"></textarea>
                 <button onclick="saveResponse('intro1')">Save</button>
             </div>
 
@@ -402,15 +457,17 @@
                 <h3>Challenge 2: The Formal Version 💼</h3>
                 <p><strong>Situation:</strong> You're meeting your new boss on your first day at work.</p>
                 <p><strong>Your Task:</strong> Say a formal greeting + your name (use "My name is..." or "Good morning..."). Speak it out loud or type it below:</p>
-                <textarea id="intro2" placeholder="Example: Good morning. My name is Jennifer."></textarea>
+                
+        <textarea id="intro2" placeholder="Example: Good morning. My name is Jennifer."></textarea>
                 <button onclick="saveResponse('intro2')">Save</button>
             </div>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 3: The Full Introduction 🌟</h3>
                 <p><strong>Situation:</strong> A new person joins your class.</p>
-                <p><strong>Your Task:</strong> Create a complete introduction with greeting + name + "nice to meet you":</p>
-                <textarea id="intro3" placeholder="Example: Hi! I'm Paulo. Nice to meet you!"></textarea>
+                <p><strong>Your Task:</strong> Create a speak about introduction with greeting + name + "nice to meet you":</p>
+                
+        <textarea id="intro3" placeholder="Example: Hi! I'm Paulo. Nice to meet you!"></textarea>
                 <button onclick="saveResponse('intro3')">Save</button>
             </div>
 
@@ -438,7 +495,8 @@
                 <strong style="color: #667eea;">Person B (You):</strong>
             </div>
 
-            <textarea id="dialogue" placeholder="Write your response..."></textarea>
+            
+        <textarea id="dialogue" placeholder="Speak about your response..."></textarea>
             <button onclick="checkDialogue()">Check Your Answer</button>
             <div id="dialogueResult"></div>
 
@@ -467,13 +525,15 @@
                 <span id="timerDisplay">3:00</span>
             </div>
 
-            <textarea id="speaking" placeholder="Or type your introduction here..." style="display: none; margin-top: 15px;"></textarea>
+            
+        <textarea id="speaking" placeholder="Or type your introduction here..." style="display: none; margin-top: 15px;"></textarea>
 
             <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
                 <strong>📝 Elaboration Prompt:</strong> Why did you choose the greeting you used? When would you use this greeting in real life?
             </div>
 
-            <textarea id="elaboration" placeholder="Explain your choice..."></textarea>
+            
+        <textarea id="elaboration" placeholder="Explain your choice..."></textarea>
             <button onclick="saveResponse('elaboration')">Save My Elaboration</button>
         </div>
 
@@ -484,13 +544,14 @@
 
             <div class="retrieval-task">
                 <h3>📋 Retrieval Challenge</h3>
-                <p>Cover the tabs above (or close your eyes for a moment). Can you write down:</p>
+                <p>Cover the tabs above (or close your eyes for a moment). Can you say down:</p>
                 <ol style="margin-left: 20px; margin-top: 10px;">
                     <li><strong>4 greetings</strong> we learned today</li>
                     <li><strong>2 ways</strong> to introduce your name</li>
-                    <li><strong>One example sentence</strong> of a complete introduction (greeting + name)</li>
+                    <li><strong>One example sentence</strong> of a speak about introduction (greeting + name)</li>
                 </ol>
-                <textarea id="finalRecall" placeholder="Write from memory..."></textarea>
+                
+        <textarea id="finalRecall" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
                 <button onclick="revealAnswer()">I'm Ready to Check</button>
             </div>
 
@@ -503,7 +564,7 @@
                 </div>
 
                 <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                    <strong>💭 Metacognitive Reflection:</strong> Did you remember most of this? What helped you? Was it the examples, the practice, or the conversations?
+                    <strong>💭 Think About Your Learning:</strong> Did you remember most of this? What helped you? Was it the examples, the practice, or the conversations?
                 </div>
             </div>
 
@@ -535,9 +596,17 @@
         function saveResponse(id) {
             const text = document.getElementById(id).value;
             if (text.trim()) {
-                alert('✅ Saved! Keep practicing and check your answer at the end.');
+                const btn = event.target;
+                const feedback = btn.nextElementSibling || document.createElement('div');
+                feedback.className = 'answer-text show';
+                feedback.innerHTML = '✅ Saved! Keep practicing and check your answer at the end.';
+                if (!btn.nextElementSibling) btn.parentNode.appendChild(feedback);
             } else {
-                alert('⚠️ Please type something first!');
+                const btn = event.target;
+                const feedback = btn.nextElementSibling || document.createElement('div');
+                feedback.className = 'answer-text show';
+                feedback.innerHTML = '⚠️ Please type something first!';
+                if (!btn.nextElementSibling) btn.parentNode.appendChild(feedback);
             }
         }
 
@@ -545,9 +614,9 @@
             const answer = document.getElementById('dialogue').value.trim();
             const result = document.getElementById('dialogueResult');
             if (answer.length > 10) {
-                result.innerHTML = '<div class="reveal"><strong>✅ Great response!</strong> You greeted them, introduced yourself, and made it warm. Perfect!</div>';
+                result.innerHTML = '<div class="reveal"><strong>✅ Great response!</strong> You greeted them, introduced yourself, and made it warm. This works because you used the correct structure.</div>';
             } else {
-                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Try writing more — include a greeting + your name introduction.</div>';
+                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Try speaking more — include a greeting + your name introduction.</div>';
             }
         }
 
@@ -572,8 +641,7 @@
 
                 if (seconds === 0) {
                     clearInterval(interval);
-                    alert('⏱️ Time is up! How did that feel?');
-                    timerDiv.style.display = 'none';
+                    timerDiv.innerHTML = '<div class="answer-text show" style="text-align: center; margin-top: 15px;">⏱️ Time is up! How did that feel?</div>';
                 }
 
                 seconds--;

@@ -137,13 +137,20 @@
             border-radius: 5px;
             margin: 20px 0;
         }
-    </style>
+    
+.tab-btn { display: none; }
+.tab-btn.active { display: block; }</style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>💡 Lesson 48: Giving Advice</h1>
             <p>A1 Pathway Transition Unit (A1→A2) • Skills Training</p>
+        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Advice</strong> = ad-VYS (two syllables, stress second one)</p><p><strong>Suggest</strong> = sug-JEST (two syllables, stress second one)</p><p><strong>Recommend</strong> = rek-uh-MEND (three syllables, stress third one)</p><p><strong>Perhaps</strong> = pur-HAPS (two syllables, stress second one)</p><p><strong>Consider</strong> = kun-SID-ur (three syllables, stress second one)</p>
+            </div>
+
         </div>
 
         <div class="tabs">
@@ -163,12 +170,41 @@
 
             <div class="retrieval-prompt">
                 <h3>🧠 When you give advice, what do you say?</h3>
-                <p>Write 2 pieces of advice you've given someone recently:</p>
-                <textarea class="textarea" placeholder="I told someone to..."></textarea>
+                <p>Speak about 2 pieces of advice you've given someone recently:</p>
+                
+        <textarea class="textarea" placeholder="I told someone to..."></textarea>
             </div>
 
-            <div class="learning-intention">
+        <div class="learning-intention">
                 <strong>Today we're working on:</strong> Three patterns for giving advice (You should..., If I were you..., Why don't you...?) — so you can offer suggestions confidently and appropriately.
+            </div>
+
+            <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #1976d2;">
+                <h4 style="color: #1976d2; margin-top: 0;">👔 Formal vs. Casual — Giving Advice</h4>
+                <p style="margin-top: 10px;"><strong>How you give advice changes based on your relationship:</strong></p>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <tr style="background: #f5f5f5;">
+                        <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">💬 With Friends</th>
+                        <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">👔 With Student/Colleague</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;">You should totally take a break!</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">I would recommend taking a break to recharge.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;">If I were you, I'd just do it!</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">If I were in your position, I might consider doing so.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;">Why don't you just ask them?</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">Have you considered approaching them directly?</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;">Honestly, I'd skip that meeting.</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">You might want to prioritize other commitments.</td>
+                    </tr>
+                </table>
+                <p style="margin-top: 10px;"><strong>Remember:</strong> The advice patterns stay the same (should, if I were you, why don't), but casual advice is direct and uses simple language. Formal advice is indirect and uses more sophisticated words.</p>
             </div>
 
             <div style="background: #e8f4f8; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea;">
@@ -272,15 +308,17 @@
                 <h3>WE DO - Together</h3>
                 <p><strong>Problem:</strong> A friend isn't sleeping well.</p>
                 <p>Complete this advice:</p>
-                <p>"If I _____________ you, I _____________ less coffee before bed. It helps because _____________ . Have you _____________?"</p>
-                <textarea class="textarea" placeholder="Fill in the blanks..."></textarea>
+                <p>"If I <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> you, I <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> less coffee before bed. It helps because <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> . Have you <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="...">?"</p>
+                
+        <textarea class="textarea" placeholder="Fill in the blanks..."></textarea>
             </div>
 
             <div class="practice-card">
                 <h3>YOU DO - Your Turn</h3>
                 <p><strong>Problem:</strong> A friend wants to get fit but doesn't know how.</p>
                 <p>Give advice using "Why don't you..." (include reason + check):</p>
-                <textarea class="textarea" placeholder="Why don't you..."></textarea>
+                
+        <textarea class="textarea" placeholder="Why don't you..."></textarea>
             </div>
         </div>
 
@@ -292,21 +330,24 @@
                 <h3>Scenario A: Money problems</h3>
                 <p><strong>Friend:</strong> "I spend too much money and can't save. What should I do?"</p>
                 <p>Give your advice (use should, if I were you, or why don't you):</p>
-                <textarea class="textarea" placeholder="You should..."></textarea>
+                
+        <textarea class="textarea" placeholder="You should..."></textarea>
             </div>
 
             <div class="practice-card">
                 <h3>Scenario B: Shy friend</h3>
                 <p><strong>Friend:</strong> "I'm too shy to make new friends. People think I'm unfriendly."</p>
                 <p>Give your advice with REASON + CHECK:</p>
-                <textarea class="textarea" placeholder="If I were you..."></textarea>
+                
+        <textarea class="textarea" placeholder="If I were you..."></textarea>
             </div>
 
             <div class="practice-card">
                 <h3>Scenario C: Career question</h3>
                 <p><strong>Friend:</strong> "Should I stay at my current job or take a new one?"</p>
                 <p>Give advice (use at least 2 different patterns):</p>
-                <textarea class="textarea" placeholder="You should... Why don't you..."></textarea>
+                
+        <textarea class="textarea" placeholder="You should... Why don't you..."></textarea>
             </div>
         </div>
 
@@ -314,7 +355,7 @@
         <div class="tab-content">
             <h2>Tab 6: Full Application</h2>
 
-            <p><strong>Role-play: Someone comes to you with a real problem. Give complete advice using the framework.</strong></p>
+            <p><strong>Role-play: Someone comes to you with a real problem. Give speak about advice using the framework.</strong></p>
 
             <div class="practice-card">
                 <p><strong>The problem (your choice):</strong></p>
@@ -326,8 +367,9 @@
                     <option>Learning challenge</option>
                 </select>
 
-                <p style="margin-top: 15px;"><strong>Your complete advice (OFFER + REASON + CHECK):</strong></p>
-                <textarea class="textarea" placeholder="You should... / If I were you... / Why don't you...&#10;Because / That way / So you can...&#10;What do you think? Does that sound good?" style="min-height: 120px;"></textarea>
+                <p style="margin-top: 15px;"><strong>Your speak about advice (OFFER + REASON + CHECK):</strong></p>
+                
+        <textarea class="textarea" placeholder="You should... / If I were you... / Why don't you...&#10;Because / That way / So you can...&#10;What do you think? Does that sound good?" style="min-height: 120px;"></textarea>
 
                 <p style="margin-top: 15px;"><strong>Self-check:</strong></p>
                 <ul style="margin-left: 20px;">
@@ -356,7 +398,7 @@
 
             <div style="background: white; border-left: 4px solid #667eea; padding: 15px; margin: 10px 0; border-radius: 5px;">
                 <h3>From Lesson 39: Could & Would</h3>
-                <p><strong>Recall:</strong> Complete: "Would you _____________ helping me with this?"</p>
+                <p><strong>Recall:</strong> Complete: "Would you <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> helping me with this?"</p>
                 <div class="click-reveal">
                     <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
                     <div class="reveal-content">
@@ -367,7 +409,7 @@
 
             <div style="background: white; border-left: 4px solid #667eea; padding: 15px; margin: 10px 0; border-radius: 5px;">
                 <h3>From Lesson 44: Making Invitations</h3>
-                <p><strong>Recall:</strong> Write one way to decline an invitation politely:</p>
+                <p><strong>Recall:</strong> Speak about one way to decline an invitation politely:</p>
                 <div class="click-reveal">
                     <div class="reveal-prompt" onclick="toggleReveal(this)">Click to reveal →</div>
                     <div class="reveal-content">
@@ -381,8 +423,9 @@
         <div class="tab-content">
             <h2>Tab 8: Debrief + Metacognition</h2>
 
-            <p><strong>From memory: Write the 3 advice patterns:</strong></p>
-            <textarea class="textarea" placeholder="1) You should...&#10;2) If I were you...&#10;3) Why don't you..."></textarea>
+            <p><strong>From memory: Speak about the 3 advice patterns:</strong></p>
+            
+        <textarea class="textarea" placeholder="1) You should...&#10;2) If I were you...&#10;3) Why don't you..."></textarea>
 
             <div class="click-reveal">
                 <div class="reveal-prompt" onclick="toggleReveal(this)">Check yourself →</div>
@@ -396,10 +439,12 @@
             <div class="meta-question">
                 <h3>🧠 Reflection</h3>
                 <p><strong>Which advice pattern do you use most naturally?</strong></p>
-                <textarea class="textarea" placeholder="I naturally use..."></textarea>
+                
+        <textarea class="textarea" placeholder="I naturally use..."></textarea>
 
                 <p style="margin-top: 15px;"><strong>When do you find it hardest to give advice?</strong></p>
-                <textarea class="textarea" placeholder="It's hardest when..."></textarea>
+                
+        <textarea class="textarea" placeholder="It's hardest when..."></textarea>
             </div>
 
             <div class="i-can-statement">

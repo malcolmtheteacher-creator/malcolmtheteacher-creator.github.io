@@ -246,6 +246,38 @@
             border-bottom: 2px dashed #667eea;
         }
 
+        .answer-btn {
+            background: #667eea;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .answer-btn:hover {
+            background: #764ba2;
+        }
+
+        .answer-text {
+            display: none;
+            background: #e8f5e9;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            color: #1b5e20;
+        }
+
+        .answer-text.show {
+            display: block;
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 1.8em;
@@ -268,7 +300,9 @@
                 border-radius: 5px;
             }
         }
-    </style>
+    
+.tab-btn { display: none; }
+.tab-btn.active { display: block; }</style>
 </head>
 <body>
     <div class="container">
@@ -298,8 +332,9 @@
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 2 & 3</h3>
-                <p><strong>Question:</strong> Write one sentence saying where you're from AND one sentence saying what you do. From memory, no looking back!</p>
-                <textarea id="recall1" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Speak about one sentence saying where you're from AND one sentence saying what you do. From memory, no looking back!</p>
+                
+        <textarea id="recall1" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
                 <button onclick="checkRecall()">Check</button>
                 <div id="recallResult"></div>
             </div>
@@ -344,7 +379,9 @@
             </div>
 
             <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                <strong>Quick Check:</strong> What's the number that sounds like "too"? <span onclick="alert('TWO! Two = 2')" style="cursor: pointer; color: #ff6b6b; font-weight: bold;">→ Click to confirm</span>
+                <strong>Quick Check:</strong> What's the number that sounds like "too"?
+                <button class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">Click to confirm</button>
+                <div class="answer-text">TWO! Two = 2</div>
             </div>
         </div>
 
@@ -368,6 +405,20 @@
                 </ul>
             </div>
 
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>One, Two, Three</strong> = WUN, TOO, THREE (distinguish "two" from "to")</p><p><strong>Thirteen</strong> = thir-TEEN (stress second syllable, different from "thirty")</p><p><strong>Thirty</strong> = THIR-tee (stress first syllable, different from "thirteen")</p><p><strong>Zero</strong> = ZEER-oh (two syllables, stress first one)</p><p><strong>Plus, Minus</strong> = PLUS, MY-nus (stress first syllable of each)</p>
+            </div>
+
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>One, Two, Three</strong> = WUN, TOO, THREE (distinguish "two" from "to")</p>
+<p><strong>Thirteen</strong> = thir-TEEN (stress second syllable, different from "thirty")</p>
+<p><strong>Thirty</strong> = THIR-tee (stress first syllable, different from "thirteen")</p>
+<p><strong>Zero</strong> = ZEER-oh (two syllables, stress first one)</p>
+<p><strong>Plus, Minus</strong> = PLUS, MY-nus (stress first syllable of each)</p>
+            </div>
+
             <div class="content-card">
                 <h3>Pattern: Combining Tens + Ones</h3>
                 <p><strong>Rule:</strong> Tens + ones = combine them!</p>
@@ -388,26 +439,29 @@
         <!-- Tab 4: Your Numbers -->
         <div id="tab4" class="tab-content">
             <h2>🎯 Your Turn: Create Your Number Sentences</h2>
-            <p>Now create sentences using numbers. This time, no models — just produce from what you learned:</p>
+            <p>Now create spoken responses using numbers. This time, no models — just produce from what you learned:</p>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 1: Count Three Numbers 🔢</h3>
-                <p><strong>Task:</strong> Write or say 3 numbers in English (any numbers, from 1-100):</p>
-                <textarea id="num1" placeholder="Example: fifteen, forty-two, eighty-nine"></textarea>
+                <p><strong>Task:</strong> Speak about or say 3 numbers in English (any numbers, from 1-100):</p>
+                
+        <textarea id="num1" placeholder="Example: fifteen, forty-two, eighty-nine"></textarea>
                 <button onclick="saveResponse('num1')">Save</button>
             </div>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 2: Your Age 🎂</h3>
                 <p><strong>Task:</strong> "I am [age] years old." Create your sentence:</p>
-                <textarea id="num2" placeholder="Example: I am thirty-two years old."></textarea>
+                
+        <textarea id="num2" placeholder="Example: I am thirty-two years old."></textarea>
                 <button onclick="saveResponse('num2')">Save</button>
             </div>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 3: Combine Everything! ⭐</h3>
                 <p><strong>Task:</strong> "I'm [name]. I'm from [country]. I'm [age]. I'm a [job]."</p>
-                <textarea id="num3" placeholder="Example: I'm Sophie. I'm from Italy. I'm twenty-five. I'm a teacher."></textarea>
+                
+        <textarea id="num3" placeholder="Example: I'm Sophie. I'm from Italy. I'm twenty-five. I'm a teacher."></textarea>
                 <button onclick="saveResponse('num3')">Save</button>
             </div>
 
@@ -457,25 +511,29 @@
                 <div class="card">
                     <strong>Question: What is 23 + 15?</strong>
                     <p>Answer using English:</p>
-                    <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
+                    
+        <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
                 </div>
 
                 <div class="card">
                     <strong>Your phone number: 333-7654</strong>
                     <p>Say it in English:</p>
-                    <textarea placeholder="My phone is..." style="width: 100%; min-height: 60px;"></textarea>
+                    
+        <textarea placeholder="My phone is..." style="width: 100%; min-height: 60px;"></textarea>
                 </div>
 
                 <div class="card">
                     <strong>Your age: 28</strong>
-                    <p>Create a complete sentence:</p>
-                    <textarea placeholder="I'm..." style="width: 100%; min-height: 60px;"></textarea>
+                    <p>Create a speak about sentence:</p>
+                    
+        <textarea placeholder="I'm..." style="width: 100%; min-height: 60px;"></textarea>
                 </div>
 
                 <div class="card">
                     <strong>Count: 5 to 15</strong>
-                    <p>Write it out in English:</p>
-                    <textarea placeholder="Five, six, seven..." style="width: 100%; min-height: 60px;"></textarea>
+                    <p>Speak about it out in English:</p>
+                    
+        <textarea placeholder="Five, six, seven..." style="width: 100%; min-height: 60px;"></textarea>
                 </div>
             </div>
 
@@ -495,9 +553,10 @@
                 <ol style="margin-left: 20px; margin-top: 10px;">
                     <li>The English words for numbers: 7, 15, 23, 50, 89</li>
                     <li>How to say a phone number (with an example)</li>
-                    <li>A complete sentence saying your age</li>
+                    <li>A speak about sentence saying your age</li>
                 </ol>
-                <textarea id="finalRecall" placeholder="Write from memory..."></textarea>
+                
+        <textarea id="finalRecall" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
                 <button onclick="revealAnswer()">I'm Ready to Check</button>
             </div>
 
@@ -510,7 +569,7 @@
                 </div>
 
                 <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                    <strong>💭 Metacognitive Reflection:</strong> Which was hardest — 1-20 or the tens (20-100)? Why did you find it that way?
+                    <strong>💭 Think About Your Learning:</strong> Which was hardest — 1-20 or the tens (20-100)? Why did you find it that way?
                 </div>
             </div>
 
@@ -542,9 +601,17 @@
         function saveResponse(id) {
             const text = document.getElementById(id).value;
             if (text.trim()) {
-                alert('✅ Saved! Excellent production!');
+                const btn = event.target;
+                const feedback = btn.nextElementSibling || document.createElement('div');
+                feedback.className = 'answer-text show';
+                feedback.innerHTML = '✅ Saved! Excellent production!';
+                if (!btn.nextElementSibling) btn.parentNode.appendChild(feedback);
             } else {
-                alert('⚠️ Please type something first!');
+                const btn = event.target;
+                const feedback = btn.nextElementSibling || document.createElement('div');
+                feedback.className = 'answer-text show';
+                feedback.innerHTML = '⚠️ Please type something first!';
+                if (!btn.nextElementSibling) btn.parentNode.appendChild(feedback);
             }
         }
 
@@ -554,7 +621,7 @@
             if (answer.length > 15) {
                 result.innerHTML = '<div class="reveal"><strong>✅ Excellent!</strong> You retrieved Lessons 2 & 3 without looking. This spaced repetition is strengthening your memory!</div>';
             } else {
-                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Try to write both a location sentence and a job sentence.</div>';
+                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Try to say both a location sentence and a job sentence.</div>';
             }
         }
 

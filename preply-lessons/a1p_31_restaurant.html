@@ -355,7 +355,9 @@
                 font-size: 0.85em;
             }
         }
-    </style>
+    
+.tab-btn { display: none; }
+.tab-btn.active { display: block; }</style>
 </head>
 <body>
     <div class="container">
@@ -366,6 +368,11 @@
         
         <div class="learning-intention">
             <strong>Learning Intention:</strong> Today we're learning practical restaurant language so you can order confidently, handle problems politely, and ask for the bill like a native speaker.
+        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Restaurant</strong> = RES-tuh-ront (three syllables, stress first one)</p><p><strong>Waiter</strong> = WAY-tur (two syllables, stress first one)</p><p><strong>Menu</strong> = MEN-yoo (two syllables, stress first one)</p><p><strong>Order</strong> = OR-dur (two syllables, stress first one)</p><p><strong>Delicious</strong> = dih-LISH-us (three syllables, stress second one)</p>
+            </div>
+
         </div>
         
         <div class="tabs">
@@ -385,7 +392,8 @@
                 <div class="retrieval-task">
                     <h3>Your Experience</h3>
                     <p>Think of a time you ate at a restaurant in English. What did you say? What went well? What was difficult?</p>
-                    <textarea placeholder="Write 2-3 sentences about your experience..."></textarea>
+                    
+        <textarea placeholder="Speak about 2-3 spoken responses about your experience..."></textarea>
                 </div>
             </div>
             
@@ -436,19 +444,22 @@
             </div>
             
             <div class="content-section">
-                <div class="section-title">✍️ YOUR TURN: Write your ordering sentences</div>
-                <p>Complete these sentences for a restaurant:</p>
+                <div class="section-title">✍️ YOUR TURN: Speak about your ordering spoken responses</div>
+                <p>Complete these spoken responses for a restaurant:</p>
                 <div class="retrieval-task">
-                    <p><strong>1. Ask for a dish:</strong> "Can I have the ________________, please?"</p>
-                    <textarea placeholder="Write a dish name you like..."></textarea>
+                    <p><strong>1. Ask for a dish:</strong> "Can I have the <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="...">, please?"</p>
+                    
+        <textarea placeholder="Write a dish name you like..."></textarea>
                 </div>
                 <div class="retrieval-task">
-                    <p><strong>2. Ask for a drink:</strong> "Could I get a ________________?"</p>
-                    <textarea placeholder="Write a drink..."></textarea>
+                    <p><strong>2. Ask for a drink:</strong> "Could I get a <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="...">?"</p>
+                    
+        <textarea placeholder="Write a drink..."></textarea>
                 </div>
                 <div class="retrieval-task">
-                    <p><strong>3. Ask a question about food:</strong> "Does this dish ________________?"</p>
-                    <textarea placeholder="Write a question..."></textarea>
+                    <p><strong>3. Ask a question about food:</strong> "Does this dish <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="...">?"</p>
+                    
+        <textarea placeholder="Write a question..."></textarea>
                 </div>
             </div>
         </div>
@@ -511,7 +522,8 @@
                     <div class="response-area">
                         <strong>Your turn to speak:</strong> Order a pasta dish and ask what it comes with.
                     </div>
-                    <button class="reveal-button" onclick="toggleReveal(event)">Show Model Response</button>
+                    
+        <button class="reveal-button" onclick="toggleReveal(event)">Show Model Response</button>
                     <div class="hidden-content">
                         <strong>Suggested response:</strong> "I'll have the penne carbonara, please. What vegetables does it come with?"<br><br>
                         <strong>What worked:</strong> Clear order (I'll have...), specific dish name, polite question about ingredients.
@@ -521,7 +533,7 @@
             
             <div class="content-section">
                 <div class="section-title">🎓 YOU DO (Independent)</div>
-                <p>Your turn — no scaffolding. Speak or write your response:</p>
+                <p>Your turn — no scaffolding. Speak or say your response:</p>
                 <div class="practice-card">
                     <h4>Scenario: Ordering Drinks</h4>
                     <div class="scenario">
@@ -530,7 +542,8 @@
                     <div class="response-area">
                         <strong>Your turn:</strong> Order your drink and ask a question about it.
                     </div>
-                    <textarea placeholder="Write or describe what you would say..."></textarea>
+                    
+        <textarea placeholder="Speak about or describe what you would say..."></textarea>
                 </div>
             </div>
         </div>
@@ -539,7 +552,7 @@
         <div id="tab5" class="tab-content">
             <div class="content-section">
                 <div class="section-title">🎬 Real Restaurant Scenarios</div>
-                <p>Choose 2 scenarios below. For each, write or speak what YOU would say. No scaffolding — just you and the situation.</p>
+                <p>Choose 2 scenarios below. For each, say or speak what YOU would say. No scaffolding — just you and the situation.</p>
                 
                 <div class="practice-card">
                     <h4>Scenario 1: Something's Wrong 😟</h4>
@@ -549,7 +562,8 @@
                     <div class="response-area">
                         <strong>What do you say?</strong> Use the complaint pattern: "I'm sorry, but..."
                     </div>
-                    <textarea placeholder="Write your response using the polite complaint pattern..."></textarea>
+                    
+        <textarea placeholder="Speak about your response using the polite complaint pattern..."></textarea>
                     <p style="margin-top: 10px; font-size: 0.9em; color: #666;"><strong>Reminder:</strong> Say it's wrong, don't attack. Ask for help nicely.</p>
                 </div>
                 
@@ -561,7 +575,8 @@
                     <div class="response-area">
                         <strong>What do you say?</strong> Ask for the bill politely.
                     </div>
-                    <textarea placeholder="Write how you ask for the bill..."></textarea>
+                    
+        <textarea placeholder="Speak about how you ask for the bill..."></textarea>
                     <p style="margin-top: 10px; font-size: 0.9em; color: #666;"><strong>Options:</strong> "Can I have the bill, please?" / "Could I get the check?" / "Excuse me, could we have the bill?"</p>
                 </div>
                 
@@ -573,7 +588,8 @@
                     <div class="response-area">
                         <strong>What do you ask?</strong> Ask what's in the dish before ordering.
                     </div>
-                    <textarea placeholder="Write your question..."></textarea>
+                    
+        <textarea placeholder="Speak about your question..."></textarea>
                     <p style="margin-top: 10px; font-size: 0.9em; color: #666;"><strong>Tip:</strong> "What is the Chef's Surprise?" / "Does it have seafood?" / "What comes with it?"</p>
                 </div>
             </div>
@@ -589,7 +605,8 @@
                     <h3>From Lesson 8: Food & Drinks Basics</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> How do you say you like or don't like something?</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             <strong>Answer:</strong> "I like...", "I don't like...", "I love...", "I hate..."
                         </div>
@@ -597,7 +614,8 @@
                     
                     <div class="recall-item">
                         <p><strong>Question:</strong> Name 3 foods you learned before.</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             <strong>Answer:</strong> Any foods work (pizza, chicken, vegetables, chocolate, bread, etc.)
                         </div>
@@ -608,7 +626,8 @@
                     <h3>From Lesson 13: Going Shopping</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> What's the polite way to ask a shopkeeper for something? What expression did we use?</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             <strong>Answer:</strong> "Can I have...?" / "Could I get...?" / "May I have...?"
                         </div>
@@ -619,7 +638,8 @@
                     <h3>From Lesson 29: Making Suggestions</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> What are 2 ways to make a suggestion? What expressions start with "Let's" or "Why don't..."?</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             <strong>Answer:</strong> "Let's go to...", "Why don't we try...?", "Shall we...?" — these are ways to suggest activities together
                         </div>
@@ -632,26 +652,29 @@
         <div id="tab7" class="tab-content">
             <div class="content-section">
                 <div class="section-title">📝 Final Retrieval: Can you remember?</div>
-                <p>WITHOUT looking back, write down or say:</p>
+                <p>WITHOUT looking back, say down or say:</p>
                 <div class="retrieval-task">
-                    <p><strong>1. Write the R.A.B. framework from memory:</strong></p>
-                    <p>R = ________________</p>
-                    <p>A = ________________</p>
-                    <p>B = ________________</p>
-                    <textarea placeholder="Write the three steps..."></textarea>
+                    <p><strong>1. Speak about the R.A.B. framework from memory:</strong></p>
+                    <p>R = <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."></p>
+                    <p>A = <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."></p>
+                    <p>B = <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."></p>
+                    
+        <textarea placeholder="Speak about the three steps..."></textarea>
                 </div>
                 
                 <div class="retrieval-task">
-                    <p><strong>2. Write one complete sentence for EACH:</strong></p>
-                    <p>• Ordering a dish: ________________</p>
-                    <p>• Asking a question about food: ________________</p>
-                    <p>• Complaining politely: ________________</p>
-                    <textarea placeholder="Write three sentences..."></textarea>
+                    <p><strong>2. Speak about one speak about sentence for EACH:</strong></p>
+                    <p>• Ordering a dish: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."></p>
+                    <p>• Asking a question about food: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."></p>
+                    <p>• Complaining politely: <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."></p>
+                    
+        <textarea placeholder="Speak about three spoken responses..."></textarea>
                 </div>
                 
                 <div class="retrieval-task">
                     <p><strong>3. What helped you remember the polite complaint pattern?</strong></p>
-                    <textarea placeholder="Reflect on what made it stick (the pattern? the examples? practice?)..."></textarea>
+                    
+        <textarea placeholder="Reflect on what made it stick (the pattern? the examples? practice?)..."></textarea>
                 </div>
             </div>
             
@@ -664,8 +687,9 @@
             <div class="content-section">
                 <div class="metacognition-box">
                     <h4>🧠 Metacognition: How did you learn best today?</h4>
-                    <p>What was most useful? The framework? The examples? Writing responses? Thinking about real situations?</p>
-                    <textarea placeholder="Your reflection..."></textarea>
+                    <p>What was most useful? The framework? The examples? Speaking responses? Thinking about real situations?</p>
+                    
+        <textarea placeholder="Your reflection..."></textarea>
                 </div>
             </div>
         </div>

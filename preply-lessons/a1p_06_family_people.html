@@ -254,7 +254,9 @@
                 border-radius: 5px;
             }
         }
-    </style>
+    
+.tab-btn { display: none; }
+.tab-btn.active { display: block; }</style>
 </head>
 <body>
     <div class="container">
@@ -264,13 +266,13 @@
         </div>
 
         <div class="learning-intention">
-            💡 <strong>Today we're working on</strong> family members, possessives (my, your, his, her), and describing relationships so <strong>you can talk about your family</strong>.
+            💡 <strong>Today we're working on</strong> family members, my/your/his/her (my, your, his, her), and describing relationships so <strong>you can talk about your family</strong>.
         </div>
 
         <div class="tabs">
             <button class="tab-button active" onclick="showTab('tab1')">1. Recall Zone</button>
             <button class="tab-button" onclick="showTab('tab2')">2. Family Vocabulary</button>
-            <button class="tab-button" onclick="showTab('tab3')">3. Possessives</button>
+            <button class="tab-button" onclick="showTab('tab3')">3. My, Your, His, Her</button>
             <button class="tab-button" onclick="showTab('tab4')">4. Your Family</button>
             <button class="tab-button" onclick="showTab('tab5')">5. Descriptions</button>
             <button class="tab-button" onclick="showTab('tab6')">6. Practice</button>
@@ -284,22 +286,25 @@
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 2 (4 lessons back)</h3>
-                <p><strong>Question:</strong> Write the pattern "I'm from..." and give 2 examples with different countries:</p>
-                <textarea id="recall1" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Speak about the pattern "I'm from..." and give 2 examples with different countries:</p>
+                
+        <textarea id="recall1" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
                 <button onclick="saveAndCheck('recall1')">Save</button>
             </div>
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 3 (3 lessons back)</h3>
-                <p><strong>Question:</strong> Write 3 jobs and use "I'm a..." in one sentence:</p>
-                <textarea id="recall2" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Speak about 3 jobs and use "I'm a..." in one sentence:</p>
+                
+        <textarea id="recall2" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
                 <button onclick="saveAndCheck('recall2')">Save</button>
             </div>
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 4 (2 lessons back)</h3>
-                <p><strong>Question:</strong> Write the English words for numbers 17, 42, 85:</p>
-                <textarea id="recall3" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Speak about the English words for numbers 17, 42, 85:</p>
+                
+        <textarea id="recall3" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
                 <button onclick="saveAndCheck('recall3')">Save</button>
             </div>
 
@@ -364,18 +369,18 @@
             </div>
 
             <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                <strong>💡 Context matters:</strong> In informal speech, people say "Mom/Dad", "Grandma/Grandpa". In formal writing, use "Mother/Father", "Grandmother/Grandfather".
+                <strong>💡 Context matters:</strong> In informal speech, people say "Mom/Dad", "Grandma/Grandpa". In formal speaking, use "Mother/Father", "Grandmother/Grandfather".
             </div>
         </div>
 
-        <!-- Tab 3: Possessives -->
+        <!-- Tab 3: My, Your, His, Her -->
         <div id="tab3" class="tab-content">
-            <h2>💎 Let's Learn: Possessives (MY, YOUR, HIS, HER)</h2>
-            <p>To talk about your family, you need to show who belongs to whom. This is called possessives:</p>
+            <h2>💎 Let's Learn: MY, YOUR, HIS, HER</h2>
+            <p>To talk about your family, you need to show who belongs to whom. We use: my, your, his, her</p>
 
             <div class="content-card">
-                <h3>Pattern: Possessive + Family Member</h3>
-                <p><strong>Structure:</strong> [Possessive] + [Family word]</p>
+                <h3>Pattern: My/Your/His/Her + Family Member</h3>
+                <p><strong>Structure:</strong> [My/Your/His/Her] + [Family word]</p>
                 <p><strong>Examples:</strong></p>
                 <ul style="margin-left: 20px; margin-top: 10px;">
                     <li><strong>My</strong> father - the father belonging to me</li>
@@ -385,12 +390,26 @@
                 </ul>
             </div>
 
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Mother</strong> = MUTH-ur (not "mah-ther")</p><p><strong>Father</strong> = FAH-thur (stress first syllable)</p><p><strong>Brother</strong> = BRUTH-ur (not "bro-ther")</p><p><strong>Sister</strong> = SIS-tur (stress first syllable, short I sound)</p><p><strong>Children</strong> = CHIL-drun (not "chil-dren"—second syllable is "drun")</p>
+            </div>
+
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Mother</strong> = MUTH-ur (not "mah-ther")</p>
+<p><strong>Father</strong> = FAH-thur (stress first syllable)</p>
+<p><strong>Brother</strong> = BRUTH-ur (not "bro-ther")</p>
+<p><strong>Sister</strong> = SIS-tur (stress first syllable, short I sound)</p>
+<p><strong>Children</strong> = CHIL-drun (not "chil-dren"—second syllable is "drun")</p>
+            </div>
+
             <div class="content-card">
-                <h3>Possessive Chart</h3>
+                <h3>My, Your, His, Her Chart</h3>
                 <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
                     <tr style="background: #f0f0f0;">
-                        <td style="border: 1px solid #ddd; padding: 10px;"><strong>Subject</strong></td>
-                        <td style="border: 1px solid #ddd; padding: 10px;"><strong>Possessive</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 10px;"><strong>Person</strong></td>
+                        <td style="border: 1px solid #ddd; padding: 10px;"><strong>Word to Use</strong></td>
                         <td style="border: 1px solid #ddd; padding: 10px;"><strong>Example</strong></td>
                     </tr>
                     <tr>
@@ -424,31 +443,34 @@
         <!-- Tab 4: Your Family -->
         <div id="tab4" class="tab-content">
             <h2>🎯 Your Turn: Describe Your Family</h2>
-            <p>Create sentences about your actual family. No looking back — produce from memory:</p>
+            <p>Create spoken responses about your actual family. No looking back — produce from memory:</p>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 1: One Family Member 👨</h3>
                 <p><strong>Task:</strong> "My [family member] is [job/description]."</p>
-                <textarea id="fam1" placeholder="Example: My father is a teacher."></textarea>
+                
+        <textarea id="fam1" placeholder="Example: My father is a teacher."></textarea>
                 <button onclick="saveResponse('fam1')">Save</button>
             </div>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 2: Two Family Members 👨‍👩</h3>
-                <p><strong>Task:</strong> Describe 2 different family members using possessives:</p>
-                <textarea id="fam2" placeholder="Example: My mother is from Spain. My sister is a nurse."></textarea>
+                <p><strong>Task:</strong> Describe 2 different family members using my/your/his/her:</p>
+                
+        <textarea id="fam2" placeholder="Example: My mother is from Spain. My sister is a nurse."></textarea>
                 <button onclick="saveResponse('fam2')">Save</button>
             </div>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 3: Full Family Description 👨‍👩‍👧‍👦</h3>
                 <p><strong>Task:</strong> "I have [family members]. My [person] is [description]..."</p>
-                <textarea id="fam3" placeholder="Example: I have two brothers. My father is an engineer. My mother is from Turkey."></textarea>
+                
+        <textarea id="fam3" placeholder="Example: I have two brothers. My father is an engineer. My mother is from Turkey."></textarea>
                 <button onclick="saveResponse('fam3')">Save</button>
             </div>
 
             <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                <strong>🎉 EXCELLENT!</strong> You're creating original sentences about your REAL life. That's authentic language production!
+                <strong>🎉 EXCELLENT!</strong> You're creating original spoken responses about your REAL life. That's authentic language production!
             </div>
         </div>
 
@@ -467,9 +489,10 @@
                 </ul>
             </div>
 
-            <p style="margin-top: 20px;"><strong>Your Task:</strong> Pick ONE family member and write 2-3 sentences describing them. Use what you learned from previous lessons (job, age, location, personality):</p>
+            <p style="margin-top: 20px;"><strong>Your Task:</strong> Pick ONE family member and say 2-3 spoken responses describing them. Use what you learned from previous lessons (job, age, location, personality):</p>
 
-            <textarea id="describe" placeholder="Example: My brother is twenty-three. He's from Brazil. He's a software developer and very intelligent."></textarea>
+            
+        <textarea id="describe" placeholder="Example: My brother is twenty-three. He's from Brazil. He's a software developer and very intelligent."></textarea>
             <button onclick="saveResponse('describe')">Save My Description</button>
 
             <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
@@ -487,8 +510,9 @@
                 <strong style="color: #ff6b6b;">Person B (You):</strong>
             </div>
 
-            <textarea id="conv1" placeholder="Write your response (use 'I have...' + describe family members)..."></textarea>
-            <button onclick="checkConversation()">Check My Response</button>
+            
+        <textarea id="conv1" placeholder="Speak about your response (use 'I have...' + describe family members)..."></textarea>
+            <button onclick="checkConversation()"Check My Response</button>
             <div id="convResult"></div>
 
             <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
@@ -506,10 +530,11 @@
                 <p>From memory, write:</p>
                 <ol style="margin-left: 20px; margin-top: 10px;">
                     <li>5 family members in English</li>
-                    <li>The possessives: My, Your, His, Her</li>
-                    <li>One complete sentence about a family member (use possessive)</li>
+                    <li>The my/your/his/her: My, Your, His, Her</li>
+                    <li>One speak about sentence about a family member (use my/your/his/her)</li>
                 </ol>
-                <textarea id="finalRecall" placeholder="Write from memory..."></textarea>
+                
+        <textarea id="finalRecall" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
                 <button onclick="revealAnswer()">I'm Ready to Check</button>
             </div>
 
@@ -517,17 +542,17 @@
                 <div class="reveal">
                     <h3>✅ Model Answer</h3>
                     <p><strong>1. Family Members:</strong> Father, Mother, Brother, Sister, Grandmother, Grandfather, Uncle, Aunt, Cousin, Wife, Husband</p>
-                    <p><strong>2. Possessives:</strong> My (I), Your (you), His (he), Her (she)</p>
+                    <p><strong>2. Words to use:</strong> My (I), Your (you), His (he), Her (she)</p>
                     <p><strong>3. Example:</strong> "My mother is a nurse" or "His father is from Canada"</p>
                 </div>
 
                 <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                    <strong>💭 Metacognitive Reflection:</strong> What was easier — the family vocabulary or the possessives? Why?
+                    <strong>💭 Think About Your Learning:</strong> What was easier — learning family words or learning my/your/his/her? Why?
                 </div>
             </div>
 
             <div class="i-can">
-                ✅ <strong>I can talk about my family and describe family members using possessives and jobs.</strong>
+                ✅ <strong>I can talk about my family and describe family members using my/your/his/her and jobs.</strong>
             </div>
 
             <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
@@ -576,7 +601,7 @@
             if (response.length > 20) {
                 result.innerHTML = '<div class="reveal"><strong>✅ Great response!</strong> You answered naturally about your family. That\'s real conversation!</div>';
             } else {
-                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Write more detail. Describe at least 2 family members or use possessives.</div>';
+                result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">Speak about more detail. Describe at least 2 family members or use my/your/his/her.</div>';
             }
         }
 

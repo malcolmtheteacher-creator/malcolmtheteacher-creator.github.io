@@ -177,7 +177,7 @@
             margin: 15px 0;
         }
 
-        .preposition-card {
+        .position word-card {
             background: white;
             border: 2px solid #667eea;
             padding: 15px;
@@ -185,7 +185,7 @@
             border-radius: 5px;
         }
 
-        .preposition-card strong {
+        .position word-card strong {
             color: #667eea;
         }
 
@@ -248,7 +248,9 @@
                 border-radius: 5px;
             }
         }
-    </style>
+    
+.tab-btn { display: none; }
+.tab-btn.active { display: block; }</style>
 </head>
 <body>
     <div class="container">
@@ -258,12 +260,12 @@
         </div>
 
         <div class="learning-intention">
-            💡 <strong>Today we're working on</strong> prepositions of location (in, on, under, next to, between) so <strong>you can describe where things are</strong>.
+            💡 <strong>Today we're working on</strong> position words of location (in, on, under, next to, between) so <strong>you can describe where things are</strong>.
         </div>
 
         <div class="tabs">
             <button class="tab-button active" onclick="showTab('tab1')">1. Recall Zone</button>
-            <button class="tab-button" onclick="showTab('tab2')">2. Prepositions</button>
+            <button class="tab-button" onclick="showTab('tab2')">2. Position Words</button>
             <button class="tab-button" onclick="showTab('tab3')">3. Visual Learning</button>
             <button class="tab-button" onclick="showTab('tab4')">4. Your Locations</button>
             <button class="tab-button" onclick="showTab('tab5')">5. Describing Rooms</button>
@@ -278,20 +280,23 @@
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 5 (Review - 4 lessons back)</h3>
-                <p><strong>Question:</strong> Write one "I can..." statement from the foundation:</p>
-                <textarea id="recall1" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Speak about one "I can..." statement from the foundation:</p>
+                
+        <textarea id="recall1" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
             </div>
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 6 (3 lessons back)</h3>
-                <p><strong>Question:</strong> Write 3 family members and use one in a possessive sentence:</p>
-                <textarea id="recall2" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Speak about 3 family members and use one in a sentence with my/your/his/her:</p>
+                
+        <textarea id="recall2" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
             </div>
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 7 (2 lessons back)</h3>
-                <p><strong>Question:</strong> Write 3 daily routine verbs and a time expression:</p>
-                <textarea id="recall3" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Speak about 3 daily routine words and a time expression:</p>
+                
+        <textarea id="recall3" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
             </div>
 
             <button onclick="alert('✅ Excellent spaced recall! You\'re building strong long-term memory!')" style="width: 100%; margin-top: 15px; padding: 12px;">Check Recalls</button>
@@ -301,12 +306,12 @@
             </div>
         </div>
 
-        <!-- Tab 2: Prepositions of Location -->
+        <!-- Tab 2: Position Words -->
         <div id="tab2" class="tab-content">
-            <h2>📍 Let's Learn: Prepositions of Location</h2>
-            <p>Prepositions tell you WHERE something is. These 5 are essential:</p>
+            <h2>📍 Let's Learn: Position Words</h2>
+            <p>Position words tell you WHERE something is. These 5 are essential:</p>
 
-            <div class="preposition-card">
+            <div class="position word-card">
                 <strong>1. IN</strong> - inside a container/space
                 <p style="margin-top: 10px;">Examples:</p>
                 <ul style="margin-left: 20px;">
@@ -316,7 +321,7 @@
                 </ul>
             </div>
 
-            <div class="preposition-card">
+            <div class="position word-card">
                 <strong>2. ON</strong> - touching the surface of something
                 <p style="margin-top: 10px;">Examples:</p>
                 <ul style="margin-left: 20px;">
@@ -326,7 +331,7 @@
                 </ul>
             </div>
 
-            <div class="preposition-card">
+            <div class="position word-card">
                 <strong>3. UNDER</strong> - below something
                 <p style="margin-top: 10px;">Examples:</p>
                 <ul style="margin-left: 20px;">
@@ -336,7 +341,7 @@
                 </ul>
             </div>
 
-            <div class="preposition-card">
+            <div class="position word-card">
                 <strong>4. NEXT TO</strong> - beside something, very close
                 <p style="margin-top: 10px;">Examples:</p>
                 <ul style="margin-left: 20px;">
@@ -346,7 +351,7 @@
                 </ul>
             </div>
 
-            <div class="preposition-card">
+            <div class="position word-card">
                 <strong>5. BETWEEN</strong> - in the middle of two things
                 <p style="margin-top: 10px;">Examples:</p>
                 <ul style="margin-left: 20px;">
@@ -357,7 +362,7 @@
             </div>
 
             <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                <strong>💡 Pattern:</strong> [Object] + is + [preposition] + [location]. Example: "The phone is ON the table."
+                <strong>💡 Pattern:</strong> [Object] + is + [position word] + [location]. Example: "The phone is ON the table."
             </div>
         </div>
 
@@ -380,39 +385,43 @@
                 </p>
             </div>
 
-            <p style="margin-top: 20px;"><strong>Your Task:</strong> Describe where things are in YOUR room using at least 3 prepositions:</p>
+            <p style="margin-top: 20px;"><strong>Your Task:</strong> Describe where things are in YOUR room using at least 3 position words:</p>
 
-            <textarea id="roomdesc" placeholder="Example: The chair is next to the desk. The lamp is on the table. My books are in the bookcase."></textarea>
+            
+        <textarea id="roomdesc" placeholder="Example: The chair is next to the desk. The lamp is on the table. My books are in the bookcase."></textarea>
             <button onclick="saveResponse('roomdesc')">Save My Description</button>
 
             <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                <strong>💡 Tip:</strong> Prepositions are easier with visual help. If possible, look around your room and describe what you see!
+                <strong>💡 Tip:</strong> Position words are easier with visual help. If possible, look around your room and describe what you see!
             </div>
         </div>
 
         <!-- Tab 4: Your Locations -->
         <div id="tab4" class="tab-content">
             <h2>🎯 Your Turn: Describe Real Locations</h2>
-            <p>Use what you know to describe WHERE things are in your real life. No models — produce from memory:</p>
+            <p>Use what you know to describe WHERE things are in your real life using position words. No models — produce from memory:</p>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 1: Simple Statement 📍</h3>
-                <p><strong>Task:</strong> "[Object] is [preposition] [location]."</p>
-                <textarea id="loc1" placeholder="Example: My phone is on the table."></textarea>
+                <p><strong>Task:</strong> "[Object] is [position word] [location]."</p>
+                
+        <textarea id="loc1" placeholder="Example: My phone is on the table."></textarea>
                 <button onclick="saveResponse('loc1')">Save</button>
             </div>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 2: Multiple Locations 🏠</h3>
-                <p><strong>Task:</strong> Describe 3 things in your home using different prepositions</p>
-                <textarea id="loc2" placeholder="Example: The sofa is next to the window. My books are in the shelf. The cat is under the table."></textarea>
+                <p><strong>Task:</strong> Describe 3 things in your home using different position words</p>
+                
+        <textarea id="loc2" placeholder="Example: The sofa is next to the window. My books are in the shelf. The cat is under the table."></textarea>
                 <button onclick="saveResponse('loc2')">Save</button>
             </div>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 3: Describe Your Neighborhood 🌳</h3>
                 <p><strong>Task:</strong> "My house is... [location]. Next to it is... Between my house and..."</p>
-                <textarea id="loc3" placeholder="Example: My house is in a quiet street. The supermarket is next to my house. My school is between my house and the park."></textarea>
+                
+        <textarea id="loc3" placeholder="Example: My house is in a quiet street. The supermarket is next to my house. My school is between my house and the park."></textarea>
                 <button onclick="saveResponse('loc3')">Save</button>
             </div>
 
@@ -431,6 +440,20 @@
                 <p>"The restaurant is next to the park. <strong>Inside</strong>, the tables are on the left side. The kitchen is <strong>behind</strong> the counter. The windows are <strong>on</strong> the right side."</p>
             </div>
 
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Where</strong> = WARE (rhymes with "care", not "we")</p><p><strong>Is</strong> = iz (sounds like "is" not "iz")</p><p><strong>On</strong> = AHN (one syllable, rhymes with "don")</p><p><strong>In</strong> = IN (one syllable, short I)</p><p><strong>Between</strong> = bih-TWEEN (two syllables, stress second one)</p>
+            </div>
+
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Where</strong> = WARE (rhymes with "care", not "we")</p>
+<p><strong>Is</strong> = iz (sounds like "is" not "iz")</p>
+<p><strong>On</strong> = AHN (one syllable, rhymes with "don")</p>
+<p><strong>In</strong> = IN (one syllable, short I)</p>
+<p><strong>Between</strong> = bih-TWEEN (two syllables, stress second one)</p>
+            </div>
+
             <div class="content-card">
                 <h3>Example: Describing a Workplace</h3>
                 <p>"My office is in the third floor. My desk is next to the window. The printer is between my desk and my colleague's desk. The break room is in the corner."</p>
@@ -438,7 +461,8 @@
 
             <p style="margin-top: 20px;"><strong>Your Task:</strong> Describe a place you know well (home, work, school, favorite café) using at least 4 location statements:</p>
 
-            <textarea id="complex" placeholder="Write your description..."></textarea>
+            
+        <textarea id="complex" placeholder="Speak about your description..."></textarea>
             <button onclick="saveResponse('complex')">Save My Description</button>
 
             <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
@@ -454,29 +478,33 @@
             <div style="margin: 20px 0;">
                 <h3>Question 1: Where do you live?</h3>
                 <p>Use "in" for city/country:</p>
-                <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
+                
+        <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
             </div>
 
             <div style="margin: 20px 0;">
                 <h3>Question 2: Where is your phone right now?</h3>
-                <p>Use a preposition:</p>
-                <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
+                <p>Use a position word:</p>
+                
+        <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
             </div>
 
             <div style="margin: 20px 0;">
                 <h3>Question 3: Describe 2 locations in your bedroom</h3>
-                <p>Use different prepositions:</p>
-                <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
+                <p>Use different position words:</p>
+                
+        <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
             </div>
 
             <div style="margin: 20px 0;">
                 <h3>Question 4: Where is your favorite place in your city?</h3>
-                <p>Use prepositions and locations:</p>
-                <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
+                <p>Use position words and locations:</p>
+                
+        <textarea placeholder="Answer..." style="width: 100%; min-height: 60px;"></textarea>
             </div>
 
             <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                <strong>💪 Pro Tip:</strong> Every preposition question can have multiple correct answers. There's no single "right" answer!
+                <strong>💪 Pro Tip:</strong> Every position word question can have multiple correct answers. There's no single "right" answer!
             </div>
         </div>
 
@@ -489,34 +517,35 @@
                 <h3>📋 Final Recall</h3>
                 <p>From memory, write:</p>
                 <ol style="margin-left: 20px; margin-top: 10px;">
-                    <li>The 5 prepositions we learned: IN, ON, UNDER, NEXT TO, BETWEEN</li>
-                    <li>One example for each preposition</li>
-                    <li>A description of your room using at least 2 prepositions</li>
+                    <li>The 5 position words we learned: IN, ON, UNDER, NEXT TO, BETWEEN</li>
+                    <li>One example for each position word</li>
+                    <li>A description of your room using at least 2 position words</li>
                 </ol>
-                <textarea id="finalRecall" placeholder="Write from memory..."></textarea>
+                
+        <textarea id="finalRecall" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
                 <button onclick="revealAnswer()">I'm Ready to Check</button>
             </div>
 
             <div id="revealedAnswer" style="display: none; margin-top: 20px;">
                 <div class="reveal">
                     <h3>✅ Model Answer</h3>
-                    <p><strong>1. Prepositions:</strong> IN, ON, UNDER, NEXT TO, BETWEEN</p>
+                    <p><strong>1. Position Words:</strong> IN, ON, UNDER, NEXT TO, BETWEEN</p>
                     <p><strong>2. Examples:</strong><br>
                     - IN: The book is in the bag.<br>
                     - ON: The cup is on the table.<br>
                     - UNDER: The cat is under the bed.<br>
                     - NEXT TO: I sit next to the window.<br>
                     - BETWEEN: The desk is between the chair and the door.</p>
-                    <p><strong>3. Room description:</strong> "My bed is next to the window. My desk is on the right side. My shoes are under the bed."</p>
+                    <p><strong>3. Room description:</strong> "My bed is next to the window. My desk is on the right side. My shoes are under the bed. The window is between my bed and the desk."</p>
                 </div>
 
                 <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                    <strong>💭 Metacognitive Reflection:</strong> Which preposition was easiest to remember? Which was hardest? Why?
+                    <strong>💭 Think About Your Learning:</strong> Which position word was easiest to remember? Which was hardest? Why?
                 </div>
             </div>
 
             <div class="i-can">
-                ✅ <strong>I can describe where things are using prepositions of location.</strong>
+                ✅ <strong>I can describe where things are using position words of location.</strong>
             </div>
 
             <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">

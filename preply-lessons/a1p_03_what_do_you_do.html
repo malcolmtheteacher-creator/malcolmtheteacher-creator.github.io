@@ -290,7 +290,9 @@
                 grid-template-columns: 30px 1fr;
             }
         }
-    </style>
+    
+.tab-btn { display: none; }
+.tab-btn.active { display: block; }</style>
 </head>
 <body>
     <div class="container">
@@ -300,13 +302,13 @@
         </div>
 
         <div class="learning-intention">
-            💡 <strong>Today we're working on</strong> jobs and occupations, and the present simple pattern so <strong>you can tell people what job you do</strong>.
+            💡 <strong>Today we're working on</strong> jobs and occupations, and how to talk about what you do so <strong>you can tell people what job you do</strong>.
         </div>
 
         <div class="tabs">
             <button class="tab-button active" onclick="showTab('tab1')">1. Recall Zone</button>
             <button class="tab-button" onclick="showTab('tab2')">2. Learning: Jobs</button>
-            <button class="tab-button" onclick="showTab('tab3')">3. The Present Simple</button>
+            <button class="tab-button" onclick="showTab('tab3')">3. How to Say Your Job</button>
             <button class="tab-button" onclick="showTab('tab4')">4. Your Job</button>
             <button class="tab-button" onclick="showTab('tab5')">5. Practice</button>
             <button class="tab-button" onclick="showTab('tab6')">6. Conversation</button>
@@ -320,14 +322,15 @@
 
             <div class="recall-zone">
                 <h3>💙 From Lesson 1 & 2</h3>
-                <p><strong>Question:</strong> Write a complete introduction with greeting, name, and where you're from. From memory!</p>
-                <textarea id="recall1" placeholder="Write from memory..."></textarea>
+                <p><strong>Question:</strong> Write a speak about introduction with greeting, name, and where you're from. From memory!</p>
+                
+        <textarea id="recall1" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
                 <button onclick="checkRecall()">Check</button>
                 <div id="recallResult"></div>
             </div>
 
             <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                <strong>✨ Smart building:</strong> After people learn your name and where you're from, the NEXT question is always "What do you do?" — so today's lesson completes the first full conversation!
+                <strong>✨ Smart building:</strong> After people learn your name and where you're from, the NEXT question is always "What do you do?" — so today's lesson speak abouts the first full conversation!
             </div>
 
             <div class="emoji-large">👋 + 🌍 + 💼 = Complete Introduction</div>
@@ -383,10 +386,10 @@
             </div>
         </div>
 
-        <!-- Tab 3: The Present Simple Pattern -->
+        <!-- Tab 3: How to Say Your Job -->
         <div id="tab3" class="tab-content">
-            <h2>📚 Let's Learn: The Present Simple Pattern</h2>
-            <p>To say what you do for work, we use a simple pattern called the <strong>Present Simple</strong>. Here's how:</p>
+            <h2>📚 Let's Learn: How to Say Your Job</h2>
+            <p>To say what you do for work, here are the patterns you use every day:</p>
 
             <div class="content-card">
                 <h3>Pattern: "I am a [job]" OR "I'm a [job]"</h3>
@@ -400,6 +403,20 @@
                     <li>"I'm a lawyer." 👨‍⚖️</li>
                 </ul>
                 <p style="margin-top: 15px;"><strong>Note:</strong> We use "a" before the job! "I'm a doctor" (correct) ✅ NOT "I'm doctor" ❌</p>
+            </div>
+
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Doctor</strong> = DOCK-tur (stress first syllable, second syllable sounds like "ur")</p><p><strong>Teacher</strong> = TEECH-ur (stress first syllable, long E sound)</p><p><strong>Do you</strong> = duh YOO (not "do you"—sounds like "duh-yuh" when speaking)</p><p><strong>Work</strong> = WORK (rhymes with "lurk", not "walk")</p><p><strong>Engineer</strong> = en-jin-EER (three syllables, stress on last one)</p>
+            </div>
+
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Doctor</strong> = DOCK-tur (stress first syllable, second syllable sounds like "ur")</p>
+<p><strong>Teacher</strong> = TEECH-ur (stress first syllable, long E sound)</p>
+<p><strong>Do you</strong> = duh YOO (not "do you"—sounds like "duh-yuh" when speaking)</p>
+<p><strong>Work</strong> = WORK (rhymes with "lurk", not "walk")</p>
+<p><strong>Engineer</strong> = en-jin-EER (three syllables, stress on last one)</p>
             </div>
 
             <div class="content-card">
@@ -425,33 +442,36 @@
             </div>
 
             <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                <strong>⚠️ Important Rule:</strong> Present Simple means this is what you DO REGULARLY. It's your current job/occupation. Not what you did yesterday, not what you will do tomorrow — what you do NOW.
+                <strong>⚠️ Important Rule:</strong> These patterns describe what you DO REGULARLY NOW. It's your current job. Not what you did yesterday, not what you will do tomorrow — what you do right now.
             </div>
         </div>
 
         <!-- Tab 4: Your Job -->
         <div id="tab4" class="tab-content">
             <h2>🎯 Your Turn: Create Your Sentences</h2>
-            <p>Without looking back at the examples, create YOUR OWN sentences about what you do:</p>
+            <p>Without looking back at the examples, create YOUR OWN spoken responses about what you do:</p>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 1: Simple Sentence 💼</h3>
                 <p><strong>Create:</strong> "I'm a [job]."</p>
-                <textarea id="job1" placeholder="Example: I'm a nurse."></textarea>
+                
+        <textarea id="job1" placeholder="Example: I'm a nurse."></textarea>
                 <button onclick="saveResponse('job1')">Save</button>
             </div>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 2: Alternative Pattern 🏢</h3>
                 <p><strong>Create:</strong> "I work as a [job]."</p>
-                <textarea id="job2" placeholder="Example: I work as an engineer."></textarea>
+                
+        <textarea id="job2" placeholder="Example: I work as an engineer."></textarea>
                 <button onclick="saveResponse('job2')">Save</button>
             </div>
 
             <div class="content-card" style="border-left: 4px solid #667eea;">
                 <h3>Challenge 3: Add a Detail 🌟</h3>
                 <p><strong>Create:</strong> "I'm a [job] and I [detail about the job]."</p>
-                <textarea id="job3" placeholder="Example: I'm a teacher and I teach English."></textarea>
+                
+        <textarea id="job3" placeholder="Example: I'm a teacher and I teach English."></textarea>
                 <button onclick="saveResponse('job3')">Save</button>
             </div>
 
@@ -462,7 +482,7 @@
 
         <!-- Tab 5: Mixed Practice -->
         <div id="tab5" class="tab-content">
-            <h2>⚡ Practice: Jobs & Present Simple</h2>
+            <h2>⚡ Practice: Jobs</h2>
             <p>Let's practice with different jobs. Create the correct sentence for each:</p>
 
             <div class="practice-grid">
@@ -470,28 +490,32 @@
                     <div class="card-emoji">🏥</div>
                     <strong>Nurse</strong>
                     <p>Use: "I'm a..."</p>
-                    <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
+                    
+        <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
                 </div>
 
                 <div class="card">
                     <div class="card-emoji">👨‍💼</div>
                     <strong>Businessman</strong>
                     <p>Use: "I work as..."</p>
-                    <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
+                    
+        <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
                 </div>
 
                 <div class="card">
                     <div class="card-emoji">👨‍💻</div>
                     <strong>Computer Programmer</strong>
                     <p>Use either pattern</p>
-                    <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
+                    
+        <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
                 </div>
 
                 <div class="card">
                     <div class="card-emoji">🎬</div>
                     <strong>Filmmaker</strong>
                     <p>Create your own</p>
-                    <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
+                    
+        <textarea placeholder="Answer" style="width: 100%; min-height: 60px;"></textarea>
                 </div>
             </div>
 
@@ -533,9 +557,10 @@
                 <ol style="margin-left: 20px; margin-top: 10px;">
                     <li>4 jobs from today's lesson</li>
                     <li>The pattern for saying your job (with an example)</li>
-                    <li>A complete 3-part introduction (greeting + name + job)</li>
+                    <li>A speak about 3-part introduction (greeting + name + job)</li>
                 </ol>
-                <textarea id="finalRecall" placeholder="Write from memory..."></textarea>
+                
+        <textarea id="finalRecall" placeholder="Speak about from memory... Then ask yourself: Why does this work?"></textarea>
                 <button onclick="revealAnswer()">I'm Ready to Check</button>
             </div>
 
@@ -544,16 +569,16 @@
                     <h3>✅ Model Answer</h3>
                     <p><strong>1. 4 Jobs:</strong> Teacher, Doctor, Software Developer, Designer, Lawyer, Chef, etc.</p>
                     <p><strong>2. Pattern:</strong> "I'm a [job]" or "I work as a [job]" — Example: "I'm a teacher"</p>
-                    <p><strong>3. Full intro:</strong> "Hello! I'm Maria. I'm from Spain. I'm a designer." (Any complete combo is correct)</p>
+                    <p><strong>3. Full intro:</strong> "Hello! I'm Maria. I'm from Spain. I'm a designer." (Any speak about combo is correct)</p>
                 </div>
 
                 <div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 5px;">
-                    <strong>💭 Metacognitive Reflection:</strong> Which part felt most natural — talking about jobs, or the previous greetings and locations? Why?
+                    <strong>💭 Think About Your Learning:</strong> Which part felt most natural — talking about jobs, or the previous greetings and locations? Why?
                 </div>
             </div>
 
             <div class="i-can">
-                ✅ <strong>I can tell people what job I do using the present simple pattern.</strong>
+                ✅ <strong>I can tell people what job I do.</strong>
             </div>
 
             <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 20px 0; border-radius: 5px;">
@@ -604,7 +629,7 @@
             const result = document.getElementById('convResult');
 
             if (resp1.length > 3 && resp2.length > 3 && resp3.length > 3) {
-                result.innerHTML = '<div class="reveal"><strong>✅ Perfect!</strong> You just completed a FULL first conversation. That\'s 3 lessons integrated into real communication!</div>';
+                result.innerHTML = '<div class="reveal"><strong>✅ This works because you used the correct structure.</strong> You just completed a FULL first conversation. That\'s 3 lessons integrated into real communication!</div>';
             } else {
                 result.innerHTML = '<div style="background: #ffe8e8; border-left: 4px solid #ff6b6b; padding: 15px; border-radius: 5px;">All three responses need content. Remember: greeting + name (L1), location (L2), job (L3).</div>';
             }

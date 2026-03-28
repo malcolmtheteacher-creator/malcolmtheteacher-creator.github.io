@@ -37,7 +37,9 @@
         .metacognition-box { background: #f8f9fa; border: 2px solid #667eea; padding: 15px; border-radius: 8px; }
         .metacognition-box h4 { color: #667eea; margin-bottom: 10px; }
         @media (max-width: 768px) { .header h1 { font-size: 1.6em; } .tab-button { padding: 12px 15px; font-size: 0.85em; } }
-    </style>
+    
+.tab-btn { display: none; }
+.tab-btn.active { display: block; }</style>
 </head>
 <body>
     <div class="container">
@@ -48,6 +50,11 @@
         
         <div class="learning-intention">
             <strong>Learning Intention:</strong> Today we're learning health vocabulary and body language so you can describe how you feel and communicate medical needs in English.
+        <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4 style="color: #856404; margin-top: 0;">🗣️ How to Say It</h4>
+                <p><strong>Sick</strong> = SIK (one syllable, short I)</p><p><strong>Well</strong> = WEL (one syllable, rhymes with "bell")</p><p><strong>Body</strong> = BOD-ee (two syllables, stress first one)</p><p><strong>Head</strong> = HED (one syllable, short E)</p><p><strong>Hurt</strong> = HURT (one syllable, rhymes with "shirt")</p>
+            </div>
+
         </div>
         
         <div class="tabs">
@@ -65,8 +72,9 @@
             <div class="content-section">
                 <div class="section-title">🧠 What do you already know?</div>
                 <div class="retrieval-task">
-                    <p>Write down body parts and health words you already know in English (head, arm, headache, etc.)</p>
-                    <textarea placeholder="List them..."></textarea>
+                    <p>Say out loud body parts and health words you already know in English (head, arm, headache, etc.)</p>
+                    
+        <textarea placeholder="List them..."></textarea>
                 </div>
             </div>
             
@@ -117,12 +125,14 @@
             <div class="content-section">
                 <div class="section-title">✍️ YOUR TURN: Match symptoms</div>
                 <div class="discussion-card">
-                    <p><strong>1. Your head is painful:</strong> "I have a _____ (fever / headache)"</p>
-                    <textarea placeholder="Fill in..."></textarea>
+                    <p><strong>1. Your head is painful:</strong> "I have a <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (fever / headache)"</p>
+                    
+        <textarea placeholder="Fill in..."></textarea>
                 </div>
                 <div class="discussion-card">
-                    <p><strong>2. Your stomach is uncomfortable:</strong> "I have a _____ (stomachache / cough)"</p>
-                    <textarea placeholder="Fill in..."></textarea>
+                    <p><strong>2. Your stomach is uncomfortable:</strong> "I have a <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> (stomachache / cough)"</p>
+                    
+        <textarea placeholder="Fill in..."></textarea>
                 </div>
             </div>
         </div>
@@ -149,8 +159,9 @@
             <div class="content-section">
                 <div class="section-title">✍️ YOUR TURN: Doctor conversation starter</div>
                 <div class="discussion-card">
-                    <p><strong>Write what you would say to a doctor:</strong> "Doctor, I _____ and _____ . This started _____ ."</p>
-                    <textarea placeholder="Complete the sentences..."></textarea>
+                    <p><strong>Speak about what you would say to a doctor:</strong> "Doctor, I <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> and <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> . This started <input type="text" style="width: 120px; padding: 4px 8px; font-size: 1em; border: 2px solid #667eea; border-radius: 6px; color: #764ba2; font-weight: 600; text-align: center;" placeholder="..."> ."</p>
+                    
+        <textarea placeholder="Complete the spoken responses..."></textarea>
                 </div>
             </div>
         </div>
@@ -159,24 +170,27 @@
         <div id="tab4" class="tab-content">
             <div class="content-section">
                 <div class="section-title">🗣️ Your Turn: Health Conversations</div>
-                <p>Choose 2-3. Speak or write naturally — no scaffolding.</p>
+                <p>Choose 2-3. Speak or say naturally — no scaffolding.</p>
                 
                 <div class="discussion-card">
                     <h4>Scenario 1: You're at the doctor</h4>
                     <p>Doctor asks: "What's the problem?" Describe what hurts and how long it's been happening.</p>
-                    <textarea placeholder="What would you say?..."></textarea>
+                    
+        <textarea placeholder="What would you say?..."></textarea>
                 </div>
                 
                 <div class="discussion-card">
                     <h4>Scenario 2: A friend asks how you're feeling</h4>
                     <p>You've had a cold for 2 days. Describe your symptoms.</p>
-                    <textarea placeholder="What would you say?..."></textarea>
+                    
+        <textarea placeholder="What would you say?..."></textarea>
                 </div>
                 
                 <div class="discussion-card">
                     <h4>Scenario 3: At a pharmacy</h4>
                     <p>You ask the pharmacist for medicine for a headache. Explain your symptoms.</p>
-                    <textarea placeholder="What would you say?..."></textarea>
+                    
+        <textarea placeholder="What would you say?..."></textarea>
                 </div>
             </div>
         </div>
@@ -196,8 +210,9 @@
                 
                 <div class="discussion-card">
                     <h4>Challenge: Write a full doctor conversation</h4>
-                    <p>You're sick with 2 symptoms. You visit a doctor. Write the complete conversation.</p>
-                    <textarea placeholder="Write the full conversation..."></textarea>
+                    <p>You're sick with 2 symptoms. You visit a doctor. Speak about the speak about conversation.</p>
+                    
+        <textarea placeholder="Speak about the full conversation..."></textarea>
                 </div>
             </div>
         </div>
@@ -211,7 +226,8 @@
                     <h3>From Lesson 16: Can You Help?</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> What modal verb means "to be able to"?</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             Answer: "Can" — Example: "Can you help?" / "I can run"
                         </div>
@@ -222,7 +238,8 @@
                     <h3>From Lesson 31: At the Restaurant</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> How do you ask politely about ingredients or concerns?</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             Answer: "Does this have...?" / "Can you tell me...?" / "I'm allergic to..."
                         </div>
@@ -233,9 +250,10 @@
                     <h3>From Lesson 34: Questions</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> Form a WH-question about when something started: "When ... your pain start?"</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
-                            Answer: "When did your pain start?" (past simple question)
+                            Answer: "When did your pain start?" (past question)
                         </div>
                     </div>
                 </div>
@@ -244,7 +262,8 @@
                     <h3>From Lesson 35: Review</h3>
                     <div class="recall-item">
                         <p><strong>Question:</strong> What's the first conditional? Give an example about health: "If I'm sick, ..."</p>
-                        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
+                        
+        <button class="reveal-button" onclick="toggleReveal(event)">Reveal</button>
                         <div class="hidden-content">
                             Answer: "If I'm sick, I will go to the doctor" (If + present, will + verb)
                         </div>
@@ -260,17 +279,20 @@
                 
                 <div class="retrieval-task">
                     <p><strong>1. List 10 body parts from memory:</strong></p>
-                    <textarea placeholder="Write them..."></textarea>
+                    
+        <textarea placeholder="Speak about them..."></textarea>
                 </div>
                 
                 <div class="retrieval-task">
-                    <p><strong>2. Write 3 ways to describe being sick:</strong></p>
-                    <textarea placeholder="Write them..."></textarea>
+                    <p><strong>2. Speak about 3 ways to describe being sick:</strong></p>
+                    
+        <textarea placeholder="Speak about them..."></textarea>
                 </div>
                 
                 <div class="retrieval-task">
                     <p><strong>3. What was the most useful part of this lesson for you?</strong></p>
-                    <textarea placeholder="Your reflection..."></textarea>
+                    
+        <textarea placeholder="Your reflection..."></textarea>
                 </div>
             </div>
             
@@ -281,7 +303,8 @@
             <div class="metacognition-box">
                 <h4>🧠 Metacognition: Learning Support</h4>
                 <p>Which activity helped most? Body part learning? The scenarios? Something else?</p>
-                <textarea placeholder="Your reflection..."></textarea>
+                
+        <textarea placeholder="Your reflection..."></textarea>
             </div>
         </div>
     </div>
