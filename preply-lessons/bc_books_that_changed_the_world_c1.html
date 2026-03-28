@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books that Changed the World – C1 ESL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0;
+        }
+
+        .tab-button {
+            padding: 1rem 1.5rem;
+            background: white;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            color: #764ba2;
+            background-color: #f8f9fa;
+        }
+
+        .tab-button.active {
+            border-bottom-color: #667eea;
+            color: #764ba2;
+            background-color: #f8f9fa;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-block {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+
+        h2 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            color: #667eea;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .vocab-card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .vocab-card:hover {
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .vocab-card span {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .vocab-card .front {
+            color: #667eea;
+        }
+
+        .vocab-card .back {
+            color: #764ba2;
+            font-style: italic;
+        }
+
+        .answer-btn {
+            background-color: #667eea;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .answer-btn:hover {
+            background-color: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .answer-text {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+            display: none;
+            color: #333;
+        }
+
+        .answer-text.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .question {
+            background: #f0f4ff;
+            padding: 1.2rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .question p {
+            margin-bottom: 0;
+            font-size: 1.05rem;
+            color: #333;
+        }
+
+        .grammar-example {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            border-left: 4px solid #28a745;
+            font-family: "Courier New", monospace;
+        }
+
+        .book-nomination {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .criteria-list {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+        }
+
+        .criteria-list ul {
+            list-style: none;
+            padding-left: 1.5rem;
+        }
+
+        .criteria-list li {
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .criteria-list li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            position: absolute;
+            left: -1.5rem;
+        }
+
+        .discussion-prompt {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #764ba2;
+        }
+
+        .discussion-prompt strong {
+            color: #764ba2;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #667eea;
+            border-radius: 6px;
+            font-family: "Segoe UI", sans-serif;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                width: 100%;
+                border-bottom: 2px solid #667eea;
+                border-right: none;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        .example-box {
+            background: #e8f4f8;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            border-left: 4px solid #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Books that Changed the World</h1>
+        <p>Exploring literature's impact on humanity – C1 Level</p>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab(event, 'warm-up')">Warm-Up</button>
+            <button class="tab-button" onclick="switchTab(event, 'vocabulary')">Vocabulary</button>
+            <button class="tab-button" onclick="switchTab(event, 'grammar')">Grammar</button>
+            <button class="tab-button" onclick="switchTab(event, 'your-turn')">Your Turn</button>
+            <button class="tab-button" onclick="switchTab(event, 'discussion')">Discussion</button>
+        </div>
+
+        <!-- WARM-UP TAB -->
+        <div id="warm-up" class="tab-content active">
+            <div class="content-block">
+                <h2>What Kind of Reader Are You?</h2>
+                <p>Think about your relationship with books. Which of these describe you?</p>
+            </div>
+
+            <div class="question">
+                <p><strong>A book you couldn't put down:</strong> Which book has completely captured your attention? What made it so compelling?</p>
+            </div>
+
+            <div class="question">
+                <p><strong>A book you started but couldn't finish:</strong> What made you abandon it? Was it the subject, the style, or something else?</p>
+            </div>
+
+            <div class="question">
+                <p><strong>A book you read after seeing the film:</strong> Did the book live up to the film? Which version told the story better?</p>
+            </div>
+
+            <div class="question">
+                <p><strong>A book that would make a good film:</strong> What book have you read that you think deserves the big screen treatment?</p>
+            </div>
+
+            <div class="question">
+                <p><strong>A book you bought but never opened:</strong> Why do you think you never got around to reading it? Is it still on your shelf?</p>
+            </div>
+
+            <div class="question">
+                <p><strong>A book you were forced to read at school and hated:</strong> Looking back, do you see it differently now? Or do you still feel the same way?</p>
+            </div>
+
+            <div class="question">
+                <p><strong>A book people are talking about now:</strong> What's the buzz? Is it something you plan to read, or are you skeptical?</p>
+            </div>
+
+            <div class="question">
+                <p><strong>A book you feel you ought to have read but haven't:</strong> What's holding you back? Fear of the length? The complexity? The hype?</p>
+            </div>
+        </div>
+
+        <!-- VOCABULARY TAB -->
+        <div id="vocabulary" class="tab-content">
+            <div class="content-block">
+                <h2>Key Expressions: Books and Change</h2>
+                <p>Click each word or phrase to reveal its meaning and usage.</p>
+            </div>
+
+            <div class="vocab-card" onclick="toggleVocab(this)">
+                <span class="front">play a central role</span>
+                <span class="back" style="display:none;">To be the most important or essential element in something; to be crucial</span>
+            </div>
+
+            <div class="vocab-card" onclick="toggleVocab(this)">
+                <span class="front">shape our world</span>
+                <span class="back" style="display:none;">To influence and form the way the world develops; to mold or influence the future</span>
+            </div>
+
+            <div class="vocab-card" onclick="toggleVocab(this)">
+                <span class="front">spur (advances)</span>
+                <span class="back" style="display:none;">To encourage or stimulate progress; to drive something forward; to motivate</span>
+            </div>
+
+            <div class="vocab-card" onclick="toggleVocab(this)">
+                <span class="front">enhance our understanding</span>
+                <span class="back" style="display:none;">To improve or deepen knowledge; to make something better or more complete</span>
+            </div>
+
+            <div class="vocab-card" onclick="toggleVocab(this)">
+                <span class="front">spark (rebellions)</span>
+                <span class="back" style="display:none;">To trigger or initiate an event; to ignite passion or action in people</span>
+            </div>
+
+            <div class="vocab-card" onclick="toggleVocab(this)">
+                <span class="front">seminal</span>
+                <span class="back" style="display:none;">(adjective) Important, influential, or originative; containing the seeds of future development</span>
+            </div>
+
+            <div class="vocab-card" onclick="toggleVocab(this)">
+                <span class="front">legacy</span>
+                <span class="back" style="display:none;">Something handed down from the past; a long-lasting impact or influence that continues after something is gone</span>
+            </div>
+
+            <div class="vocab-card" onclick="toggleVocab(this)">
+                <span class="front">beyond recognition</span>
+                <span class="back" style="display:none;">So changed or altered that something is no longer recognizable; drastically different</span>
+            </div>
+        </div>
+
+        <!-- GRAMMAR TAB -->
+        <div id="grammar" class="tab-content">
+            <div class="content-block">
+                <h2>Unreal Conditionals: "If it weren't for..." / "If it had not been for..."</h2>
+            </div>
+
+            <div class="content-block">
+                <h3>Understanding the Pattern</h3>
+                <p>We use unreal conditionals to talk about imaginary situations and their consequences. When discussing books and their impact, we often wonder: <em>"What if this book had never been written?"</em></p>
+
+                <div class="example-box">
+                    <p><strong>Pattern 1 (Present):</strong> If it weren't for [noun], [result]</p>
+                    <p><em>Example:</em> "If it weren't for the existence of books, our everyday lives would be changed beyond recognition."</p>
+                    <p style="margin-bottom: 0; margin-top: 0.5rem;"><em>Meaning:</em> Books exist, and they have changed our lives.</p>
+                </div>
+
+                <div class="example-box">
+                    <p><strong>Pattern 2 (Past):</strong> If it had not been for [noun], [result]</p>
+                    <p><em>Example:</em> "If it had not been for the seminal works of Shakespeare, Cervantes, or Tolstoy, world literature would be vastly different."</p>
+                    <p style="margin-bottom: 0; margin-top: 0.5rem;"><em>Meaning:</em> These works were written, and they shaped world literature.</p>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>Key Transformations</h3>
+
+                <div class="grammar-example">
+                    "If it weren't for the existence of books" = "If books didn't exist..."
+                </div>
+
+                <div class="grammar-example">
+                    "If it had not been for the printing press" = "If the printing press hadn't been invented..."
+                </div>
+
+                <div class="grammar-example">
+                    "If it hadn't been for Martin Luther King..." = "If Martin Luther King hadn't written/spoken..."
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>Complete the Sentences</h3>
+
+                <p style="margin-bottom: 1.5rem; font-weight: 600;">Finish these conditional sentences using "If it hadn't been for..." or "If it weren't for..."</p>
+
+                <div>
+                    <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">1. Martin Luther King's civil rights movement</div>
+                    <div class="answer-text">If it hadn't been for Martin Luther King's writings and speeches, the Civil Rights Movement might not have achieved the same level of social change. <span class="success">(Example: The world's understanding of racial equality would be drastically different.)</span></div>
+                </div>
+
+                <div>
+                    <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">2. The discovery of penicillin (documented in scientific literature)</div>
+                    <div class="answer-text">If it hadn't been for the published research on penicillin, modern medicine would not have developed as rapidly. <span class="success">(Modern healthcare as we know it wouldn't exist.)</span></div>
+                </div>
+
+                <div>
+                    <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">3. The town of Guernica (referring to Picasso's famous painting and the event it depicted)</div>
+                    <div class="answer-text">The town of Guernica wouldn't be so well-known if Pablo Picasso hadn't immortalized the bombing in his famous artwork and the subsequent documentation of the event. <span class="success">(Few people outside Spain might know about this historical moment.)</span></div>
+                </div>
+
+                <div>
+                    <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show')">4. The printing press</div>
+                    <div class="answer-text">If it hadn't been for the printing press, books would still be hand-copied, and literacy rates would remain extremely low. <span class="success">(Knowledge wouldn't be widely distributed, and the Renaissance might not have happened.)</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- YOUR TURN TAB -->
+        <div id="your-turn" class="tab-content">
+            <div class="content-block">
+                <h2>Nominate a Book That Changed the World</h2>
+                <p>Choose a real or imaginary book that you believe deserves to be in a series titled <em>"Books that Changed the World."</em> Use the criteria below to justify your nomination.</p>
+            </div>
+
+            <div class="criteria-list">
+                <h3 style="margin-top: 0; color: #764ba2;">Evaluation Criteria</h3>
+                <ul>
+                    <li><strong>Legacy:</strong> What lasting impact has this book had? Does it continue to influence readers today?</li>
+                    <li><strong>Relevance:</strong> Is it still relevant to contemporary issues and discussions?</li>
+                    <li><strong>Readership:</strong> How widely has it been read? Who are its readers?</li>
+                    <li><strong>Influence:</strong> Did it spark movements, change minds, or alter the course of history?</li>
+                </ul>
+            </div>
+
+            <div class="book-nomination">
+                <h3 style="margin-top: 0; color: #667eea;">Your Nomination</h3>
+
+                <p><strong>Book Title:</strong></p>
+                <input type="text" placeholder="What book would you nominate?" style="padding: 0.8rem; border: 2px solid #667eea; border-radius: 6px; width: 100%; margin-bottom: 1.5rem;">
+
+                <p><strong>Author:</strong></p>
+                <input type="text" placeholder="Who wrote it?" style="padding: 0.8rem; border: 2px solid #667eea; border-radius: 6px; width: 100%; margin-bottom: 1.5rem;">
+
+                <p><strong>Why should this book be included? Address the criteria:</strong></p>
+                <textarea placeholder="Explain its legacy, relevance, readership, and influence..."></textarea>
+
+                <p style="margin-top: 1.5rem; font-weight: 600;">Use a conditional sentence to explain how the world would be different without this book:</p>
+
+                <p><em>"If it hadn't been for [book/author], then..."</em></p>
+                <textarea placeholder="If it hadn't been for..., then..."></textarea>
+            </div>
+
+            <div class="content-block">
+                <h3>Ranking Task (Optional)</h3>
+                <p>If you've nominated multiple books across different lessons, try ranking the top five <em>"Books that Changed the World."</em> Discuss with your partner or instructor how you would order them and why.</p>
+            </div>
+        </div>
+
+        <!-- DISCUSSION TAB -->
+        <div id="discussion" class="tab-content">
+            <div class="content-block">
+                <h2>Deeper Questions About Literature and Power</h2>
+                <p>These questions invite reflection on the broader role of books and literature in society. Choose one or more to explore:</p>
+            </div>
+
+            <div class="discussion-prompt">
+                <strong>On Censorship and Freedom:</strong> Throughout history, governments and institutions have banned or burned books they perceived as dangerous. What does this tell us about the power of literature? Should there ever be limits on what can be published?
+            </div>
+
+            <div class="discussion-prompt">
+                <strong>On Diverse Voices:</strong> Many "books that changed the world" were written by men in the Western tradition. How might our list change if we prioritized literature from Africa, Asia, South America, or the Middle East? What books are missing from the global conversation?
+            </div>
+
+            <div class="discussion-prompt">
+                <strong>On Unintended Consequences:</strong> Sometimes a book influences the world in ways its author never intended. Can you think of an example where a book's real-world impact was different from what the author hoped for?
+            </div>
+
+            <div class="discussion-prompt">
+                <strong>On Digital Disruption:</strong> We now have access to infinite information online. Does this make traditional books less important? Or do books continue to play a unique role in how we process and understand the world?
+            </div>
+
+            <div class="discussion-prompt">
+                <strong>On Personal vs. Global Impact:</strong> A book might "change the world" for one person but not touch millions. How do we measure a book's true impact? Is personal transformation as significant as historical influence?
+            </div>
+
+            <div class="content-block" style="margin-top: 2rem;">
+                <h3>Your Reflection</h3>
+                <p>Which question resonates most with you? Write a brief response:</p>
+                <textarea placeholder="Share your thoughts..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(event, tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll(".tab-content");
+            contents.forEach(content => content.classList.remove("active"));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll(".tab-button");
+            buttons.forEach(button => button.classList.remove("active"));
+
+            // Show the selected tab content
+            document.getElementById(tabName).classList.add("active");
+
+            // Mark the clicked button as active
+            event.currentTarget.classList.add("active");
+        }
+
+        function toggleVocab(card) {
+            const front = card.querySelector(".front");
+            const back = card.querySelector(".back");
+
+            if (back.style.display === "none") {
+                front.style.display = "none";
+                back.style.display = "inline";
+            } else {
+                front.style.display = "inline";
+                back.style.display = "none";
+            }
+        }
+
+    </script>
+</body>
+</html>
