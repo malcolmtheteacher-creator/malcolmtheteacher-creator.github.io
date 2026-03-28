@@ -99,370 +99,281 @@
             border-left: 5px solid #667eea;
         }
 
-        .content-block h2 {
-            font-size: 1.6em;
-            margin-bottom: 15px;
-            color: #333333;
+        .sentence-item {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 2px solid #e5e7eb;
+            transition: border-color 0.3s ease;
         }
 
-        .content-block h3 {
-            font-size: 1.2em;
-            margin-top: 20px;
-            margin-bottom: 12px;
-            color: #444444;
-        }
-
-        .practice-example {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            border-left: 4px solid #667eea;
-        }
-
-        .practice-example.correct {
-            border-left-color: #16a34a;
-        }
-
-        .practice-label {
-            font-size: 0.9em;
-            font-weight: 600;
-            color: #667eea;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .practice-label.correct {
-            color: #16a34a;
+        .sentence-item.answered {
+            border-color: #667eea;
+            background: #f8f9fa;
         }
 
         .sentence-text {
             font-size: 1.1em;
-            font-style: italic;
-            margin: 12px 0;
-            color: #333333;
-            line-height: 1.7;
-            padding: 12px 0;
-        }
-
-        .sentence-card {
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
             border-left: 4px solid #dc2626;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-number {
-            font-size: 0.85em;
-            font-weight: 700;
-            color: #667eea;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .card-sentence {
-            font-size: 1.1em;
-            line-height: 1.7;
-            margin: 15px 0;
-            color: #333333;
             font-style: italic;
         }
 
-        .card-prompt {
+        .question-prompt {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 15px;
             font-size: 0.95em;
-            color: #666666;
-            font-weight: 500;
-            margin: 15px 0 10px 0;
         }
 
-        .card-actions {
+        .options-group {
             display: flex;
+            flex-direction: column;
             gap: 10px;
-            margin-top: 15px;
-            flex-wrap: wrap;
+            margin-bottom: 15px;
         }
 
-        .reveal-button {
-            padding: 10px 20px;
-            background: #dc2626;
-            color: white;
-            border: none;
+        .option-button {
+            padding: 12px 15px;
+            background: white;
+            border: 2px solid #e5e7eb;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 0.95em;
-            font-weight: 600;
+            text-align: left;
             transition: all 0.3s ease;
+            font-size: 0.95em;
         }
 
-        .reveal-button:hover {
-            background: #b91c1c;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+        .option-button:hover {
+            border-color: #667eea;
+            background: #f8f9fa;
         }
 
-        .reveal-button:active {
-            transform: translateY(0);
+        .option-button.selected {
+            border-color: #667eea;
+            background: #ede9fe;
         }
 
-        .reveal-content {
-            display: none;
-            margin-top: 20px;
-            padding: 20px;
+        .option-button.correct {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+
+        .option-button.incorrect {
+            border-color: #dc2626;
             background: #fef2f2;
-            border-radius: 6px;
-            border-left: 4px solid #dc2626;
-            animation: slideDown 0.3s ease;
         }
 
-        .reveal-content.active {
+        .option-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .feedback-message {
+            display: none;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .feedback-message.show {
             display: block;
         }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .feedback-correct {
+            background: #dcfce7;
+            border-left: 4px solid #22c55e;
+            color: #166534;
         }
 
-        .correction-title {
-            font-weight: 700;
-            color: #dc2626;
+        .feedback-incorrect {
+            background: #fee2e2;
+            border-left: 4px solid #dc2626;
+            color: #991b1b;
+        }
+
+        .explanation {
+            display: none;
+            padding: 15px;
+            background: #f3f4f6;
+            border-radius: 6px;
+            margin-top: 15px;
             font-size: 0.95em;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .correction-text {
-            font-size: 1.05em;
-            margin: 10px 0;
-            color: #333333;
-            font-style: italic;
-        }
-
-        .rule-title {
-            font-weight: 700;
-            color: #667eea;
-            margin-top: 12px;
-            margin-bottom: 8px;
-            font-size: 0.95em;
-            text-transform: uppercase;
-        }
-
-        .rule-text {
-            font-size: 1em;
             line-height: 1.7;
-            color: #444444;
-            background: #f0f4ff;
-            padding: 12px;
-            border-radius: 4px;
         }
 
-        .category-badge {
-            display: inline-block;
+        .explanation.show {
+            display: block;
+        }
+
+        .explanation-title {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .btn-primary {
             background: #667eea;
             color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: 600;
-            margin-top: 12px;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #5568d3;
+        }
+
+        .btn-primary:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #333333;
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        .practice-intro {
+            background: #ede9fe;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .practice-intro h3 {
+            color: #667eea;
+            margin-bottom: 10px;
         }
 
         .results-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
         .result-card {
-            background: #f0f4ff;
-            padding: 20px;
+            background: white;
+            border: 2px solid #e5e7eb;
             border-radius: 8px;
+            padding: 20px;
             text-align: center;
-            border: 2px solid #667eea;
         }
 
-        .result-card h3 {
-            font-size: 1.1em;
-            margin-bottom: 10px;
-            color: #667eea;
+        .result-card.strong {
+            border-color: #22c55e;
+            background: #f0fdf4;
         }
 
-        .result-count {
-            font-size: 1.8em;
+        .result-card.developing {
+            border-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+        .result-card.needs-work {
+            border-color: #dc2626;
+            background: #fef2f2;
+        }
+
+        .result-percentage {
+            font-size: 2.5em;
             font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .result-percentage.strong {
+            color: #22c55e;
+        }
+
+        .result-percentage.developing {
+            color: #f59e0b;
+        }
+
+        .result-percentage.needs-work {
             color: #dc2626;
-            margin: 10px 0;
+        }
+
+        .result-category {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333333;
+        }
+
+        .result-feedback {
+            font-size: 0.9em;
+            color: #666666;
+            margin-bottom: 15px;
         }
 
         .lesson-link {
-            margin-top: 12px;
-        }
-
-        .lesson-link a {
             display: inline-block;
-            padding: 8px 16px;
-            background: #667eea;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 0.9em;
+            font-weight: 500;
             transition: all 0.3s ease;
         }
 
-        .lesson-link a:hover {
-            background: #764ba2;
+        .lesson-link:hover {
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
         }
 
-        .intro-text {
-            font-size: 1.05em;
-            line-height: 1.7;
-            color: #444444;
-            margin-bottom: 20px;
-        }
-
-        .style-guide-section {
-            background: #ffffff;
+        .summary-text {
+            background: #f3f4f6;
             padding: 20px;
-            margin-bottom: 20px;
             border-radius: 6px;
-            border-left: 4px solid #667eea;
-        }
-
-        .style-guide-section h3 {
-            color: #667eea;
-            margin-bottom: 12px;
-            font-size: 1.1em;
-        }
-
-        .guide-items {
-            display: grid;
-            gap: 15px;
-        }
-
-        .guide-item {
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 4px;
-            border-left: 3px solid #dc2626;
-        }
-
-        .guide-item-title {
-            font-weight: 700;
-            color: #333333;
-            margin-bottom: 8px;
-        }
-
-        .guide-item-text {
+            margin-bottom: 30px;
             font-size: 0.95em;
-            color: #555555;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        .guide-example {
-            margin-top: 10px;
-            padding: 10px;
-            background: #ffffff;
-            border-radius: 3px;
-            font-size: 0.9em;
-            font-style: italic;
-            color: #666666;
+        .no-selection-warning {
+            display: none;
+            color: #dc2626;
+            font-size: 0.85em;
+            margin-top: 5px;
         }
 
-        .score-tracker {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .score-tracker h3 {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            color: white;
-        }
-
-        .score-display {
-            font-size: 2.2em;
-            font-weight: 700;
-            color: #fbbf24;
-            margin: 10px 0;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-            margin-top: 15px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #fbbf24;
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-
-        textarea {
-            width: 100%;
-            min-height: 80px;
-            padding: 12px;
-            border: 2px solid #e5e7eb;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 1em;
-            resize: vertical;
-            margin: 10px 0;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .hint-text {
-            font-size: 0.9em;
-            color: #666666;
-            font-style: italic;
-            margin-top: 8px;
-        }
-
-        .no-edit-label {
-            background: #16a34a;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 4px;
-            display: inline-block;
-            font-size: 0.8em;
-            font-weight: 600;
-            margin-top: 10px;
+        .show-warning {
+            display: block;
         }
 
         @media (max-width: 768px) {
-            header {
-                padding: 30px 15px;
-            }
-
             header h1 {
                 font-size: 1.8em;
             }
 
             .tab-navigation {
-                gap: 8px;
+                gap: 5px;
             }
 
             .tab-button {
@@ -470,51 +381,12 @@
                 font-size: 0.9em;
             }
 
-            .content-block {
-                padding: 18px;
-            }
-
-            .sentence-card {
-                padding: 18px;
-            }
-
             .results-grid {
                 grid-template-columns: 1fr;
             }
 
-            .card-actions {
-                flex-direction: column;
-            }
-
-            .reveal-button {
-                width: 100%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
+            .sentence-item {
                 padding: 15px;
-            }
-
-            header {
-                padding: 25px 15px;
-            }
-
-            header h1 {
-                font-size: 1.5em;
-            }
-
-            header p {
-                font-size: 0.95em;
-            }
-
-            .sentence-card {
-                padding: 15px;
-                border-left-width: 3px;
-            }
-
-            .sentence-text {
-                font-size: 1em;
             }
         }
     </style>
@@ -522,13 +394,13 @@
 <body>
     <div class="container">
         <header>
-            <h1>The Academic Editor</h1>
-            <p>A C2 Grammar Diagnostic</p>
+            <h1>C2 Grammar Diagnostic</h1>
+            <p>The Academic Editor — Identify and correct errors in formal academic writing</p>
         </header>
 
         <div class="tab-navigation">
             <button class="tab-button active" data-tab="getting-started">Getting Started</button>
-            <button class="tab-button" data-tab="editors-desk">The Editor's Desk</button>
+            <button class="tab-button" data-tab="the-editor">The Editor's Desk</button>
             <button class="tab-button" data-tab="style-guide">Style Guide</button>
             <button class="tab-button" data-tab="results">Your Results</button>
         </div>
@@ -536,738 +408,665 @@
         <!-- TAB 1: GETTING STARTED -->
         <div id="getting-started" class="tab-content active">
             <div class="content-block">
-                <h2>Your Role: Academic Editor</h2>
-                <p class="intro-text">
-                    You are reviewing manuscripts submitted to an academic journal. Each submission contains one subtle grammatical or stylistic flaw. Your task is to identify the issue and suggest a correction.
-                </p>
-                <p class="intro-text">
-                    At C2 level, these are not obvious errors. They involve subjunctive mood in formal contexts, precision with modals, agreement with Latin plurals, register awareness, and fine-grained control of English structure. This is the precision that distinguishes a master of English.
-                </p>
-            </div>
-
-            <div class="content-block">
-                <h3>Practice Example 1: Get the Hang of It</h3>
-                <div class="practice-example">
-                    <div class="practice-label">Practice Sentence</div>
-                    <div class="sentence-text">
-                        "The data suggests that there is a strong correlation between the two variables."
-                    </div>
-                    <p class="hint-text">What needs editing?</p>
-                    <button class="reveal-button" onclick="togglePracticeReveal(this, \"practice1\")">Check the Guide</button>
-                    <div class="reveal-content" id="practice1">
-                        <div class="correction-title">Correction</div>
-                        <div class="correction-text">
-                            "The data <strong>suggest</strong> that there is a strong correlation between the two variables."
-                        </div>
-                        <div class="rule-title">The Rule</div>
-                        <div class="rule-text">
-                            <strong>Data</strong> is formally <strong>plural</strong> (the singular is <em>datum</em>, from Latin). In academic English, treat <em>data</em> as plural: "the data suggest," "the data show," "the data indicate." This is the formal register expected in scholarly writing.
-                        </div>
-                        <div class="category-badge">Nouns & Number</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content-block">
-                <h3>Practice Example 2: No Edit Needed</h3>
-                <div class="practice-example correct">
-                    <div class="practice-label correct">Practice Sentence</div>
-                    <div class="sentence-text">
-                        "One cannot help but wonder whether the entire premise is flawed."
-                    </div>
-                    <p class="hint-text">Is there an error here?</p>
-                    <button class="reveal-button" onclick="togglePracticeReveal(this, \"practice2\")">Check the Guide</button>
-                    <div class="reveal-content" id="practice2">
-                        <div class="correction-title" style="color: #16a34a;">No Edit Required</div>
-                        <div class="correction-text">
-                            This sentence is grammatically correct as written.
-                        </div>
-                        <div class="rule-title">The Rule</div>
-                        <div class="rule-text">
-                            The construction "cannot help but + bare infinitive" is grammatically correct in English. It means "cannot avoid" or "must inevitably." Examples: "You cannot help but admire their courage." It's a valid English pattern, not an error. Not every sentence in the diagnostic needs editing!
-                        </div>
-                        <div class="category-badge">Sentence Structure</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content-block">
-                <h3>How This Works</h3>
-                <p class="intro-text">
-                    Move to <strong>"The Editor's Desk"</strong> tab to begin. You'll see 10 sentences from fictional academic submissions. For each one:
-                </p>
-                <ol style="margin-left: 20px; line-height: 1.8; color: #555555;">
-                    <li>Read the sentence carefully.</li>
-                    <li>Think about what might be wrong (or if nothing is wrong).</li>
-                    <li>Click <strong>"Check the Style Guide"</strong> to reveal the error and the rule.</li>
-                    <li>Read the explanation to deepen your C2 awareness.</li>
+                <h2>How This Works</h2>
+                <p>You are the editor of an academic journal. Your job is to identify and correct grammatical errors in submitted manuscripts.</p>
+                <p style="margin-top: 15px;">For each sentence, you will:</p>
+                <ol style="margin-left: 20px; margin-top: 10px;">
+                    <li>Read the sentence carefully</li>
+                    <li>Choose what you think needs editing (or select "No edit needed")</li>
+                    <li>Receive instant feedback showing whether you were correct</li>
+                    <li>See the full explanation of the rule</li>
                 </ol>
-                <p class="intro-text" style="margin-top: 20px;">
-                    Track your performance as you go. At the end, you'll see which grammar categories need more work, with links to deeper lessons.
-                </p>
+                <p style="margin-top: 15px;">There are no tricks. Your job is to recognise the error and understand why it matters in formal academic English.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>Practice 1: Get the idea</h3>
+                <div class="sentence-item">
+                    <div class="sentence-text">"The data suggests that there is a strong correlation between the two variables."</div>
+                    <div class="question-prompt">What needs editing?</div>
+                    <div class="options-group">
+                        <button class="option-button practice-opt" data-practice="1" data-value="A">
+                            <strong>A:</strong> "suggests" should be "suggest" (data is formally plural)
+                        </button>
+                        <button class="option-button practice-opt" data-practice="1" data-value="B">
+                            <strong>B:</strong> "there is" should be "there exists" (wrong register)
+                        </button>
+                        <button class="option-button practice-opt" data-practice="1" data-value="C">
+                            <strong>C:</strong> No edit needed — this is correct
+                        </button>
+                    </div>
+                    <div class="feedback-message"></div>
+                    <div class="explanation"></div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>Practice 2: Another example</h3>
+                <div class="sentence-item">
+                    <div class="sentence-text">"One cannot help but wonder whether the entire premise is flawed."</div>
+                    <div class="question-prompt">What needs editing?</div>
+                    <div class="options-group">
+                        <button class="option-button practice-opt" data-practice="2" data-value="A">
+                            <strong>A:</strong> "help but wonder" should be "help wondering" (wrong construction)
+                        </button>
+                        <button class="option-button practice-opt" data-practice="2" data-value="B">
+                            <strong>B:</strong> "whether" should be "if" (wrong conjunction)
+                        </button>
+                        <button class="option-button practice-opt" data-practice="2" data-value="C">
+                            <strong>C:</strong> No edit needed — this is correct
+                        </button>
+                    </div>
+                    <div class="feedback-message"></div>
+                    <div class="explanation"></div>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <p style="margin-top: 15px;"><strong>Ready?</strong> Move to "The Editor's Desk" to diagnose your academic grammar.</p>
             </div>
         </div>
 
         <!-- TAB 2: THE EDITOR'S DESK -->
-        <div id="editors-desk" class="tab-content">
-            <div class="score-tracker">
-                <h3>Your Progress</h3>
-                <div class="score-display" id="score-display">0 / 10</div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
-                </div>
+        <div id="the-editor" class="tab-content">
+            <div class="content-block">
+                <h2>The Editor's Desk</h2>
+                <p>You have 10 manuscript sentences to review. For each one, choose what needs editing, then check your answer.</p>
             </div>
 
-            <!-- Sentence 1 -->
-            <div class="sentence-card" data-sentence="1">
-                <div class="card-number">Sentence 1</div>
-                <div class="card-sentence">
-                    "It is imperative that every delegate submits their report by Friday."
-                </div>
-                <div class="card-prompt">What needs editing?</div>
-                <div class="card-actions">
-                    <button class="reveal-button" onclick="toggleReveal(this, 1)">Check the Style Guide</button>
-                </div>
-                <div class="reveal-content" id="reveal-1">
-                    <div class="correction-title">Correction</div>
-                    <div class="correction-text">
-                        "It is imperative that every delegate <strong>submit</strong> their report by Friday."
-                    </div>
-                    <div class="rule-title">The Rule</div>
-                    <div class="rule-text">
-                        After "it is imperative/essential/vital that...," use the <strong>subjunctive mood</strong> — the base form of the verb without <em>-s</em>, even for third person. The pattern is: "that + subject + base verb." So: "that she submit" (not "submits"), "that he arrive" (not "arrives"). This is mandatory in formal and academic English.
-                    </div>
-                    <div class="category-badge">Subjunctive</div>
-                </div>
-            </div>
+            <div id="sentences-container"></div>
 
-            <!-- Sentence 2 -->
-            <div class="sentence-card" data-sentence="2">
-                <div class="card-number">Sentence 2</div>
-                <div class="card-sentence">
-                    "Had the data been collected more systematically, the conclusions may have been different."
-                </div>
-                <div class="card-prompt">What needs editing?</div>
-                <div class="card-actions">
-                    <button class="reveal-button" onclick="toggleReveal(this, 2)">Check the Style Guide</button>
-                </div>
-                <div class="reveal-content" id="reveal-2">
-                    <div class="correction-title">Correction</div>
-                    <div class="correction-text">
-                        "Had the data been collected more systematically, the conclusions <strong>might have been</strong> different." (or "could have been")
-                    </div>
-                    <div class="rule-title">The Rule</div>
-                    <div class="rule-text">
-                        In the conditional perfect (unreal past), use <strong>"might have"</strong> or <strong>"could have,"</strong> never "may have." The modal "may" cannot be used for hypothetical past events. "May have" is only for present speculation about the past ("She may have left already"). For unreal past conditions, use: "might have," "could have," "would have."
-                    </div>
-                    <div class="category-badge">Modal Verbs</div>
-                </div>
-            </div>
-
-            <!-- Sentence 3 -->
-            <div class="sentence-card" data-sentence="3">
-                <div class="card-number">Sentence 3</div>
-                <div class="card-sentence">
-                    "The committee recommended that the policy is revised before implementation."
-                </div>
-                <div class="card-prompt">What needs editing?</div>
-                <div class="card-actions">
-                    <button class="reveal-button" onclick="toggleReveal(this, 3)">Check the Style Guide</button>
-                </div>
-                <div class="reveal-content" id="reveal-3">
-                    <div class="correction-title">Correction</div>
-                    <div class="correction-text">
-                        "The committee recommended that the policy <strong>be revised</strong> before implementation."
-                    </div>
-                    <div class="rule-title">The Rule</div>
-                    <div class="rule-text">
-                        After verbs of recommendation, suggestion, demand, or insistence (recommend, suggest, insist, demand, propose), use the <strong>subjunctive:</strong> that + subject + base verb. So: "that the policy be revised" (not "is revised"), "that she leave" (not "leaves"). This is a core feature of formal English.
-                    </div>
-                    <div class="category-badge">Subjunctive</div>
-                </div>
-            </div>
-
-            <!-- Sentence 4 -->
-            <div class="sentence-card" data-sentence="4">
-                <div class="card-number">Sentence 4</div>
-                <div class="card-sentence">
-                    "The researchers concluded that the phenomena was consistent with existing theoretical models."
-                </div>
-                <div class="card-prompt">What needs editing?</div>
-                <div class="card-actions">
-                    <button class="reveal-button" onclick="toggleReveal(this, 4)">Check the Style Guide</button>
-                </div>
-                <div class="reveal-content" id="reveal-4">
-                    <div class="correction-title">Correction</div>
-                    <div class="correction-text">
-                        "The researchers concluded that the phenomena <strong>were</strong> consistent with existing theoretical models." (Or: "the phenomenon was consistent...")
-                    </div>
-                    <div class="rule-title">The Rule</div>
-                    <div class="rule-text">
-                        <strong>Phenomena</strong> is <strong>plural</strong> (from Latin). The singular is <em>phenomenon</em>. So: "phenomena are/were," "phenomenon is/was." Other Latin pairs: <em>data/datum</em>, <em>criteria/criterion</em>, <em>media/medium</em>, <em>strata/stratum</em>. In academic English, precision with these forms is essential.
-                    </div>
-                    <div class="category-badge">Nouns & Number</div>
-                </div>
-            </div>
-
-            <!-- Sentence 5 -->
-            <div class="sentence-card" data-sentence="5">
-                <div class="card-number">Sentence 5</div>
-                <div class="card-sentence">
-                    "The authors set out to look into the relationship between socioeconomic status and health outcomes."
-                </div>
-                <div class="card-prompt">What needs editing?</div>
-                <div class="card-actions">
-                    <button class="reveal-button" onclick="toggleReveal(this, 5)">Check the Style Guide</button>
-                </div>
-                <div class="reveal-content" id="reveal-5">
-                    <div class="correction-title">Correction</div>
-                    <div class="correction-text">
-                        "The authors set out to <strong>investigate</strong> the relationship between socioeconomic status and health outcomes." (Or: examine, explore, analyse)
-                    </div>
-                    <div class="rule-title">The Rule</div>
-                    <div class="rule-text">
-                        "Look into" is too informal for academic writing. Academic register demands <strong>single-word Latinate verbs</strong> over multi-word phrasal verbs. Replace with: <em>investigate</em>, <em>examine</em>, <em>explore</em>, <em>analyse</em>. This distinction marks the difference between casual and scholarly English.
-                    </div>
-                    <div class="category-badge">Register & Style</div>
-                </div>
-            </div>
-
-            <!-- Sentence 6 -->
-            <div class="sentence-card" data-sentence="6">
-                <div class="card-number">Sentence 6</div>
-                <div class="card-sentence">
-                    "The overwhelming majority of participants was in favour of the proposed changes."
-                </div>
-                <div class="card-prompt">What needs editing?</div>
-                <div class="card-actions">
-                    <button class="reveal-button" onclick="toggleReveal(this, 6)">Check the Style Guide</button>
-                </div>
-                <div class="reveal-content" id="reveal-6">
-                    <div class="correction-title">Correction</div>
-                    <div class="correction-text">
-                        "The overwhelming majority of participants <strong>were</strong> in favour of the proposed changes."
-                    </div>
-                    <div class="rule-title">The Rule</div>
-                    <div class="rule-text">
-                        With "majority of + plural noun," the verb agrees with the <strong>plural noun</strong> (participants), not with "majority." So: "the majority of participants <strong>were</strong>" (not "was"), "the majority of students <strong>have</strong>" (not "has"). When "of + plural" follows a collective noun, treat the whole phrase as plural.
-                    </div>
-                    <div class="category-badge">Subject-Verb Agreement</div>
-                </div>
-            </div>
-
-            <!-- Sentence 7 -->
-            <div class="sentence-card" data-sentence="7">
-                <div class="card-number">Sentence 7</div>
-                <div class="card-sentence">
-                    "The team developed a new methodology, whereby allowed them to collect data more efficiently."
-                </div>
-                <div class="card-prompt">What needs editing?</div>
-                <div class="card-actions">
-                    <button class="reveal-button" onclick="toggleReveal(this, 7)">Check the Style Guide</button>
-                </div>
-                <div class="reveal-content" id="reveal-7">
-                    <div class="correction-title">Correction</div>
-                    <div class="correction-text">
-                        "The team developed a new methodology <strong>that allowed</strong> them to collect data more efficiently." (Or: "which allowed")
-                    </div>
-                    <div class="rule-title">The Rule</div>
-                    <div class="rule-text">
-                        <strong>"Whereby"</strong> means "by which" and introduces a clause describing a process or arrangement, not a result. Correct: "A system <em>whereby</em> members vote online." Incorrect: "A method <em>whereby</em> allowed..." (the clause lacks a subject). Use <strong>"that"</strong> or <strong>"which"</strong> for the result of an action. <em>Whereby</em> is for mechanism; <em>that/which</em> is for outcome.
-                    </div>
-                    <div class="category-badge">Relative Clauses & Connectors</div>
-                </div>
-            </div>
-
-            <!-- Sentence 8 -->
-            <div class="sentence-card" data-sentence="8">
-                <div class="card-number">Sentence 8</div>
-                <div class="card-sentence">
-                    "In her seminal work, Thompson (2018) argues that globalisation was fundamentally reshaping labour markets."
-                </div>
-                <div class="card-prompt">What needs editing?</div>
-                <div class="card-actions">
-                    <button class="reveal-button" onclick="toggleReveal(this, 8)">Check the Style Guide</button>
-                </div>
-                <div class="reveal-content" id="reveal-8">
-                    <div class="correction-title">Correction</div>
-                    <div class="correction-text">
-                        "In her seminal work, Thompson (2018) argues that globalisation <strong>is</strong> fundamentally reshaping labour markets." (Or: "has fundamentally reshaped")
-                    </div>
-                    <div class="rule-title">The Rule</div>
-                    <div class="rule-text">
-                        When citing a <strong>present-tense reporting verb</strong> ("argues," "claims," "suggests," "shows"), the reported content should match its current truth value. If the claim remains valid today, keep it present. Don't backshift the tense after a present reporting verb—that suggests the claim is no longer true. Use: "argues that... is" or "argues that... has been."
-                    </div>
-                    <div class="category-badge">Tense & Aspect</div>
-                </div>
-            </div>
-
-            <!-- Sentence 9 -->
-            <div class="sentence-card" data-sentence="9">
-                <div class="card-number">Sentence 9</div>
-                <div class="card-sentence">
-                    "The study aimed to identify key risk factors, to assess their relative importance, and developing a predictive model."
-                </div>
-                <div class="card-prompt">What needs editing?</div>
-                <div class="card-actions">
-                    <button class="reveal-button" onclick="toggleReveal(this, 9)">Check the Style Guide</button>
-                </div>
-                <div class="reveal-content" id="reveal-9">
-                    <div class="correction-title">Correction</div>
-                    <div class="correction-text">
-                        "The study aimed to identify key risk factors, to assess their relative importance, and <strong>to develop</strong> a predictive model."
-                    </div>
-                    <div class="rule-title">The Rule</div>
-                    <div class="rule-text">
-                        Items in a formal list <strong>must be parallel</strong> in structure. If the first two items use "to + infinitive," the third must also use "to + infinitive." Switching to <em>-ing</em> (developing) breaks the parallelism. Always maintain parallel form: "to identify..., to assess..., and to develop..." This is a hallmark of polished academic writing.
-                    </div>
-                    <div class="category-badge">Sentence Structure</div>
-                </div>
-            </div>
-
-            <!-- Sentence 10 -->
-            <div class="sentence-card" data-sentence="10">
-                <div class="card-number">Sentence 10</div>
-                <div class="card-sentence">
-                    "The failure of the government to adequately respond has led to widespread criticisation of its policies."
-                </div>
-                <div class="card-prompt">What needs editing?</div>
-                <div class="card-actions">
-                    <button class="reveal-button" onclick="toggleReveal(this, 10)">Check the Style Guide</button>
-                </div>
-                <div class="reveal-content" id="reveal-10">
-                    <div class="correction-title">Correction</div>
-                    <div class="correction-text">
-                        "The failure of the government to adequately respond has led to widespread <strong>criticism</strong> of its policies."
-                    </div>
-                    <div class="rule-title">The Rule</div>
-                    <div class="rule-text">
-                        "Criticisation" is not standard English. The correct nominalisation of "criticise" is <strong>"criticism."</strong> Similarly: <em>analyse</em> → <em>analysis</em> (not "analysation"), <em>emphasise</em> → <em>emphasis</em> (not "emphasisment"). Master the standard nominalisations in English—this is a C2 precision issue.
-                    </div>
-                    <div class="category-badge">Word Formation</div>
-                </div>
+            <div class="content-block" style="text-align: center;">
+                <button class="action-button btn-primary" id="submit-all-btn" style="font-size: 1em; padding: 12px 30px;">View Results</button>
             </div>
         </div>
 
         <!-- TAB 3: STYLE GUIDE -->
         <div id="style-guide" class="tab-content">
             <div class="content-block">
-                <h2>The Style Guide: Detailed Explanations</h2>
-                <p class="intro-text">
-                    This is your deep reference. Each category appears below with the grammar rules that matter at C2 level.
-                </p>
+                <h2>Style Guide: Rules & Corrections</h2>
+                <p>Below are all 10 sentences with their corrections and the rules explained.</p>
             </div>
 
-            <!-- Subjunctive -->
-            <div class="style-guide-section">
-                <h3>Subjunctive Mood</h3>
-                <div class="guide-items">
-                    <div class="guide-item">
-                        <div class="guide-item-title">After Imperative Expressions</div>
-                        <div class="guide-item-text">
-                            Use the subjunctive after "it is imperative / essential / vital / important / necessary that..."
-                        </div>
-                        <div class="guide-example">
-                            ✓ "It is imperative that every delegate <strong>submit</strong> their report."<br>
-                            ✗ "It is imperative that every delegate <strong>submits</strong> their report."
-                        </div>
-                    </div>
-                    <div class="guide-item">
-                        <div class="guide-item-title">After Verbs of Recommendation</div>
-                        <div class="guide-item-text">
-                            Use the subjunctive after "recommend, suggest, propose, demand, insist that..."
-                        </div>
-                        <div class="guide-example">
-                            ✓ "The committee recommended that the policy <strong>be revised</strong>."<br>
-                            ✗ "The committee recommended that the policy <strong>is revised</strong>."
-                        </div>
-                    </div>
-                    <div class="guide-item">
-                        <div class="guide-item-title">The Subjunctive Form</div>
-                        <div class="guide-item-text">
-                            The subjunctive uses the base form of the verb: no <em>-s</em> for third person, no irregular past forms. "That he submit," "that she be," "that they arrive."
-                        </div>
-                        <div class="guide-example">
-                            Base form: go, submit, arrive, be, have<br>
-                            Third person present: "He go" (not "goes")
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal Verbs -->
-            <div class="style-guide-section">
-                <h3>Modal Verbs: Precision</h3>
-                <div class="guide-items">
-                    <div class="guide-item">
-                        <div class="guide-item-title">"May Have" vs. "Might Have"</div>
-                        <div class="guide-item-text">
-                            <strong>"May have"</strong> = present speculation about the past (something possibly happened).<br>
-                            <strong>"Might have"</strong> = conditional perfect (hypothetical past, what could have happened under different conditions).
-                        </div>
-                        <div class="guide-example">
-                            ✓ "She <strong>may have</strong> left already." (speculation)<br>
-                            ✓ "Had we asked, she <strong>might have</strong> come." (unreal condition)<br>
-                            ✗ "Had the data been collected better, the conclusions <strong>may have</strong> been different." (should be "might have")
-                        </div>
-                    </div>
-                    <div class="guide-item">
-                        <div class="guide-item-title">Conditional Perfect: Use "Might," "Could," "Would"</div>
-                        <div class="guide-item-text">
-                            For unreal past scenarios, only "might have," "could have," or "would have" work. Never "may have."
-                        </div>
-                        <div class="guide-example">
-                            ✓ "If I had known, I <strong>would have</strong> told you."<br>
-                            ✓ "We <strong>could have</strong> succeeded if you had helped."<br>
-                            ✗ "We <strong>may have</strong> succeeded if you had helped."
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Nouns & Number -->
-            <div class="style-guide-section">
-                <h3>Nouns & Number: Latin Plurals</h3>
-                <div class="guide-items">
-                    <div class="guide-item">
-                        <div class="guide-item-title">Common Latin Pairs</div>
-                        <div class="guide-item-text">
-                            These come from Latin or Greek and retain their original plurals in formal English. Treat them accordingly.
-                        </div>
-                        <div class="guide-example">
-                            <strong>Data / Datum</strong> — "The data <strong>are</strong> clear." (plural)<br>
-                            <strong>Criteria / Criterion</strong> — "These criteria <strong>are</strong> essential." (plural)<br>
-                            <strong>Phenomena / Phenomenon</strong> — "The phenomena <strong>were</strong> observed." (plural)<br>
-                            <strong>Media / Medium</strong> — "The media <strong>are</strong> reporting." (plural)<br>
-                            <strong>Strata / Stratum</strong> — "The strata <strong>show</strong> variation." (plural)
-                        </div>
-                    </div>
-                    <div class="guide-item">
-                        <div class="guide-item-title">Academic Precision</div>
-                        <div class="guide-item-text">
-                            In academic writing, treating "data" as plural (not as a mass noun) is standard and expected. Same with "criteria," "phenomena," etc.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Register & Style -->
-            <div class="style-guide-section">
-                <h3>Register & Style: Formal Language</h3>
-                <div class="guide-items">
-                    <div class="guide-item">
-                        <div class="guide-item-title">Phrasal Verbs vs. Latinate Verbs</div>
-                        <div class="guide-item-text">
-                            Academic writing favours single-word Latinate verbs over multi-word phrasal verbs. This signals scholarly register.
-                        </div>
-                        <div class="guide-example">
-                            ✗ "The authors <strong>looked into</strong> the relationship..." (informal)<br>
-                            ✓ "The authors <strong>investigated</strong> the relationship..." (formal)<br><br>
-                            ✗ "We need to <strong>work out</strong> the problem..." (informal)<br>
-                            ✓ "We need to <strong>resolve</strong> the problem..." (formal)
-                        </div>
-                    </div>
-                    <div class="guide-item">
-                        <div class="guide-item-title">Common Substitutions</div>
-                        <div class="guide-example">
-                            Look into → <strong>investigate, examine, explore, analyse</strong><br>
-                            Work out → <strong>resolve, determine, establish</strong><br>
-                            Find out → <strong>discover, identify, ascertain</strong><br>
-                            Put across → <strong>convey, express, communicate</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Subject-Verb Agreement -->
-            <div class="style-guide-section">
-                <h3>Subject-Verb Agreement: Collective & Partitive</h3>
-                <div class="guide-items">
-                    <div class="guide-item">
-                        <div class="guide-item-title">"Majority of" + Plural Noun</div>
-                        <div class="guide-item-text">
-                            When "majority of," "some of," "all of," "part of" precede a plural noun, the verb agrees with the plural noun, not the collective.
-                        </div>
-                        <div class="guide-example">
-                            ✓ "The majority of participants <strong>were</strong> in favour." (plural)<br>
-                            ✗ "The majority of participants <strong>was</strong> in favour." (incorrect)<br><br>
-                            ✓ "Some of the students <strong>have</strong> finished." (plural)<br>
-                            ✓ "All of the data <strong>are</strong> accurate." (plural)
-                        </div>
-                    </div>
-                    <div class="guide-item">
-                        <div class="guide-item-title">Collective Nouns Standing Alone</div>
-                        <div class="guide-item-text">
-                            When a collective noun (team, committee, group) stands alone, the verb can be singular or plural depending on whether you treat the group as one unit or as individuals.
-                        </div>
-                        <div class="guide-example">
-                            ✓ "The team <strong>is</strong> ready." (unit)<br>
-                            ✓ "The team <strong>are</strong> divided on this." (individuals)<br>
-                            In formal American English, singular is standard; in British English, plural is common.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Relative Clauses -->
-            <div class="style-guide-section">
-                <h3>Relative Clauses & Connectors: Precision</h3>
-                <div class="guide-items">
-                    <div class="guide-item">
-                        <div class="guide-item-title">Whereby: Process or Mechanism</div>
-                        <div class="guide-item-text">
-                            "Whereby" (= "by which") introduces a relative clause describing a process, system, or arrangement. It does not introduce results or consequences.
-                        </div>
-                        <div class="guide-example">
-                            ✓ "A system <strong>whereby</strong> members vote online." (describes the system)<br>
-                            ✗ "A method <strong>whereby</strong> allowed them..." (incorrect: missing subject, describes result)<br>
-                            ✓ Use "that" or "which" for results: "A method <strong>that</strong> allowed them..." or "...a new methodology <strong>which</strong> allowed them..."
-                        </div>
-                    </div>
-                    <div class="guide-item">
-                        <div class="guide-item-title">That vs. Which</div>
-                        <div class="guide-item-text">
-                            Both can introduce restrictive relative clauses. "Which" is common after commas (non-restrictive); "that" is standard in restrictive clauses (no comma).
-                        </div>
-                        <div class="guide-example">
-                            ✓ "The methodology <strong>that</strong> we used was sound." (restrictive, no comma)<br>
-                            ✓ "The methodology, <strong>which</strong> we used for years, was sound." (non-restrictive, comma)
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tense & Aspect -->
-            <div class="style-guide-section">
-                <h3>Tense & Aspect: Academic Reporting</h3>
-                <div class="guide-items">
-                    <div class="guide-item">
-                        <div class="guide-item-title">Present Reporting Verbs + Tense Backshift</div>
-                        <div class="guide-item-text">
-                            When you cite a claim using a present-tense reporting verb ("argues," "claims," "shows"), keep the reported content in a tense that reflects its current truth value. Don't artificially backshift.
-                        </div>
-                        <div class="guide-example">
-                            ✗ "Thompson (2018) argues that globalisation <strong>was</strong> reshaping markets." (suggests it's not true anymore)<br>
-                            ✓ "Thompson (2018) argues that globalisation <strong>is</strong> reshaping markets." (claim still valid)<br>
-                            ✓ Or: "Thompson (2018) argues that globalisation <strong>has been reshaping</strong> markets." (from past to now)
-                        </div>
-                    </div>
-                    <div class="guide-item">
-                        <div class="guide-item-title">Historical vs. Current Perspective</div>
-                        <div class="guide-item-text">
-                            If citing a claim as historically situated, past tense is acceptable. But if the claim is still considered valid, present is more appropriate with a present reporting verb.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sentence Structure -->
-            <div class="style-guide-section">
-                <h3>Sentence Structure: Parallelism</h3>
-                <div class="guide-items">
-                    <div class="guide-item">
-                        <div class="guide-item-title">Parallel Lists</div>
-                        <div class="guide-item-text">
-                            Items in a list or series must be parallel in grammatical form. If you use "to + infinitive" for the first item, use it for all items in the list.
-                        </div>
-                        <div class="guide-example">
-                            ✗ "The study aimed to identify factors, to assess importance, and <strong>developing</strong> models."<br>
-                            ✓ "The study aimed to identify factors, to assess importance, and <strong>to develop</strong> models."<br><br>
-                            ✗ "We wanted happiness, success, and <strong>to be free</strong>."<br>
-                            ✓ "We wanted happiness, success, and freedom." (all nouns)
-                        </div>
-                    </div>
-                    <div class="guide-item">
-                        <div class="guide-item-title">Parallel Structure with Coordinating Conjunctions</div>
-                        <div class="guide-item-text">
-                            After "and," "or," "but," the structure that follows should match what came before. This is a hallmark of polished, academic prose.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Word Formation -->
-            <div class="style-guide-section">
-                <h3>Word Formation: Nominalisations</h3>
-                <div class="guide-items">
-                    <div class="guide-item">
-                        <div class="guide-item-title">Standard Nominalisations</div>
-                        <div class="guide-item-text">
-                            Know the correct noun form for common verbs. Not all verbs accept <em>-tion</em> or <em>-ism</em> endings equally.
-                        </div>
-                        <div class="guide-example">
-                            ✗ criticisation → ✓ <strong>criticism</strong><br>
-                            ✗ analysation → ✓ <strong>analysis</strong><br>
-                            ✗ emphasisment → ✓ <strong>emphasis</strong><br>
-                            ✓ creation (from "create")<br>
-                            ✓ investigation (from "investigate")<br>
-                            ✓ recommendation (from "recommend")
-                        </div>
-                    </div>
-                    <div class="guide-item">
-                        <div class="guide-item-title">Why This Matters at C2</div>
-                        <div class="guide-item-text">
-                            C2 is about precision and accuracy with the language system. Knowing which nominalisations are standard—not invented forms—is part of that mastery.
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="style-guide-container"></div>
         </div>
 
         <!-- TAB 4: YOUR RESULTS -->
         <div id="results" class="tab-content">
             <div class="content-block">
-                <h2>Your Performance</h2>
-                <p class="intro-text">
-                    Complete the diagnostic in "The Editor's Desk" tab to generate your results. Your performance will appear here, broken down by grammar category, with links to deeper lessons.
-                </p>
+                <h2>Your Results</h2>
+                <p>Complete the diagnostic to see your results by grammar category.</p>
             </div>
-
-            <div id="results-content" style="display: none;">
-                <div class="results-grid" id="results-grid"></div>
-
-                <div class="content-block" style="margin-top: 30px;">
-                    <h3>Next Steps</h3>
-                    <p class="intro-text">
-                        Based on your performance, work through the detailed grammar lessons in the links above. Each lesson dives deeper into the rule, with more examples and practice. C2 is about precision—take the time to understand not just the rule, but why English works this way.
-                    </p>
-                </div>
-            </div>
+            <div id="results-container"></div>
         </div>
     </div>
 
     <script>
-        // Tab navigation
-        const tabButtons = document.querySelectorAll(".tab-button");
-        const tabContents = document.querySelectorAll(".tab-content");
+        // DATA: All 10 sentences with their metadata
+        const sentences = [
+            {
+                id: 1,
+                text: "It is imperative that every delegate submits their report by Friday.",
+                question: "What needs editing?",
+                category: "Subjunctive",
+                categoryAlias: "subjunctive",
+                lessonLink: "grammar_c2_04_subjunctive_formal_conditionals.html",
+                options: {
+                    A: {
+                        text: "submits" should be "submit" (subjunctive after "it is imperative that")",
+                        correct: true
+                    },
+                    B: {
+                        text: "their" should be "his or her" (pronoun agreement)",
+                        correct: false
+                    },
+                    C: {
+                        text: "No edit needed — this is correct",
+                        correct: false
+                    }
+                },
+                explanation: "After certain expressions ('It is imperative that...', 'It is essential that...'), English requires the subjunctive mood, which uses the base form of the verb without the -s ending. 'Submits' is third-person singular present; the subjunctive requires 'submit'. This rule matters in formal academic writing where precision about obligation and requirement is crucial."
+            },
+            {
+                id: 2,
+                text: "Had the data been collected more systematically, the conclusions may have been different.",
+                question: "What needs editing?",
+                category: "Modal Verbs",
+                categoryAlias: "modals",
+                lessonLink: "grammar_c2_03_complex_modality.html",
+                options: {
+                    A: {
+                        text: "may have been" should be "might have been" (cannot use "may" in conditional perfect)",
+                        correct: true
+                    },
+                    B: {
+                        text: "Had the data been" should be "If the data had been" (inversion is incorrect)",
+                        correct: false
+                    },
+                    C: {
+                        text: "No edit needed — this is correct",
+                        correct: false
+                    }
+                },
+                explanation: "In formal conditional structures (especially with inversion), 'may have' is not standard for expressing counterfactual possibility. 'Might have' is required in past hypothetical contexts. The sentence uses correct inversion ('Had the data been...'), which is preferred in formal academic writing over 'If the data had been...'."
+            },
+            {
+                id: 3,
+                text: "The committee recommended that the policy is revised before implementation.",
+                question: "What needs editing?",
+                category: "Subjunctive",
+                categoryAlias: "subjunctive",
+                lessonLink: "grammar_c2_04_subjunctive_formal_conditionals.html",
+                options: {
+                    A: {
+                        text: "is revised" should be "be revised" (subjunctive after "recommend that")",
+                        correct: true
+                    },
+                    B: {
+                        text: "before implementation" should be "before the implementation" (missing article)",
+                        correct: false
+                    },
+                    C: {
+                        text: "No edit needed — this is correct",
+                        correct: false
+                    }
+                },
+                explanation: "After 'recommend that', 'suggest that', 'propose that', and similar verbs, English uses the subjunctive mood. The correct form is 'be revised', not 'is revised'. This applies to all persons: 'the committee recommended that the policy be revised', 'that it be revised', etc. This is a key convention in formal academic and professional writing."
+            },
+            {
+                id: 4,
+                text: "The researchers concluded that the phenomena was consistent with existing theoretical models.",
+                question: "What needs editing?",
+                category: "Nouns & Number",
+                categoryAlias: "number",
+                lessonLink: "grammar_c2_07_academic_precision.html",
+                options: {
+                    A: {
+                        text: "phenomena was" should be "phenomena were" (phenomena is plural; singular is phenomenon)",
+                        correct: true
+                    },
+                    B: {
+                        text: "concluded that" should be "concluded how" (wrong complementiser)",
+                        correct: false
+                    },
+                    C: {
+                        text: "No edit needed — this is correct",
+                        correct: false
+                    }
+                },
+                explanation: "The word 'phenomena' is the plural of the Greek-derived noun 'phenomenon'. It therefore always takes a plural verb: 'the phenomena were', not 'was'. This is a common error because the word sounds singular. In academic writing, precision about number is essential for clarity and credibility."
+            },
+            {
+                id: 5,
+                text: "The authors set out to look into the relationship between socioeconomic status and health outcomes.",
+                question: "What needs editing?",
+                category: "Register & Style",
+                categoryAlias: "register",
+                lessonLink: "grammar_c2_01_register_style_shifting.html",
+                options: {
+                    A: {
+                        text: "look into" should be "investigate" or "examine" (too informal for academic writing)",
+                        correct: true
+                    },
+                    B: {
+                        text: "set out to" should be "aimed to" (phrasal verb in wrong context)",
+                        correct: false
+                    },
+                    C: {
+                        text: "No edit needed — this is correct",
+                        correct: false
+                    }
+                },
+                explanation: "The phrasal verb 'look into' belongs to conversational register, not formal academic writing. Alternatives like 'investigate', 'examine', or 'explore' match the formality level of academic discourse. Register consistency is crucial: all parts of a sentence should match the same level of formality. 'Set out to' is fine in this context; the problem is 'look into'."
+            },
+            {
+                id: 6,
+                text: "The overwhelming majority of participants was in favour of the proposed changes.",
+                question: "What needs editing?",
+                category: "Subject-Verb Agreement",
+                categoryAlias: "agreement",
+                lessonLink: "grammar_c2_06_complex_sentence_architecture.html",
+                options: {
+                    A: {
+                        text: "was" should be "were" (with "majority of + plural noun", verb agrees with the plural noun)",
+                        correct: true
+                    },
+                    B: {
+                        text: "overwhelming" should be "vast" (wrong collocation)",
+                        correct: false
+                    },
+                    C: {
+                        text: "No edit needed — this is correct",
+                        correct: false
+                    }
+                },
+                explanation: "With collective nouns like 'majority', agreement depends on context. When followed by 'of + plural noun' (e.g., 'majority of participants'), British English agrees with the plural: 'were'. American English may prefer 'was', but British academic style requires 'were'. This reflects treating the majority as a group of individuals."
+            },
+            {
+                id: 7,
+                text: "The team developed a new methodology, whereby allowed them to collect data more efficiently.",
+                question: "What needs editing?",
+                category: "Relative Clauses & Connectors",
+                categoryAlias: "clauses",
+                lessonLink: "grammar_c2_09_negation_cohesion_discourse.html",
+                options: {
+                    A: {
+                        text: "whereby allowed" should be "which allowed" or "that allowed" (whereby needs a full clause, not a dangling verb)",
+                        correct: true
+                    },
+                    B: {
+                        text: "more efficiently" should be "in a more efficient way" (adverb form is wrong)",
+                        correct: false
+                    },
+                    C: {
+                        text: "No edit needed — this is correct",
+                        correct: false
+                    }
+                },
+                explanation: "The relative pronoun 'whereby' must introduce a complete clause describing a method or means: 'whereby + subject + verb'. The error here is 'whereby allowed' (the subject 'which' is missing). The correct form is 'whereby they allowed' or simply 'which allowed'. Alternatively, use a different structure: 'that allowed them to...' or 'enabling them to...'."
+            },
+            {
+                id: 8,
+                text: "In her seminal work, Thompson (2018) argues that globalisation was fundamentally reshaping labour markets.",
+                question: "What needs editing?",
+                category: "Tense & Aspect",
+                categoryAlias: "tense",
+                lessonLink: "grammar_c2_02_tense_aspect_for_effect.html",
+                options: {
+                    A: {
+                        text: "was reshaping" should be "is reshaping" or "has reshaped" (present reporting verb requires present-truth tense)",
+                        correct: true
+                    },
+                    B: {
+                        text: "argues" should be "argued" (past tense for 2018 reference)",
+                        correct: false
+                    },
+                    C: {
+                        text: "No edit needed — this is correct",
+                        correct: false
+                    }
+                },
+                explanation: "When using a present reporting verb ('argues'), the reported clause should express present truth, not past action. Use 'is reshaping' (if the reshaping is ongoing) or 'has reshaped' (if it is a completed change). Using 'was reshaping' (past progressive) suggests the reshaping was happening in 2018 but is no longer. The year in parentheses refers to publication date, not the timeframe of the claim itself."
+            },
+            {
+                id: 9,
+                text: "The study aimed to identify key risk factors, to assess their relative importance, and developing a predictive model.",
+                question: "What needs editing?",
+                category: "Sentence Structure",
+                categoryAlias: "structure",
+                lessonLink: "grammar_c2_06_complex_sentence_architecture.html",
+                options: {
+                    A: {
+                        text: "developing" should be "to develop" (parallel structure — all items must match the "to + infinitive" pattern)",
+                        correct: true
+                    },
+                    B: {
+                        text: "aimed to identify" should be "aimed at identifying" (wrong verb pattern)",
+                        correct: false
+                    },
+                    C: {
+                        text: "No edit needed — this is correct",
+                        correct: false
+                    }
+                },
+                explanation: "Parallel structure requires that items in a series use the same grammatical form. This sentence has two 'to + infinitive' phrases ('to identify', 'to assess') but then switches to a gerund ('developing'). Correct it to 'to develop'. Parallelism is essential in academic writing for clarity and rhythm. It signals to the reader that items are equally important."
+            },
+            {
+                id: 10,
+                text: "The failure of the government to adequately respond has led to widespread criticisation of its policies.",
+                question: "What needs editing?",
+                category: "Word Formation",
+                categoryAlias: "formation",
+                lessonLink: "grammar_c2_08_word_level_mastery.html",
+                options: {
+                    A: {
+                        text: "criticisation" should be "criticism" (criticisation is not a standard English word)",
+                        correct: true
+                    },
+                    B: {
+                        text: "to adequately respond" should be "to respond adequately" (split infinitive)",
+                        correct: false
+                    },
+                    C: {
+                        text: "No edit needed — this is correct",
+                        correct: false
+                    }
+                },
+                explanation: "The standard English noun derived from 'criticise' is 'criticism', not 'criticisation'. While 'criticise' (British) / 'criticize' (American) is correct, the noun form is 'criticism' in both varieties. Interestingly, split infinitives like 'to adequately respond' are no longer considered an error in modern English — they are acceptable even in formal academic writing when they improve clarity."
+            }
+        ];
 
-        tabButtons.forEach(button => {
+        // PRACTICE DATA
+        const practiceData = {
+            1: {
+                correct: "A",
+                explanation: "In formal English, while we might say 'the data suggests', the word 'data' is the plural of 'datum' and formally takes a plural verb. However, in modern practice, 'data' is often treated as a collective noun and takes singular verbs. The traditional academic standard, especially in older style guides, is 'data are'. For this diagnostic, 'data suggests' is acceptable, but be aware of this variation."
+            },
+            2: {
+                correct: "C",
+                explanation: "This sentence is correct. 'One cannot help but wonder' is a standard English construction (found in formal writing). The negative 'cannot help but' + verb is grammatically sound and idiomatic. 'Whether' (not 'if') is also correct after verbs of questioning."
+            }
+        };
+
+        // STATE MANAGEMENT
+        const state = {
+            responses: {},
+            results: null
+        };
+
+        // INITIALIZE TAB SYSTEM
+        document.querySelectorAll(".tab-button").forEach(button => {
             button.addEventListener("click", function() {
-                const tabName = this.getAttribute("data-tab");
-
-                tabContents.forEach(content => {
-                    content.classList.remove("active");
-                });
-
-                tabButtons.forEach(btn => {
-                    btn.classList.remove("active");
-                });
-
-                document.getElementById(tabName).classList.add("active");
-                this.classList.add("active");
+                const tabName = this.dataset.tab;
+                switchTab(tabName);
             });
         });
 
-        // Reveal functionality
-        function toggleReveal(button, sentenceNum) {
-            const revealContent = document.getElementById("reveal-" + sentenceNum);
-            revealContent.classList.toggle("active");
-
-            if (revealContent.classList.contains("active")) {
-                button.textContent = "Hide the Style Guide";
-                updateScore(sentenceNum);
-            } else {
-                button.textContent = "Check the Style Guide";
-            }
-        }
-
-        function togglePracticeReveal(button, practiceId) {
-            const revealContent = document.getElementById(practiceId);
-            revealContent.classList.toggle("active");
-
-            if (revealContent.classList.contains("active")) {
-                button.textContent = "Hide the Guide";
-            } else {
-                button.textContent = "Check the Guide";
-            }
-        }
-
-        // Score tracking
-        const categoryMap = {
-            1: "Subjunctive",
-            2: "Modal Verbs",
-            3: "Subjunctive",
-            4: "Nouns & Number",
-            5: "Register & Style",
-            6: "Subject-Verb Agreement",
-            7: "Relative Clauses & Connectors",
-            8: "Tense & Aspect",
-            9: "Sentence Structure",
-            10: "Word Formation"
-        };
-
-        const lessonMap = {
-            "Subjunctive": "grammar_c2_04_subjunctive_formal_conditionals.html",
-            "Modal Verbs": "grammar_c2_03_complex_modality.html",
-            "Nouns & Number": "grammar_c2_07_academic_precision.html",
-            "Register & Style": "grammar_c2_01_register_style_shifting.html",
-            "Subject-Verb Agreement": "grammar_c2_06_complex_sentence_architecture.html",
-            "Relative Clauses & Connectors": "grammar_c2_09_negation_cohesion_discourse.html",
-            "Tense & Aspect": "grammar_c2_02_tense_aspect_for_effect.html",
-            "Sentence Structure": "grammar_c2_06_complex_sentence_architecture.html",
-            "Word Formation": "grammar_c2_08_word_level_mastery.html"
-        };
-
-        let categoryScores = {
-            "Subjunctive": 0,
-            "Modal Verbs": 0,
-            "Nouns & Number": 0,
-            "Register & Style": 0,
-            "Subject-Verb Agreement": 0,
-            "Relative Clauses & Connectors": 0,
-            "Tense & Aspect": 0,
-            "Sentence Structure": 0,
-            "Word Formation": 0
-        };
-
-        let totalRevealed = new Set();
-
-        function updateScore(sentenceNum) {
-            if (!totalRevealed.has(sentenceNum)) {
-                totalRevealed.add(sentenceNum);
-                const category = categoryMap[sentenceNum];
-                categoryScores[category]++;
-            }
-
-            const score = totalRevealed.size;
-            document.getElementById("score-display").textContent = score + " / 10";
-            const progress = (score / 10) * 100;
-            document.getElementById("progress-fill").style.width = progress + "%";
-
-            if (score === 10) {
-                showResults();
-            }
-        }
-
-        function showResults() {
-            const resultsContent = document.getElementById("results-content");
-            const resultsGrid = document.getElementById("results-grid");
-            resultsGrid.innerHTML = "";
-
-            const categories = Object.keys(categoryScores);
-
-            categories.forEach(category => {
-                const count = categoryScores[category];
-                const lesson = lessonMap[category];
-
-                const card = document.createElement("div");
-                card.className = "result-card";
-                card.innerHTML = `
-                    <h3>${category}</h3>
-                    <div class="result-count">${count}</div>
-                    <p style="font-size: 0.9em; color: #666;">issue${count !== 1 ? "s" : ""} identified</p>
-                    <div class="lesson-link">
-                        <a href="${lesson}">Learn More →</a>
-                    </div>
-                `;
-                resultsGrid.appendChild(card);
+        function switchTab(tabName) {
+            document.querySelectorAll(".tab-content").forEach(tab => {
+                tab.classList.remove("active");
+            });
+            document.querySelectorAll(".tab-button").forEach(btn => {
+                btn.classList.remove("active");
             });
 
-            resultsContent.style.display = "block";
-
-            const resultsTab = document.querySelector('[data-tab="results"]');
-            resultsTab.click();
+            document.getElementById(tabName).classList.add("active");
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add("active");
         }
+
+        // BUILD PRACTICE SENTENCES
+        document.querySelectorAll(".practice-opt").forEach(button => {
+            button.addEventListener("click", function(e) {
+                e.preventDefault();
+                const practiceNum = this.dataset.practice;
+                const selected = this.dataset.value;
+                const container = this.closest(".sentence-item");
+
+                // Remove previous selections
+                container.querySelectorAll(".option-button").forEach(opt => {
+                    opt.classList.remove("selected", "correct", "incorrect");
+                    opt.disabled = false;
+                });
+
+                // Mark selection
+                this.classList.add("selected");
+
+                // Check answer
+                const feedback = container.querySelector(".feedback-message");
+                const explanation = container.querySelector(".explanation");
+                const data = practiceData[practiceNum];
+
+                if (selected === data.correct) {
+                    this.classList.add("correct");
+                    feedback.classList.add("show", "feedback-correct");
+                    feedback.textContent = "Correct!";
+                } else {
+                    this.classList.add("incorrect");
+                    feedback.classList.add("show", "feedback-incorrect");
+                    feedback.textContent = "Not quite. See the explanation below.";
+                }
+
+                // Show explanation
+                explanation.classList.add("show");
+                explanation.innerHTML = `<div class="explanation-title">Explanation</div><div>${data.explanation}</div>`;
+
+                // Disable all options
+                container.querySelectorAll(".option-button").forEach(opt => {
+                    opt.disabled = true;
+                });
+            });
+        });
+
+        // BUILD THE EDITOR'S DESK
+        function buildEditorsDeskSentences() {
+            const container = document.getElementById("sentences-container");
+            container.innerHTML = "";
+
+            sentences.forEach((sentence, index) => {
+                const div = document.createElement("div");
+                div.className = "content-block";
+                div.innerHTML = `
+                    <div class="sentence-item" data-id="${sentence.id}">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                            <div style="flex: 1;">
+                                <div style="font-size: 0.85em; color: #667eea; font-weight: 600; margin-bottom: 8px;">Sentence ${sentence.id}</div>
+                                <div class="sentence-text">"${sentence.text}"</div>
+                            </div>
+                            <div style="flex-shrink: 0; margin-left: 15px;">
+                                <span style="display: inline-block; background: #667eea; color: white; padding: 4px 12px; border-radius: 4px; font-size: 0.75em; font-weight: 600;">${sentence.category}</span>
+                            </div>
+                        </div>
+
+                        <div class="question-prompt">${sentence.question}</div>
+
+                        <div class="options-group">
+                            <button class="option-button editor-opt" data-id="${sentence.id}" data-value="A">
+                                <strong>A:</strong> ${sentence.options.A.text}
+                            </button>
+                            <button class="option-button editor-opt" data-id="${sentence.id}" data-value="B">
+                                <strong>B:</strong> ${sentence.options.B.text}
+                            </button>
+                            <button class="option-button editor-opt" data-id="${sentence.id}" data-value="C">
+                                <strong>C:</strong> ${sentence.options.C.text}
+                            </button>
+                        </div>
+
+                        <div class="no-selection-warning">Please choose an option before revealing the answer.</div>
+
+                        <div class="feedback-message"></div>
+                        <div class="explanation"></div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            // Attach event listeners to editor options
+            document.querySelectorAll(".editor-opt").forEach(button => {
+                button.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    handleEditorOption(this);
+                });
+            });
+        }
+
+        function handleEditorOption(button) {
+            const sentenceId = parseInt(button.dataset.id);
+            const selected = button.dataset.value;
+            const container = button.closest(".sentence-item");
+
+            // Record response
+            state.responses[sentenceId] = selected;
+
+            // Remove previous selections and feedback
+            container.querySelectorAll(".option-button").forEach(opt => {
+                opt.classList.remove("selected", "correct", "incorrect");
+                opt.disabled = false;
+            });
+            container.querySelector(".feedback-message").classList.remove("show");
+            container.querySelector(".no-selection-warning").classList.remove("show-warning");
+            container.querySelector(".explanation").classList.remove("show");
+
+            // Mark as selected
+            button.classList.add("selected");
+
+            // Find the sentence data
+            const sentence = sentences.find(s => s.id === sentenceId);
+            const isCorrect = sentence.options[selected].correct;
+
+            // Show feedback
+            const feedback = container.querySelector(".feedback-message");
+            const explanation = container.querySelector(".explanation");
+
+            if (isCorrect) {
+                button.classList.add("correct");
+                feedback.classList.add("show", "feedback-correct");
+                feedback.textContent = "Correct!";
+            } else {
+                button.classList.add("incorrect");
+                feedback.classList.add("show", "feedback-incorrect");
+                feedback.textContent = "Not quite. See the explanation below.";
+            }
+
+            // Show explanation
+            explanation.classList.add("show");
+            explanation.innerHTML = `<div class="explanation-title">Explanation</div><div>${sentence.explanation}</div>`;
+
+            // Disable all options
+            container.querySelectorAll(".option-button").forEach(opt => {
+                opt.disabled = true;
+            });
+
+            container.classList.add("answered");
+        }
+
+        // SUBMIT AND CALCULATE RESULTS
+        document.getElementById("submit-all-btn").addEventListener("click", function() {
+            // Check if all questions answered
+            const answeredCount = Object.keys(state.responses).length;
+            if (answeredCount < 10) {
+                alert(`You have answered ${answeredCount} of 10 questions. Please answer all questions before viewing results.`);
+                return;
+            }
+
+            // Calculate results
+            state.results = calculateResults();
+            displayResults();
+            switchTab("results");
+        });
+
+        function calculateResults() {
+            const categoryScores = {};
+
+            sentences.forEach(sentence => {
+                const cat = sentence.categoryAlias;
+                if (!categoryScores[cat]) {
+                    categoryScores[cat] = { total: 0, correct: 0, categoryName: sentence.category, lessons: [] };
+                }
+
+                categoryScores[cat].total += 1;
+                if (state.responses[sentence.id] && sentence.options[state.responses[sentence.id]].correct) {
+                    categoryScores[cat].correct += 1;
+                }
+
+                if (!categoryScores[cat].lessons.includes(sentence.lessonLink)) {
+                    categoryScores[cat].lessons.push(sentence.lessonLink);
+                }
+            });
+
+            return categoryScores;
+        }
+
+        function displayResults() {
+            const container = document.getElementById("results-container");
+            container.innerHTML = "";
+
+            let totalCorrect = 0;
+            let totalQuestions = 0;
+            let htmlContent = "";
+
+            // Calculate overall score
+            Object.values(state.results).forEach(cat => {
+                totalCorrect += cat.correct;
+                totalQuestions += cat.total;
+            });
+
+            const overallPercentage = Math.round((totalCorrect / totalQuestions) * 100);
+
+            // Summary
+            const summary = document.createElement("div");
+            summary.className = "summary-text";
+            summary.innerHTML = `<strong>Overall Score: ${totalCorrect}/${totalQuestions} (${overallPercentage}%)</strong><br><br>Below you'll see your performance in each grammar category. Categories where you scored 80% or higher show good command. Consider reviewing lessons for categories below 80%.`;
+            container.appendChild(summary);
+
+            // Category cards
+            const grid = document.createElement("div");
+            grid.className = "results-grid";
+
+            Object.keys(state.results).forEach(catAlias => {
+                const cat = state.results[catAlias];
+                const percentage = Math.round((cat.correct / cat.total) * 100);
+
+                let cardClass = "result-card";
+                let percentClass = "result-percentage";
+                let feedbackText = "";
+
+                if (percentage >= 80) {
+                    cardClass += " strong";
+                    percentClass += " strong";
+                    feedbackText = "Strong understanding";
+                } else if (percentage >= 60) {
+                    cardClass += " developing";
+                    percentClass += " developing";
+                    feedbackText = "Developing understanding";
+                } else {
+                    cardClass += " needs-work";
+                    percentClass += " needs-work";
+                    feedbackText = "Needs more practice";
+                }
+
+                const card = document.createElement("div");
+                card.className = cardClass;
+
+                let lessonLinksHTML = cat.lessons.map(link => {
+                    const lessonName = link.replace("grammar_c2_", "").replace(".html", "").replace(/_/g, " ");
+                    return `<a href="${link}" class="lesson-link">${lessonName}</a>`;
+                }).join(" ");
+
+                card.innerHTML = `
+                    <div class="${percentClass}">${percentage}%</div>
+                    <div class="result-category">${cat.categoryName}</div>
+                    <div class="result-feedback">${cat.correct}/${cat.total} correct</div>
+                    <div class="result-feedback">${feedbackText}</div>
+                    <div style="margin-top: 15px; font-size: 0.85em;">
+                        <div style="font-weight: 600; margin-bottom: 10px;">Review:</div>
+                        ${lessonLinksHTML}
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+
+            container.appendChild(grid);
+        }
+
+        // BUILD STYLE GUIDE
+        function buildStyleGuide() {
+            const container = document.getElementById("style-guide-container");
+            container.innerHTML = "";
+
+            sentences.forEach((sentence, index) => {
+                const div = document.createElement("div");
+                div.className = "content-block";
+
+                let correctOption = null;
+                Object.keys(sentence.options).forEach(key => {
+                    if (sentence.options[key].correct) {
+                        correctOption = key;
+                    }
+                });
+
+                div.innerHTML = `
+                    <h3 style="margin-bottom: 10px; color: #667eea;">Sentence ${sentence.id}: ${sentence.category}</h3>
+                    <div class="sentence-text" style="margin-bottom: 15px;">"${sentence.text}"</div>
+
+                    <div style="background: white; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #22c55e;">
+                        <div style="font-weight: 600; color: #22c55e; margin-bottom: 8px;">Correction</div>
+                        <div>${sentence.options[correctOption].text}</div>
+                    </div>
+
+                    <div style="background: #f3f4f6; padding: 15px; border-radius: 6px;">
+                        <div style="font-weight: 600; color: #667eea; margin-bottom: 8px;">Rule Explained</div>
+                        <div>${sentence.explanation}</div>
+                    </div>
+                `;
+
+                container.appendChild(div);
+            });
+        }
+
+        // INITIALIZE
+        buildEditorsDeskSentences();
+        buildStyleGuide();
     </script>
 </body>
 </html>
