@@ -444,10 +444,10 @@
         <div class="score-banner" id="scoreBanner"></div>
 
         <div class="tabs">
-            <button class="tab-button active" onclick="openTab(event, \"tab-getting-started\")">Getting Started</button>
-            <button class="tab-button" onclick="openTab(event, \"tab-investigation\")">The Investigation</button>
-            <button class="tab-button" onclick="openTab(event, \"tab-evidence\")">The Evidence</button>
-            <button class="tab-button" onclick="openTab(event, \"tab-results\")">Your Results</button>
+            <button class="tab-button active" data-tab="tab-getting-started">Getting Started</button>
+            <button class="tab-button" data-tab="tab-investigation">The Investigation</button>
+            <button class="tab-button" data-tab="tab-evidence">The Evidence</button>
+            <button class="tab-button" data-tab="tab-results">Your Results</button>
         </div>
 
         <!-- Getting Started Tab -->
@@ -514,14 +514,14 @@
             {
                 caseId: "case1",
                 title: "The New Job",
-                fullParagraph: "I\"ve been working at my new company since three months now, and I really enjoy it. My boss suggested me to take a training course next month, which sounds like a good idea. If I would pass the exam at the end, I might get a promotion.",
+                fullParagraph: "I've been working at my new company since three months now, and I really enjoy it. My boss suggested me to take a training course next month, which sounds like a good idea. If I would pass the exam at the end, I might get a promotion.",
                 fragments: [
                     {
                         fragmentId: "1-1",
-                        text: "I\"ve been working at my new company since three months...",
+                        text: "I've been working at my new company since three months...",
                         isError: true,
                         correction: "for three months",
-                        rule: "Use \"for\" with durations (three months, two years). Use \"since\" with points in time (since January, since 2020).",
+                        rule: "Use 'for' with durations (three months, two years). Use 'since' with points in time (since January, since 2020).",
                         category: "Tenses & Aspect"
                     },
                     {
@@ -529,7 +529,7 @@
                         text: "My boss suggested me to take a training course...",
                         isError: true,
                         correction: "suggested that I take",
-                        rule: "After \"suggest\", use that + subject + base verb. NOT suggest + person + to.",
+                        rule: "After 'suggest', use that + subject + base verb. NOT suggest + person + to.",
                         category: "Verb Patterns"
                     },
                     {
@@ -537,7 +537,7 @@
                         text: "If I would pass the exam at the end...",
                         isError: true,
                         correction: "If I passed the exam",
-                        rule: "Second conditional uses past simple after \"if\", NOT \"would\". \"Would\" only goes in the result clause.",
+                        rule: "Second conditional uses past simple after 'if', NOT 'would'. 'Would' only goes in the result clause.",
                         category: "Conditionals"
                     }
                 ]
@@ -552,7 +552,7 @@
                         text: "...despite of the long wait for our table...",
                         isError: true,
                         correction: "despite the long wait",
-                        rule: "\"Despite\" is NEVER followed by \"of\". Use \"despite + noun\" or \"in spite of + noun\".",
+                        rule: "'Despite' is NEVER followed by 'of'. Use 'despite + noun' or 'in spite of + noun'.",
                         category: "Conjunctions & Connectors"
                     },
                     {
@@ -560,7 +560,7 @@
                         text: "I had never been eating there before...",
                         isError: true,
                         correction: "had never eaten there before",
-                        rule: "Past perfect simple for completed experiences before a past moment. \"Had been eating\" would mean an ongoing action, but the meaning here is about the experience.",
+                        rule: "Past perfect simple for completed experiences before a past moment. 'Had been eating' would mean an ongoing action, but the meaning here is about the experience.",
                         category: "Tenses & Aspect"
                     },
                     {
@@ -568,7 +568,7 @@
                         text: "The waiter, that was very friendly...",
                         isError: true,
                         correction: "who was very friendly",
-                        rule: "In non-defining relative clauses (with commas), use \"who\" for people, NEVER \"that\".",
+                        rule: "In non-defining relative clauses (with commas), use 'who' for people, NEVER 'that'.",
                         category: "Relative Clauses"
                     }
                 ]
@@ -576,7 +576,7 @@
             {
                 caseId: "case3",
                 title: "Travel Plans",
-                fullParagraph: "My friend asked me where did I want to go on holiday this year. I told her that I\"m thinking about visiting Japan, because I\"ve always been interested about Japanese culture. She said it was a great idea and offered to help me plan the trip.",
+                fullParagraph: "My friend asked me where did I want to go on holiday this year. I told her that I'm thinking about visiting Japan, because I've always been interested about Japanese culture. She said it was a great idea and offered to help me plan the trip.",
                 fragments: [
                     {
                         fragmentId: "3-1",
@@ -588,10 +588,10 @@
                     },
                     {
                         fragmentId: "3-2",
-                        text: "I\"ve always been interested about Japanese culture...",
+                        text: "I've always been interested about Japanese culture...",
                         isError: true,
                         correction: "interested in",
-                        rule: "The correct preposition after \"interested\" is always \"in\".",
+                        rule: "The correct preposition after 'interested' is always 'in'.",
                         category: "Prepositions"
                     },
                     {
@@ -607,27 +607,27 @@
             {
                 caseId: "case4",
                 title: "Health and Fitness",
-                fullParagraph: "I\"ve been going to the gym since January, and I definitely feel more healthy now. I used to be quite lazy, but a friend persuaded me to join. In the beginning, I didn\"t used to enjoy the early mornings, but now I\"m completely used to waking up at six. The trainer says if I keep going, I\"ll see even better results by summer.",
+                fullParagraph: "I've been going to the gym since January, and I definitely feel more healthy now. I used to be quite lazy, but a friend persuaded me to join. In the beginning, I didn't used to enjoy the early mornings, but now I'm completely used to waking up at six. The trainer says if I keep going, I'll see even better results by summer.",
                 fragments: [
                     {
                         fragmentId: "4-1",
                         text: "I definitely feel more healthy now...",
                         isError: true,
                         correction: "healthier",
-                        rule: "One/two-syllable adjectives ending in -y use -ier form (healthy → healthier). Don\"t use \"more\" with these.",
+                        rule: "One/two-syllable adjectives ending in -y use -ier form (healthy → healthier). Don't use 'more' with these.",
                         category: "Adjectives & Adverbs"
                     },
                     {
                         fragmentId: "4-2",
-                        text: "I didn\"t used to enjoy the early mornings...",
+                        text: "I didn't used to enjoy the early mornings...",
                         isError: true,
-                        correction: "didn\"t use to",
-                        rule: "In negatives, it\"s \"didn\"t use to\" (base form after \"did\"). The -d is on \"did\", not on \"use\".",
+                        correction: "didn't use to",
+                        rule: "In negatives, it's 'didn't use to' (base form after 'did'). The -d is on 'did', not on 'use'.",
                         category: "Tenses & Aspect"
                     },
                     {
                         fragmentId: "4-3",
-                        text: "The trainer says if I keep going, I\"ll see even better results by summer.",
+                        text: "The trainer says if I keep going, I'll see even better results by summer.",
                         isError: false,
                         correction: null,
                         rule: null,
@@ -816,15 +816,15 @@
             if (isCorrect) {
                 feedbackEl.classList.add("correct");
                 feedbackEl.classList.remove("incorrect");
-                feedbackEl.innerHTML = "<span class=\"feedback-icon\">✓</span> Correct!";
+                feedbackEl.innerHTML = "<span class='feedback-icon'>✓</span> Correct!";
                 card.classList.add("answered");
                 currentScore++;
             } else {
                 feedbackEl.classList.add("incorrect");
                 feedbackEl.classList.remove("correct");
-                feedbackEl.innerHTML = "<span class=\"feedback-icon\">✗</span> Not quite. ";
+                feedbackEl.innerHTML = "<span class='feedback-icon'>✗</span> Not quite. ";
                 if (fragment.isError) {
-                    feedbackEl.innerHTML += "There IS an error: change to \"" + fragment.correction + "\".";
+                    feedbackEl.innerHTML += "There IS an error: change to '" + fragment.correction + "'.";
                 } else {
                     feedbackEl.innerHTML += "This is actually correct.";
                 }
@@ -1032,28 +1032,34 @@
         }
 
         function openTab(evt, tabName) {
-            const contents = document.querySelectorAll(".tab-content");
-            contents.forEach(content => {
+            document.querySelectorAll(".tab-content").forEach(content => {
                 content.classList.remove("active");
             });
 
-            const buttons = document.querySelectorAll(".tab-button");
-            buttons.forEach(button => {
+            document.querySelectorAll(".tab-button").forEach(button => {
                 button.classList.remove("active");
             });
 
             document.getElementById(tabName).classList.add("active");
 
-            if (evt) {
+            if (evt && evt.currentTarget) {
                 evt.currentTarget.classList.add("active");
             } else {
-                document.querySelector("[onclick=\"openTab(event, '" + tabName + "')\"]").classList.add("active");
+                var btn = document.querySelector('[data-tab="' + tabName + '"]');
+                if (btn) btn.classList.add("active");
             }
 
             if (tabName === "tab-results") {
                 renderResults();
             }
         }
+
+        // Tab click listeners
+        document.querySelectorAll(".tab-button").forEach(button => {
+            button.addEventListener("click", function(e) {
+                openTab(e, this.getAttribute("data-tab"));
+            });
+        });
 
         // Initialize on load
         window.addEventListener("DOMContentLoaded", init);
