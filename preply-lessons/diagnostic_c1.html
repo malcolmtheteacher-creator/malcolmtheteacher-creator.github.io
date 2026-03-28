@@ -614,11 +614,9 @@
         let userAnswers = {};
         let selectedOptions = {};
 
-        // Initialize on page load
-        document.addEventListener("DOMContentLoaded", function() {
-            buildPrecisionPickTab();
-            buildRulesTab();
-        });
+        // Initialize
+        buildPrecisionPickTab();
+        buildRulesTab();
 
         // Tab switching
         function switchTab(event, tabName) {
@@ -691,9 +689,9 @@
 
         // Check answer and reveal result
         function checkAnswer(pairId, correctAnswer) {
-            const pair = document.querySelector("#" + pairId).parentElement;
-            const options = pair.querySelectorAll(".option");
             const explanation = document.getElementById(pairId + "-explanation");
+            const pair = explanation.parentElement;
+            const options = pair.querySelectorAll(".option");
             const button = pair.querySelector(".check-button");
 
             let userAnswer = selectedOptions[pairId];
