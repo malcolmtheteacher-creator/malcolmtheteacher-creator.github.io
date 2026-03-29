@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books that Changed the World: Part 2 – C1 ESL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0;
+        }
+
+        .tab-button {
+            padding: 1rem 1.5rem;
+            background: white;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            color: #764ba2;
+            background-color: #f8f9fa;
+        }
+
+        .tab-button.active {
+            border-bottom-color: #667eea;
+            color: #764ba2;
+            background-color: #f8f9fa;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-block {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+
+        h2 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            color: #667eea;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        /* === VOCAB CARDS === */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .vocab-card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vocab-card:hover {
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .vocab-card .word {
+            display: block;
+            font-weight: 700;
+            font-size: 1.1em;
+            color: #764ba2;
+        }
+
+        .vocab-card .definition {
+            display: none;
+            font-size: 0.95em;
+            color: #333;
+        }
+
+        .vocab-card.flipped {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+
+        /* === ANSWER BUTTONS === */
+        .answer-btn {
+            background-color: #667eea;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1em;
+        }
+
+        .answer-btn:hover {
+            background-color: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .answer-text {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 0.5rem;
+            display: none;
+            color: #333;
+        }
+
+        .answer-text.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .question-block {
+            background: white;
+            padding: 20px;
+            border-left: 5px solid #764ba2;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .question-block h4 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+
+        .grammar-example {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            border-left: 4px solid #28a745;
+            font-family: "Courier New", monospace;
+        }
+
+        .example-box {
+            background: #e8f4f8;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .discussion-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 5px solid #764ba2;
+        }
+
+        .discussion-box p {
+            margin-bottom: 10px;
+            font-style: italic;
+            color: #555;
+        }
+
+        /* === MATCHING EXERCISE === */
+        .matching-exercise {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .matching-left, .matching-right {
+            background: white;
+            padding: 15px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+        }
+
+        .matching-left h4, .matching-right h4 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+
+        .matching-item {
+            margin-bottom: 10px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        /* === QUIZ STYLES === */
+        .quiz-question {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #667eea;
+        }
+
+        .quiz-question p {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .quiz-option {
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95em;
+        }
+
+        .quiz-option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .quiz-option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .quiz-option.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .quiz-feedback {
+            display: none;
+            padding: 10px;
+            margin-top: 8px;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-score {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 1.2em;
+            display: none;
+        }
+
+        .quiz-score.show {
+            display: block;
+        }
+
+        /* === RANKING TABLE === */
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .ranking-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .ranking-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .ranking-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .ranking-table select {
+            padding: 6px 10px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            font-family: "Segoe UI", sans-serif;
+            font-size: 0.95em;
+            background: white;
+            color: #333;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #667eea;
+            border-radius: 6px;
+            font-family: "Segoe UI", sans-serif;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* === SENTENCE BUILDER === */
+        .sentence-builder {
+            background: white;
+            padding: 1.5rem;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .sentence-builder h4 {
+            color: #764ba2;
+            margin-bottom: 0.8rem;
+        }
+
+        .sentence-stem {
+            font-family: "Courier New", monospace;
+            background: #f0f4ff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .sentence-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            font-family: "Segoe UI", sans-serif;
+            font-size: 1em;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                width: 100%;
+                border-bottom: 2px solid #667eea;
+                border-right: none;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .matching-exercise {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Books that Changed the World: Part 2</h1>
+        <p>Arguing, Ranking &amp; Advanced Grammar – C1 Level</p>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab(event, 'recall')">Recall</button>
+            <button class="tab-button" onclick="switchTab(event, 'vocabulary')">Vocabulary</button>
+            <button class="tab-button" onclick="switchTab(event, 'grammar')">Grammar</button>
+            <button class="tab-button" onclick="switchTab(event, 'debate')">The Great Debate</button>
+            <button class="tab-button" onclick="switchTab(event, 'reflection')">Reflection</button>
+        </div>
+
+        <!-- ==================== RECALL TAB ==================== -->
+        <div id="recall" class="tab-content active">
+            <div class="content-block">
+                <h2>How Much Do You Remember?</h2>
+                <p>Last time you read about 14 books that changed the world. Let's see how much stayed with you.</p>
+            </div>
+
+            <div id="quiz-container">
+                <div class="quiz-question" id="q1">
+                    <p>1. Which book is considered the foundation of modern football?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q1', true)">The Rules of Association Football (1863)</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q1', false)">The Olympic Charter (1894)</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q1', false)">The Art of Cricket (1877)</div>
+                    </div>
+                    <div class="quiz-feedback" id="q1-feedback">Ebeneezer Morley wrote down the rules that became the basis for the world's most popular sport.</div>
+                </div>
+
+                <div class="quiz-question" id="q2">
+                    <p>2. Rachel Carson's <em>Silent Spring</em> (1962) is credited with launching which movement?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q2', false)">The civil rights movement</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q2', true)">The modern environmental movement</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q2', false)">The feminist movement</div>
+                    </div>
+                    <div class="quiz-feedback" id="q2-feedback">Carson documented the devastating effects of pesticides, particularly DDT, on the natural world.</div>
+                </div>
+
+                <div class="quiz-question" id="q3">
+                    <p>3. What was Mary Wollstonecraft arguing for in <em>A Vindication of the Rights of Woman</em> (1792)?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q3', false)">The abolition of slavery</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q3', false)">Universal suffrage for all citizens</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q3', true)">Equal education and rights for women</div>
+                    </div>
+                    <div class="quiz-feedback" id="q3-feedback">Wollstonecraft argued that women were not naturally inferior — they simply lacked equal access to education.</div>
+                </div>
+
+                <div class="quiz-question" id="q4">
+                    <p>4. Which novel helped fuel the anti-slavery movement in America?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q4', false)">1984 by George Orwell</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q4', true)">Uncle Tom's Cabin by Harriet Beecher Stowe</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q4', false)">The Alchemist by Paulo Coelho</div>
+                    </div>
+                    <div class="quiz-feedback" id="q4-feedback">Published in 1851, it was so influential that Abraham Lincoln reportedly said to Stowe: "So you're the little woman who wrote the book that started this great war."</div>
+                </div>
+
+                <div class="quiz-question" id="q5">
+                    <p>5. Sigmund Freud's <em>The Interpretation of Dreams</em> introduced which revolutionary idea?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q5', false)">That dreams predict the future</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q5', false)">That sleep is unnecessary for health</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q5', true)">That dreams reveal unconscious desires and the workings of the mind</div>
+                    </div>
+                    <div class="quiz-feedback" id="q5-feedback">Published in 1899, Freud's work laid the foundations for psychoanalysis and changed how we understand the human mind.</div>
+                </div>
+
+                <div class="quiz-question" id="q6">
+                    <p>6. Which two books from the list were written as political manifestos?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q6', true)">The Communist Manifesto &amp; Quotations from Chairman Mao</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q6', false)">The Rights of Man &amp; On the Origin of Species</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q6', false)">1984 &amp; The Alchemist</div>
+                    </div>
+                    <div class="quiz-feedback" id="q6-feedback">Marx &amp; Engels' Communist Manifesto (1848) and Mao Zedong's Little Red Book (1964) both directly shaped political revolutions.</div>
+                </div>
+
+                <div class="quiz-question" id="q7">
+                    <p>7. What did Darwin's <em>On the Origin of Species</em> (1859) fundamentally challenge?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q7', false)">The existence of gravity</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q7', true)">The belief that species were individually created and unchanging</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q7', false)">The idea that the Earth orbits the Sun</div>
+                    </div>
+                    <div class="quiz-feedback" id="q7-feedback">Darwin's theory of natural selection transformed biology and provoked fierce debate about humanity's place in the natural world.</div>
+                </div>
+
+                <div class="quiz-question" id="q8">
+                    <p>8. Anne Frank's diary is so powerful because it gives us...</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q8', false)">A detailed military history of World War II</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q8', true)">An intimate, personal account of life in hiding during the Holocaust</div>
+                        <div class="quiz-option" onclick="checkQuiz(this, 'q8', false)">A political analysis of Nazi ideology</div>
+                    </div>
+                    <div class="quiz-feedback" id="q8-feedback">Written between 1942 and 1944 by a teenage girl hiding from the Nazis, it remains one of the most widely read accounts of the Holocaust.</div>
+                </div>
+            </div>
+
+            <div class="quiz-score" id="quiz-score"></div>
+
+            <div class="content-block" style="margin-top: 1.5rem;">
+                <h3>Quick Discussion</h3>
+                <p>Which of the 14 books surprised you the most when you first read about it? Why?</p>
+            </div>
+        </div>
+
+        <!-- ==================== VOCABULARY TAB ==================== -->
+        <div id="vocabulary" class="tab-content">
+            <div class="content-block">
+                <h2>The Language of Argumentation</h2>
+                <p>To argue effectively about a book's importance, you need precise language. Click each expression to reveal its meaning.</p>
+            </div>
+
+            <div class="vocab-grid">
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">be attributed to</span>
+                    <span class="definition">To say that something was caused by or is the result of something else. <em>"The rise of environmentalism can be attributed to Silent Spring."</em></span>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">pave the way for</span>
+                    <span class="definition">To create the conditions that make it possible for something to happen. <em>"Wollstonecraft's work paved the way for the suffragette movement."</em></span>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">call into question</span>
+                    <span class="definition">To cause doubt about something previously accepted. <em>"Darwin's theory called into question the idea of divine creation."</em></span>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">undermine</span>
+                    <span class="definition">To gradually weaken or damage something (an idea, a system, authority). <em>"The Communist Manifesto sought to undermine the foundations of capitalism."</em></span>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">give rise to</span>
+                    <span class="definition">To cause something to exist or happen. <em>"Orwell's 1984 gave rise to concepts like 'Big Brother' and 'Orwellian'."</em></span>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">stand the test of time</span>
+                    <span class="definition">To continue to be valued or relevant over a long period. <em>"Aesop's Fables have stood the test of time for over 2,500 years."</em></span>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">bring about</span>
+                    <span class="definition">To cause something to happen; to make something occur. <em>"Uncle Tom's Cabin helped bring about a shift in public opinion on slavery."</em></span>
+                </div>
+
+                <div class="vocab-card" onclick="flipCard(this)">
+                    <span class="word">have far-reaching consequences</span>
+                    <span class="definition">To have effects that extend widely or over a long time. <em>"The publication of The Rights of Man had far-reaching consequences for democracy."</em></span>
+                </div>
+            </div>
+
+            <div class="content-block">
+                <h3>Use Them: Complete the Sentences</h3>
+                <p>Choose the correct expression to complete each sentence.</p>
+            </div>
+
+            <div class="question-block">
+                <h4>1. Freud's ideas __________ traditional views of the human mind.</h4>
+                <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                <div class="answer-text"><strong>called into question</strong> — Freud challenged what people had always assumed about why we think and behave the way we do.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>2. The success of Harry Potter __________ a global boom in children's literature.</h4>
+                <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                <div class="answer-text"><strong>gave rise to</strong> — After Harry Potter, publishers began investing heavily in young adult fiction.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>3. The widespread banning of <em>Silent Spring</em> actually helped __________ greater public awareness.</h4>
+                <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                <div class="answer-text"><strong>bring about</strong> — Paradoxically, attempts to suppress the book drew more attention to its message.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>4. The abolition of slavery in America can partly __________ the emotional impact of Uncle Tom's Cabin.</h4>
+                <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                <div class="answer-text"><strong>be attributed to</strong> — Stowe's novel personalised the suffering of enslaved people in a way that statistics never could.</div>
+            </div>
+
+            <div class="question-block">
+                <h4>5. The fact that Aesop's moral lessons are still taught today proves they have __________ .</h4>
+                <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                <div class="answer-text"><strong>stood the test of time</strong> — Over 2,500 years later, "The Tortoise and the Hare" and "The Boy Who Cried Wolf" are still part of everyday language.</div>
+            </div>
+        </div>
+
+        <!-- ==================== GRAMMAR TAB ==================== -->
+        <div id="grammar" class="tab-content">
+            <div class="content-block">
+                <h2>Advanced Emphasis: Inversions &amp; Cleft Sentences</h2>
+                <p>In Part 1 you used <em>"If it hadn't been for..."</em> to talk about imaginary consequences. Now we'll take this further with two powerful structures for emphasis in formal English.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>1. Inversions for Emphasis</h3>
+                <p>In formal or written English, we can invert the subject and auxiliary to add dramatic emphasis. This is common in essays, speeches, and academic writing.</p>
+
+                <div class="example-box">
+                    <p><strong>Standard:</strong> If it had not been for Darwin, our understanding of life would be completely different.</p>
+                    <p><strong>Inverted:</strong> <em>Had it not been for</em> Darwin, our understanding of life would be completely different.</p>
+                </div>
+
+                <div class="example-box">
+                    <p><strong>Standard:</strong> If Anne Frank had not kept her diary, we would have lost a vital personal perspective on the Holocaust.</p>
+                    <p><strong>Inverted:</strong> <em>Had Anne Frank not kept</em> her diary, we would have lost a vital personal perspective on the Holocaust.</p>
+                </div>
+
+                <div class="example-box">
+                    <p><strong>Standard:</strong> If Orwell had not written 1984, we would not have the word "Orwellian."</p>
+                    <p><strong>Inverted:</strong> <em>Had Orwell not written</em> 1984, we would not have the word "Orwellian."</p>
+                </div>
+
+                <p style="margin-top: 1rem;"><strong>The pattern:</strong> Remove "if" → move the auxiliary (had/were/should) to the front.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>2. Cleft Sentences for Emphasis</h3>
+                <p>Cleft sentences split a simple sentence into two parts to highlight one particular element. They are extremely useful in argumentation.</p>
+
+                <div class="example-box">
+                    <p><strong>Neutral:</strong> Darwin's book changed biology forever.</p>
+                    <p><strong>What-cleft:</strong> <em>What changed biology forever was</em> Darwin's book.</p>
+                    <p><strong>It-cleft:</strong> <em>It was Darwin's book that</em> changed biology forever.</p>
+                </div>
+
+                <div class="example-box">
+                    <p><strong>Neutral:</strong> The personal voice made Anne Frank's diary so powerful.</p>
+                    <p><strong>What-cleft:</strong> <em>What made Anne Frank's diary so powerful was</em> the personal voice.</p>
+                    <p><strong>It-cleft:</strong> <em>It was the personal voice that</em> made Anne Frank's diary so powerful.</p>
+                </div>
+
+                <p style="margin-top: 1rem;"><strong>Use "what...was" to emphasise an action or quality.</strong> Use <strong>"it was...that"</strong> to emphasise a specific noun.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>Practice: Transform These Sentences</h3>
+                <p>Rewrite each sentence using the structure in brackets.</p>
+            </div>
+
+            <div class="sentence-builder">
+                <h4>1. Mao's Little Red Book shaped Chinese political culture for decades. (What-cleft)</h4>
+                <input type="text" class="sentence-input" placeholder="What shaped Chinese political culture for decades was...">
+                <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                <div class="answer-text">What shaped Chinese political culture for decades was Mao's Little Red Book.</div>
+            </div>
+
+            <div class="sentence-builder">
+                <h4>2. Thomas Paine's arguments inspired revolutions across the world. (It-cleft)</h4>
+                <input type="text" class="sentence-input" placeholder="It was...">
+                <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                <div class="answer-text">It was Thomas Paine's arguments that inspired revolutions across the world.</div>
+            </div>
+
+            <div class="sentence-builder">
+                <h4>3. If Rachel Carson had not published Silent Spring, the environmental movement might have started much later. (Inversion)</h4>
+                <input type="text" class="sentence-input" placeholder="Had Rachel Carson not...">
+                <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                <div class="answer-text">Had Rachel Carson not published Silent Spring, the environmental movement might have started much later.</div>
+            </div>
+
+            <div class="sentence-builder">
+                <h4>4. The simple moral lessons made Aesop's Fables so enduring. (What-cleft)</h4>
+                <input type="text" class="sentence-input" placeholder="What made Aesop's Fables so enduring was...">
+                <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                <div class="answer-text">What made Aesop's Fables so enduring was the simple moral lessons.</div>
+            </div>
+
+            <div class="sentence-builder">
+                <h4>5. If Marx and Engels had not written the Communist Manifesto, the history of the 20th century would have been unrecognisable. (Inversion)</h4>
+                <input type="text" class="sentence-input" placeholder="Had Marx and Engels not...">
+                <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                <div class="answer-text">Had Marx and Engels not written the Communist Manifesto, the history of the 20th century would have been unrecognisable.</div>
+            </div>
+
+            <div class="sentence-builder">
+                <h4>6. Harry Potter made millions of children fall in love with reading. (It-cleft)</h4>
+                <input type="text" class="sentence-input" placeholder="It was...">
+                <div class="answer-btn" onclick="this.nextElementSibling.classList.toggle('show'); this.textContent = this.nextElementSibling.classList.contains('show') ? 'Hide Answer' : 'Show Answer';">Show Answer</div>
+                <div class="answer-text">It was Harry Potter that made millions of children fall in love with reading.</div>
+            </div>
+        </div>
+
+        <!-- ==================== DEBATE TAB ==================== -->
+        <div id="debate" class="tab-content">
+            <div class="content-block">
+                <h2>The Great Book Debate</h2>
+                <p>Of all 14 books from the list, which five had the greatest impact on the world? Rank them, justify your choices, and be prepared to defend your reasoning.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>Step 1: Choose Your Top 5</h3>
+                <p>Select the five books you believe had the greatest impact and rank them from 1 (most impactful) to 5.</p>
+            </div>
+
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Book</th>
+                        <th>Main Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1st</strong></td>
+                        <td>
+                            <select>
+                                <option value="">— Choose a book —</option>
+                                <option>The Rules of Association Football</option>
+                                <option>Quotations from Chairman Mao</option>
+                                <option>The Rights of Man</option>
+                                <option>Communist Manifesto</option>
+                                <option>On the Origin of Species</option>
+                                <option>Uncle Tom's Cabin</option>
+                                <option>1984</option>
+                                <option>Aesop's Fables</option>
+                                <option>Harry Potter</option>
+                                <option>Anne Frank: Diary of a Young Girl</option>
+                                <option>The Interpretation of Dreams</option>
+                                <option>Silent Spring</option>
+                                <option>A Vindication of the Rights of Woman</option>
+                                <option>The Alchemist</option>
+                            </select>
+                        </td>
+                        <td><input type="text" style="padding: 6px; border: 2px solid #667eea; border-radius: 4px; width: 100%; font-family: 'Segoe UI', sans-serif;" placeholder="Why this book?"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>2nd</strong></td>
+                        <td>
+                            <select>
+                                <option value="">— Choose a book —</option>
+                                <option>The Rules of Association Football</option>
+                                <option>Quotations from Chairman Mao</option>
+                                <option>The Rights of Man</option>
+                                <option>Communist Manifesto</option>
+                                <option>On the Origin of Species</option>
+                                <option>Uncle Tom's Cabin</option>
+                                <option>1984</option>
+                                <option>Aesop's Fables</option>
+                                <option>Harry Potter</option>
+                                <option>Anne Frank: Diary of a Young Girl</option>
+                                <option>The Interpretation of Dreams</option>
+                                <option>Silent Spring</option>
+                                <option>A Vindication of the Rights of Woman</option>
+                                <option>The Alchemist</option>
+                            </select>
+                        </td>
+                        <td><input type="text" style="padding: 6px; border: 2px solid #667eea; border-radius: 4px; width: 100%; font-family: 'Segoe UI', sans-serif;" placeholder="Why this book?"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>3rd</strong></td>
+                        <td>
+                            <select>
+                                <option value="">— Choose a book —</option>
+                                <option>The Rules of Association Football</option>
+                                <option>Quotations from Chairman Mao</option>
+                                <option>The Rights of Man</option>
+                                <option>Communist Manifesto</option>
+                                <option>On the Origin of Species</option>
+                                <option>Uncle Tom's Cabin</option>
+                                <option>1984</option>
+                                <option>Aesop's Fables</option>
+                                <option>Harry Potter</option>
+                                <option>Anne Frank: Diary of a Young Girl</option>
+                                <option>The Interpretation of Dreams</option>
+                                <option>Silent Spring</option>
+                                <option>A Vindication of the Rights of Woman</option>
+                                <option>The Alchemist</option>
+                            </select>
+                        </td>
+                        <td><input type="text" style="padding: 6px; border: 2px solid #667eea; border-radius: 4px; width: 100%; font-family: 'Segoe UI', sans-serif;" placeholder="Why this book?"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>4th</strong></td>
+                        <td>
+                            <select>
+                                <option value="">— Choose a book —</option>
+                                <option>The Rules of Association Football</option>
+                                <option>Quotations from Chairman Mao</option>
+                                <option>The Rights of Man</option>
+                                <option>Communist Manifesto</option>
+                                <option>On the Origin of Species</option>
+                                <option>Uncle Tom's Cabin</option>
+                                <option>1984</option>
+                                <option>Aesop's Fables</option>
+                                <option>Harry Potter</option>
+                                <option>Anne Frank: Diary of a Young Girl</option>
+                                <option>The Interpretation of Dreams</option>
+                                <option>Silent Spring</option>
+                                <option>A Vindication of the Rights of Woman</option>
+                                <option>The Alchemist</option>
+                            </select>
+                        </td>
+                        <td><input type="text" style="padding: 6px; border: 2px solid #667eea; border-radius: 4px; width: 100%; font-family: 'Segoe UI', sans-serif;" placeholder="Why this book?"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>5th</strong></td>
+                        <td>
+                            <select>
+                                <option value="">— Choose a book —</option>
+                                <option>The Rules of Association Football</option>
+                                <option>Quotations from Chairman Mao</option>
+                                <option>The Rights of Man</option>
+                                <option>Communist Manifesto</option>
+                                <option>On the Origin of Species</option>
+                                <option>Uncle Tom's Cabin</option>
+                                <option>1984</option>
+                                <option>Aesop's Fables</option>
+                                <option>Harry Potter</option>
+                                <option>Anne Frank: Diary of a Young Girl</option>
+                                <option>The Interpretation of Dreams</option>
+                                <option>Silent Spring</option>
+                                <option>A Vindication of the Rights of Woman</option>
+                                <option>The Alchemist</option>
+                            </select>
+                        </td>
+                        <td><input type="text" style="padding: 6px; border: 2px solid #667eea; border-radius: 4px; width: 100%; font-family: 'Segoe UI', sans-serif;" placeholder="Why this book?"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="content-block" style="margin-top: 1.5rem;">
+                <h3>Step 2: Build Your Argument</h3>
+                <p>For your number 1 choice, write a short argument (3–5 sentences) explaining why it deserves the top spot. Use at least one inversion or cleft sentence and two vocabulary items from this lesson.</p>
+            </div>
+
+            <textarea placeholder="Write your argument here. Remember to use structures like 'Had it not been for...', 'What made this book so significant was...', and vocabulary like 'pave the way for', 'call into question', etc."></textarea>
+
+            <div class="content-block" style="margin-top: 1.5rem;">
+                <h3>Step 3: Challenge Rounds</h3>
+                <p>Now defend your choices. Respond to these challenges:</p>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Challenge 1:</strong> "The Rules of Association Football doesn't belong on a list of world-changing books — it's just a set of rules for a game." How would you respond?</p>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Challenge 2:</strong> "Harry Potter is just entertainment. It doesn't belong next to books that changed political systems or scientific understanding." Agree or disagree?</p>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Challenge 3:</strong> "Books written hundreds of years ago, like Aesop's Fables or The Rights of Man, are too old to be relevant. Only modern books truly change the world." What's your counter-argument?</p>
+            </div>
+
+            <div class="discussion-box">
+                <p><strong>Challenge 4:</strong> "A book that was forced on people — like Quotations from Chairman Mao — shouldn't count as 'world-changing' because people didn't choose to read it." Do you agree?</p>
+            </div>
+        </div>
+
+        <!-- ==================== REFLECTION TAB ==================== -->
+        <div id="reflection" class="tab-content">
+            <div class="content-block">
+                <h2>Final Reflection</h2>
+                <p>Let's bring everything together — the vocabulary, the grammar, and your ideas.</p>
+            </div>
+
+            <div class="content-block">
+                <h3>The 15th Book</h3>
+                <p>The original list had 14 books. If you could add one more — a 15th book that changed the world — what would it be? It can be from any time, any country, any genre.</p>
+                <p>Write a short paragraph (5–8 sentences) making the case for your choice. Try to use:</p>
+                <ul style="list-style: none; padding-left: 1.5rem; margin-bottom: 1rem;">
+                    <li style="padding: 0.3rem 0; position: relative;"><span style="color: #28a745; font-weight: bold; position: absolute; left: -1.5rem;">✓</span> At least one inversion (<em>"Had it not been for..."</em>)</li>
+                    <li style="padding: 0.3rem 0; position: relative;"><span style="color: #28a745; font-weight: bold; position: absolute; left: -1.5rem;">✓</span> At least one cleft sentence (<em>"What made...was..."</em> or <em>"It was...that..."</em>)</li>
+                    <li style="padding: 0.3rem 0; position: relative;"><span style="color: #28a745; font-weight: bold; position: absolute; left: -1.5rem;">✓</span> At least three vocabulary items from today's lesson</li>
+                </ul>
+            </div>
+
+            <textarea style="min-height: 200px;" placeholder="My 15th book that changed the world would be..."></textarea>
+
+            <div class="content-block" style="margin-top: 2rem;">
+                <h3>Bigger Question</h3>
+                <p>Can a single book still change the world today, in the age of social media, podcasts, and 24-hour news? Or has the era of the world-changing book come to an end?</p>
+            </div>
+
+            <textarea placeholder="Share your thoughts..."></textarea>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(event, tabName) {
+            document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+
+        function flipCard(el) {
+            el.classList.toggle("flipped");
+        }
+
+        // Quiz functionality
+        let quizScore = 0;
+        let quizAnswered = 0;
+        const totalQuestions = 8;
+
+        function checkQuiz(option, questionId, isCorrect) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll(".quiz-option");
+            const feedback = document.getElementById(questionId + "-feedback");
+
+            // Disable all options
+            options.forEach(opt => {
+                opt.classList.add("disabled");
+            });
+
+            if (isCorrect) {
+                option.classList.add("correct");
+                quizScore++;
+            } else {
+                option.classList.add("incorrect");
+                // Highlight correct answer
+                options.forEach(opt => {
+                    if (opt.getAttribute("onclick").includes("true")) {
+                        opt.classList.add("correct");
+                    }
+                });
+            }
+
+            feedback.classList.add("show");
+            quizAnswered++;
+
+            if (quizAnswered === totalQuestions) {
+                const scoreEl = document.getElementById("quiz-score");
+                scoreEl.classList.add("show");
+                if (quizScore === totalQuestions) {
+                    scoreEl.textContent = "Perfect score! " + quizScore + "/" + totalQuestions + " — You clearly read that article carefully!";
+                } else if (quizScore >= 6) {
+                    scoreEl.textContent = "Great recall! " + quizScore + "/" + totalQuestions + " — You remembered most of the details.";
+                } else if (quizScore >= 4) {
+                    scoreEl.textContent = "Not bad! " + quizScore + "/" + totalQuestions + " — Some details slipped through, but the main ideas stuck.";
+                } else {
+                    scoreEl.textContent = quizScore + "/" + totalQuestions + " — Might be worth a quick re-read! The details are fascinating.";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
