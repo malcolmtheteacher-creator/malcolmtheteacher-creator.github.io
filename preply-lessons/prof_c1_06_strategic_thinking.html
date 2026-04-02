@@ -36,8 +36,8 @@
         .question-block h4 { color: #764ba2; margin-bottom: 10px; }
         .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
         .timer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 8px; text-align: center; font-size: 1.3em; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: #333; }
-        .timer.danger { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
+        .timer.warning { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); color: white; }
+        .timer.danger { background: linear-gradient(135deg, #764ba2 0%, #ee5a6f 100%); color: white; animation: pulse 0.5s infinite alternate; }
         @keyframes pulse { from { opacity: 1; } to { opacity: 0.7; } }
         .timer-btn { padding: 8px 15px; background: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; color: #667eea; }
         .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 150px; }
@@ -167,7 +167,7 @@
                 <div class="question-block">
                     <h4>Question 1: SWOT Analysis</h4>
                     <p>Complete a SWOT analysis for this bookstore. What are the key internal and external factors?</p>
-                    <button class="answer-btn" onclick="document.getElementById("ans1").classList.toggle("show")">Show Sample Analysis</button>
+                    <button class="answer-btn" onclick="document.getElementById('ans1').classList.toggle('show')">Show Sample Analysis</button>
                     <div id="ans1" class="answer-text">
                         <strong>Strengths:</strong> Loyal community, local author relationships, established brand, passionate owner<br>
                         <strong>Weaknesses:</strong> Declining sales, thin profit margins, high overhead costs, limited product range<br>
@@ -179,7 +179,7 @@
                 <div class="question-block">
                     <h4>Question 2: Strategic Pivot Options</h4>
                     <p>What strategic pivots could save this business? Consider: shifting to a community hub model, focusing on rare/collectible books, hosting events, creating a café, partnering with the university.</p>
-                    <button class="answer-btn" onclick="document.getElementById("ans2").classList.toggle("show")">Show Possible Strategies</button>
+                    <button class="answer-btn" onclick="document.getElementById('ans2').classList.toggle('show')">Show Possible Strategies</button>
                     <div id="ans2" class="answer-text">
                         <strong>Option 1 – Community Hub:</strong> Transform into an event space with authors, book clubs, and literary discussions. Revenue from events, café, and curated book selections.<br><br>
                         <strong>Option 2 – Niche Market:</strong> Focus on rare, signed, and out-of-print books. Target collectors willing to pay premium prices.<br><br>
