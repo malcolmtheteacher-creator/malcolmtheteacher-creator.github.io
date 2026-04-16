@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Task 2: Conclusions & Cause and Effect</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .task-checklist { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+        .task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+        .checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+        .checklist-item input { width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea; }
+        .highlight-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .highlight-box h3 { color: white; margin-bottom: 12px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 110px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102,126,234,0.3); transform: translateY(-3px); }
+        .vocab-card .word { font-weight: 700; font-size: 1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.88em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .compare-box { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .bad-box { background: white; border: 2px solid #e74c3c; border-radius: 8px; padding: 15px; }
+        .good-box { background: white; border: 2px solid #28a745; border-radius: 8px; padding: 15px; }
+        .bad-label { color: #e74c3c; font-weight: 700; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .good-label { color: #28a745; font-weight: 700; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .sentence-transform { background: white; padding: 18px; border-left: 4px solid #764ba2; margin-bottom: 15px; border-radius: 4px; }
+        .sentence-transform .original { color: #555; margin-bottom: 8px; }
+        .sentence-transform .prompt { color: #667eea; font-weight: 600; margin-bottom: 8px; font-size: 0.9em; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 200px; }
+        .timer-wrap { text-align: center; margin: 20px 0; }
+        .timer-display { font-size: 3em; font-weight: 700; color: #764ba2; letter-spacing: 3px; margin: 10px 0; font-variant-numeric: tabular-nums; }
+        .timer-btn { background: #667eea; color: white; padding: 14px 30px; border-radius: 4px; cursor: pointer; font-weight: 700; border: none; font-size: 1.1em; transition: background 0.3s ease; }
+        .timer-btn:hover { background: #764ba2; }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            header h1 { font-size: 1.8em; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-button { width: 100%; text-align: left; border-left: 5px solid transparent; }
+            .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+            .compare-box { grid-template-columns: 1fr; }
+            .vocab-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>IELTS Writing Task 2</h1>
+        <p>Writing Conclusions &amp; Cause and Effect Language &nbsp;&middot;&nbsp; B2–C1</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event,'tab1')">The Conclusion</button>
+        <button class="tab-button" onclick="openTab(event,'tab2')">Cause &amp; Effect Language</button>
+        <button class="tab-button" onclick="openTab(event,'tab3')">Good vs. Weak Conclusions</button>
+        <button class="tab-button" onclick="openTab(event,'tab4')">Conclusion Practice</button>
+        <button class="tab-button" onclick="openTab(event,'tab5')">Full Essay</button>
+    </div>
+
+    <!-- TAB 1: The Conclusion -->
+    <div id="tab1" class="tab-content active">
+        <div class="highlight-box">
+            <h3>Why the conclusion matters</h3>
+            <p>The conclusion is the last thing the examiner reads — and it contributes directly to your coherence and cohesion score. A strong conclusion brings your essay to a definite close; a weak one leaves the examiner with the impression that your essay ran out of ideas.</p>
+        </div>
+        <div class="content-block">
+            <h2>What a conclusion must do</h2>
+        </div>
+        <div class="task-checklist">
+            <h3>Essential conclusion checklist:</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="d1"><label for="d1">Begin with a conclusion signal phrase (<em>In conclusion / To summarise / Overall</em>)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="d2"><label for="d2">Paraphrase your thesis statement from the introduction — don't copy it word for word</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="d3"><label for="d3">Briefly restate your main points — one or two sentences, not a list</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="d4"><label for="d4">If the essay requires your opinion — state it clearly here (if not already in the introduction)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="d5"><label for="d5">Introduce <strong>no new information or arguments</strong> — this is a common mistake</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="d6"><label for="d6">Address any direct question in the prompt explicitly (e.g. "do the advantages outweigh the disadvantages?")</label>
+            </div>
+        </div>
+        <div class="question-block">
+            <h4>Why should you never introduce a new idea in the conclusion?</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text">Introducing a new idea signals to the examiner that your essay is unfinished — the new idea needed a full paragraph to develop it properly. It can also suggest poor planning. Examiners specifically look for this error and it affects your coherence and cohesion score.</div>
+        </div>
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>In spoken English, how do you typically end a long explanation or argument? Do you use the same techniques in writing?</p>
+            <p>What is the difference between "summarising" and "copying" the introduction?</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: Cause & Effect Language -->
+    <div id="tab2" class="tab-content">
+        <div class="content-block">
+            <h2>Cause and effect language</h2>
+            <p>IELTS essays often require you to explain <em>why</em> something happens (cause) and what it <em>results in</em> (effect). Varying your language for this is key to a high vocabulary score. Click each card to see the pattern and an example.</p>
+        </div>
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">means</span>
+                <span class="definition">Simple cause-effect link. More formal than "so". <br><em>A sedentary lifestyle means that many adults are at greater risk of cardiovascular disease.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">leads to / results in</span>
+                <span class="definition">The cause (subject) produces the effect. <br><em>Excessive screen time leads to disrupted sleep patterns and reduced concentration.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">as a consequence of</span>
+                <span class="definition">The effect follows from the cause. More formal. <br><em>As a consequence of poor dietary habits, childhood obesity rates have risen sharply.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">contribute to</span>
+                <span class="definition">One of several causes — suggests partial responsibility. <br><em>Stress and long working hours both contribute to declining mental health in many professions.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">therefore / consequently</span>
+                <span class="definition">Connects cause and effect between sentences. <br><em>Many people lack access to healthy food options. Consequently, diet-related illness is disproportionately high in low-income communities.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">owing to / due to</span>
+                <span class="definition">Identifies the cause of a situation. More formal than "because of". <br><em>Owing to a lack of physical activity, rates of type 2 diabetes have increased significantly.</em></span>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h3>Sentence building practice</h3>
+            <p>Complete each sentence using the cause-effect link shown. Check your answer when ready.</p>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">Cause: people take less exercise / Effect: obesity rates increase</div>
+            <div class="prompt">→ Use: <strong>leads to</strong></div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>A sedentary lifestyle and reduced physical activity leads to higher rates of obesity and related chronic illness across all age groups.</em></div>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">Cause: too much sugar in processed food / Effect: children develop poor eating habits early</div>
+            <div class="prompt">→ Use: <strong>as a consequence of</strong></div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>As a consequence of high sugar content in processed and fast food, many children develop unhealthy eating habits during their formative years that are difficult to reverse in adulthood.</em></div>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">Cause: poor diet + lack of exercise / Effect: increasing strain on national health services</div>
+            <div class="prompt">→ Use: <strong>contribute to</strong></div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>Poor dietary choices and declining levels of physical activity both contribute to the increasing burden placed on national health services by lifestyle-related conditions.</em></div>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Think about a health, education, or environmental problem you know well. Can you explain it using at least two cause-effect links from this tab?</p>
+        </div>
+    </div>
+
+    <!-- TAB 3: Good vs. Weak Conclusions -->
+    <div id="tab3" class="tab-content">
+        <div class="content-block">
+            <h2>Good vs. weak conclusions</h2>
+            <p>Compare these pairs and identify what makes the second conclusion stronger. Read the prompt first.</p>
+        </div>
+        <div class="question-block">
+            <h4>Prompt: Physical exercise and diet both contribute to good health. Some people believe that governments should do more to promote healthy lifestyles. To what extent do you agree?</h4>
+        </div>
+
+        <div class="compare-box" style="margin-top:15px;">
+            <div class="bad-box">
+                <div class="bad-label">✗ Weak conclusion</div>
+                <p style="font-size: 0.9em; font-style: italic;">"In conclusion, I have talked about exercise and diet. These are very important and the government should do something about it because health is important for everyone."</p>
+            </div>
+            <div class="good-box">
+                <div class="good-label">✓ Strong conclusion</div>
+                <p style="font-size: 0.9em; font-style: italic;">"In conclusion, while personal responsibility plays a role in maintaining health, I firmly believe that governments have a duty to create environments that make healthy choices accessible to all citizens — not merely to those with the financial means to pursue them."</p>
+            </div>
+        </div>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Show Analysis</button>
+        <div class="answer-text">
+            <strong>Weak conclusion problems:</strong> Vague ("something", "very important"), no paraphrase of argument, no specific position, no language range.<br><br>
+            <strong>Strong conclusion strengths:</strong> Paraphrases the essay's thesis, gives a clear opinion, uses formal language and a nuanced qualifier ("not merely to those who"), demonstrates lexical range.
+        </div>
+
+        <div class="compare-box" style="margin-top:20px;">
+            <div class="bad-box">
+                <div class="bad-label">✗ Weak conclusion</div>
+                <p style="font-size: 0.9em; font-style: italic;">"To summarise, exercise is good for health. In the future, technology will help solve this problem. People need to make better choices."</p>
+            </div>
+            <div class="good-box">
+                <div class="good-label">✓ Strong conclusion</div>
+                <p style="font-size: 0.9em; font-style: italic;">"To summarise, the relationship between lifestyle choices and health outcomes is well-established. I believe governments should take a proactive role — through public health campaigns, urban planning, and food regulation — to ensure that leading a healthy life is achievable for all, regardless of income."</p>
+            </div>
+        </div>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Show Analysis</button>
+        <div class="answer-text">
+            <strong>Weak conclusion problems:</strong> Introduces a new idea (technology), is vague and disconnected from the essay's argument.<br><br>
+            <strong>Strong conclusion strengths:</strong> Directly addresses the prompt question, summarises the essay's position with specific detail (campaigns, planning, regulation), no new information.
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>What patterns do you notice in the strong conclusions? Can you identify a "formula" that you could apply to your own IELTS writing?</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: Conclusion Practice -->
+    <div id="tab4" class="tab-content">
+        <div class="content-block">
+            <h2>Write a conclusion</h2>
+            <p>Read each prompt and the summary of arguments below it. Write a strong conclusion of 50–70 words.</p>
+        </div>
+
+        <div class="question-block">
+            <h4>Prompt A — Exercise &amp; fitness:</h4>
+            <p style="font-style: italic; margin-bottom: 10px;">Some people believe that regular exercise is the most important factor in maintaining good health. Others argue that diet is more significant. Discuss both views and give your own opinion.</p>
+            <p><strong>Arguments discussed:</strong> Exercise — cardiovascular benefits, mental health, longevity. Diet — prevention of chronic disease, nutritional foundation for body function. Your view: both are interdependent; neither alone is sufficient.</p>
+            <textarea class="textarea-box" style="min-height: 120px; margin-top: 10px;" placeholder="Write your conclusion here..."></textarea>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Model Conclusion</button>
+            <div class="answer-text"><em>"In conclusion, while both exercise and diet contribute significantly to overall health, I would argue that they are most effective when practised together. A nutritious diet provides the fuel required for physical activity, while regular exercise helps maintain the cardiovascular and mental wellbeing that no diet alone can sustain. A holistic approach is therefore essential."</em></div>
+        </div>
+
+        <div class="question-block">
+            <h4>Prompt B — Screen time &amp; children:</h4>
+            <p style="font-style: italic; margin-bottom: 10px;">Increasing use of digital devices is having a negative impact on children's health and social skills. To what extent do you agree?</p>
+            <p><strong>Arguments discussed:</strong> Agree — reduced physical activity, disrupted sleep, weakened face-to-face social skills. Partial disagreement — educational technology provides valuable skills. Your view: mostly agree, but parental guidance and balance are key.</p>
+            <textarea class="textarea-box" style="min-height: 120px; margin-top: 10px;" placeholder="Write your conclusion here..."></textarea>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Model Conclusion</button>
+            <div class="answer-text"><em>"In conclusion, I largely agree that excessive screen time poses genuine risks to children's physical and social development. However, the issue is not technology itself but its unregulated use. With appropriate parental guidance and balanced screen time policies, the negative consequences outlined in this essay can be significantly mitigated."</em></div>
+        </div>
+    </div>
+
+    <!-- TAB 5: Full Essay -->
+    <div id="tab5" class="tab-content">
+        <div class="content-block">
+            <h2>Write a full essay</h2>
+            <p>Focus on applying everything from this lesson series. Use cause-effect language in your body paragraphs and write a strong, well-structured conclusion.</p>
+        </div>
+        <div class="question-block">
+            <h4>📝 The prompt:</h4>
+            <p style="font-style: italic; margin-top: 8px; padding: 12px; background: #f8f9fa; border-radius: 4px; border-left: 4px solid #667eea; color: #333;">
+                <em>In many countries, levels of obesity and diet-related illness are rising. Some argue that individuals are responsible for their own health. Others believe governments should take more action to address this problem. Discuss both views and give your own opinion.</em>
+            </p>
+        </div>
+
+        <div class="timer-wrap">
+            <div class="timer-display" id="timerDisplay">40:00</div>
+            <button class="timer-btn" id="timerBtn" onclick="startTimer()">▶ Start Timer</button>
+        </div>
+
+        <div class="task-checklist">
+            <h3>Final essay checklist:</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="c1"><label for="c1">Have you used cause-effect language in at least one body paragraph (<em>leads to / as a consequence of / contribute to</em>)?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c2"><label for="c2">Does your conclusion paraphrase your thesis without copying it?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c3"><label for="c3">Does your conclusion state your position clearly (for this "discuss both views" prompt)?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c4"><label for="c4">Have you avoided introducing new information in the conclusion?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c5"><label for="c5">Is your essay approximately 250–280 words with accurate grammar throughout?</label>
+            </div>
+        </div>
+
+        <textarea class="textarea-box" placeholder="Write your essay here..."></textarea>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+    function flipCard(el) { el.classList.toggle("flipped"); }
+    function toggleAnswer(btn) {
+        const ans = btn.nextElementSibling;
+        ans.classList.toggle("show");
+        btn.textContent = ans.classList.contains("show") ? "Hide Answer" : "Show Answer";
+    }
+    let timerInterval = null, totalSeconds = 40 * 60, running = false;
+    function startTimer() {
+        if (!running) {
+            running = true;
+            document.getElementById("timerBtn").textContent = "⏸ Pause";
+            timerInterval = setInterval(() => {
+                if (totalSeconds <= 0) { clearInterval(timerInterval); document.getElementById("timerDisplay").textContent = "00:00"; document.getElementById("timerBtn").textContent = "Time's up!"; return; }
+                totalSeconds--;
+                const m = Math.floor(totalSeconds / 60).toString().padStart(2, "0");
+                const s = (totalSeconds % 60).toString().padStart(2, "0");
+                document.getElementById("timerDisplay").textContent = m + ":" + s;
+            }, 1000);
+        } else {
+            running = false; clearInterval(timerInterval);
+            document.getElementById("timerBtn").textContent = "▶ Resume";
+        }
+    }
+</script>
+</body>
+</html>

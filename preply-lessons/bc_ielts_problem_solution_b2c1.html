@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Task 2: Problem & Solution</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .task-checklist { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+        .task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+        .checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+        .checklist-item input { width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea; }
+        .highlight-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .highlight-box h3 { color: white; margin-bottom: 12px; }
+        .para-chain { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .chain-step { display: flex; align-items: flex-start; gap: 14px; background: white; border: 2px solid #667eea; border-radius: 8px; padding: 15px; }
+        .chain-num { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: 700; font-size: 0.85em; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+        .chain-label { font-weight: 700; color: #764ba2; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
+        .chain-content { font-size: 0.95em; color: #333; margin-top: 2px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 110px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102,126,234,0.3); transform: translateY(-3px); }
+        .vocab-card .word { font-weight: 700; font-size: 1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.88em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .sentence-transform { background: white; padding: 18px; border-left: 4px solid #764ba2; margin-bottom: 15px; border-radius: 4px; }
+        .sentence-transform .original { color: #555; margin-bottom: 8px; }
+        .sentence-transform .prompt { color: #667eea; font-weight: 600; margin-bottom: 8px; font-size: 0.9em; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 220px; }
+        .timer-wrap { text-align: center; margin: 20px 0; }
+        .timer-display { font-size: 3em; font-weight: 700; color: #764ba2; letter-spacing: 3px; margin: 10px 0; font-variant-numeric: tabular-nums; }
+        .timer-btn { background: #667eea; color: white; padding: 14px 30px; border-radius: 4px; cursor: pointer; font-weight: 700; border: none; font-size: 1.1em; transition: background 0.3s ease; }
+        .timer-btn:hover { background: #764ba2; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .col-box { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 15px; }
+        .col-box h4 { color: #764ba2; margin-bottom: 10px; }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            header h1 { font-size: 1.8em; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-button { width: 100%; text-align: left; border-left: 5px solid transparent; }
+            .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+            .two-col { grid-template-columns: 1fr; }
+            .vocab-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>IELTS Writing Task 2</h1>
+        <p>Problem &amp; Solution Essays &nbsp;&middot;&nbsp; B2–C1</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event,'tab1')">The Essay Type</button>
+        <button class="tab-button" onclick="openTab(event,'tab2')">Paragraph Structure</button>
+        <button class="tab-button" onclick="openTab(event,'tab3')">Solution Language</button>
+        <button class="tab-button" onclick="openTab(event,'tab4')">Brainstorm &amp; Plan</button>
+        <button class="tab-button" onclick="openTab(event,'tab5')">Write It</button>
+    </div>
+
+    <!-- TAB 1: The Essay Type -->
+    <div id="tab1" class="tab-content active">
+        <div class="highlight-box">
+            <h3>What is a Problem &amp; Solution essay?</h3>
+            <p>You are given a social, environmental, or global issue and asked to identify its causes or problems and then propose solutions. The examiner wants to see <strong>developed ideas</strong> — not just a list.</p>
+        </div>
+        <div class="content-block">
+            <h2>Recognising the question type</h2>
+        </div>
+        <div class="question-block">
+            <h4>Typical prompt patterns:</h4>
+            <p style="margin-bottom: 10px;">▸ <em>"What are the causes of [problem] and what solutions can be suggested?"</em></p>
+            <p style="margin-bottom: 10px;">▸ <em>"What problems does [development] create, and how could these be resolved?"</em></p>
+            <p style="margin-bottom: 10px;">▸ <em>"Discuss the problems associated with [issue] and suggest possible solutions."</em></p>
+        </div>
+        <div class="content-block">
+            <h2>The four-paragraph structure</h2>
+        </div>
+        <div class="para-chain">
+            <div class="chain-step">
+                <div class="chain-num">1</div>
+                <div>
+                    <div class="chain-label">Introduction</div>
+                    <div class="chain-content">Paraphrase the prompt. Mention that you will discuss both problems and solutions. Do <strong>not</strong> list your points here.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">2</div>
+                <div>
+                    <div class="chain-label">Problems Paragraph</div>
+                    <div class="chain-content">Identify two main problems. For each one, explain <em>why</em> it is a problem — give a result or consequence. Don't just name it.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">3</div>
+                <div>
+                    <div class="chain-label">Solutions Paragraph</div>
+                    <div class="chain-content">Propose two specific solutions — one for each problem if possible. Explain the likely result of each solution.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">4</div>
+                <div>
+                    <div class="chain-label">Conclusion</div>
+                    <div class="chain-content">Briefly restate the main problems and the proposed solutions. Express an outlook — cautiously optimistic or realistic.</div>
+                </div>
+            </div>
+        </div>
+        <div class="discussion-box">
+            <p><strong>Think about this:</strong></p>
+            <p>Why does IELTS ask for solutions as well as problems? What does this task reveal about a candidate's range of ideas and language?</p>
+            <p>Is it possible to give a good answer if you only describe the problem and then say "the government should fix it"? Why/why not?</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: Paragraph Structure -->
+    <div id="tab2" class="tab-content">
+        <div class="content-block">
+            <h2>Building a solutions paragraph — sentence by sentence</h2>
+            <p>A high-scoring solutions paragraph follows a clear internal logic. Here is the standard six-sentence pattern for a two-solution paragraph.</p>
+        </div>
+        <div class="para-chain">
+            <div class="chain-step">
+                <div class="chain-num">1</div>
+                <div>
+                    <div class="chain-label">Topic sentence</div>
+                    <div class="chain-content">Signal the paragraph's focus. <em>"There are several steps that could be taken to address these issues."</em></div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">2</div>
+                <div>
+                    <div class="chain-label">Solution 1</div>
+                    <div class="chain-content">Introduce your first proposed measure. Be specific about who does it and what it involves.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">3</div>
+                <div>
+                    <div class="chain-label">Result of solution 1</div>
+                    <div class="chain-content">Explain the positive outcome of this measure. Use result language: <em>This would lead to… / As a result… / This could significantly reduce…</em></div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">4</div>
+                <div>
+                    <div class="chain-label">Linking sentence</div>
+                    <div class="chain-content">Transition smoothly to the second solution. <em>"A further measure would be to…" / "Additionally, …"</em></div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">5</div>
+                <div>
+                    <div class="chain-label">Solution 2</div>
+                    <div class="chain-content">Introduce your second proposed measure.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">6</div>
+                <div>
+                    <div class="chain-label">Result of solution 2</div>
+                    <div class="chain-content">Explain the positive outcome. This closes the paragraph with a forward-looking note.</div>
+                </div>
+            </div>
+        </div>
+        <div class="content-block">
+            <h3>Model paragraph — can you identify each step?</h3>
+            <p>Read this solutions paragraph and match each sentence to the six steps above.</p>
+        </div>
+        <div class="question-block">
+            <p style="font-style: italic; line-height: 2; color: #333; border-left: 4px solid #667eea; padding-left: 14px;">
+                [A] There are a number of measures that could be introduced to address the problem of urban congestion and pollution. [B] Firstly, city governments could invest in affordable, reliable public transport — expanding bus and metro networks so that private car use becomes unnecessary for most journeys. [C] This would directly reduce the volume of vehicles on the road, lowering both traffic levels and harmful emissions. [D] A further approach would be to introduce congestion charging in city centres, making it financially costly to drive into the busiest areas. [E] This policy has already proven effective in cities such as London and Stockholm. [F] If adopted more widely, it could serve as a significant disincentive for unnecessary private car journeys.
+            </p>
+        </div>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Show Step Labels</button>
+        <div class="answer-text">
+            [A] Topic sentence → [B] Solution 1 → [C] Result of solution 1 → [D] Linking sentence + Solution 2 → [E&amp;F] Result / development of solution 2
+        </div>
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Which sentence in the model paragraph do you find most persuasive? Why?</p>
+            <p>What would happen to the paragraph's quality if sentence [C] were removed?</p>
+        </div>
+    </div>
+
+    <!-- TAB 3: Solution Language -->
+    <div id="tab3" class="tab-content">
+        <div class="content-block">
+            <h2>Language for proposing solutions</h2>
+            <p>Using a range of structures makes your essay sound academic and avoids repetition. Click each card to see the pattern and an example.</p>
+        </div>
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">could + base verb</span>
+                <span class="definition">Tentative recommendation. <br><em>Governments could invest in renewable energy infrastructure.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">should be required to</span>
+                <span class="definition">Stronger obligation. <br><em>Companies should be required to reduce their carbon emissions annually.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">One effective solution would be to</span>
+                <span class="definition">Introduces a specific measure formally. <br><em>One effective solution would be to introduce stricter regulations on industrial waste.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">This would lead to</span>
+                <span class="definition">Explains the result of a proposed measure. <br><em>This would lead to a significant reduction in air pollution in major cities.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">A further measure would be to</span>
+                <span class="definition">Transitions to a second solution. <br><em>A further measure would be to raise public awareness through education campaigns.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">If … were to …, this could</span>
+                <span class="definition">Conditional structure for hypothetical solutions. <br><em>If governments were to ban single-use plastics, this could dramatically cut ocean pollution.</em></span>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h3>Sentence building practice</h3>
+            <p>Use the prompt and language cue to write a full sentence. Check your answer when ready.</p>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">Topic: air pollution in cities. Solution: subsidise electric vehicles for low-income households.</div>
+            <div class="prompt">→ Use: <strong>One effective solution would be to</strong></div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>One effective solution would be to subsidise the purchase of electric vehicles for low-income households, making cleaner transport accessible to all.</em></div>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">Topic: youth unemployment. Solution: businesses partner with schools to offer apprenticeship programmes.</div>
+            <div class="prompt">→ Use: <strong>should be required to</strong></div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>Businesses should be required to partner with local schools and colleges to offer structured apprenticeship programmes for young people.</em></div>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">Topic: urban congestion. Solution: introduce congestion charging. Result: reduce car journeys into city centres.</div>
+            <div class="prompt">→ Use: <strong>This would lead to</strong></div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>Congestion charges could be introduced in city centres. This would lead to a significant reduction in the number of car journeys into the most heavily congested areas.</em></div>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Why is it better to use <em>could</em> or <em>would be to</em> rather than <em>must</em> or <em>will</em> when proposing solutions in an IELTS essay?</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: Brainstorm & Plan -->
+    <div id="tab4" class="tab-content">
+        <div class="content-block">
+            <h2>Brainstorm and plan your essay</h2>
+            <p>Read the prompt and complete the planning stages below before you write.</p>
+        </div>
+        <div class="question-block">
+            <h4>📝 The prompt:</h4>
+            <p style="font-style: italic; margin-top: 8px; padding: 12px; background: #f8f9fa; border-radius: 4px; border-left: 4px solid #667eea; color: #333;">
+                <em>Many cities around the world are experiencing serious traffic congestion and high levels of air pollution. What are the main problems caused by this, and what solutions could be suggested?</em>
+            </p>
+        </div>
+
+        <div class="question-block">
+            <h4>Step 1 — Identify two problems (with their consequences):</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Ideas</button>
+            <div class="answer-text">
+                <strong>Problem 1:</strong> Health impact — long-term exposure to vehicle emissions causes respiratory diseases such as asthma and lung cancer, particularly in children and elderly residents.<br><br>
+                <strong>Problem 2:</strong> Economic cost — traffic congestion wastes millions of working hours annually as commuters sit in gridlock, reducing business productivity and GDP.
+            </div>
+        </div>
+        <div class="question-block">
+            <h4>Step 2 — Propose a matching solution for each problem:</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Ideas</button>
+            <div class="answer-text">
+                <strong>Solution 1 (for health):</strong> Governments could introduce low-emission zones, banning diesel vehicles from city centres. This would reduce harmful pollutants near densely populated areas.<br><br>
+                <strong>Solution 2 (for congestion):</strong> Investment in fast, affordable public transport — such as underground rail or bus rapid transit — would encourage commuters to leave their cars at home.
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h3>Your plan</h3>
+            <p>Write your own outline in the space below. Then move to Tab 5 to write the full essay.</p>
+        </div>
+        <textarea class="textarea-box" style="min-height:180px;" placeholder="Introduction: &#10;&#10;Problems paragraph:&#10;  Problem 1 → consequence:&#10;  Problem 2 → consequence:&#10;&#10;Solutions paragraph:&#10;  Solution 1 → result:&#10;  Solution 2 → result:&#10;&#10;Conclusion:"></textarea>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Is traffic congestion a problem in a city you know well? What solutions have been tried there? Have they worked?</p>
+        </div>
+    </div>
+
+    <!-- TAB 5: Write It -->
+    <div id="tab5" class="tab-content">
+        <div class="content-block">
+            <h2>Write your essay</h2>
+            <p>Use the congestion &amp; air pollution prompt from Tab 4, or choose the alternative below. Aim for <strong>250–280 words</strong>.</p>
+        </div>
+        <div class="question-block">
+            <h4>Alternative prompt:</h4>
+            <p style="font-style: italic;">In many countries, a growing number of young people are struggling to find employment after finishing their education. What problems does this cause, and what solutions could governments and employers offer?</p>
+        </div>
+
+        <div class="timer-wrap">
+            <div class="timer-display" id="timerDisplay">40:00</div>
+            <button class="timer-btn" id="timerBtn" onclick="startTimer()">▶ Start Timer</button>
+        </div>
+
+        <div class="task-checklist">
+            <h3>Before you submit — check your essay:</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="c1"><label for="c1">Does your introduction paraphrase the prompt and signal that you will discuss both problems and solutions?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c2"><label for="c2">Have you identified two specific problems — each with a consequence, not just a label?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c3"><label for="c3">Have you proposed two specific solutions — each with a likely result?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c4"><label for="c4">Have you used solution language from Tab 3 (e.g. <em>could / would be to / this would lead to</em>)?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c5"><label for="c5">Is your solutions paragraph structured logically (topic sentence → solution → result → link → solution → result)?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c6"><label for="c6">Does your conclusion summarise without adding new information?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c7"><label for="c7">Is your essay approximately 250–280 words with accurate grammar and vocabulary?</label>
+            </div>
+        </div>
+
+        <textarea class="textarea-box" placeholder="Write your essay here..."></textarea>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+    function flipCard(el) { el.classList.toggle("flipped"); }
+    function toggleAnswer(btn) {
+        const ans = btn.nextElementSibling;
+        ans.classList.toggle("show");
+        btn.textContent = ans.classList.contains("show") ? "Hide Answer" : "Show Answer";
+    }
+    let timerInterval = null, totalSeconds = 40 * 60, running = false;
+    function startTimer() {
+        if (!running) {
+            running = true;
+            document.getElementById("timerBtn").textContent = "⏸ Pause";
+            timerInterval = setInterval(() => {
+                if (totalSeconds <= 0) { clearInterval(timerInterval); document.getElementById("timerDisplay").textContent = "00:00"; document.getElementById("timerBtn").textContent = "Time's up!"; return; }
+                totalSeconds--;
+                const m = Math.floor(totalSeconds / 60).toString().padStart(2, "0");
+                const s = (totalSeconds % 60).toString().padStart(2, "0");
+                document.getElementById("timerDisplay").textContent = m + ":" + s;
+            }, 1000);
+        } else {
+            running = false; clearInterval(timerInterval);
+            document.getElementById("timerBtn").textContent = "▶ Resume";
+        }
+    }
+</script>
+</body>
+</html>

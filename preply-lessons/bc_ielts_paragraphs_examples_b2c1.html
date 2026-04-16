@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Task 2: Paragraphs & Examples</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .task-checklist { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+        .task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+        .checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+        .checklist-item input { width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea; }
+        .highlight-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .highlight-box h3 { color: white; margin-bottom: 12px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 110px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102,126,234,0.3); transform: translateY(-3px); }
+        .vocab-card .word { font-weight: 700; font-size: 1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.88em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .para-chain { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .chain-step { display: flex; align-items: flex-start; gap: 14px; background: white; border: 2px solid #667eea; border-radius: 8px; padding: 15px; }
+        .chain-num { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: 700; font-size: 0.85em; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+        .chain-label { font-weight: 700; color: #764ba2; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
+        .chain-content { font-size: 0.95em; color: #333; margin-top: 2px; }
+        .error-spot { background: white; padding: 18px; border-left: 4px solid #e74c3c; margin-bottom: 15px; border-radius: 4px; }
+        .error-spot .erroneous { color: #e74c3c; font-style: italic; margin-bottom: 8px; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 200px; }
+        .timer-wrap { text-align: center; margin: 20px 0; }
+        .timer-display { font-size: 3em; font-weight: 700; color: #764ba2; letter-spacing: 3px; margin: 10px 0; font-variant-numeric: tabular-nums; }
+        .timer-btn { background: #667eea; color: white; padding: 14px 30px; border-radius: 4px; cursor: pointer; font-weight: 700; border: none; font-size: 1.1em; transition: background 0.3s ease; }
+        .timer-btn:hover { background: #764ba2; }
+        .sentence-transform { background: white; padding: 18px; border-left: 4px solid #764ba2; margin-bottom: 15px; border-radius: 4px; }
+        .sentence-transform .original { color: #555; margin-bottom: 8px; }
+        .sentence-transform .prompt { color: #667eea; font-weight: 600; margin-bottom: 8px; font-size: 0.9em; }
+        .ranking-list { counter-reset: rank; list-style: none; padding: 0; }
+        .ranking-list li { counter-increment: rank; background: white; border: 2px solid #667eea; border-radius: 8px; padding: 14px 14px 14px 50px; margin-bottom: 10px; position: relative; cursor: pointer; transition: all 0.3s ease; }
+        .ranking-list li::before { content: counter(rank); position: absolute; left: 12px; top: 50%; transform: translateY(-50%); background: #667eea; color: white; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85em; }
+        .ranking-list li:hover { box-shadow: 0 3px 10px rgba(102,126,234,0.3); }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            header h1 { font-size: 1.8em; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-button { width: 100%; text-align: left; border-left: 5px solid transparent; }
+            .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+            .vocab-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>IELTS Writing Task 2</h1>
+        <p>Structuring Paragraphs &amp; Introducing Examples &nbsp;&middot;&nbsp; B2–C1</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event,'tab1')">What Makes a Paragraph?</button>
+        <button class="tab-button" onclick="openTab(event,'tab2')">Opposing Views</button>
+        <button class="tab-button" onclick="openTab(event,'tab3')">Introducing Examples</button>
+        <button class="tab-button" onclick="openTab(event,'tab4')">Error Correction</button>
+        <button class="tab-button" onclick="openTab(event,'tab5')">Write a Paragraph</button>
+    </div>
+
+    <!-- TAB 1: What Makes a Paragraph? -->
+    <div id="tab1" class="tab-content active">
+        <div class="highlight-box">
+            <h3>The five elements of a strong body paragraph</h3>
+            <p>A high-scoring IELTS paragraph isn't just about having ideas — it's about structuring them so the examiner can follow your argument clearly and completely.</p>
+        </div>
+        <div class="para-chain">
+            <div class="chain-step">
+                <div class="chain-num">1</div>
+                <div>
+                    <div class="chain-label">Main idea</div>
+                    <div class="chain-content">The topic sentence — states the central point of the paragraph clearly. Everything else develops this idea.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">2</div>
+                <div>
+                    <div class="chain-label">Opposing view (optional)</div>
+                    <div class="chain-content">Acknowledge the counterargument before dismissing it. This shows balance and critical thinking. <em>"While some argue that... it is clear that..."</em></div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">3</div>
+                <div>
+                    <div class="chain-label">Explanation</div>
+                    <div class="chain-content">Explain <em>why</em> your main idea is true or important. Don't just restate it in different words.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">4</div>
+                <div>
+                    <div class="chain-label">Example</div>
+                    <div class="chain-content">Give a specific, concrete example to support the explanation. This is evidence that your claim is grounded in reality.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">5</div>
+                <div>
+                    <div class="chain-label">Conclusion sentence</div>
+                    <div class="chain-content">Close the paragraph by linking back to your position or summarising the significance of the point.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h3>What is the most important factor in a good job?</h3>
+            <p>Read the following responses. Which one sounds most like an IELTS answer?</p>
+        </div>
+        <div class="question-block">
+            <h4>Rank these factors from most to least important for job satisfaction. Then compare your ranking with a partner.</h4>
+            <ul class="ranking-list">
+                <li>Salary and financial rewards</li>
+                <li>Opportunities for promotion and career growth</li>
+                <li>Positive relationships with colleagues</li>
+                <li>A sense of purpose — believing the work matters</li>
+                <li>Work-life balance and flexible hours</li>
+                <li>Job security and stability</li>
+            </ul>
+        </div>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Show Discussion Point</button>
+        <div class="answer-text">
+            Research into workplace satisfaction consistently shows that once basic salary needs are met, intrinsic factors — particularly a sense of purpose and positive relationships — are stronger predictors of long-term job satisfaction than pay. This is useful context for writing about job satisfaction in IELTS essays. Try to build your essay arguments around <em>why</em> each factor matters, not just the ranking itself.
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>What is the most important factor in a job for you personally? Could you write a full paragraph defending that position using the five-element structure above?</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: Opposing Views -->
+    <div id="tab2" class="tab-content">
+        <div class="content-block">
+            <h2>Handling opposing views within a paragraph</h2>
+            <p>In a well-developed paragraph, you can acknowledge what the other side might argue — and then show why your point is stronger. This is called a <strong>concession-rebuttal</strong> pattern.</p>
+        </div>
+        <div class="highlight-box">
+            <h3>The concession-rebuttal pattern:</h3>
+            <p><strong>While it is true that [opposing point],</strong> it is clear that [your main point is stronger] <strong>because</strong> [reason/evidence].</p>
+        </div>
+
+        <div class="question-block">
+            <h4>Model sentence:</h4>
+            <p style="margin-top: 10px; font-style: italic; border-left: 4px solid #667eea; padding-left: 12px;">"While it is true that a high salary provides financial security, research consistently shows that employees who feel a strong sense of purpose in their work report higher levels of long-term satisfaction than those motivated primarily by pay."</p>
+        </div>
+
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">While it is true that</span>
+                <span class="definition">Concedes the opposing point before overturning it. <br><em>While it is true that exams create stress, they remain a reliable measure of academic ability.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">Although some argue that</span>
+                <span class="definition">Introduces the opposing view before dismissing it. <br><em>Although some argue that salary is the primary motivator, job satisfaction studies suggest otherwise.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">Admittedly, … however</span>
+                <span class="definition">Acknowledges validity, then pivots. <br><em>Admittedly, flexible hours can complicate team coordination. However, the productivity gains are substantial.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">It could be argued that… yet</span>
+                <span class="definition">Hedged concession — softer tone. <br><em>It could be argued that job security is a luxury for many workers. Yet evidence shows it strongly affects mental health outcomes.</em></span>
+            </div>
+        </div>
+
+        <div class="sentence-transform">
+            <div class="original">Main argument: Career growth opportunities are the most important job factor. Opposing view: Some people prioritise salary above all else.</div>
+            <div class="prompt">→ Write a concession-rebuttal sentence using "While it is true that"</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>While it is true that salary is an important consideration for many workers, opportunities for career growth and professional development are arguably more valuable in the long term, as they provide both financial rewards and a sense of ongoing achievement.</em></div>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>What is the risk of acknowledging the opposing view in your paragraph? How do you ensure your own argument still "wins"?</p>
+        </div>
+    </div>
+
+    <!-- TAB 3: Introducing Examples -->
+    <div id="tab3" class="tab-content">
+        <div class="content-block">
+            <h2>How to introduce examples in IELTS writing</h2>
+            <p>Examples add credibility and depth to your argument. But IELTS rewards <em>how</em> you introduce them — not just that you use them. Click each card to see the phrase and an example.</p>
+        </div>
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">For example, / For instance,</span>
+                <span class="definition">Most common. Simple and clear. <br><em>For example, in countries such as Finland, teachers are required to complete a master's degree, resulting in consistently high educational outcomes.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">A clear example of this is</span>
+                <span class="definition">Introduces a specific case with emphasis. <br><em>A clear example of this is the success of Singapore's education system, which combines rigour with strong teacher development.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">This is illustrated by</span>
+                <span class="definition">Connects the example directly to the point being made. <br><em>This is illustrated by the case of Japan, where long working hours have been linked to a public health crisis.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">Evidence suggests that</span>
+                <span class="definition">Introduces research or data-based support. Does not require a specific statistic. <br><em>Evidence suggests that students who learn music at an early age perform better in mathematics and language tasks.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">As [name] once said, "..."</span>
+                <span class="definition">Introduces a quote for emphasis. Use sparingly — only if you know the quote accurately. <br><em>As Nelson Mandela once said, "Education is the most powerful weapon which you can use to change the world."</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">Studies have shown that</span>
+                <span class="definition">Formal evidence marker. Does not require citing a specific study — use it for widely accepted findings. <br><em>Studies have shown that children who read for pleasure consistently outperform those who do not in both literacy and general knowledge.</em></span>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h3>Quote practice</h3>
+            <p>These famous education quotes can be used in IELTS Writing Task 2 essays. Read each one, then think of a claim you could use it to support.</p>
+        </div>
+        <div class="question-block">
+            <h4>"Education is the most powerful weapon which you can use to change the world." — Nelson Mandela</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">How could you use this?</button>
+            <div class="answer-text">This quote supports arguments about the importance of investing in public education, the role of education in reducing inequality, or the long-term social benefits of universal schooling. Use it after making a claim about education's societal impact.</div>
+        </div>
+        <div class="question-block">
+            <h4>"An investment in knowledge always pays the best interest." — Benjamin Franklin</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">How could you use this?</button>
+            <div class="answer-text">This supports arguments about lifelong learning, the economic value of higher education, or why governments should fund education generously. It works well as a closing sentence to reinforce an argument about education spending.</div>
+        </div>
+        <div class="question-block">
+            <h4>"If you give a man a fish, you feed him for a day. If you teach a man to fish, you feed him for a lifetime." — Ancient proverb (often attributed to Lao Tzu or Confucius)</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">How could you use this?</button>
+            <div class="answer-text">This supports arguments that education and skills training are more valuable than direct financial aid, that long-term solutions to poverty require education rather than charity, or that vocational training should be prioritised.</div>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Is it risky to use a quote in an IELTS essay? What could go wrong? What is the safest way to use one?</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: Error Correction -->
+    <div id="tab4" class="tab-content">
+        <div class="content-block">
+            <h2>Error correction</h2>
+            <p>Each of these sentences contains a common IELTS mistake. Identify the error, then check the corrected version.</p>
+        </div>
+
+        <div class="error-spot">
+            <div class="erroneous">1. "Education is very important because it helps people to get a good job and also it is useful for society."</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Correction</button>
+            <div class="answer-text"><strong>Problems:</strong> Too vague ("very important", "good job", "useful for society") and informal repetition ("also it is"). Missing a specific explanation or example.<br><br><strong>Improved:</strong> <em>"Education plays a pivotal role in economic development, equipping individuals with the skills required by a modern workforce and enabling societies to reduce unemployment and increase productivity."</em></div>
+        </div>
+        <div class="error-spot">
+            <div class="erroneous">2. "In conclusion, I think that the government should invest more in education because it is the key of the future."</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Correction</button>
+            <div class="answer-text"><strong>Problems:</strong> "the key of the future" is not natural English (should be "the key to"); "I think" is too informal for a conclusion; the conclusion doesn't summarise the essay's arguments.<br><br><strong>Improved:</strong> <em>"In conclusion, it is clear that sustained government investment in education represents the most effective long-term strategy for social and economic progress, as argued throughout this essay."</em></div>
+        </div>
+        <div class="error-spot">
+            <div class="erroneous">3. "For example, Finland is a country where students do not have a lot of homework but they get very high scores on international tests, it shows that less pressure can lead to better results."</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Correction</button>
+            <div class="answer-text"><strong>Problem:</strong> This is a comma splice — two independent clauses joined only by a comma. The second clause needs to be a separate sentence or joined correctly.<br><br><strong>Improved:</strong> <em>"For example, Finland demonstrates that students can achieve outstanding results in international assessments without excessive homework or examination pressure. This suggests that well-being and academic performance are not mutually exclusive."</em></div>
+        </div>
+        <div class="error-spot">
+            <div class="erroneous">4. "Some peoples argue that online learning is as better as traditional classroom education."</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Correction</button>
+            <div class="answer-text"><strong>Problems:</strong> "peoples" — the noun "people" is already plural; "as better as" is incorrect — the comparison should be "as good as" (not "as better").<br><br><strong>Improved:</strong> <em>"Some people argue that online learning is as effective as traditional classroom education, particularly when students have access to quality digital resources and reliable internet connectivity."</em></div>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Which of these error types — vague language, incorrect grammar, run-on sentences, or wrong word choice — do you find yourself making most often? How can you catch them when proofreading?</p>
+        </div>
+    </div>
+
+    <!-- TAB 5: Write a Paragraph -->
+    <div id="tab5" class="tab-content">
+        <div class="content-block">
+            <h2>Write a body paragraph</h2>
+            <p>Choose one of the topics below and write a complete body paragraph using the five-element structure from Tab 1. Use a concession-rebuttal if possible (Tab 2) and introduce at least one example (Tab 3).</p>
+        </div>
+        <div class="question-block">
+            <h4>Topic options:</h4>
+            <p style="margin-bottom: 8px;">▸ The most important factor in job satisfaction is work-life balance.</p>
+            <p style="margin-bottom: 8px;">▸ Governments should make university education free for all citizens.</p>
+            <p>▸ Exams are the best way to measure a student's academic progress.</p>
+        </div>
+
+        <div class="timer-wrap">
+            <div class="timer-display" id="timerDisplay">12:00</div>
+            <button class="timer-btn" id="timerBtn" onclick="startTimer()">▶ Start Timer</button>
+        </div>
+
+        <div class="task-checklist">
+            <h3>Paragraph checklist:</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="c1"><label for="c1">Have you written a clear topic sentence that states the main idea?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c2"><label for="c2">Have you included an explanation (<em>why</em> the idea is true)?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c3"><label for="c3">Have you given a specific example using one of the phrases from Tab 3?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c4"><label for="c4">Have you acknowledged the opposing view using a concession phrase (optional but valuable)?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c5"><label for="c5">Have you avoided informal language, vague phrases, and grammar errors from Tab 4?</label>
+            </div>
+        </div>
+
+        <textarea class="textarea-box" placeholder="Write your paragraph here (aim for 100–130 words)..."></textarea>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+    function flipCard(el) { el.classList.toggle("flipped"); }
+    function toggleAnswer(btn) {
+        const ans = btn.nextElementSibling;
+        ans.classList.toggle("show");
+        btn.textContent = ans.classList.contains("show") ? "Hide Answer" : "Show Answer";
+    }
+    let timerInterval = null, totalSeconds = 12 * 60, running = false;
+    function startTimer() {
+        if (!running) {
+            running = true;
+            document.getElementById("timerBtn").textContent = "⏸ Pause";
+            timerInterval = setInterval(() => {
+                if (totalSeconds <= 0) { clearInterval(timerInterval); document.getElementById("timerDisplay").textContent = "00:00"; document.getElementById("timerBtn").textContent = "Time's up!"; return; }
+                totalSeconds--;
+                const m = Math.floor(totalSeconds / 60).toString().padStart(2, "0");
+                const s = (totalSeconds % 60).toString().padStart(2, "0");
+                document.getElementById("timerDisplay").textContent = m + ":" + s;
+            }, 1000);
+        } else {
+            running = false; clearInterval(timerInterval);
+            document.getElementById("timerBtn").textContent = "▶ Resume";
+        }
+    }
+</script>
+</body>
+</html>

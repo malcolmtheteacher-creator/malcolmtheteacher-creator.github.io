@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Task 2: Opinion Essays</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .task-checklist { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+        .task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+        .checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+        .checklist-item input { width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea; }
+        .highlight-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .highlight-box h3 { color: white; margin-bottom: 12px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 110px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102,126,234,0.3); transform: translateY(-3px); }
+        .vocab-card .word { font-weight: 700; font-size: 1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.88em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .tone-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .tone-box { background: white; border-radius: 8px; padding: 15px; }
+        .tone-box.bad { border: 2px solid #e74c3c; }
+        .tone-box.good { border: 2px solid #28a745; }
+        .tone-label { font-weight: 700; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .tone-label.bad { color: #e74c3c; }
+        .tone-label.good { color: #28a745; }
+        .sentence-transform { background: white; padding: 18px; border-left: 4px solid #764ba2; margin-bottom: 15px; border-radius: 4px; }
+        .sentence-transform .original { color: #555; margin-bottom: 8px; }
+        .sentence-transform .prompt { color: #667eea; font-weight: 600; margin-bottom: 8px; font-size: 0.9em; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 220px; }
+        .timer-wrap { text-align: center; margin: 20px 0; }
+        .timer-display { font-size: 3em; font-weight: 700; color: #764ba2; letter-spacing: 3px; margin: 10px 0; font-variant-numeric: tabular-nums; }
+        .timer-btn { background: #667eea; color: white; padding: 14px 30px; border-radius: 4px; cursor: pointer; font-weight: 700; border: none; font-size: 1.1em; transition: background 0.3s ease; }
+        .timer-btn:hover { background: #764ba2; }
+        .para-chain { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .chain-step { display: flex; align-items: flex-start; gap: 14px; background: white; border: 2px solid #667eea; border-radius: 8px; padding: 15px; }
+        .chain-num { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: 700; font-size: 0.85em; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+        .chain-label { font-weight: 700; color: #764ba2; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
+        .chain-content { font-size: 0.95em; color: #333; margin-top: 2px; }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            header h1 { font-size: 1.8em; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-button { width: 100%; text-align: left; border-left: 5px solid transparent; }
+            .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+            .tone-compare { grid-template-columns: 1fr; }
+            .vocab-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>IELTS Writing Task 2</h1>
+        <p>Opinion Essays (Agree / Disagree) &nbsp;&middot;&nbsp; B2–C1</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event,'tab1')">The Essay Type</button>
+        <button class="tab-button" onclick="openTab(event,'tab2')">Neutral Academic Tone</button>
+        <button class="tab-button" onclick="openTab(event,'tab3')">Building Your Argument</button>
+        <button class="tab-button" onclick="openTab(event,'tab4')">Plan Your Essay</button>
+        <button class="tab-button" onclick="openTab(event,'tab5')">Write It</button>
+    </div>
+
+    <!-- TAB 1: The Essay Type -->
+    <div id="tab1" class="tab-content active">
+        <div class="highlight-box">
+            <h3>What is an Opinion / Agree-Disagree essay?</h3>
+            <p>The prompt asks for <strong>your view</strong> on a statement or claim. You must decide whether you agree, disagree, or partly agree — and then develop a clear, supported argument. This is not a discussion of "both sides" — you take a position and defend it.</p>
+        </div>
+        <div class="content-block">
+            <h2>Recognising the question type</h2>
+        </div>
+        <div class="question-block">
+            <h4>Typical prompt patterns:</h4>
+            <p style="margin-bottom: 10px;">▸ <em>"To what extent do you agree or disagree with this statement?"</em></p>
+            <p style="margin-bottom: 10px;">▸ <em>"Do you agree or disagree? Give your opinion and include relevant examples."</em></p>
+            <p style="margin-bottom: 10px;">▸ <em>"Some people believe… Others argue… What is your view?"</em></p>
+        </div>
+        <div class="content-block">
+            <h2>Structure: Two common approaches</h2>
+        </div>
+        <div class="para-chain">
+            <div class="chain-step">
+                <div class="chain-num">A</div>
+                <div>
+                    <div class="chain-label">Full agreement / disagreement (cleaner, safer)</div>
+                    <div class="chain-content">Intro (state position clearly) → Body 1 (reason 1 + support) → Body 2 (reason 2 + support) → Conclusion (restate position). Both body paragraphs support the same side.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">B</div>
+                <div>
+                    <div class="chain-label">Partial agreement (more nuanced, higher risk)</div>
+                    <div class="chain-content">Intro (state partial position) → Body 1 (concede opposing point) → Body 2 (your main argument — stronger point) → Conclusion (reaffirm your position). Your opinion must dominate, not balance.</div>
+                </div>
+            </div>
+        </div>
+        <div class="question-block">
+            <h4>Which approach should you choose?</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Guidance</button>
+            <div class="answer-text">If you are confident in your ideas and language, approach B can score higher for sophistication. However, many students lose marks by appearing to give a balanced view rather than a personal position — this fails the task achievement criterion. If in doubt, commit to one side fully (approach A) and develop your arguments deeply. A well-developed full agreement essay scores higher than a half-hearted partial one.</div>
+        </div>
+        <div class="discussion-box">
+            <p><strong>Think about this:</strong></p>
+            <p>Some students try to avoid giving a strong opinion in an opinion essay. Why might they do this? What risk does it create in IELTS?</p>
+            <p>Is it possible to strongly disagree with a statement even if you personally agree with it in real life? Should you?</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: Neutral Academic Tone -->
+    <div id="tab2" class="tab-content">
+        <div class="content-block">
+            <h2>Writing with a neutral academic tone</h2>
+            <p>Opinion essays ask for <em>your</em> view — but that doesn't mean informal language. IELTS rewards formal, measured writing. Compare these examples.</p>
+        </div>
+        <div class="tone-compare">
+            <div class="tone-box bad">
+                <div class="tone-label bad">✗ Too casual / weak</div>
+                <p>"I really think that community work is a great thing and everyone should do it."</p>
+            </div>
+            <div class="tone-box good">
+                <div class="tone-label good">✓ Formal and measured</div>
+                <p>"I strongly believe that community service plays a vital role in building social cohesion and should be encouraged more widely."</p>
+            </div>
+        </div>
+        <div class="tone-compare">
+            <div class="tone-box bad">
+                <div class="tone-label bad">✗ Too absolute</div>
+                <p>"Advertising to children is totally wrong and should be completely banned immediately."</p>
+            </div>
+            <div class="tone-box good">
+                <div class="tone-label good">✓ Measured and academic</div>
+                <p>"There is a compelling argument that advertising targeting children raises serious ethical concerns and warrants stricter regulation."</p>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h3>Useful phrases for stating your position</h3>
+        </div>
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">I firmly believe that</span>
+                <span class="definition">Strong, clear position. <br><em>I firmly believe that all young people should be encouraged to volunteer in their local communities.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">In my view, / In my opinion,</span>
+                <span class="definition">Standard, neutral opinion marker. Use once — don't repeat throughout the essay. <br><em>In my view, the benefits of this policy far outweigh the drawbacks.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">It is my contention that</span>
+                <span class="definition">Formal, academic. Good for the introduction or conclusion. <br><em>It is my contention that governments bear primary responsibility for environmental protection.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">While there are merits to both positions, I would argue that</span>
+                <span class="definition">Acknowledges complexity before committing to a position. <br><em>While there are merits to both positions, I would argue that individual responsibility plays a greater role.</em></span>
+            </div>
+        </div>
+
+        <div class="sentence-transform">
+            <div class="original">You want to say: "I think volunteering is important."</div>
+            <div class="prompt">→ Rewrite using a more formal, developed phrase.</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>I strongly believe that volunteering is an invaluable practice that benefits not only the individual but also the wider community.</em></div>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">You want to say: "Advertising to kids is bad."</div>
+            <div class="prompt">→ Rewrite in a neutral, academic register.</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>It is my contention that commercial advertising directed at young children is ethically problematic and should be subject to greater regulatory oversight.</em></div>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Can you explain the difference between <em>I think</em> and <em>it is my contention that</em> in terms of register? When would each be appropriate?</p>
+        </div>
+    </div>
+
+    <!-- TAB 3: Building Your Argument -->
+    <div id="tab3" class="tab-content">
+        <div class="content-block">
+            <h2>Building a strong argument paragraph</h2>
+            <p>Each body paragraph in an opinion essay should follow a clear pattern: state your point → explain why → give support.</p>
+        </div>
+        <div class="para-chain">
+            <div class="chain-step">
+                <div class="chain-num">1</div>
+                <div>
+                    <div class="chain-label">Topic sentence</div>
+                    <div class="chain-content">State your main point for this paragraph clearly.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">2</div>
+                <div>
+                    <div class="chain-label">Explanation</div>
+                    <div class="chain-content">Explain <em>why</em> this point is true or significant. Don't just restate it.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">3</div>
+                <div>
+                    <div class="chain-label">Example or evidence</div>
+                    <div class="chain-content">Support with a specific example, statistic, or real-world reference. This shows depth.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">4</div>
+                <div>
+                    <div class="chain-label">Link back to position</div>
+                    <div class="chain-content">End with a sentence that connects this point back to your overall argument.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h3>Model argument paragraph</h3>
+            <p>Read this paragraph and identify each of the four steps above.</p>
+        </div>
+        <div class="question-block">
+            <p style="font-style: italic; line-height: 2; color: #333; border-left: 4px solid #667eea; padding-left: 14px;">
+                [A] One significant advantage of requiring young people to participate in voluntary community work is the development of key social and professional skills. [B] When individuals work alongside people from different backgrounds towards a shared goal, they naturally develop communication, teamwork, and problem-solving abilities that are difficult to teach in a classroom setting. [C] In countries such as South Korea and Germany, where some form of national service exists, surveys have shown that participants report stronger civic engagement and professional confidence later in life. [D] This suggests that exposure to voluntary work at a young age has benefits that extend well beyond the immediate task itself, supporting the case for its wider adoption.
+            </p>
+        </div>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Show Step Labels</button>
+        <div class="answer-text">[A] Topic sentence → [B] Explanation → [C] Example / evidence → [D] Link back to position</div>
+
+        <div class="content-block">
+            <h3>Vocabulary for building arguments</h3>
+        </div>
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">Furthermore / Moreover</span>
+                <span class="definition">Add another supporting point. <br><em>Furthermore, research indicates that voluntary work improves mental wellbeing.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">This suggests that</span>
+                <span class="definition">Draw a conclusion from evidence. <br><em>This suggests that early exposure to volunteering has lasting benefits.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">For instance / For example</span>
+                <span class="definition">Introduce a supporting example. <br><em>For instance, many community health programmes rely entirely on volunteer networks.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">It is widely acknowledged that</span>
+                <span class="definition">Present a view as broadly held — useful for adding weight to a claim. <br><em>It is widely acknowledged that volunteering fosters empathy and social responsibility.</em></span>
+            </div>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Think about a topic you feel strongly about — education, technology, work-life balance. Can you build a two-sentence argument using the topic sentence + explanation pattern?</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: Plan Your Essay -->
+    <div id="tab4" class="tab-content">
+        <div class="content-block">
+            <h2>Plan your essay</h2>
+        </div>
+        <div class="question-block">
+            <h4>📝 The prompt:</h4>
+            <p style="font-style: italic; margin-top: 8px; padding: 12px; background: #f8f9fa; border-radius: 4px; border-left: 4px solid #667eea; color: #333;">
+                <em>Some people believe that young people should be required to do voluntary community work. To what extent do you agree or disagree with this view?</em>
+            </p>
+        </div>
+
+        <div class="question-block">
+            <h4>Step 1 — Choose your position:</h4>
+            <p style="margin-top: 8px; margin-bottom: 4px;">▸ Fully agree — compulsory volunteering benefits everyone</p>
+            <p style="margin-bottom: 4px;">▸ Fully disagree — compulsion undermines the spirit of volunteering</p>
+            <p>▸ Partially agree — voluntary encouragement is better than compulsion, but the principle is sound</p>
+        </div>
+
+        <div class="question-block">
+            <h4>Step 2 — Brainstorm your two main reasons:</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Ideas (Agree)</button>
+            <div class="answer-text">
+                <strong>Reason 1:</strong> Develops social/professional skills — teamwork, communication, resilience through real-world experience.<br><br>
+                <strong>Reason 2:</strong> Strengthens community bonds — young people gain perspective on social needs; helps reduce divisions and build civic identity.
+            </div>
+        </div>
+        <div class="question-block">
+            <h4>Step 3 — Supporting examples for each reason?</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Ideas</button>
+            <div class="answer-text">
+                <strong>Reason 1 support:</strong> Countries with national service programmes show higher rates of civic participation and employment readiness among young adults.<br><br>
+                <strong>Reason 2 support:</strong> Community projects — food banks, environmental clean-ups, elderly care — depend on volunteer networks to function. Young volunteers directly meet real social needs.
+            </div>
+        </div>
+
+        <textarea class="textarea-box" style="min-height:180px;" placeholder="My position: &#10;&#10;Introduction: (paraphrase prompt + state my view)&#10;&#10;Body paragraph 1:&#10;  Topic sentence:&#10;  Explanation:&#10;  Example:&#10;&#10;Body paragraph 2:&#10;  Topic sentence:&#10;  Explanation:&#10;  Example:&#10;&#10;Conclusion: (restate position, summarise reasons)"></textarea>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Does your country have any form of compulsory national or community service? What is your personal opinion on the idea?</p>
+        </div>
+    </div>
+
+    <!-- TAB 5: Write It -->
+    <div id="tab5" class="tab-content">
+        <div class="content-block">
+            <h2>Write your essay</h2>
+            <p>Use the community work prompt from Tab 4, or choose the alternative below. Aim for <strong>250–280 words</strong>.</p>
+        </div>
+        <div class="question-block">
+            <h4>Alternative prompt:</h4>
+            <p style="font-style: italic;">Some people argue that governments should spend more money on public healthcare than on arts and culture. To what extent do you agree or disagree?</p>
+        </div>
+
+        <div class="timer-wrap">
+            <div class="timer-display" id="timerDisplay">40:00</div>
+            <button class="timer-btn" id="timerBtn" onclick="startTimer()">▶ Start Timer</button>
+        </div>
+
+        <div class="task-checklist">
+            <h3>Before you submit — check your essay:</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="c1"><label for="c1">Does your introduction clearly state your position (agree / disagree / partially agree)?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c2"><label for="c2">Does body paragraph 1 have a topic sentence → explanation → example → link back?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c3"><label for="c3">Does body paragraph 2 have a topic sentence → explanation → example → link back?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c4"><label for="c4">Have you used formal opinion phrases (not "I think" or "I really believe")?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c5"><label for="c5">Have you used argument vocabulary (furthermore / this suggests / for instance / it is widely acknowledged)?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c6"><label for="c6">Does your conclusion restate your position without adding new information?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c7"><label for="c7">Is your essay approximately 250–280 words with accurate grammar throughout?</label>
+            </div>
+        </div>
+
+        <textarea class="textarea-box" placeholder="Write your essay here..."></textarea>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+    function flipCard(el) { el.classList.toggle("flipped"); }
+    function toggleAnswer(btn) {
+        const ans = btn.nextElementSibling;
+        ans.classList.toggle("show");
+        btn.textContent = ans.classList.contains("show") ? "Hide Answer" : "Show Answer";
+    }
+    let timerInterval = null, totalSeconds = 40 * 60, running = false;
+    function startTimer() {
+        if (!running) {
+            running = true;
+            document.getElementById("timerBtn").textContent = "⏸ Pause";
+            timerInterval = setInterval(() => {
+                if (totalSeconds <= 0) { clearInterval(timerInterval); document.getElementById("timerDisplay").textContent = "00:00"; document.getElementById("timerBtn").textContent = "Time's up!"; return; }
+                totalSeconds--;
+                const m = Math.floor(totalSeconds / 60).toString().padStart(2, "0");
+                const s = (totalSeconds % 60).toString().padStart(2, "0");
+                document.getElementById("timerDisplay").textContent = m + ":" + s;
+            }, 1000);
+        } else {
+            running = false; clearInterval(timerInterval);
+            document.getElementById("timerBtn").textContent = "▶ Resume";
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Task 2: Advantages & Disadvantages</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .task-checklist { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+        .task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+        .checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+        .checklist-item input { width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea; }
+        .essay-structure { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 20px; }
+        .essay-para { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 15px; }
+        .essay-para .para-label { font-weight: 700; color: #764ba2; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .essay-para .para-content { color: #333; }
+        .essay-para .para-tip { font-size: 0.85em; color: #888; margin-top: 5px; font-style: italic; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 100px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102,126,234,0.3); transform: translateY(-3px); }
+        .vocab-card .word { font-weight: 700; font-size: 1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.88em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .sentence-transform { background: white; padding: 18px; border-left: 4px solid #764ba2; margin-bottom: 15px; border-radius: 4px; }
+        .sentence-transform .original { color: #555; margin-bottom: 8px; }
+        .sentence-transform .prompt { color: #667eea; font-weight: 600; margin-bottom: 8px; font-size: 0.9em; }
+        .highlight-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .highlight-box h3 { color: white; margin-bottom: 12px; }
+        .highlight-box p { opacity: 0.95; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .col-box { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 15px; }
+        .col-box h4 { color: #764ba2; margin-bottom: 10px; }
+        .col-box ul { padding-left: 18px; }
+        .col-box li { margin-bottom: 6px; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 220px; }
+        .timer-wrap { text-align: center; margin: 20px 0; }
+        .timer-display { font-size: 3em; font-weight: 700; color: #764ba2; letter-spacing: 3px; margin: 10px 0; font-variant-numeric: tabular-nums; }
+        .timer-btn { background: #667eea; color: white; padding: 14px 30px; border-radius: 4px; cursor: pointer; font-weight: 700; border: none; font-size: 1.1em; transition: background 0.3s ease; }
+        .timer-btn:hover { background: #764ba2; }
+        .tag { display: inline-block; background: #667eea; color: white; font-size: 0.78em; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-right: 5px; margin-bottom: 5px; }
+        .tag.green { background: #28a745; }
+        .tag.orange { background: #e67e22; }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            header h1 { font-size: 1.8em; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-button { width: 100%; text-align: left; border-bottom: 3px solid transparent; border-left: 5px solid transparent; }
+            .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+            .two-col { grid-template-columns: 1fr; }
+            .vocab-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>IELTS Writing Task 2</h1>
+        <p>Advantages &amp; Disadvantages Essays &nbsp;&middot;&nbsp; B2–C1</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event,'tab1')">The Essay Type</button>
+        <button class="tab-button" onclick="openTab(event,'tab2')">Analyse a Model</button>
+        <button class="tab-button" onclick="openTab(event,'tab3')">Contrast Language</button>
+        <button class="tab-button" onclick="openTab(event,'tab4')">Outweigh Variant</button>
+        <button class="tab-button" onclick="openTab(event,'tab5')">Write It</button>
+    </div>
+
+    <!-- TAB 1: The Essay Type -->
+    <div id="tab1" class="tab-content active">
+        <div class="highlight-box">
+            <h3>What is an Advantages &amp; Disadvantages essay?</h3>
+            <p>You are given a trend, development, or policy and asked to discuss its positive and negative sides. You do <strong>not</strong> give your personal opinion — you present a balanced analysis.</p>
+        </div>
+        <div class="content-block">
+            <h2>Recognising the question type</h2>
+            <p>These prompts all call for an A&amp;D essay — even if the exact wording varies:</p>
+        </div>
+        <div class="question-block">
+            <h4>Typical prompt patterns:</h4>
+            <p style="margin-bottom: 10px;">▸ <em>"Discuss the advantages and disadvantages of..."</em></p>
+            <p style="margin-bottom: 10px;">▸ <em>"What are the benefits and drawbacks of..."</em></p>
+            <p style="margin-bottom: 10px;">▸ <em>"Do the advantages outweigh the disadvantages?"</em> (variant — requires a clear position)</p>
+        </div>
+        <div class="content-block">
+            <h2>The four-paragraph structure</h2>
+        </div>
+        <div class="essay-structure">
+            <div class="essay-para">
+                <div class="para-label">Introduction</div>
+                <div class="para-content">Paraphrase the prompt. Briefly state that there are both advantages and disadvantages to discuss.</div>
+                <div class="para-tip">Do not copy the question word for word — rephrase it.</div>
+            </div>
+            <div class="essay-para">
+                <div class="para-label">Paragraph 1 — Advantages</div>
+                <div class="para-content">Give two main advantages, each developed with an explanation or example. Use a topic sentence to signal the focus.</div>
+                <div class="para-tip">Aim for two clearly separate points, not one point restated twice.</div>
+            </div>
+            <div class="essay-para">
+                <div class="para-label">Paragraph 2 — Disadvantages</div>
+                <div class="para-content">Give two main disadvantages with supporting detail. Use contrast language to show you are moving to a different perspective.</div>
+                <div class="para-tip">Balance the paragraph lengths roughly equally with the advantages paragraph.</div>
+            </div>
+            <div class="essay-para">
+                <div class="para-label">Conclusion</div>
+                <div class="para-content">Summarise both sides in one or two sentences. Do not introduce new information or arguments here.</div>
+                <div class="para-tip">Paraphrase your introduction — do not repeat it word for word.</div>
+            </div>
+        </div>
+        <div class="discussion-box">
+            <p><strong>Think about this:</strong></p>
+            <p>How is an A&amp;D essay different from an opinion essay? When might the examiner penalise you for sharing your own view in this type of essay?</p>
+            <p>Why do you think it is important to give <em>two</em> points in each body paragraph, rather than just one?</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: Analyse a Model -->
+    <div id="tab2" class="tab-content">
+        <div class="content-block">
+            <h2>Analyse a model outline</h2>
+            <p>Look at this IELTS prompt and the student's planning notes. Then answer the questions below.</p>
+        </div>
+        <div class="question-block">
+            <h4>📝 The prompt:</h4>
+            <p style="font-style: italic; margin-top: 8px; padding: 12px; background: #f8f9fa; border-radius: 4px; border-left: 4px solid #667eea; color: #333;">
+                <em>Nowadays, technology is increasingly used in schools and universities. Discuss the advantages and disadvantages of this development.</em>
+            </p>
+        </div>
+        <div class="question-block">
+            <h4>A student's planning notes — do these make a strong essay?</h4>
+            <p style="margin-top: 10px; margin-bottom: 6px;"><strong>Introduction:</strong> Paraphrase → technology is now a central part of education at all levels.</p>
+            <p style="margin-bottom: 6px;"><strong>Advantage 1:</strong> Up-to-date information — technology gives students access to the latest research, news, and learning materials, unlike traditional textbooks which quickly become outdated.</p>
+            <p style="margin-bottom: 6px;"><strong>Advantage 2:</strong> Access anytime — students can study at their own pace outside school hours, which is particularly useful for revision and independent learning.</p>
+            <p style="margin-bottom: 6px;"><strong>Disadvantage 1:</strong> Impact on grades — the presence of personal devices in class can be distracting; students may use them for social media rather than learning.</p>
+            <p style="margin-bottom: 6px;"><strong>Disadvantage 2:</strong> Addiction risk — excessive screen time can create dependency, making it difficult for students to focus without a device.</p>
+            <p><strong>Conclusion:</strong> Both sides summarised — no new information added.</p>
+        </div>
+
+        <div class="question-block">
+            <h4>1. Does the outline balance advantages and disadvantages equally?</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text">Yes — the student has given two advantages and two disadvantages. This shows balance and helps achieve a higher score for coherence and cohesion.</div>
+        </div>
+        <div class="question-block">
+            <h4>2. Are the points specific or vague? Give one example of a well-developed point.</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text">The points are specific. For example, Advantage 1 doesn't just say "better information" — it explains <em>why</em> technology is better (real-time updates) and contrasts it with textbooks going out of date. This development earns marks for task achievement.</div>
+        </div>
+        <div class="question-block">
+            <h4>3. Does the conclusion add a new idea or summarise? Is that the right approach?</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text">The conclusion summarises — which is correct. Introducing a new argument in the conclusion is a common mistake and can lower your coherence and cohesion score. Always paraphrase and sum up; never add new content in the final paragraph.</div>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Your turn:</strong></p>
+            <p>Without looking at the notes, can you recall the four planning points (two advantages, two disadvantages) for the technology essay?</p>
+            <p>Which disadvantage do you find more convincing — gadget distraction, or addiction risk? Why?</p>
+        </div>
+    </div>
+
+    <!-- TAB 3: Contrast Language -->
+    <div id="tab3" class="tab-content">
+        <div class="content-block">
+            <h2>Language for contrast and concession</h2>
+            <p>Strong IELTS essays use a variety of linking words to signal contrast. Click each card to see how it works, then practise using it.</p>
+        </div>
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">Despite</span>
+                <span class="definition">Used before a noun or gerund (-ing). <br><em>Despite the benefits of technology, many students struggle to self-regulate.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">While / Whilst</span>
+                <span class="definition">Introduces a contrast mid-sentence. <br><em>While technology gives access to information, it can also be highly distracting.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">However</span>
+                <span class="definition">Connects two separate sentences. Place a comma after it. <br><em>Technology offers many benefits. However, these come with significant risks.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">On the other hand</span>
+                <span class="definition">Signals a shift to the opposite viewpoint. Use at the start of a sentence or paragraph. <br><em>On the other hand, excessive screen time may damage concentration skills.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">Although / Even though</span>
+                <span class="definition">Introduces a concession — acknowledges the opposing point before making yours. <br><em>Although there are clear advantages, the disadvantages should not be ignored.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">Nevertheless</span>
+                <span class="definition">Means "despite what was just said". More formal than <em>however</em>. <br><em>Technology improves access to resources. Nevertheless, not all students can afford devices.</em></span>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h3>Transformation practice</h3>
+            <p>Rewrite each pair of ideas as one sentence using the word in brackets. Check your answer when ready.</p>
+        </div>
+
+        <div class="sentence-transform">
+            <div class="original">Technology improves access to learning materials. / It can be distracting in class.</div>
+            <div class="prompt">→ Use: <strong>While</strong></div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>While technology improves access to learning materials, it can be distracting in class.</em></div>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">Students benefit from anytime access to content. / There is a risk of device addiction.</div>
+            <div class="prompt">→ Use: <strong>Despite</strong></div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>Despite the benefit of anytime access to content, there is a risk of students developing device addiction.</em></div>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">Technology keeps textbooks up to date. / Many schools cannot afford the latest devices.</div>
+            <div class="prompt">→ Use: <strong>Although</strong></div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>Although technology keeps learning materials up to date, many schools cannot afford the latest devices to use it.</em></div>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Which of these linking words is most formal? Which would you most naturally use in spoken English? Does that surprise you?</p>
+            <p>Write one original sentence about technology in education using <em>nevertheless</em> or <em>on the other hand</em>.</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: Outweigh Variant -->
+    <div id="tab4" class="tab-content">
+        <div class="content-block">
+            <h2>The "outweigh" variant</h2>
+            <p>Some prompts ask whether the advantages <em>outweigh</em> the disadvantages. This changes the task — you must present both sides <strong>and</strong> give a clear personal position.</p>
+        </div>
+        <div class="highlight-box">
+            <h3>Key difference from the standard A&amp;D essay:</h3>
+            <p>In a standard A&amp;D essay — you balance both sides neutrally.<br>
+            In an "outweigh" essay — you still cover both sides, but your conclusion states which side is stronger and why. This is your opinion.</p>
+        </div>
+
+        <div class="question-block">
+            <h4>📝 Outweigh prompt:</h4>
+            <p style="font-style: italic; margin-top: 8px; padding: 12px; background: #f8f9fa; border-radius: 4px; border-left: 4px solid #667eea; color: #333;">
+                <em>Governments in many countries now provide free internet access to all citizens. Do the advantages of this policy outweigh the disadvantages?</em>
+            </p>
+        </div>
+
+        <div class="question-block">
+            <h4>Brainstorm: What are the advantages of free government internet?</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Ideas</button>
+            <div class="answer-text">
+                <strong>Suggested advantages:</strong><br>
+                ▸ <em>Ease of access</em> — citizens can use government services, healthcare, and education online without financial barriers.<br>
+                ▸ <em>Equality of access</em> — reduces the digital divide between higher and lower income households; gives everyone the same opportunity to learn and participate in the digital economy.
+            </div>
+        </div>
+        <div class="question-block">
+            <h4>Brainstorm: What are the disadvantages of free government internet?</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Ideas</button>
+            <div class="answer-text">
+                <strong>Suggested disadvantages:</strong><br>
+                ▸ <em>Reliance on the internet</em> — communities may lose the ability to function without connectivity; essential services become vulnerable to outages.<br>
+                ▸ <em>Misinformation</em> — free, unrestricted access increases exposure to false information, propaganda, and online fraud, particularly for less digitally literate citizens.
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h3>Planning your position</h3>
+            <p>Use the space below to plan a response to the outweigh prompt. Decide: do the advantages outweigh the disadvantages? Write a one-sentence thesis that you would put at the end of your introduction.</p>
+        </div>
+        <textarea class="textarea-box" style="min-height:140px;" placeholder="My thesis: 'While there are notable risks, I believe the advantages of free internet access outweigh the disadvantages because...'&#10;&#10;Plan your outline here..."></textarea>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>If you were a government minister, would you support free public internet access? Use at least one piece of contrast language in your answer.</p>
+        </div>
+    </div>
+
+    <!-- TAB 5: Write It -->
+    <div id="tab5" class="tab-content">
+        <div class="content-block">
+            <h2>Write your essay</h2>
+            <p>Choose one of the prompts below and write a full Advantages &amp; Disadvantages essay. Aim for <strong>250–280 words</strong> and allow yourself <strong>40 minutes</strong>.</p>
+        </div>
+        <div class="two-col">
+            <div class="col-box">
+                <h4>Prompt A</h4>
+                <p style="font-style: italic; font-size: 0.95em;">Many employers now allow their staff to work from home at least part of the week. Discuss the advantages and disadvantages of this development.</p>
+            </div>
+            <div class="col-box">
+                <h4>Prompt B</h4>
+                <p style="font-style: italic; font-size: 0.95em;">Some parents choose to educate their children at home rather than sending them to school. Discuss the advantages and disadvantages of home education.</p>
+            </div>
+        </div>
+
+        <div class="timer-wrap">
+            <div class="timer-display" id="timerDisplay">40:00</div>
+            <button class="timer-btn" id="timerBtn" onclick="startTimer()">▶ Start Timer</button>
+        </div>
+
+        <div class="task-checklist">
+            <h3>Before you submit — check your essay:</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="c1"><label for="c1">Does your introduction paraphrase the prompt (not copy it) and outline both sides?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c2"><label for="c2">Have you given <strong>two</strong> advantages in paragraph 1, each with a brief explanation?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c3"><label for="c3">Have you given <strong>two</strong> disadvantages in paragraph 2, each with a brief explanation?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c4"><label for="c4">Have you used at least <strong>two</strong> contrast linking words (while / however / despite / although)?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c5"><label for="c5">Does your conclusion summarise without introducing new ideas?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c6"><label for="c6">Have you checked your grammar — particularly verb tenses and article use?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c7"><label for="c7">Is your essay approximately 250–280 words?</label>
+            </div>
+        </div>
+
+        <textarea class="textarea-box" placeholder="Write your essay here..."></textarea>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+    function flipCard(el) {
+        el.classList.toggle("flipped");
+    }
+    function toggleAnswer(btn) {
+        const ans = btn.nextElementSibling;
+        ans.classList.toggle("show");
+        btn.textContent = ans.classList.contains("show") ? "Hide Answer" : "Show Answer";
+    }
+
+    let timerInterval = null;
+    let totalSeconds = 40 * 60;
+    let running = false;
+
+    function startTimer() {
+        if (!running) {
+            running = true;
+            document.getElementById("timerBtn").textContent = "⏸ Pause";
+            timerInterval = setInterval(() => {
+                if (totalSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById("timerDisplay").textContent = "00:00";
+                    document.getElementById("timerBtn").textContent = "Time's up!";
+                    return;
+                }
+                totalSeconds--;
+                const m = Math.floor(totalSeconds / 60).toString().padStart(2, "0");
+                const s = (totalSeconds % 60).toString().padStart(2, "0");
+                document.getElementById("timerDisplay").textContent = m + ":" + s;
+            }, 1000);
+        } else {
+            running = false;
+            clearInterval(timerInterval);
+            document.getElementById("timerBtn").textContent = "▶ Resume";
+        }
+    }
+</script>
+</body>
+</html>

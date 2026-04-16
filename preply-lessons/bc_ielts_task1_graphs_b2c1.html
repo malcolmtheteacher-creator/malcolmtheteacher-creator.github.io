@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Task 1: Graphs, Trends & Processes</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .task-checklist { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+        .task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+        .checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+        .checklist-item input { width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea; }
+        .highlight-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .highlight-box h3 { color: white; margin-bottom: 12px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 16px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 100px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102,126,234,0.3); transform: translateY(-3px); }
+        .vocab-card .word { font-weight: 700; font-size: 1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.85em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .sentence-transform { background: white; padding: 18px; border-left: 4px solid #764ba2; margin-bottom: 15px; border-radius: 4px; }
+        .sentence-transform .original { color: #555; margin-bottom: 8px; }
+        .sentence-transform .prompt { color: #667eea; font-weight: 600; margin-bottom: 8px; font-size: 0.9em; }
+        .intro-pattern { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; margin-bottom: 15px; }
+        .intro-pattern .pattern { font-family: monospace; font-size: 0.9em; color: #667eea; background: #f8f9fa; padding: 8px 12px; border-radius: 4px; margin-bottom: 10px; display: block; }
+        .intro-pattern .example { font-style: italic; color: #333; }
+        .process-chain { display: flex; flex-wrap: wrap; gap: 0; margin-bottom: 20px; }
+        .process-step { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 14px; flex: 1; min-width: 140px; text-align: center; position: relative; }
+        .process-step::after { content: "→"; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); color: #667eea; font-weight: 700; font-size: 1.1em; z-index: 1; }
+        .process-step:last-child::after { display: none; }
+        .process-num { background: #667eea; color: white; width: 24px; height: 24px; border-radius: 50%; font-size: 0.8em; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; }
+        .process-label { font-size: 0.8em; color: #764ba2; font-weight: 700; text-transform: uppercase; }
+        .process-content { font-size: 0.85em; color: #333; margin-top: 4px; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 200px; }
+        .timer-wrap { text-align: center; margin: 20px 0; }
+        .timer-display { font-size: 3em; font-weight: 700; color: #764ba2; letter-spacing: 3px; margin: 10px 0; font-variant-numeric: tabular-nums; }
+        .timer-btn { background: #667eea; color: white; padding: 14px 30px; border-radius: 4px; cursor: pointer; font-weight: 700; border: none; font-size: 1.1em; transition: background 0.3s ease; }
+        .timer-btn:hover { background: #764ba2; }
+        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        .data-table th { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px; text-align: left; }
+        .data-table td { padding: 10px; border-bottom: 1px solid #ddd; }
+        .data-table tr:nth-child(even) { background: #f8f9fa; }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            header h1 { font-size: 1.8em; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-button { width: 100%; text-align: left; border-left: 5px solid transparent; }
+            .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+            .vocab-grid { grid-template-columns: 1fr 1fr; }
+            .process-step::after { display: none; }
+            .process-chain { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>IELTS Writing Task 1</h1>
+        <p>Graphs, Trends &amp; Processes &nbsp;&middot;&nbsp; B2–C1</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event,'tab1')">Task 1 Overview</button>
+        <button class="tab-button" onclick="openTab(event,'tab2')">Writing Introductions</button>
+        <button class="tab-button" onclick="openTab(event,'tab3')">Trend Language</button>
+        <button class="tab-button" onclick="openTab(event,'tab4')">Describing Processes</button>
+        <button class="tab-button" onclick="openTab(event,'tab5')">Practice Write</button>
+    </div>
+
+    <!-- TAB 1: Task 1 Overview -->
+    <div id="tab1" class="tab-content active">
+        <div class="highlight-box">
+            <h3>What is IELTS Academic Writing Task 1?</h3>
+            <p>You are given a visual — a graph, chart, table, map, or diagram — and asked to summarise or describe it in at least <strong>150 words</strong> in about <strong>20 minutes</strong>. You do <strong>not</strong> give your opinion. You describe and compare what you see.</p>
+        </div>
+        <div class="content-block">
+            <h2>Common Task 1 visual types</h2>
+        </div>
+        <div class="question-block">
+            <h4>Match each visual type with what it requires:</h4>
+        </div>
+
+        <div class="sentence-transform">
+            <div class="original">📈 Line graph</div>
+            <div class="prompt">→ What does it typically show?</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text">Changes over time — trends, rises, falls, fluctuations. Language focus: trend verbs and adverbs (<em>rose sharply, declined gradually, levelled off</em>).</div>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">📊 Bar chart</div>
+            <div class="prompt">→ What does it typically show?</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text">Comparisons between categories at one or more points in time. Language focus: comparatives and superlatives (<em>the highest proportion / significantly more than / twice as many</em>).</div>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">🥧 Pie chart</div>
+            <div class="prompt">→ What does it typically show?</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text">Proportions of a whole — how something is divided. Language focus: fractions, percentages and proportion language (<em>accounted for / made up / the largest share</em>).</div>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">⚙️ Process diagram</div>
+            <div class="prompt">→ What does it typically show?</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text">A sequence of stages — how something is made, produced, or happens. Language focus: passive voice and sequence markers (<em>first / then / subsequently / finally / is processed / are transported</em>).</div>
+        </div>
+
+        <div class="content-block">
+            <h2>The four-part Task 1 structure</h2>
+            <p><strong>Introduction</strong> — paraphrase what the visual shows (never copy the question)<br>
+            <strong>Overview</strong> — summarise the most important overall trend or comparison (2–3 sentences, no data)<br>
+            <strong>Body paragraph 1</strong> — describe key data with specific figures<br>
+            <strong>Body paragraph 2</strong> — describe remaining data or comparisons with specific figures</p>
+        </div>
+        <div class="discussion-box">
+            <p><strong>Think about this:</strong></p>
+            <p>Why is the "overview" paragraph so important in Task 1? What would be missing from an essay that contained only detailed data but no overall summary?</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: Writing Introductions -->
+    <div id="tab2" class="tab-content">
+        <div class="content-block">
+            <h2>How to write a Task 1 introduction</h2>
+            <p>The introduction paraphrases what the visual shows. Use one of these sentence patterns and change the key vocabulary — never copy the task question word for word.</p>
+        </div>
+
+        <div class="intro-pattern">
+            <span class="pattern">The graph shows [what percentage / the number / what proportion] of [subject] [verb phrase] [time frame / context].</span>
+            <div class="example">The graph shows what percentage of households in five countries owned a computer between 1990 and 2010.</div>
+        </div>
+        <div class="intro-pattern">
+            <span class="pattern">The [chart / graph / table / diagram] illustrates [information about] [subject] [time period / region].</span>
+            <div class="example">The bar chart illustrates information about consumer spending on different categories of goods in the UK in 2022.</div>
+        </div>
+        <div class="intro-pattern">
+            <span class="pattern">The [diagram / flow chart] shows the process by which [something] is [produced / manufactured / generated].</span>
+            <div class="example">The diagram shows the process by which solar energy is converted into electricity for household use.</div>
+        </div>
+
+        <div class="content-block">
+            <h3>Paraphrase practice</h3>
+            <p>Read each original task question and write an introduction sentence. Then check the model.</p>
+        </div>
+
+        <div class="sentence-transform">
+            <div class="original">Task: "The graph below shows the percentage of people in three age groups who used social media daily in the UK between 2010 and 2020."</div>
+            <div class="prompt">→ Paraphrase for your introduction (change the key words).</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>"The line graph illustrates the proportion of individuals across three age groups who engaged with social media on a daily basis in the United Kingdom over a ten-year period from 2010 to 2020."</em><br><br><strong>Key substitutions:</strong> "percentage" → "proportion" | "people" → "individuals" | "used" → "engaged with" | "showed" → "illustrates"</div>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">Task: "The chart below shows how the average household spends its income in five different countries."</div>
+            <div class="prompt">→ Paraphrase for your introduction.</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>"The bar chart provides information about the distribution of household expenditure across five nations."</em></div>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>What synonyms can you think of for "shows", "graph", "percentage", "people", and "between 2010 and 2020"? Building a mental vocabulary list for these common Task 1 words is a useful exam preparation strategy.</p>
+        </div>
+    </div>
+
+    <!-- TAB 3: Trend Language -->
+    <div id="tab3" class="tab-content">
+        <div class="content-block">
+            <h2>Describing trends: verbs, nouns and adverbs</h2>
+            <p>A strong Task 1 answer uses <em>varied</em> vocabulary to describe changes. Click each card to see how the word is used.</p>
+        </div>
+        <div class="content-block">
+            <h3>Rise / increase ↑</h3>
+        </div>
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">rose / increased</span>
+                <span class="definition">General upward movement. <br><em>The number of users rose steadily from 2010 to 2018.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">surged / soared</span>
+                <span class="definition">Sharp, dramatic rise. <br><em>Sales surged in the final quarter of the year.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a gradual rise / a sharp increase</span>
+                <span class="definition">Noun form — use after "there was" or "saw". <br><em>There was a gradual rise in temperatures between 1980 and 2000.</em></span>
+            </div>
+        </div>
+        <div class="content-block">
+            <h3>Fall / decrease ↓</h3>
+        </div>
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">fell / declined / dropped</span>
+                <span class="definition">General downward movement. <br><em>Unemployment fell significantly over the decade.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">plummeted / plunged</span>
+                <span class="definition">Dramatic, sudden fall. <br><em>Share prices plummeted following the announcement.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">a steady decline / a dramatic drop</span>
+                <span class="definition">Noun form. <br><em>The data shows a steady decline in coal usage from 2005 onwards.</em></span>
+            </div>
+        </div>
+        <div class="content-block">
+            <h3>Stable / fluctuating ↔</h3>
+        </div>
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">levelled off / remained stable</span>
+                <span class="definition">No significant change after movement. <br><em>After rising sharply, the figure levelled off at around 60%.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">fluctuated</span>
+                <span class="definition">Went up and down irregularly. <br><em>The exchange rate fluctuated considerably throughout the year.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">peaked at / reached a peak of</span>
+                <span class="definition">Reached the highest point. <br><em>Visitor numbers peaked at 2.3 million in July.</em></span>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h3>Adverbs of degree and manner</h3>
+        </div>
+        <div class="question-block">
+            <h4>Match the adverb to the correct description:</h4>
+            <p style="margin-bottom: 6px;"><strong>dramatically / sharply</strong> — <span style="color:#667eea;">a very large, sudden change</span></p>
+            <p style="margin-bottom: 6px;"><strong>gradually / steadily</strong> — <span style="color:#667eea;">a slow, consistent change over time</span></p>
+            <p style="margin-bottom: 6px;"><strong>slightly / marginally</strong> — <span style="color:#667eea;">a small, minor change</span></p>
+            <p><strong>significantly / considerably</strong> — <span style="color:#667eea;">a noticeable change worth mentioning</span></p>
+        </div>
+
+        <div class="sentence-transform">
+            <div class="original">Data: internet usage in Germany → 25% in 2000, then 89% by 2020</div>
+            <div class="prompt">→ Describe this trend in one sentence using trend language.</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>"Internet usage in Germany rose dramatically from 25% in 2000 to 89% by 2020, representing a more than threefold increase over two decades."</em></div>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Think of a trend you've noticed in your country over the last 10–20 years — in technology, population, employment, or something else. Can you describe it using three different trend words?</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: Describing Processes -->
+    <div id="tab4" class="tab-content">
+        <div class="content-block">
+            <h2>Describing processes: passive voice and sequence</h2>
+            <p>Process diagrams describe how something is made or happens. They require the <strong>passive voice</strong> (because the focus is on the thing being processed, not who does it) and <strong>sequence markers</strong> to show order.</p>
+        </div>
+        <div class="highlight-box">
+            <h3>Why passive voice for processes?</h3>
+            <p>Compare: <em>"Workers heat the material."</em> (active) → Focus on the worker.<br>
+            <em>"The material is heated."</em> (passive) → Focus on the material — correct for a process description.</p>
+        </div>
+
+        <div class="content-block">
+            <h3>Passive voice patterns</h3>
+        </div>
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">is / are + past participle</span>
+                <span class="definition">Present passive — for general or ongoing processes. <br><em>The material is filtered to remove impurities.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">is / are then + p.p.</span>
+                <span class="definition">Sequence within the passive. <br><em>The liquid is then heated to 100°C.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">is / are transported to</span>
+                <span class="definition">Movement passive. <br><em>The finished product is transported to a distribution centre.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">Once … has been [p.p.], it is</span>
+                <span class="definition">Sequencing complex steps. <br><em>Once the material has been processed, it is packaged and sealed.</em></span>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h3>Sequence markers for processes</h3>
+        </div>
+        <div class="question-block">
+            <h4>Order these sequence markers from <em>beginning</em> to <em>end</em>:</h4>
+            <p style="margin-top: 8px; color: #667eea; font-style: italic;">subsequently — first — finally — once this is complete — next — at this stage — then</p>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Order</button>
+            <div class="answer-text"><strong>First</strong> → <strong>Next / Then</strong> → <strong>At this stage / Subsequently</strong> → <strong>Once this is complete</strong> → <strong>Finally</strong></div>
+        </div>
+
+        <div class="content-block">
+            <h3>Model process: How delivery drones work</h3>
+        </div>
+        <div class="process-chain">
+            <div class="process-step">
+                <div class="process-num">1</div>
+                <div class="process-label">Order placed</div>
+                <div class="process-content">Customer submits an order via an app</div>
+            </div>
+            <div class="process-step">
+                <div class="process-num">2</div>
+                <div class="process-label">Package prepared</div>
+                <div class="process-content">Item is retrieved and loaded into drone</div>
+            </div>
+            <div class="process-step">
+                <div class="process-num">3</div>
+                <div class="process-label">Flight</div>
+                <div class="process-content">Drone is dispatched and navigates via GPS</div>
+            </div>
+            <div class="process-step">
+                <div class="process-num">4</div>
+                <div class="process-label">Delivery</div>
+                <div class="process-content">Package is lowered and drone returns</div>
+            </div>
+        </div>
+        <div class="question-block">
+            <h4>Write a two-sentence description of this process using passive voice and sequence markers:</h4>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Model</button>
+            <div class="answer-text"><em>"First, a customer order is received and the relevant item is retrieved from storage and loaded into the drone. The drone is then dispatched and guided to the delivery address via GPS, where the package is lowered to the customer before the drone automatically returns to the depot."</em></div>
+        </div>
+
+        <div class="sentence-transform">
+            <div class="original">Active: "Workers press the grapes and collect the juice in large vats."</div>
+            <div class="prompt">→ Rewrite in passive voice.</div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>"The grapes are pressed and the juice is collected in large vats."</em></div>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Think of a simple process you know well — making coffee, recycling a bottle, downloading an app. Can you describe it in four steps using passive voice?</p>
+        </div>
+    </div>
+
+    <!-- TAB 5: Practice Write -->
+    <div id="tab5" class="tab-content">
+        <div class="content-block">
+            <h2>Practice write</h2>
+            <p>Choose one of the Task 1 scenarios below and write a complete response. Aim for <strong>150–185 words</strong> in <strong>20 minutes</strong>.</p>
+        </div>
+
+        <div class="question-block">
+            <h4>Option A — Line graph (shopping trends):</h4>
+            <p style="font-style: italic; margin-bottom: 10px;">The graph below shows the percentage of consumers in four age groups who shopped online at least once per month between 2010 and 2022.</p>
+            <table class="data-table">
+                <tr><th>Age Group</th><th>2010</th><th>2014</th><th>2018</th><th>2022</th></tr>
+                <tr><td>18–25</td><td>35%</td><td>55%</td><td>78%</td><td>91%</td></tr>
+                <tr><td>26–40</td><td>22%</td><td>40%</td><td>62%</td><td>85%</td></tr>
+                <tr><td>41–60</td><td>10%</td><td>20%</td><td>38%</td><td>60%</td></tr>
+                <tr><td>61+</td><td>3%</td><td>8%</td><td>16%</td><td>34%</td></tr>
+            </table>
+        </div>
+
+        <div class="question-block">
+            <h4>Option B — Process (water purification):</h4>
+            <p style="font-style: italic;">The diagram below illustrates the stages involved in purifying drinking water. Describe the process in your own words.</p>
+            <p style="margin-top: 8px; padding: 10px; background: #f8f9fa; border-left: 4px solid #667eea; border-radius: 4px; font-size: 0.9em;">
+                <strong>Stages:</strong> River water collected → Large debris filtered (screens) → Chemical treatment (chlorine + coagulants) → Sediment settles in tanks → Sand/gravel filtration → UV light treatment → Safe water stored in reservoir → Pumped to homes
+            </p>
+        </div>
+
+        <div class="timer-wrap">
+            <div class="timer-display" id="timerDisplay">20:00</div>
+            <button class="timer-btn" id="timerBtn" onclick="startTimer()">▶ Start Timer</button>
+        </div>
+
+        <div class="task-checklist">
+            <h3>Before you submit — check your response:</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="c1"><label for="c1">Does your introduction paraphrase the task without copying it?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c2"><label for="c2">Have you included an overview paragraph summarising the main overall pattern (no data)?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c3"><label for="c3">Have you used varied trend vocabulary (for Option A) or passive voice and sequence markers (for Option B)?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c4"><label for="c4">Have you included specific data (percentages, years, figures) to support your description?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c5"><label for="c5">Have you written approximately 150–185 words without giving your personal opinion?</label>
+            </div>
+        </div>
+
+        <textarea class="textarea-box" placeholder="Write your Task 1 response here..."></textarea>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+    function flipCard(el) { el.classList.toggle("flipped"); }
+    function toggleAnswer(btn) {
+        const ans = btn.nextElementSibling;
+        ans.classList.toggle("show");
+        btn.textContent = ans.classList.contains("show") ? "Hide Answer" : "Show Answer";
+    }
+    let timerInterval = null, totalSeconds = 20 * 60, running = false;
+    function startTimer() {
+        if (!running) {
+            running = true;
+            document.getElementById("timerBtn").textContent = "⏸ Pause";
+            timerInterval = setInterval(() => {
+                if (totalSeconds <= 0) { clearInterval(timerInterval); document.getElementById("timerDisplay").textContent = "00:00"; document.getElementById("timerBtn").textContent = "Time's up!"; return; }
+                totalSeconds--;
+                const m = Math.floor(totalSeconds / 60).toString().padStart(2, "0");
+                const s = (totalSeconds % 60).toString().padStart(2, "0");
+                document.getElementById("timerDisplay").textContent = m + ":" + s;
+            }, 1000);
+        } else {
+            running = false; clearInterval(timerInterval);
+            document.getElementById("timerBtn").textContent = "▶ Resume";
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Task 2: Discussion Essays</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background-color: white; color: #333; line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; margin-bottom: 30px; border-radius: 8px; }
+        header h1 { font-size: 2em; margin-bottom: 10px; }
+        header p { font-size: 1.1em; opacity: 0.95; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; border-bottom: 3px solid #667eea; }
+        .tab-button { padding: 12px 20px; border: none; background: white; color: #667eea; cursor: pointer; font-size: 1em; font-weight: 600; border-bottom: 3px solid transparent; transition: all 0.3s ease; }
+        .tab-button:hover { background: #f8f9fa; }
+        .tab-button.active { background: #f8f9fa; border-bottom-color: #667eea; color: #764ba2; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .content-block { background: #f8f9fa; padding: 25px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .content-block h2 { color: #764ba2; margin-bottom: 15px; font-size: 1.5em; }
+        .content-block h3 { color: #667eea; margin-top: 20px; margin-bottom: 10px; }
+        .answer-btn { background: #667eea; color: white; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; display: inline-block; margin-top: 10px; transition: background 0.3s ease; border: none; font-size: 1em; }
+        .answer-btn:hover { background: #764ba2; }
+        .answer-text { display: none; background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 4px; border-left: 4px solid #667eea; color: #333; }
+        .answer-text.show { display: block; }
+        .question-block { background: white; padding: 20px; border-left: 5px solid #764ba2; margin-bottom: 20px; border-radius: 4px; }
+        .question-block h4 { color: #764ba2; margin-bottom: 10px; }
+        .discussion-box { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 5px solid #764ba2; }
+        .discussion-box p { margin-bottom: 10px; font-style: italic; color: #555; }
+        .task-checklist { background: white; padding: 20px; border: 2px solid #667eea; border-radius: 8px; margin-bottom: 20px; }
+        .task-checklist h3 { color: #764ba2; margin-bottom: 15px; }
+        .checklist-item { display: flex; align-items: flex-start; margin-bottom: 12px; }
+        .checklist-item input { width: 20px; height: 20px; margin-right: 10px; margin-top: 3px; cursor: pointer; accent-color: #667eea; }
+        .highlight-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .highlight-box h3 { color: white; margin-bottom: 12px; }
+        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .vocab-card { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 18px; text-align: center; cursor: pointer; transition: all 0.3s ease; min-height: 110px; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+        .vocab-card:hover { box-shadow: 0 5px 15px rgba(102,126,234,0.3); transform: translateY(-3px); }
+        .vocab-card .word { font-weight: 700; font-size: 1em; color: #764ba2; }
+        .vocab-card .definition { display: none; font-size: 0.88em; color: #333; }
+        .vocab-card.flipped { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .vocab-card.flipped .word { display: none; }
+        .vocab-card.flipped .definition { display: block; color: white; }
+        .para-chain { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .chain-step { display: flex; align-items: flex-start; gap: 14px; background: white; border: 2px solid #667eea; border-radius: 8px; padding: 15px; }
+        .chain-num { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: 700; font-size: 0.85em; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+        .chain-label { font-weight: 700; color: #764ba2; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
+        .chain-content { font-size: 0.95em; color: #333; margin-top: 2px; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .col-box { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 15px; }
+        .col-box h4 { color: #764ba2; margin-bottom: 10px; }
+        .sentence-transform { background: white; padding: 18px; border-left: 4px solid #764ba2; margin-bottom: 15px; border-radius: 4px; }
+        .sentence-transform .original { color: #555; margin-bottom: 8px; }
+        .sentence-transform .prompt { color: #667eea; font-weight: 600; margin-bottom: 8px; font-size: 0.9em; }
+        .textarea-box { width: 100%; padding: 15px; border: 2px solid #667eea; border-radius: 4px; font-family: "Segoe UI", sans-serif; font-size: 1em; resize: vertical; min-height: 220px; }
+        .timer-wrap { text-align: center; margin: 20px 0; }
+        .timer-display { font-size: 3em; font-weight: 700; color: #764ba2; letter-spacing: 3px; margin: 10px 0; font-variant-numeric: tabular-nums; }
+        .timer-btn { background: #667eea; color: white; padding: 14px 30px; border-radius: 4px; cursor: pointer; font-weight: 700; border: none; font-size: 1.1em; transition: background 0.3s ease; }
+        .timer-btn:hover { background: #764ba2; }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            header h1 { font-size: 1.8em; }
+            .tabs { flex-direction: column; border-bottom: none; }
+            .tab-button { width: 100%; text-align: left; border-left: 5px solid transparent; }
+            .tab-button.active { border-bottom: none; border-left-color: #667eea; background: #f8f9fa; }
+            .two-col { grid-template-columns: 1fr; }
+            .vocab-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>IELTS Writing Task 2</h1>
+        <p>Discussion Essays (Both Views &amp; Opinion) &nbsp;&middot;&nbsp; B2–C1</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event,'tab1')">The Essay Type</button>
+        <button class="tab-button" onclick="openTab(event,'tab2')">Linking Words</button>
+        <button class="tab-button" onclick="openTab(event,'tab3')">Paragraph Structure</button>
+        <button class="tab-button" onclick="openTab(event,'tab4')">Plan Your Essay</button>
+        <button class="tab-button" onclick="openTab(event,'tab5')">Write It</button>
+    </div>
+
+    <!-- TAB 1: The Essay Type -->
+    <div id="tab1" class="tab-content active">
+        <div class="highlight-box">
+            <h3>What is a Discussion essay?</h3>
+            <p>You are given a controversial issue and asked to explore <strong>both views</strong>, then give your own opinion. Unlike the pure opinion essay, you must give equal weight to both sides before stating your position — usually in the conclusion, or at the end of the introduction.</p>
+        </div>
+        <div class="content-block">
+            <h2>Recognising the question type</h2>
+        </div>
+        <div class="question-block">
+            <h4>Typical prompt patterns:</h4>
+            <p style="margin-bottom: 10px;">▸ <em>"Discuss both views and give your own opinion."</em></p>
+            <p style="margin-bottom: 10px;">▸ <em>"Some people believe [X]. Others argue [Y]. Discuss both these views and give your own opinion."</em></p>
+            <p style="margin-bottom: 10px;">▸ <em>"There are different opinions about [topic]. Discuss the arguments on both sides."</em></p>
+        </div>
+        <div class="content-block">
+            <h2>The five-paragraph structure</h2>
+        </div>
+        <div class="para-chain">
+            <div class="chain-step">
+                <div class="chain-num">1</div>
+                <div>
+                    <div class="chain-label">Introduction</div>
+                    <div class="chain-content">Paraphrase the prompt. State that there are contrasting views. Briefly mention your opinion (optional — you can save it for the conclusion).</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">2</div>
+                <div>
+                    <div class="chain-label">View 1 paragraph</div>
+                    <div class="chain-content">Present the first perspective fairly — even if it is not your own. Give a reason and an example. Use language that signals this is <em>others'</em> view.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">3</div>
+                <div>
+                    <div class="chain-label">View 2 paragraph</div>
+                    <div class="chain-content">Present the opposing perspective with equal depth. Use contrast language to signal the shift from View 1.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">4</div>
+                <div>
+                    <div class="chain-label">Your opinion paragraph (optional)</div>
+                    <div class="chain-content">Some writers add a third body paragraph giving their own view. This can boost task achievement if your position is nuanced — but only if you have the word count to support it.</div>
+                </div>
+            </div>
+            <div class="chain-step">
+                <div class="chain-num">5</div>
+                <div>
+                    <div class="chain-label">Conclusion</div>
+                    <div class="chain-content">Summarise both views. Clearly state your personal position — this is essential for task achievement in this essay type.</div>
+                </div>
+            </div>
+        </div>
+        <div class="discussion-box">
+            <p><strong>Think about this:</strong></p>
+            <p>How is a discussion essay different from an opinion essay? In which type is it acceptable — or even required — to give your own view?</p>
+            <p>Why is it important to present both sides <em>fairly</em>, even if you disagree strongly with one of them?</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: Linking Words -->
+    <div id="tab2" class="tab-content">
+        <div class="content-block">
+            <h2>Linking words for discussion essays</h2>
+            <p>Discussion essays need three types of linking language: words to <strong>introduce a view</strong>, words to <strong>contrast views</strong>, and words to <strong>organise within paragraphs</strong>. Click each card to see the category and an example.</p>
+        </div>
+        <div class="vocab-grid">
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">Those who support…</span>
+                <span class="definition"><em>Introducing a view</em> — signals that you are presenting someone else's position. <br><em>Those who support remote work argue that it improves productivity.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">Proponents of… argue that</span>
+                <span class="definition"><em>Introducing a view</em> — formal. <br><em>Proponents of stricter immigration controls argue that it protects national jobs.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">On the other hand</span>
+                <span class="definition"><em>Contrasting views</em> — moves from one perspective to its opposite. <br><em>On the other hand, critics argue that home working erodes team culture.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">In contrast / By contrast</span>
+                <span class="definition"><em>Contrasting views</em> — formal. <br><em>In contrast, opponents of this policy believe that economic benefits are overstated.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">Firstly … Furthermore …</span>
+                <span class="definition"><em>Organising within a paragraph</em> — builds the argument point by point. <br><em>Firstly, flexible hours reduce commuting costs. Furthermore, they allow employees to manage family commitments.</em></span>
+            </div>
+            <div class="vocab-card" onclick="flipCard(this)">
+                <span class="word">Personally, I believe that</span>
+                <span class="definition"><em>Stating your opinion</em> — clearer than "I think". Reserve this for the conclusion. <br><em>Personally, I believe that the social benefits of office work outweigh the convenience of remote arrangements.</em></span>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h3>Gap-fill practice</h3>
+            <p>Fill in the most suitable linking word. Check your answer when ready.</p>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">____ advertising to children, some parents argue that it creates harmful materialistic values from a young age.</div>
+            <div class="prompt">→ Choose from: <strong>Regarding / Those who oppose / Furthermore</strong></div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em><strong>Those who oppose</strong> advertising to children argue that it creates harmful materialistic values from a young age.</em><br><br><em>Note: "Regarding" could work to introduce the topic, but "Those who oppose" is better because it specifically frames the sentence as presenting a viewpoint.</em></div>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">Television provides entertainment and education for children. ____, excessive viewing may delay language development and reduce physical activity.</div>
+            <div class="prompt">→ Choose from: <strong>On the other hand / Additionally / For example</strong></div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em>Television provides entertainment and education for children. <strong>On the other hand</strong>, excessive viewing may delay language development and reduce physical activity.</em></div>
+        </div>
+        <div class="sentence-transform">
+            <div class="original">____, both perspectives have merit. ____, I believe a balanced approach — encouraging international collaboration while protecting cultural heritage — represents the most sensible path.</div>
+            <div class="prompt">→ Choose from: <strong>In conclusion / Personally / Overall</strong></div>
+            <button class="answer-btn" onclick="toggleAnswer(this)">Show Answer</button>
+            <div class="answer-text"><em><strong>In conclusion</strong>, both perspectives have merit. <strong>Personally</strong>, I believe a balanced approach — encouraging international collaboration while protecting cultural heritage — represents the most sensible path.</em></div>
+        </div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Why is it more sophisticated to say <em>"Those who support..."</em> rather than <em>"Some people think..."</em>? Can you think of other formal alternatives?</p>
+        </div>
+    </div>
+
+    <!-- TAB 3: Paragraph Structure -->
+    <div id="tab3" class="tab-content">
+        <div class="content-block">
+            <h2>How to structure a "view" paragraph</h2>
+            <p>Each view paragraph should present the position clearly, give a reason, and support it with an example. Read this model and analyse its structure.</p>
+        </div>
+        <div class="content-block">
+            <h3>The prompt:</h3>
+            <p style="font-style: italic; border-left: 4px solid #667eea; padding-left: 12px;">Advertising influences children's values and behaviour. Discuss both views and give your own opinion.</p>
+        </div>
+        <div class="question-block">
+            <p style="font-style: italic; line-height: 2; color: #333; border-left: 4px solid #667eea; padding-left: 14px;">
+                [A] Those who are concerned about the impact of advertising on children argue that it actively shapes their values in harmful ways. [B] Young children, in particular, lack the cognitive ability to distinguish between commercial persuasion and factual content, meaning they are far more susceptible to marketing messages than adults. [C] Numerous studies have shown that children who watch high volumes of commercial television are more likely to associate happiness and status with material goods, potentially fostering dissatisfaction and pressure on families who cannot afford the advertised products. [D] For these reasons, many child development experts and parents maintain that restricting advertising to young audiences is a matter of safeguarding their wellbeing.
+            </p>
+        </div>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Show Structure Labels</button>
+        <div class="answer-text">[A] Topic sentence — introduces this view and signals whose position it is → [B] Explanation — <em>why</em> the concern is valid → [C] Evidence / example — supports the claim with research → [D] Link — reinforces the view with a conclusion about why people hold it</div>
+
+        <div class="content-block">
+            <h3>Now the opposing view paragraph:</h3>
+        </div>
+        <div class="question-block">
+            <p style="font-style: italic; line-height: 2; color: #333; border-left: 4px solid #667eea; padding-left: 14px;">
+                [A] On the other hand, proponents of the advertising industry argue that commercial messages play a legitimate role in the media ecosystem that children inhabit. [B] They contend that advertising funds the free content — television programmes, online videos, and games — that children enjoy, and that a world without commercial funding would severely restrict access to quality media. [C] Furthermore, advocates argue that exposure to advertising, when accompanied by media literacy education, can actually help children develop critical thinking skills by learning to identify and question persuasion techniques. [D] From this perspective, the solution lies not in banning advertising, but in equipping children to engage with it more thoughtfully.
+            </p>
+        </div>
+        <button class="answer-btn" onclick="toggleAnswer(this)">Show Structure Labels</button>
+        <div class="answer-text">[A] Contrast link + topic sentence — "On the other hand" signals the shift, then introduces the opposing view → [B] Explanation with the <em>why</em> → [C] Further point with a nuanced argument → [D] Closing position — reframes the issue</div>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Which paragraph do you find more persuasive? Does persuasiveness matter in a discussion essay — or only balance and clarity?</p>
+            <p>Can you identify which view the writer personally agrees with based on these two paragraphs?</p>
+        </div>
+    </div>
+
+    <!-- TAB 4: Plan Your Essay -->
+    <div id="tab4" class="tab-content">
+        <div class="content-block">
+            <h2>Plan your essay</h2>
+        </div>
+        <div class="question-block">
+            <h4>📝 The prompt:</h4>
+            <p style="font-style: italic; margin-top: 8px; padding: 12px; background: #f8f9fa; border-radius: 4px; border-left: 4px solid #667eea; color: #333;">
+                <em>Some people believe that globalisation has had an overall positive impact on society. Others argue that it has created more problems than it has solved. Discuss both views and give your own opinion.</em>
+            </p>
+        </div>
+
+        <div class="two-col">
+            <div class="col-box">
+                <h4>Arguments FOR globalisation</h4>
+                <button class="answer-btn" style="margin-bottom:8px;" onclick="toggleAnswer(this)">Show Ideas</button>
+                <div class="answer-text">
+                    ▸ Economic growth — trade links reduce poverty, create jobs, and raise living standards in developing nations.<br>
+                    ▸ Cultural exchange — exposure to different ideas, art, food, and traditions enriches societies and promotes mutual understanding.<br>
+                    ▸ Scientific collaboration — global research partnerships accelerate medical and technological advances.
+                </div>
+            </div>
+            <div class="col-box">
+                <h4>Arguments AGAINST globalisation</h4>
+                <button class="answer-btn" style="margin-bottom:8px;" onclick="toggleAnswer(this)">Show Ideas</button>
+                <div class="answer-text">
+                    ▸ Cultural homogenisation — smaller languages and traditions are lost as dominant cultures (often Western) spread globally.<br>
+                    ▸ Economic inequality — multinationals exploit cheap labour in developing countries while profits flow to wealthy shareholders.<br>
+                    ▸ Environmental cost — global supply chains increase carbon emissions and accelerate resource depletion.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-block">
+            <h3>Your plan</h3>
+        </div>
+        <textarea class="textarea-box" style="min-height:200px;" placeholder="Introduction: (paraphrase + overview of both views)&#10;&#10;View 1 (for/against):&#10;  Topic sentence:&#10;  Reason:&#10;  Example:&#10;&#10;View 2 (opposing):&#10;  Topic sentence:&#10;  Reason:&#10;  Example:&#10;&#10;Conclusion + my opinion:"></textarea>
+
+        <div class="discussion-box">
+            <p><strong>Discuss:</strong></p>
+            <p>Has globalisation been positive or negative for your own country or culture? Can you give a specific example?</p>
+            <p>What is your personal view on this prompt? Could you argue convincingly for the opposing position too?</p>
+        </div>
+    </div>
+
+    <!-- TAB 5: Write It -->
+    <div id="tab5" class="tab-content">
+        <div class="content-block">
+            <h2>Write your essay</h2>
+            <p>Use the globalisation prompt from Tab 4, or choose the alternative below. Aim for <strong>250–280 words</strong>.</p>
+        </div>
+        <div class="question-block">
+            <h4>Alternative prompt:</h4>
+            <p style="font-style: italic;">Some people think that children should spend more time on outdoor activities and less time on technology. Others believe that technology is an essential part of modern education. Discuss both views and give your own opinion.</p>
+        </div>
+
+        <div class="timer-wrap">
+            <div class="timer-display" id="timerDisplay">40:00</div>
+            <button class="timer-btn" id="timerBtn" onclick="startTimer()">▶ Start Timer</button>
+        </div>
+
+        <div class="task-checklist">
+            <h3>Before you submit — check your essay:</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="c1"><label for="c1">Does your introduction mention <strong>both</strong> views before signalling you will give your opinion?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c2"><label for="c2">Does View 1 paragraph present that view fairly — with a reason and support?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c3"><label for="c3">Does View 2 paragraph open with a contrast link (on the other hand / in contrast)?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c4"><label for="c4">Have you used "view introduction" language (those who support / proponents of / it is argued that)?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c5"><label for="c5">Have you used organising words within paragraphs (firstly / furthermore / for example)?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c6"><label for="c6">Does your conclusion clearly state your personal opinion?</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="c7"><label for="c7">Is your essay approximately 250–280 words with accurate grammar throughout?</label>
+            </div>
+        </div>
+
+        <textarea class="textarea-box" placeholder="Write your essay here..."></textarea>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+    function flipCard(el) { el.classList.toggle("flipped"); }
+    function toggleAnswer(btn) {
+        const ans = btn.nextElementSibling;
+        ans.classList.toggle("show");
+        btn.textContent = ans.classList.contains("show") ? "Hide Answer" : "Show Answer";
+    }
+    let timerInterval = null, totalSeconds = 40 * 60, running = false;
+    function startTimer() {
+        if (!running) {
+            running = true;
+            document.getElementById("timerBtn").textContent = "⏸ Pause";
+            timerInterval = setInterval(() => {
+                if (totalSeconds <= 0) { clearInterval(timerInterval); document.getElementById("timerDisplay").textContent = "00:00"; document.getElementById("timerBtn").textContent = "Time's up!"; return; }
+                totalSeconds--;
+                const m = Math.floor(totalSeconds / 60).toString().padStart(2, "0");
+                const s = (totalSeconds % 60).toString().padStart(2, "0");
+                document.getElementById("timerDisplay").textContent = m + ":" + s;
+            }, 1000);
+        } else {
+            running = false; clearInterval(timerInterval);
+            document.getElementById("timerBtn").textContent = "▶ Resume";
+        }
+    }
+</script>
+</body>
+</html>
