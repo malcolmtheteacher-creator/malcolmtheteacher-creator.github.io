@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Walk Through the Paracosm</title>
+<style>
+  :root{
+    --paper:#f2e7c9; --paper2:#ece0bb;
+    --ink:#20242f;
+    --cream:#fffaf0;
+    --red:#d8492f; --blue:#2a6cb0; --teal:#1f9e8f;
+    --orange:#e8943b; --gold:#eebb1e; --green:#4a9d5b; --plum:#7d4b8c;
+    --dim:#8a7d5d;
+    --sans:"Futura","Avenir Next","Century Gothic","Trebuchet MS",sans-serif;
+    --serif:"Iowan Old Style","Palatino Linotype","Palatino","Georgia",serif;
+    --mono:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;overflow:hidden}
+  body{
+    background-color:var(--paper);
+    background-image:radial-gradient(rgba(32,36,47,.07) 1px, transparent 1.5px);
+    background-size:16px 16px;
+    color:var(--ink);
+    font-family:var(--sans);
+    cursor:none; user-select:none;
+  }
+  .hard{box-shadow:5px 5px 0 var(--ink)}
+
+  /* ---------- top bar ---------- */
+  #topbar{
+    position:fixed;top:0;left:0;right:0;height:46px;z-index:60;
+    display:flex;align-items:center;gap:20px;padding:0 20px;
+    background:var(--cream);border-bottom:3px solid var(--ink);
+  }
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:1.5px;font-size:17px}
+  .brand small{font-weight:700;letter-spacing:.5px;color:var(--red);font-size:11px;text-transform:uppercase}
+  .sun{width:22px;height:22px;flex:0 0 22px}
+  .stat{color:var(--dim);font-size:12px;font-weight:600;letter-spacing:.3px}
+  .stat b{color:var(--ink);font-weight:800}
+  #building{margin-left:auto;color:var(--ink);font-size:12px;font-weight:700;display:flex;align-items:center;gap:8px}
+  #building .blip{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(216,73,47,.5);animation:blip 1.4s infinite}
+  @keyframes blip{0%{box-shadow:0 0 0 0 rgba(216,73,47,.5)}70%{box-shadow:0 0 0 8px rgba(216,73,47,0)}100%{box-shadow:0 0 0 0 rgba(216,73,47,0)}}
+
+  /* ---------- stage ---------- */
+  #stage{position:fixed;top:46px;left:0;right:0;bottom:0;display:flex;flex-direction:column}
+
+  /* ---------- the walk ---------- */
+  #walk{flex:1;display:flex;gap:18px;padding:18px 20px 14px;min-height:0}
+
+  /* trail */
+  #trail{
+    width:230px;flex:0 0 230px;background:var(--cream);border:3px solid var(--ink);border-radius:14px;
+    display:flex;flex-direction:column;overflow:hidden;
+  }
+  #trail .th{padding:11px 14px 9px;font-weight:800;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;border-bottom:3px solid var(--ink);background:var(--gold)}
+  #trailList{flex:1;overflow:hidden;padding:7px}
+  .stop{display:flex;align-items:center;gap:9px;padding:5px 7px;border-radius:8px;font-size:11.5px;color:var(--dim);cursor:pointer;font-weight:600;line-height:1.15}
+  .stop .num{flex:0 0 22px;width:22px;height:22px;border-radius:50%;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10px;background:var(--paper)}
+  .stop.on{color:var(--ink);background:var(--paper2)}
+  .stop.on .num{background:var(--red);color:#fff}
+  .stop.done .num{background:var(--ink);color:var(--cream)}
+
+  /* card */
+  #card{
+    flex:1;min-width:0;background:var(--cream);border:3px solid var(--ink);border-radius:14px;
+    display:flex;flex-direction:column;overflow:hidden;position:relative;
+  }
+  #cardTop{height:8px;flex:0 0 8px;background:var(--red);border-bottom:3px solid var(--ink);transition:background .4s}
+  #cardBody{flex:1;display:flex;gap:22px;padding:22px 26px;overflow:hidden;min-height:0}
+  #emblem{flex:0 0 130px;width:130px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  #emblem svg{width:120px;height:120px}
+  #emblem .badge{font-family:var(--mono);font-size:10.5px;color:var(--dim);text-align:center;font-weight:600;line-height:1.4}
+  #text{flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden}
+  #kicker{font-family:var(--mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:3px}
+  #title{font-family:var(--serif);font-size:30px;line-height:1.05;font-weight:700;margin-bottom:12px}
+  #prose{font-family:var(--serif);font-size:15.5px;line-height:1.62;color:#33302a;overflow:auto;padding-right:6px}
+  #prose::-webkit-scrollbar{width:8px}
+  #prose::-webkit-scrollbar-thumb{background:var(--paper2);border-radius:4px}
+  #prose p{margin-bottom:9px}
+  #prose em{font-style:italic;color:var(--plum)}
+  #prose .q{display:block;font-size:18px;font-weight:700;color:var(--ink);border-left:4px solid var(--gold);padding:4px 0 4px 14px;margin:12px 0}
+  .swap{animation:swap .5s ease both}
+  @keyframes swap{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* dewey grid (station 11) */
+  .dewey{display:grid;grid-template-columns:repeat(5,1fr);gap:2px 14px;font-family:var(--mono);font-size:10.5px;margin-top:6px}
+  .dewey div{display:flex;gap:6px;padding:1px 0;border-bottom:1px dotted var(--paper2)}
+  .dewey b{color:var(--red);font-weight:700;flex:0 0 30px}
+  .dewey span{color:#444;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .dewey div.blank b{color:var(--dim)}
+
+  /* nav footer */
+  #nav{height:40px;flex:0 0 40px;border-top:3px solid var(--ink);display:flex;align-items:center;gap:12px;padding:0 16px;background:var(--paper2)}
+  .navbtn{border:2px solid var(--ink);background:var(--cream);border-radius:7px;padding:3px 12px;font-weight:800;font-size:12px;cursor:pointer;font-family:var(--sans)}
+  .navbtn:active{transform:translate(1px,1px)}
+  #prog{flex:1;height:7px;background:var(--cream);border:2px solid var(--ink);border-radius:5px;overflow:hidden}
+  #progFill{height:100%;width:0;background:repeating-linear-gradient(45deg,var(--gold),var(--gold) 6px,var(--orange) 6px,var(--orange) 12px)}
+  #progFill.run{animation:fill var(--dwell) linear forwards}
+  @keyframes fill{from{width:0}to{width:100%}}
+  #count{font-family:var(--mono);font-size:11px;color:var(--dim);font-weight:600}
+  /* controls */
+  .ctrl{display:flex;align-items:center;gap:5px}
+  .ctrl .lab{font-size:10px;font-weight:800;letter-spacing:1px;color:var(--dim)}
+  .pill{border:2px solid var(--ink);background:var(--cream);border-radius:6px;padding:2px 9px;font-size:11px;font-weight:800;cursor:pointer;font-family:var(--sans);color:var(--ink)}
+  .pill.on{background:var(--blue);color:#fff}
+  .fbtn{border:2px solid var(--ink);background:var(--gold);border-radius:7px;padding:3px 13px;font-weight:800;font-size:12px;cursor:pointer;font-family:var(--sans);color:var(--ink)}
+  .fbtn:active{transform:translate(1px,1px)}
+  /* staggered "thought" reveal in the card */
+  .fadein{animation:fadein .65s ease both}
+  @keyframes fadein{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  #prose .rv{animation:fadein .55s ease both}
+  /* focus mode */
+  #focus{position:fixed;inset:0;z-index:120;background-color:var(--paper);
+    background-image:radial-gradient(rgba(32,36,47,.07) 1px,transparent 1.5px);background-size:16px 16px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:34px 40px 24px;gap:22px}
+  #focus.hidden{display:none}
+  #focusInner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;max-width:880px;width:100%;text-align:center}
+  #fEmblem svg{width:90px;height:90px}
+  #fKicker{font-family:var(--mono);font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-weight:700}
+  #fThought{font-family:var(--serif);font-size:30px;line-height:1.45;color:#2e2b24;max-height:60vh;overflow:auto;padding:0 4px}
+  #fThought.q{font-size:42px;font-weight:700;line-height:1.25;color:var(--ink)}
+  #fThought.grid{font-size:14px}
+  #fThought em{font-style:italic;color:var(--plum)}
+  #focusBar{display:flex;align-items:center;gap:14px;padding:9px 15px;background:var(--cream);border:3px solid var(--ink);border-radius:13px;box-shadow:5px 5px 0 var(--ink)}
+  #fDots{display:flex;gap:6px;max-width:340px;flex-wrap:wrap}
+  #fDots i{width:9px;height:9px;border-radius:50%;border:2px solid var(--ink);background:var(--paper)}
+  #fDots i.on{background:var(--red)}
+  #fMeta{font-family:var(--mono);font-size:11px;color:var(--dim);font-weight:600}
+  .rndbtn{border:2px solid var(--ink);background:var(--cream);border-radius:50%;width:30px;height:30px;font-weight:800;cursor:pointer;font-family:var(--sans);font-size:15px;color:var(--ink)}
+  .rndbtn:active{transform:translate(1px,1px)}
+  .stop.cust .num{background:var(--green);color:#fff}
+  /* composer */
+  #composer{position:fixed;inset:0;z-index:140;background:rgba(22,22,34,.45);display:flex;align-items:center;justify-content:center;padding:24px}
+  #composer.hidden{display:none}
+  .comp-card{width:min(680px,94vw);max-height:90vh;overflow:auto;background:var(--cream);border:3px solid var(--ink);border-radius:16px;box-shadow:7px 7px 0 var(--ink);display:flex;flex-direction:column}
+  .comp-head{padding:13px 18px;font-family:var(--serif);font-size:22px;font-weight:700;border-bottom:3px solid var(--ink);background:var(--gold)}
+  .comp-body{padding:16px 18px;display:flex;flex-direction:column;gap:13px}
+  .comp-body label{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:5px}
+  .comp-body input,.comp-body textarea,.comp-body select{width:100%;border:2px solid var(--ink);border-radius:8px;padding:8px 10px;font-family:var(--serif);font-size:15px;background:var(--paper);color:var(--ink)}
+  .comp-body textarea{min-height:130px;line-height:1.5;resize:vertical}
+  .comp-hint{font-family:var(--mono);font-size:10.5px;color:var(--dim);margin-top:5px;font-weight:600}
+  .row{display:flex;gap:16px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:170px}
+  .picker{display:flex;gap:6px;flex-wrap:wrap}
+  .embtn{width:40px;height:40px;border:2px solid var(--ink);border-radius:8px;background:var(--paper);cursor:pointer;padding:2px;display:flex;align-items:center;justify-content:center}
+  .embtn svg{width:30px;height:30px}
+  .embtn.on{outline:3px solid var(--red);outline-offset:1px}
+  .swatch{width:28px;height:28px;border:2px solid var(--ink);border-radius:50%;cursor:pointer}
+  .swatch.on{outline:3px solid var(--ink);outline-offset:2px}
+  .place-row{display:flex;gap:10px;align-items:flex-end}
+  .comp-foot{padding:13px 18px;border-top:3px solid var(--ink);display:flex;justify-content:flex-end;gap:10px;background:var(--paper2)}
+  .comp-foot button{border:2px solid var(--ink);border-radius:9px;padding:7px 18px;font-weight:800;font-size:13px;cursor:pointer;font-family:var(--sans)}
+  #cSave{background:var(--green);color:#fff}
+  #cCancel{background:var(--cream);color:var(--ink)}
+  /* sync */
+  #syncBtn{display:inline-flex;align-items:center;gap:7px;border:2px solid var(--ink);background:var(--cream);border-radius:8px;padding:3px 11px;font-weight:800;font-size:11.5px;cursor:pointer;font-family:var(--sans);color:var(--ink);margin-left:14px}
+  #syncDot{width:9px;height:9px;border-radius:50%;background:var(--dim)}
+  #syncPanel{position:fixed;inset:0;z-index:150;background:rgba(22,22,34,.45);display:flex;align-items:center;justify-content:center;padding:24px}
+  #syncPanel.hidden{display:none}
+  .sync-status{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink);padding:4px 0}
+  .sync-row{display:flex;gap:9px;flex-wrap:wrap}
+  .sync-row button{flex:1;min-width:120px}
+  .sync-help{font-family:var(--mono);font-size:11.5px;color:var(--dim);line-height:1.65;background:var(--paper);border:2px solid var(--ink);border-radius:8px;padding:10px 12px}
+  .sync-help b{color:var(--ink)}
+  .sync-help p{margin:4px 0}
+  .sync-help summary{cursor:pointer;font-weight:800;color:var(--ink)}
+
+  /* ---------- build band ---------- */
+  #band{
+    flex:0 0 218px;border-top:3px solid var(--ink);background:var(--paper2);position:relative;overflow:hidden;
+  }
+  #bandLabel{position:absolute;top:7px;left:14px;font-size:10.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--dim);z-index:2}
+  #bandLabel b{color:var(--red)}
+  #windows{position:absolute;inset:0}
+
+  .win{
+    position:absolute;border:3px solid var(--ink);border-radius:11px;overflow:hidden;background:var(--cream);
+    display:flex;flex-direction:column;box-shadow:4px 4px 0 var(--ink);
+    animation:winIn .4s cubic-bezier(.2,.8,.25,1) both;
+  }
+  @keyframes winIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+  .win.closing{animation:winOut .3s ease both}
+  @keyframes winOut{to{opacity:0;transform:scale(.97)}}
+  .win-bar{height:26px;flex:0 0 26px;display:flex;align-items:center;gap:7px;padding:0 10px;border-bottom:3px solid var(--ink)}
+  .win.term .win-bar{background:var(--teal)} .win.sheet .win-bar{background:var(--gold)}
+  .win.code .win-bar{background:var(--blue)} .win.chart .win-bar{background:var(--orange)}
+  .win.browser .win-bar{background:var(--red)}
+  .lights{display:flex;gap:5px}
+  .lights i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink)}
+  .lights i:nth-child(1){background:#fff6e9}.lights i:nth-child(2){background:#fff6e9}.lights i:nth-child(3){background:#fff6e9}
+  .win-title{font-size:11px;font-weight:800;color:var(--ink);letter-spacing:.3px}
+  .win-body{flex:1;overflow:hidden;padding:9px 11px;font-size:11px;line-height:1.5}
+
+  .term .win-body{font-family:var(--mono);font-size:10.5px;color:#2c3a36}
+  .term .ln{white-space:pre-wrap;word-break:break-word}
+  .term .ok{color:var(--green);font-weight:700}.term .warn{color:var(--orange);font-weight:700}
+  .term .cy{color:var(--blue);font-weight:700}.term .dim{color:var(--dim)}
+  .cursor{display:inline-block;width:7px;height:12px;background:var(--teal);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  .sheet table{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:10px}
+  .sheet th,.sheet td{border:1.5px solid var(--ink);padding:2px 5px;text-align:right}
+  .sheet th{background:var(--gold);text-align:center;font-weight:800}
+  .sheet td.lbl{text-align:left;color:var(--dim);font-weight:700}
+  .sheet td.flash{animation:cf .6s ease}
+  @keyframes cf{0%{background:var(--gold)}100%{background:transparent}}
+
+  .code .win-body{font-family:var(--mono);font-size:10px;line-height:1.45;color:#3a3730}
+  .code .kw{color:var(--plum);font-weight:700}.code .tag{color:var(--blue);font-weight:700}
+  .code .at{color:var(--orange);font-weight:700}.code .st{color:var(--green)}.code .cm{color:var(--dim)}
+
+  .chart .win-body{display:flex;align-items:flex-end;gap:7px;padding:14px 12px 10px}
+  .bar{flex:1;border:2px solid var(--ink);border-bottom:none;border-radius:5px 5px 0 0;height:0;transition:height .7s cubic-bezier(.2,.8,.2,1);position:relative;min-width:12px}
+  .bar b{position:absolute;bottom:-15px;left:0;right:0;text-align:center;font-size:8px;color:var(--dim);font-family:var(--mono);font-weight:600}
+
+  .browser .url{flex:1;background:var(--paper);border:2px solid var(--ink);border-radius:5px;padding:1px 7px;font-family:var(--mono);font-size:9px;color:var(--blue);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+  .browser .win-body{padding:0}
+  .res{padding:7px 10px;border-bottom:2px solid var(--paper2);animation:swap .35s both}
+  .res .rt{color:var(--blue);font-size:11px;font-weight:700;margin-bottom:2px;font-family:var(--serif)}
+  .res .ru{color:var(--green);font-size:9px;font-family:var(--mono);font-weight:600}
+
+  /* ---------- ticker ---------- */
+  #ticker{position:fixed;bottom:0;left:0;right:0;height:30px;z-index:60;display:flex;align-items:center;background:var(--ink);overflow:hidden}
+  #tickwrap{display:flex;white-space:nowrap;animation:tick 44s linear infinite;will-change:transform}
+  @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .tk{padding:0 24px;color:var(--paper);font-size:11.5px;font-weight:600;display:inline-flex;align-items:center;gap:7px}
+  .tk b{color:var(--gold)}.tk .g{color:#7ee0a0}
+  #stage{padding-bottom:30px}
+
+  /* ---------- cursor ---------- */
+  #ai-cursor{position:fixed;width:20px;height:20px;z-index:100;pointer-events:none;transition:left .9s cubic-bezier(.4,0,.2,1),top .9s cubic-bezier(.4,0,.2,1)}
+  .ripple{position:fixed;border:2.5px solid var(--red);border-radius:50%;z-index:99;pointer-events:none;animation:rip .6s ease-out forwards}
+  @keyframes rip{from{width:6px;height:6px;opacity:.9;transform:translate(-50%,-50%)}to{width:42px;height:42px;opacity:0;transform:translate(-50%,-50%)}}
+  .hot{outline:2px solid var(--red);outline-offset:1px}
+
+  #hint{position:fixed;bottom:34px;right:12px;color:var(--dim);font-size:10px;font-weight:600;opacity:.6;z-index:61}
+</style>
+</head>
+<body>
+  <div id="topbar">
+    <div class="brand"><span class="sun" id="sunSlot"></span> PARACOSM <small>a walk through the memory palace</small></div>
+    <div class="stat">station <b id="sStation">1</b>/<span id="sTotal">22</span></div>
+    <div class="stat">Codex <b id="sPage">p.1</b></div>
+    <div class="stat">loci placed <b id="sLoci">0</b></div>
+    <div id="building"><span class="blip"></span> building <b id="sRoom">Room 230</b></div>
+    <button id="syncBtn"><span id="syncDot"></span><span id="syncTxt">Sync</span></button>
+  </div>
+
+  <div id="stage">
+    <div id="walk">
+      <div id="trail">
+        <div class="th">The Walk</div>
+        <div id="trailList"></div>
+      </div>
+      <div id="card">
+        <div id="cardTop"></div>
+        <div id="cardBody">
+          <div id="emblem"></div>
+          <div id="text">
+            <div id="kicker"></div>
+            <div id="title"></div>
+            <div id="prose"></div>
+          </div>
+        </div>
+        <div id="nav">
+          <button class="navbtn" id="prev">‹ back</button>
+          <button class="navbtn" id="next">on ›</button>
+          <div id="prog"><div id="progFill"></div></div>
+          <div id="count"></div>
+          <div class="ctrl">
+            <span class="lab">SPEED</span>
+            <button class="pill" data-sp="Slow">Slow</button>
+            <button class="pill" data-sp="Medium">Med</button>
+            <button class="pill" data-sp="Fast">Fast</button>
+          </div>
+          <button class="fbtn" id="focusBtn">⊙ Focus</button>
+          <button class="fbtn" id="addBtn" style="background:var(--green);color:#fff">✛ Add</button>
+          <button class="fbtn" id="removeBtn" style="background:var(--red);color:#fff;display:none">🗑 Remove</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="band">
+      <div id="bandLabel">the palace builds itself · <b>SEE RED</b> — Structure · Encode · Review · Edit · Develop</div>
+      <div id="windows"></div>
+    </div>
+  </div>
+
+  <div id="focus" class="hidden">
+    <div id="focusInner">
+      <div id="fEmblem"></div>
+      <div id="fKicker"></div>
+      <div id="fThought"></div>
+    </div>
+    <div id="focusBar">
+      <button class="rndbtn" id="fPrev">‹</button>
+      <div id="fDots"></div>
+      <button class="rndbtn" id="fNext">›</button>
+      <div id="fMeta"></div>
+      <div class="ctrl">
+        <span class="lab">SPEED</span>
+        <button class="pill" data-sp="Slow">Slow</button>
+        <button class="pill" data-sp="Medium">Med</button>
+        <button class="pill" data-sp="Fast">Fast</button>
+      </div>
+      <button class="navbtn" id="fExit">✕ exit focus</button>
+    </div>
+  </div>
+
+  <div id="composer" class="hidden">
+    <div class="comp-card">
+      <div class="comp-head">Add to the Paracosm</div>
+      <div class="comp-body">
+        <div><label>Title</label><input id="cTitle" placeholder="e.g. The Garden Gate" maxlength="64"></div>
+        <div><label>Subtitle &middot; where it lives</label><input id="cLoc" placeholder="e.g. My note · 2026" maxlength="48"></div>
+        <div>
+          <label>Thoughts</label>
+          <textarea id="cText" placeholder="Write here.&#10;&#10;Leave a blank line between thoughts — each becomes its own card in the walk and in Focus mode.&#10;&#10;> Begin a line with a > to make it a featured line.&#10;Wrap a word in *asterisks* for emphasis."></textarea>
+          <div class="comp-hint">blank line = new thought &nbsp;·&nbsp; &gt; line = featured &nbsp;·&nbsp; *word* = emphasis</div>
+        </div>
+        <div class="row">
+          <div><label>Emblem</label><div class="picker" id="cEmblem"></div></div>
+          <div><label>Colour</label><div class="picker" id="cColor"></div></div>
+        </div>
+        <div>
+          <label>Placement</label>
+          <div class="place-row">
+            <div style="flex:0 0 130px"><select id="cWhere"><option value="after">Insert after</option><option value="before">Insert before</option></select></div>
+            <div style="flex:1"><select id="cAnchor"></select></div>
+          </div>
+        </div>
+      </div>
+      <div class="comp-foot">
+        <button id="cCancel">Cancel</button>
+        <button id="cSave">Place it ›</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="syncPanel" class="hidden">
+    <div class="comp-card">
+      <div class="comp-head">Sync across devices</div>
+      <div class="comp-body">
+        <div class="sync-status" id="syncStatus">Not connected.</div>
+        <div><label>GitHub token</label><input id="syncToken" type="password" placeholder="ghp_…" autocomplete="off"></div>
+        <div><label>Gist ID <span style="font-weight:400;text-transform:none">(leave blank to create one)</span></label><input id="syncGist" placeholder="created automatically on first save"></div>
+        <div class="sync-row">
+          <button id="syncConnect" class="navbtn" style="background:var(--green);color:#fff">Connect &amp; sync</button>
+          <button id="syncPull" class="navbtn">Pull latest</button>
+          <button id="syncPush" class="navbtn">Push now</button>
+          <button id="syncOff" class="navbtn" style="background:var(--red);color:#fff">Disconnect</button>
+        </div>
+        <details class="sync-help">
+          <summary>How to get a token (once per device)</summary>
+          <p>1. GitHub → Settings → Developer settings → <b>Personal access tokens</b> → <b>Tokens (classic)</b> → Generate new (classic).</p>
+          <p>2. Name it "paracosm". Under <b>scopes</b> tick only <b>gist</b>. Generate, copy it, paste it above.</p>
+          <p>3. Click <b>Connect &amp; sync</b> — a private gist is created to hold your sections.</p>
+          <p>4. On another device: open this page, paste the <b>same token</b> and the <b>Gist ID</b> shown here, then Connect.</p>
+          <p>The token is stored only in this browser. Revoke it anytime on GitHub to cut off access.</p>
+        </details>
+      </div>
+      <div class="comp-foot">
+        <button id="syncCancel">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="ticker"><div id="tickwrap"></div></div>
+  <div id="ai-cursor"></div>
+  <div id="hint">← → to walk · F = focus one thought · space = fullscreen</div>
+
+<script>
+/* ===================== helpers ===================== */
+const $=s=>document.querySelector(s);
+const rand=(a,b)=>a+Math.random()*(b-a);
+const ri=(a,b)=>Math.floor(rand(a,b+1));
+const pick=a=>a[ri(0,a.length-1)];
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+/* ----- speed setting (autoplay pace) ----- */
+const SPEEDS={Slow:{station:26000,thought:9000},Medium:{station:17000,thought:6000},Fast:{station:11000,thought:4000}};
+let speed='Medium', focusMode=false, fThoughts=[], fPos=0, fTimer=null;
+try{const s=localStorage.getItem('paracosm-speed'); if(s&&SPEEDS[s]) speed=s;}catch(e){}
+let DWELL=SPEEDS[speed].station, TDWELL=SPEEDS[speed].thought;
+function applySpeed(){
+  DWELL=SPEEDS[speed].station; TDWELL=SPEEDS[speed].thought;
+  document.documentElement.style.setProperty('--dwell',DWELL+'ms');
+  document.querySelectorAll('[data-sp]').forEach(b=>b.classList.toggle('on',b.dataset.sp===speed));
+}
+function setSpeed(name){
+  if(!SPEEDS[name])return; speed=name;
+  try{localStorage.setItem('paracosm-speed',name);}catch(e){}
+  applySpeed();
+  if(focusMode) scheduleThought(); else restartProg();
+}
+document.querySelectorAll('[data-sp]').forEach(b=>b.onclick=()=>setSpeed(b.dataset.sp));
+applySpeed();
+
+/* ===================== emblems (ligne claire) ===================== */
+function emblem(kind,color){
+  const c=`var(--${color})`, s=`stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"`;
+  const S={
+    sun:`<circle cx="60" cy="60" r="20" fill="${c}" ${s}/>`+
+        Array.from({length:8},(_,i)=>{const a=i*Math.PI/4;const x1=60+Math.cos(a)*28,y1=60+Math.sin(a)*28,x2=60+Math.cos(a)*44,y2=60+Math.sin(a)*44;return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" ${s}/>`}).join(''),
+    seal:`<circle cx="60" cy="60" r="44" fill="${c}" ${s}/><circle cx="60" cy="60" r="30" fill="var(--cream)" ${s}/><circle cx="60" cy="60" r="6" fill="var(--ink)"/>`+
+        Array.from({length:12},(_,i)=>{const a=i*Math.PI/6;const x1=60+Math.cos(a)*30,y1=60+Math.sin(a)*30,x2=60+Math.cos(a)*44,y2=60+Math.sin(a)*44;return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" ${s}/>`}).join(''),
+    castle:`<rect x="28" y="50" width="64" height="46" fill="${c}" ${s}/><path d="M28 50 v-10 h8 v6 h8 v-6 h8 v6 h8 v-6 h8 v6 h8 v-6 h8 v10" fill="${c}" ${s}/><rect x="52" y="68" width="16" height="28" fill="var(--cream)" ${s}/>`,
+    tree:`<rect x="54" y="62" width="12" height="34" fill="var(--orange)" ${s}/><circle cx="60" cy="46" r="26" fill="${c}" ${s}/>`,
+    elephant:`<ellipse cx="62" cy="62" rx="30" ry="22" fill="${c}" ${s}/><circle cx="40" cy="54" r="16" fill="${c}" ${s}/><path d="M30 56 q-10 6 -6 20 q2 8 8 6" fill="none" ${s}/><circle cx="44" cy="50" r="3" fill="var(--ink)"/><line x1="52" y1="84" x2="52" y2="94" ${s}/><line x1="72" y1="84" x2="72" y2="94" ${s}/>`,
+    grid:`<rect x="26" y="26" width="68" height="68" rx="4" fill="${c}" ${s}/><line x1="26" y1="49" x2="94" y2="49" ${s}/><line x1="26" y1="71" x2="94" y2="71" ${s}/><line x1="49" y1="26" x2="49" y2="94" ${s}/><line x1="71" y1="26" x2="71" y2="94" ${s}/>`,
+    book:`<path d="M60 36 q-18 -8 -32 -4 v52 q14 -4 32 4 q18 -8 32 -4 v-52 q-14 -4 -32 4 z" fill="${c}" ${s}/><line x1="60" y1="36" x2="60" y2="88" ${s}/>`,
+    spiral:`<path d="M60 60 m0 0 a6 6 0 1 1 8 4 a16 16 0 1 1 -22 -6 a28 28 0 1 1 40 10" fill="none" ${s}/>`,
+    compass:`<circle cx="60" cy="60" r="40" fill="${c}" ${s}/><path d="M60 26 l9 28 l28 6 l-28 6 l-9 28 l-9 -28 l-28 -6 l28 -6 z" fill="var(--cream)" ${s}/>`,
+    graces:`<circle cx="38" cy="50" r="13" fill="${c}" ${s}/><path d="M28 92 q10 -22 20 0z" fill="${c}" ${s}/><circle cx="60" cy="42" r="13" fill="var(--gold)" ${s}/><path d="M50 92 q10 -26 20 0z" fill="var(--gold)" ${s}/><circle cx="82" cy="50" r="13" fill="${c}" ${s}/><path d="M72 92 q10 -22 20 0z" fill="${c}" ${s}/>`,
+  };
+  return `<svg viewBox="0 0 120 120">${S[kind]||S.seal}</svg>`;
+}
+$('#sunSlot').innerHTML=emblem('sun','gold');
+
+/* ===================== the Dewey grid (pp.8–12, as written) ===================== */
+const DEWEY=[["000","Computer science"],["010","Bibliography"],["020","Library / Information science"],["030","Encyclopedias"],["040","—"],["050","Magazines"],["060","Museums / Organisations"],["070","Media"],["080","Pithy aphorisms"],["090","Ancient manuscripts; personal collections"],["100","Philosophy and psychology"],["110","Metaphysics"],["120","Epistemology"],["130","Parapsychology and occult"],["140","Schools of philosophy"],["150","Psychology"],["160","Logic"],["170","Ethics"],["180","Ancient philosophers, Eastern"],["190","Modern European"],["200","Religion"],["210","Philosophy of religion"],["220","The Bible"],["230","Christianity"],["240","Religious practices & observances"],["250","Religious orders"],["260","Social theology"],["270","Church history"],["280","Denominations"],["290","World religions"],["300","Social sciences"],["310","Statistics"],["320","Politics"],["330","Economics"],["340","Law"],["350","Administration"],["360","Social problems"],["370","Education"],["380","Commerce"],["390","Culture"],["400","Language"],["410","Linguistics"],["420","English language"],["430","German"],["440","French"],["450","Italian"],["460","Spanish"],["470","Latin"],["480","Greek"],["490","World languages"],["500","Science"],["510","Math"],["520","Astronomy"],["530","Physics"],["540","Chemistry"],["550","Geology"],["560","Fossils"],["570","Biology"],["580","Plants"],["590","Animals"],["600","Technology"],["610","Medicine"],["620","Engineering"],["630","Agriculture"],["640","Home economics"],["650","Management"],["660","Chemical engineering"],["670","Manufacturing"],["680","Manufacturing (specific)"],["690","Construction"],["700","Arts and entertainment"],["710","Landscaping"],["720","Architecture"],["730","Sculpture"],["740","Drawing"],["750","Painting"],["760","Graphical art"],["770","Photography"],["780","Music"],["790","Sport"],["800","Literature"],["810","American literature"],["820","English literature"],["830","German"],["840","French"],["850","Italian"],["860","Spanish"],["870","Latin"],["880","Greek"],["890","World languages"],["900","History and geography"],["910","Geography"],["920","Biographies"],["930","Ancient history (–499)"],["940","European history"],["950","Asian history"],["960","African history"],["970","North American history"],["980","South American history"],["990","World history"]];
+const deweyHTML='<div class="dewey">'+DEWEY.map(([n,t])=>`<div class="${t==='—'?'blank':''}"><b>${n}</b><span>${t}</span></div>`).join('')+'</div>';
+
+/* ===================== the 22 stations (Codex pp.1–21, faithful) ===================== */
+const BUILTIN=[
+{t:"The Threshold",loc:"Codex · p.1",emblem:["sun","gold"],accent:"gold",page:"p.1",html:`
+<span class="q">I have arrived. I am home. This is it.</span>
+<p>Secluded from sensuality — from <em>clinging</em>. Secluded from reckless — from <em>unskilful</em> — thought, I enter.</p>
+<p>Courage is the mother of virtues. Prudence is the father of virtues. Justice and Temperance, the children. We come from One Source; we return. <em>(Life is adventure.)</em></p>
+<p>Come to the Now. Come to the Now. Come to the Now. <em>Amor fati.</em></p>
+<p>Joy, Peace, Patience, Kindness, Goodness, Faithfulness, Humility, Self-control — the Fruits of the Spirit, the fruits of the Tree of Reason. Inference and Imagination — the roots of the Tree of Reason.</p>
+<p>Do Your Best And Let God Take Care Of The Rest. What are my thoughts? How do they behave? These things happen. Attention is a form of love. There are no ordinary moments. An image can speak a thousand words. Seek first the Kingdom of God, and all these things shall be added unto you.</p>`},
+
+{t:"The Seal",loc:"Codex · p.2",emblem:["seal","blue"],accent:"blue",page:"p.2",html:`
+<span class="q">Turn the rings of the seal. Ask questions.</span>
+<p>Create in thine heart a seal. On one ring of that seal, the question-words. On another ring, letters to spark the imagination. Turn the rings of the seal. Ask questions.</p>
+<p><em>Kyrios Iesous</em> — Lord Jesus.</p>`},
+
+{t:"The Tetrapharmakos",loc:"Codex · p.2",emblem:["elephant","teal"],accent:"teal",page:"p.2",html:`
+<span class="q">The good things in life are easy to get; the terrible things, easy to endure.</span>
+<p>Do not fear God. Do not fear death. The good things in life are easy to get. The terrible things in life are easy to endure. <em>(Epicurus' fourfold cure.)</em></p>
+<p>"When he came to his senses, he said: How many of my father's hired servants have food to spare." <em>(the Prodigal Son.)</em></p>
+<p>The Wood Between the Worlds, and the Well at the World's End. Speak out about the elephant in the room — <em>candour</em>. When the storm breaks, some are done with terror; others spread their wings as eagles, and soar.</p>`},
+
+{t:"The Interior Castle",loc:"Codex · p.3",emblem:["castle","red"],accent:"red",page:"p.3",html:`
+<span class="q">The temple of memory. The library of knowledge.</span>
+<p>What enters the temple of the mind? On what do you contemplate? The temple of memory. The library of knowledge.</p>
+<p>"All that is left is change and opinion." — Marcus.</p>
+<p>Be thankful for all blessings. Count them. Name them one by one, and it will surprise you what the Lord has done.</p>`},
+
+{t:"The Breath",loc:"Codex · p.3",emblem:["spiral","green"],accent:"green",page:"p.3",html:`
+<span class="q">Find joy in the present moment.</span>
+<p>Breathe. Breathe in. Breathe out. <em>Diṭṭha-dhamma-sukha-vihāra</em> — find joy in the present moment.</p>
+<p>Block-breathe: breathe in, hold, breathe out, hold. Again. Nine times. Four, again.</p>
+<p><em>Al-Musawwir</em> — the Fashioner. OM.</p>`},
+
+{t:"The Counsels & the Aten",loc:"Codex · p.4",emblem:["sun","orange"],accent:"orange",page:"p.4",html:`
+<span class="q">Cum umbris idearum — with the shadows of ideas.</span>
+<p>Live by the Evangelical Counsels: Poverty, Chastity, Obedience. Do not follow the leader; watch the parking meter.</p>
+<p>"Great and living Aten, ordaining life, vigorously alive, our Father — our wall of millions of cubits, our reminder of eternity, our witness of what is eternal; who fashions himself with his own two hands, whom no craftsman has devised; with seeing whom our eyes are satisfied daily, as he rises in this temple of the Aten." <em>(Your body is a temple of the Holy Spirit.)</em></p>`},
+
+{t:"Metanoia",loc:"Codex · p.5",emblem:["compass","plum"],accent:"plum",page:"p.5",html:`
+<span class="q">Philocosmus, or Misophilus? Metanoia.</span>
+<p>"He that hath his memory lost, by me may it renew; and he that would it amplify shall find instructions true."</p>
+<p>Cicero, <em>De Oratore</em>. <em>Ad Herennium</em>. Quintilian.</p>`},
+
+{t:"The Liberal Arts",loc:"Codex · p.5",emblem:["book","blue"],accent:"blue",page:"p.5",html:`
+<span class="q">…not bridesmaids of the marriage.</span>
+<p>Martianus Capella, and the Marriage of Mercury and Philology — the Seven Liberal Arts: Grammar, Dialectic, Rhetoric, Geometry, Algebra, Harmony, and Astronomy.</p>
+<p>Architecture and Medicine were invited to the feast; but as they concerned themselves with earthly things, they were not bridesmaids of the marriage.</p>`},
+
+{t:"Rhetoric & the Art of Memory",loc:"Codex · p.6",emblem:["seal","red"],accent:"red",page:"p.6",html:`
+<span class="q">Memory can be a portal if well used — a prison if abused.</span>
+<p>Rhetoric herself: Invention, Arrangement, Style, Memory, Delivery. <em>Verba</em> and <em>res</em> — the elements of the art of memory.</p>
+<p>John Willis, <em>Ars Memoria</em>. William Atkinson took the wrong path in ignoring the power of the Ars Memoria. Henry Herdman; Ravenna and the Phoenix; and many more.</p>
+<p>The Table of Cebes — choose carefully what to remember; only those things that are important. Two modern Alans can help as well: Baddeley and Paivio. Dual encoding is a useful tool — most do not understand. Read <em>Ad Herennium</em> first, then dual encoding becomes clear.</p>`},
+
+{t:"The Grid Overlay",loc:"Codex · p.7",emblem:["grid","teal"],accent:"teal",page:"p.7",html:`
+<span class="q">Lay the grid upon a place.</span>
+<p>Baddeley's model brings some clarity to the immediate working memory — the phonological loop and the visual sketchpad: helpful analogies to the seeker of knowledge. Strategies, not portals in themselves.</p>
+<p>Before a memory palace is created, new knowledge can be gathered in a grid — as suggested by Gregor von Feinaigle. Subsequently the grid can be laid upon a physical location: a memory palace. For example, the Dewey Decimal System for the classification of knowledge. <em>(Jefferson had followed Bacon's Memory · Reason · Imagination.)</em></p>`},
+
+{t:"The Dewey Grid · 000–990",loc:"Codex · pp.8–12",emblem:["grid","gold"],accent:"gold",page:"pp.8-12",html:`
+<p>The Dewey may be far from ideal, but it provides a way to organise — to all our young. <em>This is useful, but not important; interesting, but not necessary.</em> Better still: to build the temple of knowledge for oneself — to read, mark, learn, and inwardly digest that which matters to you.</p>
+${deweyHTML}`},
+
+{t:"The New Testament",loc:"Codex · p.13",emblem:["book","green"],accent:"green",page:"p.13",html:`
+<span class="q">Each item on the list has a specific place. A location.</span>
+<p>Matthew · Mark · Luke · John · Acts · Romans · 1 Corinthians · 2 Corinthians · Galatians · Ephesians · Philippians · Colossians · 1 Thessalonians · 2 Thessalonians · 1 Timothy · 2 Timothy · Titus · Philemon · Hebrews · James · 1 Peter · 2 Peter · 1 John · 2 John · 3 John · Jude · Revelation.</p>
+<p>In writing out these lists, the purpose is not the list in itself. The purpose is a form of dual encoding, using memory palaces. Each item on the list has a specific place — a location.</p>`},
+
+{t:"The Deeper Purpose",loc:"Codex · p.14",emblem:["tree","plum"],accent:"plum",page:"p.14",html:`
+<span class="q">They deepen one's awareness of the inner life, where portals may open.</span>
+<p>Some argue the purpose of the memory palace is to forget the memory palace — once the knowledge is grasped, the palace is no longer necessary. This may be the case for certain purposes; but not this one.</p>
+<p>Here, the knowledge itself is not alone the goal. Rather the knowledge and the location provide training for the mind. Whilst not portals in themselves, they deepen one's awareness of the inner life — where portals may open.</p>`},
+
+{t:"The Inventors",loc:"Codex · pp.14–15",emblem:["compass","orange"],accent:"orange",page:"pp.14-15",html:`
+<span class="q">A room of makers — Room 600, Technology.</span>
+<p>Franklin — the electrical conductor. Hargreaves — the spinning jenny. Watt — the compressor. Lesage — the electric telegraph. Bushnell — the submarine. Montgolfier Brothers — the hot-air balloon.</p>
+<p>Bramah — the safety lock. Murdoch — gas lighting. Appert — canning and preservation. Volta — the battery. Trevithick — the locomotive. Wollaston — the photographic lens. Aspdin — cement. Burt — the typewriter. Faraday — the electric generator. Colt — the revolver.</p>`},
+
+{t:"Schweitzer & Tillich",loc:"Codex · p.15",emblem:["tree","teal"],accent:"teal",page:"p.15",html:`
+<span class="q">The Ground of Being unites the two.</span>
+<p>Albert Schweitzer — "What did Jesus see?"</p>
+<p>Paul Tillich — two ways to be courageous: the way of Emerson — self-reliance, the individual self; and the way of participation. The Ground of Being unites the two.</p>
+<p>Remember here too Ken Wilber's Four Quadrants.</p>`},
+
+{t:"Helen's Library of Consistency",loc:"Codex · p.16",emblem:["book","red"],accent:"red",page:"p.16",html:`
+<span class="q">Room 800 — Literature.</span>
+<p>Honoré de Balzac · Boccaccio · Cervantes · Chaucer · Chekhov · Dante · Dickens · Dostoyevsky · T. S. Eliot · Goethe · Hardy · Hemingway · Homer.</p>`},
+
+{t:"The Paracosm Codes",loc:"Codex · p.16",emblem:["seal","plum"],accent:"plum",page:"p.16",html:`
+<span class="q">The Dialectic, not the Eristic.</span>
+<p>A marginal notation, for working through ideas:</p>
+<p><em>→</em> Information &nbsp;·&nbsp; <em>△</em> Elenchus (Socratic cross-examination) &nbsp;·&nbsp; <em>?</em> Perhaps &nbsp;·&nbsp; <em>✓</em> Agreed, with variable &nbsp;·&nbsp; <em>✗</em> Disagreed, with variable &nbsp;·&nbsp; <em>~</em> Aporia (the productive impasse).</p>`},
+
+{t:"The Turn Inward",loc:"Codex · p.17",emblem:["spiral","blue"],accent:"blue",page:"p.17",html:`
+<span class="q">I am not this. I am not this. I am not.</span>
+<p><em>Noli timere</em> — be not afraid. <em>Lacrimae rerum</em> — the tears of things. <em>Gelassenheit</em> — releasement. "So many steps for so short a climb." — Seneca.</p>
+<p>The Five Aggregates: Form (āyatana) · Feeling (phassa — contact) · Perception (binding, labelling) · Volition (desire, craving) · Consciousness.</p>
+<p>The universe unfolding — Spinoza's substance. I do not exist; time does not exist; I am part of the Absolute.</p>`},
+
+{t:"The Socratic Catechism",loc:"Codex · pp.18–19",emblem:["compass","red"],accent:"red",page:"pp.18-19",html:`
+<span class="q">In what sense, then, do the past or future exist?</span>
+<p>Do you agree that you exist? What do we mean by that? Do you agree that the "you" is always changing — that it is made up of parts, can be analysed into parts?</p>
+<p>Do you agree that the past and future are only in your mind — that you have access only to the present? In what sense, then, do the past or future exist?</p>
+<p>Do you agree that you are part of the universe — that, therefore, the universe contains consciousness? That consciousness extends only as far as the nervous system? That it is attached to feeling, and perception, and volition?</p>`},
+
+{t:"Tat Tvam Asi",loc:"Codex · p.19",emblem:["sun","gold"],accent:"gold",page:"p.19",html:`
+<span class="q">Thou art That.</span>
+<p>In the paracosm of the mind, there are no roads that were not taken.</p>
+<p>Do not accept statements that do not empower you. Does challenging yourself require you to accept every negative self-thought and doubt? Is such negative thinking rarely useful — useful only to the extent that the outcome is useful?</p>
+<p>Saussure's semiotics, and <em>das Ding an sich</em> — the search for reality. <em>Tat Tvam Asi</em> — Thou art That. Advaita Vedānta Sādhana.</p>`},
+
+{t:"The Three Graces & the Path",loc:"Codex · p.20",emblem:["graces","teal"],accent:"teal",page:"p.20",html:`
+<span class="q">Made into a story, rather than a map.</span>
+<p>The Librarian, by Salley Vickers.</p>
+<p>Aglaia — "This is the day the Lord has made." Thalia — "Dance, then, wherever you may be." Euphrosyne — <em>lacrimae rerum</em>. The sympathetic and the parasympathetic.</p>
+<p>A clear path around the paracosm — the anthology — should be found. A good plan. Made into a story, rather than a map? To the paracosm we add the indispensable, from the unforeseen.</p>
+<p>The Interior Castle. <em>I Capture the Castle.</em> 101 Dalmatians. Hamlet.</p>`},
+
+{t:"The Operating Loop · SEE RED",loc:"Codex · p.21",emblem:["seal","orange"],accent:"orange",page:"p.21",html:`
+<span class="q">SEE RED — Structure · Encode · Review · Edit · Develop.</span>
+<p>The index is the index of place.</p>
+<p>Remember, when the mind lurches to consider aporia — we are met by aporia each day. I am not an eristic by nature, but search by, and for, the dialectic.</p>
+<p>John Dickson Carr — Gideon Fell, <em>The Hollow Man</em>. Suspense! (after Chesterton's Father Brown.) Curiosity: hope finally fades, but never curiosity — curiouser and curiouser.</p>`},
+];
+
+/* ===================== station list: built-in + custom, persisted ===================== */
+const trailList=$('#trailList');
+let customMap={}, order=null, STATIONS=[], trailEls=[];
+BUILTIN.forEach((s,i)=>{ s.id='b'+i; s.custom=false; });
+function loadState(){
+  try{ customMap=JSON.parse(localStorage.getItem('paracosm-custom')||'{}')||{}; }catch(e){ customMap={}; }
+  try{ order=JSON.parse(localStorage.getItem('paracosm-order')||'null'); }catch(e){ order=null; }
+}
+function saveLocal(){
+  try{ localStorage.setItem('paracosm-custom',JSON.stringify(customMap));
+       localStorage.setItem('paracosm-order',JSON.stringify(order));
+       localStorage.setItem('paracosm-updated',String(Date.now())); }catch(e){}
+}
+function persist(){ saveLocal(); schedulePush(); }
+function buildStations(){
+  const byId={}; BUILTIN.forEach(s=>byId[s.id]=s); Object.values(customMap).forEach(s=>byId[s.id]=s);
+  if(!Array.isArray(order)) order=BUILTIN.map(s=>s.id);
+  order=order.filter(id=>byId[id]);
+  Object.keys(byId).forEach(id=>{ if(!order.includes(id)) order.push(id); });
+  STATIONS=order.map(id=>byId[id]);
+}
+function renderTrail(){
+  trailList.innerHTML='';
+  STATIONS.forEach((st,i)=>{
+    const el=document.createElement('div'); el.className='stop'+(st.custom?' cust':'');
+    el.innerHTML=`<span class="num">${i+1}</span><span>${st.t}</span>`;
+    el.onclick=()=>{ if(!focusMode) goTo(i); };
+    trailList.appendChild(el);
+  });
+  trailEls=[...trailList.children];
+}
+function rebuild(){ buildStations(); renderTrail(); }
+loadState(); rebuild();
+
+let idx=0, paused=false;
+function render(){
+  const st=STATIONS[idx];
+  $('#cardTop').style.background=`var(--${st.accent})`;
+  $('#kicker').textContent=st.loc;
+  $('#title').textContent=st.t;
+  const prose=$('#prose');
+  prose.innerHTML=st.html; prose.scrollTop=0;
+  $('#emblem').innerHTML=emblem(st.emblem[0],st.emblem[1])+`<div class="badge">${st.loc.replace('Codex · ','')}<br>of ${STATIONS.length}</div>`;
+  // clean staggered reveal — each "thought" appears in turn
+  ['#emblem','#title'].forEach(sel=>{const e=$(sel);e.classList.remove('fadein');void e.offsetWidth;e.classList.add('fadein');});
+  [...prose.children].forEach((c,i)=>{ c.classList.add('rv'); c.style.animationDelay=(0.15+i*0.12)+'s'; });
+  // trail state
+  trailEls.forEach((e,i)=>{ e.className='stop'+(i===idx?' on':'')+(i<idx?' done':''); });
+  const onEl=trailEls[idx];
+  if(onEl){ const lt=trailList.getBoundingClientRect(), et=onEl.getBoundingClientRect();
+    if(et.bottom>lt.bottom||et.top<lt.top) onEl.scrollIntoView({block:'nearest'}); }
+  // topbar
+  $('#sStation').textContent=idx+1;
+  $('#sTotal').textContent=STATIONS.length;
+  $('#sPage').textContent=st.page;
+  $('#count').textContent=`station ${idx+1} of ${STATIONS.length} · ${st.loc}`;
+  $('#removeBtn').style.display=st.custom?'inline-block':'none';
+  restartProg();
+}
+function restartProg(){
+  const f=$('#progFill'); f.classList.remove('run'); void f.offsetWidth;
+  if(!paused) f.classList.add('run');
+  clearTimeout(window._wt);
+  if(!paused) window._wt=setTimeout(()=>go(1),DWELL);
+}
+function go(d){ idx=(idx+d+STATIONS.length)%STATIONS.length; render(); }
+function goTo(i){ idx=i; render(); }
+$('#prev').onclick=()=>go(-1);
+$('#next').onclick=()=>go(1);
+// pause auto-advance while reading (normal mode only)
+$('#card').addEventListener('mouseenter',()=>{ if(focusMode)return; paused=true; $('#progFill').style.animationPlayState='paused'; clearTimeout(window._wt); });
+$('#card').addEventListener('mouseleave',()=>{ if(focusMode)return; paused=false; restartProg(); });
+
+/* ===================== focus mode — one thought at a time ===================== */
+function thoughtsOf(st){
+  const tmp=document.createElement('div'); tmp.innerHTML=st.html;
+  return [...tmp.children].map(el=>({
+    kind: el.classList.contains('q')?'q':(el.classList.contains('dewey')?'grid':'p'),
+    html: el.classList.contains('dewey')?el.outerHTML:el.innerHTML
+  }));
+}
+function loadFocusStation(atEnd){
+  const st=STATIONS[idx];
+  fThoughts=thoughtsOf(st);
+  fPos=atEnd?fThoughts.length-1:0;
+  $('#fEmblem').innerHTML=emblem(st.emblem[0],st.emblem[1]);
+  $('#fKicker').textContent=st.loc+' · '+st.t;
+  $('#fDots').innerHTML=fThoughts.map(()=>'<i></i>').join('');
+  showThought();
+}
+function showThought(){
+  const t=fThoughts[fPos], el=$('#fThought');
+  el.className=t.kind;
+  el.innerHTML=t.html; el.scrollTop=0;
+  el.classList.remove('fadein'); void el.offsetWidth; el.classList.add('fadein');
+  [...$('#fDots').children].forEach((d,i)=>d.classList.toggle('on',i===fPos));
+  $('#fMeta').textContent=`thought ${fPos+1}/${fThoughts.length} · station ${idx+1}/${STATIONS.length}`;
+  scheduleThought();
+}
+function scheduleThought(){ clearTimeout(fTimer); if(focusMode) fTimer=setTimeout(nextThought,TDWELL); }
+function nextThought(){
+  if(fPos<fThoughts.length-1){ fPos++; showThought(); }
+  else { idx=(idx+1)%STATIONS.length; render(); loadFocusStation(false); }
+}
+function prevThought(){
+  if(fPos>0){ fPos--; showThought(); }
+  else { idx=(idx-1+STATIONS.length)%STATIONS.length; render(); loadFocusStation(true); }
+}
+function enterFocus(){ focusMode=true; clearTimeout(window._wt); $('#focus').classList.remove('hidden'); loadFocusStation(false); }
+function exitFocus(){ focusMode=false; clearTimeout(fTimer); $('#focus').classList.add('hidden'); render(); }
+$('#focusBtn').onclick=enterFocus;
+$('#fExit').onclick=exitFocus;
+$('#fPrev').onclick=()=>{ clearTimeout(fTimer); prevThought(); };
+$('#fNext').onclick=()=>{ clearTimeout(fTimer); nextThought(); };
+
+/* ===================== composer — add content where you want it ===================== */
+const EMBLEM_KINDS=['sun','seal','castle','tree','elephant','grid','book','spiral','compass','graces'];
+const COLORS=['red','blue','teal','orange','gold','green','plum'];
+let cEmblem='seal', cColor='blue';
+function renderPickers(){
+  $('#cEmblem').innerHTML=EMBLEM_KINDS.map(k=>`<button class="embtn${k===cEmblem?' on':''}" data-em="${k}">${emblem(k,cColor)}</button>`).join('');
+  $('#cColor').innerHTML=COLORS.map(c=>`<div class="swatch${c===cColor?' on':''}" data-col="${c}" style="background:var(--${c})"></div>`).join('');
+  $('#cEmblem').querySelectorAll('[data-em]').forEach(b=>b.onclick=()=>{ cEmblem=b.dataset.em; renderPickers(); });
+  $('#cColor').querySelectorAll('[data-col]').forEach(b=>b.onclick=()=>{ cColor=b.dataset.col; renderPickers(); });
+}
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function inline(s){ return esc(s).replace(/\*(.+?)\*/g,'<em>$1</em>'); }
+function textToHtml(text){
+  return text.split(/\n\s*\n/).map(b=>b.trim()).filter(Boolean).map(b=>{
+    if(b.startsWith('>')) return `<span class="q">${inline(b.replace(/^>\s?/,''))}</span>`;
+    return `<p>${inline(b).replace(/\n/g,' ')}</p>`;
+  }).join('');
+}
+function openComposer(){
+  if(focusMode) exitFocus();
+  $('#cTitle').value=''; $('#cLoc').value=''; $('#cText').value=''; $('#cText').style.borderColor='var(--ink)';
+  cEmblem='seal'; cColor='blue'; renderPickers();
+  $('#cAnchor').innerHTML=STATIONS.map((s,i)=>`<option value="${s.id}">${i+1}. ${s.t.replace(/"/g,'')}</option>`).join('');
+  $('#cAnchor').value=STATIONS[idx].id; $('#cWhere').value='after';
+  clearTimeout(window._wt); clearTimeout(fTimer);
+  $('#composer').classList.remove('hidden');
+  setTimeout(()=>$('#cTitle').focus(),60);
+}
+function closeComposer(){ $('#composer').classList.add('hidden'); if(!focusMode) restartProg(); }
+function saveComposer(){
+  const text=$('#cText').value.trim();
+  if(!text){ $('#cText').style.borderColor='var(--red)'; $('#cText').focus(); return; }
+  const id='c'+Date.now().toString(36)+Math.floor(Math.random()*1e4).toString(36);
+  customMap[id]={ id, t:($('#cTitle').value.trim()||'Untitled'), loc:($('#cLoc').value.trim()||'Added'),
+    page:'added', emblem:[cEmblem,cColor], accent:cColor, html:textToHtml(text), custom:true };
+  order=STATIONS.map(s=>s.id);
+  let ai=order.indexOf($('#cAnchor').value); if(ai<0) ai=order.length-1;
+  order.splice($('#cWhere').value==='before'?ai:ai+1, 0, id);
+  persist(); rebuild(); closeComposer();
+  const ni=STATIONS.findIndex(s=>s.id===id); if(ni>=0) goTo(ni);
+}
+function removeCurrent(){
+  const st=STATIONS[idx]; if(!st||!st.custom) return;
+  delete customMap[st.id]; order=STATIONS.map(s=>s.id).filter(x=>x!==st.id);
+  persist(); rebuild();
+  idx=Math.max(0,Math.min(idx,STATIONS.length-1));
+  if(focusMode) loadFocusStation(false); else render();
+}
+$('#addBtn').onclick=openComposer;
+$('#removeBtn').onclick=removeCurrent;
+$('#cCancel').onclick=closeComposer;
+$('#cSave').onclick=saveComposer;
+$('#cText').addEventListener('input',()=>$('#cText').style.borderColor='var(--ink)');
+$('#composer').addEventListener('click',e=>{ if(e.target.id==='composer') closeComposer(); });
+
+/* ===================== cross-device sync via a private Gist ===================== */
+const GFILE='paracosm.json';
+let ghToken=localStorage.getItem('paracosm-gh-token')||'';
+let gistId=localStorage.getItem('paracosm-gist-id')||'';
+let pushTimer=null;
+function setSync(state,msg){
+  const map={off:['var(--dim)','Sync','Not connected. Your sections save on this device only.'],
+    syncing:['var(--blue)','Syncing…','Talking to GitHub…'],
+    synced:['var(--green)','Synced','Up to date across your devices.'],
+    error:['var(--red)','Sync ⚠','Something went wrong.']};
+  const m=map[state]||map.off;
+  $('#syncDot').style.background=m[0]; $('#syncTxt').textContent=m[1];
+  const st=$('#syncStatus'); if(st) st.textContent=msg||m[2];
+}
+function ghHeaders(){ return {'Authorization':'token '+ghToken,'Accept':'application/vnd.github+json','Content-Type':'application/json'}; }
+async function pushGist(){
+  if(!ghToken){ setSync('off'); return; }
+  setSync('syncing');
+  const payload={files:{}}; payload.files[GFILE]={content:JSON.stringify({custom:customMap,order:order,updated:Date.now()},null,2)};
+  try{
+    let r;
+    if(gistId){ r=await fetch('https://api.github.com/gists/'+gistId,{method:'PATCH',headers:ghHeaders(),body:JSON.stringify(payload)}); }
+    else{ payload.description='Paracosm walk — my sections'; payload.public=false;
+      r=await fetch('https://api.github.com/gists',{method:'POST',headers:ghHeaders(),body:JSON.stringify(payload)}); }
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const g=await r.json();
+    if(!gistId){ gistId=g.id; localStorage.setItem('paracosm-gist-id',gistId); const gi=$('#syncGist'); if(gi) gi.value=gistId; }
+    setSync('synced','Saved · gist '+gistId.slice(0,8)+'…');
+  }catch(e){ setSync('error', /401/.test(e.message)?'Token rejected — it needs the “gist” scope.':'Push failed ('+e.message+').'); }
+}
+function schedulePush(){ if(!ghToken) return; clearTimeout(pushTimer); pushTimer=setTimeout(pushGist,900); }
+async function pullGist(){
+  if(!ghToken||!gistId){ setSync(ghToken?'synced':'off'); return; }
+  setSync('syncing');
+  try{
+    const r=await fetch('https://api.github.com/gists/'+gistId,{headers:ghHeaders()});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const g=await r.json(); const f=g.files&&g.files[GFILE];
+    if(f&&f.content){
+      const data=JSON.parse(f.content);
+      const localUpd=+(localStorage.getItem('paracosm-updated')||0);
+      if((data.updated||0)>=localUpd){
+        if(data.custom) customMap=data.custom; if(Array.isArray(data.order)) order=data.order;
+        saveLocal(); rebuild(); idx=Math.min(idx,STATIONS.length-1);
+        if(focusMode) loadFocusStation(false); else render();
+        setSync('synced','Pulled the latest from GitHub.');
+      } else { setSync('synced'); pushGist(); }
+    } else { setSync('synced'); pushGist(); }
+  }catch(e){ setSync('error', /404/.test(e.message)?'Gist not found — check the ID.':'Pull failed ('+e.message+').'); }
+}
+function connectSync(){
+  ghToken=$('#syncToken').value.trim(); gistId=$('#syncGist').value.trim();
+  if(!ghToken){ setSync('error','Paste a token first.'); return; }
+  localStorage.setItem('paracosm-gh-token',ghToken); localStorage.setItem('paracosm-gist-id',gistId);
+  if(gistId) pullGist(); else pushGist();
+}
+function disconnectSync(){
+  ghToken=''; localStorage.removeItem('paracosm-gh-token');
+  $('#syncToken').value=''; setSync('off','Disconnected here. Sections remain saved locally and in the gist.');
+}
+function openSync(){ if(focusMode) exitFocus(); $('#syncToken').value=ghToken; $('#syncGist').value=gistId; clearTimeout(window._wt); $('#syncPanel').classList.remove('hidden'); }
+function closeSync(){ $('#syncPanel').classList.add('hidden'); if(!focusMode) restartProg(); }
+$('#syncBtn').onclick=openSync;
+$('#syncConnect').onclick=connectSync;
+$('#syncPull').onclick=pullGist;
+$('#syncPush').onclick=pushGist;
+$('#syncOff').onclick=disconnectSync;
+$('#syncCancel').onclick=closeSync;
+$('#syncPanel').addEventListener('click',e=>{ if(e.target.id==='syncPanel') closeSync(); });
+setSync(ghToken?'synced':'off');
+if(ghToken&&gistId) pullGist();
+
+addEventListener('keydown',e=>{
+  if(!$('#syncPanel').classList.contains('hidden')){ if(e.key==='Escape') closeSync(); return; }
+  if(!$('#composer').classList.contains('hidden')){ if(e.key==='Escape') closeComposer(); return; }
+  const typing=/^(INPUT|TEXTAREA|SELECT)$/.test((e.target.tagName||''));
+  if(e.code==='Space'||e.key===' '){ if(typing) return; e.preventDefault(); if(document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen?.(); return; }
+  if(e.key==='f'||e.key==='F'){ if(typing) return; focusMode?exitFocus():enterFocus(); return; }
+  if(e.key==='Escape'&&focusMode){ exitFocus(); return; }
+  if(e.key==='ArrowRight'){ if(focusMode){ clearTimeout(fTimer); nextThought(); } else go(1); }
+  if(e.key==='ArrowLeft'){ if(focusMode){ clearTimeout(fTimer); prevThought(); } else go(-1); }
+});
+render();
+
+/* ===================== the build band (mechanics) ===================== */
+const ROOMS=[{n:'080',name:'the Elephant — candour'},{n:'100',name:'the Guardian & Three Graces'},{n:'230',name:'the Martyrs'},{n:'250',name:'the Chapel of the Counsels'},{n:'470',name:'the Latin headstone'},{n:'600',name:'the Inventors'},{n:'750',name:'Painting'},{n:'800',name:"Helen's Library of Consistency"},{n:'970',name:'the US States'},{n:'520',name:'Astronomy'}];
+const JOURNEYS=['50 Philosophy Classics','100 Saints','US States','Castle Rock'];
+const SOURCES=["Rhetorica ad Herennium","Cicero, De Oratore","Quintilian, Institutio Oratoria","Frances Yates, The Art of Memory","Giordano Bruno, De umbris idearum","Gregor von Feinaigle's grid","Teresa of Ávila, Interior Castle","Martianus Capella","The Table of Cebes","Baddeley & Paivio — dual coding"];
+const SITES=["archive.org","gutenberg.org","sacred-texts.com","plato.stanford.edu","wikisource.org","ccel.org"];
+
+const WIN=$('#windows'); let openWins=[]; let zc=10; let lociPlaced=0;
+function place(w,h){const W=WIN.clientWidth,H=WIN.clientHeight;return{x:ri(6,Math.max(8,W-w-6)),y:ri(22,Math.max(24,H-h-6))};}
+function makeWin(cls,title,w,h,extra=''){
+  const win=document.createElement('div'); win.className='win '+cls;
+  const p=place(w,h);
+  win.style.cssText=`left:${p.x}px;top:${p.y}px;width:${w}px;height:${h}px;z-index:${++zc}`;
+  win.innerHTML=`<div class="win-bar"><div class="lights"><i></i><i></i><i></i></div><div class="win-title">${title}</div>${extra}</div><div class="win-body"></div>`;
+  WIN.appendChild(win); openWins.push(win);
+  while(openWins.length>3){ closeWin(openWins.shift()); }
+  return win;
+}
+function closeWin(win){ if(!win||win._c) return; win._c=true; win.classList.add('closing'); setTimeout(()=>win.remove(),300); }
+const body=w=>w.querySelector('.win-body');
+
+async function tBuild(){
+  const room=pick(ROOMS); $('#sRoom').textContent='Room '+room.n;
+  const w=makeWin('term','build_palace',ri(280,340),ri(150,180));const b=body(w);
+  const cmds=[
+    `<span class="dim">~#</span> ./build_palace --room ${room.n}`,
+    `<span class="dim">[grid]</span> loading Dewey index 000–990 … <span class="ok">OK</span>`,
+    `<span class="dim">[locus]</span> placing <span class="cy">'${room.name}'</span> <span class="ok">✓</span>`,
+    `<span class="dim">[encode]</span> dual-encoding verba + res`,
+    `<span class="dim">[paint]</span> yellow gallery, vivid image set`,
+    `SEE RED → <span class="ok">S✓ E✓ R✓</span>`,
+    `<span class="dim">[walk]</span> vividness <span class="ok">${ri(88,99)}%</span>`,
+    `<span class="ok">✓ fixed</span> in Room ${room.n}`,
+  ];
+  for(const c of cmds){const l=document.createElement('div');l.className='ln';l.innerHTML=c;b.appendChild(l);b.scrollTop=b.scrollHeight;await sleep(ri(700,1300));}
+  const cur=document.createElement('div');cur.className='ln';cur.innerHTML='<span class="dim">~#</span> <span class="cursor"></span>';b.appendChild(cur);
+  lociPlaced++; $('#sLoci').textContent=lociPlaced;
+  await sleep(ri(2600,4200)); closeWin(w);
+}
+async function tSheet(){
+  const w=makeWin('sheet','Loci Ledger',ri(290,340),ri(150,175));const b=body(w);
+  const cols=['','000','300','600','900'], rows=['Loci','Images','Encoded','Walked','Vivid%'];
+  b.innerHTML='<table><tr>'+cols.map(c=>`<th>${c}</th>`).join('')+'</tr>'+rows.map(r=>`<tr><td class="lbl">${r}</td>`+'<td>·</td>'.repeat(4)+'</tr>').join('')+'</table>';
+  const cells=[...b.querySelectorAll('td:not(.lbl)')];
+  for(const cell of cells){cell.textContent=ri(3,99);cell.classList.add('flash');setTimeout(()=>cell.classList.remove('flash'),600);await sleep(ri(220,420));}
+  await sleep(ri(3000,4600)); closeWin(w);
+}
+async function tCode(){
+  const w=makeWin('code','signifier.opml',ri(300,350),ri(155,180));const b=body(w);
+  const lines=[
+    `<span class="cm">&lt;!-- the paracosm, in outline --&gt;</span>`,
+    `<span class="tag">&lt;outline</span> <span class="at">text</span>=<span class="st">"Paracosm"</span><span class="tag">&gt;</span>`,
+    `&nbsp; <span class="tag">&lt;outline</span> <span class="at">dewey</span>=<span class="st">"100"</span> <span class="at">text</span>=<span class="st">"Guardian + Graces"</span><span class="tag">/&gt;</span>`,
+    `&nbsp; <span class="tag">&lt;outline</span> <span class="at">dewey</span>=<span class="st">"230"</span> <span class="at">text</span>=<span class="st">"the Martyrs"</span><span class="tag">/&gt;</span>`,
+    `&nbsp; <span class="tag">&lt;outline</span> <span class="at">dewey</span>=<span class="st">"080"</span> <span class="at">text</span>=<span class="st">"Elephant — candour"</span><span class="tag">/&gt;</span>`,
+    `&nbsp; <span class="tag">&lt;outline</span> <span class="at">text</span>=<span class="st">"${pick(JOURNEYS)}"</span><span class="tag">/&gt;</span>`,
+    `<span class="tag">&lt;/outline&gt;</span>`,
+    `<span class="cm">&lt;!-- signifier ↔ signified linked --&gt;</span>`,
+  ];
+  for(const ln of lines){const l=document.createElement('div');l.innerHTML=ln;b.appendChild(l);b.scrollTop=b.scrollHeight;await sleep(ri(420,720));}
+  await sleep(ri(2800,4200)); closeWin(w);
+}
+async function tChart(){
+  const w=makeWin('chart','Vividness',ri(250,300),ri(150,170));const b=body(w);
+  const cls=['000','100','200','300','400','500','600'], cols=['var(--red)','var(--blue)','var(--teal)','var(--orange)','var(--gold)','var(--green)','var(--plum)'];
+  const n=ri(5,7);
+  for(let i=0;i<n;i++){const bar=document.createElement('div');bar.className='bar';const v=ri(25,100);bar.style.background=cols[i];bar.innerHTML=`<b>${cls[i]}</b>`;b.appendChild(bar);requestAnimationFrame(()=>bar.style.height=v+'%');await sleep(ri(200,360));}
+  await sleep(ri(3000,4400)); closeWin(w);
+}
+async function tSource(){
+  const src=pick(SOURCES), site=pick(SITES);
+  const w=makeWin('browser','The Sources',ri(300,350),ri(150,175),`<div class="url">${site}/${pick(['text','scan','vol','book'])}/${ri(100,9999)}</div>`);
+  const b=body(w); const n=ri(2,3);
+  for(let i=0;i<n;i++){const r=document.createElement('div');r.className='res';r.innerHTML=`<div class="rt">${src}</div><div class="ru">${pick(SITES)}/${pick(['memoria','loci','ars','text'])}/${ri(100,999)}</div>`;b.appendChild(r);await sleep(ri(700,1200));}
+  await sleep(ri(2800,4200)); closeWin(w);
+}
+const TASKS=[tBuild,tSheet,tCode,tChart,tSource];
+let active=0;
+async function runOne(){active++;try{await pick(TASKS)();}catch(e){}active--;}
+function loop(){ if(active<2) runOne(); setTimeout(loop,ri(2400,4200)); }
+loop(); setTimeout(loop,1500);
+
+/* ===================== ticker ===================== */
+const TICK=[
+  ()=>`<span class="g">✓</span> placed <b>${pick(ROOMS).name}</b>`,
+  ()=>`<span class="g">✓</span> indexed <b>${pick(JOURNEYS)}</b>`,
+  ()=>`dual-encoding <b>verba + res</b>`,
+  ()=>`the index is the index of place`,
+  ()=>`vividness <b>${ri(88,99)}%</b> at Room ${pick(ROOMS).n}`,
+  ()=>`<span class="g">✓</span> consulted <b>${pick(SOURCES)}</b>`,
+  ()=>`SEE RED — <b>Structure · Encode · Review · Edit · Develop</b>`,
+  ()=>`<span class="g">✓</span> Castle Rock chambers numbered`,
+  ()=>`<b>Tat Tvam Asi</b> — Thou art That`,
+  ()=>`<b>Noli timere</b> — be not afraid`,
+  ()=>`<span class="g">✓</span> One Source rendered`,
+];
+function buildTicker(){let s='';for(let i=0;i<14;i++)s+=`<span class="tk">${pick(TICK)()}</span>`;$('#tickwrap').innerHTML=s+s;}
+buildTicker(); setInterval(buildTicker,44000);
+
+/* ===================== roaming cursor (over the band) ===================== */
+const cur=$('#ai-cursor');
+cur.innerHTML=`<svg width="20" height="20" viewBox="0 0 20 20"><path d="M2 2 L2 16 L6 12 L9 18 L11 17 L8 11 L14 11 Z" fill="var(--ink)" stroke="var(--cream)" stroke-width="1.4"/></svg>`;
+function pickT(){
+  if(openWins.length){const win=openWins[openWins.length-1];if(win&&!win._c&&win.isConnected){const inner=[...win.querySelectorAll('td,.res,.bar,.ln:last-child')].filter(e=>e.getClientRects().length);if(inner.length&&Math.random()<.8)return pick(inner);return win.querySelector('.win-bar');}}
+  return null;
+}
+function moveCursor(){
+  const t=pickT(); let x,y;
+  if(t){const r=t.getBoundingClientRect();x=r.left+r.width*rand(.3,.7);y=r.top+r.height*rand(.3,.7);t.classList.add('hot');setTimeout(()=>t.classList.remove('hot'),700);}
+  else{const r=$('#band').getBoundingClientRect();x=rand(r.left+20,r.right-20);y=rand(r.top+20,r.bottom-20);}
+  cur.style.left=x+'px';cur.style.top=y+'px';
+  setTimeout(()=>{const rp=document.createElement('div');rp.className='ripple';rp.style.left=(x+2)+'px';rp.style.top=(y+2)+'px';document.body.appendChild(rp);setTimeout(()=>rp.remove(),600);},920);
+}
+setInterval(moveCursor,ri(2600,3800)); setTimeout(moveCursor,800);
+
+/* mouse shows real cursor briefly */
+let mt; addEventListener('mousemove',()=>{document.body.style.cursor='auto';cur.style.display='none';clearTimeout(mt);mt=setTimeout(()=>{document.body.style.cursor='none';cur.style.display='block';},2500);});
+</script>
+</body>
+</html>
