@@ -62,13 +62,14 @@ section{padding:56px 0}
 .sec-head p{color:var(--mid);max-width:600px;margin:0 auto;font-size:1rem}
 
 /* FLAGSHIP */
-.flag{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.flag{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
 .flagsec{padding-top:30px}
 .flagsec .sec-head{margin-bottom:22px}
 .flag-card{position:relative;display:flex;flex-direction:column;padding:34px;border-radius:14px;text-decoration:none;color:#fff;overflow:hidden;min-height:260px;transition:transform .25s,box-shadow .25s;box-shadow:0 6px 22px rgba(30,58,47,.12)}
 .flag-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(30,58,47,.22)}
 .flag-stories{background:linear-gradient(150deg,#2a5040,#1e3a2f)}
 .flag-history{background:linear-gradient(150deg,#3a4a2a,#2a3a1e)}
+.flag-grammar{background:linear-gradient(150deg,#3a2f5a,#241a38)}
 .flag-card .badge{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--gold-soft);margin-bottom:14px}
 .flag-card h3{font-family:'Instrument Serif',serif;font-size:2rem;font-weight:400;line-height:1.1;margin-bottom:12px}
 .flag-card p{opacity:.9;font-size:.98rem;line-height:1.6;margin-bottom:20px;flex-grow:1}
@@ -228,9 +229,9 @@ footer a:hover{text-decoration:underline}
 <section class="flagsec">
   <div class="wrap">
     <div class="sec-head">
-      <div class="k">The two reading series at the heart of it</div>
+      <div class="k">The three libraries at the heart of it</div>
       <h2 class="serif">Where the method lives</h2>
-      <p>Two flagship libraries, each lesson a complete speaking class at two levels — a great text, its key words, a grammar focus, and real talk.</p>
+      <p>Two reading series and a complete grammar course, A1 to C2 — every lesson a full class: a great text or a single grammar point, its key words, focused practice, and real talk.</p>
     </div>
     <div class="flag">
       <a class="flag-card flag-stories" href="https://malcolmtheteacher-creator.github.io/preply-lessons/short_stories_long_shadows_dashboard.html">
@@ -246,6 +247,13 @@ footer a:hover{text-decoration:underline}
         <h3 class="serif">History's most dramatic true stories</h3>
         <p>Eighty-six real events — Pompeii, Cleopatra, the Berlin Wall, the Suffragettes, Alcatraz, the Mary Celeste — each a full speaking lesson at two levels, with a grammar focus and the real podcast as listening.</p>
         <span class="go">Explore the history →</span>
+      </a>
+      <a class="flag-card flag-grammar" href="https://malcolmtheteacher-creator.github.io/preply-lessons/CEFR_Grammar_Dashboard.html">
+        <div class="count serif">96</div>
+        <div class="badge">English Grammar · A1–C2</div>
+        <h3 class="serif">Every grammar point, one place</h3>
+        <p>A full grammar course from first steps to fine polish — ninety-six single-point lessons you can search in a second. Present perfect, the passive, conditionals, inversion, articles… find exactly what you need and teach it today.</p>
+        <span class="go">Find a grammar point →</span>
       </a>
     </div>
   </div>
