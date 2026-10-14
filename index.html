@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Malcolm Hyndman | English through stories, history & role plays</title>
+<title>Malcolm Hyndman | English for work, study and life — through stories</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -101,6 +101,40 @@ section{padding:56px 0}
 .ielts-lists li{margin-bottom:6px;font-size:.92rem;line-height:1.35}
 .ielts-lists a{color:var(--ink);text-decoration:none;border-bottom:1px solid #c08a2d55}
 .ielts-lists a:hover{color:var(--green);border-bottom-color:var(--green)}
+.doors{background:#fff;border-bottom:1px solid var(--warm);position:sticky;top:56px;z-index:90}
+.doors-in{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding-top:10px;padding-bottom:10px}
+.doors-l{font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-right:4px}
+.doors a{font-size:.82rem;font-weight:600;color:var(--green);background:var(--paper);border:1px solid var(--warm);border-radius:20px;padding:5px 12px;text-decoration:none;transition:all .2s}
+.doors a:hover{background:var(--green);color:#fff}
+section[id]{scroll-margin-top:110px}
+.cat{padding:44px 0;border-top:1px solid var(--warm)}
+.cat-head{margin-bottom:22px;max-width:680px}
+.cat-head .k{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:6px}
+.cat-head h2{font-family:'Instrument Serif',serif;font-size:2rem;font-weight:400;line-height:1.15;margin-bottom:6px}
+.cat-head p{color:var(--mid);font-size:.98rem}
+.cat-body{display:grid;grid-template-columns:minmax(260px,330px) 1fr;gap:30px;align-items:start}
+.cat-feat .flag-card{min-height:0;padding:26px}
+.cat-feat .flag-card h3{font-size:1.65rem}
+.cat-feat .flag-card p{font-size:.92rem;margin-bottom:16px}
+.cat-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:6px 30px}
+.cat-list.wide{margin-top:26px}
+.grp h5{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);padding-bottom:6px;margin:10px 0 2px;border-bottom:2px solid var(--gold-soft)}
+.rows{list-style:none}
+.rows a{display:grid;grid-template-columns:1fr auto;gap:0 10px;padding:8px 0;border-bottom:1px solid var(--warm);text-decoration:none;color:var(--ink);transition:background .15s}
+.rows a:hover{background:#f3efe655}
+.rows a:hover b{color:var(--green);text-decoration:underline}
+.rows b{font-size:.93rem;font-weight:600;line-height:1.3}
+.rows .m{font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gold);white-space:nowrap;align-self:center}
+.rows .d{grid-column:1/-1;font-size:.8rem;color:var(--mid);line-height:1.35}
+@media(max-width:860px){.cat-body{grid-template-columns:1fr}}
+.path{background:var(--green);color:#fff;padding:34px 0;margin-top:0;scroll-margin-top:110px}
+.path-in{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.path .k{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);font-weight:700;margin-bottom:4px}
+.path h2{font-family:'Instrument Serif',serif;font-size:2.3rem;font-weight:400;line-height:1.1;margin-bottom:6px}
+.path p{max-width:640px;opacity:.88;font-size:.98rem}
+.path-link{background:var(--gold-soft);color:var(--green);font-weight:700;text-decoration:none;padding:11px 20px;border-radius:8px;white-space:nowrap}
+.doors .p1,.doors .p2,.doors .p3{background:var(--green);color:#fff;font-size:.88rem;padding:6px 16px}
+.doors .p1:hover,.doors .p2:hover,.doors .p3:hover{background:var(--green-light)}
 .card.feat{border:2px solid #1f3a5f;background:linear-gradient(180deg,#f3f7fc,#fff)}
 .card .lvl{display:inline-block;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);background:#c08a2d18;border:1px solid #c08a2d33;border-radius:20px;padding:2px 9px;margin-bottom:10px}
 .card .cnt{float:right;font-size:.72rem;font-weight:600;color:var(--mid);margin-top:3px}
@@ -180,13 +214,14 @@ footer a:hover{text-decoration:underline}
     <a href="#top" class="brand">Malcolm Hyndman</a>
     <button class="nav-tog" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">☰</button>
     <ul class="nav-links">
+      <li><a href="#professional">Work</a></li>
       <li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/short_stories_long_shadows_dashboard.html">Stories</a></li>
       <li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/short_history_dashboard.html">History</a></li>
       <li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/CEFR_Grammar_Dashboard.html">Grammar</a></li>
       <li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/behind_the_screen_dashboard.html">Films</a></li>
-      <li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/roleplays_dashboard.html">Role plays</a></li>
-      <li><a href="#speaking">Speaking</a></li>
-      <li><a href="#more">Exams &amp; more</a></li>
+      <li><a href="#speaking">Speak</a></li>
+      <li><a href="#exams">Exams</a></li>
+      <li><a href="#beginners">Beginners</a></li>
       <li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/malcolm_lesson_index.html">All lessons</a></li>
       <li><a href="https://preply.com/en/tutor/4383857" target="_blank" class="nav-cta">Book a lesson</a></li>
     </ul>
@@ -215,15 +250,13 @@ footer a:hover{text-decoration:underline}
   </svg>
   <div class="wrap hero-in">
     <div>
-      <div class="eyebrow">Free interactive English for learners &amp; teachers · A1–C2</div>
-      <h1 class="serif">English through unforgettable <em>stories</em>, true <em>history</em>, great <em>films</em> and real <em>role plays</em>.</h1>
-      <p class="lead">Read a great short story, relive a real moment from history, or go behind a film you love. Learn the words that unlock it — then do the one thing that actually builds fluency: <strong>talk about it</strong>. Every lesson is a story worth telling, at your level.</p>
+      <div class="eyebrow">Free interactive English for professionals, students &amp; learners · A1–C2</div>
+      <h1 class="serif">English for your <em>career</em>, your <em>studies</em> and your <em>life</em> — taught through real stories.</h1>
+      <p class="lead">Real business cases, true stories from history, great films and everyday role plays. Learn the words that unlock each one — then do the one thing that actually builds fluency: <strong>talk about it</strong>. Every lesson is free, and pitched at your level.</p>
       <div class="hero-cta">
-        <a class="btn btn-gold" href="https://malcolmtheteacher-creator.github.io/preply-lessons/short_stories_long_shadows_dashboard.html">Enter the Stories →</a>
-        <a class="btn btn-ghost" href="https://malcolmtheteacher-creator.github.io/preply-lessons/short_history_dashboard.html">Enter the History →</a>
-        <a class="btn btn-ghost" href="https://malcolmtheteacher-creator.github.io/preply-lessons/CEFR_Grammar_Dashboard.html">Enter the Grammar →</a>
-        <a class="btn btn-ghost" href="https://malcolmtheteacher-creator.github.io/preply-lessons/behind_the_screen_dashboard.html">Enter the Films →</a>
-        <a class="btn btn-ghost" href="https://malcolmtheteacher-creator.github.io/preply-lessons/roleplays_dashboard.html">Enter the Role Plays →</a>
+        <a class="btn btn-gold" href="#professional">Professional English →</a>
+        <a class="btn btn-ghost" href="#general">General English →</a>
+        <a class="btn btn-ghost" href="#academic">Academic English &amp; exams →</a>
       </div>
       <div class="hero-stats">
         <div class="hero-stat"><strong>3,300+</strong><span>Free lessons</span></div>
@@ -243,85 +276,158 @@ footer a:hover{text-decoration:underline}
   </div>
 </div>
 
-<!-- FLAGSHIP -->
-<section class="flagsec">
+<!-- DOORS -->
+<div class="doors">
+  <div class="wrap doors-in">
+    <span class="doors-l">Choose your path</span>
+    <a class="p1" href="#professional">💼 Professional English</a>
+    <a class="p2" href="#general">🌍 General English</a>
+    <a class="p3" href="#academic">🎓 Academic English &amp; exams</a>
+    <a href="#more">And more</a>
+  </div>
+</div>
+
+<section class="path" id="professional">
+  <div class="wrap path-in">
+    <div><div class="k">Path 1</div><h2 class="serif">Professional English</h2><p>English for your career: real business cases, boardroom and trade-fair skills, strategy and structured thinking, aviation English, and the language of senior communication.</p></div>
+    <a class="path-link" href="https://malcolmtheteacher-creator.github.io/preply-lessons/journey_professional.html">See the full pathway →</a>
+  </div>
+</section>
+
+<section class="cat" id="work">
   <div class="wrap">
-    <div class="sec-head">
-      <div class="k">The libraries at the heart of it</div>
-      <h2 class="serif">Where the method lives</h2>
-      <p>Two reading series, a full grammar course, a film series, real business cases, true science stories, the world's great thinking tools and the landmark legal cases — every lesson a complete speaking class: a great text, a film, or a single grammar point, plus its key words, focused practice and real talk.</p>
+    <div class="cat-head"><div class="k">Professional English &middot; Work &amp; professional</div><h2 class="serif">English for your career</h2><p>Real business cases, boardroom skills and the language of senior communication.</p></div>
+    <div class="cat-body">
+      <div class="cat-feat">
+        <a class="flag-card flag-business" href="https://malcolmtheteacher-creator.github.io/preply-lessons/bet_the_company_dashboard.html">
+          <div class="count serif">24</div><div class="badge">Bet the Company · Business C1</div>
+          <h3 class="serif">Real business stories, still being argued about</h3>
+          <p>Nokia, Kodak, Lego, Dieselgate, WeWork, Novo Nordisk — true cases, each a C1 class with one executive grammar focus.</p>
+          <span class="go">Open the boardroom →</span>
+        </a>
+      </div>
+      <div class="cat-list">
+        <div class="grp"><h5>Business &amp; strategy</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/strategic_storytelling_dashboard.html"><b>Strategic Storytelling</b><span class="m">12 · C1+</span><span class="d">Frame a narrative, move the room</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_bootcamp_dashboard.html"><b>The Boardroom: Business Bootcamp</b><span class="m">8 lessons</span><span class="d">Pitch, negotiate, present</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/trade_fair_dashboard.html"><b>Trade Fair English</b><span class="m">18 lessons</span><span class="d">From first handshake to signed contract</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/aviation_english_dashboard.html"><b>Aviation English: ICAO &amp; EAPT</b><span class="m">17 lessons</span><span class="d">METAR, radio words, the photo task</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/professional_skills_dashboard.html"><b>Professional Skills</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_meetings_dashboard.html"><b>Business Meeting Essentials</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/english_at_work_dashboard.html"><b>English at Work</b><span class="m">30 · B2/C1</span><span class="d">Role plays for the workplace</span></a></li></ul></div>
+        <div class="grp"><h5>Thinking, strategy &amp; law</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/think_inside_the_box_dashboard.html"><b>Think Inside the Box</b><span class="m">14 · B2</span><span class="d">The true story behind each thinking tool</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/begin_with_the_end_dashboard.html"><b>Begin With the End</b><span class="m">3 · C1</span><span class="d">Speak with control of the room</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/beyond_reasonable_doubt_dashboard.html"><b>Beyond Reasonable Doubt</b><span class="m">6 · C1</span><span class="d">Landmark legal cases</span></a></li></ul></div>
+        <div class="grp"><h5>Advanced fluency</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/commanding_discourse_dashboard.html"><b>Commanding Discourse</b><span class="m">10 · C1–C2</span><span class="d">Hedging, arguing, commanding a room</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/advanced_communication_dashboard.html"><b>The Art of Being Understood</b><span class="m">5 · C2</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/beyond_perfect_dashboard.html"><b>Beyond Perfect</b><span class="m">6 · C2</span><span class="d">When excellent English is not enough</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/discourse_bestiary_pathway.html"><b>Discourse Bestiary</b><span class="m">6 · C1–C2</span><span class="d">30 advanced expressions</span></a></li></ul></div>
+      </div>
     </div>
-    <div class="flag">
-      <a class="flag-card flag-stories" href="https://malcolmtheteacher-creator.github.io/preply-lessons/short_stories_long_shadows_dashboard.html">
-        <div class="count serif">71</div>
-        <div class="badge">Short Stories, Long Shadows</div>
-        <h3 class="serif">The shortest, sharpest stories ever written</h3>
-        <p>Seventy-one tales that turn on their final line — O. Henry, Poe, Chekhov, Maupassant, Chopin, Doyle and more. Read closely, then mine each for words, grammar and conversation. Every story at two levels.</p>
-        <span class="go">Explore the stories →</span>
-      </a>
-      <a class="flag-card flag-history" href="https://malcolmtheteacher-creator.github.io/preply-lessons/short_history_dashboard.html">
-        <div class="count serif">130</div>
-        <div class="badge">Short History, Long Echoes</div>
-        <h3 class="serif">History's most dramatic true stories</h3>
-        <p>A hundred and thirty real events — Pompeii, Cleopatra, the Berlin Wall, the Suffragettes, Alcatraz, the Mary Celeste — each a full speaking lesson at two levels, with a grammar focus and the real podcast as listening.</p>
-        <span class="go">Explore the history →</span>
-      </a>
-      <a class="flag-card flag-grammar" href="https://malcolmtheteacher-creator.github.io/preply-lessons/CEFR_Grammar_Dashboard.html">
-        <div class="count serif">97</div>
-        <div class="badge">English Grammar · A1–C2</div>
-        <h3 class="serif">Every grammar point, one place</h3>
-        <p>A full grammar course from first steps to fine polish — ninety-seven single-point lessons you can search in a second. Present perfect, the passive, conditionals, inversion, articles… find exactly what you need, whether you're learning it or teaching it.</p>
-        <span class="go">Find a grammar point →</span>
-      </a>
-      <a class="flag-card flag-screen" href="https://malcolmtheteacher-creator.github.io/preply-lessons/behind_the_screen_dashboard.html">
-        <div class="count serif">53</div>
-        <div class="badge">Behind the Screen</div>
-        <h3 class="serif">The real story inside great films</h3>
-        <p>Interstellar, The Matrix, Oppenheimer, Gladiator and more — each a full speaking lesson that watches a famous film, then digs into the true science, history and ideas underneath it. A grammar focus and two levels, like the rest.</p>
-        <span class="go">Go behind the screen →</span>
-      </a>
-      <a class="flag-card flag-business" href="https://malcolmtheteacher-creator.github.io/preply-lessons/bet_the_company_dashboard.html">
-        <div class="count serif">24</div>
-        <div class="badge">Bet the Company &middot; Business C1</div>
-        <h3 class="serif">Real business stories, still being argued about</h3>
-        <p>&Oslash;rsted's all-in bet, Nokia's lost future, Kodak's invention in the drawer, the Lego rescue, Dieselgate, Wirecard, WeWork, the Hanjin shipping collapse and more &mdash; twenty-four true cases, each a full C1 speaking class with one executive grammar focus: hedging, concession, accountability, forecasting.</p>
-        <span class="go">Open the boardroom &rarr;</span>
-      </a>
-            <a class="flag-card flag-conversations" href="https://malcolmtheteacher-creator.github.io/preply-lessons/big_conversations_dashboard.html">
-        <div class="count serif">15</div>
-        <div class="badge">Big Conversations &middot; B2</div>
-        <h3 class="serif">The big topics of ordinary life</h3>
-        <p>Why we pay to be frightened, where the free time went, the boy who stayed awake for eleven days, the battle for your attention, the bliss point, the study that watched 724 lives for eighty-five years, the stone money at the bottom of the sea, the man who could never remember tomorrow, and the doctor who decided to believe &mdash; true stories that open into an hour of real conversation.</p>
-        <span class="go">Start talking &rarr;</span>
-      </a>
-      <a class="flag-card flag-science" href="https://malcolmtheteacher-creator.github.io/preply-lessons/true_science_stories_dashboard.html">
-        <div class="count serif">18</div>
-        <div class="badge">True Science Stories &middot; B2</div>
-        <h3 class="serif">The discoveries the world tried to ignore</h3>
-        <p>The doctor who drank his own experiment, the map that stopped cholera, the mould in the dirty dish, Photograph 51, Apollo 13, the last case of smallpox, the man who mapped the eight stages of life, the poker player who thinks in bets, the hidden flaw in every judgment, the cube that wasn't a toy, the test that cleared an innocent man, the surgeon who went through his own arm &mdash; eighteen true stories, each a full B2 speaking class with the grammar the story itself teaches.</p>
-        <span class="go">Meet the stubborn ones &rarr;</span>
-      </a>
-      <a class="flag-card flag-tools" href="https://malcolmtheteacher-creator.github.io/preply-lessons/think_inside_the_box_dashboard.html">
-        <div class="count serif">14</div>
-        <div class="badge">Think Inside the Box &middot; B2</div>
-        <h3 class="serif">The tools the world uses to think</h3>
-        <p>The 9-box grid, the Eisenhower matrix, the Johari window, the prisoner's dilemma, Maslow's pyramid, the 80/20 rule, the fishbone, the OODA loop, the adoption curve, SWOT, the risk matrix and more &mdash; the true story of who drew each one, then you use the tool yourself. Four also at A2/B1, plus a page that takes <em>your</em> problem and finds the right tool for it.</p>
-        <span class="go">Open the toolbox &rarr;</span>
-      </a>
-      <a class="flag-card flag-law" href="https://malcolmtheteacher-creator.github.io/preply-lessons/beyond_reasonable_doubt_dashboard.html">
-        <div class="count serif">6</div>
-        <div class="badge">Beyond Reasonable Doubt &middot; Legal C1</div>
-        <h3 class="serif">The cases that made the rules we live under</h3>
-        <p>A snail in a ginger beer bottle, an advert that became a binding promise, four men in a lifeboat, the right to remain silent, the accounting system the courts believed over 700 people, and a court built from nothing in 1945 &mdash; six real cases, each a full C1 speaking class with one point of legal register.</p>
-        <span class="go">Open the case files &rarr;</span>
-      </a>
-      <a class="flag-card flag-speakfirst" href="https://malcolmtheteacher-creator.github.io/preply-lessons/speak_first_dashboard.html">
-        <div class="count serif">15</div>
-        <div class="badge">Speak First &middot; Beginners A1</div>
-        <h3 class="serif">Speak from the very first lesson</h3>
-        <p>Leo is forty-eight, has a small company, and his English is not perfect &mdash; then a customer in London says: come. Fifteen short chapters follow him from his kitchen to the airport, the hotel, the meeting and dinner by the river, and every one is built around a conversation you can have by the end of the hour. No long texts. Everything out loud.</p>
-        <span class="go">Start speaking &rarr;</span>
-      </a>
+  </div>
+</section>
+
+<section class="path" id="general">
+  <div class="wrap path-in">
+    <div><div class="k">Path 2</div><h2 class="serif">General English</h2><p>Learn for life: stories, history and film to read, conversations to have, every grammar point, and a gentle start for beginners.</p></div>
+    <a class="path-link" href="https://malcolmtheteacher-creator.github.io/preply-lessons/journey_general.html">See the full pathway →</a>
+  </div>
+</section>
+
+<section class="cat" id="read">
+  <div class="wrap">
+    <div class="cat-head"><div class="k">General English &middot; Read &amp; discover</div><h2 class="serif">Start with a story</h2><p>A short story, a real moment in history, a film, a discovery — read it, learn the words, then talk about it.</p></div>
+    <div class="cat-body">
+      <div class="cat-feat">
+        <a class="flag-card flag-stories" href="https://malcolmtheteacher-creator.github.io/preply-lessons/short_stories_long_shadows_dashboard.html">
+          <div class="count serif">71</div><div class="badge">Short Stories, Long Shadows</div>
+          <h3 class="serif">The shortest, sharpest stories ever written</h3>
+          <p>Seventy-one tales that turn on their final line — O. Henry, Poe, Chekhov, Chopin, Doyle. Every story at two levels.</p>
+          <span class="go">Explore the stories →</span>
+        </a>
+      </div>
+      <div class="cat-list">
+        <div class="grp"><h5>Story-led series</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/short_history_dashboard.html"><b>Short History, Long Echoes</b><span class="m">130 · B2/C1 + A2/B1</span><span class="d">True stories from Pompeii to Alcatraz</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/behind_the_screen_dashboard.html"><b>Behind the Screen</b><span class="m">53 · B2/C1</span><span class="d">The real story inside great films</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/true_science_stories_dashboard.html"><b>True Science Stories</b><span class="m">18 · B2</span><span class="d">Discoveries the world tried to ignore</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/big_conversations_dashboard.html"><b>Big Conversations</b><span class="m">15 · B2</span><span class="d">The big topics of ordinary life</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/minds_worth_meeting.html"><b>Minds Worth Meeting</b><span class="m">14 · B1–C1</span><span class="d">Ten remarkable thinkers</span></a></li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cat tint" id="speaking">
+  <div class="wrap">
+    <div class="cat-head"><div class="k">General English &middot; Speak</div><h2 class="serif">Learn by talking</h2><p>Role plays drop you into a real conversation and teach the phrases that make it work. The speaking series build fluency from different angles.</p></div>
+    <div class="cat-body">
+      <div class="cat-feat">
+        <a class="flag-card flag-conversations" href="https://malcolmtheteacher-creator.github.io/preply-lessons/everyday_echoes_dashboard.html">
+          <div class="count serif">40</div><div class="badge">Role plays · A2 → C1</div>
+          <h3 class="serif">Everyday Echoes</h3>
+          <p>Everyday conversations as story role plays — a museum, a doctor's, a market — each with a small echo of history.</p>
+          <span class="go">Start a role play →</span>
+        </a>
+      </div>
+      <div class="cat-list">
+        <div class="grp"><h5>Role plays</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/modern_life_dashboard.html"><b>Modern Life</b><span class="m">15 · B2/C1</span><span class="d">Group chats, reviews, difficult friends</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/english_at_work_dashboard.html"><b>English at Work</b><span class="m">30 · B2/C1</span><span class="d">Meetings, negotiating, the pay rise</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/roleplay_finder.html"><b>Find a role play</b><span class="m">search</span><span class="d">Search by situation or by the words you need</span></a></li></ul></div>
+        <div class="grp"><h5>Speaking series</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/six_conversations_dashboard.html"><b>Six Conversations</b><span class="m">6 · B2</span><span class="d">The six talks everyone has every week</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/spark_to_speech_dashboard.html"><b>Spark to Speech</b><span class="m">A2–C1</span><span class="d">You bring any topic; it builds up with you</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/chatterbox_dashboard.html"><b>Chatterbox</b><span class="m">6 · B2/C1</span><span class="d">Playful, you talk 90% of the time</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_pathway_dashboard.html"><b>Speaking Pathway</b><span class="m">75 · A2–C1</span><span class="d">Vocabulary to real fluency</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/komorebi.html"><b>Komorebi</b><span class="m">10 · B2/C1</span><span class="d">Psychology and everyday life</span></a></li></ul></div>
+        <div class="grp"><h5>Fluency &amp; games</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_dashboard.html"><b>Speaking Naturally</b><span class="m">B1+</span><span class="d">Sounding like yourself in English</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_real_conversations_dashboard.html"><b>Speaking Naturally: Real Conversations</b><span class="m">B2+</span><span class="d">How people actually talk</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_advanced_dashboard.html"><b>Speaking Naturally: Advanced</b><span class="m">C1–C2</span><span class="d">Nuance and real-time control</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_dashboard.html"><b>Curious Conversations</b><span class="m">B1+</span><span class="d">Philosophy, ethics and ideas</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_series2_dashboard.html"><b>Curious Conversations: Series 2</b><span class="m">B1+</span><span class="d">More ideas to argue about</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/conversation_toolkit_dashboard.html"><b>Conversation Toolkit</b><span class="m">B1+</span><span class="d">Moves that keep a conversation flowing</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/game_room_dashboard.html"><b>The Game Room</b><span class="m">111 · A2–C1</span><span class="d">Game-based speaking lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/pronunciation_pathway_dashboard.html"><b>Pronunciation Pathway</b><span class="m">6 · B2–C1</span><span class="d">British sounds, rhythm and stress</span></a></li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cat" id="grammar">
+  <div class="wrap">
+    <div class="cat-head"><div class="k">General English &middot; Grammar</div><h2 class="serif">Every point, one place</h2><p>A complete grammar course from first steps to fine polish — and ways to find exactly where your gaps are.</p></div>
+    <div class="cat-body">
+      <div class="cat-feat">
+        <a class="flag-card flag-grammar" href="https://malcolmtheteacher-creator.github.io/preply-lessons/CEFR_Grammar_Dashboard.html">
+          <div class="count serif">97</div><div class="badge">English Grammar · A1–C2</div>
+          <h3 class="serif">Every grammar point, one place</h3>
+          <p>Ninety-seven single-point lessons you can search in a second — from the present perfect to inversion.</p>
+          <span class="go">Find a grammar point →</span>
+        </a>
+      </div>
+      <div class="cat-list">
+        <div class="grp"><h5>Find your gaps</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/diagnostic_hub.html"><b>Grammar Diagnostics</b><span class="m">A1–C2</span><span class="d">Six games, one per level</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/quick_fix_index.html"><b>Quick Fix Matrix</b><span class="m">153 · A2–C1</span><span class="d">Searchable micro-lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/topic_picker.html"><b>Topic Explorer</b><span class="m">550 · A2–C2</span><span class="d">Any topic, grammar and speaking built in</span></a></li></ul></div>
+        <div class="grp"><h5>General English &amp; skills</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/general_english_dashboard.html"><b>General English</b><span class="m">50 · A2–C1</span><span class="d">Elementary to advanced</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/wordwall_dashboard.html"><b>Word Wall</b><span class="m">125 · A1–C1</span><span class="d">Vocabulary games</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/writing_poetry_dashboard.html"><b>Writing Poetry</b><span class="m">6 · B2–C1</span><span class="d">From blank page to finished poem</span></a></li><li><a href="listening-lessons.html"><b>Listening Practice</b><span class="m">9 · B1–C1</span><span class="d">Pre-listening, vocabulary, comprehension</span></a></li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cat tint" id="beginners">
+  <div class="wrap">
+    <div class="cat-head"><div class="k">General English &middot; Beginners</div><h2 class="serif">Brand new to English?</h2><p>A gentle way in, from your very first words — with review built in so the words stick.</p></div>
+    <div class="cat-body">
+      <div class="cat-feat">
+        <a class="flag-card flag-speakfirst" href="https://malcolmtheteacher-creator.github.io/preply-lessons/speak_first_dashboard.html">
+          <div class="count serif">15</div><div class="badge">Speak First · Beginners A1</div>
+          <h3 class="serif">Speak from the very first lesson</h3>
+          <p>Leo is invited to London. Fifteen short chapters, each built around a conversation you can have by the end of the hour.</p>
+          <span class="go">Start speaking →</span>
+        </a>
+      </div>
+      <div class="cat-list">
+        <div class="grp"><h5>Start here</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/mia_english_dashboard.html"><b>Mia's English</b><span class="m">50 · A1</span><span class="d">Learn from zero by following Mia's story</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/a1_pathway_dashboard.html"><b>A1 English Pathway</b><span class="m">50 · A1–A2</span><span class="d">Absolute beginner to A2, step by step</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/general_english_dashboard.html"><b>General English</b><span class="m">50 · A2–C1</span><span class="d">The next step</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/wordwall_dashboard.html"><b>Word Wall</b><span class="m">125 · A1–C1</span><span class="d">Vocabulary games for your first words</span></a></li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="path" id="academic">
+  <div class="wrap path-in">
+    <div><div class="k">Path 3</div><h2 class="serif">Academic English &amp; exams</h2><p>For study and tests: one clear route through IELTS, plus Cambridge, Duolingo, IB, A-level and academic writing.</p></div>
+    <a class="path-link" href="https://malcolmtheteacher-creator.github.io/preply-lessons/journey_academic.html">See the full pathway →</a>
+  </div>
+</section>
+
+<section class="cat tint" id="exams">
+  <div class="wrap">
+    <div class="cat-head"><div class="k">Academic English &amp; exams &middot; Exams</div><h2 class="serif">Pass the test</h2><p>One clear route for IELTS, plus Cambridge, Duolingo and aviation English.</p></div>
+    <div class="cat-body">
+      <div class="cat-feat">
+        <a class="flag-card flag-business" href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_route.html">
+          <div class="count serif">5</div><div class="badge">IELTS · Bands 6 to 7.5+</div>
+          <h3 class="serif">The IELTS Route</h3>
+          <p>One path from your first diagnostic to your final mock — every lesson placed in order, with a clickable map.</p>
+          <span class="go">Follow the route →</span>
+        </a>
+      </div>
+      <div class="cat-list">
+        <div class="grp"><h5>IELTS — start</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_start_here.html"><b>Start Here</b><span class="m">Stage 1</span><span class="d">The test, the criteria, your diagnostic</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_stories_history_pathway.html"><b>IELTS through Stories &amp; History</b><span class="m">43 lessons</span><span class="d">Real Task 2 examples and Speaking material</span></a></li></ul></div>
+        <div class="grp"><h5>IELTS — Writing</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_course_index.html"><b>Task 2: the 21-lesson course</b><span class="m">21 lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_essay_dashboard.html"><b>Task 2 essay practice</b><span class="d">All five essay types</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_writing_pathway.html"><b>Writing pathway</b><span class="m">8 lessons</span><span class="d">Sentences to essays</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_task_1_dashboard.html"><b>Task 1: reports and graphs</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_task1_phrase_vault_b2.html"><b>Task 1 master toolkit</b><span class="m">9 lessons</span></a></li></ul></div>
+        <div class="grp"><h5>IELTS — Speaking, Reading, Listening</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_speaking_part1_band7.html"><b>Speaking Part 1 (Band 7)</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_speaking_part2.html"><b>Speaking Part 2: the long turn</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_speaking_part3.html"><b>Speaking Part 3: the discussion</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/speaking-practice.html"><b>Speaking simulator</b><span class="d">Timed mock of all three parts</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts-reading-tests.html"><b>Reading practice tests</b><span class="m">10 tests</span><span class="d">Full timed tests</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/read_your_way_to_band7_dashboard.html"><b>Read Your Way to Band 7</b><span class="d">Reading, writing and speaking from one text</span></a></li><li><a href="listening-lessons.html"><b>Listening practice</b><span class="m">9 lessons</span></a></li></ul></div>
+        <div class="grp"><h5>IELTS — vocabulary &amp; spelling</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_wordwall_dashboard.html"><b>IELTS Word Wall</b><span class="d">Vocabulary games</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_spelling_stories_dashboard.html"><b>IELTS Spelling Stories</b><span class="m">6 lessons</span><span class="d">The 112 most-misspelled words</span></a></li></ul></div>
+        <div class="grp"><h5>Other exams</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/cambridge_exam_prep_dashboard.html"><b>Cambridge Exams (CAE &amp; CPE)</b><span class="m">B2–C2</span><span class="d">Use of English, reading, writing, speaking</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/cae_essay_dashboard.html"><b>CAE Essay Practice</b><span class="m">5 essays</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/cpe_reading_dashboard.html"><b>CPE Reading Practice</b><span class="m">30 · C1–C2</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/det_dashboard.html"><b>Duolingo English Test</b><span class="m">6 lessons</span><span class="d">Every task drilled, plus a timed mock</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ib_course_dashboard.html"><b>IB Paper 1: Unseen Analysis</b><span class="m">6 lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/edexcel_english_dashboard.html"><b>Edexcel A-level English Language</b><span class="m">12 lessons</span></a></li></ul></div>
+        <div class="grp"><h5>Academic English</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/phd_academic_english_dashboard.html"><b>PhD Academic English</b><span class="d">Reading, writing and presenting research</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/writing_course_dashboard.html"><b>Writing Academic English</b><span class="m">B2–C1</span><span class="d">Clear, organised academic writing</span></a></li></ul></div>
+      </div>
     </div>
   </div>
 </section>
@@ -343,107 +449,6 @@ footer a:hover{text-decoration:underline}
   </div>
 </section>
 
-<!-- METHOD ACROSS GOALS -->
-<section>
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="k">Not just literature</div>
-      <h2 class="serif">The same method, whatever your goal</h2>
-      <p>Story is how people actually learn and remember language — so the approach reaches well beyond the two series, into work and exams too.</p>
-    </div>
-    <div class="grid">
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/strategic_storytelling_dashboard.html">
-        <span class="lvl">For work · C1+</span><span class="cnt">12 lessons</span>
-        <h4>💼 Strategic Storytelling</h4>
-        <p>The story method for professionals — frame a narrative, reframe an argument, and move the room.</p>
-      </a>
-      <a class="card feat" href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_route.html">
-        <span class="lvl">For exams · IELTS</span><span class="cnt">5 stages</span>
-        <h4>🧭 The IELTS Route</h4>
-        <p>One path from your first diagnostic to your final mock — every lesson placed in order, with a clickable map. Includes the stories bank for Task 2 examples.</p>
-      </a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/aviation_english_dashboard.html">
-        <span class="lvl">For exams &middot; Aviation</span><span class="cnt">17 lessons</span>
-        <h4>&#9992;&#65039; Aviation English &mdash; ICAO &amp; EAPT</h4>
-        <p>Pass the proficiency test: METAR and TAF, standard radio words, MAYDAY and runway state, the photo task, and a full timed mock of the real thing.</p>
-      </a>
-      <a class="card" href="https://malcolmhyndman.com/preply-lessons/det_dashboard.html">
-        <span class="lvl">For exams · Duolingo</span><span class="cnt">6 lessons</span>
-        <h4>🖥️ Duolingo English Test</h4>
-        <p>A five-lesson path to the Duolingo English Test — every task drilled, the two tricky ones, and a full timed mock. Target 120 (≈ IELTS 6.5).</p>
-      </a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/trade_fair_dashboard.html">
-        <span class="lvl">For business</span><span class="cnt">18 lessons</span>
-        <h4>🤝 Trade Fair English</h4>
-        <p>Real workplace scenarios told as scenes you step into — from first handshake to signed contract.</p>
-      </a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/malcolm_lesson_index.html">
-        <span class="lvl">And 3,300+ more</span>
-        <h4>🔎 The whole library</h4>
-        <p>Grammar, pronunciation, business, exam skills — every need covered. Not all story-shaped, all free and interactive.</p>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- BEGINNERS ON-RAMP -->
-<section id="beginners">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="k">Brand new to English?</div>
-      <h2 class="serif">A gentle way in, from your very first words</h2>
-      <p>Most of the site is built for confident speakers — but if you're just starting out, there's a story-led path in, with review built in so the words actually stick.</p>
-    </div>
-    <div class="grid" style="max-width:560px;margin:0 auto;grid-template-columns:repeat(2,1fr)">
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/mia_english_dashboard.html"><span class="lvl">A1 · story-led</span><span class="cnt">50 lessons</span><h4>🌱 Mia's English</h4><p>Learn from zero by following Mia's story — a few words each lesson, with spaced review so they stay.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/a1_pathway_dashboard.html"><span class="lvl">A1 → A2</span><span class="cnt">50 lessons</span><h4>🪜 A1 English Pathway</h4><p>From absolute beginner to A2, one clear step at a time.</p></a>
-    </div>
-  </div>
-</section>
-
-<!-- ROLE PLAYS -->
-<section class="tint" id="roleplays">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="k">The third way in</div>
-      <h2 class="serif">Role plays</h2>
-      <p>Not a text this time — a situation. You're dropped into one real conversation, taught the exact phrases that make it work, then you play both sides of it. Forty-five situations, and the phrases come out with you.</p>
-    </div>
-    <div class="grid">
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/everyday_echoes_dashboard.html"><span class="lvl">A2 → C1</span><span class="cnt">40 situations</span><h4>🎭 Everyday Echoes</h4><p>Everyday conversations as story role plays — a museum, a doctor's, a market — each carrying a small echo of a moment from history. Now at two levels: B2/C1 and an easier A2/B1.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/modern_life_dashboard.html"><span class="lvl">B2 / C1</span><span class="cnt">15 role plays</span><h4>💡 Modern Life</h4><p>Speaking role plays for the conversations the modern world actually throws at us — group chats, screen-time, an honest review, a one-star reply, the house guest who stayed, a friend to make, and the drink you're not having tonight.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/english_at_work_dashboard.html"><span class="lvl">B2 / C1</span><span class="cnt">30 role plays</span><h4>💼 English at Work</h4><p>Carry your expertise into English — meetings, negotiating, the pay rise, the sales call, the front desk, training the new person, letting someone go, and keeping the client who asked for "a native speaker".</p></a>
-    </div>
-    <p style="text-align:center;margin-top:22px"><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/roleplay_finder.html" style="color:var(--gold-d,#8a6329);font-weight:700;text-decoration:none">🔎 Search every role play — by the situation, or by the words you need →</a></p>
-  </div>
-</section>
-
-<!-- SPEAKING SERIES -->
-<section class="tint" id="speaking">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="k">More ways to get talking</div>
-      <h2 class="serif">Speaking-led series</h2>
-      <p>Same philosophy, different angles — all built to get you saying more, and saying it better.</p>
-    </div>
-    <div class="grid">
-      <a class="card" href="https://malcolmhyndman.com/preply-lessons/chatterbox_dashboard.html"><span class="lvl">B2 / C1</span><span class="cnt">6 lessons</span><h4>💬 CHATTERBOX — Fun Fluency</h4><p>Six playful conversation lessons where you talk about 90% of the time — narrate an alternate life, pitch absurd products, defend the indefensible, improvise wild stories. You barely stop talking.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/six_conversations_dashboard.html"><span class="lvl">B2</span><span class="cnt">6 lessons</span><h4>🗣️ Six Conversations</h4><p>The six conversations everyone has every week — and the grammar that makes each one run. You talk your way through all of it.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/spark_to_speech_dashboard.html"><span class="lvl">A2 → C1</span><span class="cnt">any topic</span><h4>💬 Spark to Speech</h4><p>You bring any topic; the page builds it up with you, from a single word to two fluent minutes.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/minds_worth_meeting.html"><span class="lvl">B1 → C1</span><span class="cnt">14 lessons</span><h4>🌍 Minds Worth Meeting</h4><p>Ten remarkable thinkers — Rumi, Arendt, Curie, Camus, Ibn Khaldun — each with one big, arguable idea.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/komorebi.html"><span class="lvl">B2 / C1</span><span class="cnt">10 lessons</span><h4>🍃 Komorebi</h4><p>Sunlight through leaves — conversation on the quiet borderlands of psychology and everyday life.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_dashboard.html"><span class="lvl">B1+</span><h4>🗨️ Curious Conversations</h4><p>Discussion-based lessons on philosophy, ethics and ideas.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/curious_conversations_series2_dashboard.html"><span class="lvl">B1+</span><h4>🗨️ Curious Conversations: Series 2</h4><p>More discussion lessons exploring ideas and ethics.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_dashboard.html"><span class="lvl">B1+</span><h4>🎧 Speaking Naturally</h4><p>Fluency and natural expression — sounding like yourself in English.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_pathway_dashboard.html"><span class="lvl">A2 → C1</span><span class="cnt">75 lessons</span><h4>🎙️ Speaking Pathway</h4><p>Vocabulary, readings and discussion prep, built step by step into real fluency.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_real_conversations_dashboard.html"><span class="lvl">B2+</span><h4>🎧 Speaking Naturally: Real Conversations</h4><p>A full course built from the way people actually talk.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_advanced_dashboard.html"><span class="lvl">C1 → C2</span><h4>🎧 Speaking Naturally: Advanced</h4><p>Conversation mastery — nuance, spontaneity and real-time control.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/conversation_toolkit_dashboard.html"><span class="lvl">B1+</span><h4>🧰 Conversation Toolkit</h4><p>The moves and phrases that keep any conversation flowing.</p></a>
-      <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/game_room_dashboard.html"><span class="lvl">A2 → C1</span><span class="cnt">111 games</span><h4>🎮 The Game Room</h4><p>111 game-based speaking lessons — courtroom interrogations, investor pitches, conspiracy theories.</p></a>
-    </div>
-  </div>
-</section>
-
 <!-- TESTIMONIALS -->
 <section>
   <div class="wrap">
@@ -456,186 +461,22 @@ footer a:hover{text-decoration:underline}
   </div>
 </section>
 
-<!-- DIRECTORY: the full library -->
-<section class="dir" id="more">
+<!-- MORE -->
+<section class="cat" id="more">
   <div class="wrap">
-    <div class="sec-head">
-      <div class="k">Everything on the site</div>
-      <h2 class="serif">The full library</h2>
-      <p>Every course and dashboard, organised. Nothing hidden — jump to what you need.</p>
-    </div>
-
-    <div class="chips">
-      <a href="#cat-library">🔎 All lessons</a>
-      <a href="#cat-beginners">Beginners</a>
-      <a href="#cat-grammar">Grammar &amp; General</a>
-      <a href="#cat-ielts">IELTS</a>
-      <a href="#cat-cambridge">Cambridge, IB &amp; A-level</a>
-      <a href="#cat-pro">Professional</a>
-      <a href="#cat-advanced">Advanced</a>
-      <a href="#cat-skills">Pronunciation &amp; Skills</a>
-      <a href="#cat-games">Games &amp; Practice</a>
-      <a href="#cat-palace">Memory Palace</a>
-      <a href="#cat-rs">Religious Studies</a>
-      <a href="#cat-space">Deep Space</a>
-      <a href="#cat-tools">Tools</a>
-    </div>
-
-    <!-- Whole library standout -->
+    <div class="cat-head"><div class="k">7 &middot; And more</div><h2 class="serif">The wider library</h2><p>Beyond English — a memory project, a full religious studies curriculum, deep space, and some tools I built. And the searchable index of everything.</p></div>
     <a class="library-card" id="cat-library" href="https://malcolmtheteacher-creator.github.io/preply-lessons/malcolm_lesson_index.html">
       <div>
         <div class="lc-t serif">Find any lesson — the full searchable index</div>
-        <div class="lc-d">All 3,300+ lessons in one place. Search by topic, level or skill. The fastest way in for students and teachers.</div>
+        <div class="lc-d">All 3,300+ lessons in one place. Search by topic, level or skill.</div>
       </div>
       <span class="lc-btn">Browse all 3,300+ lessons →</span>
     </a>
-
-    <div class="dir-group" id="cat-beginners">
-      <div class="dir-label serif">Beginners — start here</div>
-      <div class="dir-sub">Brand new to English? This is your on-ramp — from your very first words up to A2.</div>
-      <div class="grid">
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/mia_english_dashboard.html"><span class="lvl">A1 · story-led</span><span class="cnt">50 lessons</span><h4>🌱 Mia's English</h4><p>Learn from zero by following Mia's story — a few words each lesson, with review built in so they stick.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/a1_pathway_dashboard.html"><span class="lvl">A1 → A2</span><span class="cnt">50 lessons</span><h4>A1 English Pathway</h4><p>From absolute beginner to A2, step by step.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/general_english_dashboard.html"><span class="lvl">A2 → C1</span><span class="cnt">50 lessons</span><h4>General English</h4><p>The next step — interactive lessons from elementary upwards.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/wordwall_dashboard.html"><span class="lvl">A1 → C1</span><span class="cnt">125 games</span><h4>🧱 Word Wall</h4><p>Fun vocabulary games to build your first words fast.</p></a>
-      </div>
+    <div class="cat-list wide">
+        <div class="grp"><h5>The Memory Palace</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/art-of-memory.html"><b>The Art of Memory</b><span class="m">30 lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/wp_dashboard.html"><b>A History of Western Philosophy</b><span class="m">50 lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ois_dashboard.html"><b>Our Island Story</b><span class="m">20 lessons</span><span class="d">A history of Britain</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/epicurean_dashboard.html"><b>The Epicurean Path</b><span class="m">30 lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/dewey_palace_architecture.html"><b>Talk to Anybody About Anything</b><span class="m">990 facts</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/bestiary.html"><b>The Bestiary</b><span class="d">A mnemonic system for names</span></a></li><li><a href="memory-books.html"><b>Essential Reading</b><span class="m">19 books</span></a></li></ul></div>
+        <div class="grp"><h5>Religious Studies</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_master_dashboard.html"><b>Full curriculum, Years 7–11</b><span class="m">180 lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y7_dashboard.html"><b>Year 7: Encountering Worldviews</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y8_dashboard.html"><b>Year 8: Comparing &amp; Connecting</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y9_dashboard.html"><b>Year 9: Evaluating &amp; Preparing for GCSE</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y10_dashboard.html"><b>Year 10: GCSE</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y11_dashboard.html"><b>Year 11: GCSE</b></a></li></ul></div>
+        <div class="grp"><h5>Space &amp; tools</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/deep_space_dashboard.html"><b>Deep Space</b><span class="m">6 lessons</span><span class="d">Stars, black holes, interactive labs</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/powerup.html"><b>PowerUp</b><span class="d">Project manager</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/mandalart.html"><b>MandalArt</b><span class="d">Goal-setting grid</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/countdownart.html"><b>CountdownArt</b><span class="d">Visual countdown</span></a></li></ul></div>
     </div>
-
-    <div class="dir-group" id="cat-grammar">
-      <div class="dir-label serif">Grammar &amp; general English</div>
-      <div class="dir-sub">Structured courses from absolute beginner to advanced.</div>
-      <div class="grid">
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/CEFR_Grammar_Dashboard.html"><span class="lvl">A1 → C2</span><span class="cnt">97 lessons</span><h4>CEFR Grammar Course</h4><p>Complete grammar hub — every point across all six levels, with lessons.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/general_english_dashboard.html"><span class="lvl">A2 → C1</span><span class="cnt">50 lessons</span><h4>General English</h4><p>Interactive lessons from elementary to advanced.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/a1_pathway_dashboard.html"><span class="lvl">A1 → A2</span><span class="cnt">50 lessons</span><h4>A1 English Pathway</h4><p>From absolute beginner to A2, step by step.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/diagnostic_hub.html"><span class="lvl">A1 → C2</span><h4>Grammar Diagnostics</h4><p>Find your gaps with six games, one per level.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/topic_picker.html"><span class="lvl">A2 → C2</span><span class="cnt">550 lessons</span><h4>Topic Explorer</h4><p>Pick any topic that interests you — grammar and speaking built in.</p></a>
-      </div>
-    </div>
-
-    <div class="dir-group" id="cat-ielts">
-      <div class="dir-label serif">IELTS</div>
-      <div class="dir-sub">Start with the route. Everything else is below, grouped by skill.</div>
-      <div class="grid">
-        <a class="card feat" href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_route.html"><span class="lvl">Start here · Bands 6 to 7.5+</span><span class="cnt">5 stages</span><h4>🧭 The IELTS Route</h4><p>One path from diagnostic to final mock — every lesson placed in order, with a clickable map of all five stages.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_start_here.html"><span class="lvl">Stage 1</span><h4>Start Here: the test &amp; your diagnostic</h4><p>The four parts, what examiners score, and three timed tasks that show you where you stand.</p></a>
-      </div>
-      <div class="ielts-lists">
-          <div><h5>Writing — Task 2</h5><ul><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_course_index.html">The 21-lesson Task 2 course</a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_essay_dashboard.html">Task 2 essay practice (all five types)</a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_writing_pathway.html">Writing pathway: sentences to essays</a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_course_index.html#workshops">Writing workshops</a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/bestiary_ielts_phrases.html">Essay Bestiary (memory system)</a></li></ul></div>
-          <div><h5>Writing — Task 1</h5><ul><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_task_1_dashboard.html">Task 1: reports and graphs</a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_task1_phrase_vault_b2.html">Task 1 master toolkit (9 lessons)</a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_task1_phrase_cheatsheet.html">Task 1 phrase cheat sheet</a></li></ul></div>
-          <div><h5>Speaking</h5><ul><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/speaking-practice.html">Speaking simulator</a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_speaking_part1.html">Part 1: your first step</a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_speaking_part1_band7.html">Part 1: sounding natural (Band 7)</a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_speaking_part2.html">Part 2: the long turn</a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_speaking_part3.html">Part 3: the discussion</a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_speaking_grammar_toolkit.html">Speaking grammar toolkit</a></li></ul></div>
-          <div><h5>Reading &amp; listening</h5><ul><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts-reading-tests.html">Reading practice tests (10)</a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/read_your_way_to_band7_dashboard.html">Read Your Way to Band 7</a></li><li><a href="listening-lessons.html">Listening practice (9 lessons)</a></li></ul></div>
-          <div><h5>Examples, vocabulary &amp; spelling</h5><ul><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_stories_history_pathway.html">IELTS through Stories &amp; History</a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_wordwall_dashboard.html">IELTS Word Wall (games)</a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ielts_spelling_stories_dashboard.html">IELTS Spelling Stories</a></li></ul></div>
-      </div>
-    </div>
-
-    <div class="dir-group" id="cat-cambridge">
-      <div class="dir-label serif">Cambridge, IB &amp; A-level</div>
-      <div class="dir-sub">FCE, CAE, CPE, International Baccalaureate and Edexcel A-level.</div>
-      <div class="grid">
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/cambridge_exam_prep_dashboard.html"><span class="lvl">B2 → C2</span><h4>Cambridge Exams (CAE &amp; CPE)</h4><p>Use of English, reading, writing, speaking and listening.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/cae_essay_dashboard.html"><span class="lvl">C1 · CAE</span><span class="cnt">5 essays</span><h4>CAE Essay Practice</h4><p>Guided Writing Part 1 essays with model answers and examiner notes.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/cpe_reading_dashboard.html"><span class="lvl">C1 → C2</span><span class="cnt">30 lessons</span><h4>CPE Reading Practice</h4><p>Fascinating passages with Cambridge-style tasks and discussion.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/ib_course_dashboard.html"><span class="lvl">IB DP · Paper 1</span><span class="cnt">6 lessons</span><h4>IB Paper 1 — Unseen Analysis</h4><p>From Band 5 to Band 7 — one paragraph shape, one self-mark protocol.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/ib_course_dashboard.html#techniques-in-action"><span class="lvl">IB DP · Companion</span><span class="cnt">6 lessons</span><h4>Techniques in Action</h4><p>Poe, Gogol, Bierce, Chopin, Saki — spot the technique, name the effect.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/edexcel_english_dashboard.html"><span class="lvl">A-level · 9EN0</span><span class="cnt">12 lessons</span><h4>🎓 Edexcel A-level English Language</h4><p>Both written papers from zero — Paper 1's comparative essays on identity and language change, and Paper 2's 45-mark Child Language essay — with theories, model answers and timed practice throughout.</p></a>
-      </div>
-    </div>
-
-    <div class="dir-group" id="cat-pro">
-      <div class="dir-label serif">Professional &amp; academic</div>
-      <div class="dir-sub">English for your exact role — and for research.</div>
-      <div class="grid">
-        <a class="card" href="https://malcolmhyndman.com/professional-skills.html"><span class="lvl">Any role</span><span class="cnt">273 scenarios</span><h4>English for Your Exact Role</h4><p>273 professional scenarios mapped by industry and function.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/professional_skills_dashboard.html"><span class="lvl">B1+</span><h4>Professional Skills</h4><p>Business English and workplace communication.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_meetings_dashboard.html"><span class="lvl">B1</span><h4>Business Meeting Essentials</h4><p>Leading and taking part in professional meetings.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_bootcamp_dashboard.html"><span class="lvl">B2 → C1</span><span class="cnt">8 lessons</span><h4>The Boardroom: Business Bootcamp</h4><p>Pitching, negotiation, leadership and business acumen.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/trade_fair_dashboard.html"><span class="lvl">A2 → C1</span><span class="cnt">18 lessons</span><h4>Trade Fair English</h4><p>From first handshake to signed contract.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/strategic_storytelling_dashboard.html"><span class="lvl">C1+</span><span class="cnt">12 lessons</span><h4>Strategic Storytelling</h4><p>Frame stories, reframe narratives, and move rooms.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/phd_academic_english_dashboard.html"><span class="lvl">PhD · C1+</span><span class="cnt">5 streams</span><h4>🎓 PhD Academic English</h4><p>For researchers working in English — reading, writing, argumentation.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/aviation_english_dashboard.html"><span class="lvl">ICAO 4&rarr;5</span><span class="cnt">17 lessons</span><h4>Aviation English</h4><p>The ICAO and EAPT proficiency tests, end to end.</p></a>
-      </div>
-    </div>
-
-    <div class="dir-group" id="cat-advanced">
-      <div class="dir-label serif">Advanced fluency</div>
-      <div class="dir-sub">For those who already speak well — and want to command a room.</div>
-      <div class="grid">
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/commanding_discourse_dashboard.html"><span class="lvl">C1 → C2</span><span class="cnt">10 lessons</span><h4>Commanding Discourse</h4><p>Hedging, argument structure, speculation, high-stakes speaking.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/advanced_communication_dashboard.html"><span class="lvl">C2</span><span class="cnt">5 lessons</span><h4>🗣️ The Art of Being Understood</h4><p>Analogy, calibrated certainty, persuasion, reading the room.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/beyond_perfect_dashboard.html"><span class="lvl">C2</span><span class="cnt">6 lessons</span><h4>Beyond Perfect</h4><p>When excellent English isn't enough — register and pragmatics.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/discourse_bestiary_pathway.html"><span class="lvl">C1 → C2</span><span class="cnt">6 lessons</span><h4>Discourse Bestiary</h4><p>30 advanced expressions locked into memory with the Bestiary system.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/speaking_naturally_teens_dashboard.html"><span class="lvl">C2 · Teens</span><span class="cnt">7 lessons</span><h4>Speaking Naturally: Teens</h4><p>University-level discourse for ages 15–18 — AI, climate, philosophy.</p></a>
-      </div>
-    </div>
-
-    <div class="dir-group" id="cat-skills">
-      <div class="dir-label serif">Pronunciation, listening &amp; writing</div>
-      <div class="dir-sub">The other core skills.</div>
-      <div class="grid">
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/pronunciation_pathway_dashboard.html"><span class="lvl">B2 → C1</span><span class="cnt">6 lessons</span><h4>Pronunciation Pathway (British)</h4><p>Rhythm, vowels, connected speech, intonation and shadowing.</p></a>
-        <a class="card" href="listening-lessons.html"><span class="lvl">B1 → C1</span><span class="cnt">9 lessons</span><h4>Listening Practice</h4><p>Pre-listening, vocabulary and comprehension activities.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/writing_course_dashboard.html"><span class="lvl">B2 → C1</span><h4>Writing Academic English</h4><p>A structured course in clear, well-organised academic writing.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/writing_poetry_dashboard.html"><span class="lvl">B2 → C1</span><span class="cnt">6 lessons</span><h4>Writing Poetry</h4><p>From the blank page to a finished, performable poem.</p></a>
-      </div>
-    </div>
-
-    <div class="dir-group" id="cat-games">
-      <div class="dir-label serif">Games &amp; quick practice</div>
-      <div class="dir-sub">Playful speaking and fast fixes.</div>
-      <div class="grid">
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/game_room_dashboard.html"><span class="lvl">A2 → C1</span><span class="cnt">111 games</span><h4>🎮 The Game Room</h4><p>111 game-based speaking lessons, different every time.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/quick_fix_index.html"><span class="lvl">A2 → C1</span><span class="cnt">153 fixes</span><h4>🔧 Quick Fix Matrix</h4><p>Searchable micro-lessons for common errors, by first language.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/wordwall_dashboard.html"><span class="lvl">A1 → C1</span><span class="cnt">125 games</span><h4>🧱 Word Wall</h4><p>125 vocabulary games across five game types.</p></a>
-      </div>
-    </div>
-
-    <div class="dir-group" id="cat-palace">
-      <div class="dir-label serif">The Memory Palace</div>
-      <div class="dir-sub">A separate project — ancient memory techniques to hold entire domains of knowledge.</div>
-      <div class="grid">
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/art-of-memory.html"><span class="lvl">30 lessons</span><h4>🧠 The Art of Memory</h4><p>Master the ancient techniques of the memory champions.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/ois_dashboard.html"><span class="lvl">20 lessons</span><h4>🏰 Our Island Story</h4><p>A history of Britain in Marshall's beautiful prose.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/wp_dashboard.html"><span class="lvl">50 lessons</span><h4>🏛️ A History of Western Philosophy</h4><p>From Thales to the present — 2,600 years of thought.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/epicurean_dashboard.html"><span class="lvl">30 lessons</span><h4>🌿 The Epicurean Path</h4><p>From the Garden to Gassendi — Epicurean philosophy.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/dewey_palace_architecture.html"><span class="lvl">990 items</span><h4>🗂️ Talk to Anybody About Anything</h4><p>990 facts mapped to the Dewey Decimal System.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/bestiary.html"><span class="lvl">200+ creatures</span><h4>🦁 The Bestiary</h4><p>A mnemonic system for encoding names.</p></a>
-        <a class="card" href="memory-books.html"><span class="lvl">19 books</span><h4>📚 Essential Reading</h4><p>19 key annotated texts on the art of memory.</p></a>
-      </div>
-    </div>
-
-    <div class="dir-group" id="cat-rs">
-      <div class="dir-label serif">Religious Studies</div>
-      <div class="dir-sub">A complete secondary curriculum.</div>
-      <div class="grid">
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_master_dashboard.html"><span class="lvl">Years 7–11</span><span class="cnt">180 lessons</span><h4>📿 Religious Studies — full curriculum</h4><p>KS3 foundations, AQA GCSE and A-Level. The master hub for all years.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y7_dashboard.html"><span class="lvl">Year 7 · KS3</span><h4>Encountering Worldviews</h4><p>The foundation year — what worldviews are and how to explore them.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y8_dashboard.html"><span class="lvl">Year 8 · KS3</span><h4>Comparing &amp; Connecting</h4><p>Drawing links and contrasts across traditions and ideas.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y9_dashboard.html"><span class="lvl">Year 9 · KS3</span><h4>Evaluating &amp; Preparing for GCSE</h4><p>Building the evaluation skills the GCSE demands.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y10_dashboard.html"><span class="lvl">Year 10 · GCSE</span><h4>GCSE Religious Studies</h4><p>Beliefs, teachings and practices — the AQA GCSE course begins.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y11_dashboard.html"><span class="lvl">Year 11 · GCSE</span><h4>GCSE Religious Studies</h4><p>Themes, ethics and exam technique — the final GCSE year.</p></a>
-      </div>
-    </div>
-
-    <div class="dir-group" id="cat-space">
-      <div class="dir-label serif">Deep Space</div>
-      <div class="dir-sub">Beyond the basics: stars, black holes and the expanding universe, with interactive labs.</div>
-      <div class="grid">
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/deep_space_dashboard.html"><span class="lvl">Ages 12+</span><span class="cnt">6 lessons</span><h4>🔭 Deep Space</h4><p>How stars die, what a black hole really is, why space is stretching, other worlds, dark matter and getting there. Real numbers and labs you can play with.</p></a>
-      </div>
-    </div>
-
-    <div class="dir-group" id="cat-tools">
-      <div class="dir-label serif">Tools</div>
-      <div class="dir-sub">A few useful things I built.</div>
-      <div class="grid">
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/powerup.html"><span class="lvl">Tool</span><h4>⚡ PowerUp</h4><p>Project manager.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/mandalart.html"><span class="lvl">Tool</span><h4>🎯 MandalArt</h4><p>Goal-setting grid.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/countdownart.html"><span class="lvl">Tool</span><h4>⏱️ CountdownArt</h4><p>Visual countdown.</p></a>
-        <a class="card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/speaking-practice.html"><span class="lvl">Tool</span><h4>🎤 Speaking Practice</h4><p>IELTS speaking simulator.</p></a>
-      </div>
-    </div>
-
   </div>
 </section>
 
