@@ -89,7 +89,10 @@ section{padding:56px 0}
 .step{text-align:center;padding:8px}
 .step .n{width:46px;height:46px;margin:0 auto 14px;border-radius:50%;background:var(--green);color:var(--gold-soft);display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:1.4rem}
 .step h4{font-size:1.02rem;font-weight:700;margin-bottom:6px}
-.step p{color:var(--mid);font-size:.9rem;line-height:1.55}
+.step p{color:var(--mid);font-size:.9rem;line-height:1.55;margin-bottom:10px}
+.steps .step{display:flex;flex-direction:column;align-items:center}
+.steps .step p{flex:1}
+.step .rtag{display:inline-block}
 
 /* CARDS + GRID */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:16px}
@@ -447,32 +450,13 @@ footer a:hover{text-decoration:underline}
     <div class="sec-head">
       <div class="k">How a lesson works</div>
       <h2 class="serif">Read a little. Speak a lot.</h2>
-      <p>The same simple shape every time — built so that <em>you</em> do almost all the talking.</p>
+      <p>The same four steps every time, whatever the subject — built on how memory actually works, so that <em>you</em> do almost all the talking.</p>
     </div>
     <div class="steps">
-      <div class="step"><div class="n serif">1</div><h4>A story worth telling</h4><p>A great short story, a true moment from history, or a film worth unpacking — something you actually want to talk about.</p></div>
-      <div class="step"><div class="n serif">2</div><h4>The words you need</h4><p>The key vocabulary first, in context, so the text (and the grammar in it) suddenly makes sense.</p></div>
-      <div class="step"><div class="n serif">3</div><h4>Read &amp; notice</h4><p>Read it in parts, with a light grammar focus drawn from the text itself — never a dry rule.</p></div>
-      <div class="step"><div class="n serif">4</div><h4>Then you speak</h4><p>The heart of it: timed speaking tasks that turn the story into real, confident conversation.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- RESEARCH -->
-<section class="research">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="k">The thinking behind it</div>
-      <h2 class="serif">Built on how memory actually works</h2>
-      <p>Every lesson is designed from research on learning, not from fashion. The short version:</p>
-    </div>
-    <div class="rgrid">
-      <div class="rcard"><h4>Recall before you read</h4><p>Trying to remember something strengthens the memory more than looking at it again. So lessons open by asking what you already know, before anything new arrives.</p><span class="rtag">Practice testing · high utility</span></div>
-      <div class="rcard"><h4>Little and often</h4><p>Short, spaced sessions beat one long cram. Words and ideas come back in later lessons so that they stick instead of fading.</p><span class="rtag">Distributed practice · high utility</span></div>
-      <div class="rcard"><h4>Mix it up</h4><p>Switching between different kinds of problem makes you choose the right tool each time, instead of repeating one move on autopilot.</p><span class="rtag">Interleaved practice · moderate utility</span></div>
-      <div class="rcard"><h4>Explain why</h4><p>Saying why something is true, in your own words and out loud, builds deeper understanding than simply being told.</p><span class="rtag">Elaboration and self-explanation · moderate utility</span></div>
-      <div class="rcard"><h4>Words and pictures together</h4><p>Pairing a clear picture or diagram with the words gives your memory two routes back to the same idea.</p><span class="rtag">Dual coding</span></div>
-      <div class="rcard"><h4>Small steps, real feedback</h4><p>I show it, we do it together, then you try alone. Feedback is about the task and how you went about it, never about you as a person.</p><span class="rtag">Rosenshine's Principles · Hattie's research on feedback</span></div>
+      <div class="step"><div class="n serif">1</div><h4>Start with what you know</h4><p>Every lesson opens by asking you to recall what you already know, before anything new arrives. Remembering strengthens memory more than looking again.</p><span class="rtag">Practice testing</span></div>
+      <div class="step"><div class="n serif">2</div><h4>The words you need</h4><p>The key vocabulary comes first, in context, with a picture or a diagram where one helps, so everything after it makes sense.</p><span class="rtag">Context · dual coding</span></div>
+      <div class="step"><div class="n serif">3</div><h4>See it in action</h4><p>A story, a business case, a role play or a grammar point, in small steps: I show it, we try it together, then you try it alone.</p><span class="rtag">Rosenshine's Principles</span></div>
+      <div class="step"><div class="n serif">4</div><h4>Then you speak</h4><p>The heart of it: timed speaking tasks where you do most of the talking, explaining why in your own words, with feedback on the task and not on you.</p><span class="rtag">Elaboration · feedback</span></div>
     </div>
     <p class="rnote"><strong>What I leave out:</strong> highlighting and re-reading feel productive but help very little, and matching lessons to a supposed &ldquo;learning style&rdquo; has not been shown to improve results.</p>
     <p class="rsrc">Based on Dunlosky et al. (2013), Rosenshine's Principles of Instruction and Hattie's <em>Visible Learning</em>.</p>
