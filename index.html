@@ -135,6 +135,14 @@ section[id]{scroll-margin-top:110px}
 .path-link{background:var(--gold-soft);color:var(--green);font-weight:700;text-decoration:none;padding:11px 20px;border-radius:8px;white-space:nowrap}
 .doors .p1,.doors .p2,.doors .p3{background:var(--green);color:#fff;font-size:.88rem;padding:6px 16px}
 .doors .p1:hover,.doors .p2:hover,.doors .p3:hover{background:var(--green-light)}
+.research{background:var(--paper)}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-bottom:22px}
+.rcard{background:#fff;border:1px solid var(--warm);border-radius:12px;padding:22px 24px;display:flex;flex-direction:column}
+.rcard h4{font-size:1.08rem;font-weight:700;margin-bottom:6px;color:var(--green)}
+.rcard p{color:#3a3a34;font-size:.93rem;line-height:1.6;margin-bottom:12px;flex:1}
+.rtag{align-self:flex-start;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);background:#c08a2d18;border:1px solid #c08a2d33;border-radius:20px;padding:2px 10px}
+.rnote{text-align:center;max-width:720px;margin:0 auto 8px;color:#3a3a34;font-size:.95rem}
+.rsrc{text-align:center;color:var(--mid);font-size:.84rem}
 .card.feat{border:2px solid #1f3a5f;background:linear-gradient(180deg,#f3f7fc,#fff)}
 .card .lvl{display:inline-block;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);background:#c08a2d18;border:1px solid #c08a2d33;border-radius:20px;padding:2px 9px;margin-bottom:10px}
 .card .cnt{float:right;font-size:.72rem;font-weight:600;color:var(--mid);margin-top:3px}
@@ -450,6 +458,27 @@ footer a:hover{text-decoration:underline}
   </div>
 </section>
 
+<!-- RESEARCH -->
+<section class="research">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="k">The thinking behind it</div>
+      <h2 class="serif">Built on how memory actually works</h2>
+      <p>Every lesson is designed from research on learning, not from fashion. The short version:</p>
+    </div>
+    <div class="rgrid">
+      <div class="rcard"><h4>Recall before you read</h4><p>Trying to remember something strengthens the memory more than looking at it again. So lessons open by asking what you already know, before anything new arrives.</p><span class="rtag">Practice testing · high utility</span></div>
+      <div class="rcard"><h4>Little and often</h4><p>Short, spaced sessions beat one long cram. Words and ideas come back in later lessons so that they stick instead of fading.</p><span class="rtag">Distributed practice · high utility</span></div>
+      <div class="rcard"><h4>Mix it up</h4><p>Switching between different kinds of problem makes you choose the right tool each time, instead of repeating one move on autopilot.</p><span class="rtag">Interleaved practice · moderate utility</span></div>
+      <div class="rcard"><h4>Explain why</h4><p>Saying why something is true, in your own words and out loud, builds deeper understanding than simply being told.</p><span class="rtag">Elaboration and self-explanation · moderate utility</span></div>
+      <div class="rcard"><h4>Words and pictures together</h4><p>Pairing a clear picture or diagram with the words gives your memory two routes back to the same idea.</p><span class="rtag">Dual coding</span></div>
+      <div class="rcard"><h4>Small steps, real feedback</h4><p>I show it, we do it together, then you try alone. Feedback is about the task and how you went about it, never about you as a person.</p><span class="rtag">Rosenshine's Principles · Hattie's research on feedback</span></div>
+    </div>
+    <p class="rnote"><strong>What I leave out:</strong> highlighting and re-reading feel productive but help very little, and matching lessons to a supposed &ldquo;learning style&rdquo; has not been shown to improve results.</p>
+    <p class="rsrc">Based on Dunlosky et al. (2013), Rosenshine's Principles of Instruction and Hattie's <em>Visible Learning</em>.</p>
+  </div>
+</section>
+
 <!-- TESTIMONIALS -->
 <section>
   <div class="wrap">
@@ -487,16 +516,6 @@ footer a:hover{text-decoration:underline}
     <h2 class="serif">Learn with me, one to one</h2>
     <p>Every lesson on this site is free — for students to learn from and teachers to use in class. If you'd like a real teacher to bring them to life, book a trial with me on Preply.</p>
     <a class="btn btn-gold" href="https://preply.com/en/tutor/4383857" target="_blank">Book a trial lesson on Preply →</a>
-  </div>
-</section>
-
-<!-- METHODS -->
-<section class="methods">
-  <div class="wrap">
-    <img src="storytelling.png" alt="The Story Gap: why professionals who tell stories get heard">
-    <p class="cap">Why story is the fastest way in — the thinking behind the method</p>
-    <img src="teaching-methods.png" alt="Scientifically proven teaching and learning methods">
-    <p class="cap">The research behind how I design every lesson</p>
   </div>
 </section>
 
