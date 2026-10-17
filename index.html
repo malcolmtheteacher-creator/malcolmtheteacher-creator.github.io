@@ -69,7 +69,7 @@ section{padding:56px 0}
 .flag-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(30,58,47,.22)}
 .flag-stories{background:linear-gradient(150deg,#2a5040,#1e3a2f)}
 
-.research{padding:46px 0 50px;background-color:#f1ead6;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 33px,rgba(70,100,150,.12) 33px,rgba(70,100,150,.12) 34px)}
+.memres{padding:46px 0 50px;background-color:#f1ead6;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 33px,rgba(70,100,150,.12) 33px,rgba(70,100,150,.12) 34px)}
 .rs-card{position:relative;display:grid;grid-template-columns:1.3fr 1fr;gap:34px;align-items:center;background:#fffdf6;border:1px solid #d8cfb8;box-shadow:0 14px 36px rgba(30,40,60,.2);padding:28px 30px;transform:rotate(-.3deg)}
 .rs-card::before,.rs-card::after{content:"";position:absolute;top:-12px;width:110px;height:26px;background:rgba(214,190,120,.62);box-shadow:0 1px 3px rgba(0,0,0,.2)}
 .rs-card::before{left:-18px;transform:rotate(-34deg)}.rs-card::after{right:-18px;transform:rotate(34deg)}
@@ -82,18 +82,6 @@ section{padding:56px 0}
 .rs-btns{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin-top:18px}
 .rs-link{font-family:'Caveat',cursive;font-size:1.5rem;color:#1d2a44;text-decoration:none;border-bottom:2px dashed #8a6a2c}
 @media(max-width:820px){.rs-card{grid-template-columns:1fr;gap:20px;padding:22px 18px;transform:none}.rs-body h2{font-size:1.8rem}}
-.bc-slim{padding:26px 0 30px}
-.bc-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
-.bc-head .k{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
-.bc-head h2{font-size:1.5rem;font-weight:400;line-height:1.2}
-.bc-strip{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.bc-card{display:flex;gap:14px;align-items:center;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--warm);border-radius:12px;padding:10px;transition:box-shadow .2s,transform .2s}
-.bc-card:hover{box-shadow:0 8px 24px rgba(30,58,47,.14);transform:translateY(-2px)}
-.bc-card img{width:116px;height:84px;object-fit:cover;border-radius:8px;flex:none}
-.bc-card b{display:block;font-family:'Instrument Serif',serif;font-size:1.3rem;font-weight:400;line-height:1.1}
-.bc-card .m{display:block;font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gold);margin:2px 0 3px}
-.bc-card .d{display:block;font-size:.82rem;color:var(--mid);line-height:1.35}
-@media(max-width:760px){.bc-strip{grid-template-columns:1fr}.bc-card img{width:96px;height:72px}}
 .flag-poetry{background:linear-gradient(150deg,#7a3558,#3d1a33)}
 .flag-history{background:linear-gradient(150deg,#3a4a2a,#2a3a1e)}
 .flag-grammar{background:linear-gradient(150deg,#3a2f5a,#241a38)}
@@ -158,12 +146,16 @@ section[id]{scroll-margin-top:110px}
 .rows .m{font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gold);white-space:nowrap;align-self:center}
 .rows .d{grid-column:1/-1;font-size:.8rem;color:var(--mid);line-height:1.35}
 @media(max-width:860px){.cat-body{grid-template-columns:1fr}}
-.path{background:var(--green);color:#fff;padding:34px 0;margin-top:0;scroll-margin-top:110px}
-.path-in{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-.path .k{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);font-weight:700;margin-bottom:4px}
-.path h2{font-family:'Instrument Serif',serif;font-size:2.3rem;font-weight:400;line-height:1.1;margin-bottom:6px}
-.path p{max-width:640px;opacity:.88;font-size:.98rem}
-.path-link{background:var(--gold-soft);color:var(--green);font-weight:700;text-decoration:none;padding:11px 20px;border-radius:8px;white-space:nowrap}
+.path{background:var(--paper);color:var(--ink);padding:56px 0 6px;margin-top:0;scroll-margin-top:110px;border-top:8px solid var(--green)}
+.path-in{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-bottom:22px;border-bottom:1px solid var(--warm)}
+.path .k{display:inline-block;background:var(--green);color:#fff;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:4px 12px;border-radius:4px;margin-bottom:12px}
+.path h2{font-family:'Instrument Serif',serif;font-size:2.9rem;font-weight:400;line-height:1.05;margin-bottom:8px;color:var(--green)}
+.path p{max-width:660px;color:var(--mid);font-size:1.02rem}
+.path-link{background:transparent;color:var(--green);border:2px solid var(--green);font-weight:700;text-decoration:none;padding:10px 20px;border-radius:8px;white-space:nowrap;transition:all .2s}
+.path-link:hover{background:var(--green);color:#fff}
+.path+.cat{border-top:0;padding-top:34px}
+.cat.tint{background:transparent}
+@media(max-width:760px){.path{padding-top:40px}.path h2{font-size:2.1rem}}
 .doors .p1,.doors .p2,.doors .p3{background:var(--green);color:#fff;font-size:.88rem;padding:6px 16px}
 .doors .p1:hover,.doors .p2:hover,.doors .p3:hover{background:var(--green-light)}
 .research{background:var(--paper)}
@@ -332,7 +324,6 @@ footer a:hover{text-decoration:underline}
     <a class="p1" href="#professional">Professional English</a>
     <a class="p2" href="#academic">Academic English &amp; exams</a>
     <a class="p3" href="#general">General English</a>
-    <a href="#bookclub">Book club</a>
     <a href="#research">My research</a>
     <a href="#more">And more</a>
   </div>
@@ -424,28 +415,12 @@ footer a:hover{text-decoration:underline}
         </a>
       </div>
       <div class="cat-list">
-        <div class="grp"><h5>Story-led series</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/short_history_dashboard.html"><b>Short History, Long Echoes</b><span class="m">130 · B2/C1 + A2/B1</span><span class="d">True stories from Pompeii to Alcatraz</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/behind_the_screen_dashboard.html"><b>Behind the Screen</b><span class="m">53 · B2/C1</span><span class="d">The real story inside great films</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/news_desk_who_said_that.html"><b>The News Desk</b><span class="m">1 · B2/C1 + A2/B1</span><span class="d">Real news stories, and how they are told</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/true_science_stories_dashboard.html"><b>True Science Stories</b><span class="m">18 · B2</span><span class="d">Discoveries the world tried to ignore</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/big_conversations_dashboard.html"><b>Big Conversations</b><span class="m">15 · B2</span><span class="d">The big topics of ordinary life</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/minds_worth_meeting.html"><b>Minds Worth Meeting</b><span class="m">14 · B1–C1</span><span class="d">Ten remarkable thinkers</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/persepolis_bookclub_dashboard.html"><b>Persepolis: Book Club</b><span class="m">4 · B2/C1</span><span class="d">Four meetings around a graphic memoir — for reading groups and one-to-one readers</span></a></li></ul></div>
+        <div class="grp"><h5>Story-led series</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/short_history_dashboard.html"><b>Short History, Long Echoes</b><span class="m">130 · B2/C1 + A2/B1</span><span class="d">True stories from Pompeii to Alcatraz</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/behind_the_screen_dashboard.html"><b>Behind the Screen</b><span class="m">53 · B2/C1</span><span class="d">The real story inside great films</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/news_desk_who_said_that.html"><b>The News Desk</b><span class="m">1 · B2/C1 + A2/B1</span><span class="d">Real news stories, and how they are told</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/true_science_stories_dashboard.html"><b>True Science Stories</b><span class="m">18 · B2</span><span class="d">Discoveries the world tried to ignore</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/big_conversations_dashboard.html"><b>Big Conversations</b><span class="m">15 · B2</span><span class="d">The big topics of ordinary life</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/minds_worth_meeting.html"><b>Minds Worth Meeting</b><span class="m">14 · B1–C1</span><span class="d">Ten remarkable thinkers</span></a></li></ul></div>
+        <div class="grp"><h5>Book club</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/piranesi_bookclub_dashboard.html"><b>Piranesi: Book Club</b><span class="m">4 · C1</span><span class="d">Susanna Clarke’s strange, short, beautiful novel: an endless house and a sea that comes and goes</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/persepolis_bookclub_dashboard.html"><b>Persepolis: Book Club</b><span class="m">4 · B2/C1</span><span class="d">Marjane Satrapi’s true story of a girl, a revolution and a life in black ink</span></a></li></ul></div>
       </div>
     </div>
   </div>
 </section>
-
-<section class="cat bc-slim" id="bookclub">
-  <div class="wrap">
-    <div class="bc-head"><div class="k">General English &middot; Book club</div><h2 class="serif">Read a book. Then talk about it.</h2></div>
-    <div class="bc-strip">
-      <a class="bc-card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/piranesi_bookclub_dashboard.html">
-        <img src="https://malcolmtheteacher-creator.github.io/preply-lessons/piranesi_scene_1.jpg" alt="An etching of a hall of statues with tide water on the floor" loading="lazy">
-        <div><b>Piranesi</b><span class="m">Susanna Clarke &middot; C1 &middot; 4 meetings</span><span class="d">A strange, short, beautiful novel: an endless house and a sea that comes and goes.</span></div>
-      </a>
-      <a class="bc-card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/persepolis_bookclub_dashboard.html">
-        <img src="https://malcolmtheteacher-creator.github.io/preply-lessons/persepolis_bookclub_map.jpg" alt="A map of the Persepolis book club" loading="lazy">
-        <div><b>Persepolis</b><span class="m">Marjane Satrapi &middot; B2/C1 &middot; 4 meetings</span><span class="d">A girl, a revolution and a life in black ink: a true story told as a comic.</span></div>
-      </a>
-    </div>
-  </div>
-</section>
-
 
 <section class="cat tint" id="speaking">
   <div class="wrap">
@@ -539,7 +514,7 @@ footer a:hover{text-decoration:underline}
 </section>
 
 <!-- RESEARCH -->
-<section class="research" id="research">
+<section class="memres" id="research">
   <div class="wrap">
     <div class="rs-card">
       <a class="rs-plate" href="https://malcolmtheteacher-creator.github.io/preply-lessons/memory_arts_map.html"><img src="https://malcolmtheteacher-creator.github.io/preply-lessons/memory_arts_part1_palace.jpg" alt="An engraved cutaway of a Renaissance palace with ten rooms: a garden, a mirror, a phoenix, a castle, a jewel house, a tower of books, a theatre, four chambers, an open hand and a walled town." loading="lazy"></a>
