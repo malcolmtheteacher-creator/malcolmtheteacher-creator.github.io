@@ -68,12 +68,18 @@ section{padding:56px 0}
 .flag-card{position:relative;display:flex;flex-direction:column;padding:34px;border-radius:14px;text-decoration:none;color:#fff;overflow:hidden;min-height:260px;transition:transform .25s,box-shadow .25s;box-shadow:0 6px 22px rgba(30,58,47,.12)}
 .flag-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(30,58,47,.22)}
 .flag-stories{background:linear-gradient(150deg,#2a5040,#1e3a2f)}
-.flag-bookclub{background:linear-gradient(150deg,#2f5f86,#16263d)}
-.flag-bookclub2{background:linear-gradient(150deg,#8f2a33,#1a1a1a)}
-.bc-pair{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.bc-pair .flag-card{min-height:0}
-.flag-card .bcimg{display:block;width:calc(100% + 68px);max-width:none;margin:-34px -34px 20px;height:170px;object-fit:cover}
-@media(max-width:860px){.bc-pair{grid-template-columns:1fr}}
+.bc-slim{padding:26px 0 30px}
+.bc-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.bc-head .k{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.bc-head h2{font-size:1.5rem;font-weight:400;line-height:1.2}
+.bc-strip{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.bc-card{display:flex;gap:14px;align-items:center;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--warm);border-radius:12px;padding:10px;transition:box-shadow .2s,transform .2s}
+.bc-card:hover{box-shadow:0 8px 24px rgba(30,58,47,.14);transform:translateY(-2px)}
+.bc-card img{width:116px;height:84px;object-fit:cover;border-radius:8px;flex:none}
+.bc-card b{display:block;font-family:'Instrument Serif',serif;font-size:1.3rem;font-weight:400;line-height:1.1}
+.bc-card .m{display:block;font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gold);margin:2px 0 3px}
+.bc-card .d{display:block;font-size:.82rem;color:var(--mid);line-height:1.35}
+@media(max-width:760px){.bc-strip{grid-template-columns:1fr}.bc-card img{width:96px;height:72px}}
 .flag-poetry{background:linear-gradient(150deg,#7a3558,#3d1a33)}
 .flag-history{background:linear-gradient(150deg,#3a4a2a,#2a3a1e)}
 .flag-grammar{background:linear-gradient(150deg,#3a2f5a,#241a38)}
@@ -409,23 +415,17 @@ footer a:hover{text-decoration:underline}
   </div>
 </section>
 
-<section class="cat" id="bookclub">
+<section class="cat bc-slim" id="bookclub">
   <div class="wrap">
-    <div class="cat-head"><div class="k">General English &middot; Book club</div><h2 class="serif">Read a book. Then talk about it.</h2><p>Four meetings for each book: a summary to read, a simple tool for talking about it, the language you need, and plenty of speaking. Read alone, in pairs or round a table.</p></div>
-    <div class="bc-pair">
-      <a class="flag-card flag-bookclub" href="https://malcolmtheteacher-creator.github.io/preply-lessons/piranesi_bookclub_dashboard.html">
-        <img class="bcimg" src="https://malcolmtheteacher-creator.github.io/preply-lessons/piranesi_scene_1.jpg" alt="An etching of a hall of statues with tide water on the floor" loading="lazy">
-        <div class="badge">Piranesi &middot; Susanna Clarke &middot; C1</div>
-        <h3 class="serif">A strange, short, beautiful novel</h3>
-        <p>A man, an endless house and a sea that comes and goes. Four meetings on describing a place, memory and doubt, trust, and the arguments readers have about what it means.</p>
-        <span class="go">Open the Piranesi Book Club &rarr;</span>
+    <div class="bc-head"><div class="k">General English &middot; Book club</div><h2 class="serif">Read a book. Then talk about it.</h2></div>
+    <div class="bc-strip">
+      <a class="bc-card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/piranesi_bookclub_dashboard.html">
+        <img src="https://malcolmtheteacher-creator.github.io/preply-lessons/piranesi_scene_1.jpg" alt="An etching of a hall of statues with tide water on the floor" loading="lazy">
+        <div><b>Piranesi</b><span class="m">Susanna Clarke &middot; C1 &middot; 4 meetings</span><span class="d">A strange, short, beautiful novel: an endless house and a sea that comes and goes.</span></div>
       </a>
-      <a class="flag-card flag-bookclub2" href="https://malcolmtheteacher-creator.github.io/preply-lessons/persepolis_bookclub_dashboard.html">
-        <img class="bcimg" src="https://malcolmtheteacher-creator.github.io/preply-lessons/persepolis_bookclub_map.jpg" alt="A map of the Persepolis book club" loading="lazy">
-        <div class="badge">Persepolis &middot; Marjane Satrapi &middot; B2/C1</div>
-        <h3 class="serif">A girl, a revolution, a life in black ink</h3>
-        <p>A true story told as a comic. Four meetings on first reactions, history, home and belonging, and whose story it is. Short, funny, sad and easy to start talking about.</p>
-        <span class="go">Open the Persepolis Book Club &rarr;</span>
+      <a class="bc-card" href="https://malcolmtheteacher-creator.github.io/preply-lessons/persepolis_bookclub_dashboard.html">
+        <img src="https://malcolmtheteacher-creator.github.io/preply-lessons/persepolis_bookclub_map.jpg" alt="A map of the Persepolis book club" loading="lazy">
+        <div><b>Persepolis</b><span class="m">Marjane Satrapi &middot; B2/C1 &middot; 4 meetings</span><span class="d">A girl, a revolution and a life in black ink: a true story told as a comic.</span></div>
       </a>
     </div>
   </div>
