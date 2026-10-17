@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Malcolm Hyndman | English for work, study and life — through stories</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#1a1a17; --paper:#faf8f3; --cream:#f3efe6; --warm:#e7e1d4; --mid:#6b6b63;
@@ -68,6 +68,20 @@ section{padding:56px 0}
 .flag-card{position:relative;display:flex;flex-direction:column;padding:34px;border-radius:14px;text-decoration:none;color:#fff;overflow:hidden;min-height:260px;transition:transform .25s,box-shadow .25s;box-shadow:0 6px 22px rgba(30,58,47,.12)}
 .flag-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(30,58,47,.22)}
 .flag-stories{background:linear-gradient(150deg,#2a5040,#1e3a2f)}
+
+.research{padding:46px 0 50px;background-color:#f1ead6;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 33px,rgba(70,100,150,.12) 33px,rgba(70,100,150,.12) 34px)}
+.rs-card{position:relative;display:grid;grid-template-columns:1.3fr 1fr;gap:34px;align-items:center;background:#fffdf6;border:1px solid #d8cfb8;box-shadow:0 14px 36px rgba(30,40,60,.2);padding:28px 30px;transform:rotate(-.3deg)}
+.rs-card::before,.rs-card::after{content:"";position:absolute;top:-12px;width:110px;height:26px;background:rgba(214,190,120,.62);box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.rs-card::before{left:-18px;transform:rotate(-34deg)}.rs-card::after{right:-18px;transform:rotate(34deg)}
+.rs-plate img{display:block;width:100%;height:auto;border:9px solid #fff;box-shadow:0 8px 22px rgba(0,0,0,.28);transform:rotate(-.9deg);transition:transform .25s}
+.rs-plate:hover img{transform:rotate(0) scale(1.01)}
+.rs-k{font-family:'Caveat',cursive;font-size:1.5rem;color:#b4413a;line-height:1.1}
+.rs-body h2{font-size:2.3rem;line-height:1.1;margin:4px 0 6px;color:#1d2a44}
+.rs-hand{font-family:'Caveat',cursive;font-size:1.65rem;color:#8a6a2c;line-height:1.15;margin-bottom:12px}
+.rs-body p{color:#3b4458;line-height:1.6}
+.rs-btns{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin-top:18px}
+.rs-link{font-family:'Caveat',cursive;font-size:1.5rem;color:#1d2a44;text-decoration:none;border-bottom:2px dashed #8a6a2c}
+@media(max-width:820px){.rs-card{grid-template-columns:1fr;gap:20px;padding:22px 18px;transform:none}.rs-body h2{font-size:1.8rem}}
 .bc-slim{padding:26px 0 30px}
 .bc-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:14px}
 .bc-head .k{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
@@ -319,6 +333,7 @@ footer a:hover{text-decoration:underline}
     <a class="p2" href="#academic">Academic English &amp; exams</a>
     <a class="p3" href="#general">General English</a>
     <a href="#bookclub">Book club</a>
+    <a href="#research">My research</a>
     <a href="#more">And more</a>
   </div>
 </div>
@@ -523,6 +538,22 @@ footer a:hover{text-decoration:underline}
   </div>
 </section>
 
+<!-- RESEARCH -->
+<section class="research" id="research">
+  <div class="wrap">
+    <div class="rs-card">
+      <a class="rs-plate" href="https://malcolmtheteacher-creator.github.io/preply-lessons/memory_arts_map.html"><img src="https://malcolmtheteacher-creator.github.io/preply-lessons/memory_arts_part1_palace.jpg" alt="An engraved cutaway of a Renaissance palace with ten rooms: a garden, a mirror, a phoenix, a castle, a jewel house, a tower of books, a theatre, four chambers, an open hand and a walled town." loading="lazy"></a>
+      <div class="rs-body">
+        <div class="rs-k">from my notebooks &middot; open research</div>
+        <h2 class="serif">The Memory Arts in Renaissance England</h2>
+        <div class="rs-hand">a very large project, unfolding in public</div>
+        <p>How people in Shakespeare&rsquo;s England trained their memories with imagined palaces, strange pictures and even their own hands. A map of the old books, the ideas threaded between them, and my notes on how to build a memory palace yourself.</p>
+        <div class="rs-btns"><a class="btn btn-gold" href="https://malcolmtheteacher-creator.github.io/preply-lessons/memory_arts_map.html">Explore the map &rarr;</a><a class="rs-link" href="https://malcolmtheteacher-creator.github.io/preply-lessons/memory_arts_notes_method.html">Read my notes: how to build a memory palace</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- MORE -->
 <section class="cat" id="more">
   <div class="wrap">
@@ -535,7 +566,7 @@ footer a:hover{text-decoration:underline}
       <span class="lc-btn">Browse all 3,350+ lessons →</span>
     </a>
     <div class="cat-list wide">
-        <div class="grp"><h5>The Memory Palace</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/art-of-memory.html"><b>The Art of Memory</b><span class="m">30 lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/wp_dashboard.html"><b>A History of Western Philosophy</b><span class="m">50 lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ois_dashboard.html"><b>Our Island Story</b><span class="m">20 lessons</span><span class="d">A history of Britain</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/epicurean_dashboard.html"><b>The Epicurean Path</b><span class="m">30 lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/dewey_palace_architecture.html"><b>Talk to Anybody About Anything</b><span class="m">990 facts</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/bestiary.html"><b>The Bestiary</b><span class="d">A mnemonic system for names</span></a></li><li><a href="memory-books.html"><b>Essential Reading</b><span class="m">19 books</span></a></li></ul></div>
+        <div class="grp"><h5>The Memory Palace</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/memory_arts_map.html"><b>The Memory Arts in Renaissance England</b><span class="m">My research</span><span class="d">A map of the old books</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/memory_arts_notes_method.html"><b>Notes: how to build a memory palace</b><span class="d">The method, in notebook form</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/art-of-memory.html"><b>The Art of Memory</b><span class="m">30 lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/wp_dashboard.html"><b>A History of Western Philosophy</b><span class="m">50 lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/ois_dashboard.html"><b>Our Island Story</b><span class="m">20 lessons</span><span class="d">A history of Britain</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/epicurean_dashboard.html"><b>The Epicurean Path</b><span class="m">30 lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/dewey_palace_architecture.html"><b>Talk to Anybody About Anything</b><span class="m">990 facts</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/bestiary.html"><b>The Bestiary</b><span class="d">A mnemonic system for names</span></a></li><li><a href="memory-books.html"><b>Essential Reading</b><span class="m">19 books</span></a></li></ul></div>
         <div class="grp"><h5>Religious Studies</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_master_dashboard.html"><b>Full curriculum, Years 7–11</b><span class="m">180 lessons</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y7_dashboard.html"><b>Year 7: Encountering Worldviews</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y8_dashboard.html"><b>Year 8: Comparing &amp; Connecting</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y9_dashboard.html"><b>Year 9: Evaluating &amp; Preparing for GCSE</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y10_dashboard.html"><b>Year 10: GCSE</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/rs_y11_dashboard.html"><b>Year 11: GCSE</b></a></li></ul></div>
         <div class="grp"><h5>Space &amp; tools</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/deep_space_dashboard.html"><b>Deep Space</b><span class="m">6 lessons</span><span class="d">Stars, black holes, interactive labs</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/powerup.html"><b>PowerUp</b><span class="d">Project manager</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/mandalart.html"><b>MandalArt</b><span class="d">Goal-setting grid</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/tools/countdownart.html"><b>CountdownArt</b><span class="d">Visual countdown</span></a></li></ul></div>
     </div>
