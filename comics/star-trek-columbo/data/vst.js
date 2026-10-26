@@ -1,0 +1,78 @@
+window.EG=window.EG||{series:{},episodes:{}};
+EG.episodes.vst=[
+ {
+  "id": "vst-2640415",
+  "series": "vst",
+  "season": 1,
+  "number": 1,
+  "title": "Skin a Cat",
+  "summary": "In Skin a Cat, a dire Klingon attack is further complicated by poor word choice.",
+  "image": null,
+  "imageRemote": null,
+  "usAirDate": "2023-09-08",
+  "ukDate": null,
+  "ukDateSource": null,
+  "ukNote": null,
+  "flags": []
+ },
+ {
+  "id": "vst-2640416",
+  "series": "vst",
+  "season": 1,
+  "number": 2,
+  "title": "Holiday Party",
+  "summary": "In Holiday Party, it's a First Contact Day celebration and Spock is in charge of the entertainment.",
+  "image": null,
+  "imageRemote": null,
+  "usAirDate": "2023-09-13",
+  "ukDate": null,
+  "ukDateSource": null,
+  "ukNote": null,
+  "flags": []
+ },
+ {
+  "id": "vst-2640417",
+  "series": "vst",
+  "season": 1,
+  "number": 3,
+  "title": "Worst Contact",
+  "summary": "First Contacts, like first dates, can be awkward.",
+  "image": null,
+  "imageRemote": null,
+  "usAirDate": "2023-09-20",
+  "ukDate": null,
+  "ukDateSource": null,
+  "ukNote": null,
+  "flags": []
+ },
+ {
+  "id": "vst-2640418",
+  "series": "vst",
+  "season": 1,
+  "number": 4,
+  "title": "Holograms, All the Way Down",
+  "summary": "It's Holodecktastic!",
+  "image": null,
+  "imageRemote": null,
+  "usAirDate": "2023-09-27",
+  "ukDate": null,
+  "ukDateSource": null,
+  "ukNote": null,
+  "flags": []
+ },
+ {
+  "id": "vst-2640419",
+  "series": "vst",
+  "season": 1,
+  "number": 5,
+  "title": "Walk, Don't Run",
+  "summary": "When the old guard meets the new, sensitivities flare!",
+  "image": null,
+  "imageRemote": null,
+  "usAirDate": "2023-10-04",
+  "ukDate": null,
+  "ukDateSource": null,
+  "ukNote": null,
+  "flags": []
+ }
+];

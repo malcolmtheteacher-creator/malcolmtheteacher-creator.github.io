@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Comics and Guides</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a17;--paper:#faf8f3;--cream:#f3efe6;--warm:#e7e1d4;--mid:#6b6b63;--green:#1e3a2f;--gold:#c08a2d;--gold-soft:#d4a843}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter,-apple-system,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
+.serif{font-family:'Instrument Serif',Georgia,serif;font-weight:400}
+a{color:inherit}
+.hero{position:relative;min-height:420px;display:flex;align-items:flex-end;color:#fff;
+  background:linear-gradient(180deg,rgba(14,22,18,.1),rgba(14,22,18,.88)),url('art/comics-header.jpg') center/cover,linear-gradient(120deg,#1e3a2f,#6b2a3a 55%,#c08a2d)}
+.hero-in{max-width:1020px;width:100%;margin:0 auto;padding:40px 24px 44px}
+.back{font-size:.85rem;color:#fff;opacity:.85;text-decoration:none}
+.back:hover{opacity:1;text-decoration:underline}
+.eyebrow{margin:22px 0 8px;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--gold-soft)}
+h1{font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.02;text-shadow:0 2px 18px rgba(0,0,0,.45)}
+.hero p.lede{margin-top:14px;max-width:600px;font-size:1.1rem;opacity:.92}
+.wrap{max-width:1020px;margin:0 auto;padding:44px 24px 70px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px}
+.card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--warm);border-radius:14px;overflow:hidden;text-decoration:none;box-shadow:0 6px 22px rgba(30,58,47,.08);transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(30,58,47,.2)}
+.art{aspect-ratio:16/10;background-size:cover;background-position:center top}
+.art.a1{background-image:url('clear-line/art/tintin.jpg'),linear-gradient(135deg,#1a3a6b,#c4452d)}
+.art.a2{background-image:url('art/star-trek-columbo.jpg'),linear-gradient(135deg,#0b1a33,#2d6bb0 60%,#c08a2d)}
+.art.a3{background-image:url('art/marvel.jpg'),linear-gradient(135deg,#1a0507,#b01820 60%,#e0a030)}
+.body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
+.tag{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--gold)}
+.card h2{font-size:1.9rem;line-height:1.1;margin:6px 0 10px}
+.card p{color:var(--mid);font-size:.95rem;flex:1}
+.stats{display:flex;gap:22px;margin:18px 0 16px;padding-top:14px;border-top:1px solid var(--warm)}
+.stats b{display:block;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:1.8rem;line-height:1;color:var(--green)}
+.stats span{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
+.go{font-weight:700;color:var(--green)}
+.note{margin-top:34px;font-size:.82rem;color:var(--mid);max-width:700px}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-in">
+    <a class="back" href="../">&larr; Malcolm Hyndman</a>
+    <p class="eyebrow">Comics &amp; guides</p>
+    <h1 class="serif">Worlds to get lost in</h1>
+    <p class="lede">Three companions for the stories you already love: a boy reporter, a starship and a detective in a crumpled raincoat, and a universe of heroes. Read, look things up, and learn the English as you go.</p>
+  </div>
+</header>
+<main class="wrap">
+  <div class="cards">
+    <a class="card" href="clear-line/">
+      <div class="art a1"></div>
+      <div class="body">
+        <div class="tag">Comics · B1–C1</div>
+        <h2 class="serif">The Clear Line</h2>
+        <p>A companion to Hergé’s Tintin: the plots, how they were made, and the English inside the books.</p>
+        <div class="stats"><div><b>24</b><span>Albums</span></div><div><b>1929</b><span>First page</span></div></div>
+        <span class="go">Open the atlas →</span>
+      </div>
+    </a>
+    <a class="card" href="star-trek-columbo/">
+      <div class="art a2"></div>
+      <div class="body">
+        <div class="tag">Episode guide · TV</div>
+        <h2 class="serif">Star Trek and Columbo</h2>
+        <p>Every episode of every Star Trek series, and every Columbo case, with UK air dates, cast and pictures.</p>
+        <div class="stats"><div><b>15</b><span>Series</span></div><div><b>1966</b><span>First episode</span></div></div>
+        <span class="go">Browse the episodes →</span>
+      </div>
+    </a>
+    <a class="card" href="marvel/">
+      <div class="art a3"></div>
+      <div class="body">
+        <div class="tag">Fan guide · Comics &amp; films</div>
+        <h2 class="serif">The Marvel Universe Guide</h2>
+        <p>Characters, comic series, key stories, movies, and how the films connect back to the comics.</p>
+        <div class="stats"><div><b>6</b><span>Sections</span></div><div><b>1939</b><span>Where it began</span></div></div>
+        <span class="go">Explore the universe →</span>
+      </div>
+    </a>
+  </div>
+  <p class="note">The Marvel and Star Trek and Columbo guides are unofficial fan references built from public data (Marvel Database, Wikipedia, TVmaze). All characters and trademarks belong to their owners.</p>
+</main>
+</body>
+</html>
