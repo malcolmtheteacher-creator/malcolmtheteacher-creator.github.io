@@ -55,7 +55,7 @@ function render(){
   var res=pool.filter(function(e){
     if(!searchAll&&state.season!=='all'&&String(e.season)!==String(state.season))return false;
     if(!q)return true;
-    return norm(e.title+' '+e.summary).indexOf(q)>=0;
+    return norm(e.title+' '+e.summary+' '+((window.EG&&EG.long&&EG.long[e.id]&&EG.long[e.id].s)||'')).indexOf(q)>=0;
   });
   var h='<section class="hero">'+(s.art?'<img src="'+esc(s.art)+'" alt="" onerror="this.style.display=\'none\'">':'')+'<div><h1>'+(s.group==='Star Trek'?'Star Trek: ':'')+esc(s.name)+'</h1><p>'+esc(s.premiered?s.premiered.slice(0,4):'')+' · '+esc(s.network||'')+' · '+list.length+' episodes</p></div></section>';
   h+='<div class="notice">'+esc(s.note)+'</div>';
@@ -109,7 +109,12 @@ function showEp(){
   var ep=current[curIdx], s=S[ep.series];
   var uk=ep.ukDate?'<dd class="ok">'+fmt(ep.ukDate,true)+'</dd>':'<dd class="none">UK broadcast date not found</dd>';
   var h=imgTag(ep,'','Image for '+ep.title)+'<div class="in"><div class="se">'+esc(s.group==='Star Trek'?'Star Trek: '+s.name:s.name)+' · '+seasonLabel(ep.series,ep.season)+(ep.season===0?'':' · Episode '+ep.number)+'</div><h2>'+esc(ep.title)+'</h2>';
-  h+='<p>'+esc(ep.summary||'No summary available.')+'</p><dl class="facts"><dt>Season / episode</dt><dd>'+esc(code(ep))+'</dd><dt>UK first broadcast</dt>'+uk;
+  var L=(window.EG&&EG.long&&EG.long[ep.id])||null;
+  if(L){(L.s||'').split('\n\n').forEach(function(t){if(t)h+='<p>'+esc(t)+'</p>'});
+    if(L.x)h+='<details class="spoil"><summary>How it ends (spoilers)</summary><p>'+esc(L.x)+'</p></details>';
+    if(L.n)h+='<div class="behind"><h3>Behind the episode</h3><p>'+esc(L.n)+'</p></div>';}
+  else h+='<p>'+esc(ep.summary||'No summary available.')+'</p>';
+  h+='<dl class="facts"><dt>Season / episode</dt><dd>'+esc(code(ep))+'</dd><dt>UK first broadcast</dt>'+uk;
   if(ep.ukDate&&ep.ukDateSource)h+='<dt>UK date source</dt><dd>'+esc(ep.ukDateSource)+'</dd>';
   if(ep.ukNote)h+='<dt>UK note</dt><dd>'+esc(ep.ukNote)+'</dd>';
   h+='<dt>Original air date</dt><dd>'+(ep.usAirDate?fmt(ep.usAirDate,true)+' <span class="small">(original / US)</span>':'unknown')+'</dd></dl>';

@@ -66,3 +66,9 @@ footer{max-width:1280px;margin:30px auto;padding:0 16px;color:var(--mute);font-s
 .banner .eyebrow{margin:14px 0 4px;color:var(--accent);font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
 .banner h1{margin:0;font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:clamp(2rem,5vw,3.4rem);line-height:1.05;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.5)}
 .banner .lede{margin:10px 0 0;max-width:640px;color:#e6ecf7;font-size:1rem}
+
+.spoil{background:var(--panel2);border-radius:10px;padding:10px 14px;margin:10px 0}
+.spoil summary{cursor:pointer;color:var(--accent);font-weight:600}
+.behind{border-left:3px solid var(--accent);padding:2px 0 2px 14px;margin:14px 0}
+.behind h3{margin:0 0 2px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.behind p{margin:4px 0;color:var(--mute);font-size:.92rem}
