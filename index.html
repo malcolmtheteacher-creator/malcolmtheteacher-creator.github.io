@@ -19,10 +19,10 @@ a{color:inherit}
 
 /* NAV */
 .nav{position:sticky;top:0;z-index:100;background:var(--green);color:#fff}
-.nav-in{max-width:1020px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
-.brand{font-family:'Instrument Serif',serif;font-size:1.2rem;color:#fff;text-decoration:none;letter-spacing:.3px}
+.nav-in{max-width:1200px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-family:'Instrument Serif',serif;font-size:1.2rem;color:#fff;text-decoration:none;letter-spacing:.3px;white-space:nowrap}
 .nav-links{display:flex;gap:2px;align-items:center;list-style:none}
-.nav-links a{color:rgba(255,255,255,.72);text-decoration:none;font-size:.82rem;font-weight:500;padding:7px 12px;transition:color .2s}
+.nav-links a{color:rgba(255,255,255,.72);text-decoration:none;font-size:.82rem;font-weight:500;padding:7px 12px;transition:color .2s;white-space:nowrap}
 .nav-links a:hover{color:#fff}
 .nav-cta{background:var(--gold-soft)!important;color:var(--green)!important;font-weight:700!important;border-radius:6px;padding:7px 15px!important}
 .nav-cta:hover{background:#e2be6a!important}
@@ -232,6 +232,11 @@ footer a:hover{text-decoration:underline}
 .card:hover h4{color:var(--green)}
 .step .n{box-shadow:0 4px 14px rgba(30,58,47,.18)}
 
+@media(max-width:1020px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;align-items:flex-start;position:absolute;top:56px;left:0;right:0;background:var(--green);padding:12px 20px;gap:2px}
+  .nav-tog{display:block}
+}
 @media(max-width:760px){
   .nav-links{display:none}
   .nav-links.open{display:flex;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:var(--green);padding:12px 20px;gap:2px}
@@ -355,7 +360,7 @@ footer a:hover{text-decoration:underline}
       </div>
       <div class="cat-list">
         <div class="grp"><h5>Business &amp; strategy</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/strategic_storytelling_dashboard.html"><b>Strategic Storytelling</b><span class="m">12 · C1+</span><span class="d">Frame a narrative, move the room</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_bootcamp_dashboard.html"><b>The Boardroom: Business Bootcamp</b><span class="m">8 lessons</span><span class="d">Pitch, negotiate, present</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/senior_interview_dashboard.html"><b>Senior Interview Toolkit</b><span class="m">5 · C1</span><span class="d">Director, partner and VP interviews</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/trade_fair_dashboard.html"><b>Trade Fair English</b><span class="m">18 lessons</span><span class="d">From first handshake to signed contract</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/aviation_english_dashboard.html"><b>Aviation English: ICAO &amp; EAPT</b><span class="m">17 lessons</span><span class="d">METAR, radio words, the photo task</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/professional_skills_dashboard.html"><b>Professional Skills</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/business_meetings_dashboard.html"><b>Business Meeting Essentials</b></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/english_at_work_dashboard.html"><b>English at Work</b><span class="m">30 · B2/C1</span><span class="d">Role plays for the workplace</span></a></li></ul></div>
-        <div class="grp"><h5>Thinking, strategy &amp; law</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/think_inside_the_box_dashboard.html"><b>Think Inside the Box</b><span class="m">14 · B2</span><span class="d">The true story behind each thinking tool</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/begin_with_the_end_dashboard.html"><b>Begin With the End</b><span class="m">3 · C1</span><span class="d">Speak with control of the room</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/name_the_question_dashboard.html"><b>Name the Question</b><span class="m">7 · C1</span><span class="d">Which kind of question is it?</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/beyond_reasonable_doubt_dashboard.html"><b>Beyond Reasonable Doubt</b><span class="m">6 · C1</span><span class="d">Landmark legal cases</span></a></li></ul></div>
+        <div class="grp"><h5>Thinking, strategy &amp; law</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/think_inside_the_box_dashboard.html"><b>Think Inside the Box</b><span class="m">14 · B2</span><span class="d">The true story behind each thinking tool</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/begin_with_the_end_dashboard.html"><b>Begin With the End</b><span class="m">3 · C1</span><span class="d">Speak with control of the room</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/name_the_question_dashboard.html"><b>Name the Question</b><span class="m">7 · C1</span><span class="d">Which kind of question is it?</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/big_questions_dashboard.html"><b>Big Questions</b><span class="m">7 · C1</span><span class="d">Philosophy and English: seven thought experiments</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/beyond_reasonable_doubt_dashboard.html"><b>Beyond Reasonable Doubt</b><span class="m">6 · C1</span><span class="d">Landmark legal cases</span></a></li></ul></div>
         <div class="grp"><h5>Advanced fluency</h5><ul class="rows"><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/commanding_discourse_dashboard.html"><b>Commanding Discourse</b><span class="m">10 · C1–C2</span><span class="d">Hedging, arguing, commanding a room</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/advanced_communication_dashboard.html"><b>The Art of Being Understood</b><span class="m">5 · C2</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/beyond_perfect_dashboard.html"><b>Beyond Perfect</b><span class="m">6 · C2</span><span class="d">When excellent English is not enough</span></a></li><li><a href="https://malcolmtheteacher-creator.github.io/preply-lessons/discourse_bestiary_pathway.html"><b>Discourse Bestiary</b><span class="m">6 · C1–C2</span><span class="d">30 advanced expressions</span></a></li></ul></div>
       </div>
     </div>
