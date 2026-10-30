@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Silver Surfer — The Sentinel's Guide (offline fan reference)</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="bar">
+    <button id="menuBtn" class="menuBtn" aria-label="Open contents" aria-expanded="false">☰</button>
+    <a class="brand" href="#top"><span class="mark">◈</span> Silver Surfer <small>The Sentinel's Guide</small></a>
+    <a class="tv98" href="#/series">★ 1998 Animated Series</a>
+    <div class="searchwrap">
+      <input id="q" type="search" placeholder="Search stories, episodes, characters…" autocomplete="off" aria-label="Search the guide">
+      <div id="results" class="results" hidden></div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+  <nav id="toc" class="toc" aria-label="Contents"></nav>
+  <main id="app" tabindex="-1"></main>
+</div>
+<div id="modal" class="modal" role="dialog" aria-modal="true"><div class="sheet" id="sheet"></div></div>
+<footer class="foot">Unofficial, non-commercial fan reference. Silver Surfer and related characters are trademarks of Marvel; cover and still images are reproduced at low resolution for identification and commentary. Text draws on Marvel Database and Wikipedia (CC BY-SA). See <a href="#about">About &amp; sources</a>.</footer>
+<script src="data/stories.js"></script>
+<script src="data/cast.js"></script>
+<script src="data/episodes.js"></script>
+<script src="data/media.js"></script>
+<script src="data/extras.js"></script>
+<script src="data/guides.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
