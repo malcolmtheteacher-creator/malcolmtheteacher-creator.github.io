@@ -156,10 +156,12 @@ section[id]{scroll-margin-top:110px}
 .path p{max-width:640px;opacity:.88;font-size:.98rem}
 .path-link{background:var(--gold-soft);color:var(--green);font-weight:700;text-decoration:none;padding:11px 20px;border-radius:8px;white-space:nowrap}
 
-.path-chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;max-width:720px}
-.path-chips span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);font-weight:700;margin-right:4px}
-.path-chips a{color:#fff;text-decoration:none;font-size:.9rem;font-weight:600;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 14px;transition:background .12s}
+.path-in>div{flex:1;min-width:0}
+.path-chips{display:flex;flex-wrap:nowrap;gap:6px;align-items:center;margin-top:12px}
+.path-chips span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);font-weight:700;margin-right:2px;white-space:nowrap}
+.path-chips a{color:#fff;text-decoration:none;font-size:.8rem;font-weight:600;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:3px 11px;white-space:nowrap;transition:background .12s}
 .path-chips a:hover{background:rgba(255,255,255,.16);border-color:var(--gold-soft)}
+@media(max-width:900px){.path-chips{flex-wrap:wrap}}
 .path-link{box-shadow:0 3px 0 rgba(0,0,0,.25)}
 .doors .p1,.doors .p2,.doors .p3{background:var(--green);color:#fff;font-size:.88rem;padding:6px 16px}
 .doors .p1:hover,.doors .p2:hover,.doors .p3:hover{background:var(--green-light)}
