@@ -45,7 +45,14 @@ a{color:inherit}
 .hero-stats{display:flex;gap:30px}
 .hero-stat strong{display:block;font-size:1.35rem;font-weight:700}
 .hero-stat span{font-size:.66rem;text-transform:uppercase;letter-spacing:.14em;opacity:.7}
-.hero-photo{width:120px;height:150px;object-fit:cover;object-position:top;border-radius:10px;border:3px solid rgba(212,168,67,.35);flex-shrink:0}
+.hero-photo{width:64px;height:64px;object-fit:cover;object-position:top;border-radius:50%;border:2px solid rgba(212,168,67,.6);display:block;margin-bottom:12px}
+.mm{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:360px;max-width:100%;padding:7px;border-radius:16px;background:linear-gradient(135deg,#d9b85c,#a47f2f);box-shadow:0 14px 36px rgba(0,0,0,.4)}
+.mm a{position:relative;display:block;aspect-ratio:1;border-radius:9px;overflow:hidden;background:#2d4f43;text-decoration:none;transition:transform .2s}
+.mm a:hover{transform:scale(1.04);z-index:1}
+.mm img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mm b{position:absolute;left:0;right:0;bottom:0;padding:18px 6px 6px;font:600 .68rem/1.15 "Instrument Serif",Georgia,serif;font-size:.86rem;font-weight:400;color:#fff;text-align:center;background:linear-gradient(transparent,rgba(10,24,18,.85))}
+.mm .mm-c{outline:2px solid #d4a843;outline-offset:-2px}
+.mm .mm-c b{background:linear-gradient(transparent,rgba(120,85,10,.9));font-weight:700}
 
 /* FIND BAR */
 .findbar{background:linear-gradient(90deg,#f3efe6,#e7e1d4);border-bottom:1px solid var(--warm)}
@@ -251,7 +258,7 @@ footer a:hover{text-decoration:underline}
   .nav-links.open{display:flex;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:var(--green);padding:12px 20px;gap:2px}
   .nav-tog{display:block}
   .hero-in{grid-template-columns:1fr}
-  .hero-photo{width:112px;height:140px;order:-1}
+  .mm{margin:0 auto}
   .hero h1{font-size:2.3rem}
   .flag{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr 1fr}
@@ -308,7 +315,7 @@ footer a:hover{text-decoration:underline}
   </svg>
   <div class="wrap hero-in">
     <div>
-      <div class="eyebrow">Free interactive English for professionals, students &amp; learners · A1–C2</div>
+      <img class="hero-photo" src="malcolm-photo.jpg" alt="Malcolm Hyndman"><div class="eyebrow">Free interactive English for professionals, students &amp; learners · A1–C2</div>
       <h1 class="serif">English for your <em>career</em>, your <em>studies</em> and your <em>life</em> — taught through real stories.</h1>
       <p class="lead">Real business cases, true stories from history, great films and everyday role plays. Learn the words that unlock each one — then do the one thing that actually builds fluency: <strong>talk about it</strong>. Every lesson is free, and pitched at your level.</p>
       <div class="hero-cta">
@@ -322,7 +329,7 @@ footer a:hover{text-decoration:underline}
         <div class="hero-stat"><strong>30+</strong><span>Years teaching</span></div>
       </div>
     </div>
-    <img class="hero-photo" src="malcolm-photo.jpg" alt="Malcolm Hyndman">
+    <nav class="mm" aria-label="Map of all lessons"><a href="https://malcolmhyndman.com/preply-lessons/map.html#0"><img src="mini/0.jpg" alt="" loading="lazy"><b>Professional English</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#1"><img src="mini/1.jpg" alt="" loading="lazy"><b>Academic English &amp; exams</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#2"><img src="mini/2.jpg" alt="" loading="lazy"><b>General English</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#3"><img src="mini/3.jpg" alt="" loading="lazy"><b>The Library</b></a><a class="mm-c" href="https://malcolmhyndman.com/preply-lessons/map.html"><img src="mini/c.jpg" alt="" loading="lazy"><b>Explore the map</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#4"><img src="mini/4.jpg" alt="" loading="lazy"><b>Explore by interest</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#5"><img src="mini/5.jpg" alt="" loading="lazy"><b>The Palace of Subjects</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#6"><img src="mini/6.jpg" alt="" loading="lazy"><b>Comics &amp; guides</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#7"><img src="mini/7.jpg" alt="" loading="lazy"><b>My Words &amp; My Room</b></a></nav>
   </div>
 </header>
 
