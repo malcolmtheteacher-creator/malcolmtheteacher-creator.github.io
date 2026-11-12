@@ -233,6 +233,14 @@ section[id]{scroll-margin-top:110px}
 .tst-card .who{font-size:.8rem;color:var(--mid);font-weight:700;font-style:normal}
 
 /* BOOK */
+.rh-band{display:block;position:relative;color:#fff;text-decoration:none;background:#2a1a10 url(reading-house.jpg) center 38%/cover;min-height:min(62vw,520px);overflow:hidden}
+.rh-band::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,12,6,.82) 0%,rgba(20,12,6,.55) 42%,rgba(20,12,6,0) 75%)}
+.rh-in{position:relative;max-width:1100px;margin:0 auto;padding:64px 24px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:inherit;box-sizing:border-box}
+.rh-in .k{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:#e6c56a;font-weight:700;margin-bottom:10px}
+.rh-in h2{font-size:clamp(2rem,5vw,3.2rem);margin:0 0 12px;color:#fff6dc;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+.rh-in p{max-width:min(30em,100%);font-size:1.1rem;line-height:1.5;margin:0 0 22px;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.rh-band:hover .btn{transform:translateY(-2px)}
+@media(max-width:640px){.rh-band::before{background:linear-gradient(rgba(20,12,6,.35),rgba(20,12,6,.85))}.rh-in{justify-content:flex-end;padding:40px 16px 32px;min-height:440px}.rh-band{min-height:440px}}
 .book{background:var(--green);color:#fff;text-align:center;padding:56px 24px}
 .book h2{font-family:'Instrument Serif',serif;font-size:2rem;font-weight:400;margin-bottom:10px}
 .book p{opacity:.88;max-width:540px;margin:0 auto 22px}
@@ -301,6 +309,7 @@ footer a:hover{text-decoration:underline}
       <li><a href="https://malcolmhyndman.com/preply-lessons/explore.html">Explore</a></li>
       <li><a href="https://malcolmhyndman.com/preply-lessons/wordbank/index.html">My Words</a></li>
       <li><a href="https://malcolmhyndman.com/preply-lessons/journey/index.html">My Room</a></li>
+      <li><a href="https://malcolmhyndman.com/preply-lessons/library/index.html">Library</a></li>
       <li><a href="https://malcolmhyndman.com/preply-lessons/malcolm_lesson_index.html">All lessons</a></li>
       <li><a href="https://preply.com/en/tutor/4383857" target="_blank" class="nav-cta">Book a lesson</a></li>
     </ul>
@@ -338,19 +347,19 @@ footer a:hover{text-decoration:underline}
         <a class="btn btn-ghost" href="#general">General English →</a>
       </div>
       <div class="hero-stats">
-        <div class="hero-stat"><strong>3,800+</strong><span>Free lessons</span></div>
+        <div class="hero-stat"><strong>3,850+</strong><span>Free lessons</span></div>
         <div class="hero-stat"><strong>A1–C2</strong><span>All levels</span></div>
         <div class="hero-stat"><strong>30+</strong><span>Years teaching</span></div>
       </div>
     </div>
-    <div class="mmwrap"><div class="mmhead"><p><strong>Your map to every lesson.</strong> Tap a picture to go deeper, and keep going until you reach a lesson. The middle picture opens the whole map.</p><img class="hero-photo" src="malcolm-photo.jpg" alt="Malcolm Hyndman"></div><nav class="mm" aria-label="Map of all lessons"><a href="https://malcolmhyndman.com/preply-lessons/map.html#0"><img src="mini/0.jpg" alt="" loading="lazy"><b>Professional English</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#1"><img src="mini/1.jpg" alt="" loading="lazy"><b>Academic English &amp; exams</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#2"><img src="mini/2.jpg" alt="" loading="lazy"><b>General English</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#3"><img src="mini/3.jpg" alt="" loading="lazy"><b>Find by subject</b></a><a class="mm-c" href="https://malcolmhyndman.com/preply-lessons/map.html"><img src="mini/c.jpg" alt="" loading="lazy"><b>Explore the map</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#4"><img src="mini/4.jpg" alt="" loading="lazy"><b>The Palace of Subjects</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#5"><img src="mini/5.jpg" alt="" loading="lazy"><b>Comics &amp; guides</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#6"><img src="mini/6.jpg" alt="" loading="lazy"><b>My Words &amp; My Room</b></a><a href="https://malcolmhyndman.com/preply-lessons/dewey_guide.html"><img src="mini/7.jpg" alt="" loading="lazy"><b>How the shelves work</b></a></nav></div>
+    <div class="mmwrap"><div class="mmhead"><p><strong>Your map to every lesson.</strong> Tap a picture to go deeper, and keep going until you reach a lesson. The middle picture opens the whole map.</p><img class="hero-photo" src="malcolm-photo.jpg" alt="Malcolm Hyndman"></div><nav class="mm" aria-label="Map of all lessons"><a href="https://malcolmhyndman.com/preply-lessons/map.html#0"><img src="mini/0.jpg" alt="" loading="lazy"><b>Professional English</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#1"><img src="mini/1.jpg" alt="" loading="lazy"><b>Academic English &amp; exams</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#2"><img src="mini/2.jpg" alt="" loading="lazy"><b>General English</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#3"><img src="mini/3.jpg" alt="" loading="lazy"><b>Find by subject</b></a><a class="mm-c" href="https://malcolmhyndman.com/preply-lessons/map.html"><img src="mini/c.jpg" alt="" loading="lazy"><b>Explore the map</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#4"><img src="mini/4.jpg" alt="" loading="lazy"><b>The Palace of Subjects</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#5"><img src="mini/5.jpg" alt="" loading="lazy"><b>Comics &amp; guides</b></a><a href="https://malcolmhyndman.com/preply-lessons/map.html#6"><img src="mini/6.jpg" alt="" loading="lazy"><b>My Words &amp; My Room</b></a><a href="https://malcolmhyndman.com/preply-lessons/library/index.html"><img src="mini/rh.jpg" alt="" loading="lazy"><b>The Reading House</b></a></nav></div>
   </div>
 </header>
 
 <!-- FIND A LESSON (always one click away) -->
 <div class="findbar">
   <div class="wrap findbar-in">
-    <div class="t"><strong>3,800+ free lessons</strong> for students & teachers — and not everything is a story. Need something specific?</div>
+    <div class="t"><strong>3,850+ free lessons</strong> for students & teachers — and not everything is a story. Need something specific?</div>
     <div class="links">
       <a href="https://malcolmhyndman.com/preply-lessons/explore.html">✨ Explore by interest →</a>
       <a href="https://malcolmhyndman.com/preply-lessons/malcolm_lesson_index.html">🔎 Search the whole lesson index →</a>
@@ -551,6 +560,16 @@ footer a:hover{text-decoration:underline}
   </div>
 </section>
 
+<!-- THE READING HOUSE -->
+<a class="rh-band" id="reading-house" href="https://malcolmhyndman.com/preply-lessons/library/index.html">
+  <div class="rh-in">
+    <div class="k">A library to walk through</div>
+    <h2 class="serif">The Reading House</h2>
+    <p>Nine rooms, one for every subject. Wander the shelves, find your next book, and ask about borrowing it.</p>
+    <span class="btn btn-gold">Step inside &rarr;</span>
+  </div>
+</a>
+
 <!-- TESTIMONIALS -->
 <section>
   <div class="wrap">
@@ -566,13 +585,13 @@ footer a:hover{text-decoration:underline}
 <!-- MORE -->
 <section class="cat" id="more">
   <div class="wrap">
-    <div class="cat-head"><div class="k">7 &middot; And more</div><h2 class="serif">The wider library</h2><p>Beyond English — a memory project, a full religious studies curriculum, deep space, and some tools I built. And the searchable index of everything.</p></div>
+    <div class="cat-head"><div class="k">7 &middot; And more</div><h2 class="serif">More to explore</h2><p>Beyond English — a memory project, a full religious studies curriculum, deep space, and some tools I built. And the searchable index of everything.</p></div>
     <a class="library-card" id="cat-library" href="https://malcolmhyndman.com/preply-lessons/malcolm_lesson_index.html">
       <div>
         <div class="lc-t serif">Find any lesson — the full searchable index</div>
-        <div class="lc-d">All 3,800+ lessons in one place. Search by topic, level or skill.</div>
+        <div class="lc-d">All 3,850+ lessons in one place. Search by topic, level or skill.</div>
       </div>
-      <span class="lc-btn">Browse all 3,800+ lessons →</span>
+      <span class="lc-btn">Browse all 3,850+ lessons →</span>
     </a>
     <div class="cat-list wide">
         <div class="grp"><h5>Memory Arts</h5><ul class="rows"><li><a href="https://malcolmhyndman.com/preply-lessons/memory_arts_part1.html"><b>The Memory Arts in Renaissance England</b><span class="m">Part I</span><span class="d">Notes on ten old English guides to the art of memory</span></a></li><li><a href="https://malcolmhyndman.com/preply-lessons/art-of-memory.html"><b>The Art of Memory</b><span class="m">30 lessons</span></a></li><li><a href="https://malcolmhyndman.com/major-system-palace/"><b>The Major System Memory Palace</b><span class="m">300 numbers</span></a></li><li><a href="https://malcolmhyndman.com/preply-lessons/dewey_palace_architecture.html"><b>Talk to Anybody About Anything</b><span class="m">990 facts</span></a></li><li><a href="https://malcolmhyndman.com/preply-lessons/bestiary.html"><b>The Bestiary</b><span class="d">A mnemonic system for names</span></a></li><li><a href="memory-books.html"><b>Essential Reading</b><span class="m">19 books</span></a></li></ul></div>
