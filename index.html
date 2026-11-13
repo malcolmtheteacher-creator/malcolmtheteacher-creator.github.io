@@ -239,7 +239,7 @@ section[id]{scroll-margin-top:110px}
 .rh-in .k{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:#e6c56a;font-weight:700;margin-bottom:10px}
 .rh-in h2{font-size:clamp(2rem,5vw,3.2rem);margin:0 0 12px;color:#fff6dc;text-shadow:0 2px 14px rgba(0,0,0,.6)}
 .rh-in p{max-width:min(30em,100%);font-size:1.1rem;line-height:1.5;margin:0 0 22px;text-shadow:0 1px 8px rgba(0,0,0,.7)}
-.rh-band:hover .btn{transform:translateY(-2px)}
+.rh-btns{display:flex;gap:12px;flex-wrap:wrap}.rh-bee{background:rgba(20,12,6,.55);color:#fff6dc;border:1px solid rgba(230,197,106,.7)}.rh-bee:hover{background:rgba(20,12,6,.8);transform:translateY(-2px)}
 @media(max-width:640px){.rh-band::before{background:linear-gradient(rgba(20,12,6,.35),rgba(20,12,6,.85))}.rh-in{justify-content:flex-end;padding:40px 16px 32px;min-height:440px}.rh-band{min-height:440px}}
 .book{background:var(--green);color:#fff;text-align:center;padding:56px 24px}
 .book h2{font-family:'Instrument Serif',serif;font-size:2rem;font-weight:400;margin-bottom:10px}
@@ -561,14 +561,14 @@ footer a:hover{text-decoration:underline}
 </section>
 
 <!-- THE READING HOUSE -->
-<a class="rh-band" id="reading-house" href="https://malcolmhyndman.com/preply-lessons/library/index.html">
+<div class="rh-band" id="reading-house">
   <div class="rh-in">
     <div class="k">A library to walk through</div>
     <h2 class="serif">The Reading House</h2>
     <p>Nine rooms, one for every subject. Wander the shelves, find your next book, and ask about borrowing it.</p>
-    <span class="btn btn-gold">Step inside &rarr;</span>
+    <div class="rh-btns"><a class="btn btn-gold" href="https://malcolmhyndman.com/preply-lessons/library/index.html">Step inside &rarr;</a><a class="btn rh-bee" href="https://malcolmhyndman.com/preply-lessons/library/fly.html">&#9654; Follow the bee</a></div>
   </div>
-</a>
+</div>
 
 <!-- TESTIMONIALS -->
 <section>
