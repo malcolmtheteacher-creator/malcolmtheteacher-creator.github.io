@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy | Malcolm Hyndman</title>
+<meta name="description" content="What malcolmhyndman.com counts about visits, what stays in your own browser, and how to switch visit counting off.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a17;--paper:#faf8f3;--cream:#f3efe6;--warm:#e7e1d4;--mid:#6b6b63;--green:#1e3a2f;--gold:#c08a2d}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--paper);color:var(--ink);line-height:1.7;font-size:17px}
+.nav{background:var(--green);color:#fff}
+.nav a{display:block;max-width:760px;margin:0 auto;padding:14px 20px;color:#fff;text-decoration:none;font-family:'Instrument Serif',Georgia,serif;font-size:1.2rem}
+main{max-width:760px;margin:0 auto;padding:40px 20px 80px}
+h1{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:2.6rem;line-height:1.15;margin-bottom:8px}
+h2{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:1.6rem;margin:36px 0 8px}
+p,li{margin-bottom:10px}
+ul{padding-left:22px}
+.lead{color:var(--mid);margin-bottom:8px}
+a{color:var(--green)}
+.switch{background:var(--cream);border:1px solid var(--warm);border-radius:14px;padding:18px 20px;margin-top:14px}
+.switch strong{display:block;margin-bottom:10px}
+button{font:600 16px 'Inter',sans-serif;border-radius:10px;padding:10px 18px;cursor:pointer;background:var(--green);color:#fff;border:1px solid var(--green)}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="nav"><a href="https://malcolmhyndman.com/">Malcolm Hyndman</a></div>
+<main>
+  <h1>Privacy</h1>
+  <p class="lead">The short version: this site counts visits, keeps your progress in your own browser, and shows no adverts.</p>
+
+  <h2>What is counted</h2>
+  <p>When you open a page, the site records that a visit happened. It uses Google Analytics to do this, which places a small cookie in your browser.</p>
+  <ul>
+    <li>Which pages are opened, and how people arrived at them.</li>
+    <li>The kind of device and browser, and roughly where in the world the visit came from.</li>
+  </ul>
+  <p>It does not record your name or your email address. Nothing is sold, and nothing is used for adverts. The numbers are only used to see which lessons are useful.</p>
+
+  <h2>What stays with you</h2>
+  <p>My Words and My Room remember the lessons you have opened and the words you are learning. That is saved in your own browser on your own device. It is not sent anywhere.</p>
+
+  <h2>Switch counting off</h2>
+  <p>You can stop your visits being counted. The choice is remembered in this browser.</p>
+  <div class="switch">
+    <strong id="state">Checking…</strong>
+    <button type="button" id="toggle">Don't count my visits</button>
+  </div>
+
+  <h2>Questions</h2>
+  <p>Write to <a href="mailto:malcolmtheteacher@gmail.com">malcolmtheteacher@gmail.com</a>.</p>
+</main>
+<script>
+(function () {
+  var KEY = 'visits_choice', state = document.getElementById('state'), btn = document.getElementById('toggle');
+  function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function show() {
+    var off = get() === 'off';
+    state.textContent = off ? 'Your visits are not being counted in this browser.' : 'Your visits are being counted in this browser.';
+    btn.textContent = off ? 'Count my visits again' : "Don't count my visits";
+  }
+  btn.onclick = function () {
+    var off = get() === 'off';
+    try { localStorage.setItem(KEY, off ? 'ok' : 'off'); } catch (e) {}
+    window['ga-disable-G-Y6FDKSPFLT'] = !off;
+    show();
+  };
+  show();
+})();
+</script>
+<script src="visits.js"></script>
+</body>
+</html>
