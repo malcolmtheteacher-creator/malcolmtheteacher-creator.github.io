@@ -28,14 +28,15 @@ a{color:inherit}
 
 /* NAV */
 .nav{position:sticky;top:0;z-index:100;background:var(--green);color:#fff}
-.nav-in{max-width:1200px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav-in{max-width:1480px;margin:0 auto;padding:0 24px;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{font-family:'Instrument Serif',serif;font-size:1.2rem;color:#fff;text-decoration:none;letter-spacing:.3px;white-space:nowrap}
 .nav-links{display:flex;gap:2px;align-items:center;list-style:none}
-.nav-links a{color:rgba(255,255,255,.72);text-decoration:none;font-size:.82rem;font-weight:500;padding:7px 12px;transition:color .2s;white-space:nowrap}
+.nav-links a{color:rgba(255,255,255,.72);text-decoration:none;font-size:.82rem;font-weight:500;padding:7px 9px;transition:color .2s;white-space:nowrap}
 .nav-links a:hover{color:#fff}
 .nav-cta{background:var(--gold-soft)!important;color:var(--green)!important;font-weight:700!important;border-radius:6px;padding:7px 15px!important}
 .nav-cta:hover{background:#e2be6a!important}
 .nav-tog{display:none;background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer}
+@media(min-width:1021px) and (max-width:1500px){.nav-in{padding-top:5px;padding-bottom:5px}.nav-links{flex-wrap:wrap;justify-content:flex-end;row-gap:0}}
 
 /* HERO */
 .hero{background:linear-gradient(100deg, rgba(18,36,29,.95) 0%, rgba(20,40,32,.86) 26%, rgba(22,44,35,.52) 56%, rgba(22,44,35,.20) 100%), url('hero_study.jpg') 0% 40%/cover no-repeat, var(--green);color:#fff;padding:30px 0 28px;position:relative;overflow:hidden}
@@ -167,7 +168,7 @@ section{padding:56px 0}
 @media(hover:none){.pb-cover{transform:rotateY(-158deg)}.pb-pop{transform:none;opacity:1}}
 @media(max-width:560px){.popg-row{grid-template-columns:1fr}.pbook{height:104px}}
 @media(prefers-reduced-motion:reduce){.pb-cover,.pb-pop{transition:none}}
-.doors{background:#fff;border-bottom:1px solid var(--warm);position:sticky;top:56px;z-index:90}
+.doors{background:#fff;border-bottom:1px solid var(--warm);position:sticky;top:var(--navh,56px);z-index:90}
 .doors-in{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;padding-top:10px;padding-bottom:10px}
 .doors-l{font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-right:4px}
 .doors a{font-size:.82rem;font-weight:600;color:var(--green);background:var(--paper);border:1px solid var(--warm);border-radius:20px;padding:5px 12px;text-decoration:none;transition:all .2s}
@@ -338,6 +339,7 @@ footer a:hover{text-decoration:underline}
       <li><a href="https://malcolmhyndman.com/preply-lessons/journey/index.html">My Room</a></li>
       <li><a href="https://malcolmhyndman.com/preply-lessons/library/index.html">Library</a></li>
       <li><a href="https://malcolmhyndman.com/preply-lessons/malcolm_lesson_index.html">All lessons</a></li>
+      <li><a href="teachers.html">For teachers</a></li>
       <li><a href="https://preply.com/en/tutor/4383857" target="_blank" class="nav-cta">Book a lesson</a></li>
     </ul>
   </div>
@@ -653,6 +655,7 @@ footer a:hover{text-decoration:underline}
 
 <script>
 document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.querySelector('.nav-links').classList.remove('open')));
+(function(){var n=document.querySelector('.nav');if(!n)return;function f(){document.documentElement.style.setProperty('--navh',n.offsetHeight+'px')}f();addEventListener('resize',f);addEventListener('load',f)})();
 </script>
 <script src="visits.js"></script>
 </body>
